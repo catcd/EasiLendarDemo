@@ -1,0 +1,20 @@
+div#loading {
+	text-align: center;
+}
+
+body {
+	background-color: #33CCCC;
+}
+
+img#logo {
+	margin-top: 20vh;
+	height: 39vh;
+}
+
+img#name {
+	height: 13vh;
+}
+
+img#load {
+	width: 40vmin;
+}
