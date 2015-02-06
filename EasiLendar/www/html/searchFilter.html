@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html data-ng-app="filterApp">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/searchFilterStyle.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/searchFilterApp.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+  </head>
+ 
+ 
+  <body data-ng-controller="filterController">
+	<div class = "list list-inset">
+		<!--START: Commom Filter -->
+		<div class="item item-divider">
+			<span>Common Filter</span>
+		</div>
+		<div class="item item-input">
+			<input type="text" name="fTitle" placeholder="Title">
+		</div>
+		<div class="item item-input">
+			<input type="number" name="fDuration" placeholder="Duration" min="0" max="24">
+		</div>
+		<div class="item item-input">
+			<input type="text" name="fLocation" placeholder="Location">
+		</div>
+		<div class="item item-input">
+			<textarea name="fMessage" placeholder="Message" rows="4"></textarea>
+		</div>
+		
+		<div class="item item-divider">
+			<button type="button" data-ng-click="showAdvanceFilter()">Advance Filter</button>
+		</div>
+		<!--End: Commom Filter -->
+		
+		<!-- START: Advance Filter -->
+	 <form data-ng-show="fShow">
+	  <!-- -------$$$$$$------- -->	 
+		<div class="list list-inset" id="inset01">
+			<span>Time:</span>
+			<div class="item item-input">
+				<input type="number" name="fFrom" placeholder="From 0Am" min="0" max="24">
+			</div>
+			<div class="item item-input">
+				<input type="number" name="fTo" placeholder="To 24Pm" min="0" max="24">
+			</div>
+		</div>
+		
+	  <!-- -------$$$$$$------- -->	
+		<div class="list list-inset" id="inset01">
+			<span>Expiration:</span>
+			<div class="item item-input">
+				<input type="number" name="fExpiration" placeholder="Expiration" min="0" max="24">
+			</div>
+			<div class="item">
+				<select name="fDate">
+					<option value="day"><span>Days</span></option>
+					<option value="week"><span>Weeks</span></option>
+					<option value="month"><span>Months</span></option>
+					<option value="year"></span>Years</span></option>
+				</select>
+			</div>
+		</div>
+		
+	  <!-- -------$$$$$$------- -->				
+	  <div class="list list-inset" id="inset01">
+	  <span>Avoid/Priority:</span>
+	  <table>
+		 <tr>
+		  <td id="td01">Breakfast:</td>
+		  <td id="td02">
+			<div class="segmented-button">
+				<input type="radio" name="fBreakfast" value="avoid" id="avoid#00" checked>
+				<label for="avoid#00" class="first">Avoid</label>
+				<input type="radio" name="fBreakfast" value="priority" id="priority#000">
+				<label for="priority#000" class="last">Priority</label>
+			</div>
+		  </td>
+		 </tr>
+		  
+		 <tr>
+		   <td id="td01">Lunch:</td>
+		   <td id="td02">
+			<div class="segmented-button">
+				<input type="radio" name="fLunch" value="avoid" id="avoid#01" checked>
+				<label for="avoid#01" class="first">Avoid</label>
+				<input type="radio" name="fLunch" value="priority" id="priority#01">
+				<label for="priority#01" class="last">Priority</label>
+			</div>
+		    </td>
+		 </tr>
+
+		  <tr>
+		    <td id="td01">Dinner:</td>
+			<td id="td02">
+			<div class="segmented-button">
+				<input type="radio" name="fDinner" value="avoid" id="avoid#02" checked>
+				<label for="avoid#02" class="first">Avoid</label>
+				<input type="radio" name="fDinner" value="priority" id="priority#02">
+				<label for="priority#02" class="last">Priority</label>
+			</div>
+			</td>
+		  </tr>	
+		  
+		  <tr>
+		    <td id="td01">Office:</td>
+			<td id="td02">
+			<div class="segmented-button">
+				<input type="radio" name="fOffice" value="avoid" id="avoid#03" checked>
+				<label for="avoid#03" class="first">Avoid</label>
+				<input type="radio" name="fOffice" value="priority" id="priority#03">
+				<label for="priority#03" class="last">Priority</label>
+			</div>
+		  </tr>	
+			
+		  <tr>
+		    <td id="td01">Holiday:</td>
+			<td id="td02">
+			<div class="segmented-button">
+				<input type="radio" name="fHoliday" value="avoid" id="avoid#04" checked>
+				<label for="avoid#04" class="first">Avoid</label>
+		
+				<input type="radio" name="fHoliday" value="priority" id="priority#04">
+				<label for="priority#04" class="last">Priority</label>
+			</div>
+			</td>
+	  	  </tr>
+		  
+		</table>
+	  </div>
+		<!-- END: Advance Filter -->
+		
+	 </form>
+	</div>
+  </body>
+  
+</html>
