@@ -1,41 +1,47 @@
 <!DOCTYPE html>
 <html data-ng-app="signIn">
-<head>
-<meta charset="UTF-8">
-<title>Sign In</title>
-<script src="../lib/ionic/js/angular/angular.min.js"></script>
-<script src="../js/signIn.js"></script>
-<link rel="stylesheet" href="../css/sign-in.css">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<title>Sign In</title>
+	
+	<link rel="stylesheet" href="../lib/ionic/css/ionic.min.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/sign-in.css">
 
-</head>
+	<script src="../lib/ionic/js/ionic.bundle.js"></script>
+	<script src="cordova.js"></script>
+	<script src="../lib/ionic/js/angular/angular.min.js"></script>
+	<script src="../js/signIn.js"></script>
+  </head>
 
-<body data-ng-controller="SignInController as signCtrl" data-ng-init="isShow=false">
-	<div id="image">
-		<img id="easilendar" src="../img/easilendar.png">
+  <body data-ng-controller="SignInController" data-ng-init="isShow=false">
+    <div class="easi-image">
+	  <img src="../img/easilendar.png">
 	</div>
+	<form method="POST" name="signInForm" data-ng-submit="signIn()">
+	  <div class="item-input">
+    	<input data-ng-model="user.id" type="text" name="userid" placeholder="EasiLendar ID" required/>
+	  </div>
+  	  <div class="item-input">
+    	<input data-ng-model="user.password" type="text" name="password" placeholder="Password" required/>
+  	  </div>
+  	  <div class="checkbox checkbox-easi-blue rememberme">
+	    <input data-ng-model="isRemember" type="checkbox"/>
+	    <label>Remember me</label>
+	  </div>
+	  <input class="button button-block button-easi-blue" type="submit" value="Sign in"/>
+	</form>
 
-	<div id="signin">
-		<form method="POST" name="signInForm" data-ng-submit="signIn()">
-			<input data-ng-model="user.id" type="text" name="userid" placeholder="EasiLendar ID" required/>
-			<br> 
-			<input data-ng-model="user.password" type="password" name="password" placeholder="Password" required/> 
-			<br> 
-			<input data-ng-model="isRemember" type="checkbox" name="remember"/>
-			<label for="remember">Remember me</label> 
-			<input type="submit" name="submit" value="Sign in"/>
-		</form>
-	</div>
-
-	<div id="warning" data-ng-show="isShow">
-		<div class="box">
-			<p><strong>Your ID or password was <em>incorrect</em><br></strong>Please type again!</p>
-			<button class="confirm" data-ng-click="confirm()">OK</button>
-		</div>
+	<div class="" data-ng-show="isShow">
+	  <div class="box">
+		<p><strong>Your ID or password was <em>incorrect</em><br></strong>Please type again!</p>
+		<button class="confirm" data-ng-click="confirm()">OK</button>
+	  </div>
 	</div>
 	
-	<div id="others">
-		<p><a id="register" href="">Register</a> | <a id="forgot" href="">Forgot password?</a></p>
+	<div class="bar bar-footer register">
+       <p class="links"><a href="">Register</a> | <a href="">Forgot password?</a></p>
 	</div>
-
-</body>
-</html>
+  </body>
+ </html>
