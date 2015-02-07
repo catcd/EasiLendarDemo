@@ -1,0 +1,48 @@
+@CHARSET "UTF-8";
+
+#title {
+	font-size: 25px;
+}
+
+.card {
+	width: 100%;
+	max-width: 710px;
+	margin: 50px auto 0 auto;
+	height: 610px;
+}
+
+.calendar {
+	width: 100%;
+	max-width: 700px;
+	height: 425px;
+	margin: 60px auto 0 auto;
+	border: 1px solid #e6e6e6;
+}
+
+.calendar img {
+	width: 100%;
+	height: inherit;
+}
+
+.options {
+	width: 100%;
+	max-width: 700px;
+	margin: 470px auto 0 auto;
+	height: 165px;
+	background-color: #fff;
+	border-left: 1px solid #e6e6e6;
+	border-top: 1px solid #e6e6e6;
+}
+
+.option {
+	width: 100%;
+	height: 55px;
+	text-align: left;
+	padding-left: 10px;
+	font-size: 20px;
+}
+.next {
+	background-color: #416969;
+	color: #fff;
+	font-size: 20px;
+}
