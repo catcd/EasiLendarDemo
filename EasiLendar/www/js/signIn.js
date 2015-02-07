@@ -11,7 +11,7 @@
 		$scope.isShow = false;
 		
 		$scope.validate = function() {
-			return false;
+			return true;
 		};
 		
 		$scope.signIn = function() {
