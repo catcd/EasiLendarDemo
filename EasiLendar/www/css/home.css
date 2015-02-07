@@ -1,0 +1,60 @@
+html {
+	width: 100%;
+	height: 100%;
+}
+
+#ava {
+	background-color: #646464;
+	border: 0 solid white;
+}
+
+.nenDam {
+	background-color: #416969;
+}
+
+a:link {
+	background-color: #646464;
+	border: 0 solid white;
+}
+
+a:visited {
+	background-color: #646464;
+	border: 0 solid white;
+}
+
+a:hover {
+	background-color: #646464;
+	border: 0 solid white;
+}
+
+a:active {
+	background-color: #33CCCC;
+	border: 0 solid white;
+}
+
+#trangXam {
+	color: #E6E6E6;
+}
+
+#avaStt {
+	color: #33CCCC;
+}
+
+hr {
+	border: 1px solid #707070;
+	width: 90%;
+}
+
+#smenuheader {
+	background-color: #646464;
+	border-bottom: 2px solid #707070;
+	color: #E6E6E6;
+}
+
+#cover {
+	margin-top: -10px;
+	margin-left: -10px;
+	width: 100vw;
+	height: 20vh;
+	background-image: url(../img/cover.jpg);
+}
