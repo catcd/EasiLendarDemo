@@ -3,31 +3,70 @@ angular.module('mainAPP', [ 'ionic' ])
 .config(function($stateProvider, $urlRouterProvider) {
 
 	$stateProvider.state('app', {
-		url : "/app",
+		url : '/app',
 		abstract : true,
-		templateUrl : "app.html"
-	}).state('app.home', {
-		url : "/home",
+		templateUrl : 'app.html'
+	})
+	.state('app.home', {
+		url : '/home',
 		views : {
 			'appContent' : {
-				templateUrl : "home.html",
-				controller : "HomeController"
+				templateUrl : 'month.html',
+				controller : 'HomeController'
 			}
 		}
-	}).state('app.setting', {
-		url : "/setting",
+	})
+	.state('app.month', {
+		url : '/month',
 		views : {
 			'appContent' : {
-				templateUrl : "setting.html",
-				controller : "SettingController"
+				templateUrl : 'month.html',
+				controller : 'HomeController'
 			}
 		}
-	}).state('app.profile', {
-		url : "/profile",
+	})
+	.state('app.week', {
+		url : '/week',
 		views : {
 			'appContent' : {
-				templateUrl : "profile.html",
-				controller : "ProfileController"
+				templateUrl : 'week.html',
+				controller : 'HomeController'
+			}
+		}
+	})
+	.state('app.day', {
+		url : '/day',
+		views : {
+			'appContent' : {
+				templateUrl : 'day.html',
+				controller : 'HomeController'
+			}
+		}
+	})
+	.state('app.list', {
+		url : '/list',
+		views : {
+			'appContent' : {
+				templateUrl : 'list.html',
+				controller : 'HomeController'
+			}
+		}
+	})
+	.state('app.setting', {
+		url : '/setting',
+		views : {
+			'appContent' : {
+				templateUrl : 'setting.html',
+				controller : 'HomeController'
+			}
+		}
+	})
+	.state('app.profile', {
+		url : '/profile',
+		views : {
+			'appContent' : {
+				templateUrl: 'profile.html',
+				controller: 'HomeController'
 			}
 		}
 	})
@@ -42,14 +81,6 @@ angular.module('mainAPP', [ 'ionic' ])
 })
 
 .controller("HomeController", function($scope) {
-
-})
-
-.controller("SettingController", function($scope) {
-
-})
-
-.controller("ProfileController", function($scope) {
 
 })
 

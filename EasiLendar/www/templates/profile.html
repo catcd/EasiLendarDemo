@@ -1,0 +1,34 @@
+<ion-view title="Ngo Duc Dung"> <!-- ten nguoi dung-->
+<!--button-->
+  <ion-nav-buttons side="left">
+    <button class="button button-icon button-clear ion-home" ui-sref="app.home" menu-close>
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons side="right">
+    <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)">
+    </button>
+    <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right">
+    </button>
+  </ion-nav-buttons>
+
+<!--profile content-->
+  <ion-content padding="true" scroll="no">
+    <div id="cover">
+      <div class="item item-thumbnail-left" style="height:50%; position:absolute; bottom:-28px; background: transparent; border:0">
+        <img src="../img/boy3.png">
+        <br>
+        <h2 style="font-size:170%; color: #416969"><i style="color: #FFCC00" class="icon ion-ribbon-b"></i> Ngo Duc Dung</h2>
+        <p>I&#39;m busy now</p>
+      </div>            
+      <div style="position:absolute; top:0px; right:0px; background: transparent; border:0">
+        <button id="trangXam" class="button button-icon icon ion-email"></button>
+        <button id="trangXam" class="button button-icon icon ion-coffee"></button>
+        <button id="trangXam" class="button button-icon icon ion-person-add"></button>
+      </div>
+    </div>
+    <div style="position: absolute; left:0;">
+    <img src="../img/example.png" style="width:100vw; position: absolute; top:35px">
+    </div>
+  </ion-content>
+</ion-view>
