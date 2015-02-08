@@ -61,11 +61,20 @@ angular.module('mainAPP', [ 'ionic' ])
 			}
 		}
 	})
+	.state('app.about', {
+		url : '/about',
+		views : {
+			'appContent' : {
+				templateUrl : 'about.html',
+				controller : 'HomeController'
+			}
+		}
+	})
 	.state('app.profile', {
 		url : '/profile',
 		views : {
 			'appContent' : {
-				templateUrl: 'profile.html',
+				templateUrl: 'profile.html', //chuẩn link đến file kia luôn
 				controller: 'HomeController'
 			}
 		}

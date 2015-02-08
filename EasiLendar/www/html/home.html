@@ -27,7 +27,7 @@
 	<script id="app.html" type="text/ng-template">
     <ion-side-menus>
       <ion-side-menu-content style="box-shadow: 0 0 0 white">
-        <ion-nav-bar class="bar-easi-blue" id="smenuheader">
+        <ion-nav-bar class="bar-easi-blue">
         </ion-nav-bar>
 
         <ion-nav-view name="appContent" animation="slide-left-right">
@@ -292,8 +292,150 @@
       </ion-nav-buttons>
 
       <ion-content padding="true">
+        <div class="list" style="margin-top: -10px">
+          <p style="margin-top: 10px; margin-bottom: -5px; color: #646464"><b>APPERANCE</b></p>
+          <hr style="border: 2px solid #E6E6E6; width: 100%">
+
+          <label class="item item-input item-select" style="border-left:0; border-right:0; border-top:0; margin-top:-7px">
+            <div class="input-label">
+              Theme
+            </div>
+            <select>
+              <option selected>Auto</option>
+              <option>Green</option>
+              <option>Gray</option>
+              <option>Pink</option>
+              <option>Yellow</option>
+              <option>Blue</option>
+            </select>
+          </label>
+
+          <label class="item item-input item-select" style="border-left:0; border-right:0; border-bottom:0">
+            <div class="input-label">
+              Language
+            </div>
+            <select>
+              <option selected>English</option>
+              <option>Tiếng Việt</option>
+            </select>
+          </label>
+
+          <p style="margin-top: 10px; margin-bottom: -5px; color: #646464"><b>CALENDAR</b></p>
+          <hr style="border: 2px solid #E6E6E6; width: 100%">
+
+          <ul class="list">
+            <li class="item item-toggle" style="border-left:0; border-right:0; border-top:0; margin-top:-7px">
+               My local calendar
+               <label class="toggle toggle-dark">
+                 <input type="checkbox">
+                 <div class="track">
+                   <div class="handle"></div>
+                 </div>
+               </label>
+            </li>
+            <li class="item item-toggle" style="border-left:0; border-right:0">
+               Gmail calendar
+               <label class="toggle toggle-dark">
+                 <input type="checkbox">
+                 <div class="track">
+                   <div class="handle"></div>
+                 </div>
+               </label>
+            </li>
+            <li class="item item-toggle" style="border-left:0; border-right:0">
+               Sunrise calendar
+               <label class="toggle toggle-dark">
+                 <input type="checkbox">
+                 <div class="track">
+                   <div class="handle"></div>
+                 </div>
+               </label>
+            </li>
+            <li class="item item-toggle" style="border-left:0; border-right:0; border-bottom:0">
+               Auto-sync
+               <label class="toggle toggle-dark">
+                 <input type="checkbox">
+                 <div class="track">
+                   <div class="handle"></div>
+                 </div>
+               </label>
+            </li>
+          </ul>
+
+          <p style="margin-top: 10px; margin-bottom: -5px; color: #646464"><b>VIEW SETTINGS</b></p>
+          <hr style="border: 2px solid #E6E6E6; width: 100%">
+
+          <label class="item item-input item-select" style="border-left:0; border-right:0; border-top:0; margin-top:-7px">
+            <div class="input-label">
+              Default view
+            </div>
+            <select>
+              <option selected>Month</option>
+              <option>Week</option>
+              <option>Day</option>
+              <option>List</option>
+            </select>
+          </label>
+
+          <label class="item item-input item-select" style="border-left:0; border-right:0">
+            <div class="input-label">
+              Day views
+            </div>
+            <select>
+              <option selected>Time grid</option>
+              <option>Event list</option>
+            </select>
+          </label>
+
+          <label class="item item-input item-select" style="border-left:0; border-right:0; border-bottom:0">
+            <div class="input-label">
+              First day of week
+            </div>
+            <select>
+              <option>Sunday</option>
+              <option selected>Monday</option>
+            </select>
+          </label>
+
+          <p style="margin-top: 10px; margin-bottom: -5px; color: #646464"><b>EasiLendar</b></p>
+          <hr style="border: 2px solid #E6E6E6; width: 100%">
+
+          <button class="item" style="border-left:0; border-right:0; border-top:0; margin-top:-7px; width:100%; text-align: left">
+            Suggested apps
+          </button>
+
+          <button class="item" style="border-left:0; border-right:0; border-bottom:0; width:100%; text-align: left; color: #646464" ui-sref="app.about" menu-close>
+            <b>About</b>
+          </button>
+
+        </div>
       </ion-content>
     </ion-view>
+  </script>
+
+  <script id="about.html" type="text/ng-template">
+  <ion-view hide-nav-bar="true">
+    <ion-content style="width:100vw; height:110vh; background-color:#33CCCC">
+      <marquee behavior="slide" direction="down" scrollamount="12" ui-sref="app.setting" menu-close>
+        <center>
+          <img src="../img/blank.png" width="200" height="50"><br>
+          <img src="../img/logo.png" height="200"><br>
+          <img src="../img/easilendar.png" width="200">
+        </center>
+      </marquee>
+      <marquee behavior="slide" scrollamount="9" direction="up" width="100%" ui-sref="app.setting" menu-close> 
+        <center> <font color="#FFFFFF"> <strong> 
+          TEXAS GROUP<br> 
+          SOFTWARE ENGINEERING<br><br> 
+          Can Duy Cat<br>
+          Nguyen Minh Trang<br>
+          Nguyen Manh Duy<br>
+          Ngo Duc Dung<br>
+          Nguyen Thi Luong<br><br>
+          Beta 1.0.1
+        </strong></font></center>
+      </marquee>
+  </ion-view>
   </script>
 
   <script id="profile.html" type="text/ng-template">
@@ -310,7 +452,7 @@
       </button>
     </ion-nav-buttons>
     
-    <ion-content padding="true" scroll="no">
+    <ion-content padding="true">
       <div id="cover">
         <div class="item item-thumbnail-left" style="height:50%; position:absolute; bottom:-28px; background: transparent; border:0">
           <img src="../img/boy3.png">
