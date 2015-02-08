@@ -26,9 +26,8 @@ table{
 	width:100%;
 }
 
-
 .list.list-inset{
-	margin-top: 3px;
+	margin-top: 50px;
 	border-left: 1px solid white;
 	border-right: 1px solid white;
 }
@@ -47,12 +46,12 @@ table{
 .item.item-divider{
 	text-align: center;
 	padding-top: 4px;
-	background-color: #646464;
+	background-color: #416969;
 }
 
 .item.item-divider button{
 	border: 0 solid black;
-	background-color: #646464;
+	background-color: #416969;
 	font-size: 15px;
 	color: #ffffff;
 }
@@ -102,12 +101,12 @@ table{
 	color: #ffffff;
 	padding: 5px 15px;
 	padding-bottom: 3px;
-	font-size: 12px;
+	font-size: 10px;
 	cursor:pointer;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	-khtml-border-radius: 0px;
-	border-radius: 3px;
+	border-radius: 0px;
 	margin-right: -4.5px;
 }
 /*
@@ -144,24 +143,28 @@ table{
 }*/
 
 .segmented-button label.first{
-	-webkit-border-top-left-radius: 4px;
-	-moz-border-radius-topleft: 4px;
-	-khtml-border-top-left-radius: 4px;
-	border-top-left-radius: 4px;
-	-webkit-border-bottom-left-radius: 4px;
-	-moz-border-radius-bottomleft: 4px;
-	-khtml-border-bottom-left-radius: 4px;
-	border-bottom-left-radius: 4px;
+	-webkit-border-top-left-radius: 0px;
+	-moz-border-radius-topleft: 0px;
+	-khtml-border-top-left-radius: 0px;
+	border-top-left-radius: 0px;
+	-webkit-border-bottom-left-radius: 0px;
+	-moz-border-radius-bottomleft: 0px;
+	-khtml-border-bottom-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	width: 71px;
+	text-align: center;
 }
 .segmented-button label.last {
-  -moz-border-radius-topright: 4px;
-  -webkit-border-top-right-radius: 4px;
-  -khtml-border-top-right-radius: 4px;
-  border-top-right-radius: 4px;
-  -moz-border-radius-bottomright: 4px;
-  -webkit-border-bottom-right-radius: 4px;
-  -khtml-border-bottom-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+  -moz-border-radius-topright: 0px;
+  -webkit-border-top-right-radius: 0px;
+  -khtml-border-top-right-radius: 0px;
+  border-top-right-radius: 0px;
+  -moz-border-radius-bottomright: 0px;
+  -webkit-border-bottom-right-radius: 0px;
+  -khtml-border-bottom-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  width: 71px;
+  text-align: center;
 }
 
 .segmented-button input:checked + label, .segmented-button label.selected{
