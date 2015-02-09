@@ -1,5 +1,8 @@
 @CHARSET "UTF-8";
 
+/* Nguyen Minh Trang
+   09/02/2015 */
+
 html, head, body, a, p, h1, h2, input, div {
 	padding: 0;
 	border: 0;
@@ -11,7 +14,7 @@ html, head, body, a, p, h1, h2, input, div {
 
 .easi-image {
 	width: 75%;
-	margin-top: 10px;
+	margin-top: 50px;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
@@ -27,7 +30,7 @@ body {
 
 form {
 	width: 75%;
-	margin: 0 auto 0 auto;
+	margin: 40px auto 0 auto;
 }
 
 .item-input {
@@ -70,37 +73,21 @@ input[type=submit] {
 	font-size: 30px;	
 }
 
-#warning {
-	width: 75%;
-	height: 150px;
-	position: fixed;
-	margin-top: -200px;
-	margin-left: 12.5%;
-}
-#warning .box {
-	width: 100%;
-	max-width: 350px;
-	margin: 0 auto 0 auto;
+.warning {
+	width: 60%;
+	max-width: 300px;
+	margin: 40px auto 0 auto;
 	text-align: center;
-	color: red;
-	background-color: #e6e6e6;
-	border-radius: 20px;
-	border: 1px solid white;
 }
-#warning p {
+
+.warning p {
 	padding-top: 20px;
 	margin-bottom: 30px;
 	font-size: 20px;
 }
+
 .confirm {
-	width: 100%;
-	max-width: 350px;
-	height: 40px;
-	margin: 0 auto 0 auto;
-	background-color: #416969;
-	color: #e6e6e6;
-	font-size: 25px;
-	border-radius: 20px;
+	max-width: 300px;
 }
 
 .register {
