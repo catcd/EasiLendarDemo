@@ -74,8 +74,17 @@ angular.module('mainAPP', [ 'ionic' ])
 		url : '/profile',
 		views : {
 			'appContent' : {
-				templateUrl: 'profile.html', //chuẩn link đến file kia luôn
+				templateUrl: 'profile.html',
 				controller: 'HomeController'
+			}
+		}
+	})
+	.state('app.search', {
+		url : '/search',
+		views : {
+			'appContent' : {
+				templateUrl: 'search.html',
+				controller: 'filterController'
 			}
 		}
 	})
@@ -91,6 +100,13 @@ angular.module('mainAPP', [ 'ionic' ])
 
 .controller("HomeController", function($scope) {
 
+})
+
+.controller("filterController", function($scope){
+	$scope.fShow = false;
+	$scope.showAdvanceFilter = function(){
+		$scope.fShow = !($scope.fShow);
+	}
 })
 
 .controller('PopOverController', function($scope, $ionicPopover) {
