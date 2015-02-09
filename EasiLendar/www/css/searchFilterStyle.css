@@ -1,11 +1,8 @@
 /* Empty. Add your own CSS if you like */
 body{
-	background-color:#E6E6E6;
+	background-color:#ffffff;
 }
-span{
-	color: #646464;
-	font-size: 14px;
-}
+
 select{
 	border: 0px solid black;
 }
@@ -18,16 +15,18 @@ table{
 	margin-top: -3px;
 }
 #td01{
+    padding-left: 10px;
 	border: 0px solid black;
 	font-size: 12px;
-	padding: 4px;
+	color:#646464;
 }
 #td02{
-	width:100%;
+	border: 0px solid black;
+	padding-right:10px;
 }
 
-.list.list-inset{
-	margin-top: 50px;
+.list{
+	margin-top: 5px;
 	border-left: 1px solid white;
 	border-right: 1px solid white;
 }
@@ -36,35 +35,23 @@ table{
 	border: 0px solid black;
 	margin-top: 6px;
 	margin-bottom: 2px;
+	border-bottom: 0;
 }
 
 .item{
-	border: 0 solid black;
-	border-bottom: 1px solid #E6E6E6;
+	border: 0px solid black;
+	border-bottom: 2px solid #E6E6E6;
+	padding-top:2px;
 }
 
-.item.item-divider{
-	text-align: center;
-	padding-top: 4px;
-	background-color: #416969;
+#button01{
+	margin-left:6px;
+	border: 0;
+	background-color: #ffffff;
+	font-size: 14px;
+	color: #646464;
 }
 
-.item.item-divider button{
-	border: 0 solid black;
-	background-color: #416969;
-	font-size: 15px;
-	color: #ffffff;
-}
-
-.item.item-divider span{
-	border: 0 solid black;
-	font-size: 15px;
-	color: #ffffff;
-}
-
-.item{
-	padding: 3px;
-}
 
 /*SEGMENT BUTTON*/
 .segmented-button{
@@ -82,87 +69,25 @@ table{
 }
 
 .segmented-button label{
-	display: -moz-inline-box;
-	-moz-box-orient: vertical;
 	display: inline-block;
 	vertical-align: middle;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	-khtml-border-radius: 2px;
-	border-radius: 2px;
-	text-shadow: white;
-	/*
-	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%,#ffffff),
-				color-stop(100%,#e4e4e4));
-	background: -moz-linear-gradient(#ffffff,#e4e4e4);
-	background: linear-gradient(#ffffff,#e4e4e4);
-	*/
-	border: 1px solid #E6E6E6;
-	color: #ffffff;
+	border-radius: 0px;
+	border: 0px solid #E6E6E6;
+	color: #646464;
 	padding: 5px 15px;
 	padding-bottom: 3px;
 	font-size: 10px;
 	cursor:pointer;
-	-webkit-border-radius: 0px;
-	-moz-border-radius: 0px;
-	-khtml-border-radius: 0px;
 	border-radius: 0px;
 	margin-right: -4.5px;
 }
-/*
-.segmented-button label:hover{
-	-webkit-box-shadow: 0 0 5px 1px rgba(0,0,0,0.1);
-	-moz-box-shadow: 0 0 5px 1px rgba(0,0,0,0.1);
-	/*box-shadow: horizontal shadow - vertical shadow - blur - spread (shadow size)
-	 color rpga(red,green,blue,...)
-	box-shadow: 0 0 5px 1px rgba(0,0,0,0.1); 
-	color: #333333;
-}
-*/
-
-.segmented-button label:active, .segmented-button label.active{
-	background: background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%,#ffffff),
-				color-stop(0%,#e4e4e4));
-	background: webkit-gradient(#ffffff,#e4e4e4);
-	background: -moz-linear-gradient(#e4e4e4, #ffffff);
-	background: linear-gradient(#e4e4e4, #ffffff);
-	/*background: linear-gradient(direction(left,right)|angle(180deg), color-stop1, color-stop2,...)*/
-}
-/*
-.segmented-button label:disabled, .segmented-button label.disabled{
-	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), 
-				color-stop(100%, #efefef));
-	background: -moz-linear-gradient(#ffffff, #efefef);
-	background: linear-gradient(#ffffff, #efefef);
-	cursor: default;
-	color: #b2b2b2;
-	border-color: #cccccc;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-}*/
 
 .segmented-button label.first{
-	-webkit-border-top-left-radius: 0px;
-	-moz-border-radius-topleft: 0px;
-	-khtml-border-top-left-radius: 0px;
-	border-top-left-radius: 0px;
-	-webkit-border-bottom-left-radius: 0px;
-	-moz-border-radius-bottomleft: 0px;
-	-khtml-border-bottom-left-radius: 0px;
-	border-bottom-left-radius: 0px;
 	width: 71px;
 	text-align: center;
+	border-right: 1px solid #E6E6E6;
 }
 .segmented-button label.last {
-  -moz-border-radius-topright: 0px;
-  -webkit-border-top-right-radius: 0px;
-  -khtml-border-top-right-radius: 0px;
-  border-top-right-radius: 0px;
-  -moz-border-radius-bottomright: 0px;
-  -webkit-border-bottom-right-radius: 0px;
-  -khtml-border-bottom-right-radius: 0px;
-  border-bottom-right-radius: 0px;
   width: 71px;
   text-align: center;
 }
@@ -175,20 +100,6 @@ table{
 	background: -moz-linear-gradient(#e4e4e4,#ffffff);
 	background: linear-gradient(#e4e4e4,#ffffff);
 	*/
+	color: #ffffff;
 	background: #646464; 
 }
-/*
-.segmented-button input:disabled + label{
-	background: -webkit-gragient(linear, 50% 0%, 50% 100%, color-stop(0%,#fffff),
-				color-stop(100%,#efefef));
-	background: -webkit-linear-gradient(#ffffff,#efefef);
-	background: -moz-linear-gradient(#ffffff,#efefef);
-	background: linear-gradient(#ffffff,#efefef);
-	cursor: default;
-	color: #b2b2b2;
-	border-color: #cccccc;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-	}
-*/
