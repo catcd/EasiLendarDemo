@@ -1,5 +1,8 @@
 @CHARSET "UTF-8";
 
+/* Nguyen Minh Trang 
+   09/02/2015 */
+
 #title {
 	font-size: 25px;
 }
@@ -7,9 +10,11 @@
 .card {
 	width: 100%;
 	max-width: 710px;
-	margin: 50px auto 0 auto;
-	height: 615px;
+	margin: 43px auto 0 auto;
+	height: 100%;
 	border: 1px solid #aaaaaa;
+	border-top: 0;
+	border-bottom: 0;
 }
 
 .calendar {
@@ -41,9 +46,6 @@
 	text-align: left;
 	padding-left: 20px;
 	font-size: 20px;
-}
-.next {
-	background-color: #416969;
-	color: #fff;
-	font-size: 20px;
+	margin: 0;
+	border-bottom: 0;
 }

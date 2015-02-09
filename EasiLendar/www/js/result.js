@@ -1,56 +1,45 @@
 /**
- * 
+ * Nguyen Minh Trang
+ * 09/02/2015
  */
 (function() {
-	var app = angular.module('result', ['ionic'])
-	.run(function($ionicPlatform) {
-		  $ionicPlatform.ready(function() {
-		    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-		    // for form inputs)
-		    if(window.cordova && window.cordova.plugins.Keyboard) {
-		      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-		    }
-		    if(window.StatusBar) {
-		      StatusBar.styleDefault();
-		    }
-		  }
-		)}); 
+	var app = angular.module('result', ['ionic']);
 	
 	app.controller("BarController", function($scope) {
 		$scope.back = function () {
-			window.alert("You click back button");
+			window.location.href="../html/searching-filter.html";
 		};
 		$scope.done = function () {
 			window.alert("You are done");
+			window.location.href="../html/home.html";
 		}
-		$scope.count = 1;
 	});
 
 	app.controller("ResultController", function($scope) {
-		$scope.count = 0;
+		$scope.numOfOps = 5;
 		$scope.options = [
-		    {date:"01/02/2015", begin:"02:30", end:"05:00"},
-		    {date:"02/02/2015", begin:"14:00", end:"23:30"},
-		    {date:"06/02/2015", begin:"06:45", end:"08:50"},
-		    {date:"10/02/2015", begin:"08:30", end:"18:30"},
-		    {date:"11/02/2015", begin:"15:00", end:"17:50"}
+		    {score: 1, date:"01/02/2015", begin:"02:30", end:"05:00"},
+		    {score: 2, date:"02/02/2015", begin:"14:00", end:"23:30"},
+		    {score: 3, date:"06/02/2015", begin:"06:45", end:"08:50"},
+		    {score: 4, date:"10/02/2015", begin:"08:30", end:"18:30"},
+		    {score: 5, date:"11/02/2015", begin:"15:00", end:"17:50"}
 		];
 		
 		$scope.addOption = function(option) {
 			$scope.options.push(option);
-			$scope.count++;
+			$scope.numOfOps++;
 		};
 		
 		$scope.next = function() {
 			window.alert("You click next");
 		};
 		
-		$scope.selectOption = function(num) {
-			window.alert("You select option "+(num+1));
+		$scope.selectOption = function(option) {
+			window.alert("You select option "+option.score);
 		};
 		
-		$scope.display = function(num) {
-			$scope.option = $scope.options[num].date+": From "+$scope.options[num].begin+" - To "+$scope.options[num].end;
+		$scope.display = function(option) {
+			$scope.option = option.score+". "+option.date+": From "+option.begin+" - To "+option.end;
 			return $scope.option;
 		}
 	

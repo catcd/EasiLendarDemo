@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- Nguyen Minh Trang
+	 09/02/2015 -->
 <html data-ng-app="result">
 <head>
   <meta charset="UTF-8">
@@ -26,19 +28,19 @@
 	<div class="card">
       <ion-content class="calendar">
 		  <img src="../img/week.png" />
-	  </ion-content>
-		
+	  </ion-content>	
 	  <ion-content class="options" data-ng-controller="ResultController">
-	    <div class="list">
-	      <button class="item item-button button-block option" data-ng-click="selectOption(0)">{{"1. "+ display(0)}}</button>
-	      <button class="item item-button button-block option" data-ng-click="selectOption(1)">{{"2. "+ display(1)}}</button>
-	      <button class="item item-button button-block option" data-ng-click="selectOption(2)">{{"3. "+ display(2)}}</button>
-	      <button class="item item-button button-block option" data-ng-click="selectOption(3)">{{"4. "+ display(3)}}</button>
-          <button class="item item-button button-block option" data-ng-click="selectOption(4)">{{"5. "+ display(4)}}</button>
+	    <ol class="list">
+	      <button data-ng-repeat="x in options" class="item item-button button-block option" data-ng-click="selectOption(x)">{{display(x)}}</button>
 	      <button class="button button-block button-easi-blue next" data-ng-click="next()">Next</button>
-	    </div>
+	    </ol>
 	  </ion-content>
-	  </div>
   </ion-pane>
 </body>
 </html>
+<!-- 
+<button class="item item-button button-block option" data-ng-click="selectOption(1)">{{"2. "+ display(1)}}</button>
+<button class="item item-button button-block option" data-ng-click="selectOption(2)">{{"3. "+ display(2)}}</button>
+<button class="item item-button button-block option" data-ng-click="selectOption(3)">{{"4. "+ display(3)}}</button>
+<button class="item item-button button-block option" data-ng-click="selectOption(4)">{{"5. "+ display(4)}}</button>
+ -->
