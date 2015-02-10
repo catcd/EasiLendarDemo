@@ -110,7 +110,7 @@ angular.module('mainAPP', [ 'ionic' ])
 			if(res) {
 				$ionicPopup.alert({title:'<h3>Saving...</h3>'});
 			} else {
-				$ionicPopup.alert({title:'</h3>Canceling...</h3>'});
+				$ionicPopup.alert({title:'<h3>Canceling...</h3>'});
 			}
 		});
 	}	
@@ -158,7 +158,7 @@ angular.module('mainAPP', [ 'ionic' ])
 	}
 })
 
-.controller("ResultController", function($scope) {
+.controller("ResultController", function($scope, $ionicPopup) {
 	$scope.numOfOps = 5;
 	$scope.options = [
 	    {score: 1, date:"01/02/2015", begin:"02:30", end:"05:00"},

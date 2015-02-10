@@ -744,7 +744,7 @@
 	  </ion-content>	
 	  <ion-content class="options" data-ng-controller="ResultController">
 	    <ol class="list">
-	      <button data-ng-repeat="x in options" class="item item-button button-block option" data-ng-click="selectOption(x)">{{display(x)}}</button>
+	      <button data-ng-repeat="x in options" class="item item-button button-block option" ng-click="showAlert('You selected option {{x.score}}')">{{display(x)}}</button>
 	      <button class="button button-block button-easi-blue next" data-ng-click="next()">Next</button>
 	    </ol>
 	  </ion-content>
