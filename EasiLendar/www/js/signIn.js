@@ -8,13 +8,17 @@
 	app.controller("SignInController", function($scope) {
 		
 		$scope.isRemember = false;
-		$scope.userFix = { id: "TEXAS", password:"easilendar"};
+		$scope.users = [{ id: "TEXAS", password:"easilendar"},
+		                { id: "catcd", password:"easilendar"}];
 		$scope.user = { id: "", password:""};
 		$scope.isWarning = false;
 		
 		$scope.validate = function() {
-			if ($scope.user.id == $scope.userFix.id && $scope.user.password == $scope.userFix.password) {
-				return true;
+			for (var i=0; i < $scope.users.length; i++) {
+				if ($scope.user.id == $scope.users[i].id 
+						&& $scope.user.password == $scope.users[i].password) {
+					return true;
+				}
 			}
 			return false;
 		};
