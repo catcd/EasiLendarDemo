@@ -119,6 +119,12 @@ angular.module('mainAPP', [ 'ionic' ])
 			title: mtitle,
 			templateUrl: url
 		});
+	}	
+	$rootScope.showAlert = function(mtitle,templ) {
+		var confirmPopup = $ionicPopup.alert({
+			title: mtitle,
+			template: templ
+		});
 	}
 })
 
@@ -144,7 +150,7 @@ angular.module('mainAPP', [ 'ionic' ])
 })
 
 .controller("AboutController", function($scope) {
-	$scope.ver = "1.0.6"
+	$scope.ver = "1.0.8"
 })
 
 .controller("ProfileController", function($scope) {

@@ -42,14 +42,14 @@
 				</ion-header-bar>
 				<ion-content id="sideMenuContent">
 					<div class="list">
-						<a id="sideMenu" class="item myAvatar item-icon-right" href="#">
+						<a id="sideMenu" class="item myAvatar item-icon-right" ui-sref="app.about" menu-close>
 							<img src="../img/boy1.png">
 							<h2 id="trangXam">Can Duy Cat</h2>
 							<p id="trangXam">I&#39;m busy now</p>
 							<i style="color: #FFCC00" class="icon ion-ribbon-b"></i>
 						</a><hr id="sideMenu">
 
-						<a id="sideMenu" class="item item-icon-left" href="#">
+						<a id="sideMenu" class="item item-icon-left" ui-sref="app.about" menu-close>
 							<i class="icon ion-plus-circled"></i>
 							Create
 						</a><hr id="sideMenu">
@@ -77,28 +77,28 @@
 						<p id="trangXam" style="margin-top: 10px; margin-bottom: -8px; margin-left: 10px">TOOLS</p>
 						<hr style="border: 2px solid #707070; width: 95%">
 
-						<a id="sideMenu" class="item item-icon-left item-icon-right" href="#">
+						<a id="sideMenu" class="item item-icon-left item-icon-right" ui-sref="app.about" menu-close>
 							<i class="icon ion-refresh"></i>
 							Restore
 							<i style="color: #996633" class="icon ion-alert-circled"></i>
 						</a><hr id="sideMenu">
 
-						<a id="sideMenu" class="item item-icon-left" href="#">
+						<a id="sideMenu" class="item item-icon-left" ui-sref="app.about" menu-close>
 							<i class="icon ion-share"></i>
 							Share
 						</a><hr id="sideMenu">
 
-						<a id="sideMenu" class="item item-icon-left" href="#">
+						<a id="sideMenu" class="item item-icon-left" ui-sref="app.about" menu-close>
 							<i class="icon ion-document-text"></i>
 							Export
 						</a><hr id="sideMenu">
 
-						<a id="sideMenu" class="item item-icon-left" href="#">
+						<a id="sideMenu" class="item item-icon-left" ui-sref="app.about" menu-close>
 							<i style="color: #FFCC00" class="icon ion-ribbon-b"></i>
 							EasiVIP
 						</a><hr id="sideMenu">
 
-						<a id="sideMenu" class="item item-icon-left" href="#">
+						<a id="sideMenu" class="item item-icon-left" ui-sref="app.about" menu-close>
 							<i class="icon ion-help-circled"></i>
 							Helps
 						</a><hr id="sideMenu">
@@ -113,7 +113,7 @@
 							Sign out
 						</a><hr id="sideMenu">
 
-						<a id="sideMenu" class="item item-icon-left" href="#">
+						<a id="sideMenu" class="item item-icon-left" href="../index.html">
 							<i class="icon ion-log-out"></i>
 							Exit
 						</a><hr id="sideMenu">
@@ -472,14 +472,14 @@
 	<script id="about.html" type="text/ng-template">
 	<ion-view hide-nav-bar="true">
 		<ion-content style="width:100vw; height:110vh; background-color:#33CCCC">
-			<marquee behavior="slide" direction="down" scrollamount="12" ui-sref="app.setting" menu-close>
+			<marquee behavior="slide" direction="down" scrollamount="12" ui-sref="app.home" menu-close>
 				<center>
 					<img src="../img/blank.png" width="200" height="50"><br>
 					<img src="../img/logo.png" height="200"><br>
 					<img src="../img/easilendar.png" width="200">
 				</center>
 			</marquee>
-			<marquee behavior="slide" scrollamount="9" direction="up" width="100%" ui-sref="app.setting" menu-close> 
+			<marquee behavior="slide" scrollamount="9" direction="up" width="100%" ui-sref="app.home" menu-close> 
 				<center> <font color="#FFFFFF"> <strong> 
 					TEXAS GROUP<br> 
 					SOFTWARE ENGINEERING<br><br> 
