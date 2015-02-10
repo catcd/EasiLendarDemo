@@ -3,33 +3,37 @@ html {
 	height: 100%;
 }
 
-#ava {
+#sideMenuContent {
 	background-color: #646464;
-	border: 0 solid white;
+	border: 0;
 }
 
 .nenDam {
 	background-color: #416969;
 }
 
-a:link {
+a#sideMenu:link {
 	background-color: #646464;
-	border: 0 solid white;
+	border: 0;
+	color: #E6E6E6;
 }
 
-a:visited {
+a#sideMenu:visited {
 	background-color: #646464;
-	border: 0 solid white;
+	border: 0;
+	color: #E6E6E6;
 }
 
-a:hover {
+a#sideMenu:hover {
 	background-color: #646464;
-	border: 0 solid white;
+	border: 0;
+	color: #E6E6E6;
 }
 
-a:active {
+a#sideMenu:active {
 	background-color: #33CCCC;
-	border: 0 solid white;
+	border: 0;
+	color: #E6E6E6;
 }
 
 #trangXam {
@@ -40,15 +44,9 @@ a:active {
 	color: #33CCCC;
 }
 
-hr {
+hr#sideMenu {
 	border: 1px solid #707070;
 	width: 90%;
-}
-
-#smenuheader {
-	background-color: #646464;
-	border-bottom: 2px solid #707070;
-	color: #E6E6E6;
 }
 
 #cover {
@@ -57,4 +55,33 @@ hr {
 	width: 100vw;
 	height: 25vh;
 	background-image: url(../img/cover.jpg);
+}
+
+.myAvatar, .myAvatar .item-content{
+	padding-left: 60px;
+	min-height: 51px;
+	height: 51px;
+}
+.myAvatar > img:first-child, .myAvatar .item-image, .myAvatar .item-content > img:first-child, .myAvatar .item-content .item-image {
+	position: absolute;
+	top: 4px;
+	left: 10px;
+	max-width: 40px;
+	max-height: 40px;
+}
+
+.popup-head {
+	border:0;
+}
+
+.popup-body {
+	background-color: #E6E6E6;
+	border:0;
+}
+
+.popup-buttons .button {
+	background-color: #416969;
+    border-radius: 0px;
+    border: 0;
+    color: white;
 }

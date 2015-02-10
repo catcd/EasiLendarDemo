@@ -11,6 +11,7 @@
 <link href="../lib/ionic/css/ionic.css" rel="stylesheet">
 <link href="../css/home.css" rel="stylesheet">
 <link href="../css/searchFilterStyle.css" rel="stylesheet">
+<link rel="stylesheet" href="../css/result.css">
 <link href="../css/style.css" rel="stylesheet">
 
 <!-- ionic/angularjs js -->
@@ -26,651 +27,729 @@
 		<ion-nav-view></ion-nav-view>
 	</div>
 	<script id="app.html" type="text/ng-template">
-    <ion-side-menus>
-      <ion-side-menu-content style="box-shadow: 0 0 0 white">
-        <ion-nav-bar class="bar-easi-blue">
-        </ion-nav-bar>
+		<ion-side-menus>
+			<ion-side-menu-content style="box-shadow: 0 0 0 white">
+				<ion-nav-bar class="bar-easi-blue">
+				</ion-nav-bar>
 
-        <ion-nav-view name="appContent" animation="slide-left-right">
-        </ion-nav-view>
-      </ion-side-menu-content> 
-      
-      <ion-side-menu side="left">
-        <ion-header-bar class="bar-assertive" id="smenuheader">
-          <h1 id="trangXam" class="title">MENU</h1>
-        </ion-header-bar>
-        <ion-content id="ava">
-          <div class="list">
-            <a class="item item-avatar item-icon-right" href="#">
-              <img src="../img/boy1.png">
-              <h2 id="trangXam">Can Duy Cat</h2>
-              <p id="trangXam">I&#39;m busy now</p>
-              <i style="color: #FFCC00" class="icon ion-ribbon-b"></i>
-            </a><hr>
+				<ion-nav-view name="appContent" animation="slide-left-right">
+				</ion-nav-view>
+			</ion-side-menu-content> 
+			
+			<ion-side-menu side="left">
+				<ion-header-bar class="bar-easi-gray">
+					<h1 id="trangXam" class="title">MENU</h1>
+				</ion-header-bar>
+				<ion-content id="sideMenuContent">
+					<div class="list">
+						<a id="sideMenu" class="item myAvatar item-icon-right" href="#">
+							<img src="../img/boy1.png">
+							<h2 id="trangXam">Can Duy Cat</h2>
+							<p id="trangXam">I&#39;m busy now</p>
+							<i style="color: #FFCC00" class="icon ion-ribbon-b"></i>
+						</a><hr id="sideMenu">
 
-            <a id="trangXam" class="item item-icon-left" href="#">
-              <i class="icon ion-plus-circled"></i>
-              Create
-            </a><hr>
+						<a id="sideMenu" class="item item-icon-left" href="#">
+							<i class="icon ion-plus-circled"></i>
+							Create
+						</a><hr id="sideMenu">
 
-            <a id="trangXam" class="item item-icon-left" ui-sref="app.month" menu-close>
-              <i class="icon ion-calendar"></i>
-              Month
-            </a><hr>
+						<a id="sideMenu" class="item item-icon-left" ui-sref="app.month" menu-close>
+							<i class="icon ion-calendar"></i>
+							Month
+						</a><hr id="sideMenu">
 
-            <a id="trangXam" class="item item-icon-left" ui-sref="app.week" menu-close>
-              <i class="icon ion-calendar"></i>
-              Week
-            </a><hr>
+						<a id="sideMenu" class="item item-icon-left" ui-sref="app.week" menu-close>
+							<i class="icon ion-calendar"></i>
+							Week
+						</a><hr id="sideMenu">
 
-            <a id="trangXam" class="item item-icon-left" ui-sref="app.day" menu-close>
-              <i class="icon ion-calendar"></i>
-              Day
-            </a><hr>
+						<a id="sideMenu" class="item item-icon-left" ui-sref="app.day" menu-close>
+							<i class="icon ion-calendar"></i>
+							Day
+						</a><hr id="sideMenu">
 
-            <a id="trangXam" class="item item-icon-left" ui-sref="app.list" menu-close>
-              <i class="icon ion-clipboard"></i>
-              List
-            </a>
+						<a id="sideMenu" class="item item-icon-left" ui-sref="app.list" menu-close>
+							<i class="icon ion-clipboard"></i>
+							List
+						</a>
 
-            <p id="trangXam" style="margin-top: 10px; margin-bottom: -8px; margin-left: 10px">TOOLS</p>
-            <hr style="border: 2px solid #707070; width: 95%">
+						<p id="trangXam" style="margin-top: 10px; margin-bottom: -8px; margin-left: 10px">TOOLS</p>
+						<hr style="border: 2px solid #707070; width: 95%">
 
-            <a id="trangXam" class="item item-icon-left item-icon-right" href="#">
-              <i class="icon ion-refresh"></i>
-              Restore
-              <i style="color: #996633" class="icon ion-alert-circled"></i>
-            </a><hr>
+						<a id="sideMenu" class="item item-icon-left item-icon-right" href="#">
+							<i class="icon ion-refresh"></i>
+							Restore
+							<i style="color: #996633" class="icon ion-alert-circled"></i>
+						</a><hr id="sideMenu">
 
-            <a id="trangXam" class="item item-icon-left" href="#">
-              <i class="icon ion-share"></i>
-              Share
-            </a><hr>
+						<a id="sideMenu" class="item item-icon-left" href="#">
+							<i class="icon ion-share"></i>
+							Share
+						</a><hr id="sideMenu">
 
-            <a id="trangXam" class="item item-icon-left" href="#">
-              <i class="icon ion-document-text"></i>
-              Export
-            </a><hr>
+						<a id="sideMenu" class="item item-icon-left" href="#">
+							<i class="icon ion-document-text"></i>
+							Export
+						</a><hr id="sideMenu">
 
-            <a id="trangXam" class="item item-icon-left" href="#">
-              <i style="color: #FFCC00" class="icon ion-ribbon-b"></i>
-              EasiVIP
-            </a><hr>
+						<a id="sideMenu" class="item item-icon-left" href="#">
+							<i style="color: #FFCC00" class="icon ion-ribbon-b"></i>
+							EasiVIP
+						</a><hr id="sideMenu">
 
-            <a id="trangXam" class="item item-icon-left" href="#">
-              <i class="icon ion-help-circled"></i>
-              Helps
-            </a><hr>
+						<a id="sideMenu" class="item item-icon-left" href="#">
+							<i class="icon ion-help-circled"></i>
+							Helps
+						</a><hr id="sideMenu">
 
-            <a id="trangXam" class="item item-icon-left" ui-sref="app.setting" menu-close>
-              <i class="icon ion-android-settings"></i>
-              Settings
-            </a><hr>
+						<a id="sideMenu" class="item item-icon-left" ui-sref="app.setting" menu-close>
+							<i class="icon ion-android-settings"></i>
+							Settings
+						</a><hr id="sideMenu">
 
-            <a id="trangXam" class="item item-icon-left" href="sign-in.html">
-              <i class="icon ion-power"></i>
-              Sign out
-            </a><hr>
+						<a id="sideMenu" class="item item-icon-left" href="sign-in.html">
+							<i class="icon ion-power"></i>
+							Sign out
+						</a><hr id="sideMenu">
 
-            <a id="trangXam" class="item item-icon-left" href="#">
-              <i class="icon ion-log-out"></i>
-              Exit
-            </a><hr>
-          </div>
-        </ion-content>
-      </ion-side-menu>
-    
-      <ion-side-menu side="right">
-          <ion-header-bar id="smenuheader" class="bar-assertive">
-            <h1 class="title">Friends</h1>
-          </ion-header-bar>
+						<a id="sideMenu" class="item item-icon-left" href="#">
+							<i class="icon ion-log-out"></i>
+							Exit
+						</a><hr id="sideMenu">
+					</div>
+				</ion-content>
+			</ion-side-menu>
+		
+			<ion-side-menu side="right">
+					<ion-header-bar class="bar-easi-gray">
+						<h1 class="title">Friends</h1>
+					</ion-header-bar>
 
-          <ion-content id="ava">
-            <div class="list">
-              <a class="item item-avatar" ui-sref="app.profile" menu-close>
-                <img src="../img/boy3.png">
-                <h2 id="trangXam">Ngo Duc Dung</h2>
-                <p id="trangXam">I&#39;m busy now</p>
-              </a>
-              <hr>
+					<ion-content id="sideMenuContent">
+						<div class="list">
+							<a id="sideMenu" class="item myAvatar" ui-sref="app.profile" menu-close>
+								<img src="../img/boy3.png">
+								<h2 id="trangXam">
+									<i style="color: #FFCC00" class="icon ion-ribbon-b"></i>
+									Ngo Duc Dung
+								</h2>
+								<p id="trangXam">I&#39;m busy now</p>
+							</a><hr id="sideMenu">
 
-              <a class="item item-avatar" href="#">
-                <img src="../img/girl4.png">
-                <h2 id="trangXam">Nguyen Thi Luong</h2>
-                <p id="avaStt">I&#39;m free now</p>
-              </a>
-              <hr>
+							<a id="sideMenu" class="item myAvatar" href="#">
+								<img src="../img/girl4.png">
+								<h2 id="trangXam">Nguyen Thi Luong</h2>
+								<p id="avaStt">I&#39;m free now</p>
+							</a><hr id="sideMenu">
 
-              <a class="item item-avatar" href="#">
-                <img src="../img/boy1.png">
-                <h2 id="trangXam">Can Duy Cat</h2>
-                <p id="trangXam">I&#39;m busy now</p>
-              </a>
-              <hr>
+							<a id="sideMenu" class="item myAvatar" href="#">
+								<img src="../img/boy1.png">
+								<h2 id="trangXam">
+									<i style="color: #FFCC00" class="icon ion-ribbon-b"></i>
+									Can Duy Cat
+								</h2>
+								<p id="trangXam">I&#39;m busy now</p>
+							</a><hr id="sideMenu">
 
-              <a class="item item-avatar" href="#">
-                <img src="../img/boy4.png">
-                <h2 id="trangXam">Nguyen Manh Duy</h2>
-                <p id="avaStt">I&#39;m free now</p>
-              </a>
-              <hr>
+							<a id="sideMenu" class="item myAvatar" href="#">
+								<img src="../img/boy4.png">
+								<h2 id="trangXam">Nguyen Manh Duy</h2>
+								<p id="avaStt">I&#39;m free now</p>
+							</a><hr id="sideMenu">
 
-              <a class="item item-avatar" href="#">
-                <img src="../img/girl2.png">
-                <h2 id="trangXam">Nguyen Minh Trang</h2>
-                <p id="trangXam">I&#39;m busy now</p>
-              </a>
-              <hr>
+							<a id="sideMenu" class="item myAvatar" href="#">
+								<img src="../img/girl2.png">
+								<h2 id="trangXam">
+									<i style="color: #FFCC00" class="icon ion-ribbon-b"></i>
+									Nguyen Minh Trang
+								</h2>
+								<p id="trangXam">I&#39;m busy now</p>
+							</a><hr id="sideMenu">
 
-              <a class="item item-avatar" href="#">
-                <img src="../img/boy3.png">
-                <h2 id="trangXam">Ngo Duc Dung</h2>
-                <p id="trangXam">I&#39;m busy now</p>
-              </a>
-              <hr>
+							<a id="sideMenu" class="item myAvatar" href="#">
+								<img src="../img/boy3.png">
+								<h2 id="trangXam">Ngo Duc Dung</h2>
+								<p id="trangXam">I&#39;m busy now</p>
+							</a><hr id="sideMenu">
 
-              <a class="item item-avatar" href="#">
-                <img src="../img/girl4.png">
-                <h2 id="trangXam">Nguyen Thi Luong</h2>
-                <p id="avaStt">I&#39;m free now</p>
-              </a>
-              <hr>
+							<a id="sideMenu" class="item myAvatar" href="#">
+								<img src="../img/girl4.png">
+								<h2 id="trangXam">Nguyen Thi Luong</h2>
+								<p id="avaStt">I&#39;m free now</p>
+							</a><hr id="sideMenu">
 
-              <a class="item item-avatar" href="#">
-                <img src="../img/boy1.png">
-                <h2 id="trangXam">Can Duy Cat</h2>
-                <p id="trangXam">I&#39;m busy now</p>
-              </a>
-              <hr>
+							<a id="sideMenu" class="item myAvatar" href="#">
+								<img src="../img/boy1.png">
+								<h2 id="trangXam">
+									<i style="color: #FFCC00" class="icon ion-ribbon-b"></i>
+									Can Duy Cat
+									</h2>
+								<p id="trangXam">I&#39;m busy now</p>
+							</a><hr id="sideMenu">
 
-              <a class="item item-avatar" href="#">
-                <img src="../img/boy4.png">
-                <h2 id="trangXam">Nguyen Manh Duy</h2>
-                <p id="avaStt">I&#39;m free now</p>
-              </a>
-              <hr>
+							<a id="sideMenu" class="item myAvatar" href="#">
+								<img src="../img/boy4.png">
+								<h2 id="trangXam">Nguyen Manh Duy</h2>
+								<p id="avaStt">I&#39;m free now</p>
+							</a><hr id="sideMenu">
 
-              <a class="item item-avatar" href="#">
-                <img src="../img/girl2.png">
-                <h2 id="trangXam">Nguyen Minh Trang</h2>
-                <p id="trangXam">I&#39;m busy now</p>
-              </a>
-              <hr>
-            </div>
-          </ion-content>
+							<a id="sideMenu" class="item myAvatar" href="#">
+								<img src="../img/girl2.png">
+								<h2 id="trangXam">Nguyen Minh Trang</h2>
+								<p id="trangXam">I&#39;m busy now</p>
+							</a><hr id="sideMenu">
+						</div>
+					</ion-content>
 
-          <ion-footer-bar class="bar bar-footer item-input-inset" style="background-color:#646464">
-            <label class="item-input-wrapper">
-              <i class="icon ion-ios7-search placeholder-icon"></i>
-              <input type="search" placeholder="Search">
-            </label>
-          </ion-footer-bar>
-      </ion-side-menu>
-    </ion-side-menus>
-    </script>
+					<ion-footer-bar class="bar bar-footer item-input-inset" style="background-color:#646464">
+						<label class="item-input-wrapper">
+							<i class="icon ion-ios7-search placeholder-icon"></i>
+							<input type="search" placeholder="Search">
+						</label>
+					</ion-footer-bar>
+			</ion-side-menu>
+		</ion-side-menus>
+		</script>
 
-  <script id="month.html" type="text/ng-template">
-    <ion-view title="EasiLendar">
-      <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
-        </button>
-      </ion-nav-buttons>
+	<script id="month.html" type="text/ng-template">
+		<ion-view title="EasiLendar">
+			<ion-nav-buttons side="left">
+				<button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+				</button>
+			</ion-nav-buttons>
 
-      <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)">
-        </button>
-        <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right">
-        </button>
-      </ion-nav-buttons>
-      <ion-content padding="true">
-        <img src="../img/month.png" style="width:100vw; margin-top:-10px; margin-left:-10px">
-      </ion-content>
-    </ion-view>
-  </script>
+			<ion-nav-buttons side="right">
+				<button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)">
+				</button>
+				<button class="button button-icon button-clear ion-person-stalker" menu-toggle="right">
+				</button>
+			</ion-nav-buttons>
+			<ion-content padding="true">
+				<img src="../img/month.png" style="width:100vw; margin-top:-10px; margin-left:-10px">
+			</ion-content>
+		</ion-view>
+	</script>
 
-  <script id="week.html" type="text/ng-template">
-    <ion-view title="EasiLendar">
-      <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
-        </button>
-      </ion-nav-buttons>
+	<script id="week.html" type="text/ng-template">
+		<ion-view title="EasiLendar">
+			<ion-nav-buttons side="left">
+				<button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+				</button>
+			</ion-nav-buttons>
 
-      <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)">
-        </button>
-        <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right">
-        </button>
-      </ion-nav-buttons>
-      <ion-content padding="true">
-        <img src="../img/week.png" style="width:100vw; margin-top:-10px; margin-left:-10px">
-      </ion-content>
-    </ion-view>
-  </script>
+			<ion-nav-buttons side="right">
+				<button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)">
+				</button>
+				<button class="button button-icon button-clear ion-person-stalker" menu-toggle="right">
+				</button>
+			</ion-nav-buttons>
+			<ion-content padding="true">
+				<img src="../img/week.png" style="width:100vw; margin-top:-10px; margin-left:-10px">
+			</ion-content>
+		</ion-view>
+	</script>
 
-  <script id="day.html" type="text/ng-template">
-    <ion-view title="EasiLendar">
-      <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
-        </button>
-      </ion-nav-buttons>
+	<script id="day.html" type="text/ng-template">
+		<ion-view title="EasiLendar">
+			<ion-nav-buttons side="left">
+				<button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+				</button>
+			</ion-nav-buttons>
 
-      <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)">
-        </button>
-        <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right">
-        </button>
-      </ion-nav-buttons>
-      <ion-content padding="true">
-        <img src="../img/day.png" style="width:100vw; margin-top:-10px; margin-left:-10px">
-      </ion-content>
-    </ion-view>
-  </script>
+			<ion-nav-buttons side="right">
+				<button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)">
+				</button>
+				<button class="button button-icon button-clear ion-person-stalker" menu-toggle="right">
+				</button>
+			</ion-nav-buttons>
+			<ion-content padding="true">
+				<img src="../img/day.png" style="width:100vw; margin-top:-10px; margin-left:-10px">
+			</ion-content>
+		</ion-view>
+	</script>
 
-  <script id="list.html" type="text/ng-template">
-    <ion-view title="EasiLendar">
-      <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
-        </button>
-      </ion-nav-buttons>
+	<script id="list.html" type="text/ng-template">
+		<ion-view title="EasiLendar">
+			<ion-nav-buttons side="left">
+				<button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+				</button>
+			</ion-nav-buttons>
 
-      <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)">
-        </button>
-        <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right">
-        </button>
-      </ion-nav-buttons>
-      <ion-content padding="true">
-        <img src="../img/list.png" style="width:100vw; margin-top:-10px; margin-left:-10px">
-      </ion-content>
-    </ion-view>
-  </script>
+			<ion-nav-buttons side="right">
+				<button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)">
+				</button>
+				<button class="button button-icon button-clear ion-person-stalker" menu-toggle="right">
+				</button>
+			</ion-nav-buttons>
+			<ion-content padding="true">
+				<img src="../img/list.png" style="width:100vw; margin-top:-10px; margin-left:-10px">
+			</ion-content>
+		</ion-view>
+	</script>
 
-  <script id="setting.html" type="text/ng-template">
-    <ion-view title="Setting">
-      <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-home" ui-sref="app.home" menu-close>
-        </button>
-      </ion-nav-buttons>
-
-      <ion-content padding="true">
-        <div class="list" style="margin-top: -10px">
-          <p style="margin-top: 10px; margin-bottom: -5px; color: #646464"><b>APPERANCE</b></p>
-          <hr style="border: 2px solid #E6E6E6; width: 100%">
-
-          <label class="item item-input item-select" style="border-left:0; border-right:0; border-top:0; margin-top:-7px">
-            <div class="input-label">
-              Theme
-            </div>
-            <select>
-              <option selected>Auto</option>
-              <option>Green</option>
-              <option>Gray</option>
-              <option>Pink</option>
-              <option>Yellow</option>
-              <option>Blue</option>
-            </select>
-          </label>
-
-          <label class="item item-input item-select" style="border-left:0; border-right:0; border-bottom:0">
-            <div class="input-label">
-              Language
-            </div>
-            <select>
-              <option selected>English</option>
-              <option>Tiếng Việt</option>
-            </select>
-          </label>
-
-          <p style="margin-top: 10px; margin-bottom: -5px; color: #646464"><b>CALENDAR</b></p>
-          <hr style="border: 2px solid #E6E6E6; width: 100%">
-
-          <ul class="list">
-            <li class="item item-toggle" style="border-left:0; border-right:0; border-top:0; margin-top:-7px">
-               My local calendar
-               <label class="toggle toggle-dark">
-                 <input type="checkbox">
-                 <div class="track">
-                   <div class="handle"></div>
-                 </div>
-               </label>
-            </li>
-            <li class="item item-toggle" style="border-left:0; border-right:0">
-               Gmail calendar
-               <label class="toggle toggle-dark">
-                 <input type="checkbox">
-                 <div class="track">
-                   <div class="handle"></div>
-                 </div>
-               </label>
-            </li>
-            <li class="item item-toggle" style="border-left:0; border-right:0">
-               Sunrise calendar
-               <label class="toggle toggle-dark">
-                 <input type="checkbox">
-                 <div class="track">
-                   <div class="handle"></div>
-                 </div>
-               </label>
-            </li>
-            <li class="item item-toggle" style="border-left:0; border-right:0; border-bottom:0">
-               Auto-sync
-               <label class="toggle toggle-dark">
-                 <input type="checkbox">
-                 <div class="track">
-                   <div class="handle"></div>
-                 </div>
-               </label>
-            </li>
-          </ul>
-
-          <p style="margin-top: 10px; margin-bottom: -5px; color: #646464"><b>VIEW SETTINGS</b></p>
-          <hr style="border: 2px solid #E6E6E6; width: 100%">
-
-          <label class="item item-input item-select" style="border-left:0; border-right:0; border-top:0; margin-top:-7px">
-            <div class="input-label">
-              Default view
-            </div>
-            <select>
-              <option selected>Month</option>
-              <option>Week</option>
-              <option>Day</option>
-              <option>List</option>
-            </select>
-          </label>
-
-          <label class="item item-input item-select" style="border-left:0; border-right:0">
-            <div class="input-label">
-              Day views
-            </div>
-            <select>
-              <option selected>Time grid</option>
-              <option>Event list</option>
-            </select>
-          </label>
-
-          <label class="item item-input item-select" style="border-left:0; border-right:0; border-bottom:0">
-            <div class="input-label">
-              First day of week
-            </div>
-            <select>
-              <option>Sunday</option>
-              <option selected>Monday</option>
-            </select>
-          </label>
-
-          <p style="margin-top: 10px; margin-bottom: -5px; color: #646464"><b>EasiLendar</b></p>
-          <hr style="border: 2px solid #E6E6E6; width: 100%">
-
-          <button class="item" style="border-left:0; border-right:0; border-top:0; margin-top:-7px; width:100%; text-align: left">
-            Suggested apps
-          </button>
-
-          <button class="item" style="border-left:0; border-right:0; border-bottom:0; width:100%; text-align: left; color: #646464" ui-sref="app.about" menu-close>
-            <b>About</b>
-          </button>
-
+	<script id="theme.html" type="text/ng-template">
+		<div>
+      <label class="item item-radio">
+        <input type="radio" name="group">
+        <div class="item-content">
+          Auto
         </div>
-      </ion-content>
-    </ion-view>
-  </script>
-
-  <script id="about.html" type="text/ng-template">
-  <ion-view hide-nav-bar="true">
-    <ion-content style="width:100vw; height:110vh; background-color:#33CCCC">
-      <marquee behavior="slide" direction="down" scrollamount="12" ui-sref="app.setting" menu-close>
-        <center>
-          <img src="../img/blank.png" width="200" height="50"><br>
-          <img src="../img/logo.png" height="200"><br>
-          <img src="../img/easilendar.png" width="200">
-        </center>
-      </marquee>
-      <marquee behavior="slide" scrollamount="9" direction="up" width="100%" ui-sref="app.setting" menu-close> 
-        <center> <font color="#FFFFFF"> <strong> 
-          TEXAS GROUP<br> 
-          SOFTWARE ENGINEERING<br><br> 
-          Can Duy Cat<br>
-          Nguyen Minh Trang<br>
-          Nguyen Manh Duy<br>
-          Ngo Duc Dung<br>
-          Nguyen Thi Luong<br><br>
-          Beta 1.0.1
-        </strong></font></center>
-      </marquee>
-  </ion-view>
-  </script>
-
-  <script id="profile.html" type="text/ng-template">
-  <ion-view title="Ngo Duc Dung"> <!-- Sau nay la ten nguoi dung-->
-    <ion-nav-buttons side="left">
-      <button class="button button-icon button-clear ion-home" ui-sref="app.home" menu-close>
-      </button>
-    </ion-nav-buttons>
-
-    <ion-nav-buttons side="right">
-      <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)">
-      </button>
-      <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right">
-      </button>
-    </ion-nav-buttons>
-    
-    <ion-content padding="true">
-      <div id="cover">
-        <div class="item item-thumbnail-left" style="position:absolute; bottom:10px; background: transparent; border:0">
-          <img src="../img/boy3.png">
-          <br>
-          <h2 style="font-size:150%; color: #416969"><i style="color: #FFCC00" class="icon ion-ribbon-b"></i> Ngo Duc Dung</h2>
-          <p>I&#39;m busy now</p>
+        <i class="radio-icon ion-checkmark"></i>
+      </label>
+      <label class="item item-radio">
+        <input type="radio" name="group">
+        <div class="item-content">
+          Blue
         </div>
-        <div style="position:absolute; bottom:5px; right:5px; background: transparent; border:0">
-          <button id="trangXam" class="button button-icon icon ion-email"></button>
-          <button id="trangXam" class="button button-icon icon ion-coffee" ui-sref="app.search" menu-close></button>
-          <button id="trangXam" class="button button-icon icon ion-person-add"></button>
+        <i class="radio-icon ion-checkmark"></i>
+      </label>
+      <label class="item item-radio">
+        <input type="radio" name="group">
+        <div class="item-content">
+          Gray
         </div>
-      </div>
-      <div style="position: absolute; left:0">
-      <img src="../img/week.png" style="width:100vw; position: absolute; top:0px">
-      </div>
-    </ion-content>
-  </ion-view>
-  </script>
+        <i class="radio-icon ion-checkmark"></i>
+      </label>
+		</div>
+	</script>
+
+	<script id="calendar.html" type="text/ng-template">
+		<ul class="list">
+		  <li class="item item-checkbox">
+		  	<label class="checkbox checkbox-easi-blue">
+		      <input type="checkbox" checked>
+		    </label>
+		    <h2 style="margin-top:10px">My local calendar</h2>
+		  </li>
+
+		  <li class="item item-checkbox">
+		  	<label class="checkbox checkbox-easi-blue">
+		      <input type="checkbox">
+		    </label>
+		    <h2 style="margin-top:10px">Gmail calendar</h2>
+		  </li>
+
+		  <li class="item item-checkbox">
+		  	<label class="checkbox checkbox-easi-blue">
+		      <input type="checkbox">
+		    </label>
+		    <h2 style="margin-top:10px">Sunrise calendar</h2></h2>
+		  </li>
+		</ul>
+	</script>	
+
+	<script id="sync.html" type="text/ng-template">
+		<ul class="list">
+		  <li class="item item-checkbox">
+		  	<label class="checkbox checkbox-easi-blue">
+		      <input type="checkbox" checked>
+		    </label>
+		    <h2 style="margin-top:10px">Auto sync</h2>
+		  </li>
+
+		  <li class="item item-checkbox">
+		  	<label class="checkbox checkbox-easi-blue">
+		      <input type="checkbox">
+		    </label>
+		    <h2 style="margin-top:10px">Sync with wifi</h2>
+		  </li>
+
+		  <li class="item item-checkbox">
+		  	<label class="checkbox checkbox-easi-blue">
+		      <input type="checkbox">
+		    </label>
+		    <h2 style="margin-top:10px">Sync with 3G</h2>
+		  </li>
+		</ul>
+	</script>
+
+	<script id="setting.html" type="text/ng-template">
+		<ion-view title="Setting">
+			<ion-nav-buttons side="left">
+				<button class="button button-icon button-clear ion-home" ui-sref="app.home" menu-close>
+				</button>
+			</ion-nav-buttons>
+
+			<ion-content padding="true">
+				<div class="list" style="margin-top: -10px">
+					<p style="margin-top: 10px; margin-bottom: -5px; color: #646464"><b>APPERANCE</b></p>
+					<hr style="border: 2px solid #E6E6E6; width: 100%">
+					
+					<label class="item item-input item-select" style="border-left:0; border-right:0; border-top:0; margin-top:-7px">
+						<div class="input-label">
+							Theme
+						</div>
+						<select>
+							<option selected>Auto</option>
+							<option>Gray</option>
+							<option>Blue</option>
+							<option>Pink</option>
+							<option>Violet</option>
+							<option>Yellow</option>
+							<option>Green</option>
+							<option>Brown</option>
+						</select>
+					</label>
+					
+					<label class="item item-input item-select" style="border-left:0; border-right:0; border-bottom:0">
+						<div class="input-label">
+							Language
+						</div>
+						<select>
+							<option selected>English</option>
+							<option>Tiếng Việt</option>
+						</select>
+					</label>
+
+					<p style="margin-top: 10px; margin-bottom: -5px; color: #646464"><b>CALENDAR</b></p>
+					<hr style="border: 2px solid #E6E6E6; width: 100%">
+					
+					<label class="item item-input" style="border-left:0; border-right:0; border-top:0; margin-top:-7px" ng-click="showPopup('Calendars', 'calendar.html')">
+						<div class="input-label">
+							Calendars
+						</div>
+					</label>
+					
+					<label class="item item-input" style="border-left:0; border-right:0; border-bottom:0" ng-click="showPopup('Sync options', 'sync.html')">
+						<div class="input-label">
+							Sync
+						</div>
+					</label>
+
+
+					<p style="margin-top: 10px; margin-bottom: -5px; color: #646464"><b>VIEW SETTINGS</b></p>
+					<hr style="border: 2px solid #E6E6E6; width: 100%">
+
+					<label class="item item-input item-select" style="border-left:0; border-right:0; border-top:0; margin-top:-7px">
+						<div class="input-label">
+							Default view
+						</div>
+						<select>
+							<option selected>Month</option>
+							<option>Week</option>
+							<option>Day</option>
+							<option>List</option>
+						</select>
+					</label>
+
+					<label class="item item-input item-select" style="border-left:0; border-right:0">
+						<div class="input-label">
+							Day views
+						</div>
+						<select>
+							<option selected>Time grid</option>
+							<option>Event list</option>
+						</select>
+					</label>
+
+					<label class="item item-input item-select" style="border-left:0; border-right:0; border-bottom:0">
+						<div class="input-label">
+							First day of week
+						</div>
+						<select>
+							<option>Sunday</option>
+							<option selected>Monday</option>
+						</select>
+					</label>
+
+					<p style="margin-top: 10px; margin-bottom: -5px; color: #646464"><b>EasiLendar</b></p>
+					<hr style="border: 2px solid #E6E6E6; width: 100%">
+
+					<button class="item" style="border-left:0; border-right:0; border-top:0; margin-top:-5px; width:100%; text-align: left">
+						Suggested apps
+					</button>
+
+					<button class="item" style="border-left:0; border-right:0; border-bottom:0; width:100%; text-align: left; color: #646464" ui-sref="app.about" menu-close>
+						<b>About</b>
+					</button>
+
+				</div>
+			</ion-content>
+		</ion-view>
+	</script>
+
+	<script id="about.html" type="text/ng-template">
+	<ion-view hide-nav-bar="true">
+		<ion-content style="width:100vw; height:110vh; background-color:#33CCCC">
+			<marquee behavior="slide" direction="down" scrollamount="12" ui-sref="app.setting" menu-close>
+				<center>
+					<img src="../img/blank.png" width="200" height="50"><br>
+					<img src="../img/logo.png" height="200"><br>
+					<img src="../img/easilendar.png" width="200">
+				</center>
+			</marquee>
+			<marquee behavior="slide" scrollamount="9" direction="up" width="100%" ui-sref="app.setting" menu-close> 
+				<center> <font color="#FFFFFF"> <strong> 
+					TEXAS GROUP<br> 
+					SOFTWARE ENGINEERING<br><br> 
+					Can Duy Cat<br>
+					Nguyen Minh Trang<br>
+					Nguyen Manh Duy<br>
+					Ngo Duc Dung<br>
+					Nguyen Thi Luong<br><br>
+					Beta {{ver}}
+				</strong></font></center>
+			</marquee>
+	</ion-view>
+	</script>
+
+	<script id="profile.html" type="text/ng-template">
+	<ion-view title="Ngo Duc Dung"> <!-- Sau nay la ten nguoi dung-->
+		<ion-nav-buttons side="left">
+			<button class="button button-icon button-clear ion-home" ui-sref="app.home" menu-close>
+			</button>
+		</ion-nav-buttons>
+
+		<ion-nav-buttons side="right">
+			<button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)">
+			</button>
+			<button class="button button-icon button-clear ion-person-stalker" menu-toggle="right">
+			</button>
+		</ion-nav-buttons>
+		
+		<ion-content padding="true">
+			<div id="cover">
+				<div class="item item-thumbnail-left" style="position:absolute; bottom:10px; background: transparent; border:0">
+					<img src="../img/boy3.png">
+					<br>
+					<h2 style="font-size:150%; color: #416969"><i style="color: #FFCC00" class="icon ion-ribbon-b"></i> Ngo Duc Dung</h2>
+					<p>I&#39;m busy now</p>
+				</div>
+				<div style="position:absolute; bottom:5px; right:5px; background: transparent; border:0">
+					<button id="trangXam" class="button button-icon icon ion-email"></button>
+					<button id="trangXam" class="button button-icon icon ion-coffee" ui-sref="app.search" menu-close></button>
+					<button id="trangXam" class="button button-icon icon ion-person-add"></button>
+				</div>
+			</div>
+			<div style="position: absolute; left:0">
+			<img src="../img/week.png" style="width:100vw; position: absolute; top:0px">
+			</div>
+		</ion-content>
+	</ion-view>
+	</script>
 
 	<script id="my-popover.html" type="text/ng-template">
-    <ion-popover-view style="height: 70vh">
-      <div class="bar bar-stable bar-header" style="height: 30px; padding-left: 10px; border-bottom:0">
-        <p>Notifications</p>
-      </div>
+		<ion-popover-view style="height: 70vh">
+			<div class="bar bar-stable bar-header" style="height: 30px; padding-left: 10px; border-bottom:0">
+				<p>Notifications</p>
+			</div>
 
-      <ion-content style="margin-top:30px; margin-bottom: 30px">
-        <ul class="list">
-          <li class="item item-icon-left">
-            <i class="icon ion-coffee"></i>
-            <p>Ngo Duc Dung accepted your invitation<p>
-            <span id="trangXam">48min</span>
-          </li>
-          <li class="item item-icon-left">
-            <i class="icon ion-person-add"></i>
-            <p>Ngo Duc Dung accepted your friend request<p>
-            <span id="trangXam">50min</span>
-          </li>
-          <li class="item item-icon-left">
-            <i class="icon ion-coffee"></i>
-            <p>Nguyen Manh Duy accepted your invitation<p>
-            <span id="trangXam">1hour</span>
-          </li>
-          <li class="item item-icon-left">
-            <i class="icon ion-coffee"></i>
-            <p>Nguyen Minh Trang accepted your invitation<p>
-            <span id="trangXam">1day</span>
-          </li>
-          <li class="item item-icon-left">
-            <i class="icon ion-person-add"></i>
-            <p>Nguyen Thi Luong rejected your friend request<p>
-            <span id="trangXam">1month</span>
-          </li>
-          <li class="item item-icon-left">
-            <i class="icon ion-coffee"></i>
-            <p>Nguyen Minh Trang accepted your invitation<p>
-            <span id="trangXam">1day</span>
-          </li>
-          <li class="item item-icon-left">
-            <i class="icon ion-person-add"></i>
-            <p>Nguyen Manh Duy accepted your invitation<p>
-            <span id="trangXam">1hour</span>
-          </li>
-        </ul>
-      </ion-content>
+			<ion-content style="margin-top:30px; margin-bottom: 30px">
+				<ul class="list">
+					<li class="item item-icon-left">
+						<i class="icon ion-coffee"></i>
+						<p>Ngo Duc Dung accepted your invitation<p>
+						<span id="trangXam">48min</span>
+					</li>
+					<li class="item item-icon-left">
+						<i class="icon ion-person-add"></i>
+						<p>Ngo Duc Dung accepted your friend request<p>
+						<span id="trangXam">50min</span>
+					</li>
+					<li class="item item-icon-left">
+						<i class="icon ion-coffee"></i>
+						<p>Nguyen Manh Duy accepted your invitation<p>
+						<span id="trangXam">1hour</span>
+					</li>
+					<li class="item item-icon-left">
+						<i class="icon ion-coffee"></i>
+						<p>Nguyen Minh Trang accepted your invitation<p>
+						<span id="trangXam">1day</span>
+					</li>
+					<li class="item item-icon-left">
+						<i class="icon ion-person-add"></i>
+						<p>Nguyen Thi Luong rejected your friend request<p>
+						<span id="trangXam">1month</span>
+					</li>
+					<li class="item item-icon-left">
+						<i class="icon ion-coffee"></i>
+						<p>Nguyen Minh Trang accepted your invitation<p>
+						<span id="trangXam">1day</span>
+					</li>
+					<li class="item item-icon-left">
+						<i class="icon ion-person-add"></i>
+						<p>Nguyen Manh Duy accepted your invitation<p>
+						<span id="trangXam">1hour</span>
+					</li>
+				</ul>
+			</ion-content>
 
-      <div class="bar bar-stable bar-footer" style="height: 30px; padding-left: 10px; border-top:0">
-        <p>See All</p>
-      </div>
-    </ion-popover-view>
-  </script>
+			<div class="bar bar-stable bar-footer" style="height: 30px; padding-left: 10px; border-top:0">
+				<p>See All</p>
+			</div>
+		</ion-popover-view>
+	</script>
 
-  <script id="search.html" type="text/ng-template">
-  <ion-view title="Search filter">
-    <ion-nav-buttons side="left">
-      <button class="button button-icon button-clear ion-chevron-left" ui-sref="app.profile" menu-close>
-      </button>
-    </ion-nav-buttons>
+	<script id="search.html" type="text/ng-template">
+	<ion-view title="Search filter">
+		<ion-nav-buttons side="left">
+			<button class="button button-icon button-clear ion-chevron-left" ui-sref="app.profile" menu-close>
+			</button>
+		</ion-nav-buttons>
 
-    <ion-nav-buttons side="right">
-      <button class="button button-easi-blue" style="border:0">Done
-      </button>
-    </ion-nav-buttons>
-    
-    <ion-content padding="true">
-  <div class = "list">
-    <!--START: Commom Filter -->
-    <span style="margin-bottom: -5px; color: #646464; margin-left: 10px"><b>COMMON FILTER</b></span>
-    <hr style="border:2px solid #E6E6E6; width: 100%; margin-top: -2px">
-    </hr>
-    <div class="list list-inset" id="inset01">
-    <div class="item item-input">
-      <input type="text" name="fTitle" placeholder="Title">
-    </div>
-    <div class="item item-input">
-      <input type="number" name="fDuration" placeholder="Duration" min="0" max="24">
-    </div>
-    <div class="item item-input">
-      <input type="text" name="fLocation" placeholder="Location">
-    </div>
-    <div class="item item-input" style="border-bottom:0">
-      <textarea name="fMessage" placeholder="Message" rows="4"></textarea>
-    </div>
-    </div>
-    <p style="margin-top: 7px; margin-bottom: -5px; color: #646464">
-      <button id="button01" data-ng-click="showAdvanceFilter()"><b>ADVANCE FILTER</b></button>
-    </p>
-    <hr style="border:2px solid #E6E6E6; width: 100%"></hr>
+		<ion-nav-buttons side="right">
+			<button class="button button-easi-blue" style="border:0" ui-sref="app.result" menu-close>Done
+			</button>
+		</ion-nav-buttons>
+		
+		<ion-content padding="true">
+	<div class = "list">
+		<!--START: Commom Filter -->
+		<span style="margin-bottom: -5px; color: #646464; margin-left: 10px"><b>COMMON FILTER</b></span>
+		<hr style="border:2px solid #E6E6E6; width: 100%; margin-top: -2px">
+		</hr>
+		<div class="list list-inset" id="inset01">
+		<div class="item item-input">
+			<input type="text" name="fTitle" placeholder="Title">
+		</div>
+		<div class="item item-input">
+			<input type="number" name="fDuration" placeholder="Duration" min="0" max="24">
+		</div>
+		<div class="item item-input">
+			<input type="text" name="fLocation" placeholder="Location">
+		</div>
+		<div class="item item-input" style="border-bottom:0">
+			<textarea name="fMessage" placeholder="Message" rows="4"></textarea>
+		</div>
+		</div>
+		<p style="margin-top: 7px; margin-bottom: -5px; color: #646464">
+			<button id="button01" data-ng-click="showAdvanceFilter()"><b>ADVANCE FILTER</b></button>
+		</p>
+		<hr style="border:2px solid #E6E6E6; width: 100%"></hr>
 
-    <!--End: Commom Filter -->
-    
-    <!-- START: Advance Filter -->
-   <form data-ng-show="fShow">
-    <!-- -------$$$$$$------- -->  
+		<!--End: Commom Filter -->
+		
+		<!-- START: Advance Filter -->
+	 <form data-ng-show="fShow">
+		<!-- -------$$$$$$------- -->	
 
-    <div class="list" id="inset01">
-      <span>Time:</span>
-      <center><div class="item item-input" style="width:100%; border-bottom: 1px solid #E6E6E6">
-       <table style="width:100%">
-        <tr>
-        <td style="width: 50%"><input type="number" name="fFrom" placeholder="From 0Am" min="0" max="24"></td>
-        <td style="width: 50%"><input type="number" name="fTo" placeholder="To 24Pm" min="0" max="24"></td>
-         </tr>
-         </table>
-       </div></center>
-    
-    <!-- -------$$$$$$------- --> 
-    <div class="list list-inset" id="inset01">
-      <span>Expiration:</span>
-      <div class="item item-input">
-        <input type="number" name="fExpiration" placeholder="Expiration" min="0" max="24">
-      </div>
-      <div class="item" style="border-bottom:0">
-        <select name="fDate">
-          <option value="day"><span>Days</span></option>
-          <option value="week"><span>Weeks</span></option>
-          <option value="month"><span>Months</span></option>
-          <option value="year"></span>Years</span></option>
-        </select>
-      </div>
-    </div>
-    
-    <!-- -------$$$$$$------- -->       
-    <div class="list list-inset" id="inset01">
-    <span>Avoid/Prioritize:</span>
-    <div class="list list-inset" id="inset01">
-    <table style="width:100%">
-     <tr>
-      <td id="td01">Breakfast:</td>
-      <td id="td02">
-      <div class="segmented-button">
-        <input type="radio" name="fBreakfast" value="avoid" id="avoid#00" checked>
-        <label for="avoid#00" class="first">Avoid</label>
-        <input type="radio" name="fBreakfast" value="prioritize" id="prioritize#00">
-        <label for="prioritize#00" class="last">Prioritize</label>
-      </div>
-      </td>
-     </tr>
-      
-     <tr>
-       <td id="td01">Lunch:</td>
-       <td id="td02">
-      <div class="segmented-button">
-        <input type="radio" name="fLunch" value="avoid" id="avoid#01" checked>
-        <label for="avoid#01" class="first">Avoid</label>
-        <input type="radio" name="fLunch" value="prioritize" id="prioritize#01">
-        <label for="prioritize#01" class="last">Prioritize</label>
-      </div>
-        </td>
-     </tr>
+		<div class="list" id="inset01">
+			<span>Time:</span>
+			<center><div class="item item-input" style="width:100%; border-bottom: 1px solid #E6E6E6">
+			 <table style="width:100%">
+				<tr>
+				<td style="width: 50%"><input type="number" name="fFrom" placeholder="From 0Am" min="0" max="24"></td>
+				<td style="width: 50%"><input type="number" name="fTo" placeholder="To 24Pm" min="0" max="24"></td>
+				 </tr>
+				 </table>
+			 </div></center>
+		
+		<!-- -------$$$$$$------- --> 
+		<div class="list list-inset" id="inset01">
+			<span>Expiration:</span>
+			<div class="item item-input">
+				<input type="number" name="fExpiration" placeholder="Expiration" min="0" max="24">
+			</div>
+			<div class="item" style="border-bottom:0">
+				<select name="fDate">
+					<option value="day"><span>Days</span></option>
+					<option value="week"><span>Weeks</span></option>
+					<option value="month"><span>Months</span></option>
+					<option value="year"></span>Years</span></option>
+				</select>
+			</div>
+		</div>
+		
+		<!-- -------$$$$$$------- -->
+		<div class="list list-inset" id="inset01">
+		<span>Avoid/Prioritize:</span>
+		<div class="list list-inset" id="inset01">
+		<table style="width:100%">
+		 <tr>
+			<td id="td01">Breakfast:</td>
+			<td id="td02">
+			<div class="segmented-button">
+				<input type="radio" name="fBreakfast" value="avoid" id="avoid#00" checked>
+				<label for="avoid#00" class="first">Avoid</label>
+				<input type="radio" name="fBreakfast" value="prioritize" id="prioritize#00">
+				<label for="prioritize#00" class="last">Prioritize</label>
+			</div>
+			</td>
+		 </tr>
+			
+		 <tr>
+			 <td id="td01">Lunch:</td>
+			 <td id="td02">
+			<div class="segmented-button">
+				<input type="radio" name="fLunch" value="avoid" id="avoid#01" checked>
+				<label for="avoid#01" class="first">Avoid</label>
+				<input type="radio" name="fLunch" value="prioritize" id="prioritize#01">
+				<label for="prioritize#01" class="last">Prioritize</label>
+			</div>
+				</td>
+		 </tr>
 
-      <tr>
-        <td id="td01">Dinner:</td>
-      <td id="td02">
-      <div class="segmented-button">
-        <input type="radio" name="fDinner" value="avoid" id="avoid#02" checked>
-        <label for="avoid#02" class="first">Avoid</label>
-        <input type="radio" name="fDinner" value="prioritize" id="prioritize#02">
-        <label for="prioritize#02" class="last">Prioritize</label>
-      </div>
-      </td>
-      </tr> 
-      
-      <tr>
-        <td id="td01">Office-time:</td>
-      <td id="td02">
-      <div class="segmented-button">
-        <input type="radio" name="fOffice" value="avoid" id="avoid#03" checked>
-        <label for="avoid#03" class="first">Avoid</label>
-        <input type="radio" name="fOffice" value="prioritize" id="prioritize#03">
-        <label for="prioritize#03" class="last">Prioritize</label>
-      </div>
-      </tr> 
-      
-      <tr>
-        <td id="td01">Holiday:</td>
-      <td id="td02">
-      <div class="segmented-button">
-        <input type="radio" name="fHoliday" value="avoid" id="avoid#04" checked>
-        <label for="avoid#04" class="first">Avoid</label>
-    
-        <input type="radio" name="fHoliday" value="prioritize" id="prioritize#04">
-        <label for="prioritize#04" class="last">Prioritize</label>
-      </div>
-      </td>
-        </tr>
-      
-    </table>
-    </div>
-    </div>
-    <!-- END: Advance Filter -->
-    
-   </form>
-  </div>
-  </ion-content>
-  </ion-view>
-  </script>
+			<tr>
+				<td id="td01">Dinner:</td>
+			<td id="td02">
+			<div class="segmented-button">
+				<input type="radio" name="fDinner" value="avoid" id="avoid#02" checked>
+				<label for="avoid#02" class="first">Avoid</label>
+				<input type="radio" name="fDinner" value="prioritize" id="prioritize#02">
+				<label for="prioritize#02" class="last">Prioritize</label>
+			</div>
+			</td>
+			</tr> 
+			
+			<tr>
+				<td id="td01">Office-time:</td>
+			<td id="td02">
+			<div class="segmented-button">
+				<input type="radio" name="fOffice" value="avoid" id="avoid#03" checked>
+				<label for="avoid#03" class="first">Avoid</label>
+				<input type="radio" name="fOffice" value="prioritize" id="prioritize#03">
+				<label for="prioritize#03" class="last">Prioritize</label>
+			</div>
+			</tr> 
+			
+			<tr>
+				<td id="td01">Holiday:</td>
+			<td id="td02">
+			<div class="segmented-button">
+				<input type="radio" name="fHoliday" value="avoid" id="avoid#04" checked>
+				<label for="avoid#04" class="first">Avoid</label>
+		
+				<input type="radio" name="fHoliday" value="prioritize" id="prioritize#04">
+				<label for="prioritize#04" class="last">Prioritize</label>
+			</div>
+			</td>
+				</tr>
+			
+		</table>
+		</div>
+		</div>
+		<!-- END: Advance Filter -->
+		
+	 </form>
+	</div>
+	</ion-content>
+	</ion-view>
+	</script>
+
+	<script id="result.html" type="text/ng-template">
+	<ion-view title="Result">
+		<ion-nav-buttons side="left">
+			<button class="button button-icon button-clear ion-chevron-left" ui-sref="app.search" menu-close>
+			</button>
+		</ion-nav-buttons>
+
+		<ion-nav-buttons side="right">
+			<button class="button button-easi-blue" style="border:0" ui-sref="app.home" menu-close>Done
+			</button>
+		</ion-nav-buttons>
+		
+    <ion-content class="calendar">
+		  <img src="../img/week.png" />
+	  </ion-content>	
+	  <ion-content class="options" data-ng-controller="ResultController">
+	    <ol class="list">
+	      <button data-ng-repeat="x in options" class="item item-button button-block option" data-ng-click="selectOption(x)">{{display(x)}}</button>
+	      <button class="button button-block button-easi-blue next" data-ng-click="next()">Next</button>
+	    </ol>
+	  </ion-content>
+	</ion-view>
+	</script>
 
 </body>
 </html>
