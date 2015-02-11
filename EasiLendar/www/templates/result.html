@@ -1,0 +1,21 @@
+  <ion-view title="Result">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-chevron-left" ui-sref="app.search" menu-close>
+      </button>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+      <button class="button button-easi-blue" style="border:0" ui-sref="app.home" menu-close>Done
+      </button>
+    </ion-nav-buttons>
+    
+    <ion-content class="calendar">
+      <img src="../img/week.png" />
+    </ion-content>  
+    <ion-content class="options" data-ng-controller="ResultController">
+      <ol class="list">
+        <button data-ng-repeat="x in options" class="item item-button button-block option" ng-click="showAlert('You selected option {{x.score}}')">{{display(x)}}</button>
+        <button class="button button-block button-easi-blue next" data-ng-click="next()">Next</button>
+      </ol>
+    </ion-content>
+  </ion-view>

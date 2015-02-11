@@ -1,0 +1,10 @@
+angular.module('MainApp.controllers',
+	['MainApp.controllers.home',
+	'MainApp.controllers.setting',
+	'MainApp.controllers.sideMenu',
+	'MainApp.controllers.about',
+	'MainApp.controllers.profile',
+	'MainApp.controllers.search',
+	'MainApp.controllers.result',
+	'MainApp.controllers.popover'
+	])

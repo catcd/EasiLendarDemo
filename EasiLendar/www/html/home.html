@@ -20,6 +20,15 @@
 
 <!-- my app's js -->
 <script src="../js/home.js"></script>
+<script src="../js/controllers/controllers.js"></script>
+<script src="../js/controllers/HomeController.js"></script>
+<script src="../js/controllers/SettingController.js"></script>
+<script src="../js/controllers/SideMenuController.js"></script>
+<script src="../js/controllers/AboutController.js"></script>
+<script src="../js/controllers/ProfileController.js"></script>
+<script src="../js/controllers/SearchController.js"></script>
+<script src="../js/controllers/ResultController.js"></script>
+<script src="../js/controllers/PopOverController.js"></script>
 </head>
 
 <body ng-controller="PopOverController">
@@ -34,8 +43,8 @@
 
 				<ion-nav-view name="appContent" animation="slide-left-right">
 				</ion-nav-view>
-			</ion-side-menu-content> 
-			
+			</ion-side-menu-content>
+
 			<ion-side-menu side="left">
 				<ion-header-bar class="bar-easi-gray">
 					<h1 id="trangXam" class="title">MENU</h1>
@@ -120,7 +129,7 @@
 					</div>
 				</ion-content>
 			</ion-side-menu>
-		
+
 			<ion-side-menu side="right">
 					<ion-header-bar class="bar-easi-gray">
 						<h1 class="title">Friends</h1>
@@ -290,77 +299,77 @@
 
 	<script id="theme.html" type="text/ng-template">
 		<div>
-      <label class="item item-radio">
-        <input type="radio" name="group">
-        <div class="item-content">
-          Auto
-        </div>
-        <i class="radio-icon ion-checkmark"></i>
-      </label>
-      <label class="item item-radio">
-        <input type="radio" name="group">
-        <div class="item-content">
-          Blue
-        </div>
-        <i class="radio-icon ion-checkmark"></i>
-      </label>
-      <label class="item item-radio">
-        <input type="radio" name="group">
-        <div class="item-content">
-          Gray
-        </div>
-        <i class="radio-icon ion-checkmark"></i>
-      </label>
+			<label class="item item-radio">
+				<input type="radio" name="group">
+				<div class="item-content">
+					Auto
+				</div>
+				<i class="radio-icon ion-checkmark"></i>
+			</label>
+			<label class="item item-radio">
+				<input type="radio" name="group">
+				<div class="item-content">
+					Blue
+				</div>
+				<i class="radio-icon ion-checkmark"></i>
+			</label>
+			<label class="item item-radio">
+				<input type="radio" name="group">
+				<div class="item-content">
+					Gray
+				</div>
+				<i class="radio-icon ion-checkmark"></i>
+			</label>
 		</div>
 	</script>
 
 	<script id="calendar.html" type="text/ng-template">
 		<ul class="list">
-		  <li class="item item-checkbox">
-		  	<label class="checkbox checkbox-easi-blue">
-		      <input type="checkbox" checked>
-		    </label>
-		    <h2 style="margin-top:10px">My local calendar</h2>
-		  </li>
+			<li class="item item-checkbox">
+				<label class="checkbox checkbox-easi-blue">
+					<input type="checkbox" checked>
+				</label>
+				<h2 style="margin-top:10px">My local calendar</h2>
+			</li>
 
-		  <li class="item item-checkbox">
-		  	<label class="checkbox checkbox-easi-blue">
-		      <input type="checkbox">
-		    </label>
-		    <h2 style="margin-top:10px">Gmail calendar</h2>
-		  </li>
+			<li class="item item-checkbox">
+				<label class="checkbox checkbox-easi-blue">
+					<input type="checkbox">
+				</label>
+				<h2 style="margin-top:10px">Gmail calendar</h2>
+			</li>
 
-		  <li class="item item-checkbox">
-		  	<label class="checkbox checkbox-easi-blue">
-		      <input type="checkbox">
-		    </label>
-		    <h2 style="margin-top:10px">Sunrise calendar</h2></h2>
-		  </li>
+			<li class="item item-checkbox">
+				<label class="checkbox checkbox-easi-blue">
+					<input type="checkbox">
+				</label>
+				<h2 style="margin-top:10px">Sunrise calendar</h2></h2>
+			</li>
 		</ul>
-	</script>	
+	</script>
 
 	<script id="sync.html" type="text/ng-template">
 		<ul class="list">
-		  <li class="item item-checkbox">
-		  	<label class="checkbox checkbox-easi-blue">
-		      <input type="checkbox" checked>
-		    </label>
-		    <h2 style="margin-top:10px">Auto sync</h2>
-		  </li>
+			<li class="item item-checkbox">
+				<label class="checkbox checkbox-easi-blue">
+					<input type="checkbox" checked>
+				</label>
+				<h2 style="margin-top:10px">Auto sync</h2>
+			</li>
 
-		  <li class="item item-checkbox">
-		  	<label class="checkbox checkbox-easi-blue">
-		      <input type="checkbox">
-		    </label>
-		    <h2 style="margin-top:10px">Sync with wifi</h2>
-		  </li>
+			<li class="item item-checkbox">
+				<label class="checkbox checkbox-easi-blue">
+					<input type="checkbox">
+				</label>
+				<h2 style="margin-top:10px">Sync with wifi</h2>
+			</li>
 
-		  <li class="item item-checkbox">
-		  	<label class="checkbox checkbox-easi-blue">
-		      <input type="checkbox">
-		    </label>
-		    <h2 style="margin-top:10px">Sync with 3G</h2>
-		  </li>
+			<li class="item item-checkbox">
+				<label class="checkbox checkbox-easi-blue">
+					<input type="checkbox">
+				</label>
+				<h2 style="margin-top:10px">Sync with 3G</h2>
+			</li>
 		</ul>
 	</script>
 
@@ -375,7 +384,7 @@
 				<div class="list" style="margin-top: -10px">
 					<p style="margin-top: 10px; margin-bottom: -5px; color: #646464"><b>APPERANCE</b></p>
 					<hr style="border: 2px solid #E6E6E6; width: 100%">
-					
+
 					<label class="item item-input item-select" style="border-left:0; border-right:0; border-top:0; margin-top:-7px">
 						<div class="input-label">
 							Theme
@@ -391,7 +400,7 @@
 							<option>Brown</option>
 						</select>
 					</label>
-					
+
 					<label class="item item-input item-select" style="border-left:0; border-right:0; border-bottom:0">
 						<div class="input-label">
 							Language
@@ -404,13 +413,13 @@
 
 					<p style="margin-top: 10px; margin-bottom: -5px; color: #646464"><b>CALENDAR</b></p>
 					<hr style="border: 2px solid #E6E6E6; width: 100%">
-					
+
 					<label class="item item-input" style="border-left:0; border-right:0; border-top:0; margin-top:-7px" ng-click="showPopup('Calendars', 'calendar.html')">
 						<div class="input-label">
 							Calendars
 						</div>
 					</label>
-					
+
 					<label class="item item-input" style="border-left:0; border-right:0; border-bottom:0" ng-click="showPopup('Sync options', 'sync.html')">
 						<div class="input-label">
 							Sync
@@ -479,10 +488,10 @@
 					<img src="../img/easilendar.png" width="200">
 				</center>
 			</marquee>
-			<marquee behavior="slide" scrollamount="9" direction="up" width="100%" ui-sref="app.home" menu-close> 
-				<center> <font color="#FFFFFF"> <strong> 
-					TEXAS GROUP<br> 
-					SOFTWARE ENGINEERING<br><br> 
+			<marquee behavior="slide" scrollamount="9" direction="up" width="100%" ui-sref="app.home" menu-close>
+				<center> <font color="#FFFFFF"> <strong>
+					TEXAS GROUP<br>
+					SOFTWARE ENGINEERING<br><br>
 					Can Duy Cat<br>
 					Nguyen Minh Trang<br>
 					Nguyen Manh Duy<br>
@@ -507,7 +516,7 @@
 			<button class="button button-icon button-clear ion-person-stalker" menu-toggle="right">
 			</button>
 		</ion-nav-buttons>
-		
+
 		<ion-content padding="true">
 			<div id="cover">
 				<div class="item item-thumbnail-left" style="position:absolute; bottom:10px; background: transparent; border:0">
@@ -592,7 +601,7 @@
 			<button class="button button-easi-blue" style="border:0" ui-sref="app.result" menu-close>Done
 			</button>
 		</ion-nav-buttons>
-		
+
 		<ion-content padding="true">
 	<div class = "list">
 		<!--START: Commom Filter -->
@@ -619,10 +628,10 @@
 		<hr style="border:2px solid #E6E6E6; width: 100%"></hr>
 
 		<!--End: Commom Filter -->
-		
+
 		<!-- START: Advance Filter -->
 	 <form data-ng-show="fShow">
-		<!-- -------$$$$$$------- -->	
+		<!-- -------$$$$$$------- -->
 
 		<div class="list" id="inset01">
 			<span>Time:</span>
@@ -634,8 +643,8 @@
 				 </tr>
 				 </table>
 			 </div></center>
-		
-		<!-- -------$$$$$$------- --> 
+
+		<!-- -------$$$$$$------- -->
 		<div class="list list-inset" id="inset01">
 			<span>Expiration:</span>
 			<div class="item item-input">
@@ -650,7 +659,7 @@
 				</select>
 			</div>
 		</div>
-		
+
 		<!-- -------$$$$$$------- -->
 		<div class="list list-inset" id="inset01">
 		<span>Avoid/Prioritize:</span>
@@ -667,7 +676,7 @@
 			</div>
 			</td>
 		 </tr>
-			
+
 		 <tr>
 			 <td id="td01">Lunch:</td>
 			 <td id="td02">
@@ -690,8 +699,8 @@
 				<label for="prioritize#02" class="last">Prioritize</label>
 			</div>
 			</td>
-			</tr> 
-			
+			</tr>
+
 			<tr>
 				<td id="td01">Office-time:</td>
 			<td id="td02">
@@ -701,55 +710,30 @@
 				<input type="radio" name="fOffice" value="prioritize" id="prioritize#03">
 				<label for="prioritize#03" class="last">Prioritize</label>
 			</div>
-			</tr> 
-			
+			</tr>
+
 			<tr>
 				<td id="td01">Holiday:</td>
 			<td id="td02">
 			<div class="segmented-button">
 				<input type="radio" name="fHoliday" value="avoid" id="avoid#04" checked>
 				<label for="avoid#04" class="first">Avoid</label>
-		
+
 				<input type="radio" name="fHoliday" value="prioritize" id="prioritize#04">
 				<label for="prioritize#04" class="last">Prioritize</label>
 			</div>
 			</td>
 				</tr>
-			
+
 		</table>
 		</div>
 		</div>
 		<!-- END: Advance Filter -->
-		
-	 </form>
+
+	</form>
 	</div>
 	</ion-content>
 	</ion-view>
 	</script>
-
-	<script id="result.html" type="text/ng-template">
-	<ion-view title="Result">
-		<ion-nav-buttons side="left">
-			<button class="button button-icon button-clear ion-chevron-left" ui-sref="app.search" menu-close>
-			</button>
-		</ion-nav-buttons>
-
-		<ion-nav-buttons side="right">
-			<button class="button button-easi-blue" style="border:0" ui-sref="app.home" menu-close>Done
-			</button>
-		</ion-nav-buttons>
-		
-    <ion-content class="calendar">
-		  <img src="../img/week.png" />
-	  </ion-content>	
-	  <ion-content class="options" data-ng-controller="ResultController">
-	    <ol class="list">
-	      <button data-ng-repeat="x in options" class="item item-button button-block option" ng-click="showAlert('You selected option {{x.score}}')">{{display(x)}}</button>
-	      <button class="button button-block button-easi-blue next" data-ng-click="next()">Next</button>
-	    </ol>
-	  </ion-content>
-	</ion-view>
-	</script>
-
 </body>
 </html>

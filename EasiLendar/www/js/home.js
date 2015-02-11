@@ -1,4 +1,4 @@
-angular.module('mainAPP', [ 'ionic' ])
+angular.module('mainAPP', ['ionic', 'MainApp.controllers'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider.state('app', {
@@ -64,8 +64,8 @@ angular.module('mainAPP', [ 'ionic' ])
 		url : '/about',
 		views : {
 			'appContent' : {
-				templateUrl : 'about.html',
-				controller : 'AboutController'
+				controller : 'AboutController',
+				templateUrl : 'about.html'
 			}
 		}
 	})
@@ -73,8 +73,8 @@ angular.module('mainAPP', [ 'ionic' ])
 		url : '/profile',
 		views : {
 			'appContent' : {
-				templateUrl: 'profile.html',
-				controller: 'ProfileController'
+				controller: 'ProfileController',
+				templateUrl: 'templates/profile.html'
 			}
 		}
 	})
@@ -83,7 +83,7 @@ angular.module('mainAPP', [ 'ionic' ])
 		views : {
 			'appContent' : {
 				templateUrl: 'search.html',
-				controller: 'FilterController'
+				controller: 'SearchController'
 			}
 		}
 	})
@@ -113,107 +113,11 @@ angular.module('mainAPP', [ 'ionic' ])
 				$ionicPopup.alert({title:'<h3>Canceling...</h3>'});
 			}
 		});
-	}	
+	}
 	$rootScope.showAlert = function(mtitle, url) {
 		var confirmPopup = $ionicPopup.alert({
 			title: mtitle,
 			templateUrl: url
 		});
-	}	
-	$rootScope.showAlert = function(mtitle,templ) {
-		var confirmPopup = $ionicPopup.alert({
-			title: mtitle,
-			template: templ
-		});
 	}
 })
-
-.controller('SettingController', function($scope, $ionicPopup) {
-	$scope.theme="Blue";
-	$scope.mlang="English";
-	$scope.local=true;
-	$scope.gmail=true;
-	$scope.sunrise=false;
-	$scope.sync=true;
-	$scope.mView="Day";
-	$scope.mDayView="Event list";
-})
-
-.controller('sideMenuController', function($scope, $ionicSideMenuDelegate) {
-	$scope.toggleLeft = function() {
-		$ionicSideMenuDelegate.toggleLeft();
-	};
-})
-
-.controller("HomeController", function($scope) {
-
-})
-
-.controller("AboutController", function($scope) {
-	$scope.ver = "1.0.8"
-})
-
-.controller("ProfileController", function($scope) {
-
-})
-
-.controller("FilterController", function($scope){
-	$scope.fShow = false;
-	$scope.showAdvanceFilter = function(){
-		$scope.fShow = !($scope.fShow);
-	}
-})
-
-.controller("ResultController", function($scope, $ionicPopup) {
-	$scope.numOfOps = 5;
-	$scope.options = [
-	    {score: 1, date:"01/02/2015", begin:"02:30", end:"05:00"},
-	    {score: 2, date:"02/02/2015", begin:"14:00", end:"23:30"},
-	    {score: 3, date:"06/02/2015", begin:"06:45", end:"08:50"},
-	    {score: 4, date:"10/02/2015", begin:"08:30", end:"18:30"},
-	    {score: 5, date:"11/02/2015", begin:"15:00", end:"17:50"}
-	];
-	
-	$scope.addOption = function(option) {
-		$scope.options.push(option);
-		$scope.numOfOps++;
-	};
-	
-	$scope.next = function() {
-		window.alert("You click next");
-	};
-	
-	$scope.selectOption = function(option) {
-		window.alert("You select option "+option.score);
-	};
-	
-	$scope.display = function(option) {
-		$scope.option = option.score+". "+option.date+": From "+option.begin+" - To "+option.end;
-		return $scope.option;
-	}
-
-})
-
-.controller('PopOverController', function($scope, $ionicPopover) {
-	$scope.popover = $ionicPopover.fromTemplate(template, {
-		scope : $scope,
-	});
-
-	// .fromTemplateUrl() method
-	$ionicPopover.fromTemplateUrl('my-popover.html', {
-		scope : $scope,
-	}).then(function(popover) {
-		$scope.popover = popover;
-	});
-
-	$scope.openPopover = function($event) {
-		$scope.popover.show($event);
-	};
-	$scope.closePopover = function() {
-		$scope.popover.hide();
-	};
-	//Cleanup the popover when we're done with it!
-	$scope.$on('$destroy', function() {
-		$scope.popover.remove();
-	});
-});
