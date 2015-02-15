@@ -120,4 +120,20 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers'])
 			templateUrl: url
 		});
 	}
+
+	$rootScope.allValues = {
+		mTitle ='',
+		mDuration = '',		//hours
+		mLocation = '',
+		mMessage = '',
+		mFrom = '',			//hours
+		mTo = '',			//hours
+		mExpiration = '',	//hours
+		mDate = '',  		//Days/Weeks/Months/Years
+		mBreakfast ='',
+		mLunch = '',		//Avoid/Prioritize
+		mDinner = '',
+		mOfficeTime = '',
+		mHoliday = ''
+	};
 })
