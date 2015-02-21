@@ -122,18 +122,18 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers'])
 	}
 
 	$rootScope.allValues = {
-		mTitle ='',
-		mDuration = '',		//hours
-		mLocation = '',
-		mMessage = '',
-		mFrom = '',			//hours
-		mTo = '',			//hours
-		mExpiration = '',	//hours
-		mDate = '',  		//Days/Weeks/Months/Years
-		mBreakfast ='',
-		mLunch = '',		//Avoid/Prioritize
-		mDinner = '',
-		mOfficeTime = '',
-		mHoliday = ''
+		mTitle :'',
+		mDuration : '',		//hours
+		mLocation : '',
+		mMessage : '',
+		mFrom : '',			//hours
+		mTo : '',			//hours
+		mExpiration : '',	//hours
+		mDate : '',  		//Days/Weeks/Months/Years
+		mBreakfast : 'none',
+		mLunch : 'none',		//Avoid/Prioritize
+		mDinner : 'none',
+		mOfficeTime : 'none',
+		mHoliday : 'none'
 	};
 })
