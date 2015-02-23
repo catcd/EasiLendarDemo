@@ -74,7 +74,7 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers'])
 		views : {
 			'appContent' : {
 				controller: 'ProfileController',
-				templateUrl: 'templates/profile.html'
+				templateUrl: 'profile.html'
 			}
 		}
 	})
