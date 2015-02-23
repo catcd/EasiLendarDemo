@@ -1,2 +1,2 @@
 # EasiLendar
-A Better Meeting Planner
+A Very Best Meeting Planer
