@@ -1,28 +1,30 @@
 @CHARSET "UTF-8";
-
-/* Nguyen Minh Trang
-   09/02/2015 */
-
-html, head, body, a, p, h1, h2, input, div {
+/**
+ * starter: Nguyen Minh Trang
+ * owner: Nguyen Minh Trang
+ * last update: 24/02/2015
+ * type: particular css
+ */
+/*html, head, body, a, p, h1, h2, input, div {
 	padding: 0;
 	border: 0;
 	margin: 0;
 	font-size: 100%;
 	font: inherit;
 	text-decoration: none;
-}
+}*/
 
 .easi-image {
-	width: 75%;
-	margin-top: 50px;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
+    width: 75%;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 .easi-image img {
-	width: 100%;
+    width: 100%;
 }
-body {
+/*body {
 	width: 100%;
 	height: 100%;
 	background-color: #33cccc;
@@ -31,15 +33,14 @@ body {
 form {
 	width: 75%;
 	margin: 40px auto 0 auto;
-}
+}*/
 
 .item-input {
-	background-color: #fff;
-	border-radius: 2px;
-	margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 2px;
+    margin-bottom: 10px;
 }
-
-input[type=text] {
+/*input[type=text] {
 	width: 98%;
 	height: 30px;
 	font-size: 20px;
@@ -50,63 +51,56 @@ input[type=password] {
 	height: 30px;
 	font-size: 20px;
 	padding-left: 2%;
-}
+}*/
 
 .rememberme {
-	padding: 0;
-	margin: 10px 0 0 10px;
+    padding: 0;
+    margin: 10px 0 0 10px;
 }
 .rememberme input {
-	display: inline-block;
+    display: inline-block;
 }
-
 .rememberme label {
-	font-size: 20px;
-	color: #416969;
-	margin-left: 10px;
-	float: right;
+    font-size: 20px;
+    color: #416969;
+    margin-left: 10px;
+    float: right;
 }
-
-input[type=submit] {
+/*input[type=submit] {
    	width: 100%;
    	height: 50px;
 	font-size: 30px;	
-}
+}*/
 
 .warning {
-	width: 60%;
-	max-width: 300px;
-	margin: 40px auto 0 auto;
-	padding-bottom: 26px;
-	text-align: center;
+    width: 60%;
+    max-width: 300px;
+    margin: 40px auto 0 auto;
+    padding-bottom: 26px;
+    text-align: center;
 }
-
 .warning p {
-	padding-top: 20px;
-	margin-bottom: 30px;
-	font-size: 20px;
-	color: #646464;
+    padding-top: 20px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    color: #646464;
 }
-
 .confirm {
-	max-width: 300px;
+    max-width: 300px;
 }
-
 .register {
-	width: 75%;
-	margin: 60px auto 0 auto;
-	background-color: transparent;
-	padding: 0;
+    width: 75%;
+    margin: 60px auto 0 auto;
+    background-color: transparent;
+    padding: 0;
 }
-
 .links, .links a {
-	text-align: center;
-	font-size: 20px;
-	margin-left: auto;
-	margin-right: auto;
-	color: #416969;
+    text-align: center;
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #416969;
 }
-
-a:hover {
+/*a:hover {
 	text-decoration: underline;
-}
+}*/

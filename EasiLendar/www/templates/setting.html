@@ -1,0 +1,93 @@
+<!-- starter: Can Duy Cat
+	 owner: Can Duy Cat
+	 last update: 24/02/2015
+	 type: html -->
+
+<ion-view title="Setting">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-home" ui-sref="home" menu-close></button>
+    </ion-nav-buttons>
+    <ion-content padding="true">
+        <div class="list" style="margin-top: -10px">
+            <p style="margin-top: 10px; margin-bottom: -5px; color: #646464">
+                <b>APPERANCE</b>
+            </p>
+            <hr style="border: 2px solid #E6E6E6; width: 100%">
+
+            <label class="item item-input item-select" style="border-left: 0; border-right: 0; border-top: 0; margin-top: -7px">
+                <div class="input-label">Theme</div>
+                <select>
+                    <option selected>Auto</option>
+                    <option>Gray</option>
+                    <option>Blue</option>
+                    <option>Pink</option>
+                    <option>Violet</option>
+                    <option>Yellow</option>
+                    <option>Green</option>
+                    <option>Brown</option>
+                </select>
+            </label>
+            <label class="item item-input item-select" style="border-left: 0; border-right: 0; border-bottom: 0">
+                <div class="input-label">Language</div>
+                <select>
+                    <option selected>English</option>
+                    <option>Tiếng Việt</option>
+                </select>
+            </label>
+
+            <p style="margin-top: 10px; margin-bottom: -5px; color: #646464">
+                <b>CALENDAR</b>
+            </p>
+            <hr style="border: 2px solid #E6E6E6; width: 100%">
+
+            <label class="item item-input" style="border-left: 0; border-right: 0; border-top: 0; margin-top: -7px" ng-click="showPopup('Calendars', 'templates/calendar-select.html')">
+                <div class="input-label">Calendars</div>
+            </label>
+            <label class="item item-input" style="border-left: 0; border-right: 0; border-bottom: 0" ng-click="showPopup('Sync options', 'templates/sync-option.html')">
+                <div class="input-label">Sync</div>
+            </label>
+
+            <p style="margin-top: 10px; margin-bottom: -5px; color: #646464">
+                <b>VIEW SETTINGS</b>
+            </p>
+            <hr style="border: 2px solid #E6E6E6; width: 100%">
+
+            <label class="item item-input item-select" style="border-left: 0; border-right: 0; border-top: 0; margin-top: -7px">
+                <div class="input-label">Default view</div>
+                <select>
+                    <option selected>Month</option>
+                    <option>Week</option>
+                    <option>Day</option>
+                    <option>List</option>
+                </select>
+            </label>
+            <label class="item item-input item-select" style="border-left: 0; border-right: 0">
+                <div class="input-label">Day views</div>
+                <select>
+                    <option selected>Time grid</option>
+                    <option>Event list</option>
+                </select>
+            </label>
+            <label class="item item-input item-select" style="border-left: 0; border-right: 0; border-bottom: 0">
+                <div class="input-label">First day of week</div>
+                <select>
+                    <option>Sunday</option>
+                    <option selected>Monday</option>
+                </select>
+            </label>
+
+            <p style="margin-top: 10px; margin-bottom: -5px; color: #646464">
+                <b>EasiLendar</b>
+            </p>
+            <hr style="border: 2px solid #E6E6E6; width: 100%">
+
+            <button class="item" style="border-left: 0; border-right: 0; border-top: 0; margin-top: -5px; width: 100%; text-align: left">
+                Suggested apps</button>
+
+            <button class="item" style="border-left: 0; border-right: 0; border-bottom: 0; width: 100%; text-align: left; color: #646464" ui-sref="about" menu-close>
+                <b>About</b>
+            </button>
+
+        </div>
+    </ion-content>
+</ion-view>

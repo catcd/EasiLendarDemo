@@ -1,0 +1,19 @@
+<!-- starter: Can Duy Cat
+	 owner: Nguyen Minh Trang
+	 last update: 24/02/2015
+	 type: state template -->
+
+<form method="POST" name="signInForm" data-ng-submit="signIn()">
+    <div class="item-input">
+        <input data-ng-model="user.id" type="text" name="userid" placeholder="EasiLendar ID" required />
+    </div>
+    <div class="item-input">
+        <input data-ng-model="user.password" type="password" name="password" placeholder="Password" required />
+    </div>
+    <div class="checkbox checkbox-easi-blue rememberme">
+        <input data-ng-model="isRemember" type="checkbox" />
+        <label>Remember me
+        </label>
+    </div>
+    <input class="button button-block button-easi-blue" type="submit" value="Sign in" />
+</form>

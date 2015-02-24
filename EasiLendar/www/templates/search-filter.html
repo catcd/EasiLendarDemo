@@ -1,0 +1,157 @@
+<!-- starter: Can Duy Cat
+	 owner: Ngo Duc Dung
+	 last update: 24/02/2015
+	 type: html -->
+
+<ion-view title="Search filter">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-chevron-left" ui-sref="profile" menu-close></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-easi-blue" style="border: 0" ui-sref="result" menu-close>Done</button>
+    </ion-nav-buttons>
+    <ion-content padding="true">
+        <div class="list">
+            <!-- START: Commom Filter  -->
+            <span style="margin-bottom: -5px; color: #646464; margin-left: 10px"><b>COMMON
+			FILTER</b></span>
+            <hr style="border: 2px solid #E6E6E6; width: 100%; margin-top: -2px">
+            </hr>
+            <div class="list list-inset" id="inset01">
+                <div class="item item-input">
+                    <input type="text" name="fTitle" placeholder="Title">
+                </div>
+                <div class="item item-input">
+                    <input type="number" name="fDuration" placeholder="Duration" min="0" max="24">
+                </div>
+                <div class="item item-input">
+                    <input type="text" name="fLocation" placeholder="Location">
+                </div>
+                <div class="item item-input" style="border-bottom: 0">
+                    <textarea name="fMessage" placeholder="Message" rows="4"></textarea>
+                </div>
+            </div>
+            <p style="margin-top: 7px; margin-bottom: -5px; color: #646464">
+                <button id="button01" data-ng-click="showAdvanceFilter()">
+                    <b>ADVANCE FILTER</b>
+                </button>
+            </p>
+            <hr style="border: 2px solid #E6E6E6; width: 100%"></hr>
+
+            <!--End: Commom Filter -->
+
+            <!-- START: Advance Filter -->
+            <form data-ng-show="fShow">
+                <!-- -------$$$$$$------- -->
+
+                <div class="list" id="inset01">
+                    <span>Time:</span>
+                    <center>
+                        <div class="item item-input" style="width: 100%; border-bottom: 1px solid #E6E6E6">
+                            <table style="width: 100%">
+                                <tr>
+                                    <td style="width: 50%">
+                                        <input type="number" name="fFrom" placeholder="From 0Am" min="0" max="24">
+                                    </td>
+                                    <td style="width: 50%">
+                                        <input type="number" name="fTo" placeholder="To 24Pm" min="0" max="24">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </center>
+
+                    <!-- -------$$$$$$------- -->
+                    <div class="list list-inset" id="inset01">
+                        <span>Expiration:</span>
+                        <div class="item item-input">
+                            <input type="number" name="fExpiration" placeholder="Expiration" min="0" max="24">
+                        </div>
+                        <div class="item" style="border-bottom: 0">
+                            <select name="fDate">
+                                <option value="day"><span>Days</span>
+                                </option>
+                                <option value="week"><span>Weeks</span>
+                                </option>
+                                <option value="month"><span>Months</span>
+                                </option>
+                                <option value="year">
+                                    </span>Years</span>
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- -------$$$$$$------- -->
+                    <div class="list list-inset" id="inset01">
+                        <span>Avoid/Prioritize:</span>
+                        <div class="list list-inset" id="inset01">
+                            <table style="width: 100%">
+                                <tr>
+                                    <td id="td01">Breakfast:</td>
+                                    <td id="td02">
+                                        <div class="segmented-button">
+                                            <input type="radio" name="fBreakfast" value="avoid" id="avoid#00" checked>
+                                            <label for="avoid#00" class="first">Avoid</label>
+                                            <input type="radio" name="fBreakfast" value="prioritize" id="prioritize#00">
+                                            <label for="prioritize#00" class="last">Prioritize</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td id="td01">Lunch:</td>
+                                    <td id="td02">
+                                        <div class="segmented-button">
+                                            <input type="radio" name="fLunch" value="avoid" id="avoid#01" checked>
+                                            <label for="avoid#01" class="first">Avoid</label>
+                                            <input type="radio" name="fLunch" value="prioritize" id="prioritize#01">
+                                            <label for="prioritize#01" class="last">Prioritize</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td id="td01">Dinner:</td>
+                                    <td id="td02">
+                                        <div class="segmented-button">
+                                            <input type="radio" name="fDinner" value="avoid" id="avoid#02" checked>
+                                            <label for="avoid#02" class="first">Avoid</label>
+                                            <input type="radio" name="fDinner" value="prioritize" id="prioritize#02">
+                                            <label for="prioritize#02" class="last">Prioritize</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td id="td01">Office-time:</td>
+                                    <td id="td02">
+                                        <div class="segmented-button">
+                                            <input type="radio" name="fOffice" value="avoid" id="avoid#03" checked>
+                                            <label for="avoid#03" class="first">Avoid</label>
+                                            <input type="radio" name="fOffice" value="prioritize" id="prioritize#03">
+                                            <label for="prioritize#03" class="last">Prioritize</label>
+                                        </div>
+                                </tr>
+
+                                <tr>
+                                    <td id="td01">Holiday:</td>
+                                    <td id="td02">
+                                        <div class="segmented-button">
+                                            <input type="radio" name="fHoliday" value="avoid" id="avoid#04" checked>
+                                            <label for="avoid#04" class="first">Avoid</label>
+
+                                            <input type="radio" name="fHoliday" value="prioritize" id="prioritize#04">
+                                            <label for="prioritize#04" class="last">Prioritize</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                    <!-- END: Advance Filter -->
+            </form>
+            </div>
+    </ion-content>
+</ion-view>
