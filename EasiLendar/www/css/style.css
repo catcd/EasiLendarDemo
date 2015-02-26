@@ -1,162 +1,100 @@
 /**
- * starter: Nguyen Minh Trang
- * owner: Can Duy Cat
- * last update: 25/02/2015
- * type: general css
- *
- * My app's style
- * 1. Styles based on ionic.css
- * 2. Styles for all state
- */
+* starter: Nguyen Minh Trang
+* owner: Can Duy Cat
+* last update: 26/02/2015
+* type: general css
+*
+* My app's style
+* 1. Styles based on ionic.css
+* 2. Styles for all state
+*/
 /* font */
 
 @font-face {
-    font-family: Ion;
-    src: url(../font/ionicons.woff);
+        font-family: Ion;
+        src: url(../font/ionicons.woff);
 }
 @font-face {
-    font-family: Giddy;
-    src: url(../font/GiddyupStd.otf);
+        font-family: Giddy;
+        src: url(../font/GiddyupStd.otf);
 }
-* {
-    font: 100%/150% Ion, helvetica, sans-serif;
-}
+* { font: 100%/150% Ion, helvetica, sans-serif; }
 input, button, select, textarea, optgroup, option {
     font-family: inherit;
     font-size: inherit;
     font-style: inherit;
     font-weight: inherit;
 }
-.easi-font {
-    font-family: Giddy;
-}
+.easi-font { font-family: Giddy; }
 /* general style */
 
-html {
-    width: 100%;
-    height: 100%;
+html { height: 100%; width: 100%; }
+.popup-head { border: 0; }
+.popup-body { background-color: #E6E6E6; border: 0; }
+.popup-buttons .button {
+    background-color: #416969;
+    border: 0;
+    border-radius: 0px;
+    color: white;
 }
-/* Easi id */
+/* Easi class */
 /* Easi color */
 /* Easi icons */
 /* Easi bars */
 
 .bar.bar-easi-blue {
-    border-color: #315050;
     background-color: #416969;
     background-image: linear-gradient(0deg, #315050, #315050 50%, transparent 50%);
+    border-color: #315050;
     color: #fff;
 }
-.bar.bar-easi-blue .title {
-    color: #fff;
-}
-.bar.bar-easi-blue.bar-footer {
-    background-image: linear-gradient(180deg, #315050, #315050 50%, transparent 50%);
-}
+.bar.bar-easi-blue .title { color: #fff; }
+.bar.bar-easi-blue.bar-footer { background-image: linear-gradient(180deg, #315050, #315050 50%, transparent 50%); }
 .bar.bar-easi-gray {
-    border-color: #505050;
     background-color: #646464;
     background-image: linear-gradient(0deg, #505050, #505050 50%, transparent 50%);
+    border-color: #505050;
     color: #fff;
 }
-.bar.bar-easi-gray .title {
-    color: #fff;
-}
-.bar.bar-easi-gray.bar-footer {
-    background-image: linear-gradient(180deg, #505050, #505050 50%, transparent 50%);
-}
-.bar-easi-blue .button {
-    border-color: #315050;
-    background-color: #416969;
-    color: #fff;
-}
-.bar-easi-blue .button:hover {
-    color: #fff;
-    text-decoration: none;
-}
-.bar-easi-blue .button.activated, .bar-easi-blue .button.active {
-    border-color: #315050;
-    background-color: #315050;
-    box-shadow: inset 0 1px 4px rgba(0, 0, 0, .1);
-}
+.bar.bar-easi-gray .title { color: #fff; }
+.bar.bar-easi-gray.bar-footer { background-image: linear-gradient(180deg, #505050, #505050 50%, transparent 50%); }
+.bar-easi-blue .button { background-color: #416969; border-color: #315050; color: #fff; }
+.bar-easi-blue .button:hover { color: #fff; text-decoration: none; }
+.bar-easi-blue .button.activated, .bar-easi-blue .button.active { background-color: #315050; border-color: #315050; box-shadow: inset 0 1px 4px rgba(0, 0, 0, .1); }
 .bar-easi-blue .button.button-clear {
-    border-color: transparent;
     background: 0 0;
+    border-color: transparent;
     box-shadow: none;
     color: #fff;
     font-size: 17px;
 }
-.bar-easi-blue .button.button-icon {
-    border-color: transparent;
-    background: 0 0;
-}
-.bar-easi-gray .button {
-    border-color: #505050;
-    background-color: #646464;
-    color: #fff;
-}
-.bar-easi-gray .button:hover {
-    color: #fff;
-    text-decoration: none;
-}
-.bar-easi-gray .button.activated, .bar-easi-gray .button.active {
-    border-color: #505050;
-    background-color: #505050;
-    box-shadow: inset 0 1px 4px rgba(0, 0, 0, .1);
-}
+.bar-easi-blue .button.button-icon { background: 0 0; border-color: transparent; }
+.bar-easi-gray .button { background-color: #646464; border-color: #505050; color: #fff; }
+.bar-easi-gray .button:hover { color: #fff; text-decoration: none; }
+.bar-easi-gray .button.activated, .bar-easi-gray .button.active { background-color: #505050; border-color: #505050; box-shadow: inset 0 1px 4px rgba(0, 0, 0, .1); }
 .bar-easi-gray .button.button-clear {
-    border-color: transparent;
     background: 0 0;
+    border-color: transparent;
     box-shadow: none;
     color: #fff;
     font-size: 17px;
 }
-.bar-easi-gray .button.button-icon {
-    border-color: transparent;
-    background: 0 0;
-}
-/* Easi checkbox */
+.bar-easi-gray .button.button-icon { background: 0 0; border-color: transparent; }
+/* easi checkbox */
 
-.checkbox-easi-blue .checkbox-icon:before, .checkbox-easi-blue input:before {
-    border-color: #416969;
-}
-.checkbox-easi-blue input:checked+.checkbox-icon:before, .checkbox-easi-blue input:checked:before {
-    background: #416969;
-    border-color: #416969;
-}
-/* Easi button */
+.checkbox-easi-blue .checkbox-icon:before, .checkbox-easi-blue input:before { border-color: #416969; }
+.checkbox-easi-blue input:checked+.checkbox-icon:before, .checkbox-easi-blue input:checked:before { background: #416969; border-color: #416969; }
+/* easi button */
 
-.button.button-easi-blue {
-    border-color: #315050;
-    background-color: #416969;
-    color: #fff;
-}
-.button.button-easi-blue:hover {
-    color: #fff;
-    text-decoration: none;
-}
-.button.button-easi-blue.activated, .button.button-easi-blue.active {
-    border-color: #315050;
-    background-color: #315050;
-    box-shadow: inset 0 1px 4px rgba(0, 0, 0, .1);
-}
+.button.button-easi-blue { background-color: #416969; border-color: #315050; color: #fff; }
+.button.button-easi-blue:hover { color: #fff; text-decoration: none; }
+.button.button-easi-blue.activated, .button.button-easi-blue.active { background-color: #315050; border-color: #315050; box-shadow: inset 0 1px 4px rgba(0, 0, 0, .1); }
 .button.button-easi-blue.button-clear {
-    border-color: transparent;
     background: 0 0;
+    border-color: transparent;
     box-shadow: none;
     color: #416969;
 }
-.button.button-easi-blue.button-icon {
-    border-color: transparent;
-    background: 0 0
-}
-.button.button-easi-blue.button-outline {
-    border-color: #416969;
-    background: 0 0;
-    color: #416969
-}
-.button.button-easi-blue.button-outline.activated, .button.button-easi-blue.button-outline.active {
-    background-color: #416969;
-    box-shadow: none;
-    color: #fff
-}
+.button.button-easi-blue.button-icon { background: 0 0; border-color: transparent; }
+.button.button-easi-blue.button-outline { background: 0 0; border-color: #416969; color: #416969; }
+.button.button-easi-blue.button-outline.activated, .button.button-easi-blue.button-outline.active { background-color: #416969; box-shadow: none; color: #fff; }
