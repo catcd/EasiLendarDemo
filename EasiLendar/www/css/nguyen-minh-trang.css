@@ -4,8 +4,8 @@
 * last update: 26/02/2015
 * type: personal css
 */
-/* result */
 
+/* result */
 #title { font-size: 25px; }
 .card {
     border: 1px solid #aaaaaa;
@@ -42,46 +42,51 @@
     text-align: left;
     width: 100%;
 }
+
 /* sign in */
-/* de them id hoac class vao nhe
-html, head, body, a, p, h1, h2, input, div {
-    border: 0;
-    font: inherit;
-    font-size: 100%;
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
+.signInBackground { 
+	background-color: #33cccc; height: 100%; width: 100%; 
 }
-.easi-image img { width: 100%; }
-/* de them id hoac class vao nhe
-body { background-color: #33cccc; height: 100%; width: 100%; }
-form { margin: 40px auto 0 auto; width: 75%; }
-/* cai input[type=text] anh huong den ca phan filter cua thang Dung
-input[type=text] {
+.easi-image {
+	width: 75%;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+.easi-image img { 
+	width: 100%; 
+}
+.signInForm, .registerForm { 
+	margin: 40px auto 0 auto; width: 75%; 
+}
+.signInForm .item-input, .registerForm .item-input {
+	background-color: #fff;
+	border-radius: 2px;
+	margin-bottom: 10px;
+}
+.signInForm input[type=text], .signInForm input[type=password],
+.registerForm input[type=text], .registerForm input[type=password],
+.registerForm input[type=email] {
     font-size: 20px;
     height: 30px;
     padding-left: 2%;
     width: 98%;
 }
-input[type=password] {
-    font-size: 20px;
-    height: 30px;
-    padding-left: 2%;
-    width: 98%;
+.rememberme input { 
+	display: inline-block; 
 }
-.rememberme input { display: inline-block; }
 .rememberme label {
     color: #416969;
     float: right;
     font-size: 20px;
     margin-left: 10px;
 }
-/*input[type=submit] {
-width: 100%;
-height: 50px;
-font-size: 30px;
-}*/
-
+.signInForm input[type=submit], .registerForm input[type=submit] {
+	width: 100%;
+	height: 50px;
+	font-size: 30px;
+}
 .warning {
     margin: 40px auto 0 auto;
     max-width: 300px;
@@ -90,12 +95,14 @@ font-size: 30px;
     width: 60%;
 }
 .warning p {
-    color: #646464;
+    color: #416969;
     font-size: 20px;
     margin-bottom: 30px;
     padding-top: 20px;
 }
-.confirm { max-width: 300px; }
+.confirm { 
+	max-width: 300px; 
+}
 .register {
     background-color: transparent;
     margin: 60px auto 0 auto;
@@ -108,6 +115,5 @@ font-size: 30px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    text-decoration: none;
 }
-a:hover { text-decoration: underline; }
-/* cac trang web t khong thay co underline dau */

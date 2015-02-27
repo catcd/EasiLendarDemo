@@ -1,6 +1,23 @@
 <!-- starter: Can Duy Cat
 	 owner: Nguyen Minh Trang
-	 last update: 24/02/2015
+	 last update: 26/02/2015
 	 type: state template -->
 
-<a ui-sref="form">Coming soon...</a>
+<form class="registerForm" method="POST" name="registerForm" data-ng-submit="register()">
+	<div class="item-input">
+		<input data-ng-model="user.id" type="text" name="userid" placeholder="EasiLendar ID" required/>
+	</div>
+	<div class="item-input">
+		<input data-ng-model="user.name" type="text" name="username" placeholder="Your name" required/>
+	</div> 
+	<div class="item-input">
+		<input data-ng-model="user.email" type="email" name="useremail" placeholder="abcxyz@gmail.com" required/>
+	</div>
+	<div class="item-input">
+		<input data-ng-model="user.password" type="password" name="password" placeholder="Your password" required/>
+	</div>
+	<div class="item-input">
+		<input data-ng-model="user.re_password" type="password" placeholder="Confirm password" required/>
+	</div>
+	<input class="button button-block button-easi-blue" type="submit" value="Register" />
+</form>
