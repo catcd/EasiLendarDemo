@@ -7,129 +7,33 @@
         <ion-nav-bar class="bar-easi-blue"> </ion-nav-bar>
         <ion-nav-view animation="slide-left-right"> </ion-nav-view>
     </ion-side-menu-content>
+
     <ion-side-menu side="left">
         <ion-header-bar class="bar-easi-gray">
             <h1 class="easi-light-gray title">MENU</h1>
         </ion-header-bar>
+
         <ion-content id="sideMenuContent">
             <div class="list easi-space">
-                <a class="item myAvatar item-icon-right sideMenu" ui-sref="about" menu-close> <img src="img/boy1.png">
-                    <h2 class="easi-light-gray">Can Duy Cat</h2>
-                    <i class="icon ion-ribbon-b easi-vip-color"></i>
-                </a>
-                <hr class="sideMenu">
-                <a class="item item-icon-left sideMenu" ui-sref="about" menu-close>
-                    <i class="icon ion-plus-circled"></i> Create
-                </a>
-                <hr class="sideMenu">
-                <a class="item item-icon-left sideMenu" ui-sref="month" menu-close>
-                    <i class="icon ion-calendar"></i> Month
-                </a>
-                <hr class="sideMenu">
-                <a class="item item-icon-left sideMenu" ui-sref="week" menu-close>
-                    <i class="icon ion-calendar"></i> Week
-                </a>
-                <hr class="sideMenu">
-                <a class="item item-icon-left sideMenu" ui-sref="day" menu-close>
-                    <i class="icon ion-calendar"></i> Day
-                </a>
-                <hr class="sideMenu">
-                <a class="item item-icon-left sideMenu" ui-sref="list" menu-close>
-                    <i class="icon ion-clipboard"></i> List
-                </a>
-                <p class="easi-light-gray" class="splitMenu">TOOLS</p>
-                <hr class="splitMenu">
-                <a class="item item-icon-left sideMenu item-icon-right" ui-sref="about" menu-close> <i class="icon ion-refresh"></i> Restore <i class="icon ion-alert-circled easy-dark-blue"></i>
-                </a>
-                <hr class="sideMenu">
-                <a class="item item-icon-left sideMenu" ui-sref="about" menu-close>
-                    <i class="icon ion-share"></i> Share
-                </a>
-                <hr class="sideMenu">
-                <a class="item item-icon-left sideMenu" ui-sref="about" menu-close>
-                    <i class="icon ion-document-text"></i> Export
-                </a>
-                <hr class="sideMenu">
-                <a class="item item-icon-left sideMenu" ui-sref="about" menu-close>
-                    <i class="icon ion-ribbon-b easi-vip-color"></i> EasiVIP
-                </a>
-                <hr class="sideMenu">
-                <a class="item item-icon-left sideMenu" ui-sref="about" menu-close>
-                    <i class="icon ion-help-circled"></i> Helps
-                </a>
-                <hr class="sideMenu">
-                <a class="item item-icon-left sideMenu" ui-sref="setting" menu-close> <i class="icon ion-android-settings"></i> Settings
-                </a>
-                <hr class="sideMenu">
-                <a class="item item-icon-left sideMenu" ui-sref="form" menu-close>
-                    <i class="icon ion-power"></i> Sign out
-                </a>
-                <hr class="sideMenu">
-                <a class="item item-icon-left sideMenu" ui-sref="form" menu-close>
-                    <i class="icon ion-log-out"></i> Exit
-                </a>
-                <hr class="sideMenu">
+                <menu-panel></menu-panel>
             </div>
         </ion-content>
     </ion-side-menu>
-    <ion-side-menu side="right">
+
+    <ion-side-menu side="right" ng-controller="friendPanelController">
         <ion-header-bar class="bar-easi-gray">
             <h1 class="title">Friends</h1>
         </ion-header-bar>
+
         <ion-content id="sideMenuContent">
             <div class="list easi-space">
-                <a class="item myAvatar item-icon-right sideMenu" ui-sref="profile" menu-close>
-                    <img src="img/boy3.png">
-                    <h2 class="easi-light-gray">Ngo Duc Dung</h2>
-                    <i class="icon ion-ribbon-b easi-vip-color"></i>
-                </a>
-                <hr class="sideMenu">
-                <a class="item myAvatar sideMenu" href="#"> <img src="img/girl4.png">
-                    <h2 class="easi-light-gray">Nguyen Thi Luong</h2>
-                </a>
-                <hr class="sideMenu">
-                <a class="item myAvatar item-icon-right sideMenu" href="#"> <img src="img/boy1.png">
-                    <h2 class="easi-light-gray">Can Duy Cat</h2>
-                    <i class="icon ion-ribbon-b easi-vip-color"></i>
-                </a>
-                <hr class="sideMenu">
-                <a class="item myAvatar item-icon-right sideMenu" href="#"> <img src="img/boy4.png">
-                    <h2 class="easi-light-gray">Nguyen Manh Duy</h2>
-                    <i class="icon ion-ribbon-b easi-vip-color"></i>
-                </a>
-                <hr class="sideMenu">
-                <a class="item myAvatar item-icon-right sideMenu" href="#"> <img src="img/girl2.png">
-                    <h2 class="easi-light-gray">Nguyen Minh Trang</h2>
-                    <i class="icon ion-ribbon-b easi-vip-color"></i>
-                </a>
-                <hr class="sideMenu">
-                <a class="item myAvatar sideMenu" href="#"> <img src="img/boy3.png">
-                    <h2 class="easi-light-gray">Ngo Duc Dung</h2>
-                </a>
-                <hr class="sideMenu">
-                <a class="item myAvatar sideMenu" href="#"> <img src="img/girl4.png">
-                    <h2 class="easi-light-gray">Nguyen Thi Luong</h2>
-                </a>
-                <hr class="sideMenu">
-                <a class="item myAvatar item-icon-right sideMenu" href="#"> <img src="img/boy1.png">
-                    <h2 class="easi-light-gray">Can Duy Cat</h2>
-                    <i class="icon ion-ribbon-b easi-vip-color"></i>
-                </a>
-                <hr class="sideMenu">
-                <a class="item myAvatar item-icon-right sideMenu" href="#"> <img src="img/boy4.png">
-                    <h2 class="easi-light-gray">Nguyen Manh Duy</h2>
-                    <i class="icon ion-ribbon-b easi-vip-color"></i>
-                </a>
-                <hr class="sideMenu">
-                <a class="item myAvatar sideMenu" href="#"> <img src="img/girl2.png">
-                    <h2 class="easi-light-gray">Nguyen Minh Trang</h2>
-                </a>
-                <hr class="sideMenu">
+                <friend-panel></friend-panel>
             </div>
         </ion-content>
+
         <ion-footer-bar class="bar bar-footer item-input-inset easi-back-gray">
             <label class="item-input-wrapper"> <i class="icon ion-ios7-search placeholder-icon"></i>
-                <input type="search" placeholder="Search">
+                <input type="search" data-ng-model="searchFriend" placeholder="Search">
             </label>
         </ion-footer-bar>
     </ion-side-menu>
