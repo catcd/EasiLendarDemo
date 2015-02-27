@@ -1,9 +1,9 @@
 <!-- starter: Can Duy Cat
 	 owner: Nguyen Minh Trang
-	 last update: 24/02/2015
+	 last update: 26/02/2015
 	 type: state template -->
 
-<form method="POST" name="signInForm" data-ng-submit="signIn()">
+<form class="signInForm "method="POST" name="signInForm" data-ng-submit="signIn()">
     <div class="item-input">
         <input data-ng-model="user.id" type="text" name="userid" placeholder="EasiLendar ID" required />
     </div>
@@ -12,8 +12,13 @@
     </div>
     <div class="checkbox checkbox-easi-blue rememberme">
         <input data-ng-model="isRemember" type="checkbox" />
-        <label>Remember me
-        </label>
+        <label>Remember me</label>
     </div>
     <input class="button button-block button-easi-blue" type="submit" value="Sign in" />
 </form>
+<!-- links -->
+<div class="register">
+    <p class="links">
+        <a ui-sref="register">Register</a> | <a href="#">Forgot password?</a>
+    </p>
+</div>
