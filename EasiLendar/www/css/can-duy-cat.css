@@ -1,22 +1,33 @@
 /**
-* starter: Can Duy Cat
-* owner: Can Duy Cat
-* last update: 26/02/2015
-* type: general css
-*/
-/* loading */
+ * starter: Can Duy Cat
+ * owner: Can Duy Cat
+ * last update: 26/02/2015
+ * type: general css
+ */
 
-div#loading { text-align: center; }
-img#logo { height: 39vh; margin-top: 20vh; }
-img#name { height: 13vh; }
-img#load { width: 40vmin; }
+/* loading + about */
+img.logo { height: 30vh; margin-top: 15vh; }
+p.bigName { color: #FFFFFF; font-size: 400%; margin-top: 30px; }
+#aboutContent { background-color: #33CCCC; height: 110vh; width: 100vw; }
+
 /* side menu */
-
 #sideMenuContent { background-color: #646464; border: 0; }
-a#sideMenu:link { background-color: #646464; border: 0; color: #E6E6E6; }
-a#sideMenu:visited { background-color: #646464; border: 0; color: #E6E6E6; }
-a#sideMenu:hover { background-color: #646464; border: 0; color: #E6E6E6; }
-a#sideMenu:active { background-color: #33CCCC; border: 0; color: #E6E6E6; }
-#trangXam { color: #E6E6E6; }
-#avaStt { color: #33CCCC; }
-hr#sideMenu { border: 1px solid #707070; width: 90%; }
+a.sideMenu:link { background-color: #646464; border: 0; color: #E6E6E6; }
+a.sideMenu:visited { background-color: #646464; border: 0; color: #E6E6E6; }
+a.sideMenu:hover { background-color: #646464; border: 0; color: #E6E6E6; }
+a.sideMenu:active { background-color: #33CCCC; border: 0; color: #E6E6E6; }
+hr.sideMenu { border: 1px solid #707070; width: 90%; }
+hr.splitMenu { border: 2px solid #707070; width: 95%; }
+p.splitMenu { margin-bottom: -8px; margin-left: 10px; margin-top: 10px; }
+.myAvatar, .myAvatar .item-content { height: 51px; min-height: 51px; padding-left: 60px; }
+.myAvatar > img:first-child, .myAvatar .item-image, .myAvatar .item-content > img:first-child, .myAvatar .item-content .item-image {
+	left: 10px;
+	max-height: 40px;
+	max-width: 40px;
+	position: absolute;
+	top: 4px;
+}
+
+/* popover */
+#popView {height: 60vh; border-radius: 0; border: 0;}
+#popBar {height: 30px; padding-left: 10px; border-radius: 0; border: 0;}
