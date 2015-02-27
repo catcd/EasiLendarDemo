@@ -1,10 +1,11 @@
-<pre> ____               _                    _  
+<pre style="background-color: white;">
+ ____               _                    _  
 |  __| ____ ____  _| |    ___  ____   __| | ____ ____  
 |  __ / _  |\  _\| | |   / _ \|  _ \ / _  |/ _  |    \  
 |  __| (_| |_\ \ | | |__| (__/| | | | (_| | (_| | |__/  
 |____|\____|\___\|_|____|\___ |_| |_|\____|\____|_|\_\  
 </pre>
-_The Very Best Meeting Planer_  
+<b>_The Very Best Meeting Planer_</b>  
 __TEXAS Group__  
 Can Duy Cat.  
 Nguyen Minh Trang.  
@@ -13,6 +14,22 @@ Nguyen Manh Duy.
 Nguyen Thi Luong.  
 
 Planning meetings with [Doodle](http://doodle.com/ "Doodle") is tedious and difficult with more than a few people who each have many constraints. For this project we create a better meeting planner, one that fills the same purpose as Doodle, but more efficiently (in terms of user time and elapsed time to find a meeting time).
+
+**Table of Contents**
+
+- [Why choose EasiLendar over Doodle?](#)
+- [What can it do?](#)
+		- [Common features](#)
+		- [Advanced features](#)
+- [Requirements](#)
+		- [System](#)
+		- [Connection](#)
+- [Installation](#)
+		- [Installing EasiLendar](#)
+		- [Uninstalling EasiLendar](#)
+- [About](#)
+		- [Project development team](#)
+		- [Contact](#)
 
 ##Why choose EasiLendar over Doodle?
 Many people use Doodle and similar services to find times to meet. When the number of participants is more than three or four, this usually leads to one of two scenarios:  
@@ -49,12 +66,14 @@ EasiLendar work with a web database so the device must be connected to the Inter
 
 ##Installation
 ####Installing EasiLendar
+Coming soon...
 ####Uninstalling EasiLendar
+Coming soon...
 
 ##About
-EasiLendar  
+<p style="font-size: 200%"><b>EasiLendar</b></p>  
 _The Very Best Meeting Planer._  
-####Project development team
+__Project development team__  
 __TEXAS Group__
   * Can Duy Cat  
   * Nguyen Minh Trang  
@@ -62,6 +81,6 @@ __TEXAS Group__
   * Nguyen Manh Duy  
   * Nguyen Thi Luong  
 
-####Contact
+__Contact__  
 Phone: +84-969-422-782  
 Email: ninjameo9x@gmail.com
