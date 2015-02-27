@@ -4,12 +4,8 @@
 	 type: state template -->
 
 <form class="signInForm "method="POST" name="signInForm" data-ng-submit="signIn()">
-    <div class="item-input">
-        <input data-ng-model="user.id" type="text" name="userid" placeholder="EasiLendar ID" required />
-    </div>
-    <div class="item-input">
-        <input data-ng-model="user.password" type="password" name="password" placeholder="Password" required />
-    </div>
+    <input class="item-input" data-ng-model="user.id" type="text" name="userid" placeholder="EasiLendar ID" required />
+    <input class="item-input" data-ng-model="user.password" type="password" name="password" placeholder="Password" required />
     <div class="checkbox checkbox-easi-blue rememberme">
         <input data-ng-model="isRemember" type="checkbox" />
         <label>Remember me</label>

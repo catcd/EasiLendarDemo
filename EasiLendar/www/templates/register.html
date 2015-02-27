@@ -1,23 +1,45 @@
 <!-- starter: Can Duy Cat
 	 owner: Nguyen Minh Trang
-	 last update: 26/02/2015
+	 last update: 27/02/2015
 	 type: state template -->
 
-<form class="registerForm" method="POST" name="registerForm" data-ng-submit="register()">
-	<div class="item-input">
-		<input data-ng-model="user.id" type="text" name="userid" placeholder="EasiLendar ID" required/>
+<ion-content class="registerForm" scrollbar-y="false">
+  <form method="POST" name="registerForm" data-ng-submit="register()">
+	<div>
+		<label><strong>Easilendar ID:</strong></label>
+		<input class="item-input" data-ng-model="user.id" type="text" name="userid"/>
+		<div data-ng-show="!check()">
+          <span>{{mesId}}</span>
+        </div>
 	</div>
-	<div class="item-input">
-		<input data-ng-model="user.name" type="text" name="username" placeholder="Your name" required/>
+	<div>
+		<label><strong>Your name:</strong></label>
+		<input class="item-input" data-ng-model="user.name" type="text" name="username"/>
+		<div data-ng-show="!check()">
+          <span >{{mesName}}</span>
+        </div>
 	</div> 
-	<div class="item-input">
-		<input data-ng-model="user.email" type="email" name="useremail" placeholder="abcxyz@gmail.com" required/>
+	<div>
+		<label><strong>Email:</strong></label>
+		<input class="item-input" data-ng-model="user.email" type="text" name="useremail"/>
+		<div data-ng-show="!check()">
+          <span>{{mesEmail}}</span>
+        </div>
 	</div>
-	<div class="item-input">
-		<input data-ng-model="user.password" type="password" name="password" placeholder="Your password" required/>
+	<div>
+		<label><strong>Password:</strong></label>
+		<input class="item-input" data-ng-model="user.password" type="password" name="password"/>
+		<div data-ng-show="!check()">
+          <span>{{mesPass}}</span>
+        </div>
 	</div>
-	<div class="item-input">
-		<input data-ng-model="user.re_password" type="password" placeholder="Confirm password" required/>
+	<div>
+		<label><strong>Confirm password:</strong></label>
+		<input class="item-input" data-ng-model="user.re_password" type="password"/>
+		<div data-ng-show="!check()">
+          <span>{{mesCPass}}</span>
+        </div>
 	</div>
 	<input class="button button-block button-easi-blue" type="submit" value="Register" />
-</form>
+  </form>
+</ion-content>
