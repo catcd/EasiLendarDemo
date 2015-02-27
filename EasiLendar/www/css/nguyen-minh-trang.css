@@ -49,16 +49,14 @@
 }
 .easi-image {
 	width: 75%;
-	margin-top: 50px;
-	margin-left: auto;
-	margin-right: auto;
+	font-size: 80px;
+	color: #fff;
+	line-height: 100%;
+	margin: 80px auto 0 auto;
 	text-align: center;
 }
-.easi-image img { 
-	width: 100%; 
-}
 .signInForm { 
-	margin: 40px auto 0 auto; width: 75%; 
+	margin: 30px auto 0 auto; width: 75%;
 }
 .registerForm {
 	margin: 150px auto 0 auto; width: 75%;
