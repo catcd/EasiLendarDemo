@@ -5,12 +5,12 @@
 
 <div class="registerForm" scrollbar-y="false">
   <form method="POST" name="registerForm" data-ng-submit="register()">
-	<div class="input-block">
+	<div>
 		<label><strong>Easilendar ID:</strong></label>
 		<span data-ng-show="registerForm.$submitted && !check(1)"><i class="icon ion-alert"></i>{{mesId}}</span>
 		<input class="item-input" data-ng-model="user.id" type="text" name="userid"/>
 	</div>
-	<div class="input-block">
+	<div>
 		<label><strong>Your name:</strong></label>
 		<span data-ng-show="registerForm.$submitted && !check(2)"><i class="icon ion-alert"></i>{{mesName}}</span>
 		<input class="item-input" data-ng-model="user.name" type="text" name="username"/>
@@ -25,14 +25,15 @@
 		<span data-ng-show="registerForm.$submitted && !check(4)"><i class="icon ion-alert"></i>{{mesPass}}</span>
 		<input class="item-input" data-ng-model="user.password" type="password" name="password"/>
 	</div>
-	<div class="input-block">
+	<div>
 		<label><strong>Confirm:</strong></label>
 		<span data-ng-show="registerForm.$submitted && !check(5)"><i class="icon ion-alert"></i>{{mesCPass}}</span>
 		<input class="item-input" data-ng-model="user.re_password" type="password"/>
 	</div>
-	<div>
-	  <span>By clicking Register, you agree to our EasiLendar Terms</span>
-	  <input class="button button-block button-easi-blue" type="submit" value="Register" />
+	<span>By clicking Register, you agree to our EasiLendar Terms</span>
+	<div class="button-bar">
+	  <input class="button button-easi-blue" type="submit" value="Register" />
+	  <input data-ng-click="back()" class="button button-easi-blue" type="button" value="Back"/>
 	</div>
   </form>
 </div>

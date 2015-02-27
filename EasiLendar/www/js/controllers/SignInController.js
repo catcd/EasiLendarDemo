@@ -88,9 +88,9 @@ signIn.controller('SignInController', function($scope, $state) {
 			return false;
 		} else if (!checkChar(id)) {
 			if (id.length < 4) {
-				$scope.mesId = "ID is too short.";
+				$scope.mesId = "ID is too short";
 			} else if (id.length > 15) {
-				$scope.mesId = "ID is too long.";
+				$scope.mesId = "ID is too long";
 			} else {
 				$scope.mesId = "Unexpected";
 			}
@@ -120,7 +120,7 @@ signIn.controller('SignInController', function($scope, $state) {
 			$scope.mesEmail = "Required";
 			return false;
 		} else if (-1 == email.search("@")) {
-			$scope.mesEmail = "Unvalid Email.";
+			$scope.mesEmail = "Unvalid Email";
 			return false;
 		}
 		return true;
@@ -145,7 +145,7 @@ signIn.controller('SignInController', function($scope, $state) {
 			$scope.mesCPass="Required";
 			return false;
 		} else if (cPass != pass) {
-			$scope.mesCPass = "Not match.";
+			$scope.mesCPass = "Not match";
 			return false;
 		}
 		return true;
@@ -179,5 +179,15 @@ signIn.controller('SignInController', function($scope, $state) {
 		} else {
 
 		}
+	}
+	
+	/*back to form*/
+	$scope.back = function() {
+		$scope.user.id = "";
+		$scope.name = "";
+		$scope.email = "";
+		$scope.password = "";
+		$scope.re_password = "";
+		$state.go('form');
 	}
 });
