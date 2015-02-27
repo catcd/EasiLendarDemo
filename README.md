@@ -1,16 +1,16 @@
- ____               _                    _  
+<pre> ____               _                    _  
 |  __| ____ ____  _| |    ___  ____   __| | ____ ____  
 |  __ / _  |\  _\| | |   / _ \|  _ \ / _  |/ _  |    \  
 |  __| (_| |_\ \ | | |__| (__/| | | | (_| | (_| | |__/  
 |____|\____|\___\|_|____|\___ |_| |_|\____|\____|_|\_\  
-
->_The Very Best Meeting Planer_  
->__TEXAS Group__  
->Can Duy Cat.  
->Nguyen Minh Trang.  
->Ngo Duc Dung.  
->Nguyen Manh Duy.  
->Nguyen Thi Luong.  
+</pre>
+_The Very Best Meeting Planer_  
+__TEXAS Group__  
+Can Duy Cat.  
+Nguyen Minh Trang.  
+Ngo Duc Dung.  
+Nguyen Manh Duy.  
+Nguyen Thi Luong.  
 
 Planning meetings with [Doodle](http://doodle.com/ "Doodle") is tedious and difficult with more than a few people who each have many constraints. For this project we create a better meeting planner, one that fills the same purpose as Doodle, but more efficiently (in terms of user time and elapsed time to find a meeting time).
 
@@ -43,6 +43,7 @@ Features and usability of client interfaces that can be run in:
   * Android
   * IOS
   * Web browsers on Mac OS, Windows or other platform have HTML5
+
 ####Connection
 EasiLendar work with a web database so the device must be connected to the Internet to use entire features. The users have been logging in and use Remember Me function can use some limited local features.
 
@@ -51,8 +52,8 @@ EasiLendar work with a web database so the device must be connected to the Inter
 ####Uninstalling EasiLendar
 
 ##About
->EasiLendar  
->_The Very Best Meeting Planer._  
+EasiLendar  
+_The Very Best Meeting Planer._  
 ####Project development team
 __TEXAS Group__
   * Can Duy Cat  
@@ -60,6 +61,7 @@ __TEXAS Group__
   * Ngo Duc Dung  
   * Nguyen Manh Duy  
   * Nguyen Thi Luong  
+
 ####Contact
 Phone: +84-969-422-782  
 Email: ninjameo9x@gmail.com
