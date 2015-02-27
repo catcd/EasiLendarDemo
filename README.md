@@ -1,4 +1,4 @@
-<pre background-color="#33CCCC" color="#416969">
+<pre>
  ____               _                    _  
 |  __| ____ ____  _| |    ___  ____   __| | ____ ____  
 |  __ / _  |\  _\| | |   / _ \|  _ \ / _  |/ _  |    \  
@@ -17,19 +17,17 @@ Planning meetings with [Doodle](http://doodle.com/ "Doodle") is tedious and diff
 
 **Table of Contents**
 
-- [Why choose EasiLendar over Doodle?](#)
-- [What can it do?](#)
-  - [Common features](#)
-  - [Advanced features](#)
-- [Requirements](#)
-  - [System](#)
-  - [Connection](#)
-- [Installation](#)
-  - [Installing EasiLendar](#)
-  - [Uninstalling EasiLendar](#)
-- [About](#)
-  - [Project development team](#)
-  - [Contact](#)
+- [Why choose EasiLendar over Doodle?](#why-choose-easilendar-over-doodle)
+- [What can it do?](#what-can-it-do)
+  - [Common features](#common-features)
+  - [Advanced features](#advanced-features)
+- [Requirements](#requirements)
+  - [System](#system)
+  - [Connection](#connection)
+- [Installation](#installation)
+  - [Installing EasiLendar](#installing-easilendar)
+  - [Uninstalling EasiLendar](#uninstalling-easilendar)
+- [About](#about)
 
 ##Why choose EasiLendar over Doodle?
 Many people use Doodle and similar services to find times to meet. When the number of participants is more than three or four, this usually leads to one of two scenarios:  
@@ -71,7 +69,7 @@ Coming soon...
 Coming soon...
 
 ##About
-<p font-size="200%"><b>EasiLendar</b></p>  
+<p><b>EasiLendar</b></p>  
 _The Very Best Meeting Planer._  
 __Project development team__  
 __TEXAS Group__
