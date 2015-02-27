@@ -3,43 +3,36 @@
 	 last update: 27/02/2015
 	 type: state template -->
 
-<ion-content class="registerForm" scrollbar-y="false">
+<div class="registerForm" scrollbar-y="false">
   <form method="POST" name="registerForm" data-ng-submit="register()">
-	<div>
+	<div class="input-block">
 		<label><strong>Easilendar ID:</strong></label>
+		<span data-ng-show="registerForm.$submitted && !check(1)"><i class="icon ion-alert"></i>{{mesId}}</span>
 		<input class="item-input" data-ng-model="user.id" type="text" name="userid"/>
-		<div data-ng-show="!check()">
-          <span>{{mesId}}</span>
-        </div>
 	</div>
-	<div>
+	<div class="input-block">
 		<label><strong>Your name:</strong></label>
+		<span data-ng-show="registerForm.$submitted && !check(2)"><i class="icon ion-alert"></i>{{mesName}}</span>
 		<input class="item-input" data-ng-model="user.name" type="text" name="username"/>
-		<div data-ng-show="!check()">
-          <span >{{mesName}}</span>
-        </div>
 	</div> 
-	<div>
+	<div class="input-block">
 		<label><strong>Email:</strong></label>
+		<span data-ng-show="registerForm.$submitted && !check(3)"><i class="icon ion-alert"></i>{{mesEmail}}</span>
 		<input class="item-input" data-ng-model="user.email" type="text" name="useremail"/>
-		<div data-ng-show="!check()">
-          <span>{{mesEmail}}</span>
-        </div>
 	</div>
-	<div>
+	<div class="input-block">
 		<label><strong>Password:</strong></label>
+		<span data-ng-show="registerForm.$submitted && !check(4)"><i class="icon ion-alert"></i>{{mesPass}}</span>
 		<input class="item-input" data-ng-model="user.password" type="password" name="password"/>
-		<div data-ng-show="!check()">
-          <span>{{mesPass}}</span>
-        </div>
+	</div>
+	<div class="input-block">
+		<label><strong>Confirm:</strong></label>
+		<span data-ng-show="registerForm.$submitted && !check(5)"><i class="icon ion-alert"></i>{{mesCPass}}</span>
+		<input class="item-input" data-ng-model="user.re_password" type="password"/>
 	</div>
 	<div>
-		<label><strong>Confirm password:</strong></label>
-		<input class="item-input" data-ng-model="user.re_password" type="password"/>
-		<div data-ng-show="!check()">
-          <span>{{mesCPass}}</span>
-        </div>
+	  <span>By clicking Register, you agree to our EasiLendar Terms</span>
+	  <input class="button button-block button-easi-blue" type="submit" value="Register" />
 	</div>
-	<input class="button button-block button-easi-blue" type="submit" value="Register" />
   </form>
-</ion-content>
+</div>
