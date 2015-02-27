@@ -66,14 +66,14 @@ signIn.controller('SignInController', function($scope, $state) {
 		if (str.length > 15 || str.length < 4)
 			return false;
 		for (var i = 0; i < str.length; i++) {
-			if (str.charAt(i) < 48)
+			if (str.charCodeAt(i) < 48)
 				return false;
-			else if (str.charAt(i) > 57 && str.charAt(i) < 65)
+			else if (str.charCodeAt(i) > 57 && str.charCodeAt(i) < 65)
 				return false;
-			else if (str.charAt(i) > 90 && str.charAt(i) < 97
-					&& str.charAt(i) != 95)
+			else if (str.charCodeAt(i) > 90 && str.charCodeAt(i) < 97
+					&& str.charCodeAt(i) != 95)
 				return false;
-			else if (str.charAt(i) > 122)
+			else if (str.charCodeAt(i) > 122)
 				return false;
 		}
 		return true;
