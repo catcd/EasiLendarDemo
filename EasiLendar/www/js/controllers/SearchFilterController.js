@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 24/02/2015
+ * last update: 28/02/2015
  * type: paticular controller
  */
 
@@ -24,22 +24,7 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 			mHoliday : 'none'
 		};
 
-		$scope.NewValues = {
-			mTitle :'',
-			mDuration : '',		//hours
-			mLocation : '',
-			mMessage : '',
-			mFrom : '',			//hours
-			mTo : '',			//hours
-			mExpiration : '',	//hours
-			mDate : '',  		//Days/Weeks/Months/Years
-			mBreakfast : 'none',
-			mLunch : 'none',		//Avoid/Prioritize
-			mDinner : 'none',
-			mOffice : 'none',
-			mHoliday : 'none'
-		};
-
+		$scope.newValues = angular.copy($rootScope.allValues);
 		$scope.unVip = false;
 		$scope.mShow = false;
 		
@@ -47,8 +32,9 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 			alert($rootScope.allValues.mTitle + $rootScope.allValues.mDuration + $rootScope.allValues.mLocation + $rootScope.allValues.mMessage);
 		}*/
 		$scope.deleteValue = function(){
-			$rootScope.allValues = angular.copy($scope.NewValues);
+			$rootScope.allValues = angular.copy($scope.newValues);
 			//alert($rootScope.allValues.mTitle + $rootScope.allValues.mDuration + $rootScope.allValues.mLocation + $rootScope.allValues.mMessage);
+			$scope.newValues = null;
 		}
 
 		$('label').mousedown(function() { 
