@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
      owner: Can Duy Cat
-     last update: 27/02/2015
+     last update: 28/02/2015
      type: html template -->
 <ion-side-menus>
     <ion-side-menu-content class="easi-no-shadow">
@@ -9,32 +9,10 @@
     </ion-side-menu-content>
 
     <ion-side-menu side="left">
-        <ion-header-bar class="bar-easi-gray">
-            <h1 class="easi-light-gray title">MENU</h1>
-        </ion-header-bar>
-
-        <ion-content id="sideMenuContent">
-            <div class="list easi-space">
-                <menu-panel></menu-panel>
-            </div>
-        </ion-content>
+        <menu-panel></menu-panel><!-- directive from menu-panel.html -->
     </ion-side-menu>
 
-    <ion-side-menu side="right" ng-controller="friendPanelController">
-        <ion-header-bar class="bar-easi-gray">
-            <h1 class="title">Friends</h1>
-        </ion-header-bar>
-
-        <ion-content id="sideMenuContent">
-            <div class="list easi-space">
-                <friend-panel></friend-panel>
-            </div>
-        </ion-content>
-
-        <ion-footer-bar class="bar bar-footer item-input-inset easi-back-gray">
-            <label class="item-input-wrapper"> <i class="icon ion-ios7-search placeholder-icon"></i>
-                <input type="search" data-ng-model="searchFriend" placeholder="Search">
-            </label>
-        </ion-footer-bar>
+    <ion-side-menu side="right">
+        <friend-panel></friend-panel><!-- directive from friend-panel.html -->
     </ion-side-menu>
 </ion-side-menus>

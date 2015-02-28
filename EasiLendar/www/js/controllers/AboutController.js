@@ -8,5 +8,5 @@
 angular.module('MainApp.controllers.about', [])
 
 .controller("AboutController", function($scope, $ionicPopup) {
-    $scope.ver = "1.1.3"
+    $scope.ver = "1.1.7"
 })

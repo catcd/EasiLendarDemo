@@ -1,7 +1,7 @@
 /**
 * starter: Nguyen Minh Trang
 * owner: Can Duy Cat
-* last update: 26/02/2015
+* last update: 28/02/2015
 * type: general css
 *
 * My app's style
@@ -38,6 +38,26 @@ html { height: 100%; width: 100%; }
 .easi-no-shadow { box-shadow: 0 0 0; }
 .easi-no-radius { border-radius: 0; }
 .easi-no-border { border: 0; }
+.bar .easi-title {
+    font-size: 17px;
+    font-weight: 500;
+    height: 43px;
+    left: 0;
+    line-height: 44px;
+    margin: 0 10px;
+    min-width: 30px;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    text-overflow: ellipsis;
+    top: 0;
+    white-space: nowrap;
+    z-index: 0;
+}
+.bar .easi-title.easi-title-left { text-align: left; }
+.bar .easi-title.easi-title-right { text-align: right; }
+.bar .easi-title a { color: inherit; }
 
 /* easi color */
 .easi-white { color: #FFFFFF; }

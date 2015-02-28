@@ -12,11 +12,3 @@
     margin-top: -10px;
     width: 100vw;
 }
-.myAvatar, .myAvatar .item-content { height: 51px; min-height: 51px; padding-left: 60px; }
-.myAvatar>img:first-child, .myAvatar .item-image, .myAvatar .item-content>img:first-child, .myAvatar .item-content .item-image {
-    left: 10px;
-    max-height: 40px;
-    max-width: 40px;
-    position: absolute;
-    top: 4px;
-}

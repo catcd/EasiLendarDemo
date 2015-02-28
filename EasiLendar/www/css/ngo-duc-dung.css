@@ -1,87 +1,87 @@
 /**
-* starter: Can Duy Cat
-* owner: Ngo Duc Dung
-* last update: 28/02/2015
-* type: personal css
-*/
+ * starter: Can Duy Cat
+ * owner: Ngo Duc Dung
+ * last update: 28/02/2015
+ * type: personal css
+ */
+
+/* friend panel */
+/* Can Duy Cat changed */
+.myAvatar, .myAvatar .item-content { height: 51px; min-height: 51px; padding-left: 70px; }
+.myAvatar > img:first-child, .myAvatar .item-image, .myAvatar .item-content > img:first-child, .myAvatar .item-content .item-image {
+    left: 10px;
+    max-height: 50px;
+    max-width: 50px;
+    position: absolute;
+    top: 0px;
+}
+/* end of changed part */
 
 
-
-#select01{border: 0px solid black; font-size:13px;}
-#option01{color: #646464;}
-#table01{border: 0px solid black; margin-top: -3px; width:100%;"}
-#td01{
-    padding-left: 10px;
+#select01 { border: 0px solid black; font-size: 13px; }
+#option01 { color: #646464; }
+#table01 { border: 0px solid black; margin-top: -3px; width: 100%; }
+#td01 {
     border: 0px solid black;
-    font-size: 12px;
-    color:#646464;
-}
-#td02{border: 0px solid black; padding-right:10px;}
-#span01{
-    margin-bottom: -5px; 
-    color: #646464; 
-    margin-left: 10px;
-}
-#textarea01{font-size: 14px;}
-#hr01, #hr02{border:2px solid #E6E6E6;width: 100%;}
-#hr01{margin-top: -2px;}
-#p01{margin-top: 7px;margin-bottom: -5px; color: #646464;}
-#div01{width:100%; border-bottom: 1px solid #E6E6E6;}
-.list{
-   
-    margin-top: 1px;
-
-}
-.list.list-inset#inset01{
-    border: 0px solid black;
-    margin-top: 2px;
-    margin-bottom: -5px;
-    border-bottom: 0;
-}
-.item{border: 0px solid black; border-bottom: 2px solid #E6E6E6; padding-top:0px;}
-#button01{
-    margin-left:6px;
-    border: 0;
-    background-color: #ffffff;
-    font-size: 14px;
     color: #646464;
+    font-size: 12px;
+    padding-left: 10px;
 }
+#td02 { border: 0px solid black; padding-right: 10px; }
+#span01 { color: #646464; margin-bottom: -5px; margin-left: 10px; }
+#textarea01 { font-size: 14px; }
+#hr01, #hr02 { border: 2px solid #E6E6E6; width: 100%; }
+#hr01 { margin-top: -2px; }
+#p01 { color: #646464; margin-bottom: -5px; margin-top: 7px; }
+#div01 { border-bottom: 1px solid #E6E6E6; width: 100%; }
+.list { margin-top: 1px; }
+.list.list-inset#inset01 {
+    border: 0px solid black;
+    border-bottom: 0;
+    margin-bottom: -5px;
+    margin-top: 2px;
+}
+.item { border: 0px solid black; border-bottom: 2px solid #E6E6E6; padding-top: 0px; }
+#button01 {
+    background-color: #ffffff;
+    border: 0;
+    color: #646464;
+    font-size: 14px;
+    margin-left: 6px;
+}
+
 /*SEGMENT BUTTON*/
 .segmented-button {
     border: 0 solid black;
-    padding: 5px;
-    width: 100%;
-    text-align: right;  
     font-size: 13px;
+    padding: 5px;
+    text-align: right;
+    width: 100%;
 }
 .segmented-button input[type="radio"] { display: none; height: 0px; width: 0px; }
 .segmented-button label {
-    display: inline-block;
-    vertical-align: middle;
-    border-radius: 0px;
     border: 0px solid #E6E6E6;
+    border-radius: 0px;
+    border-radius: 0px;
     color: #646464;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 10px;
+    margin-right: -4.5px;
     padding: 5px 15px;
     padding-bottom: 3px;
-    font-size: 10px;
-    cursor:pointer;
-    border-radius: 0px;
-    margin-right: -4.5px;
+    vertical-align: middle;
 }
 .segmented-button label.first { border-right: 1px solid #E6E6E6; text-align: center; width: 69px; }
 .segmented-button label.last { text-align: center; width: 69px; }
-.segmented-button input:checked+label, .segmented-button label.selected {
-    background: #646464;
-    color: #ffffff;
-}
+.segmented-button input:checked+label, .segmented-button label.selected { background: #646464; color: #ffffff; }
 
 /*VALIDATION*/
-input.ng-invalid, textarea.ng-invalid{
-    color: #FA787E;
-}
-.error{color: #FA787E; font-size:10px;}
-.error#error01{margin-left: 16px;}
-#div00{height: 21px;}
+input.ng-invalid, textarea.ng-invalid { color: #FA787E; }
+.error { color: #FA787E; font-size: 10px; }
+.error#error01 { margin-left: 16px; }
+#div00 { height: 21px; }
+
 /*validation show-hide*/
-.my-animation { -webkit-transition:all linear 0.5s; transition:all linear 0.5s;}
-.my-animation.ng-hide {opacity:0;}
+.my-animation { -webkit-transition: all linear 0.5s; transition: all linear 0.5s; }
+.my-animation.ng-hide { opacity: 0; }
