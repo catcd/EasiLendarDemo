@@ -1,14 +1,32 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 28/02/2015
+ * last update: 01/03/2015
  * type: general css
  */
 
 /* loading + about */
 img.logo { height: 30vh; margin-top: 15vh; }
 p.bigName { color: #FFFFFF; font-size: 400%; margin-top: 30px; }
-#aboutContent { background-color: #33CCCC; height: 110vh; width: 100vw; }
+
+/* coming soon */
+.coming-content {display: inline-block; width: 300px; margin-top: 25vh; font-size:25px;}
+div.coming-input {display: inline-block; width: 300px; margin-top: 30px;}
+input.coming-input {display: inline-block; width: 155px; height: 30px; padding-left: 10px; color: #416969; font-size: 11px;}
+button.coming-button {display: inline-block; min-width: 40px; width: 47px; min-height: 30px; height: 30px;v}
+p.coming-slogan {font-family: Giddy; font-size: 22px; margin-top: 10px; }
+input.coming-input::-webkit-input-placeholder {
+	font-size: 11px;
+}
+input.coming-input:-moz-placeholder {
+	font-size: 12px;
+}
+input.coming-input::-moz-placeholder {
+	font-size: 12px;
+}
+input.coming-input:-ms-input-placeholder {
+	font-size: 12px;
+}
 
 /* side menu */
 #sideMenuContent { background-color: #646464; border: 0; }

@@ -1,7 +1,7 @@
 /**
 * starter: Nguyen Minh Trang
 * owner: Can Duy Cat
-* last update: 28/02/2015
+* last update: 01/03/2015
 * type: general css
 *
 * My app's style
@@ -34,6 +34,8 @@ html { height: 100%; width: 100%; }
 
 /* easi style */
 .easi-center { text-align: center; }
+.easi-left { text-align: left; }
+.easi-right { text-align: right; }
 .easi-space { margin-top: 10px; }
 .easi-no-shadow { box-shadow: 0 0 0; }
 .easi-no-radius { border-radius: 0; }
@@ -71,6 +73,7 @@ html { height: 100%; width: 100%; }
 .easi-back-light-gray { background-color: #E6E6E6; }
 .easi-back-blue { background-color: #33CCCC; }
 .easi-back-dark-blue { background-color: #416969; }
+.easi-full-blue { background-color: #33CCCC; height: 100vh; width: 100vw; }
 
 /* easi icons */
 
@@ -119,15 +122,15 @@ html { height: 100%; width: 100%; }
 .checkbox-easi-blue input:checked+.checkbox-icon:before, .checkbox-easi-blue input:checked:before { background: #416969; border-color: #416969; }
 
 /* easi button */
-.button.button-easi-blue { background-color: #416969; border-color: #315050; color: #fff; }
+.button.button-easi-blue { background-color: #416969; border: 0; color: #fff; border-radius: 0; }
 .button.button-easi-blue:hover { color: #fff; text-decoration: none; }
-.button.button-easi-blue.activated, .button.button-easi-blue.active { background-color: #315050; border-color: #315050; box-shadow: inset 0 1px 4px rgba(0, 0, 0, .1); }
+.button.button-easi-blue.activated, .button.button-easi-blue.active { background-color: #315050; border: 0; box-shadow: none; }
 .button.button-easi-blue.button-clear {
     background: 0 0;
-    border-color: transparent;
+    border: 0;
     box-shadow: none;
     color: #416969;
 }
-.button.button-easi-blue.button-icon { background: 0 0; border-color: transparent; }
-.button.button-easi-blue.button-outline { background: 0 0; border-color: #416969; color: #416969; }
+.button.button-easi-blue.button-icon { background: 0 0; border: 0; }
+.button.button-easi-blue.button-outline { background: 0 0; border:0; color: #416969; }
 .button.button-easi-blue.button-outline.activated, .button.button-easi-blue.button-outline.active { background-color: #416969; box-shadow: none; color: #fff; }
