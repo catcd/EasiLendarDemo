@@ -84,14 +84,19 @@ signIn.controller('SignInController', function($scope, $state) {
 	 * ID must be unique*/
 	var checkID = function(id) {
 		if (id == "") {
-			$scope.mesId = "*This field can't be empty.";
+			$scope.mesId = "Required";
 			return false;
 		} else if (!checkChar(id)) {
-			$scope.mesId = "You can only use letters, numbers and underline "
-					+ "'_' character (4 to 15 characters)";
+			if (id.length < 4) {
+				$scope.mesId = "ID is too short";
+			} else if (id.length > 15) {
+				$scope.mesId = "ID is too long";
+			} else {
+				$scope.mesId = "Unexpected";
+			}
 			return false;
 		} else if (!checkAvailability()) {
-			$scope.mesId = "*This ID has been used.";
+			$scope.mesId = "Existed";
 			return false;
 		}
 		return true;
@@ -102,7 +107,7 @@ signIn.controller('SignInController', function($scope, $state) {
 	 */
 	var checkName = function(name) {
 		if (name == "") {
-			$scope.mesName = "*This field can't be empty.";
+			$scope.mesName = "Required";
 			return false;
 		}
 		return true;
@@ -112,10 +117,10 @@ signIn.controller('SignInController', function($scope, $state) {
 	 */
 	var checkEmail = function(email) {
 		if (email == "") {
-			$scope.mesEmail = "*This field can't be empty.";
+			$scope.mesEmail = "Required";
 			return false;
 		} else if (-1 == email.search("@")) {
-			$scope.mesEmail = "*Unvalid Email.";
+			$scope.mesEmail = "Unvalid Email";
 			return false;
 		}
 		return true;
@@ -125,7 +130,7 @@ signIn.controller('SignInController', function($scope, $state) {
 	 * Can not be empty*/
 	var checkPass = function(pass) {
 		if (pass == "") {
-			$scope.mesPass = "*This field can't be empty.";
+			$scope.mesPass = "Required";
 			return false;
 		}
 		return true;
@@ -136,35 +141,53 @@ signIn.controller('SignInController', function($scope, $state) {
 	 * Must match with password
 	 */
 	var checkCPass = function(cPass, pass) {
-		if (cPass != pass) {
-			$scope.mesCPass = "*Confirm password did not match.";
+		if (cPass =="") {
+			$scope.mesCPass="Required";
+			return false;
+		} else if (cPass != pass) {
+			$scope.mesCPass = "Not match";
 			return false;
 		}
 		return true;
 	}
 
 	/* check the valid informations to register */
-	$scope.check = function() {
+	$scope.check = function(num) {
 		$scope.mesId = "";
 		$scope.mesName = "";
 		$scope.mesEmail = "";
 		$scope.mesPass = "";
 		$scope.mesCPass = "";
-		if (checkID($scope.user.id) && checkName($scope.user.name)
-				&& checkEmail($scope.user.email)
-				&& checkPass($scope.user.password)
-				&& checkCPass($scope.user.re_password, $scope.user.password))
-			return true;
-		return false;
+		var flag1 = checkID($scope.user.id);
+		var flag2 = checkName($scope.user.name);
+		var flag3 = checkEmail($scope.user.email);
+		var flag4 = checkPass($scope.user.password);
+		var flag5 = checkCPass($scope.user.re_password, $scope.user.password);
+		if (num==1) return flag1; 
+		if (num==2) return flag2;
+		if (num==3) return flag3;
+		if (num==4) return flag4;
+		if (num==5) return flag5;
+		if (num==0) return flag1 && flag2 && flag3 && flag4 && flag5;
 	}
 
 	/* register function */
 	$scope.register = function() {
-		if ($scope.check()) {
+		if ($scope.check(0)) {
 			/*Something*/
 			$state.go('form');
 		} else {
 
 		}
+	}
+	
+	/*back to form*/
+	$scope.back = function() {
+		$scope.user.id = "";
+		$scope.name = "";
+		$scope.email = "";
+		$scope.password = "";
+		$scope.re_password = "";
+		$state.go('form');
 	}
 });
