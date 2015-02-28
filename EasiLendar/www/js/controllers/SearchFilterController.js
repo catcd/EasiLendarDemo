@@ -33,7 +33,7 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 		}*/
 		$scope.deleteValue = function(){
 			$rootScope.allValues = angular.copy($scope.newValues);
-			alert($rootScope.allValues.mTitle + $rootScope.allValues.mDuration + $rootScope.allValues.mLocation + $rootScope.allValues.mMessage);
+			//alert($rootScope.allValues.mTitle + $rootScope.allValues.mDuration + $rootScope.allValues.mLocation + $rootScope.allValues.mMessage);
 			$scope.newValues = null;
 		}
 
