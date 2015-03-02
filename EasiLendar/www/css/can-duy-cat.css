@@ -1,32 +1,51 @@
 /**
- * starter: Can Duy Cat
- * owner: Can Duy Cat
- * last update: 01/03/2015
- * type: general css
- */
+* starter: Can Duy Cat
+* owner: Can Duy Cat
+* last update: 02/03/2015
+* type: general css
+*/
 
 /* loading + about */
 img.logo { height: 30vh; margin-top: 15vh; }
 p.bigName { color: #FFFFFF; font-size: 400%; margin-top: 30px; }
 
 /* coming soon */
-.coming-content {display: inline-block; width: 300px; margin-top: 25vh; font-size:25px;}
-div.coming-input {display: inline-block; width: 300px; margin-top: 30px;}
-input.coming-input {display: inline-block; width: 155px; height: 30px; padding-left: 10px; color: #416969; font-size: 11px;}
-button.coming-button {display: inline-block; min-width: 40px; width: 47px; min-height: 30px; height: 30px;v}
-p.coming-slogan {font-family: Giddy; font-size: 22px; margin-top: 10px; }
-input.coming-input::-webkit-input-placeholder {
+.coming-content {
+	display: inline-block;
+	font-size: 25px;
+	margin-top: 25vh;
+	width: 300px;
+}
+div.coming-input { display: inline-block; margin-top: 30px; width: 300px; }
+input.coming-input {
+	color: #416969;
+	display: inline-block;
 	font-size: 11px;
+	height: 30px;
+	padding-left: 10px;
+	width: 155px;
 }
-input.coming-input:-moz-placeholder {
-	font-size: 12px;
+button.coming-button {
+	border: 1px solid black;
+	display: inline-block;
+	height: 30px;
+	min-height: 30px;
+	min-width: 40px;
+	width: 47px;
 }
-input.coming-input::-moz-placeholder {
-	font-size: 12px;
+.coming-button.icon:before {
+	display: inline-block;
+	font-size: 24px;
+	line-height: 30px;
+	padding: 0 0 1px 0;
+	pointer-events: none;
+	vertical-align: inherit;
 }
-input.coming-input:-ms-input-placeholder {
-	font-size: 12px;
-}
+p.coming-slogan { font-family: Giddy; font-size: 22px; margin-top: 10px; }
+input.coming-input::-webkit-input-placeholder { font-size: 11px; }
+input.coming-input:-moz-placeholder { font-size: 12px; }
+input.coming-input::-moz-placeholder { font-size: 12px; }
+input.coming-input:-ms-input-placeholder { font-size: 12px; }
 
 /* side menu */
 #sideMenuContent { background-color: #646464; border: 0; }
@@ -37,6 +56,15 @@ a.sideMenu:active { background-color: #33CCCC; border: 0; color: #E6E6E6; }
 hr.sideMenu { border: 1px solid #707070; width: 90%; }
 hr.splitMenu { border: 2px solid #707070; width: 95%; }
 p.splitMenu { margin-bottom: -8px; margin-left: 10px; margin-top: 10px; }
+.button .icon {
+	border: 1px solid black;
+	display: inline-block;
+	font-size: 20px;
+	line-height: 20px;
+	padding: 0 0 1px 0;
+	pointer-events: none;
+	vertical-align: inherit;
+}
 
 /* popover */
 #popView { border: 0; border-radius: 0; height: 60vh; }

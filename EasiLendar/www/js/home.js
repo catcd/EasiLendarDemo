@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 01/03/2015
+ * last update: 02/03/2015
  * type: main js
  */
 angular.module('mainAPP', ['ionic', 'MainApp.controllers'])
@@ -81,12 +81,6 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers'])
                 templateUrl: 'templates/profile.html',
                 controller: 'ProfileController'
             })
-            .state('comingSoon', {
-                parent: 'appFull',
-                url: '/coming-soon',
-                templateUrl: 'templates/coming-soon.html',
-                controller: 'ComingSoonController'
-            })
             /**
              * appMenu's children
              */
@@ -138,6 +132,11 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers'])
                 url: '/result',
                 templateUrl: 'templates/result.html',
                 controller: 'ResultController'
+            }).state('comingSoon', {
+                parent: 'appNone',
+                url: '/coming-soon',
+                templateUrl: 'templates/coming-soon.html',
+                controller: 'ComingSoonController'
             })
     })
     .run(function($rootScope, $ionicPopup) {
