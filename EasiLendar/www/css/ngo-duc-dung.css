@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 28/02/2015
+ * last update: 04/03/2015
  * type: personal css
  */
 
@@ -20,39 +20,32 @@
 
 #select01 { border: 0px solid black; font-size: 13px; }
 #option01 { color: #646464; }
-#table01 { border: 0px solid black; margin-top: -3px; width: 100%; }
-#td01 {
-    border: 0px solid black;
-    color: #646464;
-    font-size: 12px;
-    padding-left: 10px;
-}
-#td02 { border: 0px solid black; padding-right: 10px; }
-#span01 { color: #646464; margin-bottom: -5px; margin-left: 10px; }
-#textarea01 { font-size: 14px; }
+#table01 { border: 0; margin-top: -3px; width: 100%; }
+#td01 { border: 0; color: #646464; font-size: 12px; padding-left: 10px;}
+#td02 { border: 0; padding-right: 10px; }
+#span01 { color: #646464; margin-bottom: -5px; margin-left: 2px; }
+#input01{ border: 0; margin-left: -6px;}
+#textarea01 { border: 0 ;font-size: 14px; margin-top: 5px; margin-left: -6px; resize: none;}
 #hr01, #hr02 { border: 2px solid #E6E6E6; width: 100%; }
 #hr01 { margin-top: -2px; }
-#p01 { color: #646464; margin-bottom: -5px; margin-top: 7px; }
+#p01 { color: #646464; margin-bottom: -7px; margin-top: 5px;}
 #div01 { border-bottom: 1px solid #E6E6E6; width: 100%; }
-.list { margin-top: 1px; }
-.list.list-inset#inset01 {
-    border: 0px solid black;
-    border-bottom: 0;
-    margin-bottom: -5px;
-    margin-top: 2px;
-}
-.item { border: 0px solid black; border-bottom: 2px solid #E6E6E6; padding-top: 0px; }
+.list { margin-top: -2px; }
+#inset01 { border: 0; border-bottom: 0; margin-bottom: -5px; margin-top: -6px;}
+#inset02 { border: 0; margin-top: -20px;}
+.item { border: 0; border-bottom: 2px solid #E6E6E6; padding-top: 0; min-height: 34px;}
+#iteminput01 {border-bottom: 1px solid #E6E6E6; }
 #button01 {
     background-color: #ffffff;
     border: 0;
     color: #646464;
     font-size: 14px;
-    margin-left: 6px;
+    margin-left: -3px;
 }
 
 /*SEGMENT BUTTON*/
 .segmented-button {
-    border: 0 solid black;
+    border: 0;
     font-size: 13px;
     padding: 5px;
     text-align: right;
@@ -60,7 +53,7 @@
 }
 .segmented-button input[type="radio"] { display: none; height: 0px; width: 0px; }
 .segmented-button label {
-    border: 0px solid #E6E6E6;
+    border: 0;
     border-radius: 0px;
     border-radius: 0px;
     color: #646464;
@@ -74,13 +67,14 @@
 }
 .segmented-button label.first { border-right: 1px solid #E6E6E6; text-align: center; width: 69px; }
 .segmented-button label.last { text-align: center; width: 69px; }
-.segmented-button input:checked+label, .segmented-button label.selected { background: #646464; color: #ffffff; }
+.segmented-button input:checked+label, .segmented-button label.selected { background-color: #646464; color: #ffffff; }
 
 /*VALIDATION*/
-input.ng-invalid, textarea.ng-invalid { color: #FA787E; }
-.error { color: #FA787E; font-size: 10px; }
-.error#error01 { margin-left: 16px; }
-#div00 { height: 21px; }
+#input01.ng-invalid, #textarea01.ng-invalid { color: red; }
+.error {color: #FA787E; font-size: 10px;}
+.error#error01 { margin-left: 10px;}
+.error#error02 { margin-left: -6px; }
+#div00 {max-height: 20px;}
 
 /*validation show-hide*/
 .my-animation { -webkit-transition: all linear 0.5s; transition: all linear 0.5s; }
