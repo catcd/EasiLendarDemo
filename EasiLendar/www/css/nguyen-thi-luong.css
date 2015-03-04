@@ -11,4 +11,31 @@
     margin-left: -10px;
     margin-top: -10px;
     width: 100vw;
+	
+	
+}
+#list-icon{
+    position: absolute;
+    bottom: -5px; 
+    right: 2px; 
+    background: transparent;
+    border: 0;
+    float:right;
+}
+#centered{
+    width:67vw;
+}
+.item-thumbnail-left{
+	position: absolute;
+	bottom: 15px; 
+	background: transparent;
+	border: 0;
+}
+h2 {
+	
+	font-size: 150%;
+	color: #416969;
+}
+
+	
 }
