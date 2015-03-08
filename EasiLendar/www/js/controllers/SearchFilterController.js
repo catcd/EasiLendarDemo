@@ -1,37 +1,13 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 04/03/2015
+ * last update: 09/03/2015 Can Duy Cat Delete shared variables
  * type: paticular controller
  */
 
 angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 
-.controller("SearchFilterController", function($rootScope, $scope, $ionicPopup) {
-   		$rootScope.allValues = {
-			mTitle :'',
-			mDuration: '',
-			mDurationMinute : '',	//minute	
-			mDurationHour: '',     	//hour
-			mLocation : '',
-			mMessage : '',
-			mFrom : '',			
-			mFromHour : '',			//hour
-			mFromMinute : '',		//minute
-			mTo : '',		
-			mToHour : '',			//hour
-			mToMinute : '',			//minute
-			mExpiration : '',		
-			mExpirationDay : '',	//day
-			mExpirationWeek : '',	//week
-			mExpirationMonth : '',	//month
-			mExpirationYear : '',	//year
-			mBreakfast : null,
-			mLunch : null,			//Avoid=true /Prioritize=false
-			mDinner : null,
-			mOffice : null,
-			mHoliday : null
-		};
+.controller("SearchFilterController", function($rootScope, $scope) {
 
 		$scope.newValues = angular.copy($rootScope.allValues);
 		$scope.unVip = false;
