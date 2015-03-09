@@ -44,7 +44,7 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
                   };
                   $document.bind('click',function(event){
                         if(element.scope().$index !== currentIndex && element.scope().visible == true){
-                               scope.$apply(function(){
+                               element.scope().$apply(function(){
                                     element.scope().visible = false;
                               });
                         }   
@@ -58,4 +58,19 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
                   });
             }
       };  
+})
+
+.directive('opacitySearchInput',function(){
+	return{
+		restrict: 'A',
+		link: function(scope,element,attrs){
+			element.bind('focus',function(){
+				element.parent().parent().removeClass('search-friend-input-blur');
+				element.parent().parent().addClass('search-friend-input-focus');
+			});
+			element.bind('blur',function(){
+				element.parent().parent().addClass('search-friend-input-blur');
+			});
+		}
+	};
 })

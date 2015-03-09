@@ -39,8 +39,8 @@
 #hrFriendPanel{ border: 1px solid #707070; width: 90%; margin-top: 4px; margin-bottom: 0px;}
 .div02{text-align: right; padding-bottom: 2px; padding-top: 4px; border: 0; font-size: 13px;}
 .div02 button{border:0; background-color: #646464; color:#E6E6E6;}
-#friendPanelFooter {opacity: 0.3; z-index: 2;}
-#friend-search-input input:focus {opacity: 1.0;}
+.search-friend-input-focus{ opacity: 0.9;}
+.search-friend-input-blur{opacity: 0.5;}
 
 .my-repeat-animation.ng-enter, 
 .my-repeat-animation.ng-leave {transition: 500ms linear all; position: relative; display: block; } 
