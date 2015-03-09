@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 08/03/2015
+ * last update: 09/03/2015
  * type: personal css
  */
 
@@ -114,8 +114,6 @@
 .my-animation.ng-hide { opacity: 0; }
 
 /*SHOW-HIDE*/
-
-
 .my-repeat-animation.ng-hide-add.ng-hide-add-active,
 .my-repeat-animation.ng-hide-remove.ng-hide-remove-active {
   transition: all linear 400ms;

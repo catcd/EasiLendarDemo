@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 04/03/2015
+ * last update: 09/03/2015
  * type: paticular controller
  */
 
@@ -22,8 +22,9 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 			mOffice: null,
 			mHoliday: null
 		};
-		$scope.newValues = angular.copy($rootScope.eSearchFilter);
-		
+		$scope.newValues = angular.copy($rootScope.allValues);
+		$scope.unVip = false;
+		$scope.mShow = false;
 		$scope.min = 0;
 
 		$scope.$watch('eSearchFilter.mFrom',function(){

@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 08/03/2015
+ * last update: 09/03/2015
  * type: friend panel controller
  */
 
