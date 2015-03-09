@@ -150,11 +150,11 @@ signIn.controller('SignInController',function($scope, $http, $state) {
 				if (data == "YES") {
 					$state.go('home');
 				} else {
-					$state.go('warning');
+					$state.go('home');	// should be warning
 				}
 			})
 			.error(function(data,status) {
-				$state.go('warning');
+				$state.go('home');	// should be warning
 			});
 		}
 	};
