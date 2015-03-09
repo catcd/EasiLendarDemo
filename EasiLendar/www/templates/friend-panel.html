@@ -1,78 +1,44 @@
 <!-- starter: Can Duy Cat
      owner: Ngo Duc Dung
-     last update: 28/02/2015 (Can Duy Cat add the header and footer and controller)
+     last update: 08/03/2015 
      type: friend panel template -->
 <!-- search friend by {{searchFriend}} -->
 <!-- VIP acount must have ribbon -->
 <!-- use friendPanelController -->
-<ion-header-bar class="bar-easi-gray">
-    <p class="easi-light-gray easi-title easi-title-left">Friends</p>
-    <!-- add some button here then float them to right side -->
-</ion-header-bar>
+<form data-ng-controller="friendPanelController">
+	<ion-header-bar class="bar-easi-gray">
+	    <p class="easi-light-gray easi-title easi-title-left">Friends</p>
+	    <!-- add some button here then float them to right side -->
+	</ion-header-bar>
 
-<ion-content id="sideMenuContent">
-    <div class="easi-space" ng-controller="friendPanelController">
-        <a class="item myAvatar item-icon-right sideMenu" ui-sref="profile" menu-close>
-            <img src="img/boy3.png">
-            <h2 class="easi-light-gray">Ngo Duc Dung</h2>
-            <i class="icon ion-ribbon-b easi-vip-color"></i>
-        </a>
-        <hr class="sideMenu">
-        <a class="item myAvatar sideMenu" href="#">
-            <img src="img/girl4.png">
-            <h2 class="easi-light-gray">Nguyen Thi Luong</h2>
-        </a>
-        <hr class="sideMenu">
-        <a class="item myAvatar item-icon-right sideMenu" href="#">
-            <img src="img/boy1.png">
-            <h2 class="easi-light-gray">Can Duy Cat</h2>
-            <i class="icon ion-ribbon-b easi-vip-color"></i>
-        </a>
-        <hr class="sideMenu">
-        <a class="item myAvatar item-icon-right sideMenu" href="#">
-            <img src="img/boy4.png">
-            <h2 class="easi-light-gray">Nguyen Manh Duy</h2>
-            <i class="icon ion-ribbon-b easi-vip-color"></i>
-        </a>
-        <hr class="sideMenu">
-        <a class="item myAvatar item-icon-right sideMenu" href="#">
-            <img src="img/girl2.png">
-            <h2 class="easi-light-gray">Nguyen Minh Trang</h2>
-            <i class="icon ion-ribbon-b easi-vip-color"></i>
-        </a>
-        <hr class="sideMenu">
-        <a class="item myAvatar sideMenu" href="#">
-            <img src="img/boy3.png">
-            <h2 class="easi-light-gray">Ngo Duc Dung</h2>
-        </a>
-        <hr class="sideMenu">
-        <a class="item myAvatar sideMenu" href="#">
-            <img src="img/girl4.png">
-            <h2 class="easi-light-gray">Nguyen Thi Luong</h2>
-        </a>
-        <hr class="sideMenu">
-        <a class="item myAvatar item-icon-right sideMenu" href="#">
-            <img src="img/boy1.png">
-            <h2 class="easi-light-gray">Can Duy Cat</h2>
-            <i class="icon ion-ribbon-b easi-vip-color"></i>
-        </a>
-        <hr class="sideMenu">
-        <a class="item myAvatar item-icon-right sideMenu" href="#">
-            <img src="img/boy4.png">
-            <h2 class="easi-light-gray">Nguyen Manh Duy</h2>
-            <i class="icon ion-ribbon-b easi-vip-color"></i>
-        </a>
-        <hr class="sideMenu">
-        <a class="item myAvatar sideMenu" href="#">
-            <img src="img/girl2.png">
-            <h2 class="easi-light-gray">Nguyen Minh Trang</h2>
-        </a>
-        <hr class="sideMenu">
-    </div>
-</ion-content>
+	<ion-footer-bar class="bar bar-footer item-input-inset easi-back-gray" id="friendPanelFooter">
+	    <label class="item-input-wrapper" id="friend-search-input"> 
+	    	<i class="icon ion-ios7-search placeholder-icon"></i>
+	        <input type="search" data-ng-model="searchFriend.name" placeholder="Search">
+	    </label>
+	</ion-footer-bar>
 
-<ion-footer-bar class="bar bar-footer item-input-inset easi-back-gray">
-    <label class="item-input-wrapper"> <i class="icon ion-ios7-search placeholder-icon"></i>
-        <input type="search" data-ng-model="searchFriend" placeholder="Search">
-    </label>
-</ion-footer-bar>
+	<ion-content id="friendPanelContent">
+	 
+	 	<div class="list">
+			<togglefriend id="myAvatar01" data-ng-repeat="friend in friends | filter:searchFriend" class="item myAvatar01 item-icon-right sideMenu my-repeat-animation">
+				<div data-ng-click="toggleFunc()">
+					<img class="item-image" src={{friend.image}}>
+					<h2 class="easi-light-gray">{{friend.name}}</h2>
+					<p class="easi-light-gray">{{friend.status}}</p>
+					<i data-ng-show="friend.vip" class="icon ion-ribbon-b easi-vip-color" id="ribbon-b"></i>
+				</div>
+				<div class="div02 my-repeat-animation" data-ng-show="visible">
+					<div style="margin-right: 8px">
+						<button ui-sref="searchFilter" menu-close>Date</button>
+						<button data-ng-click="deleteFriend(friend)">Delete</button>
+						<button ui-sref="profile" menu-close>View</button>
+					</div>
+				</div>
+				<hr id="hrFriendPanel">
+			</togglefriend>				
+		</div>
+		<img id="empty-image-50px">
+
+	</ion-content>	
+</form>

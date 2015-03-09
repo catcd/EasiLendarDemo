@@ -8,144 +8,97 @@
 angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 
 .controller("SearchFilterController", function($rootScope, $scope, $ionicPopup) {
-   		$rootScope.allValues = {
-			mTitle :'',
-			mDuration: '',
-			mDurationMinute : '',	//minute	
-			mDurationHour: '',     	//hour
-			mLocation : '',
-			mMessage : '',
-			mFrom : '',			
-			mFromHour : '',			//hour
-			mFromMinute : '',		//minute
-			mTo : '',		
-			mToHour : '',			//hour
-			mToMinute : '',			//minute
-			mExpiration : '',		
-			mExpirationDay : '',	//day
-			mExpirationWeek : '',	//week
-			mExpirationMonth : '',	//month
-			mExpirationYear : '',	//year
-			mBreakfast : null,
-			mLunch : null,			//Avoid=true /Prioritize=false
-			mDinner : null,
-			mOffice : null,
-			mHoliday : null
+   		$rootScope.eSearchFilter = {
+			mTitle:'',
+			mDuration:'',
+			mLocation:'',
+			mMessage:'',
+			mFrom:'',			
+			mTo:'',		
+			mExpiration:'',		
+			mBreakfast: null,
+			mLunch: null,			//Avoid=true /Prioritize=false
+			mDinner: null,
+			mOffice: null,
+			mHoliday: null
 		};
-
-		$scope.newValues = angular.copy($rootScope.allValues);
-		$scope.unVip = false;
-		$scope.mShow = false;
+		$scope.newValues = angular.copy($rootScope.eSearchFilter);
+		
 		$scope.min = 0;
 
-		$scope.$watch('allValues.mDuration',function(){
-			$rootScope.allValues.mDurationHour = parseInt($rootScope.allValues.mDuration / 60);
-			$rootScope.allValues.mDurationMinute = $rootScope.allValues.mDuration % 60;
-		});
-
-		$scope.$watch('allValues.mTo',function(){
-			if($rootScope.allValues.mTo > $rootScope.allValues.mFrom){
-				$rootScope.allValues.mToHour = parseInt($rootScope.allValues.mTo / 60);
-				$rootScope.allValues.mToMinute = $rootScope.allValues.mTo % 60;
-			} 
+		$scope.$watch('eSearchFilter.mFrom',function(){
+			$scope.min = $rootScope.eSearchFilter.mFrom;
 		})
-
-		$scope.$watch('allValues.mFrom',function(){
-			$scope.min = $rootScope.allValues.mFrom;
-
-			if($rootScope.allValues.mFrom < $rootScope.allValues.mFrom){
-				$rootScope.allValues.mFromHour = parseInt($rootScope.allValues.mFrom / 60);
-				$rootScope.allValues.mFromMinute = $rootScope.allValues.mFrom % 60;
-			} 
-		})
-
-		$scope.$watch('allValues.mExpiration',function(){
-			var date = $rootScope.allValues.mExpiration;
-			$rootScope.allValues.mExpirationYear = parseInt(date / 365);
-			date = date % 365;
-			$rootScope.allValues.mExpirationMonth = parseInt(date / 31);
-			date = date % 31;
-			$rootScope.allValues.mExpirationWeek = parseInt(date / 7);
-			$rootScope.allValues.mExpirationDay = date % 7;
-		});
 		
 		$scope.passValue = function(){
-		/*alert($rootScope.allValues.mDurationHour 
-				+ ':' + $rootScope.allValues.mDurationMinute + ', ' +  $rootScope.allValues.mFromHour 
-				+ ':' + $rootScope.allValues.mFromMinute + ', ' + $rootScope.allValues.mToHour + ':' + $rootScope.allValues.mToMinute 
-				+ ', ' +  $rootScope.allValues.mExpirationDay + ', ' + $rootScope.allValues.mExpirationWeek 
-				+ ', ' + $rootScope.allValues.mExpirationMonth + ', ' + $rootScope.allValues.mExpirationYear);
-		*/
-		}
+		};
 		
 		$scope.deleteValue = function(form){
 			/*RESET VALUE*/
-			$rootScope.allValues = angular.copy($scope.newValues);
-			//alert($rootScope.allValues.mTitle + $rootScope.allValues.mDuration + $rootScope.allValues.mLocation + $rootScope.allValues.mMessage);
+			$rootScope.eSearchFilter = angular.copy($scope.newValues);
+			//alert($rootScope.eSearchFilter.mTitle + $rootScope.eSearchFilter.mDuration + $rootScope.eSearchFilter.mLocation + $rootScope.eSearchFilter.mMessage);
 			delete $scope.newValues;
-
 			/* RESET FORM*/
 			form.$setPristine();
       		form.$setUntouched();
-		}
-})
-
-.directive('slideToggle',function(){
-		return{
-			restrict: 'A',
-			scope: {
-				isOpen: '=slideToggle'
-			},
-			link: function(scope, element, attr) {
-		      element.hide();  
-		      scope.$watch('isOpen', function(newVal,oldVal){
-		        if(newVal !== oldVal){ 
-		          element.stop().slideToggle("slow");
-		        }
-		      });
-		    }
+      		$scope.mShow = false;
+      		$scope.titleOfButton = 'MORE';
 		};
+
+		$scope.mVip = true; //user is VIP
+		$scope.mShow = false;
+      	$scope.titleOfButton = 'MORE';
+        $scope.toggleFunc = function(){
+        	if($scope.mVip == true){
+	            $scope.mShow = !$scope.mShow;
+	            if($scope.mShow == true) {$scope.titleOfButton = 'End';}
+	            else {$scope.titleOfButton = 'MORE...';}
+        	}
+        };
+       
 })
 
-.directive('checkUncheckRadio', function(){
+
+.directive('checkUncheckRadio', function($rootScope){
 	return{
 		restrict: 'A',
 		link: function(scope,element,attr){
 			var labelRadio = element.next();
-
 			labelRadio.bind('mousedown',function(){
-				
-				//alert(element.prop("checked"));
-				
 				if(element.prop("checked") == true){
-	 				labelRadio.bind('mouseup',function(){
-	 					setTimeout(function(){
-	 						element.prop('checked',false);
-	 					},5);
-	 				});
+		 			labelRadio.bind('mouseup',function(){
+		 				setTimeout(function(){
+		 					element.prop('checked',false);
+		 				},5);
+		 			});
+		 			var modelName = element.attr("data-ng-model");
 
-	 				
-	 				var modelName = element.attr("data-ng-model");
-	 				/*
-	 				if(modelName == 'color1'){
-	 					rootScope.color1 = 'none';
-	 				}
-	 				else if(modelName == 'color2'){
-	 					rootScope.color2 = 'none';
-	 				}
-	 				
-	 				else{}
-	 				*/
-	 			}
-
-	 			else{
-	 				labelRadio.bind('mouseup',function(){
-	 					setTimeout(function(){
-	 						element.prop('checked',true);
-	 					},5);
-	 				});
-	 			}	   
+		 			if(modelName == 'eSearchFilter.mBreakfast'){
+		 				$rootScope.eSearchFilter.mBreakfast = null;
+		 			}
+		 			else if(modelName == 'eSearchFilter.mLunch'){
+		 				$rootScope.eSearchFilter.mLunch = null;
+		 			}
+		 			else if(modelName == 'eSearchFilter.mDinner'){
+		 				$rootScope.eSearchFilter.mDinner = null;
+		 			}
+		 			else if(modelName == 'eSearchFilter.mOffice'){
+		 				$rootScope.eSearchFilter.mOffice = null;
+		 			}
+		 			else if(modelName == 'eSearchFilter.mHoliday'){
+		 				$rootScope.eSearchFilter.mHoliday = null;
+		 			}
+		 			else{}	
+		 		}
+		 		else{
+		 			labelRadio.bind('mouseup',function(){
+		 				setTimeout(function(){
+		 					element.prop('checked',true);
+		 				},5);
+		 			});
+		 		}	   
 			});
 		}
 	};
-});
+})
+
