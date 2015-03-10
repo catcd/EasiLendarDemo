@@ -1,58 +1,59 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 24/02/2015
+ * last update: 10/03/2015
  * type: paticular controller
  */
 
-angular.module('MainApp.controllers.result', [])
+var result = angular.module('MainApp.controllers.result', []);
 
-.controller(
-    "ResultController",
-    function($scope, $ionicPopup) {
-        $scope.numOfOps = 5;
-        $scope.options = [{
-            score: 1,
-            date: "01/02/2015",
-            begin: "02:30",
-            end: "05:00"
-        }, {
-            score: 2,
-            date: "02/02/2015",
-            begin: "14:00",
-            end: "23:30"
-        }, {
-            score: 3,
-            date: "06/02/2015",
-            begin: "06:45",
-            end: "08:50"
-        }, {
-            score: 4,
-            date: "10/02/2015",
-            begin: "08:30",
-            end: "18:30"
-        }, {
-            score: 5,
-            date: "11/02/2015",
-            begin: "15:00",
-            end: "17:50"
-        }];
-
-        $scope.addOption = function(option) {
-            $scope.options.push(option);
-            $scope.numOfOps++;
-        };
-
-        $scope.next = function() {
-            window.alert("You click next");
-        };
-
-        $scope.selectOption = function(option) {
-            window.alert("You select option " + option.score);
-        };
-
-        $scope.display = function(option) {
-            $scope.option = option.score + ". " + option.date + ": From " + option.begin + " - To " + option.end;
-            return $scope.option;
-        }
-    })
+result.controller("ResultController", function($scope, $ionicPopup) {
+	/*Class option */
+	function Option(score, date, from, to) {
+		/* Convert functions */
+		//Convert Date to dd/mm/yyyy format
+		var convertDate = function (date) {
+			
+			return date;
+		};
+		//Convert time to hh:mm format
+		var convertTime = function(time) {
+			if (typeof(time) != "number" || time < 0 || time > 1440) return "00:00";
+			var min = time%60;
+			var hour = (time-min)/60;
+			if (hour < 10) hour = "0"+hour;
+			if (min < 10) min = "0"+min;
+			return hour+":"+min;
+		};
+		
+		/* initiate attributes */
+		this.score = score;
+		this.date = date;
+		this.from = convertTime(from);
+		this.to = convertTime(to);
+		
+		/* Display option */
+		this.display = function() {
+			return this.date + ": from " + this.from 
+			+ " - to " + this.to;
+		};
+	};
+	
+	var op1 = new Option(1,"01/02/2015",150,300);
+	var op2 = new Option(2,"02/02/2015",840,1410);
+	var op3 = new Option(3,"06/02/2015",405,530);
+	var op4 = new Option(4,"10/02/2015",510,1110);
+	var op5 = new Option(5,"11/02/2015",900,1070);
+	$scope.options = {
+		list : [op1, op2, op3, op4, op5],
+		add : function(option) {
+			this.list.push(option);
+		},
+		selectOption : function(option) {
+			$scope.showAlert("You selected option "+ option.score);
+		},
+		next : function() {
+			$scope.showAlert("You click next");
+		},
+	};
+});

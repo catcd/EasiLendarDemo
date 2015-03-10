@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Nguyen Minh Trang
-	 last update: 24/02/2015
+	 last update: 10/03/2015
 	 type: state template -->
 
 <ion-view title="Result">
@@ -8,14 +8,14 @@
         <button class="button button-icon button-clear ion-chevron-left" ui-sref="searchFilter" menu-close></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="button button-easi-blue" style="border: 0" ui-sref="home" menu-close>Done</button>
+        <button class="button button-easi-blue" ui-sref="home" menu-close>Done</button>
     </ion-nav-buttons>
-    <ion-content class="calendar"> <img src="img/week.png" />
+    <ion-content class="calendar" scrollbar-y="false"> <img src="img/week.png" />
     </ion-content>
-    <ion-content class="options" data-ng-controller="ResultController">
+    <ion-content class="options" scrollbar-y="false" data-ng-controller="ResultController">
         <ol class="list">
-            <button data-ng-repeat="x in options" class="item item-button button-block option" ng-click="showAlert('You selected option {{x.score}}')">{{display(x)}}</button>
-            <button class="button button-block button-easi-blue next" data-ng-click="next()">Next</button>
+            <button data-ng-repeat="x in options.list" class="item item-button button-block option" data-ng-click="options.selectOption(x)">{{x.display()}}</button>
+            <button class="button button-block button-easi-blue" data-ng-click="options.next()">Next</button>
         </ol>
     </ion-content>
 </ion-view>
