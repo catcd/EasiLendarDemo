@@ -1,13 +1,17 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 04/03/2015
+ * last update: 09/03/2015
  * type: personal css
  */
 
-/* friend panel */
-/* Can Duy Cat changed */
-.myAvatar, .myAvatar .item-content { height: 51px; min-height: 51px; padding-left: 70px; }
+/*FRIEND PANEL*/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+
+.myAvatar, .myAvatar .item-content { height: 49px; min-height: 51px; padding-left: 70px; }
 .myAvatar > img:first-child, .myAvatar .item-image, .myAvatar .item-content > img:first-child, .myAvatar .item-content .item-image {
     left: 10px;
     max-height: 50px;
@@ -15,10 +19,39 @@
     position: absolute;
     top: 0px;
 }
-/* end of changed part */
+.myAvatar h2{margin-top: 7px;}
+
+.myAvatar01 {max-height: 110px; padding-left: 70px; padding-bottom: 4px; padding: 4px}
+.myAvatar01 > img:first-child, .myAvatar01 .item-image, .myAvatar01 .item-content > img:first-child, .myAvatar01 .item-content .item-image {
+    left: 10px;
+    max-height: 50px;
+    max-width: 60px;
+    position: absolute;
+    top: 4px;
+    width: 52px;
+}
+
+#friendPanelContent { background-color: #646464; border: 0; margin-bottom:-45px; padding-bottom: 45px; z-index: 1;}
+.myAvatar01 h2 {margin-top: 10px; font-size: 15px; font-weight: normal; margin-left: 63px; overflow: hidden;}
+.myAvatar01 p {color: #E6E6E6; font-size: 14px; font-weight: normal; margin-left: 63px; padding-top: 1px;}
+#myAvatar01{ background-color: #646464; border: 0; padding-bottom: 0px;}
+#ribbon-b{ border: 0; height: 50px; margin-top: 5px;}
+#hrFriendPanel{ border: 1px solid #707070; width: 90%; margin-top: 4px; margin-bottom: 0px;}
+.div02{text-align: right; padding-bottom: 2px; padding-top: 4px; border: 0; font-size: 13px;}
+.div02 button{border:0; background-color: #646464; color:#E6E6E6;}
+.search-friend-input-focus{ opacity: 0.9;}
+.search-friend-input-blur{opacity: 0.5;}
+
+.my-repeat-animation.ng-enter, 
+.my-repeat-animation.ng-leave {transition: 500ms linear all; position: relative; display: block; } 
+.my-repeat-animation.ng-leave.ng-leave-active,
+.my-repeat-animation.ng-enter {opacity: 0; transform: scaleY(0); height: 0px; margin-bottom: -34px;}        
+.my-repeat-animation.ng-leave {opacity: 1; transform: scaleY(1);}
+.my-repeat-animation.ng-enter.ng-enter-active {opacity: 1; transform: scaleY(1); height: 95px;}
 
 
-#select01 { border: 0px solid black; font-size: 13px; }
+/*SEARCHING FILTER*/
+#select01 { border: 0; font-size: 13px; }
 #option01 { color: #646464; }
 #table01 { border: 0; margin-top: -3px; width: 100%; }
 #td01 { border: 0; color: #646464; font-size: 12px; padding-left: 10px;}
@@ -28,7 +61,7 @@
 #textarea01 { border: 0 ;font-size: 14px; margin-top: 5px; margin-left: -6px; resize: none;}
 #hr01, #hr02 { border: 2px solid #E6E6E6; width: 100%; }
 #hr01 { margin-top: -2px; }
-#p01 { color: #646464; margin-bottom: -7px; margin-top: 5px;}
+#p01 { color: #646464; margin-bottom: -7px; margin-top: -2px;}
 #div01 { border-bottom: 1px solid #E6E6E6; width: 100%; }
 .list { margin-top: -2px; }
 #inset01 { border: 0; border-bottom: 0; margin-bottom: -5px; margin-top: -6px;}
@@ -77,5 +110,12 @@
 #div00 {max-height: 20px;}
 
 /*validation show-hide*/
-.my-animation { -webkit-transition: all linear 0.5s; transition: all linear 0.5s; }
+.my-animation { transition: all linear 400ms; }
 .my-animation.ng-hide { opacity: 0; }
+
+/*SHOW-HIDE*/
+.my-repeat-animation.ng-hide-add.ng-hide-add-active,
+.my-repeat-animation.ng-hide-remove.ng-hide-remove-active {
+  transition: all linear 400ms;
+}
+.my-repeat-animation.ng-hide { opacity: 0;}

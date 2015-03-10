@@ -1,193 +1,217 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 27/02/2015
+ * last update: 09/03/2015
  * type: particular controller
  */
 
 var signIn = angular.module('MainApp.controllers.signIn', []);
 
-signIn.controller('SignInController', function($scope, $state) {
+signIn.controller('SignInController',function($scope, $http, $state) {
+	
 	$scope.isRemember = false;
-	$scope.users = [ {
-		id : "TEXAS",
-		password : "easilendar"
-	}, {
-		id : "catcd",
-		password : "easilendar"
-	} ];
-	$scope.user = {
-		id : "",
-		name : "",
-		email : "",
-		password : "",
-		re_password : ""
-	};
-
-	/* validate user to sign in */
-	$scope.validate = function() {
-		if (!checkChar($scope.user.id))
-			return false;
-		for (var i = 0; i < $scope.users.length; i++) {
-			if ($scope.user.id == $scope.users[i].id
-					&& $scope.user.password == $scope.users[i].password) {
-				return true;
-			}
+	
+	/* warning object contains all warnings*/
+	$scope.warnings = {
+		mesId: "",
+		mesName: "",
+		mesEmail: "",
+		mesPass: "",
+		mesCPass: "",
+			
+		reset: function() {
+			this.mesId = "";
+			this.mesName = "";
+			this.mesEmail = "";
+			this.mesPass= "";
+			this.mesCPass = "";
 		}
-		return false;
 	};
+	
+	/* class User */
+	function User() {
+		this.id ="";
+		this.name="";
+		this.email="";
+		this.password="";
+		this.re_password="";
+		
+		/* reset all data */
+		this.reset = function() {
+			this.id ="";
+			this.name="";
+			this.email="";
+			this.password="";
+			this.re_password="";
+		};
+		
+		/*check ID's availability
+		 * return true if user can use that ID*/
+		var checkAvailability = function() {
+			return true;
+		};
+		
+		/*check ID's characters
+		 * 0..9 || a..z || A..Z || _ */
+		this.checkChar = function() {
+			if (this.id.length > 15 || this.id.length < 4)
+				return false;
+			for (var i = 0; i < this.id.length; i++) {
+				if (this.id.charCodeAt(i) < 48)
+					return false;
+				else if (this.id.charCodeAt(i) > 57 && this.id.charCodeAt(i) < 65)
+					return false;
+				else if (this.id.charCodeAt(i) > 90 && this.id.charCodeAt(i) < 97
+						&& this.id.charCodeAt(i) != 95)
+					return false;
+				else if (this.id.charCodeAt(i) > 122)
+					return false;
+			}
+			return true;
+		};
+		
+		/*check ID
+		 * Can not be empty
+		 * ID must be unique*/
+		this.checkID = function() {
+			if (this.id == "") {
+				return "Required";
+			} else if (!this.checkChar()) {
+				if (this.id.length < 4) {
+					return "ID is too short";
+				} else if (this.id.length > 15) {
+					return "ID is too long";
+				} else {
+					return "Unexpected";
+				}
+			} else if (!checkAvailability()) {
+				return "Existed";
+			}
+			return true;
+		};
+		
+		/*check Name
+		 * Can not be empty
+		 */
+		this.checkName = function() {
+			if (this.name == "") {
+				return "Required";
+			}
+			return true;
+		};
 
+		/*check Email
+		 * can not be empty
+		 */
+		this.checkEmail = function() {
+			if (this.email == "") {
+				return "Required";
+			} else if (-1 == this.email.search("@")) {
+				return "Unvalid Email";
+			}
+			return true;
+		};
+
+		/*check Password
+		 * Can not be empty*/
+		this.checkPass = function() {
+			if (this.password == "") {
+				return "Required";
+			}
+			return true;
+		};
+
+		/* check confirm password
+		 * Can not be empty
+		 * Must match with password
+		 */
+		this.checkCPass = function() {
+			if (this.re_password =="") {
+				return "Required";
+			} else if (this.re_password != this.password) {
+				return "Not match";
+			}
+			return true;
+		};
+	}; // End of class User
+
+	/* create new user */
+	$scope.user = new User();
+	
 	/* sign in function */
 	$scope.signIn = function() {
-		if ($scope.validate()) {
-
-			/* Something here */
-
-			$state.go('home');
-		} else {
+		if (!$scope.user.checkChar()) {
 			$state.go('warning');
+		} else {
+			var id = $scope.user.id;
+			var pass = $scope.user.password;
+			$http.post("php/signIn.php", {"ID": id, "pass": pass})
+			.success(function(data,status,headers,config) {
+				if (data == "YES") {
+					$state.go('home');
+				} else {
+					$state.go('home');	// should be warning
+				}
+			})
+			.error(function(data,status) {
+				$state.go('home');	// should be warning
+			});
 		}
 	};
-
-	/* confirm the warning */
+	
+	/* confirm the warning when sign in */
 	$scope.confirm = function() {
 		$state.go('form');
-	}
-
-	/*check ID's availability
-	 * return true if user can use that ID*/
-	var checkAvailability = function() {
-		return true;
-	}
-
-	/*check ID's characters
-	 * 0..9 || a..z || A..Z || _ */
-	var checkChar = function(str) {
-		if (str.length > 15 || str.length < 4)
-			return false;
-		for (var i = 0; i < str.length; i++) {
-			if (str.charCodeAt(i) < 48)
-				return false;
-			else if (str.charCodeAt(i) > 57 && str.charCodeAt(i) < 65)
-				return false;
-			else if (str.charCodeAt(i) > 90 && str.charCodeAt(i) < 97
-					&& str.charCodeAt(i) != 95)
-				return false;
-			else if (str.charCodeAt(i) > 122)
-				return false;
-		}
-		return true;
-	}
-
-	/*check ID
-	 * Can not be empty
-	 * ID must be unique*/
-	var checkID = function(id) {
-		if (id == "") {
-			$scope.mesId = "Required";
-			return false;
-		} else if (!checkChar(id)) {
-			if (id.length < 4) {
-				$scope.mesId = "ID is too short";
-			} else if (id.length > 15) {
-				$scope.mesId = "ID is too long";
-			} else {
-				$scope.mesId = "Unexpected";
-			}
-			return false;
-		} else if (!checkAvailability()) {
-			$scope.mesId = "Existed";
-			return false;
-		}
-		return true;
-	}
-
-	/*check Name
-	 * Can not be empty
-	 */
-	var checkName = function(name) {
-		if (name == "") {
-			$scope.mesName = "Required";
-			return false;
-		}
-		return true;
-	}
-
-	/*check Email
-	 */
-	var checkEmail = function(email) {
-		if (email == "") {
-			$scope.mesEmail = "Required";
-			return false;
-		} else if (-1 == email.search("@")) {
-			$scope.mesEmail = "Unvalid Email";
-			return false;
-		}
-		return true;
-	}
-
-	/*check Password
-	 * Can not be empty*/
-	var checkPass = function(pass) {
-		if (pass == "") {
-			$scope.mesPass = "Required";
-			return false;
-		}
-		return true;
-	}
-
-	/* check confirm password
-	 * Can not be empty
-	 * Must match with password
-	 */
-	var checkCPass = function(cPass, pass) {
-		if (cPass =="") {
-			$scope.mesCPass="Required";
-			return false;
-		} else if (cPass != pass) {
-			$scope.mesCPass = "Not match";
-			return false;
-		}
-		return true;
-	}
+	};
 
 	/* check the valid informations to register */
 	$scope.check = function(num) {
-		$scope.mesId = "";
-		$scope.mesName = "";
-		$scope.mesEmail = "";
-		$scope.mesPass = "";
-		$scope.mesCPass = "";
-		var flag1 = checkID($scope.user.id);
-		var flag2 = checkName($scope.user.name);
-		var flag3 = checkEmail($scope.user.email);
-		var flag4 = checkPass($scope.user.password);
-		var flag5 = checkCPass($scope.user.re_password, $scope.user.password);
-		if (num==1) return flag1; 
-		if (num==2) return flag2;
-		if (num==3) return flag3;
-		if (num==4) return flag4;
-		if (num==5) return flag5;
-		if (num==0) return flag1 && flag2 && flag3 && flag4 && flag5;
-	}
+		switch (num) {
+			case 1: 
+				$scope.warnings.mesId = $scope.user.checkID();
+				if (typeof($scope.warnings.mesId) !== "string") {
+					return true;
+				} else return false;
+			case 2:
+				$scope.warnings.mesName = $scope.user.checkName();
+				if (typeof($scope.warnings.mesName) !== "string") {
+					return true;
+				} else return false;
+			case 3:
+				$scope.warnings.mesEmail = $scope.user.checkEmail();
+				if (typeof($scope.warnings.mesEmail) !== "string") {
+					return true;
+				} else return false;
+			case 4:
+				$scope.warnings.mesPass = $scope.user.checkPass();
+				if (typeof($scope.warnings.mesPass) !== "string") {
+					return true;
+				} else return false;
+			case 5: 
+				$scope.warnings.mesCPass = $scope.user.checkCPass();
+				if (typeof($scope.warnings.mesCPass) !== "string") {
+					return true;
+				} else return false;
+		}
+	};
 
 	/* register function */
 	$scope.register = function() {
-		if ($scope.check(0)) {
+		var flag;
+		for (var i=1; i <=5; i++) {
+			flag = $scope.check(i);
+			if (flag == false) break;
+		}
+		if (flag) {
 			/*Something*/
 			$state.go('form');
 		} else {
 
 		}
-	}
-	
+	};
+
 	/*back to form*/
 	$scope.back = function() {
-		$scope.user.id = "";
-		$scope.name = "";
-		$scope.email = "";
-		$scope.password = "";
-		$scope.re_password = "";
 		$state.go('form');
-	}
+	};
 });
