@@ -17,25 +17,37 @@
 #list-icon{
     position: absolute;
     bottom: -5px; 
-    right: 2px; 
+    right: 22vh; 
     background: transparent;
     border: 0;
     float:right;
+	
 }
 #centered{
-    width:67vw;
+    width:100vw;
+	
+	
 }
+#footered{
+	position: absolute; 
+	left: 0;
+}
+
 .item-thumbnail-left{
 	position: absolute;
 	bottom: 15px; 
 	background: transparent;
 	border: 0;
 }
-h2 {
-	
+.customer span{
+	height: 70px;
 	font-size: 150%;
 	color: #416969;
-}
-
+	
+	}
+.customer .icon.ion-ribbon-b{
+	color: #FFCC00;
+	size: 50px;	
 	
 }
+
