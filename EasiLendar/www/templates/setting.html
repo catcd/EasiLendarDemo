@@ -1,93 +1,99 @@
 <!-- starter: Can Duy Cat
-	 owner: Can Duy Cat
-	 last update: 24/02/2015
-	 type: html -->
-
+	owner: Can Duy Cat
+	last update: 11/03/2015
+	type: html -->
 <ion-view title="Setting">
-    <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-home" ui-sref="home" menu-close></button>
-    </ion-nav-buttons>
-    <ion-content padding="true">
-        <div class="list" style="margin-top: -10px">
-            <p style="margin-top: 10px; margin-bottom: -5px; color: #646464">
-                <b>APPERANCE</b>
-            </p>
-            <hr style="border: 2px solid #E6E6E6; width: 100%">
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-home" ui-sref="home" menu-close></button>
+	</ion-nav-buttons>
+	<ion-content padding="true">
+		<div class="list">
+			<p class="easi-gray setting-title">
+				<b>GENERAL</b>
+			</p><hr class="setting-separate-bold">
 
-            <label class="item item-input item-select" style="border-left: 0; border-right: 0; border-top: 0; margin-top: -7px">
-                <div class="input-label">Theme</div>
-                <select>
-                    <option selected>Auto</option>
-                    <option>Gray</option>
-                    <option>Blue</option>
-                    <option>Pink</option>
-                    <option>Violet</option>
-                    <option>Yellow</option>
-                    <option>Green</option>
-                    <option>Brown</option>
-                </select>
-            </label>
-            <label class="item item-input item-select" style="border-left: 0; border-right: 0; border-bottom: 0">
-                <div class="input-label">Language</div>
-                <select>
-                    <option selected>English</option>
-                    <option>Tiếng Việt</option>
-                </select>
-            </label>
+			<div class="item easi-space" ng-click="showAlert('Event options', 'templates/event-select.html', 'Select event types to show!')">
+				Event options
+			</div>
+			<div class="item easi-space" ng-click="showAlert('Select calendar', 'templates/calendar-select.html', 'Select calendar application')" id="setting-last-item">
+				Select calendar
+			</div>
 
-            <p style="margin-top: 10px; margin-bottom: -5px; color: #646464">
-                <b>CALENDAR</b>
-            </p>
-            <hr style="border: 2px solid #E6E6E6; width: 100%">
+			<p class="easi-gray setting-title">
+				<b>VIEW SETTINGS</b>
+			</p><hr class="setting-separate-bold">
 
-            <label class="item item-input" style="border-left: 0; border-right: 0; border-top: 0; margin-top: -7px" ng-click="showPopup('Calendars', 'templates/calendar-select.html')">
-                <div class="input-label">Calendars</div>
-            </label>
-            <label class="item item-input" style="border-left: 0; border-right: 0; border-bottom: 0" ng-click="showPopup('Sync options', 'templates/sync-option.html')">
-                <div class="input-label">Sync</div>
-            </label>
+			<div class="item easi-space" ng-click="showAlert('Start of the week', 'templates/day-select.html', 'Select the first day of week in the calendar')">
+				Start of the week
+				<span class="item-note">
+					{{eSettings.sFirstDay}}
+				</span>
+			</div>
+			<div class="item easi-space" ng-click="showAlert('Default view', 'templates/default-view-select.html', 'Select the default calendar in home page')">
+				Default view
+				<span class="item-note">
+					{{eSettings.sDefaultView}} calendar
+				</span>
+			</div>
+			<div class="item easi-space" ng-click="showAlert('Day view option', 'templates/day-view-option.html',  'Select the default view of day calendar')">
+				Day view option
+				<span class="item-note">
+					{{eSettings.sDayView}}
+				</span>
+			</div>
+			<div class="item item-toggle" id="setting-last-item">
+				<p class="easi-space easi-font17">Show week number</p>
+				<label class="toggle toggle-dark">
+					<input type="checkbox" ng-model="eSettings.sShowWeekNumber">
+					<div class="track">
+						<div class="handle"></div>
+					</div>
+				</label>
+			</div>
 
-            <p style="margin-top: 10px; margin-bottom: -5px; color: #646464">
-                <b>VIEW SETTINGS</b>
-            </p>
-            <hr style="border: 2px solid #E6E6E6; width: 100%">
+			<p class="easi-gray setting-title">
+				<b>OTHER</b>
+			</p><hr class="setting-separate-bold">
 
-            <label class="item item-input item-select" style="border-left: 0; border-right: 0; border-top: 0; margin-top: -7px">
-                <div class="input-label">Default view</div>
-                <select>
-                    <option selected>Month</option>
-                    <option>Week</option>
-                    <option>Day</option>
-                    <option>List</option>
-                </select>
-            </label>
-            <label class="item item-input item-select" style="border-left: 0; border-right: 0">
-                <div class="input-label">Day views</div>
-                <select>
-                    <option selected>Time grid</option>
-                    <option>Event list</option>
-                </select>
-            </label>
-            <label class="item item-input item-select" style="border-left: 0; border-right: 0; border-bottom: 0">
-                <div class="input-label">First day of week</div>
-                <select>
-                    <option>Sunday</option>
-                    <option selected>Monday</option>
-                </select>
-            </label>
+			<div class="item item-toggle" id="setting-last-item">
+				<p class="easi-space easi-font17">Auto sync</p>
+				<label class="toggle toggle-dark">
+					<input type="checkbox" ng-model="eSettings.sAutoSync">
+					<div class="track">
+						<div class="handle"></div>
+					</div>
+				</label>
+			</div>
+			<div class="item easi-space" ng-click="eSettings.sAutoSync ? showAlert('Auto sync option', 'templates/default-sync-option.html', 'Select conection to auto sync') : showAlert('Oop! Auto sync is turned off!', '', 'Turn it on to use this feature')">
+				Auto sync option
+				<p><small>Auto sync with {{eSettings.sSyncWith}}</small></p>
+			</div>
 
-            <p style="margin-top: 10px; margin-bottom: -5px; color: #646464">
-                <b>EasiLendar</b>
-            </p>
-            <hr style="border: 2px solid #E6E6E6; width: 100%">
+			<div class="item item-toggle" id="setting-last-item">
+				<p class="easi-space easi-font17">Use device time zone</p>
+				<label class="toggle toggle-dark">
+					<input type="checkbox" ng-model="eSettings.sDeviceTimeZone">
+					<div class="track">
+						<div class="handle"></div>
+					</div>
+				</label>
+			</div>
+			<div class="item easi-space" ng-click="!eSettings.sDeviceTimeZone ? showAlert('Time zone','templates/default-time-option.html', 'Search for your time zone.') : showAlert('Use device time zone', '', 'Turn it off to change time zone yourself')">
+				Time zone
+				<p><small>{{eSettings.sZoneName[eSettings.sTimeZone+12]}}</small></p>
+			</div>
 
-            <button class="item" style="border-left: 0; border-right: 0; border-top: 0; margin-top: -5px; width: 100%; text-align: left">
-                Suggested apps</button>
+			<div class="item easi-space" ng-click="showAlert('Default event duration', 'templates/default-event-duration.html', 'Select default duration for new event')">
+				Default event duration
+			</div>
 
-            <button class="item" style="border-left: 0; border-right: 0; border-bottom: 0; width: 100%; text-align: left; color: #646464" ui-sref="about" menu-close>
-                <b>About</b>
-            </button>
+			<div class="item easi-space" ui-sref="comingSoon" menu-close>
+				Suggested apps
+			</div>
 
-        </div>
-    </ion-content>
+			<div class="item easi-space" ui-sref="about" menu-close id="setting-last-item">
+				<b>About</b>
+			</div>
+		</div>
+	</ion-content>
 </ion-view>

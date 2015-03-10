@@ -1,12 +1,12 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 09/03/2015
+ * last update: 11/03/2015
  * type: about controller (version)
  */
 
 angular.module('MainApp.controllers.about', [])
 
 .controller("AboutController", function($scope) {
-    $scope.ver = "1.1.6.[113]"
+    $scope.ver = "1.1.11.[129]"
 })

@@ -1,7 +1,7 @@
 /**
 * starter: Can Duy Cat
 * owner: Can Duy Cat
-* last update: 02/03/2015
+* last update: 11/03/2015
 * type: general css
 */
 
@@ -74,3 +74,14 @@ p.splitMenu { margin-bottom: -8px; margin-left: 10px; margin-top: 10px; }
 	height: 30px;
 	padding-left: 10px;
 }
+
+/* setting */
+.setting-title { margin-bottom: -5px; }
+.setting-separate-bold { border: 2px solid #E6E6E6; width: 99%; }
+#setting-last-item { border-bottom: 0; }
+
+/* popup */
+/* default-time-option.html */
+#search-time-zone { position: absolute; top: 65px; }
+#show-time-zone { font-size: 12px; height: 50px; padding: 5px; }
+#time-zone-list { height: 150px; margin-top: 42px; }
