@@ -35,14 +35,14 @@
 					{{eSettings.sDefaultView}} calendar
 				</span>
 			</div>
-			<div class="item easi-space" ng-click="showAlert('Day view option', 'templates/day-view-option.html',  'Select the default view of day calendar')">
+			<div class="item easi-space" ng-click="showAlert('Day view option', 'templates/day-view-option.html',  'Select the default view of day calendar')" id="setting-border-under-bold">
 				Day view option
 				<span class="item-note">
 					{{eSettings.sDayView}}
 				</span>
 			</div>
 			<div class="item item-toggle" id="setting-last-item">
-				<p class="easi-space easi-font17">Show week number</p>
+				<p class="easi-space" id="font17">Show week number</p>
 				<label class="toggle toggle-dark">
 					<input type="checkbox" ng-model="eSettings.sShowWeekNumber">
 					<div class="track">
@@ -56,7 +56,7 @@
 			</p><hr class="setting-separate-bold">
 
 			<div class="item item-toggle" id="setting-last-item">
-				<p class="easi-space easi-font17">Auto sync</p>
+				<p class="easi-space" id="font17">Auto sync</p>
 				<label class="toggle toggle-dark">
 					<input type="checkbox" ng-model="eSettings.sAutoSync">
 					<div class="track">
@@ -64,13 +64,13 @@
 					</div>
 				</label>
 			</div>
-			<div class="item easi-space" ng-click="eSettings.sAutoSync ? showAlert('Auto sync option', 'templates/default-sync-option.html', 'Select conection to auto sync') : showAlert('Oop! Auto sync is turned off!', '', 'Turn it on to use this feature')">
+			<div class="item easi-space" ng-click="eSettings.sAutoSync ? showAlert('Auto sync option', 'templates/default-sync-option.html', 'Select conection to auto sync') : showAlert('Oop! Auto sync is turned off!', '', 'Turn it on to use this feature')" id="setting-border-under-bold">
 				Auto sync option
 				<p><small>Auto sync with {{eSettings.sSyncWith}}</small></p>
 			</div>
 
 			<div class="item item-toggle" id="setting-last-item">
-				<p class="easi-space easi-font17">Use device time zone</p>
+				<p class="easi-space" id="font17">Use device time zone</p>
 				<label class="toggle toggle-dark">
 					<input type="checkbox" ng-model="eSettings.sDeviceTimeZone">
 					<div class="track">
