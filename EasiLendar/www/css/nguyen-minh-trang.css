@@ -1,7 +1,7 @@
 /**
 * starter: Can Duy Cat
 * owner: Nguyen Minh Trang
-* last update: 05/03/2015
+* last update: 11/03/2015
 * type: personal css
 */
 
@@ -32,16 +32,17 @@
 }
 .easi-image {
 	width: 75%;
-	font-size: 80px;
+	height: 70px;
+	font-size: 71px;
 	color: #fff;
 	line-height: 100%;
-	margin: 60px auto 0 auto;
+	margin: 50px auto 0 auto;
 	text-align: center;
 }
 .signInForm { 
 	width: 75%;
 	max-width: 400px;
-	margin: 30px auto 0 auto; 
+	margin: 50px auto 0 auto; 
 }
 .registerForm {
 	width: 75%;
@@ -65,14 +66,15 @@
 .registerForm input[type=submit] 
 {
 	height: 50px;
-	width: 49.5%;
+	width: 70%;
 	float: left;
+	margin-top: 7px;
 } 
-.registerForm input[type=button]
-{
+.registerForm input[type=button] {
+	width: 29%;
 	height: 50px;
-	width: 49.5%;
 	float: right;
+	margin-top: 7px;
 }
 .registerForm .icon {
 	padding-right: 10px;

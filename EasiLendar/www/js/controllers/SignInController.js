@@ -1,17 +1,20 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 09/03/2015
+ * last update: 11/03/2015
  * type: particular controller
  */
 
 var signIn = angular.module('MainApp.controllers.signIn', []);
 
-signIn.controller('SignInController',function($scope, $http, $state) {
+signIn.controller('SignInController',function($rootScope, $scope, $http, $state) {
+	
+	// link to home's default view
+	var link = $rootScope.eSettings.sDefaultView;
 	
 	$scope.isRemember = false;
 	
-	/* warning object contains all warnings*/
+	// warning object contains all warnings
 	$scope.warnings = {
 		mesId: "",
 		mesName: "",
@@ -45,13 +48,13 @@ signIn.controller('SignInController',function($scope, $http, $state) {
 			this.re_password="";
 		};
 		
-		/*check ID's availability
-		 * return true if user can use that ID*/
+		/* check ID's availability
+		 * return true if user can use that ID */
 		var checkAvailability = function() {
 			return true;
 		};
 		
-		/*check ID's characters
+		/* check ID's characters
 		 * 0..9 || a..z || A..Z || _ */
 		this.checkChar = function() {
 			if (this.id.length > 15 || this.id.length < 4)
@@ -70,9 +73,9 @@ signIn.controller('SignInController',function($scope, $http, $state) {
 			return true;
 		};
 		
-		/*check ID
+		/* check ID
 		 * Can not be empty
-		 * ID must be unique*/
+		 * ID must be unique */
 		this.checkID = function() {
 			if (this.id == "") {
 				return "Required";
@@ -90,7 +93,7 @@ signIn.controller('SignInController',function($scope, $http, $state) {
 			return true;
 		};
 		
-		/*check Name
+		/* check Name
 		 * Can not be empty
 		 */
 		this.checkName = function() {
@@ -100,7 +103,7 @@ signIn.controller('SignInController',function($scope, $http, $state) {
 			return true;
 		};
 
-		/*check Email
+		/* check Email
 		 * can not be empty
 		 */
 		this.checkEmail = function() {
@@ -112,8 +115,9 @@ signIn.controller('SignInController',function($scope, $http, $state) {
 			return true;
 		};
 
-		/*check Password
-		 * Can not be empty*/
+		/* check Password
+		 * Can not be empty
+		 * */
 		this.checkPass = function() {
 			if (this.password == "") {
 				return "Required";
@@ -135,10 +139,10 @@ signIn.controller('SignInController',function($scope, $http, $state) {
 		};
 	}; // End of class User
 
-	/* create new user */
+	// create new user 
 	$scope.user = new User();
 	
-	/* sign in function */
+	// sign in function 
 	$scope.signIn = function() {
 		if (!$scope.user.checkChar()) {
 			$state.go('warning');
@@ -148,23 +152,23 @@ signIn.controller('SignInController',function($scope, $http, $state) {
 			$http.post("php/signIn.php", {"ID": id, "pass": pass})
 			.success(function(data,status,headers,config) {
 				if (data == "YES") {
-					$state.go('home');
+					$state.go(link);
 				} else {
-					$state.go('home');	// should be warning
+					$state.go(link);	// should be warning
 				}
 			})
 			.error(function(data,status) {
-				$state.go('home');	// should be warning
+				$state.go(link);	// should be warning
 			});
 		}
 	};
 	
-	/* confirm the warning when sign in */
+	// confirm the warning when sign in
 	$scope.confirm = function() {
 		$state.go('form');
 	};
 
-	/* check the valid informations to register */
+	// check the valid informations to register 
 	$scope.check = function(num) {
 		switch (num) {
 			case 1: 
@@ -195,7 +199,7 @@ signIn.controller('SignInController',function($scope, $http, $state) {
 		}
 	};
 
-	/* register function */
+	// register function 
 	$scope.register = function() {
 		var flag;
 		for (var i=1; i <=5; i++) {
@@ -203,14 +207,14 @@ signIn.controller('SignInController',function($scope, $http, $state) {
 			if (flag == false) break;
 		}
 		if (flag) {
-			/*Something*/
+			//something
 			$state.go('form');
 		} else {
 
 		}
 	};
 
-	/*back to form*/
+	// back to form
 	$scope.back = function() {
 		$state.go('form');
 	};

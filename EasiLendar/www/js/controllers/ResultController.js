@@ -1,13 +1,21 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 10/03/2015
+ * last update: 11/03/2015
  * type: paticular controller
  */
 
 var result = angular.module('MainApp.controllers.result', []);
 
-result.controller("ResultController", function($scope, $ionicPopup) {
+result.controller("ResultController", function($rootScope, $scope, $ionicPopup, $state) {
+	
+	// link to home's default view
+	var link = $rootScope.eSettings.sDefaultView;
+	
+	$scope.done = function() {
+		$state.go(link);
+	};
+	
 	/*Class option */
 	function Option(score, date, from, to) {
 		/* Convert functions */
