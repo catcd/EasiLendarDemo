@@ -6,7 +6,7 @@
 */
 /* profile */
 #cover {
-    background-image: url(../img/cover.jpg);
+    background-image: url(../img/smart_hotel.jpg);
     height: 25vh;
     margin-left: -10px;
     margin-top: -10px;
@@ -17,7 +17,7 @@
 #list-icon{
     position: absolute;
     bottom: -5px; 
-    right: 22vh; 
+    right: 125px; 
     background: transparent;
     border: 0;
     float:right;
@@ -50,4 +50,33 @@
 	size: 50px;	
 	
 }
+/*DAY CALENDAR */
+.day-table-calendar {margin-top:-15px;}
+.tr-day-calendar { }
+.td-day-calendar-1 { width: 10.5%; color: #646464; text-align: center; font-size: 30px;}
+.td-day-calendar-1:hover{ color: #33CCCC; }
+.td-day-calendar-2 { width: 90%; color: #ffffff;}
+.div-day-calendar { max-width: 100%; margin-bottom: 15px; padding: 10px; margin: 10px; font-size: 14px;}
+.p-day-calendar-number, .p-day-calendar-text { width: 100%; padding-top: 15px;}
+.p-day-calendar-text { font-size: 15px; margin-top: -20px;}
+.event-color-1 { background-color: #32CD32;}
+.event-color-2 { background-color: #33CCCC;}
+.event-color-3 { background-color: #315050;}
+.event-color-4 { background-color: #191970;}
+.event-color-5 { background-color: #FF0000;}
+#xxx{
+color: #416969;
+font-size:100%;
+position: absolute;
+left:40%;right:25%
+margin-bottom:-10px;
+margin-top":10px;
+}
+#yyy{
+color: #416969;
+position: absolute;
+ left:25%;
+ font-size:200%;
+}
+
 
