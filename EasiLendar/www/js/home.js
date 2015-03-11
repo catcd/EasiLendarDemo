@@ -50,36 +50,41 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds'])
 			/**
 			 * appFull's children
 			 */
-			.state('home', {
-				parent: 'appFull',
-				url: '/home',
-				templateUrl: 'templates/day.html',
-				controller: 'HomeController'
-			}).state('month', {
-				parent: 'appFull',
-				url: '/month',
-				templateUrl: 'templates/month.html',
-				controller: 'HomeController'
-			}).state('week', {
-				parent: 'appFull',
-				url: '/week',
-				templateUrl: 'templates/week.html',
-				controller: 'HomeController'
-			}).state('day', {
-				parent: 'appFull',
-				url: '/day',
-				templateUrl: 'templates/day.html',
-				controller: 'HomeController'
-			}).state('list', {
-				parent: 'appFull',
-				url: '/list',
-				templateUrl: 'templates/list.html',
-				controller: 'HomeController'
-			}).state('profile', {
+			.state('profile', {
 				parent: 'appFull',
 				url: '/profile',
 				templateUrl: 'templates/profile.html',
 				controller: 'ProfileController'
+			}).state('home', {
+				parent: 'appFull',
+				url: '',
+				abstract: true,
+				templateUrl: 'templates/home.html',
+				controller: 'HomeController'
+			})
+			/**
+			 * home's children
+			 */
+			.state('month', {
+				parent: 'home',
+				url: '/month',
+				templateUrl: 'templates/month.html',
+				controller: 'MonthController'
+			}).state('week', {
+				parent: 'home',
+				url: '/week',
+				templateUrl: 'templates/week.html',
+				controller: 'WeekController'
+			}).state('day', {
+				parent: 'home',
+				url: '/day',
+				templateUrl: 'templates/day.html',
+				controller: 'DayController'
+			}).state('list', {
+				parent: 'home',
+				url: '/list',
+				templateUrl: 'templates/list.html',
+				controller: 'ListController'
 			})
 			/**
 			 * appMenu's children
