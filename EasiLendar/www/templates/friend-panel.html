@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
      owner: Ngo Duc Dung
-     last update: 09/03/2015 
+     last update: 11/03/2015 
      type: friend panel template -->
 
 <form data-ng-controller="friendPanelController">
@@ -26,7 +26,7 @@
 					<p class="easi-light-gray">{{friend.status}}</p>
 					<i data-ng-show="friend.vip" class="icon ion-ribbon-b easi-vip-color" id="ribbon-b"></i>
 				</div>
-				<div class="div02 my-repeat-animation" data-ng-show="visible">
+				<div class="div02 my-repeat-animation" data-slide-toggle-friend="visible">
 					<div style="margin-right: 8px">
 						<button ui-sref="searchFilter" menu-close>Date</button>
 						<button data-ng-click="deleteFriend(friend)">Delete</button>
