@@ -35,6 +35,9 @@ html { height: 100%; width: 100%; }
 .popup-buttons .button:hover { background-color: #646464; }
 
 /* easi style */
+.easi-index-1 { z-index: 1; }
+.easi-index-2 { z-index: 2; }
+.easi-index-3 { z-index: 3; }
 .easi-center { text-align: center; }
 .easi-left { text-align: left; }
 .easi-right { text-align: right; }

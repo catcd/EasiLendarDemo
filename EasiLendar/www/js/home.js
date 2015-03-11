@@ -27,6 +27,11 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds'])
 				url: '',
 				abstract: true,
 				templateUrl: 'templates/app-none.html'
+			}).state('home', {
+				url: '',
+				abstract: true,
+				templateUrl: 'templates/home.html',
+				controller: 'HomeController'
 			})
 			/**
 			 * signIn's children
@@ -55,15 +60,10 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds'])
 				url: '/profile',
 				templateUrl: 'templates/profile.html',
 				controller: 'ProfileController'
-			}).state('home', {
-				parent: 'appFull',
-				url: '',
-				abstract: true,
-				templateUrl: 'templates/home.html',
-				controller: 'HomeController'
 			})
 			/**
 			 * home's children
+			 * same as appFull but has 1 button
 			 */
 			.state('month', {
 				parent: 'home',
