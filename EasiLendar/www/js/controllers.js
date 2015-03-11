@@ -19,5 +19,6 @@ angular.module('MainApp.controllers', [
     'MainApp.controllers.setting',
     'MainApp.controllers.sideMenu',
     'MainApp.controllers.signIn',
+    'MainApp.controllers.sync',
     'MainApp.controllers.week'
 ])

@@ -94,6 +94,11 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds'])
 				url: '/setting',
 				templateUrl: 'templates/setting.html',
 				controller: 'SettingController'
+			}).state('sync', {
+				parent: 'appMenu',
+				url: '/sync',
+				templateUrl: 'templates/sync.html',
+				controller: 'SyncController'
 			})
 			// .state('myProfile', {
 			// parent : 'appMenu',
