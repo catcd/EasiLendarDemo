@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 09/03/2015
+ * last update: 11/03/2015
  * type: friend panel controller
  */
 
@@ -26,7 +26,7 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
                          {image:"img/boy3.png", name:'Can Duy Cat', status: "I'm busy now", vip: true},
                          {image:"img/boy3.png", name:'Nguyen Manh Duy', status: "I'm free now", vip: false},
                          {image:"img/girl3.png", name:'Nguyen Minh Trang', status: "I'm busy now", vip:true}
-       			];
+       		];
 
       $scope.deleteFriend = function(friend){
       		$scope.friends.splice($scope.friends.indexOf(friend),1);
@@ -39,24 +39,32 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
             link: function(scope, element, attr, $index) {
                   scope.visible = false;
                   scope.toggleFunc = function(){
-                         scope.visible = !scope.visible;
-                         currentIndex = element.scope().$index;
+                        scope.visible = !scope.visible;
                   };
                   $document.bind('click',function(event){
-                        if(element.scope().$index !== currentIndex && element.scope().visible == true){
-                               element.scope().$apply(function(){
-                                    element.scope().visible = false;
-                              });
-                        }   
-                        if(event.target.nodeName !== 'H2' && event.target.nodeName !== 'P' 
-                           && event.target.nodeName !== 'IMG' && event.target.nodeName !== 'I')
-                        {
-                              scope.$apply(function(){
-                                    scope.visible = false;
-                              });
-                         }
+                        var isClickedElement = element.find(event.target).length > 0;
+                        if (isClickedElement) return;
+                        scope.visible = false;
+                        scope.$apply();
                   });
             }
+      };  
+})
+
+.directive('slideToggleFriend', function() {  
+      return {
+            restrict: 'A',      
+            scope:{
+            isOpen: "=slideToggleFriend"
+            },  
+            link: function(scope, element, attr) {
+                  element.hide();
+                  scope.$watch('isOpen', function(newVal,oldVal){
+                    if(newVal !== oldVal){ 
+                      element.stop().slideToggle("slow");
+                    }
+                });
+          }
       };  
 })
 
@@ -74,3 +82,4 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 		}
 	};
 })
+

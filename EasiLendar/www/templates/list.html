@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
-	 owner: Nguyen Manh Duy
-	 last update: 24/02/2015
+	 owner: Ngo Duc Dung
+	 last update: 11/03/2015
 	 type: calendar template -->
 
 <ion-view title="EasiLendar">
@@ -11,5 +11,85 @@
         <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
         <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
     </ion-nav-buttons>
-    <ion-content padding="true"> <img src="img/list.png" style="width: 100vw; margin-top: -10px; margin-left: -10px"> </ion-content>
+
+
+    <ion-content padding="true"><center>
+   		<table class="table-list-calendar easi-no-border">
+   			<tr>
+   				<td class="td-list-calendar-1 easi-no-border">
+   					<p class="p-list-calendar-number easi-no-border">10</p>
+   					<p class="p-list-calendar-text easi-no-border">Tues</p>
+   				</td>
+   				<td class="td-list-calendar-2 easi-no-border">
+   					<div class="div-list-calendar easi-no-border event-color-2">
+   						<span>Dinner with Obama</span><br>
+   						<span>Time: 7:00PM</span><br>
+   						<span>Location: White House</span>
+   					</div
+   				</td>
+   			</tr>
+
+   			<tr class="tr-list-calendar easi-no-border">
+   				<td class="td-list-calendar-1 easi-no-border">
+   					<p class="p-list-calendar-number easi-no-border">11</p>
+   					<p class="p-list-calendar-text easi-no-border">Wed</p>
+   				</td>
+   				<td class="td-list-calendar-2">
+   					<div class="div-list-calendar easi-no-border event-color-5">
+   						<span>Visiting David Guetta's Studio</span><br>
+   						<span>Time: 8:30AM</span><br>
+   						<span>Location: DG's Studio</span>
+   					</div>
+   					<div class="div-list-calendar easi-no-border event-color-3">
+   						<span>Yoga with Katy Perry</span><br>
+   						<span>Time: 5:30PM</span><br>
+   						<span>Location: KP's Apartment - NY city</span>
+   					</div>
+   				</td>
+   			</tr>
+
+   			<tr class="tr-list-calendar easi-no-border">
+   				<td class="td-list-calendar-1 easi-no-border">
+   					<p class="p-list-calendar-number easi-no-border">12</p>
+   					<p class="p-list-calendar-text easi-no-border">Thu</p>
+   				</td>
+   				<td class="td-list-calendar-2">
+   					<div class="div-list-calendar easi-no-border event-color-1">
+   						<span>Movie: Avenger 2</span><br>
+   						<span>Time: 9:30AM</span><br>
+   						<span>Location: National Cinema Centre</span>
+   					</div>
+   					<div class="div-list-calendar easi-no-border event-color-5">
+   						<span>Group Meeting</span><br>
+   						<span>Time: 13:30PM</span><br>
+   						<span>Location: 501 CT1 building - VNU</span>
+   					</div>
+   					<div class="div-list-calendar easi-no-border event-color-2">
+   						<span>Talking with Justin Timberlake</span><br>
+   						<span>Time: 7:30PM</span><br>
+   						<span>Location: Starbucks coffee</span><br>
+   					</div>
+   				</td>
+   			</tr>
+
+   			<tr class="tr-list-calendar">
+   				<td class="td-list-calendar-1 easi-no-border">
+   					<p class="p-list-calendar-number easi-no-border">13</p>
+   					<p class="p-list-calendar-text easi-no-border">Fri</p>
+   				</td>
+   				<td class="td-list-calendar-2 easi-no-border">
+   					<div class="div-list-calendar easi-no-border event-color-5">
+   						<span>Cinderella (2015)</span><br>
+   						<span>Time: 9:30PM</span><br>
+   						<span>Location: National Cinema Centre</span>
+   					</div>
+   					<div class="div-list-calendar easi-no-border event-color-3">
+   						<span>Shopping with Taylor Swiff</span><br>
+   						<span>Time: 14:30PM</span><br>
+   						<span>Location: The Shops at Columbus Circle</span><br>
+   					</div>
+   				</td>
+   			</tr>
+   		</table></center>
+    </ion-content>
 </ion-view>
