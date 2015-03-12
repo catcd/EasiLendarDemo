@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 11/03/2015
+ * last update: 12/03/2015
  * type: particular controller
  */
 
@@ -16,30 +16,27 @@ signIn.controller('SignInController',function($rootScope, $scope, $http, $state)
 	
 	// warning object contains all warnings
 	$scope.warnings = {
-		mesId: "",
-		mesName: "",
-		mesEmail: "",
-		mesPass: "",
-		mesCPass: "",
-			
+		// array of messages (5 mes)
+		mes: [],
+		
+		// reset all messages (set to null)
 		reset: function() {
-			this.mesId = "";
-			this.mesName = "";
-			this.mesEmail = "";
-			this.mesPass= "";
-			this.mesCPass = "";
+			for (var i=0; i < 5; i++) {
+				this.mes[i] = null;
+			}
 		}
 	};
 	
 	/* class User */
 	function User() {
+		// all informations
 		this.id ="";
 		this.name="";
 		this.email="";
 		this.password="";
 		this.re_password="";
 		
-		/* reset all data */
+		// reset all data 
 		this.reset = function() {
 			this.id ="";
 			this.name="";
@@ -49,16 +46,20 @@ signIn.controller('SignInController',function($rootScope, $scope, $http, $state)
 		};
 		
 		/* check ID's availability
-		 * return true if user can use that ID */
+		 * return true if user can use that ID 
+		 */
 		var checkAvailability = function() {
 			return true;
 		};
 		
 		/* check ID's characters
-		 * 0..9 || a..z || A..Z || _ */
+		 * 0..9 || a..z || A..Z || _ 
+		 */
 		this.checkChar = function() {
+			// check input length
 			if (this.id.length > 15 || this.id.length < 4)
 				return false;
+			// check input characters (ASCII)
 			for (var i = 0; i < this.id.length; i++) {
 				if (this.id.charCodeAt(i) < 48)
 					return false;
@@ -75,8 +76,10 @@ signIn.controller('SignInController',function($rootScope, $scope, $http, $state)
 		
 		/* check ID
 		 * Can not be empty
-		 * ID must be unique */
+		 * ID must be unique 
+		 */
 		this.checkID = function() {
+			// if valid return true else return fault's string
 			if (this.id == "") {
 				return "Required";
 			} else if (!this.checkChar()) {
@@ -97,6 +100,7 @@ signIn.controller('SignInController',function($rootScope, $scope, $http, $state)
 		 * Can not be empty
 		 */
 		this.checkName = function() {
+			// if valid return true else return fault's string
 			if (this.name == "") {
 				return "Required";
 			}
@@ -107,6 +111,7 @@ signIn.controller('SignInController',function($rootScope, $scope, $http, $state)
 		 * can not be empty
 		 */
 		this.checkEmail = function() {
+			// if valid return true else return fault's string
 			if (this.email == "") {
 				return "Required";
 			} else if (-1 == this.email.search("@")) {
@@ -117,8 +122,9 @@ signIn.controller('SignInController',function($rootScope, $scope, $http, $state)
 
 		/* check Password
 		 * Can not be empty
-		 * */
+		 */
 		this.checkPass = function() {
+			// if valid return true else return fault's string
 			if (this.password == "") {
 				return "Required";
 			}
@@ -130,6 +136,7 @@ signIn.controller('SignInController',function($rootScope, $scope, $http, $state)
 		 * Must match with password
 		 */
 		this.checkCPass = function() {
+			// if valid return true else return fault's string
 			if (this.re_password =="") {
 				return "Required";
 			} else if (this.re_password != this.password) {
@@ -142,6 +149,28 @@ signIn.controller('SignInController',function($rootScope, $scope, $http, $state)
 	// create new user 
 	$scope.user = new User();
 	
+	// sign in function with firebase
+	$scope.signIn = function() {
+		if (!$scope.user.checkChar()) {
+			$state.go('warning');
+		} else {
+			var id = $scope.user.id;
+			var pass = $scope.user.password;
+			var ref = new Firebase("https://radiant-inferno-3243.firebaseio.com/Users/"+id);
+			
+			ref.on("value", function(snapshot) {
+	  			var user = snapshot.val();
+				if (user == null || user.password != pass) {
+					$state.go("warning");
+				} else {
+					$state.go(link);
+				}
+			}, function (errorObject) {
+				$state.go("warning");
+			});
+		}
+	};
+	/*
 	// sign in function 
 	$scope.signIn = function() {
 		if (!$scope.user.checkChar()) {
@@ -162,58 +191,49 @@ signIn.controller('SignInController',function($rootScope, $scope, $http, $state)
 			});
 		}
 	};
+	*/
 	
 	// confirm the warning when sign in
 	$scope.confirm = function() {
 		$state.go('form');
 	};
 
-	// check the valid informations to register 
-	$scope.check = function(num) {
-		switch (num) {
-			case 1: 
-				$scope.warnings.mesId = $scope.user.checkID();
-				if (typeof($scope.warnings.mesId) !== "string") {
-					return true;
-				} else return false;
-			case 2:
-				$scope.warnings.mesName = $scope.user.checkName();
-				if (typeof($scope.warnings.mesName) !== "string") {
-					return true;
-				} else return false;
-			case 3:
-				$scope.warnings.mesEmail = $scope.user.checkEmail();
-				if (typeof($scope.warnings.mesEmail) !== "string") {
-					return true;
-				} else return false;
-			case 4:
-				$scope.warnings.mesPass = $scope.user.checkPass();
-				if (typeof($scope.warnings.mesPass) !== "string") {
-					return true;
-				} else return false;
-			case 5: 
-				$scope.warnings.mesCPass = $scope.user.checkCPass();
-				if (typeof($scope.warnings.mesCPass) !== "string") {
-					return true;
-				} else return false;
-		}
-	};
-
 	// register function 
 	$scope.register = function() {
-		var flag;
-		for (var i=1; i <=5; i++) {
-			flag = $scope.check(i);
-			if (flag == false) break;
+		// flag array, contains temporary warning messages
+		var flag = [];
+		// count number of warnings
+		var count = 0;
+		flag[0] = $scope.user.checkID();	// ID
+		flag[1] = $scope.user.checkName();	// Name
+		flag[2] = $scope.user.checkEmail();	// Email
+		flag[3] = $scope.user.checkPass();	// Password
+		flag[4] = $scope.user.checkCPass();	// Confirm password
+		
+		// if flag[i] is a string => it's a warning
+		for (var i=0; i < 5; i++) {
+			if (typeof(flag[i]) == "string") {
+				$scope.warnings.mes[i] = flag[i];
+				count++;
+			}
 		}
-		if (flag) {
+		
+		// if there is no warning
+		if (count == 0) {
 			//something
 			$state.go('form');
 		} else {
 
 		}
 	};
-
+	
+	// check if mes[i] is a warning or NULL
+	$scope.check = function(num) {
+		if ($scope.warnings.mes[num] == null) {
+			return true;
+		} else return false;
+	};
+	
 	// back to form
 	$scope.back = function() {
 		$state.go('form');
