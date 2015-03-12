@@ -1,7 +1,7 @@
 /**
 * starter: Nguyen Minh Trang
 * owner: Can Duy Cat
-* last update: 11/03/2015
+* last update: 12/03/2015
 * type: general css
 *
 * My app's style
@@ -70,6 +70,7 @@ html { height: 100%; width: 100%; }
 .bar .easi-title a { color: inherit; }
 
 /* easi color */
+.easi-red { color: #D65930; }
 .easi-white { color: #FFFFFF; }
 .easi-gray { color: #646464; }
 .easi-light-gray { color: #E6E6E6; }

@@ -1,7 +1,7 @@
 /**
 * starter: Can Duy Cat
 * owner: Can Duy Cat
-* last update: 11/03/2015
+* last update: 12/03/2015
 * type: general css
 */
 
@@ -90,10 +90,10 @@ p.splitMenu { margin-bottom: -8px; margin-left: 10px; margin-top: 10px; }
 
 /* home */
 .add-event {
-	font-size: 50px;
+	font-size: 69px;
 	position: absolute;
-	right: 15px;
-	bottom: 5px;
+	right: 0px;
+	bottom: 0px;
 	color: #900;
-	text-shadow: 0 0 10px #ccc, 0 0 10px #ccc;
+	text-shadow: 5px 5px 10px #fff, 5px 5px 5px #fff, 5px 0px 5px #fff, 5px 0px 5px #fff;
 }
