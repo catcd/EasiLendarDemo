@@ -1,44 +1,44 @@
 <!-- starter: Can Duy Cat
 	 owner: Nguyen Minh Trang
-	 last update: 11/03/2015
+	 last update: 12/03/2015
 	 type: state template -->
 
 <div class="registerForm" scrollbar-y="false">
   <form method="POST" name="registerForm" data-ng-submit="register()">
 	<div>
 		<label class="font20"><strong>Easilendar ID:</strong></label>
-		<span class="float-right" data-ng-show="registerForm.$submitted && !check(1)">
-		  <i class="icon ion-alert"></i>{{warnings.mesId}}
+		<span class="float-right" data-ng-show="!check(0)">
+		  <i class="icon ion-alert"></i>{{warnings.mes[0]}}
 		</span>
-		<input class="item-input signin-form-input" data-ng-model="user.id" type="text" name="userid"/>
+		<input class="item-input signin-form-input" data-ng-model="user.id" on-touch="warnings.reset()" type="text" name="userid"/>
 	</div>
 	<div>
 		<label class="font20"><strong>Your name:</strong></label>
-		<span class="float-right" data-ng-show="registerForm.$submitted && !check(2)">
-		  <i class="icon ion-alert"></i>{{warnings.mesName}}
+		<span class="float-right" data-ng-show="!check(1)">
+		  <i class="icon ion-alert"></i>{{warnings.mes[1]}}
 		</span>
-		<input class="item-input signin-form-input" data-ng-model="user.name" type="text" name="username"/>
+		<input class="item-input signin-form-input" data-ng-model="user.name" on-touch="warnings.reset()" type="text" name="username"/>
 	</div> 
 	<div class="input-block">
 		<label class="font20"><strong>Email:</strong></label>
-		<span class="float-right" data-ng-show="registerForm.$submitted && !check(3)">
-		  <i class="icon ion-alert"></i>{{warnings.mesEmail}}
+		<span class="float-right" data-ng-show="!check(2)">
+		  <i class="icon ion-alert"></i>{{warnings.mes[2]}}
 		</span>
-		<input class="item-input signin-form-input" data-ng-model="user.email" type="text" name="useremail"/>
+		<input class="item-input signin-form-input" data-ng-model="user.email" on-touch="warnings.reset()" type="text" name="useremail"/>
 	</div>
 	<div class="input-block">
 		<label class="font20"><strong>Password:</strong></label>
-		<span class="float-right" data-ng-show="registerForm.$submitted && !check(4)">
-		  <i class="icon ion-alert"></i>{{warnings.mesPass}}
+		<span class="float-right" data-ng-show="!check(3)">
+		  <i class="icon ion-alert"></i>{{warnings.mes[3]}}
 		</span>
-		<input class="item-input signin-form-input" data-ng-model="user.password" type="password" name="password"/>
+		<input class="item-input signin-form-input" data-ng-model="user.password" on-touch="warnings.reset()" type="password" name="password"/>
 	</div>
 	<div>
 		<label class="font20"><strong>Confirm:</strong></label>
-		<span class="float-right" data-ng-show="registerForm.$submitted && !check(5)">
-		  <i class="icon ion-alert"></i>{{warnings.mesCPass}}
+		<span class="float-right" data-ng-show="!check(4)">
+		  <i class="icon ion-alert"></i>{{warnings.mes[4]}}
 		</span>
-		<input class="item-input signin-form-input" data-ng-model="user.re_password" type="password"/>
+		<input class="item-input signin-form-input" data-ng-model="user.re_password" on-touch="warnings.reset()" type="password"/>
 	</div>
 	<div class="terms">By clicking Register, you agree to our <a class="easi-dark-blue" href="">EasiLendar Terms</a></div>
 	<div>
