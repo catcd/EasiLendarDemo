@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 11/03/2015
+ * last update: 13/03/2015
  * type: personal css
  */
 
@@ -142,11 +142,35 @@
 .event-color-5 { background-color: #FF0000;}
 
 /*MONTH CALENDAR*/
-.table-month-calendar {margin-left: 5px; margin-right: 10px;}
-.td-header-month-calendar { width: 30px; color: #646464; text-align: center; font-size: 14px; padding-bottom: 5px; padding-top: 20px;}
-.td-month-calendar {width: 30px; color: #646464; text-align: center; padding: 5px;}
-.td-month-calendar div, .different-month-color { width: 30px; height:30px; text-align: center; border-radius: 100px;}
+.bkg-01, .bkg-02, .bkg-03, .bkg-04, .bkg-05, .bkg-06, .bkg-07, .bkg-08, .bkg-09, .bkg-10, .bkg-11, .bkg-12{ 
+   transition: 0.5s linear;
+}
+.bkg-01{ background: url("../img/bkg_01_jan.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
+.bkg-02{ background: url("../img/bkg_02_feb.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
+.bkg-03{ background: url("../img/bkg_03_mar.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
+.bkg-04{ background: url("../img/bkg_04_apr.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
+.bkg-05{ background: url("../img/bkg_05_may.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
+.bkg-06{ background: url("../img/bkg_06_jun.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
+.bkg-07{ background: url("../img/bkg_07_jul.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
+.bkg-08{ background: url("../img/bkg_08_aug.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
+.bkg-09{ background: url("../img/bkg_09_sep.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
+.bkg-10{ background: url("../img/bkg_10_oct.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
+.bkg-11{ background: url("../img/bkg_11_nov.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;} 
+.bkg-12{ background: url("../img/bkg_12_dec.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
+
+.content-month-calendar {margin-top: -22px;}
+.title-month-calendar { margin-bottom: 7px; color: #646464;}
+.button-calendar.active, .button-calendar.activated { opacity: 0.3; }
+.button-calendar:before, .button-calendar:before {font-size: 15px; color: #646464;}
+.button-previous-month { margin-right: 12px;}
+.button-next-month { margin-left: 12px;}
+.span-month-calendar {width: 200px; display: inline-block; font-size: 17px; font-weight: bold;}
+.table-month-calendar{height: 235px;}
+.td-header-month-calendar { width: 30px; color: black; font-weight: bold; text-align: center; font-size: 13px; padding-bottom: 10px; padding-top: 15px;}
+.td-month-calendar {width: 30px; color: black; text-align: center; padding: 5px; }
+.td-month-calendar div, .different-month-color { width: 30px; height:30px; text-align: center; margin-top: -9px; border-radius: 100px;}
 .td-month-calendar input[type="radio"] { width: 0; height: 0; }
-.td-month-calendar label{ font-size: 12px; width: 19px; height: 25px; border-radius: 100px; padding-top: 6px; margin-right: 4px; display: inline-block;}
+.td-month-calendar label{ font-size: 12px; width: 19px; height: 25px; border-radius: 100px; padding-top: 6px; margin-right: 4px; display: inline-block;} 
 .different-month-color {color: #E6E6E6;}
-.radio-month-selected { background-color: #33CCCC; color: #ffffff; }
+.current-date-style { border: 1px solid #ffffff; color: #ffffff;}
+.radio-month-selected { background-color: #33CCCC; color: #ffffff;}

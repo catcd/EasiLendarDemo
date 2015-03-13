@@ -1,35 +1,39 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 11/03/2015
+ * last update: 13/03/2015
  * type: friend panel controller
  */
 
 angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 
-.controller('friendPanelController', function($scope, $ionicPopup) {
+.controller('friendPanelController', function($scope, $rootScope, $ionicPopup) {
      $scope.searchFriend = '';
      $scope.mShow = false;	
      $scope.friends = [
-                         {image:"img/boy3.png", name:'Ngo Duc Dung', status: "I'm busy now", vip: true},
+                         {image:"img/boy1.png", name:'Ngo Duc Dung', status: "I'm busy now", vip: true},
                          {image:"img/girl3.png", name:'Nguyen Thi Luong', status: "I'm free now", vip: false},
-                         {image:"img/boy3.png", name:'Can Duy Cat', status: "I'm busy now", vip: true},
+                         {image:"img/boy1.png", name:'Can Duy Cat', status: "I'm busy now", vip: true},
+                         {image:"img/boy2.png", name:'Nguyen Manh Duy', status: "I'm free now", vip: false},
+                         {image:"img/girl2.png", name:'Nguyen Minh Trang', status: "I'm busy now", vip:true},
+                         {image:"img/boy1.png", name:'Ngo Duc Dung', status: "I'm busy now", vip: true},
+                         {image:"img/girl4.png", name:'Nguyen Thi Luong', status: "I'm free now", vip: false},
+                         {image:"img/boy2.png", name:'Can Duy Cat', status: "I'm busy now", vip: true},
                          {image:"img/boy3.png", name:'Nguyen Manh Duy', status: "I'm free now", vip: false},
                          {image:"img/girl3.png", name:'Nguyen Minh Trang', status: "I'm busy now", vip:true},
                          {image:"img/boy3.png", name:'Ngo Duc Dung', status: "I'm busy now", vip: true},
-                         {image:"img/girl3.png", name:'Nguyen Thi Luong', status: "I'm free now", vip: false},
-                         {image:"img/boy3.png", name:'Can Duy Cat', status: "I'm busy now", vip: true},
-                         {image:"img/boy3.png", name:'Nguyen Manh Duy', status: "I'm free now", vip: false},
-                         {image:"img/girl3.png", name:'Nguyen Minh Trang', status: "I'm busy now", vip:true},
-                         {image:"img/boy3.png", name:'Ngo Duc Dung', status: "I'm busy now", vip: true},
-                         {image:"img/girl3.png", name:'Nguyen Thi Luong', status: "I'm free now", vip: false},
-                         {image:"img/boy3.png", name:'Can Duy Cat', status: "I'm busy now", vip: true},
-                         {image:"img/boy3.png", name:'Nguyen Manh Duy', status: "I'm free now", vip: false},
-                         {image:"img/girl3.png", name:'Nguyen Minh Trang', status: "I'm busy now", vip:true}
+                         {image:"img/girl4.png", name:'Nguyen Thi Luong', status: "I'm free now", vip: false},
+                         {image:"img/boy1.png", name:'Can Duy Cat', status: "I'm busy now", vip: true},
+                         {image:"img/boy2.png", name:'Nguyen Manh Duy', status: "I'm free now", vip: false},
+                         {image:"img/girl1.png", name:'Nguyen Minh Trang', status: "I'm busy now", vip:true}
        		];
 
       $scope.deleteFriend = function(friend){
       		$scope.friends.splice($scope.friends.indexOf(friend),1);
+      }
+
+      $scope.viewProfile = function(friend){
+         
       }
 })
 

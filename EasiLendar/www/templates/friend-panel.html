@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
      owner: Ngo Duc Dung
-     last update: 11/03/2015 
+     last update: 13/03/2015 
      type: friend panel template -->
 
 <form data-ng-controller="friendPanelController">
@@ -30,7 +30,7 @@
 					<div style="margin-right: 8px">
 						<button ui-sref="searchFilter" menu-close>Date</button>
 						<button data-ng-click="deleteFriend(friend)">Delete</button>
-						<button ui-sref="profile" menu-close>View</button>
+						<button data-ng-click="viewProfile(friend)" ui-sref="profile" menu-close>View</button>
 					</div>
 				</div>
 				<hr id="hrFriendPanel">
