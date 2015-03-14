@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
      owner: Can Duy Cat
-     last update: 12/03/2015
+     last update: 14/03/2015
      type: menu panel template -->
 <ion-header-bar class="bar-easi-gray">
     <p class="easi-light-gray easi-title">MENU</p>
@@ -8,60 +8,40 @@
 
 <ion-content id="sideMenuContent">
     <div class="easi-space">
+        <!-- user information -->
         <a class="item item-icon-right myAvatar sideMenu" ui-sref="comingSoon" menu-close>
-            <img src="img/boy1.png">
-            <h2 class="easi-light-gray">Can Duy Cat</h2>
+            <img src="img/ava{{eUser.uAvatar}}.png">
+            <h2 class="easi-light-gray">{{eUser.uName}}</h2>
             <i class="icon ion-ribbon-b easi-vip-color"></i>
         </a>
-        <hr class="sideMenu">
-        <a class="item item-icon-left sideMenu" ui-sref="comingSoon" menu-close>
-            <i class="icon ion-plus-circled"></i> Create
-        </a>
-        <hr class="sideMenu">
-        <a class="item item-icon-left sideMenu" ui-sref="month" menu-close>
-            <i class="icon ion-calendar"></i> Month
-        </a>
-        <hr class="sideMenu">
-        <a class="item item-icon-left sideMenu" ui-sref="week" menu-close>
-            <i class="icon ion-calendar"></i> Week
-        </a>
-        <hr class="sideMenu">
-        <a class="item item-icon-left sideMenu" ui-sref="day" menu-close>
-            <i class="icon ion-calendar"></i> Day
-        </a>
-        <hr class="sideMenu">
-        <a class="item item-icon-left sideMenu" ui-sref="list" menu-close>
-            <i class="icon ion-clipboard"></i> List
-        </a>
-        <hr class="sideMenu">
-        <a class="item item-icon-left sideMenu" ui-sref="sync" menu-close>
-            <i class="icon ion-social-googleplus-outline"></i> Sync
-        </a>
+
+        <!-- all common item -->
+        <div ng-repeat="item in eMenu.mMenus">
+            <hr class="sideMenu">
+            <a class="item item-icon-left sideMenu" ui-sref={{item.sref}} menu-close>
+                <i class="icon {{item.icon}}"></i> {{item.name}}
+            </a>
+        </div>
+
         <p class="easi-light-gray splitMenu">TOOLS</p>
         <hr class="splitMenu">
-        <a class="item item-icon-left sideMenu item-icon-right" ui-sref="comingSoon" menu-close> <i class="icon ion-refresh"></i> Restore <i class="icon ion-alert-circled easi-red"></i>
+
+        <!-- restore with another icon -->
+        <a class="item item-icon-left sideMenu item-icon-right" ui-sref="comingSoon" menu-close>
+            <i class="icon ion-refresh"></i> Restore
+            <i class="icon ion-alert-circled easi-red"></i>
         </a>
         <hr class="sideMenu">
-        <a class="item item-icon-left sideMenu" ui-sref="comingSoon" menu-close>
-            <i class="icon ion-share"></i> Share
-        </a>
-        <hr class="sideMenu">
-        <a class="item item-icon-left sideMenu" ui-sref="comingSoon" menu-close>
-            <i class="icon ion-document-text"></i> Export
-        </a>
-        <hr class="sideMenu">
-        <a class="item item-icon-left sideMenu" ui-sref="comingSoon" menu-close>
-            <i class="icon ion-ribbon-b easi-vip-color"></i> EasiVIP
-        </a>
-        <hr class="sideMenu">
-        <a class="item item-icon-left sideMenu" ui-sref="comingSoon" menu-close>
-            <i class="icon ion-help-circled"></i> Helps
-        </a>
-        <hr class="sideMenu">
-        <a class="item item-icon-left sideMenu" ui-sref="setting" menu-close>
-            <i class="icon ion-android-settings"></i> Settings
-        </a>
-        <hr class="sideMenu">
+
+        <!-- all common item -->
+        <div ng-repeat="item in eMenu.mTools">
+            <a class="item item-icon-left sideMenu" ui-sref={{item.sref}} menu-close>
+                <i class="icon {{item.icon}}"></i> {{item.name}}
+            </a>
+            <hr class="sideMenu">
+        </div>
+
+        <!-- 2 non-sref item -->
         <a class="item item-icon-left sideMenu" ui-sref="form" menu-close>
             <i class="icon ion-power"></i> Sign out
         </a>
