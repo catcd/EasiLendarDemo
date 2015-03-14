@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 11/03/2015
+ * last update: 14/03/2015
  * type: module (controller list)
  */
 
@@ -11,6 +11,7 @@ angular.module('MainApp.controllers', [
     'MainApp.controllers.day',
     'MainApp.controllers.home',
     'MainApp.controllers.list',
+    'MainApp.controllers.loading',
     'MainApp.controllers.month',
     'MainApp.controllers.popover',
     'MainApp.controllers.profile',

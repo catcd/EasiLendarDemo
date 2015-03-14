@@ -4,9 +4,9 @@
  * last update: 09/03/2015
  * type: main js
  */
-angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds'])
+angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds', 'ngCordova'])
 	.config(function($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise("/form");
+		$urlRouterProvider.otherwise("/loading");
 		$stateProvider
 		/**
 		 * abstract state
@@ -127,7 +127,12 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds'])
 			// templateUrl : 'templates/change.html',
 			// controller : 'EventController'
 			// })
-			.state('about', {
+			.state('loading', {
+				parent: 'appNone',
+				url: '/loading',
+				templateUrl: 'templates/loading.html',
+				controller: 'LoadingController'
+			}).state('about', {
 				parent: 'appNone',
 				url: '/about',
 				templateUrl: 'templates/about.html',
