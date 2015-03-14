@@ -12,6 +12,7 @@ angular.module('MainApp.controllers.month', [])
     $scope.currentDateNumber = $scope.currentDate.getDate();
     $scope.currentMonthNumber = $scope.currentDate.getMonth();
     $scope.currentYear = $scope.currentDate.getFullYear(); 
+    $scope.days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     $scope.months = [
                     'January', 'February','March', 'April', 'May',
                     'June', 'July', 'August', 'September','October',
@@ -35,7 +36,7 @@ angular.module('MainApp.controllers.month', [])
                 ]}
             ];
     $scope.currentMonthString = $scope.months[$scope.currentMonthNumber];
-
+    $scope.currentDayInWeek = $scope.days[$scope.currentDate.getDay()];
 
     $scope.previousMonth = function(form){
         form.$setPristine();

@@ -157,6 +157,21 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 	    });
     }
   };  
-});
+})
 
-
+.directive('changeIcon',function(){
+	return{
+		restrict: 'A',
+		scope: {
+			isChange: '=changeIcon'
+		},
+		link:function(scope,element,attr){
+			scope.$watch('isChange',function(){
+				if(scope.isChange == false){
+					element.attr('class','icon ion-arrow-down-b');
+				}
+				else { element.attr('class','icon ion-arrow-up-b'); }
+			});
+		}
+	};
+})

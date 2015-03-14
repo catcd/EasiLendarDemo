@@ -22,7 +22,7 @@
             <div class = "list">
 
                 <!--START: Commom Filter -->
-                <span id="span01"><b>COMMON FILTER</b></span>
+                <span id="span01">Common Filter</span>
                 <hr id="hr01"></hr>
                 <div class="list list-inset">
                     <div class="item item-input" id="itemTitle">
@@ -30,7 +30,7 @@
                     </div>
                     <div ng-cloak class= "ng-cloak" id="div00" data-ng-show="filter_form.title.$invalid 
                     && filter_form.title.$dirty" class="my-animation">
-                        <small class="error" id="error01" data-ng-show="filter_form.title.$error.required" ng-cloak>
+                        <small class="error" id="error01" data-ng-show="filter_form.title.$error.required">
                         Required!
                         </small>
                     </div>
@@ -43,14 +43,11 @@
                                         <small class="error" id="error02" data-ng-show="filter_form.durationHour.$error.required">
                                         Required!
                                         </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.durationHour.$error.number">
-                                        Not a valid number!
-                                        </small>
                                         <small class="error" id="error02" data-ng-show="filter_form.durationHour.$error.min">
                                         Cannot be less than 0!
                                         </small>
                                         <small class="error" id="error02" data-ng-show="filter_form.durationHour.$error.max">
-                                        Cannot be greater than 24!
+                                        Cannot be greater than 23!
                                         </small>
                                     </div>
                                 </td>
@@ -60,14 +57,11 @@
                                         <small class="error" id="error02" data-ng-show="filter_form.durationMinute.$error.required">
                                         Required!
                                         </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.durationMinute.$error.number">
-                                        Not a valid number!
-                                        </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.durationMinute.$error.min">
-                                        Cannot be less than 0!
-                                        </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.durationMinute.$error.max">
+                                         <small class="error" id="error02" data-ng-show="filter_form.durationMinute.$error.max">
                                         Cannot be greater than 59!
+                                        </small>
+                                         <small class="error" id="error02" data-ng-show="filter_form.durationMinute.$error.min">
+                                        Cannot be less than 0!
                                         </small>
                                     </div>
                                 </td>
@@ -90,32 +84,10 @@
                                 <tr>
                                 <td style="width: 15%"><span id="span03">From:</span></td>
                                 <td style="width: 40%">
-                                    <input id="input01" type="number" data-ng-model="timeValues.mFromHour" name="fromHour" placeholder="Hour" min="0" max="23" class="my-animation">
-                                    <div id="div00" data-ng-show="filter_form.fromHour.$invalid && filter_form.fromHour.$dirty" class="my-animation">
-                                        <small class="error" id="error02" data-ng-show="filter_form.fromHour.$error.number">
-                                        Not a valid number!
-                                        </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.fromHour.$error.min">
-                                        Cannot be less than 0!
-                                        </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.fromHour.$error.max">
-                                        Cannot be greater than 23!
-                                        </small>
-                                    </div>
+                                    <input id="input01" type="text" data-ng-model="timeValues.mFromHour" name="fromHour" placeholder="Hour" max="23" class="my-animation" numbers-only valid-input>
                                 </td>
                                 <td style="width: 40%">
-                                    <input id="input01" type="number" data-ng-model="timeValues.mFromMinute" name="fromMinute" placeholder="Minute" min="0" max="59">
-                                    <div id="div00" data-ng-show="filter_form.fromMinute.$invalid && filter_form.fromMinute.$dirty" class="my-animation">
-                                        <small class="error" id="error02" data-ng-show="filter_form.fromMinute.$error.number">
-                                        Not a valid number!
-                                        </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.fromMinute.$error.min">
-    						 			Cannot be less than 0!
-    						 			</small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.fromMinute.$error.max">
-                                        Cannot be greater than 59!
-                                        </small>
-                                    </div>
+                                    <input id="input01" type="text" data-ng-model="timeValues.mFromMinute" name="fromMinute" placeholder="Minute" max="59" numbers-only valid-input>
                                 </td>
                                </tr>
                             </table>
@@ -125,31 +97,16 @@
                                 <tr>
                                 <td style="width: 15%"><span id="span03">To:</span></td>
                                 <td style="width: 40%">
-                                    <input id="input01" type="number" data-ng-model="timeValues.mToHour" name="toHour" placeholder="Hour" min="{{min}}" max="24" class="my-animation">
+                                    <input id="input01" type="text" data-ng-model="timeValues.mToHour" name="toHour" placeholder="Hour" min="{{min}}" max="23" class="my-animation" numbers-only valid-input> 
                                     <div id="div00" data-ng-show="filter_form.toHour.$invalid && filter_form.toHour.$dirty" class="my-animation">
-                                        <small class="error" id="error02" data-ng-show="filter_form.toHour.$error.number">
-                                        Not a valid number!
-                                        </small>
                                         <small class="error" id="error02" data-ng-show="filter_form.toHour.$error.min">
                                         Cannot be less than {{min}}!
-                                        </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.toHour.$error.max">
-                                        Cannot be greater than 23!
                                         </small>
                                     </div>
                                 </td>
                                 <td style="width: 40%">
-                                    <input id="input01" type="number" data-ng-model="timeValues.mToMinute" name="toMinute" placeholder="Minute" min="0" max="59" class="my-animation">
+                                    <input id="input01" type="text" data-ng-model="timeValues.mToMinute" name="toMinute" placeholder="Minute" max="59" class="my-animation" numbers-only valid-input>
                                     <div id="div00" data-ng-show="filter_form.toMinute.$invalid && filter_form.toMinute.$dirty" class="my-animation">
-                                        <small class="error" id="error02" data-ng-show="filter_form.toMinute.$error.number">
-                                        Not a valid number!
-                                        </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.toMinute.$error.min">
-                                        Cannot be less than 0!
-                                        </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.toMinute.$error.max">
-                                        Cannot be greater than 59!
-                                        </small>
                                     </div>
                                 </td>
                              </tr>
@@ -247,6 +204,7 @@
 
                 <p id="p01">
                     <button id="button-advance-filter" data-ng-disabled="unVip" data-ng-click="toggleFunc()"><b>{{titleOfButton}}</b></button>
+                    <i class="icon ion-arrow-up-b" data-change-icon="mShow"></i>
                 </p>
                 <hr id="hr02"></hr>
 

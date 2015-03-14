@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 13/03/2015
+ * last update: 15/03/2015
  * type: personal css
  */
 
@@ -9,8 +9,7 @@
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
-
-.myAvatar, .myAvatar .item-content { height: 49px; min-height: 51px; padding-left: 70px; }
+.myAvatar, .myAvatar .item-content { height: 50px; min-height: 51px; padding-left: 70px; }
 .myAvatar > img:first-child, .myAvatar .item-image, .myAvatar .item-content > img:first-child, .myAvatar .item-content .item-image {
     left: 10px;
     max-height: 50px;
@@ -18,27 +17,25 @@
     position: absolute;
     top: 0px;
 }
-.myAvatar h2{margin-top: 7px;}
+.myAvatar h2 { margin-top: 7px;}
 
-.myAvatar01 {max-height: 110px; padding-left: 70px; padding-bottom: 4px; padding: 4px}
+.myAvatar01 { max-height: 88px; padding-left: 70px; padding: 4px}
 .myAvatar01 > img:first-child, .myAvatar01 .item-image, .myAvatar01 .item-content > img:first-child, .myAvatar01 .item-content .item-image {
     left: 10px;
-    max-height: 50px;
-    max-width: 60px;
+    height: 50px;
     position: absolute;
     top: 4px;
     width: 52px;
 }
-
 #friendPanelContent { background-color: #646464; border: 0; margin-bottom:-45px; padding-bottom: 45px; z-index: 1;}
 .myAvatar01 h2 {margin-top: 10px; font-size: 15px; font-weight: normal; margin-left: 63px; overflow: hidden;}
 .myAvatar01 p {color: #E6E6E6; font-size: 14px; font-weight: normal; margin-left: 63px; padding-top: 1px;}
 #myAvatar01 { background-color: #646464; border: 0; padding-bottom: 0px;}
 #ribbon-b { border: 0; height: 50px; margin-top: 5px;}
-#hrFriendPanel { border: 1px solid #707070; width: 90%; margin-top: 4px; margin-bottom: 0px;}
+#hrFriendPanel { border: 1px solid #707070; width: 90%; margin-top: 1px; margin-bottom: 0;}
 
-.div02 {text-align: right; padding-bottom: 2px; padding-top: 4px; border: 0; font-size: 13px;}
-.div02 button {border:0; background-color: #646464; color:#E6E6E6;}
+.div02 {text-align: right; border: 0; font-size: 13px; height: 25px;}
+.div02 button {border:0; background-color: #646464; color:#E6E6E6; padding-top: 0px;}
 .search-friend-input-focus { opacity: 0.9;}
 .search-friend-input-blur {opacity: 0.5;}
 
@@ -56,7 +53,7 @@
 #table02 { border: 0; margin-top: -3px; margin-left: -8px; width: 100%;}
 #td03 { border: 0; color: #646464; font-size: 12px; padding-left: 10px;}
 #td04 { border: 0; padding-right: 10px; }
-#span01 { color: #646464; margin-bottom: -5px; margin-left: 2px; }
+#span01 { color: #646464; margin-left: 2px; display: inline-block;}
 #span02 { color: #646464; font-size: 14px;}
 #span03 { color: #646464; border: 0; font-size: 12px;}
 #input01, #inputTitle{ border: 0; margin-left: -6px; margin-bottom: -3px; margin-top: -5px;}
@@ -64,7 +61,7 @@
 #input01::-webkit-inner-spin-button {-webkit-appearance: none;}
 #hr01, #hr02 { border: 2px solid #E6E6E6; width: 100%; }
 #hr01 { margin-top: -2px; }
-#p01 { color: #646464; margin-bottom: -7px; margin-top: -2px;}
+#p01 { color: #646464; margin-bottom: -7px; margin-top: -2px; text-align: center;}
 
 .list { margin-top: -2px; }
 #inset01 { border: 0; border-bottom: 0; margin-bottom: -5px; margin-top: -6px;}
@@ -74,14 +71,11 @@
 #itemLocation { border: 0; margin-bottom: -15px;}
 #itemTo { border: 0;}
 #itemToDay { border:0;}
-
 #button-advance-filter {
     background-color: #ffffff;
     border: 0;
     color: #646464;
     font-size: 14px;
-    margin-left: -3px;
-    margin-top: 0px;
 }
 
 /*segment button*/
@@ -121,29 +115,36 @@
 */
 /*show-hide*/
 .my-repeat-animation.ng-hide-add.ng-hide-add-active,
-.my-repeat-animation.ng-hide-remove.ng-hide-remove-active {
-  transition: all linear 400ms;
-}
+.my-repeat-animation.ng-hide-remove.ng-hide-remove-active { transition: all linear 400ms;}
 .my-repeat-animation.ng-hide { opacity: 0;}
 
 /*LIST CALENDAR*/
-.table-list-calendar, .table-month-calendar {margin-top:-15px;}
-.tr-list-calendar { }
-.td-list-calendar-1 { width: 15%; color: #646464; text-align: center; font-size: 30px;}
-.td-list-calendar-1:hover{ color: #33CCCC; }
-.td-list-calendar-2 { width: 90%; color: #ffffff;}
-.div-list-calendar { max-width: 100%; margin-bottom: 15px; padding: 10px; margin: 10px; font-size: 14px;}
-.p-list-calendar-number, .p-list-calendar-text { width: 100%; padding-top: 15px;}
+.table-list-calendar, .table-month-calendar { margin-top:-15px;}
+.list-calendar { margin-top: -15px;}
+.td-list-calendar-1 { color: #646464; text-align: center; font-size: 30px;}
+.td-list-calendar-2 { color: #ffffff; padding-right: 10px;}
+.div-list-calendar { width: 270px; margin-left: 7px; margin-bottom: 10px; padding: 10px; font-size: 14px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+.span-title-event { font-weight: bold;}
+.p-list-calendar-number, .p-list-calendar-text{ width: 100%; padding-top: 15px;}
 .p-list-calendar-text { font-size: 15px; margin-top: -20px;}
-.event-color-1 { background-color: #32CD32;}
-.event-color-2 { background-color: #33CCCC;}
-.event-color-3 { background-color: #315050;}
-.event-color-4 { background-color: #191970;}
-.event-color-5 { background-color: #FF0000;}
+.p-list-calendar-month {font-size: 10px; margin-top: -10px;}
+
+.current-date-list { color: #33CCCC;}
+.birthday-background, .holiday-background, .hotel-background, .restaurant-background, .ticket-background { color: black;}
+.birthday-background { background: url("../img/img_birthday.jpg") no-repeat; background-size: 100% 100%; background-position:center top;}
+.holiday-background { background: url("../img/smart_flight.jpg") no-repeat; background-size: 100% 100%; background-position:center top;}
+.hotel-background { background: url("../img/smart_hotel.jpg") no-repeat; background-size: 100% 100%; background-position:center top;}
+.restaurant-background { background: url("../img/smart_restaurant.jpg") no-repeat; background-size: 100% 100%; background-position:center top;}
+.ticket-background { background: url("../img/smart_ticket.jpg") no-repeat; background-size: 100% 100%; background-position:center top;}
+.event-color-1 { background-color: #690;}
+.event-color-2 { background-color: #F39;}
+.event-color-3 { background-color: #06F;}
+.event-color-4 { background-color: #960;}
+.event-color-5 { background-color: #069;}
 
 /*MONTH CALENDAR*/
 .bkg-01, .bkg-02, .bkg-03, .bkg-04, .bkg-05, .bkg-06, .bkg-07, .bkg-08, .bkg-09, .bkg-10, .bkg-11, .bkg-12{ 
-   transition: 0.5s linear;
+   transition: 0.7s linear;
 }
 .bkg-01{ background: url("../img/bkg_01_jan.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
 .bkg-02{ background: url("../img/bkg_02_feb.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
@@ -160,7 +161,7 @@
 
 .content-month-calendar {margin-top: -22px;}
 .title-month-calendar { margin-bottom: 7px; color: #646464;}
-.button-calendar.active, .button-calendar.activated { opacity: 0.3; }
+.button-calendar.active, .button-calendar.activated { opacity: 0.3;}
 .button-calendar:before, .button-calendar:before {font-size: 15px; color: #646464;}
 .button-previous-month { margin-right: 12px;}
 .button-next-month { margin-left: 12px;}
@@ -174,3 +175,4 @@
 .different-month-color {color: #E6E6E6;}
 .current-date-style { border: 1px solid #ffffff; color: #ffffff;}
 .radio-month-selected { background-color: #33CCCC; color: #ffffff;}
+.day-month-calendar { margin-top: 30px;}
