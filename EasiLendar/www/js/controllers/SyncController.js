@@ -1,10 +1,10 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Manh Duy
- * last update: 11/03/2015
+ * last update: 13/03/2015
  * type: paticular controller
  */
-
+ 
 angular.module('MainApp.controllers.sync', [])
 
 .controller('SyncController', function($scope, $rootScope,$window, $document) {
@@ -14,7 +14,7 @@ angular.module('MainApp.controllers.sync', [])
 	var result;
 	
 	var apiKey = 'AIzaSyAmBIdo6sEPU5QK3lqVrflqNNyoRhCBF7I';
-    var clientId = '164260242142-f2upehfvganujti5mfn53p7m2ii30i14.apps.googleusercontent.com';
+    var clientId = '164260242142-4er9a46uufjlu6h6hsbv3s7479mqv6pr.apps.googleusercontent.com';
     var scopes = 'https://www.googleapis.com/auth/calendar';
 	
     $scope.buttons = [{
@@ -31,11 +31,7 @@ angular.module('MainApp.controllers.sync', [])
 	
 	$scope.handleClientLoad = function()
 	{
-		document.getElementById('request').style.display="none";
-		document.getElementById('authorize-button').style.visibility="visible";
-		document.getElementById('loadCalendar').style.visibility="visible";
-		
-		gapi.client.setApiKey(apiKey);
+		//gapi.client.setApiKey(apiKey);
 		window.setTimeout($scope.checkAuth,1);
 	}
 	
@@ -130,15 +126,28 @@ angular.module('MainApp.controllers.sync', [])
                     'calendarId': 'primary',
                     "singleEvents": "true",
                     "orderBy": "startTime",
-                    'maxResults': 500
+                    'maxResults': 1000
                         //'timeMin': '2015-03-08T09:43:00-04:00'
                 });
                 request.execute(function(resp) {
+					
+					$rootScope.uGmailCalendar = resp.items;
+					
+					/* For info:
+					
+					var event= document.getElementById('events');
+					var title = document.createElement('h2');
+					title.appendChild(document.createTextNode("Everything up-to-date");
+					
+					event.appendChild(title);
+					
+					*/
+					
+					// For test:
+					
 					var event= document.getElementById('events');
 					
 					document.getElementById("authorize-button").innerHTML = "Log out with acount " + resp.summary;
-					
-					$rootScope.uGmailCalendar = resp.items;
 					
 					if (resp.items.length==0)
 					{
@@ -163,7 +172,7 @@ angular.module('MainApp.controllers.sync', [])
                         li.appendChild(at);
                         li.appendChild(document.createTextNode(resp.items[i].end.dateTime));
 						
-						if (document.createTextNode(resp.items[i].location) == "undefined")
+						if (resp.items[i].location != undefined)
 						{
 							li.appendChild(inn);
 							li.appendChild(document.createTextNode(resp.items[i].location));
@@ -174,7 +183,7 @@ angular.module('MainApp.controllers.sync', [])
 					
 					event.appendChild(ol);
 					
-					alert("Your calendar was Synchronized");
+					alert("Your calendar was update");
                 });
             });
         } else {

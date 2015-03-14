@@ -1,32 +1,24 @@
 <!-- starter: Can Duy Cat
 	owner: Nguyen Manh Duy
-	last update: 11/03/2015
+	last update: 14/03/2015
 	type: html -->
-<ion-view title="Setting">
-	<ion-nav-buttons side="left">
-		<button class="button button-icon button-clear ion-home" ui-sref={{eSettings.sDefaultView}} menu-close></button>
-	</ion-nav-buttons>
-	<ion-content padding="true">
-		
-		<div id="content" style="margin-bottom: 30px">
+
+<ion-view title="Sync" data-ng-init= "handleClientLoad()">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-home" ui-sref="{{eSettings.sDefaultView}}"> </button>
+    </ion-nav-buttons>
+	
+    <ion-content padding="true" ">	
+        <div id="content" style="margin-bottom: 30px">
             <h1  style="font-size: 170%; margin-top: 30px">Synchronize to Google Calendar</h1>
         </div>
 		
-		<div id="request" style="margin-top: 40px">
-            <a id= "show" style= "color: blue " ng-click="handleClientLoad()" >
-				<i><b><i><u>click here to load synchronization information</u></i></b></i>
-			</a>
-        </div>
-		
         <div style="margin-top: 60px" id="div-log-in">
-            <a style= "visibility: hidden" class={{buttons[logIN].mClass}} id="authorize-button" ng-click="{{buttons[logIN].click}}">{{buttons[logIN].text}}</a>
+            <a class={{buttons[logIN].mClass}} id="authorize-button" ng-click="{{buttons[logIN].click}}">{{buttons[logIN].text}}</a>
         </div>
 
-        <button style= "visibility: hidden; margin-top:30px" id="loadCalendar" class = "button icon ion-gear-a easi-no-border" ng-click="makeApiCall()">:_ Load Calendar _:</button>
+        <button style="margin-top:30px" id="loadCalendar" class = "button icon ion-gear-a easi-no-border" ng-click="makeApiCall()">:_ Update Calendar _:</button>
 
         <ul id="events" style="margin-top: 30px"></ul>
-		
-		<script src="https://apis.google.com/js/client.js?onload=init"></script>
-		
-	</ion-content>
+    </ion-content>
 </ion-view>
