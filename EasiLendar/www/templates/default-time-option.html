@@ -10,7 +10,7 @@
 	    </label>
 	</div>
 	<ul class="list" id="time-zone-list">
-		<li class="item item-text-wrap" id="show-time-zone" ng-repeat="time in eSettings.sZoneName | filter:zone" ng-click="eSettings.sTimeZone=eSettings.sZoneName.indexOf(time)-12; closePopup();">{{time}}</li>
+		<li class="item item-text-wrap" id="show-time-zone" ng-repeat="time in eSettings.sZoneList | filter:zone" ng-click="eSettings.sTimeZone=time.zone; closePopup();">{{eSettings.sZoneName[time.zone+11]}} <br> {{time.location}}</li>
 	</ul>
 </div>
 
