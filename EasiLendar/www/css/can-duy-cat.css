@@ -1,7 +1,7 @@
 /**
 * starter: Can Duy Cat
 * owner: Can Duy Cat
-* last update: 12/03/2015
+* last update: 16/03/2015
 * type: general css
 */
 
@@ -135,10 +135,11 @@ input.coming-input:-ms-input-placeholder { font-size: 12px; }
 
 /* side menu */
 #sideMenuContent { background-color: #646464; border: 0; }
-a.sideMenu:link { background-color: #646464; border: 0; color: #E6E6E6; }
-a.sideMenu:visited { background-color: #646464; border: 0; color: #E6E6E6; }
-a.sideMenu:hover { background-color: #646464; border: 0; color: #E6E6E6; }
-a.sideMenu:active { background-color: #33CCCC; border: 0; color: #E6E6E6; }
+a#sideMenuf { background-color: #646464; border: 0; color: #E6E6E6; }
+a#sideMenu:link { background-color: #646464; border: 0; color: #E6E6E6; }
+a#sideMenu:visited { background-color: #646464; border: 0; color: #E6E6E6; }
+a#sideMenu:hover { background-color: #646464; border: 0; color: #E6E6E6; }
+a#sideMenu:active { background-color: #33CCCC; border: 0; color: #E6E6E6; }
 hr.sideMenu { border: 1px solid #707070; width: 90%; }
 hr.splitMenu { border: 2px solid #707070; width: 95%; }
 p.splitMenu { margin-bottom: -8px; margin-left: 10px; margin-top: 10px; }

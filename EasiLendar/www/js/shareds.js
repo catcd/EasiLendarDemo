@@ -1,13 +1,13 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 15/03/2015
+ * last update: 16/03/2015
  * type: module all shared variables and functions
  */
 
 angular.module('MainApp.shareds', [])
 
-.run(function($rootScope, $ionicPopup, $timeout) {
+.run(function($rootScope, $ionicPopup, $timeout, $state, $ionicPlatform, $ionicHistory) {
 	/**
 	 * All shared variables
 	 */
@@ -69,6 +69,8 @@ angular.module('MainApp.shareds', [])
 		uRemember: false,	/*remember me*/
 		uFriend: [],		/*array of objects { id, name }*/
 
+		isLogin : false;
+
 		uGmailCalendar: null,	/*Google API JSON	Calendar*/
 		uLocalCalendar: null,	/*Google API JSON	Calendar*/
 	};
@@ -106,7 +108,6 @@ angular.module('MainApp.shareds', [])
 			{ name: 'Settings', icon: 'ion-android-settings', sref: 'setting' }
 		]
 	}
-
 
 	/**
 	 * All functions
@@ -149,8 +150,53 @@ angular.module('MainApp.shareds', [])
 			}, 100);
 		};
 	}
+
+/*	// press again to exit
+	$ionicPlatform.registerBackButtonAction(function(e) {
+	    if ($rootScope.backButtonPressedOnceToExit) {
+	        ionic.Platform.exitApp();
+	    } else if ($ionicHistory.backView()) {
+	        $ionicHistory.goBack();
+	    } else {
+	        $rootScope.backButtonPressedOnceToExit = true;
+	        window.plugins.toast.showShortCenter(
+	            "Press back button again to exit",
+	            function(a) {},
+	            function(b) {}
+	        );
+	        setTimeout(function() {
+	            $rootScope.backButtonPressedOnceToExit = false;
+	        }, 2000);
+	    }
+	    e.preventDefault();
+	    return false;
+	}, 101);*/
+
+	// exit app function
+	$rootScope.exitEasi = function() {
+		var confirmPopup = $ionicPopup.confirm({
+			title: "Exit confirm",
+			subTitle: "Are you sure?"
+		});
+		confirmPopup.then(function(res) {
+			if (res) {
+				navigator.app.exitApp();
+			} else {
+				// TODO cancel
+			}
+		});
+	}
+
+	// go home function
+	$rootScope.goHome = function() {
+		$state.go($rootScope.eSettings.sDefaultView);
+	}
 })
 
+/**
+ * All directive
+ */
+// Directive input number only (A)
 .directive('numbersOnly', function() {
 		return {
 			require: 'ngModel',
@@ -167,28 +213,30 @@ angular.module('MainApp.shareds', [])
 			}
 		};
 	})
-	.directive('validInput', function() {
-		return {
-			require: 'ngModel',
-			scope: {
-				max: '='
-			},
-			link: function(scope, element, attrs, modelCtrl) {
-				modelCtrl.$parsers.push(function(inputValue) {
-					inputValue = inputValue.replace(/[^0-9]/g, '');
-					if (inputValue == '') {
-						inputValue = '0';
-					}
-					if (Number(inputValue) > scope.max) {
-						inputValue = scope.max.toString();
-					}
-					if (Number(inputValue) > 0 && inputValue.charAt(0) == '0') {
-						inputValue = Number(inputValue).toString();
-					}
-					modelCtrl.$setViewValue(inputValue);
-					modelCtrl.$render();
-					return Number(inputValue);
-				});
-			}
-		};
-	});
+// Directive input number only smaller than max="int"
+// 0x convert to x, empty char convert to 0
+.directive('validInput', function() {
+	return {
+		require: 'ngModel',
+		scope: {
+			max: '='
+		},
+		link: function(scope, element, attrs, modelCtrl) {
+			modelCtrl.$parsers.push(function(inputValue) {
+				inputValue = inputValue.replace(/[^0-9]/g, '');
+				if (inputValue == '') {
+					inputValue = '0';
+				}
+				if (Number(inputValue) > scope.max) {
+					inputValue = scope.max.toString();
+				}
+				if (Number(inputValue) > 0 && inputValue.charAt(0) == '0') {
+					inputValue = Number(inputValue).toString();
+				}
+				modelCtrl.$setViewValue(inputValue);
+				modelCtrl.$render();
+				return Number(inputValue);
+			});
+		}
+	};
+});
