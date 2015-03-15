@@ -15,18 +15,17 @@
 
     <ion-content padding="true" class="content-month-calendar">
       <center><table class="list-calendar">
-   			<tr class="tr-list-calendar" ng-repeat="list in listEvents">
-                <td class="td-list-calendar-1" current-day-in-list = "">
+   			<tr class="tr-list-calendar" ng-repeat="list in listEvents2">
+                <td class="td-list-calendar-1" current-day-in-list = "list.date">
     				<p class="p-list-calendar-number">{{list.date}}</p>
     				<p class="p-list-calendar-text">{{list.day}}</p>
                     <p class="p-list-calendar-month">{{list.month}}</p>
     			</td>
-            
     			<td class="td-list-calendar-2">
-    				<div class="div-list-calendar ticket-background">
-    					<span class="span-title-event">{{list.summary}}</span><br>
-    					<span>Time: {{list.start.dateTime}} - {{list.end.dateTime}}</span><br>
-    					<span>Location: {{list.location}}</span>
+    				<div class="div-list-calendar ticket-background" ng-repeat="event in list.events">
+    					<span class="span-title-event">{{event.summary}}</span><br>
+    					<span>Time: {{event.start}} - {{event.end}}</span><br>
+    					<span>Location: {{event.location}}</span>
     				</div>
     			</td>
    			</tr>

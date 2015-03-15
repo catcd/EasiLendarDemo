@@ -121,9 +121,10 @@
 /*LIST CALENDAR*/
 .table-list-calendar, .table-month-calendar { margin-top:-15px;}
 .list-calendar { margin-top: -15px;}
+.tr-list-calendar {padding-bottom: 10px;}
 .td-list-calendar-1 { color: #646464; text-align: center; font-size: 30px;}
-.td-list-calendar-2 { color: #ffffff; padding-right: 10px;}
-.div-list-calendar { width: 270px; margin-left: 7px; margin-bottom: 10px; padding: 10px; font-size: 14px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+.td-list-calendar-2 { color: #ffffff; padding-right: 10px; padding-bottom: 15px;}
+.div-list-calendar { width: 230px; margin-left: 7px; margin-bottom: 10px; padding: 10px; font-size: 14px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
 .span-title-event { font-weight: bold;}
 .p-list-calendar-number, .p-list-calendar-text{ width: 100%; padding-top: 15px;}
 .p-list-calendar-text { font-size: 15px; margin-top: -20px;}
@@ -144,20 +145,20 @@
 
 /*MONTH CALENDAR*/
 .bkg-01, .bkg-02, .bkg-03, .bkg-04, .bkg-05, .bkg-06, .bkg-07, .bkg-08, .bkg-09, .bkg-10, .bkg-11, .bkg-12{ 
-   transition: 0.7s linear;
+   transition: all linear 400ms;
 }
-.bkg-01{ background: url("../img/bkg_01_jan.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
-.bkg-02{ background: url("../img/bkg_02_feb.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
-.bkg-03{ background: url("../img/bkg_03_mar.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
-.bkg-04{ background: url("../img/bkg_04_apr.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
-.bkg-05{ background: url("../img/bkg_05_may.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
-.bkg-06{ background: url("../img/bkg_06_jun.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
-.bkg-07{ background: url("../img/bkg_07_jul.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
-.bkg-08{ background: url("../img/bkg_08_aug.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
-.bkg-09{ background: url("../img/bkg_09_sep.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
-.bkg-10{ background: url("../img/bkg_10_oct.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
-.bkg-11{ background: url("../img/bkg_11_nov.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;} 
-.bkg-12{ background: url("../img/bkg_12_dec.jpg") no-repeat; background-size: 350px 100%; background-position:center top; margin: -10px;}
+.bkg-01{ background: url("../img/bkg_01_jan.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
+.bkg-02{ background: url("../img/bkg_02_feb.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
+.bkg-03{ background: url("../img/bkg_03_mar.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
+.bkg-04{ background: url("../img/bkg_04_apr.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
+.bkg-05{ background: url("../img/bkg_05_may.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
+.bkg-06{ background: url("../img/bkg_06_jun.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
+.bkg-07{ background: url("../img/bkg_07_jul.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
+.bkg-08{ background: url("../img/bkg_08_aug.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
+.bkg-09{ background: url("../img/bkg_09_sep.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
+.bkg-10{ background: url("../img/bkg_10_oct.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
+.bkg-11{ background: url("../img/bkg_11_nov.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;} 
+.bkg-12{ background: url("../img/bkg_12_dec.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
 
 .content-month-calendar {margin-top: -22px;}
 .title-month-calendar { margin-bottom: 7px; color: #646464;}
