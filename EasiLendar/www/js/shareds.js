@@ -69,7 +69,7 @@ angular.module('MainApp.shareds', [])
 		uRemember: false,	/*remember me*/
 		uFriend: [],		/*array of objects { id, name }*/
 
-		isLogin : false;
+		isLogin : false,
 
 		uGmailCalendar: null,	/*Google API JSON	Calendar*/
 		uLocalCalendar: null,	/*Google API JSON	Calendar*/
