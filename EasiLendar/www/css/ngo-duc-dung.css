@@ -121,9 +121,8 @@
 /*LIST CALENDAR*/
 .table-list-calendar, .table-month-calendar { margin-top:-15px;}
 .list-calendar { margin-top: -15px;}
-.tr-list-calendar {padding-bottom: 10px;}
 .td-list-calendar-1 { color: #646464; text-align: center; font-size: 30px;}
-.td-list-calendar-2 { color: #ffffff; padding-right: 10px; padding-bottom: 15px;}
+.td-list-calendar-2 { color: #ffffff; padding-right: 10px; padding-bottom: 5px;}
 .div-list-calendar { width: 230px; margin-left: 7px; margin-bottom: 10px; padding: 10px; font-size: 14px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
 .span-title-event { font-weight: bold;}
 .p-list-calendar-number, .p-list-calendar-text{ width: 100%; padding-top: 15px;}

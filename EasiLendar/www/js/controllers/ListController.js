@@ -15,9 +15,6 @@ angular.module('MainApp.controllers.list', [])
                      'November', 'December'
                     ];
 	$scope.typesOfEvent = ['BirthDay', 'Holiday', 'Restaurant', 'Important', 'Normal'];
-
-	$scope.listEvents1 = angular.copy($rootScope.uGmailCalendar);
-	/*
 	$scope.listEvents1 = [
 	    {end: { dateTime: "2014-04-19T09:50:00+07:00"}, start: { dateTime: "2014-02-21T08:00:00+07:00"}, location: "301-G2", summary: "MAT1093 2: \u0110\u1ea1i s\u1ed1"}, 
 	    {end: { dateTime: "2014-04-19T11:50:00+07:00"}, start: { dateTime: "2014-04-19T08:00:00+07:00"}, location: "301-G2", summary: "MAT1093 2: \u0110\u1ea1i s\u1ed1"},
@@ -27,7 +24,7 @@ angular.module('MainApp.controllers.list', [])
 		{end: { dateTime: "2014-04-22T10:45:00+07:00"}, start: { dateTime: "2014-04-22T13:00:00+07:00"}, location: "Lotte Centre", summary: "Lunch"},
 		{end: { dateTime: "2015-03-15T16:45:00+07:00"}, start: { dateTime: "2015-03-15T13:00:00+07:00"}, location: "Lotte Centre", summary: "Yoga"},
 		{end: { dateTime: "2015-03-16T16:45:00+07:00"}, start: { dateTime: "2015-03-16T13:00:00+07:00"}, location: "Lotte Centre", summary: "Yoga"}
-	];*/
+	];
 
 	$scope.listEvents2 = []; //List of array event*/
 	var indexListEvents2 = 0;
