@@ -10,50 +10,80 @@
     <ion-nav-buttons side="right">
         <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
      	  <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
-	
     </ion-nav-buttons>
-
-<br>
-<br>
-<br>
-	<ion-content padding="true"><center>
-	
-	<div id="cover">
-	<h1 class="yyy"> <br>February 2015</h1>
-	</div>
-	<div id="xxx">
-	<h4> This Week (Feb 02-08)</h4><br>
-	</div>
-	<div>
-	<br>
-	<br>
+	<div  ng-class="backgroundMonth()"><center>
 		
-			<table class="table-calendar easi-no-border">
+			<h2 ><center> <br>{{currentMonthString}}, {{currentYear}}</h2>
+		
+		</div>
+		<div id="xxx"><center> This Week ({{currentMonthCstring}} {{numberFirstDayInWeek}}- {{numberLastDayInWeek}})<br>
+		
+		</div>
+		<ion-content class="zzz"> <center>
+		
+		
+		<div>
+		<br>
+		<br>
 			
-			
-			<tr class="tr-day-calendar easi-no-border">
-   				<td class="td-day-calendar-1 easi-no-border">
-   					<p class="p-day-calendar-number easi-no-border">03</p>
-   					<p class="p-day-calendar-text easi-no-border">Tues</p>
-   				</td>
-   				<td class="td-day-calendar-2">
-   					<div class="div-day-calendar easi-no-border event-color-1">
-   						<span>501 CT1 building - VNU</span><br>
-   						<span>8:30-11:00</span><br>
-   					</div>
-   					<div class="div-day-calendar easi-no-border event-color-5">
-   						<span>Restaurant</span><br>
-   						<span>11:30-12:30</span><br>
-   					</div>
-   					<div class="div-day-calendar easi-no-border event-color-2">
-   						<span>Royal City</span><br>
-   						<span>14:00-17:00</span><br>					
-   					</div>
-   				</td>
+				<table class="day-table-calendar easi-no-border"><center>
+				<tr> 
+				<td><a class="button-calendar button-previous-day icon ion-chevron-left easi-gray" > </a></td>
+				<td> <a class="button-calendar button-next-day icon ion-chevron-right easi-gray" > </a></td></tr>
 				
-   			</tr>
-			
-		</table>
-	 </div>
-    <!--ion-content padding="true"> <img src="img/day.png" style="width: 100vw; margin-top: -10px; margin-left: -10px"> </ion-content-->
+				<tr class="tr-day-calendar easi-no-border">
+					<td class="td-day-calendar-1 easi-no-border">
+						<p class="p-day-calendar-number easi-no-border">{{currentDateNumber}}</p>
+						<p class="p-day-calendar-text easi-no-border">{{currentDayInWeek}}</p>
+					</td>
+					<td class="td-day-calendar-2">
+						<div class="div-day-calendar easi-no-border event-color-1">
+							<span>Meeting group</span><br>
+							<span>8:30-11:00</span><br>
+							<span>501 CT1 building - VNU</span><br>
+						</div>
+						<div class="div-day-calendar easi-no-border event-color-5">
+							<span>Have Lunch </span><br>
+							<span>11:30-12:30</span><br>
+							<span>Restaurant</span><br>
+						</div>
+						<div class="div-day-calendar easi-no-border event-color-2">
+							<span>Work</span><br>
+							<span>14:00-17:00</span><br>				
+							<span>Royal City</span><br>
+						</div>
+					</td>
+					
+				</tr>
+				
+			</table>
+		 </div>
+    </ion-content>
+	
+<!--	<ion-content id="zzz"><center>
+	<div style="margin-bottom:0px;margin-top:10px;padding-top:-10px;
+	padding-bottom:-20px;"><p>Wednesday,18/03</p></div>
+	<table id="table1"><center>
+  
+  <tr>
+    <td class="td1"><div >12am</div><hr><div >1am</div><hr>
+        <div >2am</div><hr><div >3am</div><hr>
+        <div >4am</div><hr><div >5am</div><hr>
+        <div >6am</div><hr><div >7am</div><hr>
+        <div>8am</div><hr><div>9am</div><hr>
+        <div>10am</div><hr><div >11am</div><hr>
+        <div >12pm</div><hr><div >1pm</div><hr>
+        <div >2pm</div><hr><div >3pm</div><hr>
+        <div >4pm</div><hr><div >5pm</div><hr>
+        <div >6pm</div><hr><div >7pm</div><hr>
+        <div >8pm</div><hr><div >9pm</div><hr>
+        <div>10pm</div><hr><div >11pm</div>
+
+</td>
+    
+    <td class="td2"></td>
+</table>
+</div>
+	
+	</ion-content-->
 </ion-view>

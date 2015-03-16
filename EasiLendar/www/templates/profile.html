@@ -7,7 +7,7 @@
     <!-- User name This line can be change-->
     <!-- Button fixed -->
     <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-home" ui-sref="home" menu-close></button>
+        <button class="button button-icon button-clear ion-home" ui-sref="month" menu-close></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
         <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
@@ -19,7 +19,8 @@
         <div id="cover">
             
 			<div class=" item item-thumbnail-left">
-			<img src="img/boy3.png">
+			
+			<img src="img/ava1.png">
                 <!-- avatar -->
                 <br>
 				 <div id="list-icon" >
@@ -42,8 +43,10 @@
             </div>
            
         </div>
-        <div id="footered">
-            <img src="img/week.png" style="width: 100vw; position: absolute; top: 0px">
+		
+        <div id="footered" >
+			
+           <loadMonth></loadMonth>
             <!-- Replace by calendar putting function -->
         </div>
 
