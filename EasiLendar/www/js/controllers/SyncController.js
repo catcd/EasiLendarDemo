@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Manh Duy
- * last update: 13/03/2015
+ * last update: 17/03/2015
  * type: paticular controller
  */
  
@@ -9,7 +9,7 @@ angular.module('MainApp.controllers.sync', [])
 
 .controller('SyncController', function($scope, $rootScope,$window, $document) {
 
-    $scope.logIN = 0;
+    $scope.logIN = -1;
 	
 	$scope.days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 	$scope.months = [
@@ -19,30 +19,54 @@ angular.module('MainApp.controllers.sync', [])
                     ];
 	$scope.typesOfEvent = ['BirthDay', 'Holiday', 'Restaurant', 'Important', 'Normal'];
 	
-	var result;
+	$scope.logInResult= false;
+	var email= '';
 	
 	var apiKey = 'AIzaSyAmBIdo6sEPU5QK3lqVrflqNNyoRhCBF7I';
     var clientId = '164260242142-4er9a46uufjlu6h6hsbv3s7479mqv6pr.apps.googleusercontent.com';
     var scopes = 'https://www.googleapis.com/auth/calendar';
 	
-    $scope.buttons = [{
-        mClass: "button icon-right ion-chevron-right button-calm easi-no-border",
-        click: "handleAuthClick()",
-        text: "Login with your google account"
-    }, {
-        mClass: "button icon-left ion-chevron-left button-calm easi-no-border",
-        click: "logMeOut()",
-        text: "Log out with your google account "
-    }]
+	// function should be called while register (for Page):
 	
-	// function to load Google API and start all mode:
-	
-	$scope.handleClientLoad = function()
-	{
-		//gapi.client.setApiKey(apiKey);
-		window.setTimeout($scope.checkAuth,1);
+	$rootScope.logInToGmailCalendar = function() {
+		
+		// Log in to google account:
+		
+		gapi.auth.authorize({
+            client_id: clientId,
+            scope: scopes,
+            immediate: true,
+			approval_prompt: 'force',
+            include_granted_scopes: false,
+            cookie_policy: 'single_host_origin'
+        }, $scope.testResult);
+		
+		return logInResult;
 	}
 	
+	$scope.testLogInResult = function (authResult) {
+		var result= false;
+		
+        if (authResult && !authResult.error) {
+			$scope.logInResult= true;
+			$scope.logIN= 1;
+			
+			makeApiCall();
+		}
+			
+		else {
+			$scope.logInResult= false;
+			$scope.logIN= 0;
+		}	
+    }
+	
+	// function to load Google API and start all mode when click sync button:
+	
+	$scope.handleClientLoad = function(){
+		if ($scope.logIN== -1){
+			window.setTimeout($scope.checkAuth,1);
+		}
+	}
 	
     $scope.checkAuth = function() { 		
         gapi.auth.authorize({
@@ -51,41 +75,99 @@ angular.module('MainApp.controllers.sync', [])
             immediate: true,
             cookie_policy: 'single_host_origin'
         }, $scope.handleAuthResult);
+		
     }
+	
+	$scope.buttonAffect = function () {
+		
+		var authorizeButton = document.getElementById('authorize-button');
+		var updateButton = document.getElementById('update-button');
+		
+		var hello = document.getElementById('hello');
+		
+		authorizeButton.style.visibility= "visible";
+		
+		if ($scope.logIN == 0){
+			authorizeButton.className = "button icon-left ion-social-googleplus button-calm easi-no-border";
+			authorizeButton.onclick = $scope.handleAuthClick;
+			authorizeButton.innerHTML = "Log in with your google account";
+			hello.style.visibility= "hidden";
+			
+			updateButton.style.visibility= "hidden";
+		}
 
+		else if ($scope.logIN == 1){
+			authorizeButton.className = "button icon-left icon icon ion-log-out button-calm easi-no-border";
+			authorizeButton.style.width = "300px";
+		
+			authorizeButton.onclick = $scope.logMeOut;
+			authorizeButton.innerHTML = "Log out your google account";
+			
+			if (email != '')	{
+				hello.style.visibility= "visible";
+				hello.innerHTML = "Hi, " + email;
+			}
+			
+			updateButton.style.width = "300px";
+			updateButton.className = "button icon-left ion-loop";
+			updateButton.style.visibility= "visible";
+			updateButton.innerHTML= "Update your google calendar";
+			updateButton.onclick = $scope.makeApiCall;
+		}	
+	}
+	
     $scope.handleAuthResult = function (authResult) {
         var authorizeButton = document.getElementById('authorize-button');
 
         if (authResult && !authResult.error) {
             $scope.logIN = 1;
-			authorizeButton.innerHTML="Loading your calendar from Google calendar...";
-			authorizeButton.className="button icon-left ion-chevron-left button-calm easi-no-border";
-			authorizeButton.onclick= $scope.logMeOut;
-			result= authResult.access_token;
-	
-            $scope.makeApiCall();
+			//result= authResult.access_token;
+			var temp;
 			
-        } else {
+			gapi.client.load('calendar', 'v3', function() {
+                var request = gapi.client.calendar.events.list({
+                    'calendarId': 'primary',
+                    "singleEvents": "true",
+                    'maxResults': 1,
+					"orderBy": "startTime",
+                });
+				request.execute(function(resp) {
+					if (resp.items.length != 0) {
+						email =  resp.items[0].creator.email;
+						$scope.buttonAffect();
+					}
+				});
+			});
+        }
+		
+		else {
 			$rootScope.showAlert("You have never signed in. Please log in to synchronize with your Google Calendar!");
             $scope.logIN = 0;
-            authorizeButton.onclick = $scope.handleAuthClick;
+			$scope.buttonAffect();
         }
     }
 	
+	$scope.doNoThing = function(authResult) {
+		
+	}
+	
 	$scope.logMeOut = function() {
         $scope.logIN = 0;
-		var authorizeButton = document.getElementById('authorize-button');
 		
-        authorizeButton.className = "button icon-right ion-chevron-right button-calm easi-no-border";
-        authorizeButton.onclick = $scope.handleAuthClick;
-		authorizeButton.innerHTML = "Login with your google account";
-		document.getElementById("events").innerHTML="";
+		$rootScope.showAlert("In order to log out, you have to sign out your google account by your web browser");
 		
-		$rootScope.showAlert("In order to log out, you have to sign out your google account by your web browser. You can synchronize by log in again...");
+		gapi.auth.authorize({
+                client_id: clientId,
+                scope: scopes,
+                approval_prompt: 'force',
+                include_granted_scopes: false,
+                immediate: false,
+				cookie_policy: 'single_host_origin'
+            }, $scope.doNoThing);
+			
+		$scope.buttonAffect();
 		
 		// code for local host:
-		
-		gapi.auth.setToken(null);
 		
 		// code can not be used for local host:
 		
@@ -103,6 +185,19 @@ angular.module('MainApp.controllers.sync', [])
 		xmlHttp.send( null ); */
     }
 	
+	$scope.handleResult =  function (authResult) {
+       
+        if (authResult && !authResult.error) {
+            $scope.logIN = 1;
+			
+			//result= authResult.access_token;
+		
+			// Load calendar:
+			
+			$scope.makeApiCall();
+		}	
+    }
+	
     $scope.handleAuthClick = function(event) {
         if ($scope.logIN != 0) {
             //do nothing...
@@ -116,17 +211,15 @@ angular.module('MainApp.controllers.sync', [])
                 include_granted_scopes: false,
                 immediate: false,
 				cookie_policy: 'single_host_origin'
-            }, $scope.handleAuthResult);
+            }, $scope.handleResult);
 			
             return false;
         }
     }
 
     $scope.makeApiCall = function() {
-        if ($scope.logIN !=0) {
+        if ($scope.logIN == 1) {
             
-			document.getElementById('events').innerHTML="";
-			
             // default max result = 250
 			// default farthest day is one year ago
 			
@@ -151,6 +244,9 @@ angular.module('MainApp.controllers.sync', [])
             
 			// Load calendar from one year ago:
 			
+			document.getElementById('authorize-button').onclick= $scope.doNoThing;
+			document.getElementById('update-button').onclick= $scope.doNoThing;
+
 			gapi.client.load('calendar', 'v3', function() {
                 var request = gapi.client.calendar.events.list({
                     'calendarId': 'primary',
@@ -160,88 +256,29 @@ angular.module('MainApp.controllers.sync', [])
 					
                     'timeMin': oneYearAgo
                 });
+				
                 request.execute(function(resp) {
 					
-					var event= document.getElementById('events');
-				
-					document.getElementById("authorize-button").innerHTML = "Log out with account " + resp.summary;
-					
-					$rootScope.uGmailCalendar = resp.items;
-					
-					// Test:
-					
-					if (resp.items.length==0)
-					{
-						event.innerHTML=("You have no calendar to synchronize... Please add a event and sync again later...");
-						return;
+					if (resp.items.length != 0) {
+						email =  resp.items[0].creator.email;
 					}
+					
+					$scope.buttonAffect();
+			
+					$rootScope.uGmailCalendar = resp.items;
 					
 					$scope.convertMe();
 					
-					// result:
-					
-					console.log($rootScope.mLength($rootScope.uGmailCalendar));
-					console.log($rootScope.uGmailCalendar);
-					
-					/* For info:
-					
-					var event= document.getElementById('events');
-					var title = document.createElement('h2');
-					
-					title.appendChild(document.createTextNode("Everything up-to-date"));
-					
-					event.appendChild(title);
-					*/
-					
-					// For test:
-					
-					var title = document.createElement('h4');
-					title.appendChild(document.createTextNode("[DEMO] Events get from email "));
-					title.appendChild(document.createTextNode(resp.summary));
-					title.appendChild(document.createTextNode(": "));
-					event.appendChild(title);
-			
-					var ol= document.createElement ('ol');
-					
-					// test from 1/3/2015 -> 30/3/2015:
-					
-					for (var i=1; i< 30; i++)
-					{
-						var date = new Date(2015, 3, i, 0,0,0,0);
-					
-						var toDay= $rootScope.uGmailCalendar[date];
-						if (toDay== undefined){
-							continue;
-						}
-						
-						var li = document.createElement('li');
-						li.appendChild(document.createTextNode("************Next**Day********************"));
-						
-						ol.appendChild(li);
-						event.appendChild(ol);
-						
-						for (var j=0; j< toDay.length; j++){
-							var li = document.createElement('li');
-							var at = document.createTextNode("  on  ");
-							var inn = document.createTextNode("  in  ");
-                        
-							li.appendChild(document.createTextNode(toDay[j].summary));
-							li.appendChild(at);
-							li.appendChild(document.createTextNode(toDay[j].end.dateTime + '-' + toDay[j].date + '/' + toDay[j].month + '/' + toDay[j].year));
-						
-							ol.appendChild(li);
-						}
-					}
-					
 					$rootScope.showAlert("Your calendar was update");
+					
                 });
             });
-        } else {
-            $rootScope.showAlert("You have to log in first");
-        }
+		}
     }
 	
 	$scope.convertMe = function() {
+		if ($rootScope.uGmailCalendar.length== 0)	return;
+		
 		// change time:
 		
 		var uGC= {};
@@ -258,7 +295,7 @@ angular.module('MainApp.controllers.sync', [])
 			
 			// value position to get the position of array of event:
 			
-			var position= new Date(uGC[i].start.dateTime.getFullYear(), uGC[i].start.dateTime.getMonth()+1, uGC[i].start.dateTime.getDate(), 0, 0, 0, 0);
+			var position= new Date(uGC[i].start.dateTime.getFullYear(), uGC[i].start.dateTime.getMonth(), uGC[i].start.dateTime.getDate(), 0, 0, 0, 0);
 			uGC[i].position= position;
 			
 			//Conver time to Day in week and Date in Month
