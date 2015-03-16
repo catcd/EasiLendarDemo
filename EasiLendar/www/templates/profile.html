@@ -20,25 +20,24 @@
             
 			<div class=" item item-thumbnail-left">
 			
-			<img src="img/ava1.png">
+			<img  class="item-image" src="img/ava{{eFriend.fAvatar}}.png" >
                 <!-- avatar -->
                 <br>
 				 <div id="list-icon" >
-                <button id="trangXam" class="button button-icon icon ion-email easi-light-gray"></button>
-                <button id="trangXam" class="button button-icon icon ion-coffee easi-light-gray" ui-sref="searchFilter" menu-close></button>
-                <button id="trangXam" class="button button-icon icon ion-person-add easi-light-gray"></button>
+                <button class="button button-icon icon ion-email easi-light-gray"></button>
+                <button class="button button-icon icon ion-coffee easi-light-gray" ui-sref="searchFilter" menu-close></button>
+                <button class="button button-icon icon ion-person-add easi-light-gray"></button>
 				</div>
 				<div id="centered">
 					
 				<h2 class="customer">
 				<span><i  class="icon ion-ribbon-b"></i>
 					<!-- VIP icon must be appeared if EasiVIP=true -->
-						Ngo Duc Dung</span>
+						{{eFriend.fName}}</span>
 					<!--User name-->
 				</h2>
                 <p>I&#39;m busy now</p>
                 <!-- Status must be sync if possible -->
-				
 				</div>
             </div>
            

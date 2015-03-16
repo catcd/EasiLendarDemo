@@ -60,12 +60,29 @@
 	
 }
 /*DAY CALENDAR */
-.day-table-calendar {margin-top:-25px;}
-.tr-day-calendar { }
-.td-day-calendar-1 { width: 10.5%; color: #646464; text-align: center; font-size: 30px;}
+#h2-month{margin-left:15% ;margin-top:10px; color: #002900;}
+#x{max-width:800px;width:100%;margin-bottom:20px; padding-bottom:5px; }
+#x1{width:10%;text-align:left;margin-left:10px;}
+#x2{width:80% ;margin-left:1.5%;}
+#x3{width:40px;margin-right:10px;}
+#xxx{
+	color: #416969;
+	font-size:15.5px;
+	height:40px;
+	margin-top:20px;
+	margin-left:10px;
+	margin-bottom: 20px;
+	padding-bottom:15px;
+	
+	
+	
+}
+.day-table-calendar {margin-top:-25px;max-width:800px;width:100%;}
+.tr-day-calendar {}
+.td-day-calendar-1 { width: 12%; color: #646464; text-align: center; font-size: 30px; margin-right:10px;}
 .td-day-calendar-1:hover{ color: #33CCCC; }
-.td-day-calendar-2 { width: 90%; color: #ffffff;}
-.div-day-calendar { max-width: 100%; margin-bottom: 15px; padding: 10px; margin: 10px; font-size: 14px;}
+.td-day-calendar-2 { width: 80%; color: #ffffff;}
+.div-day-calendar {  margin-bottom: 15px; padding: 10px; margin-right: 20px; font-size: 15.5px;width:80%;}
 .p-day-calendar-number, .p-day-calendar-text { width: 100%; padding-top: 15px;}
 .p-day-calendar-text { font-size: 15px; margin-top: -20px;}
 .event-color-1 { background-color: #32CD32;}
@@ -73,15 +90,7 @@
 .event-color-3 { background-color: #315050;}
 .event-color-4 { background-color: #191970;}
 .event-color-5 { background-color: #FF0000;}
-#xxx{
-	color: #416969;
-	font-size:120%;
-	height:40px;
-	margin-top:20px;
-	margin-bottom: 20px;
-	padding-bottom:15px;
-	
-}
+
 
 #yyy{
 	color: #416969;
@@ -89,20 +98,21 @@
 	left:80%;
 	font-size:200%;
 }
-.bkg-01{ background: url("../img/bkg_01_jan.jpg") no-repeat;  background-position:center center; margin: 0 auto 0 auto;height: 250px; width: 100%; max-width:500px; margin: 0 auto 0 auto; padding-bottom:-10px;}
-.bkg-02{ background: url("../img/bkg_02_feb.jpg") no-repeat;  background-position:center center; margin: 0 auto 0 auto;height: 250px; width: 100%; max-width:500px; margin: 0 auto 0 auto; padding-bottom:-10px;}
-.bkg-03{ background: url("../img/bkg_03_mar.jpg") no-repeat;  background-position:center center; margin: 0 auto 0 auto;height: 250px; width: 100%; max-width:500px; margin: 0 auto 0 auto; padding-bottom:-10px;}
-.bkg-04{ background: url("../img/bkg_04_apr.jpg") no-repeat;  background-position:center center; margin: 0 auto 0 auto;height: 250px; width: 100%; max-width:500px; margin: 0 auto 0 auto; padding-bottom:-10px;}
-.bkg-05{ background: url("../img/bkg_05_may.jpg") no-repeat;  background-position:center center; margin: 0 auto 0 auto;height: 250px; width: 100%; max-width:500px; margin: 0 auto 0 auto; padding-bottom:-10px;}
-.bkg-06{ background: url("../img/bkg_06_jun.jpg") no-repeat;  background-position:center center; margin: 0 auto 0 auto;height: 250px; width: 100%; max-width:500px; margin: 0 auto 0 auto; padding-bottom:-10px;}
-.bkg-07{ background: url("../img/bkg_07_jul.jpg") no-repeat;  background-position:center center; margin: 0 auto 0 auto;height: 250px; width: 100%; max-width:500px; margin: 0 auto 0 auto; padding-bottom:-10px;}
-.bkg-08{ background: url("../img/bkg_08_aug.jpg") no-repeat;  background-position:center center; margin: 0 auto 0 auto;height: 250px; width: 100%; max-width:500px; margin: 0 auto 0 auto; padding-bottom:-10px;}
-.bkg-09{ background: url("../img/bkg_09_sep.jpg") no-repeat;  background-position:center center; margin: 0 auto 0 auto;height: 250px; width: 100%; max-width:500px; margin: 0 auto 0 auto; padding-bottom:-10px;}
-.bkg-10{ background: url("../img/bkg_10_oct.jpg") no-repeat;  background-position:center center; margin: 0 auto 0 auto;height: 250px; width: 100%; max-width:500px; margin: 0 auto 0 auto; padding-bottom:-10px;}
-.bkg-11{ background: url("../img/bkg_11_nov.jpg") no-repeat;  background-position:center center; margin: 0 auto 0 auto;height: 250px; width: 100%; max-width:500px; margin: 0 auto 0 auto; padding-bottom:-10px;}
-.bkg-12{ background: url("../img/bkg_12_dec.jpg") no-repeat;  background-position:center center; margin: 0 auto 0 auto;height: 250px; width: 100%; max-width:500px; margin: 0 auto 0 auto; padding-bottom:-10px;}
-.button-previous-day {float:left;}
-.button-next-day {float:right; }
+.bkg{ background-repeat: no-repeat; background-position:center center; margin: 0 auto 0 auto;height: 250px; width: 100%; max-width:960px;  padding-bottom:-10px;}}
+.bkg-01{ background: url("../img/bkg_01_jan.jpg") no-repeat;  background-size: 100% 100%; background-position:center center; margin: 0 auto 0 auto;height: 200px; width: 100%; max-width:500px; margin: 0 auto 0 auto; padding-bottom:-10px;}
+.bkg-02{ background: url("../img/bkg_02_feb.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
+.bkg-03{ background: url("../img/bkg_03_mar.jpg") no-repeat;  background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
+.bkg-04{ background: url("../img/bkg_04_apr.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
+.bkg-05{ background: url("../img/bkg_05_may.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
+.bkg-06{ background: url("../img/bkg_06_jun.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
+.bkg-07{ background: url("../img/bkg_07_jul.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
+.bkg-08{ background: url("../img/bkg_08_aug.jpg") no-repeat;  background-size: 100% 100%;  background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
+.bkg-09{ background: url("../img/bkg_09_sep.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
+.bkg-10{ background: url("../img/bkg_10_oct.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
+.bkg-11{ background: url("../img/bkg_11_nov.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
+.bkg-12{ background: url("../img/bkg_12_dec.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
+.button-previous-day {margin-left:5px;}
+.button-next-day {margin-right:10px; }
 
 .zzz {
 	padding: 0;

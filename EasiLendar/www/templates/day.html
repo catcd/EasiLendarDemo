@@ -11,26 +11,28 @@
         <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
      	  <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
     </ion-nav-buttons>
-	<div  ng-class="backgroundMonth()"><center>
+	<div  ng-class="backgroundMonth()">
 		
-			<h2 ><center> <br>{{currentMonthString}}, {{currentYear}}</h2>
-		
-		</div>
-		<div id="xxx"><center> This Week ({{currentMonthCstring}} {{numberFirstDayInWeek}}- {{numberLastDayInWeek}})<br>
+			<h2 id="h2-month"><br>{{currentMonthString}}, {{currentYear}}</h2>
 		
 		</div>
+		
+		<div id="xxx"><center> 
+		<table ><center>
+		<td id="x1"><a class="button-calendar button-previous-day icon ion-chevron-left easi-gray" > </a>    </td>
+		<td id="x2"><span >This Week ({{currentMonthCstring}} {{numberFirstDayInWeek}}- {{numberLastDayInWeek}})<br><span></td>
+		<td id="x3"><a class="button-calendar button-next-day icon ion-chevron-right easi-gray" > </a>   </td>
+		</table>
+		<br>
+		</div>
+		
 		<ion-content class="zzz"> <center>
-		
 		
 		<div>
 		<br>
 		<br>
 			
 				<table class="day-table-calendar easi-no-border"><center>
-				<tr> 
-				<td><a class="button-calendar button-previous-day icon ion-chevron-left easi-gray" > </a></td>
-				<td> <a class="button-calendar button-next-day icon ion-chevron-right easi-gray" > </a></td></tr>
-				
 				<tr class="tr-day-calendar easi-no-border">
 					<td class="td-day-calendar-1 easi-no-border">
 						<p class="p-day-calendar-number easi-no-border">{{currentDateNumber}}</p>
@@ -38,19 +40,24 @@
 					</td>
 					<td class="td-day-calendar-2">
 						<div class="div-day-calendar easi-no-border event-color-1">
-							<span>Meeting group</span><br>
-							<span>8:30-11:00</span><br>
-							<span>501 CT1 building - VNU</span><br>
-						</div>
-						<div class="div-day-calendar easi-no-border event-color-5">
-							<span>Have Lunch </span><br>
-							<span>11:30-12:30</span><br>
-							<span>Restaurant</span><br>
+							<span>Movie: Avangers 2 </span><br>
+							<span>18:00PM - 21:45PM</span><br>
+							
 						</div>
 						<div class="div-day-calendar easi-no-border event-color-2">
-							<span>Work</span><br>
-							<span>14:00-17:00</span><br>				
-							<span>Royal City</span><br>
+							<span>Studying at 301-G2 UET - VNU </span><br>
+							<span>13:00PM - 17:50PM</span><br>
+							
+						</div>
+						<div class="div-day-calendar easi-no-border event-color-5">
+							<span>Friend's birthday at Friend's House</span><br>
+							<span>18:00PM - 22:00PM</span><br>
+							
+						</div>
+						<div class="div-day-calendar easi-no-border event-color-3">
+							<span>Make Love </span><br>
+							<span>18:00PM - 21:45PM</span><br>
+							
 						</div>
 					</td>
 					
