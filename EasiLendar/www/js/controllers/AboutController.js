@@ -2,12 +2,12 @@
  * starter: Can Duy Cat
  * owner: Can Duy Cat
  * everyone can update in assigned time
- * last update: 16/03/2015
+ * last update: 17/03/2015
  * type: about controller (version)
  */
 
 angular.module('MainApp.controllers.about', [])
 
 .controller("AboutController", function($scope) {
-    $scope.ver = "1.1.21.[151]"
+    $scope.ver = "1.1.24.[156]"
 })

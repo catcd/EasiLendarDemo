@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 13/03/2015
+	 last update: 17/03/2015
 	 type: calendar template -->
 
 <ion-view title="EasiLendar">
@@ -12,14 +12,14 @@
         <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
     </ion-nav-buttons>
 
-    <ion-content padding="true" class="content-month-calendar">
-        <form name="form_month_calendar" ng-class="backgroundMonth()"><center>
+    <ion-content id="content-month-calendar" ng-class="backgroundMonth()">
+        <form name="form_month_calendar" class="form-month-calendar"><center>
             <div class="title-month-calendar">
                 <a class="button-calendar button-previous-month icon ion-chevron-left easi-gray" 
                 data-ng-click="previousMonth(form_month_calendar)"></a>
                 <span class="span-month-calendar">{{currentMonthString}}, {{currentYear}}</span> 
-                <i class="button-calendar button-next-month icon ion-chevron-right easi-gray" 
-                data-ng-click="nextMonth(form_month_calendar)"></i>  
+                <a class="button-calendar button-next-month icon ion-chevron-right easi-gray" 
+                data-ng-click="nextMonth(form_month_calendar)"></a>  
             </div>
 
             <table class="table-month-calendar easi-no-border">
@@ -44,22 +44,31 @@
                 </tr>
             </table>
         </center></form>
+
         <center><table class="day-month-calendar">
             <tr class="tr-list-calendar">
-                 <td class="td-list-calendar-1">
+                <td class="td-list-calendar-3">
                     <p class="p-list-calendar-number">{{currentDateNumber}}</p>
                     <p class="p-list-calendar-text ">{{currentDayInWeek}}</p>
                 </td>
-                <td class="td-list-calendar-2">
-                    <div class="div-list-calendar ticket-background">
+                <td class="td-list-calendar-4">
+                    <div class="div-list-calendar-2 background-size event-color-5">
+                        <span class="span-title-event">Movie: Avangers 2</span><br>
+                        <span>Time: 18:00PM - 21:45PM</span><br>
+                    </div>
+                    <div class="div-list-calendar-2 ticket-background">
                         <span class="span-title-event">Studying</span><br>
                         <span>Time: 13:00PM - 17:50PM</span><br>
                         <span>Location: 301-G2 UET-VNU</span>
                     </div>
-                    <div class="div-list-calendar birthday-background">
+                    <div class="div-list-calendar-2 birthday-background">
                         <span class="span-title-event">Friend's birthday</span><br>
                         <span>Time: 18:00PM - 22:00PM</span><br>
                         <span>Location: Friend's House</span>
+                    </div>
+                    <div class="div-list-calendar-2 background-size event-color-1">
+                        <span class="span-title-event">Make Love</span><br>
+                        <span>Time: 18:00PM - 21:45PM</span><br>
                     </div>
                 </td>
             </tr>

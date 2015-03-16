@@ -41,8 +41,14 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 		$scope.min = 0;
 
 		$scope.$watch('timeValues.mFromHour',function(){ $scope.min = $scope.timeValues.mFromHour;});
-		$scope.$watch('timeValues.mDurationHour', function(){ $scope.convertmDurationToMinute(); });
-		$scope.$watch('timeValues.mDurationMinute', function(){ $scope.convertmDurationToMinute(); });
+		$scope.$watch('timeValues.mDurationHour', function(){ 
+			$scope.convertmDurationToMinute(); 
+			//if($scope.timeValues.mDurationHour !== '') {$scope.timeValues.mDurationMinute= 0;}
+		});
+		$scope.$watch('timeValues.mDurationMinute', function(){ 
+			$scope.convertmDurationToMinute(); 
+			//if($scope.timeValues.mDurationMinute !== '') {$scope.timeValues.mDurationHour = 0;}
+		});
 		$scope.$watch('timeValues.mFromHour', function(){ $scope.convertmFromToMinute(); });
 		$scope.$watch('timeValues.mFromMinute', function(){ $scope.convertmFromToMinute(); });
         $scope.$watch('timeValues.mToHour', function(){ $scope.convertmToToMinute(); });
@@ -59,6 +65,7 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 		$scope.convertmToToMinute = function(){
 			$rootScope.eSearchFilter.mTo = $scope.timeValues.mToHour*60 + $scope.timeValues.mToMinute;
 		};
+		/*
 		$scope.convertmFromDaytoDays = function(){
 			var day =  $scope.timeValues.mFromDay.getDate();
 			var month = $scope.timeValues.mFromDay.getMonth()+1;
@@ -72,13 +79,14 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 			var year = $scope.timeValues.mFromDay.getFullYear();
 			var numberDaysOfMonth = new Date(year,month,0);
 			var daysOfMonth = numberDaysOfMonth.getDate();
-		};
+		};*/
 
 		$scope.deleteValue = function(form){
 			/*RESET VALUE*/
 			$rootScope.eSearchFilter = angular.copy($scope.newValues);
 			//alert($rootScope.eSearchFilter.mTitle + $rootScope.eSearchFilter.mDuration + $rootScope.eSearchFilter.mLocation + $rootScope.eSearchFilter.mMessage);
 			delete $scope.newValues;
+			delete $scope.timeValues;
 			/* RESET FORM*/
 			form.$setPristine();
       		form.$setUntouched();
@@ -175,3 +183,22 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 		}
 	};
 })
+
+.directive('inputRequired',function(){
+	return{
+		restrict: 'A',
+		link: function(scope, element, attr){
+			element.bind('focus',function(){
+				if(element.prop('required') == true){
+					if(element.parent().next() == null){
+						//alert(element.parent().next().children().prop('required'));
+					}
+					
+					else{
+						//alert(element.parent().parent().children().children().prop('required'));
+					}
+				}
+			});
+		}
+	};
+});

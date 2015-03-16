@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 14/03/2015
+ * last update: 17/03/2015
  * type: month controller
  */
 
@@ -110,40 +110,40 @@ angular.module('MainApp.controllers.month', [])
 
     $scope.backgroundMonth = function(){
         if($scope.currentMonthString == 'January'){
-            $scope.backgroundMonthName = 'bkg-01';
+            $scope.backgroundMonthName = 'bkg-style bkg-01';
         }
         else if($scope.currentMonthString == 'February'){
-            $scope.backgroundMonthName = 'bkg-02';
+            $scope.backgroundMonthName = 'bkg-style bkg-02';
         }
         else if($scope.currentMonthString == 'March'){
-            $scope.backgroundMonthName = 'bkg-03';
+            $scope.backgroundMonthName = 'bkg-style bkg-03';
         }
         else if($scope.currentMonthString == 'April'){
-            $scope.backgroundMonthName = 'bkg-04';
+            $scope.backgroundMonthName = 'bkg-style bkg-04';
         }
         else if($scope.currentMonthString == 'May'){
-            $scope.backgroundMonthName = 'bkg-05';
+            $scope.backgroundMonthName = 'bkg-style bkg-05';
         }
         else if($scope.currentMonthString == 'June'){
-            $scope.backgroundMonthName = 'bkg-06';
+            $scope.backgroundMonthName = 'bkg-style bkg-06';
         }
         else if($scope.currentMonthString == 'July'){
-            $scope.backgroundMonthName = 'bkg-07';
+            $scope.backgroundMonthName = 'bkg-style bkg-07';
         }
         else if($scope.currentMonthString == 'August'){
-            $scope.backgroundMonthName = 'bkg-08';
+            $scope.backgroundMonthName = 'bkg-style bkg-08';
         }
         else if($scope.currentMonthString == 'September'){
-            $scope.backgroundMonthName = 'bkg-09';
+            $scope.backgroundMonthName = 'bkg-style bkg-09';
         }
         else if($scope.currentMonthString == 'October'){
-            $scope.backgroundMonthName = 'bkg-10';
+            $scope.backgroundMonthName = 'bkg-style bkg-10';
         }
         else if($scope.currentMonthString == 'November'){
-            $scope.backgroundMonthName = 'bkg-11';
+            $scope.backgroundMonthName = 'bkg-style bkg-11';
         }
         else{
-            $scope.backgroundMonthName = 'bkg-12';
+            $scope.backgroundMonthName = 'bkg-style bkg-12';
         }
         return $scope.backgroundMonthName;
     };
@@ -179,7 +179,8 @@ angular.module('MainApp.controllers.month', [])
                     element.parent().addClass('radio-month-selected');
             });
             element.bind('blur',function(){
-                element.parent().removeClass('radio-month-selected');
+                    element.prop('checked',false);
+                    element.parent().removeClass('radio-month-selected');
             });
 
         }

@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 15/03/2015
+	 last update: 17/03/2015
 	 type: calendar template -->
 
 <ion-view title="EasiLendar">
@@ -13,19 +13,18 @@
     </ion-nav-buttons>
 
 
-    <ion-content padding="true" class="content-month-calendar">
+    <ion-content id="content-month-calendar">
       <center><table class="list-calendar">
-   			<tr class="tr-list-calendar" ng-repeat="list in listEvents2">
-                <td class="td-list-calendar-1" current-day-in-list = "list.date">
-    				<p class="p-list-calendar-number">{{list.date}}</p>
-    				<p class="p-list-calendar-text">{{list.day}}</p>
-                    <p class="p-list-calendar-month">{{list.month}}</p>
+   			<tr class="tr-list-calendar" ng-repeat="events in listEvents">
+                <td class="td-list-calendar-1" ng-repeat="event in events | limitTo:1" current-day-in-list="event.date">
+    				<p class="p-list-calendar-number">{{event.date}}</p>
+    				<p class="p-list-calendar-text">{{event.day}}</p>
     			</td>
     			<td class="td-list-calendar-2">
-    				<div class="div-list-calendar ticket-background" ng-repeat="event in list.events">
+    				<div class="div-list-calendar-1" ng-class="randomClass()" ng-repeat="event in events">
     					<span class="span-title-event">{{event.summary}}</span><br>
-    					<span>Time: {{event.start}} - {{event.end}}</span><br>
-    					<span>Location: {{event.location}}</span>
+    					<span>Time: {{event.start.dateTime}} - {{event.end.dateTime}}</span><br>
+    					<span>{{event.location}}</span>
     				</div>
     			</td>
    			</tr>

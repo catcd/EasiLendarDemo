@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 15/03/2015
+ * last update: 17/03/2015
  * type: personal css
  */
 
@@ -36,8 +36,9 @@
 
 .div02 {text-align: right; border: 0; font-size: 13px; height: 25px;}
 .div02 button {border:0; background-color: #646464; color:#E6E6E6; padding-top: 0px;}
-.search-friend-input-focus { opacity: 0.9;}
-.search-friend-input-blur {opacity: 0.5;}
+.footer-friend-panel {background-color: transparent;} 
+.search-friend-input-focus { opacity: 1;}
+.search-friend-input-blur {opacity: 0.4;}
 
 .my-repeat-animation.ng-enter, 
 .my-repeat-animation.ng-leave {transition: 500ms linear all; position: relative; display: block; } 
@@ -105,7 +106,13 @@
 /*validation*/
 #input01.ng-invalid, #textarea01.ng-invalid { color: red; }
 #div00 {max-height: 20px;}
-.error {color: #FA787E; font-size: 9px;}
+#table-title-searching, #table-duration-searching { margin-top: -1px; width: 100%;}
+#td-title-searching {width: 10%; color: #646464}
+#td-error-title {width: 90%; text-align:right;}
+#td-duration-searching {color: #646464; width: 10%;}
+#td-error-duration-hour {width: 40%; text-align:right; border: 1px solid black;}
+#td-error-duration-minute {width: 50%; text-align:right; border: 1px solid black;}
+.error {color: red; font-size: 9px;}
 .error#error01 { margin-left: 10px;}
 .error#error02 { margin-left: -6px; }
 
@@ -119,23 +126,23 @@
 .my-repeat-animation.ng-hide { opacity: 0;}
 
 /*LIST CALENDAR*/
-.table-list-calendar, .table-month-calendar { margin-top:-15px;}
-.list-calendar { margin-top: -15px;}
-.td-list-calendar-1 { color: #646464; text-align: center; font-size: 30px;}
-.td-list-calendar-2 { color: #ffffff; padding-right: 10px; padding-bottom: 5px;}
-.div-list-calendar { width: 230px; margin-left: 7px; margin-bottom: 10px; padding: 10px; font-size: 14px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
-.span-title-event { font-weight: bold;}
+.table-list-calendar, .table-month-calendar {margin-top:-15px;}
+.list-calendar { max-width: 500px; margin-top: -3px; margin-left: -6px;}
+.td-list-calendar-1 {color: #646464; text-align: center; font-size: 30px;}
+.td-list-calendar-2 {color: #ffffff; padding-bottom: 5px; padding-left: 6px;}
+.div-list-calendar-1, .div-list-calendar-2 {margin-left: 7px; margin-bottom: 10px; padding: 10px; font-size: 16px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+.div-list-calendar-1 {width: 265px;}
 .p-list-calendar-number, .p-list-calendar-text{ width: 100%; padding-top: 15px;}
 .p-list-calendar-text { font-size: 15px; margin-top: -20px;}
 .p-list-calendar-month {font-size: 10px; margin-top: -10px;}
 
 .current-date-list { color: #33CCCC;}
-.birthday-background, .holiday-background, .hotel-background, .restaurant-background, .ticket-background { color: black;}
-.birthday-background { background: url("../img/img_birthday.jpg") no-repeat; background-size: 100% 100%; background-position:center top;}
-.holiday-background { background: url("../img/smart_flight.jpg") no-repeat; background-size: 100% 100%; background-position:center top;}
-.hotel-background { background: url("../img/smart_hotel.jpg") no-repeat; background-size: 100% 100%; background-position:center top;}
-.restaurant-background { background: url("../img/smart_restaurant.jpg") no-repeat; background-size: 100% 100%; background-position:center top;}
-.ticket-background { background: url("../img/smart_ticket.jpg") no-repeat; background-size: 100% 100%; background-position:center top;}
+.birthday-background, .holiday-background, .hotel-background, .restaurant-background, .ticket-background { color: #fff;}
+.birthday-background { background: url("../img/img_birthday.jpg") no-repeat; background-size: 100% 100%;}
+.holiday-background { background: url("../img/smart_flight.jpg") no-repeat; background-size: 100% 100%;}
+.hotel-background { background: url("../img/smart_hotel.jpg") no-repeat; background-size: 100% 100%;}
+.restaurant-background { background: url("../img/smart_restaurant.jpg") no-repeat; background-size: 100% 100%;}
+.ticket-background { background: url("../img/smart_ticket.jpg") repeat; background-size: 100% 100%;}
 .event-color-1 { background-color: #690;}
 .event-color-2 { background-color: #F39;}
 .event-color-3 { background-color: #06F;}
@@ -143,36 +150,38 @@
 .event-color-5 { background-color: #069;}
 
 /*MONTH CALENDAR*/
-.bkg-01, .bkg-02, .bkg-03, .bkg-04, .bkg-05, .bkg-06, .bkg-07, .bkg-08, .bkg-09, .bkg-10, .bkg-11, .bkg-12{ 
-   transition: all linear 400ms;
-}
-.bkg-01{ background: url("../img/bkg_01_jan.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
-.bkg-02{ background: url("../img/bkg_02_feb.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
-.bkg-03{ background: url("../img/bkg_03_mar.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
-.bkg-04{ background: url("../img/bkg_04_apr.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
-.bkg-05{ background: url("../img/bkg_05_may.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
-.bkg-06{ background: url("../img/bkg_06_jun.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
-.bkg-07{ background: url("../img/bkg_07_jul.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
-.bkg-08{ background: url("../img/bkg_08_aug.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
-.bkg-09{ background: url("../img/bkg_09_sep.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
-.bkg-10{ background: url("../img/bkg_10_oct.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
-.bkg-11{ background: url("../img/bkg_11_nov.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;} 
-.bkg-12{ background: url("../img/bkg_12_dec.jpg") no-repeat; background-size: 300px 100%; background-position:center top; margin: -10px;}
+.bkg-style{transition: all linear 400ms; opacity: 0.9; min-height: 100%; max-width: 960px;}
+.bkg-01{ background: url("../img/bkg_01_jan.jpg") no-repeat;}
+.bkg-02{ background: url("../img/bkg_02_feb.jpg") no-repeat;}
+.bkg-03{ background: url("../img/bkg_03_mar.jpg") no-repeat;}
+.bkg-04{ background: url("../img/bkg_04_apr.jpg") no-repeat;}
+.bkg-05{ background: url("../img/bkg_05_may.jpg") no-repeat;}
+.bkg-06{ background: url("../img/bkg_06_jun.jpg") no-repeat;}
+.bkg-07{ background: url("../img/bkg_07_jul.jpg") no-repeat;}
+.bkg-08{ background: url("../img/bkg_08_aug.jpg") no-repeat;}
+.bkg-09{ background: url("../img/bkg_09_sep.jpg") no-repeat;}
+.bkg-10{ background: url("../img/bkg_10_oct.jpg") no-repeat;}
+.bkg-11{ background: url("../img/bkg_11_nov.jpg") no-repeat;} 
+.bkg-12{ background: url("../img/bkg_12_dec.jpg") no-repeat;}
 
-.content-month-calendar {margin-top: -22px;}
-.title-month-calendar { margin-bottom: 7px; color: #646464;}
+#content-month-calendar {margin-top: -22px;}
+/*.form-month-calendar { position: fixed; top: 0;left: 0;width: 100%;height: 100%;z-index: 2;}*/
+.title-month-calendar {margin-top: 2px; margin-bottom: 10px; color: #646464;}
 .button-calendar.active, .button-calendar.activated { opacity: 0.3;}
 .button-calendar:before, .button-calendar:before {font-size: 15px; color: #646464;}
-.button-previous-month { margin-right: 12px;}
+.button-previous-month { margin-right: 12px;}  
 .button-next-month { margin-left: 12px;}
-.span-month-calendar {width: 200px; display: inline-block; font-size: 17px; font-weight: bold;}
+.span-month-calendar {padding-top: 3px; width: 200px; display: inline-block; font-size: 18px; font-weight: bold;}
 .table-month-calendar{height: 235px;}
-.td-header-month-calendar { width: 30px; color: black; font-weight: bold; text-align: center; font-size: 13px; padding-bottom: 10px; padding-top: 15px;}
+.td-header-month-calendar { width: 30px; color: black; font-weight: bold; text-align: center; font-size: 15px; padding-bottom: 10px; padding-top: 15px;}
 .td-month-calendar {width: 30px; color: black; text-align: center; padding: 5px; }
-.td-month-calendar div, .different-month-color { width: 30px; height:30px; text-align: center; margin-top: -9px; border-radius: 100px;}
+.td-month-calendar div, .different-month-color {width: 30px; height:30px; text-align: center; margin-top: -9px; border-radius: 100px;}
 .td-month-calendar input[type="radio"] { width: 0; height: 0; }
-.td-month-calendar label{ font-size: 12px; width: 19px; height: 25px; border-radius: 100px; padding-top: 6px; margin-right: 4px; display: inline-block;} 
+.td-month-calendar label{ font-weight: bolder; font-size: 14px; width: 19px; height: 25px; border-radius: 100px; padding-top: 6px; margin-right: 4px; display: inline-block;} 
 .different-month-color {color: #E6E6E6;}
-.current-date-style { border: 1px solid #ffffff; color: #ffffff;}
-.radio-month-selected { background-color: #33CCCC; color: #ffffff;}
-.day-month-calendar { margin-top: 30px;}
+.current-date-style { color: #ffffff; background-color: #33CCCC; border: 1px solid #E6E6E6;}
+.radio-month-selected { background-color: #416969; color: #ffffff;}
+.day-month-calendar { max-width: 500px; margin-top: 6px; margin-left: 8px;}
+.td-list-calendar-3 { width: 9%; color: #646464; text-align: center; font-size: 30px;}
+.td-list-calendar-4 { width: 95%; color: #ffffff; padding-bottom: 5px;}
+.div-list-calendar-2 { width: 90%;}
