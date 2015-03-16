@@ -163,8 +163,7 @@ angular.module('MainApp.controllers.sync', [])
                 request.execute(function(resp) {
 					
 					var event= document.getElementById('events');
-					
-					console.log(resp.items);
+				
 					document.getElementById("authorize-button").innerHTML = "Log out with account " + resp.summary;
 					
 					$rootScope.uGmailCalendar = resp.items;
@@ -181,9 +180,8 @@ angular.module('MainApp.controllers.sync', [])
 					
 					// result:
 					
-					for (var x in $rootScope.uGmailCalendar) {
-						console.log(x + ": " + $rootScope.uGmailCalendar[x]);
-					}
+					console.log($rootScope.mLength($rootScope.uGmailCalendar));
+					console.log($rootScope.uGmailCalendar);
 					
 					/* For info:
 					
@@ -251,7 +249,8 @@ angular.module('MainApp.controllers.sync', [])
 		
 		// array result is a array of array:
 		
-		$rootScope.uGmailCalendar= new Array();
+		$rootScope.uGmailCalendar = new Array();
+		
 		
 		for(var i=0;i<uGC.length;i++){
 			uGC[i].end.dateTime = new Date(uGC[i].end.dateTime);
@@ -294,4 +293,15 @@ angular.module('MainApp.controllers.sync', [])
 			$rootScope.uGmailCalendar[uGC[i].position].push(uGC[i]);
 		}
 	}
+	
+	/* */
+	$rootScope.mLength= function(array) {
+		var dem=0;
+		for (var x in array) {
+			dem++;
+		}
+		
+		return dem;
+	};
+	
 })
