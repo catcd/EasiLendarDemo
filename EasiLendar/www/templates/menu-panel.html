@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
      owner: Can Duy Cat
-     last update: 15/03/2015
+     last update: 17/03/2015
      type: menu panel template -->
 <ion-header-bar class="bar-easi-gray">
     <p class="easi-light-gray easi-title">MENU</p>
@@ -9,46 +9,46 @@
 <ion-content id="sideMenuContent">
     <div class="easi-space">
         <!-- user information -->
-        <a class="item item-icon-right myAvatar" id="sideMenu" ui-sref="comingSoon" menu-close>
+        <a class="item item-icon-right myAvatar" id="side-menu" ui-sref="comingSoon" menu-close>
             <img src="img/ava{{eUser.uAvatar}}.png">
-            <h2 class="easi-light-gray">{{eUser.uName}}</h2>
+            <h2 class="easi-light-gray" id="ava-menu-name">{{eUser.uName}}</h2>
             <i class="icon ion-ribbon-b easi-vip-color"></i>
         </a>
 
         <!-- all common item -->
         <div ng-repeat="item in eMenu.mMenus">
-            <hr class="sideMenu">
-            <a class="item item-icon-left" id="sideMenu" ui-sref={{item.sref}} menu-close>
+            <hr class="side-menu">
+            <a class="item item-icon-left" id="side-menu" ui-sref={{item.sref}} menu-close>
                 <i class="icon {{item.icon}}"></i> {{item.name}}
             </a>
         </div>
 
-        <p class="easi-light-gray splitMenu">TOOLS</p>
-        <hr class="splitMenu">
+        <p class="easi-light-gray split-menu">TOOLS</p>
+        <hr class="split-menu">
 
         <!-- restore with another icon -->
-        <a class="item item-icon-left item-icon-right" id="sideMenu" ui-sref="comingSoon" menu-close>
+        <a class="item item-icon-left item-icon-right" id="side-menu" ui-sref="comingSoon" menu-close>
             <i class="icon ion-refresh"></i> Restore
             <i class="icon ion-alert-circled easi-red"></i>
         </a>
-        <hr class="sideMenu">
+        <hr class="side-menu">
 
         <!-- all common item -->
         <div ng-repeat="item in eMenu.mTools">
-            <a class="item item-icon-left" id="sideMenu" ui-sref={{item.sref}} menu-close>
+            <a class="item item-icon-left" id="side-menu" ui-sref={{item.sref}} menu-close>
                 <i class="icon {{item.icon}}"></i> {{item.name}}
             </a>
-            <hr class="sideMenu">
+            <hr class="side-menu">
         </div>
 
         <!-- 2 non-sref item -->
-        <a class="item item-icon-left" id="sideMenu" ui-sref="form" menu-close>
+        <a class="item item-icon-left" id="side-menuf" ng-click="signOutEasi()" menu-close>
             <i class="icon ion-power"></i> Sign out
         </a>
-        <hr class="sideMenu">
-        <a class="item item-icon-left" id="sideMenuf" ng-click="exitEasi()" menu-close>
+        <hr class="side-menu">
+        <a class="item item-icon-left" id="side-menuf" ng-click="exitEasi()" menu-close>
             <i class="icon ion-log-out"></i> Exit
         </a>
-        <hr class="sideMenu">
+        <hr class="side-menu">
     </div>
 </ion-content>
