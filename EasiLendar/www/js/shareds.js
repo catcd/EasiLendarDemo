@@ -30,7 +30,6 @@ angular.module('MainApp.shareds', [])
 		mHoliday: null 		/**/
 	};
 
-
 	// Setting variables
 	// Can Duy Cat
 	$rootScope.eSettings = {
@@ -110,6 +109,17 @@ angular.module('MainApp.shareds', [])
 		]
 	}
 
+	// Calendar variables
+	$rootScope.weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+	$rootScope.months = ["January", "February", "March", "April", "May", "June",
+				"July", "August", "September", "October", "November", "December"
+	];
+	$rootScope.shortMonths = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+	$rootScope.bkgs = ["bkg_01_jan.jpg", "bkg_02_feb.jpg", "bkg_03_mar.jpg", "bkg_04_apr.jpg",
+					"bkg_05_may.jpg", "bkg_06_jun.jpg", "bkg_07_jul.jpg", "bkg_08_aug.jpg",
+					"bkg_09_sep.jpg", "bkg_10_oct.jpg", "bkg_11_nov.jpg", "bkg_12_dec.jpg"
+	];
+
 	/**
 	 * All functions
 	 */
@@ -154,23 +164,23 @@ angular.module('MainApp.shareds', [])
 
 /*	// press again to exit
 	$ionicPlatform.registerBackButtonAction(function(e) {
-	    if ($rootScope.backButtonPressedOnceToExit) {
-	        ionic.Platform.exitApp();
-	    } else if ($ionicHistory.backView()) {
-	        $ionicHistory.goBack();
-	    } else {
-	        $rootScope.backButtonPressedOnceToExit = true;
-	        window.plugins.toast.showShortCenter(
-	            "Press back button again to exit",
-	            function(a) {},
-	            function(b) {}
-	        );
-	        setTimeout(function() {
-	            $rootScope.backButtonPressedOnceToExit = false;
-	        }, 2000);
-	    }
-	    e.preventDefault();
-	    return false;
+		if ($rootScope.backButtonPressedOnceToExit) {
+			ionic.Platform.exitApp();
+		} else if ($ionicHistory.backView()) {
+			$ionicHistory.goBack();
+		} else {
+			$rootScope.backButtonPressedOnceToExit = true;
+			window.plugins.toast.showShortCenter(
+				"Press back button again to exit",
+				function(a) {},
+				function(b) {}
+			);
+			setTimeout(function() {
+				$rootScope.backButtonPressedOnceToExit = false;
+			}, 2000);
+		}
+		e.preventDefault();
+		return false;
 	}, 101);*/
 
 	// exit app function
@@ -192,6 +202,19 @@ angular.module('MainApp.shareds', [])
 	$rootScope.goHome = function() {
 		$state.go($rootScope.eSettings.sDefaultView);
 	}
+
+	// Find the number of day in a month
+	$rootScope.daysOfMonth = function(month, year) {
+		switch (month) {
+			case 1: case 3: case 5: case 7: case 8: case 10: case 12: return 31;
+			case 4: case 6: case 9: case 11: return 30;
+			case 2:
+				if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+					return 29;
+				} else return 28;
+			return 0;
+		};
+	};
 })
 
 /**

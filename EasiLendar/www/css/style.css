@@ -34,6 +34,20 @@ html { height: 100%; width: 100%; }
 }
 .popup-buttons .button:hover { background-color: #646464; }
 
+/* calendar style */
+.easi-jan-bkg { background: url("../img/bkg_01_jan.jpg"); }
+.easi-feb-bkg { background: url("../img/bkg_02_feb.jpg"); }
+.easi-mar-bkg { background: url("../img/bkg_03_mar.jpg"); }
+.easi-apr-bkg { background: url("../img/bkg_04_apr.jpg"); }
+.easi-may-bkg { background: url("../img/bkg_05_may.jpg"); }
+.easi-jun-bkg { background: url("../img/bkg_06_jun.jpg"); }
+.easi-jul-bkg { background: url("../img/bkg_07_jul.jpg"); }
+.easi-aug-bkg { background: url("../img/bkg_08_aug.jpg"); }
+.easi-sep-bkg { background: url("../img/bkg_09_sep.jpg"); }
+.easi-oct-bkg { background: url("../img/bkg_10_oct.jpg"); }
+.easi-nov-bkg { background: url("../img/bkg_11_nov.jpg"); }
+.easi-dec-bkg { background: url("../img/bkg_12_dec.jpg"); }
+
 /* easi style */
 .easi-index-1 { z-index: 1; }
 .easi-index-2 { z-index: 2; }
