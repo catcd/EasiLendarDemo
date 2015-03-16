@@ -79,6 +79,7 @@ angular.module('MainApp.shareds', [])
 	// Nguyen Minh Trang
 	$rootScope.eFriend = {
 		fName: '',				/*UTF-8*/
+		fAvatar: 0,
 		fGmailCalendar: null,	/*Google API JSON	Calendar*/
 		fLocalCalendar: null,	/*Google API JSON	Calendar*/
 	}
