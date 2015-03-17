@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat 
  * owner: Nguyen Minh Trang 
- * last update: 16/03/2015 
+ * last update: 17/03/2015 
  * type: particular controller
  */
 
@@ -153,12 +153,14 @@ signIn.controller('SignInController',
 			}
 			return true;
 		};
-	}
-	; // End of class User
+	}; // End of class User
 
 	// create new user
 	$scope.user = new User();
-
+	
+	
+	// some thing new
+	
 	// sign in function with firebase
 	$scope.signIn = function() {
 		if (!$scope.user.checkChar()) {
@@ -186,6 +188,7 @@ signIn.controller('SignInController',
 					
 					$rootScope.eUser.isLogin = true;
 					
+					$scope.user.reset();
 					$state.go(link);
 				}
 			}, function(errorObject) {
@@ -248,7 +251,7 @@ signIn.controller('SignInController',
 							+ $scope.user.id);
 
 			// get data from that link if exists, null if not
-			ref.once('value', function(snapshot) {
+			ref.on('value', function(snapshot) {
 				// if id existed => change ID message
 				if (snapshot.val() != null) {
 					$scope.warnings.mes[0] = "Existed";
@@ -278,25 +281,12 @@ signIn.controller('SignInController',
 					});
 					
 					// welcome message
-					$scope.showPopup();
+					$scope.showAlert("Welcome to EasiLendar!");
+					$scope.user.reset();
+					$state.go('form');
 				}
 			});
 		}
-	};
-
-	// pop up to welcome new user
-	$scope.showPopup = function() {
-		var welcome = $ionicPopup
-				.show({
-					template : '<div class="font20 easi-center easi-dark-blue">Welcome to EasiLendar!</div>',
-					title : 'Registered',
-					scope : $scope,
-				});
-		$timeout(function() {
-			welcome.close();
-			// close the popup after 3 seconds
-		}, 3000);
-		$state.go('form');
 	};
 
 	// back to form
