@@ -188,7 +188,7 @@
     background-attachment: fixed;
 }
 
-/* months' background url */
+	/* months' background url */
 .jan {
 	background: url("../img/bkg_01_jan.jpg");
 }
@@ -226,7 +226,7 @@
 	background: url("../img/bkg_12_dec.jpg");
 }
 
-/* header */
+	/* header */
 .week .header {
 	width: 100%;
 	max-width: 500px;
@@ -249,7 +249,7 @@
 	border: 0;
 }
 
-/* calendar content */
+	/* content */
 .week .calendar {
 	width: 100%;
 	max-width: 500px;
@@ -275,7 +275,7 @@
 	margin: 0;
 }
 
-/* header */
+	/* calendar header */
 .daytag {
 	border-collapse: collapse;
 	width: 92%;
@@ -299,7 +299,7 @@
 	border-left: 1px solid #e6e6e6;
 }
 
-/* content */
+	/* calendar content */
 .week ion-content {
 	width: 100%;
 	max-width: 500px;
@@ -323,4 +323,15 @@
 	height: inherit;
 	text-align: center;
 	border-left: 1px solid #e6e6e6;
+}
+
+/* all events' CSS */
+.week .event {
+	width: 95%;
+	padding-top: 2%;
+	padding-left: 3%;
+	text-align: left;
+	font-size: 15px;
+	color: white;
+	float: right;
 }

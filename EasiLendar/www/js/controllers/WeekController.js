@@ -8,12 +8,6 @@
 var week = angular.module('MainApp.controllers.week', []);
 
 week.controller("WeekController", function($scope, $rootScope) {	
-	
-	$scope.days = ["Mon", "Tue", "Wed", "Thu",
-		            "Fri", "Sat", "Sun"];
-	$scope.months = ["January","February","March","April","May","June",
-		            "July","August","September","October","November","December"];
-		
 	$scope.bkgs = ["jan","feb","mar","apr","may","jun",
 		           "jul","aug","sep","oct","nov","dec"];
 	
@@ -32,41 +26,36 @@ week.controller("WeekController", function($scope, $rootScope) {
 		};
 	};
 	
-	// example item
-	var item = [{
-		end : {
-			timeZone : "Asia/Saigon",
-			dateTime : "2014-02-14T15:50:00+07:00"	
-		},
-		description : "ThS. Nguy\u1ec5n Nam H\u1ea3i",
-		reminders : {
-			"useDefault" : false
-		},
-		summary : "MAT1093 2: \u0110\u1ea1i s\u1ed1",
-		recurrence : [ "RRULE:FREQ=WEEKLY;WKST=MO;UNTIL=20140530T055959Z;BYDAY=FR" ],
-		start : {
-			timeZone : "Asia/Saigon",
-			dateTime : "2014-02-14T13:00:00+07:00"
-		},
-		location : "301-G2",
-	}];
-	
 	// create new Calendar Object
-	$scope.calendar = new Calendar(item);
+	$scope.calendar = new Calendar($rootScope.uGmailCalendar);
 	$scope.calendar.setHours();
+	$scope.calendar.setEvents();
 	
 	/*
 	 * class Calendar
-	 * events id array of all events
+	 * items id array of array 
+	 * index is date string
 	 */
-	function Calendar(events) {
+	function Calendar(items) {
+		/* convert events to array of Object Event */
+	    this.convertEvent = function (events) {
+	    	if (typeof(events) != "undefined") {
+	    		var temp = [];
+	    		temp[0] = new Event(events[0], null);
+	    		for (var i=1; i < events.length; i++) {
+	    			temp[i] = new Event(events[i], temp[i-1]);
+	    		}
+	    		return temp;
+	    	} else return null;
+	    };
+		
 		/* hours to display in calendar
 		   0 - 23
 		*/
 		this.hours = [];
 		
-		// all events
-		this.events = events;
+		// array of (day-array of events)
+		this.items = items;
 		
 		/*
 		 *  Current Time
@@ -76,15 +65,14 @@ week.controller("WeekController", function($scope, $rootScope) {
 		
 		// current week
 		this.curWeek = new Week();
-		
 		// current month 
-		this.curMonth = this.curWeek.month1-1; // 0 - 11
+		this.curMonth = this.curWeek.month1; // 0 - 11
 		
 		// current year
-		this.curYear = this.curWeek.days[0].time.year; // yyyy
+		this.curYear = this.curWeek.days[0].year; // yyyy
 		
 		// Navigation time
-		this.navDates = this.curWeek.days;
+		this.navDates = this.curWeek.days;	// array of navigate dates
 		this.navWeek = this.curWeek;
 		this.navMonth = this.curMonth;
 		this.navYear = this.curYear;
@@ -96,19 +84,21 @@ week.controller("WeekController", function($scope, $rootScope) {
 		this.setNavTime = function (week) {
 			this.navDates = week.days;
 			this.navWeek = week;
-			this.navMonth = week.month1-1;	// 0 - 11
-			this.navYear = week.days[0].time.year;
+			this.navMonth = week.month1;	// 0 - 11
+			this.navYear = week.days[0].year;
 			this.navBackground = $scope.bkgs[this.navMonth];
 		};
 		
 		/* go to next week */
 		this.nextWeek = function() {
 			this.setNavTime(this.navWeek.nextWeek());
+			this.setEvents();
 		};
 		
 		/* go to previous week */
 		this.prevWeek = function() {
 			this.setNavTime(this.navWeek.prevWeek());
+			this.setEvents();
 		};
 		
 		/* set hours to display in calendar */
@@ -118,68 +108,65 @@ week.controller("WeekController", function($scope, $rootScope) {
 	    		   this.hours[i] = "12AM";
 	    	   } else if (i < 12) {
 	    		   this.hours[i] = i+"AM";
+	    	   } else if (i == 12) { 
+	    		   this.hours[i] = i+"PM";
 	    	   } else {
 	    		   this.hours[i] = (i-12)+"PM";
  	    	   } 
 	       }
 	    };
-	};	
+	    
+	    /* set events into navDates */
+	    this.setEvents = function () {
+	    	// go through all day in navWeek;
+	    	for (var i=0; i < 7; i++) {
+	    		var day = this.items[this.navDates[i].toString()];
+	    		// if there are events in this day
+	    		if (typeof(day) != "undefined") {
+	    			this.navDates[i].events = this.convertEvent(day);
+	    		}
+	    	}
+	    	console.log(this.navDates);
+	    };
+	};	// end of class Calendar
 	
 	/*
 	 * class Time 
 	 * argument time is a string 
-	 * format: yyyy-mm-ddThh:mm:ss+hh:mm
+	 * format: hh:mmXM
 	 */
 	function Time(time) {
 		/*
-		 * time is a string format: hh:mm:ss return time in
-		 * minutes (from 00:00:00)
+		 * time is a string format: hh:mmXM
+		 * return time in minutes (from 00:00:00)
 		 */
 		this.toMinute = function() {
-			var hour = parseInt(time.slice(11, 13));
-			var min = parseInt(time.slice(14, 16));
+			var hour = parseInt(time.slice(0, 2));
+			var min = parseInt(time.slice(3, 5));
 			return hour * 60 + min;
-		}
-
-		this.year = parseInt(time.slice(0, 4));
-		this.month = parseInt(time.slice(5, 7));
-		this.day = parseInt(time.slice(8, 10));
-		this.time = this.toMinute();
-	};
+		};
+		
+		this.minutes = this.toMinute();
+	};	// end of class Time
 
 	/*
 	 * class Event
+	 * event is the Object define by Duy
 	 */
-	function Event(start, end, des, sum, location, recurrence) {
+	function Event(event, prevEvent) {
+		this.date = event.date;
+		this.month = event.month - 1;	// 0 - 11
+		this.year = event.year;
 		
-		this.start = start;
-		// re-construct dateTime to calculate
-		this.start.dateTime = new Time(start.dateTime);
+		// re-construct dateTime to calculate (mins)
+		this.start = new Time(event.start.dateTime);
 		
-		this.end = end;
-		// re-construct dateTime to calculate
-		this.end.dateTime = new Time(end.dateTime);
+		// re-construct dateTime to calculate (mins)
+		this.end = new Time(event.end.dateTime);
 
-		this.description = des; // no change
-		this.summary = sum; // no change
-		this.location = location; // no change
-		this.recurrence = recurrence;
+		this.summary = event.summary; // no change, string
+		this.location = event.location; // no change, string
 
-		/* 
-		 * this function find margin (in px)
-		 * from 0 (0 hour is also 0 px) 
-		 * to the start time of this event
-		 * Note: 24 hour is 960px height
-		 * => each hour is 40px
-		 * => each 12 minutes is 8px
-		 * return px (is the margin) type int
-		 */
-		this.startToPx = function() {
-			// time in minutes
-			var min = this.start.dateTime.time;
-			return min/12 * 8;
-		};
-		
 		/*
 		 * this function find height (in px)
 		 * of this event
@@ -188,75 +175,137 @@ week.controller("WeekController", function($scope, $rootScope) {
 		 */
 		this.durationToPx = function() {
 			// assume that it's in one day
-			var dur = this.end.dateTime.time - this.start.dateTime.time;
-			return dur/12 * 8;
+			var dur = this.end.minutes - this.start.minutes;
+			return parseInt(dur/12 * 8);
 		};
 		
+		/* 
+		 * this function set margin (in px)
+		 * from the end of previous event
+		 * to the start time of this event
+		 * Note: 24 hour is 960px height
+		 * => each hour is 40px
+		 * => each 12 minutes is 8px
+		 * 
+		 * event is Object Event (previous event)
+		 * set margin of this event
+		 */
+		this.startToPx = function(other) {
+			// time in minutes
+			if (other == null) {
+				var min = this.start.minutes;
+				return parseInt(min/12 * 8)+'px';
+			} else {
+				var min = this.start.minutes - other.end.minutes;
+				return parseInt(min/12 * 8)+'px';
+			}
+		};
 		
-	};
+		// return string of random color for this event
+		this.randomColor = function() {
+			var ran = parseInt(Math.random()*5) % 5; // 0 - 4
+			switch (ran) {
+				case 0: return "#690";
+				case 1: return "#f39";
+				case 2: return "#06f";
+				case 3: return "#960";
+				case 4: return "#069";
+			};
+		};
+		
+		// all display variable
+		this.height = this.durationToPx() + "px";
+		this.margin = this.startToPx(prevEvent);
+		this.color = this.randomColor();
+		this.style = {
+			"height": this.height,
+			"margin-top": this.margin,
+			"background-color": this.color,
+		};
+		
+	};	// end of class Event
 
 	/*
 	 * class Day
-	 * events is array of events in this day
+	 * events is array of events in this day (Object Event)
 	 * time is string yyyy-mm-dd
 	 */
 	function Day(time, events) {
-		// convert to time Object
-		this.time = new Time(time);
+		// convert time
+		this.year = parseInt(time.slice(0,4));
+		this.month = parseInt(time.slice(5,7)) - 1;	// 0 - 11
+		this.date = parseInt(time.slice(8,10));	// 1 - 31
 		
 		this.events = events;
 		
 		/* return the next day of this day */
 		this.nextDay = function() {
-			var day = this.time.day + 1;
-			var month = this.time.month;
-			var year = this.time.year;
+			var date = this.date + 1;
+			var month = this.month;
+			var year = this.year;
 			// number of days of this month
-			var num = numOfDays(month-1,year);
+			var num = numOfDays(month,year);
 			
-			if (day > num) {
+			if (date > num) {
 				month = month + 1;
-				day = day % num;
+				date = date % num;
 			}
-			if (month > 12) {
-				month = 1;
+			if (month == 12) {
+				month = 0;
 				year++;
 			}
-			if (month < 10) month = "0"+month;
-			if (day < 10) day = "0"+day;
+			if (month+1 < 10) month = "0"+(month+1);
+			else month = month+1;
+			if (date < 10) date = "0"+date;
 			// return the next day
-			return new Day(year+"-"+month+"-"+day, null);
+			return new Day(year+"-"+month+"-"+date, null);
 		};
 		
 		/* return the previous day of this day */
 		this.prevDay = function() {
-			var day = this.time.day - 1;
-			var month = this.time.month;
-			var year = this.time.year;
+			var date = this.date - 1;
+			var month = this.month;
+			var year = this.year;
 			
-			if (day == 0) {
+			if (date == 0) {
 				month = month - 1;
-				if (month == 0) {
-					month = 12;
+				if (month == -1) {
+					month = 11;
 					year--;
 				}
-				day = numOfDays(month-1,year);
+				date = numOfDays(month,year);
 			}
-			if (month < 10) month = "0"+month;
-			if(day < 10) day = "0"+day;
+			if (month+1 < 10) month = "0" + (month+1);
+			else month = month + 1;
+			if(date < 10) date = "0" + date;
 			// return the previous day
-			return new Day(year+'-'+month+'-'+day, null);
+			return new Day(year+'-'+month+'-'+date, null);
 		};
-	};
+		
+		/* set margin of events */
+		this.setMargin = function() {
+			this.events[0].startToPx(null);
+			for (var i=1; i < this.events.length; i++) {
+				this.events[i].startToPx(this.events[i-1]);
+			}
+		};
+		
+		/* convert to string with format of new Date() */
+		this.toString = function() {
+			var date = this.date;
+			var month = this.month;
+			var temp = new Date(this.year, month, date);
+			return temp.toString();
+		};
+	};	// end of class Day
+	
 		
 	/*
 	 * class Week
 	 * days is array of 7 days (Object Day) in this week
 	 * index 0 (Monday) - 6 (Sunday)
-	 * 
 	 */
 	function Week(days) {
-		
 		/*
 		 * return the current week if no argument
 		 */
@@ -269,8 +318,9 @@ week.controller("WeekController", function($scope, $rootScope) {
 				
 				var yyyy = date.getFullYear();
 				
-				var mm = date.getMonth()+1;
-				if (mm < 10) mm = "0"+mm;
+				var mm = date.getMonth();	// 0 - 11
+				if (mm+1 < 10) mm = "0"+(mm+1);
+				else mm = mm+1;
 				
 				var dd = date.getDate();
 				if (dd < 10) dd = "0"+dd;
@@ -291,8 +341,8 @@ week.controller("WeekController", function($scope, $rootScope) {
 		
 		this.days = this.setDays();
 		
-		this.month1 = this.days[0].time.month;
-		this.month2 = this.days[6].time.month;
+		this.month1 = this.days[0].month;
+		this.month2 = this.days[6].month;
 		
 		/* 
 		 * find next week 
@@ -318,5 +368,5 @@ week.controller("WeekController", function($scope, $rootScope) {
 			}
 			return new Week(dates);
 		};
-	};
+	}; // end of class Week
 });
