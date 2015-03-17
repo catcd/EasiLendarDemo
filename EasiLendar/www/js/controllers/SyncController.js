@@ -26,7 +26,7 @@ angular.module('MainApp.controllers.sync', [])
     var clientId = '164260242142-4er9a46uufjlu6h6hsbv3s7479mqv6pr.apps.googleusercontent.com';
     var scopes = 'https://www.googleapis.com/auth/calendar';
 	
-	// function should be called while register (for Page):
+	// function should be called in the first Sign-In (for Page):
 	
 	$rootScope.logInToGmailCalendar = function() {
 		
@@ -39,13 +39,13 @@ angular.module('MainApp.controllers.sync', [])
 			approval_prompt: 'force',
             include_granted_scopes: false,
             cookie_policy: 'single_host_origin'
-        }, $scope.testResult);
+        }, $scope.testLogInResult);
 		
-		return logInResult;
+		return $scope.logInResult;
+
 	}
 	
 	$scope.testLogInResult = function (authResult) {
-		var result= false;
 		
         if (authResult && !authResult.error) {
 			$scope.logInResult= true;
@@ -90,15 +90,17 @@ angular.module('MainApp.controllers.sync', [])
 		if ($scope.logIN == 0){
 			authorizeButton.className = "button icon-left ion-social-googleplus button-calm easi-no-border";
 			authorizeButton.onclick = $scope.handleAuthClick;
-			authorizeButton.innerHTML = "Log in with your google account";
+			authorizeButton.innerHTML = "Log in your google account";
 			hello.style.visibility= "hidden";
 			
 			updateButton.style.visibility= "hidden";
+			document.getElementById('div-log-in').style.marginTop= "-20px";
 		}
 
 		else if ($scope.logIN == 1){
 			authorizeButton.className = "button icon-left icon icon ion-log-out button-calm easi-no-border";
-			authorizeButton.style.width = "300px";
+			authorizeButton.style.backgroundColor= "#416969";
+			authorizeButton.style.width = "270px";
 		
 			authorizeButton.onclick = $scope.logMeOut;
 			authorizeButton.innerHTML = "Log out your google account";
@@ -108,11 +110,12 @@ angular.module('MainApp.controllers.sync', [])
 				hello.innerHTML = "Hi, " + email;
 			}
 			
-			updateButton.style.width = "300px";
+			updateButton.style.width = "270px";
 			updateButton.className = "button icon-left ion-loop";
 			updateButton.style.visibility= "visible";
 			updateButton.innerHTML= "Update your google calendar";
 			updateButton.onclick = $scope.makeApiCall;
+			document.getElementById('div-log-in').style.marginTop= "45px";
 		}	
 	}
 	
@@ -156,15 +159,6 @@ angular.module('MainApp.controllers.sync', [])
 		
 		$rootScope.showAlert("In order to log out, you have to sign out your google account by your web browser");
 		
-		gapi.auth.authorize({
-                client_id: clientId,
-                scope: scopes,
-                approval_prompt: 'force',
-                include_granted_scopes: false,
-                immediate: false,
-				cookie_policy: 'single_host_origin'
-            }, $scope.doNoThing);
-			
 		$scope.buttonAffect();
 		
 		// code for local host:
@@ -265,7 +259,7 @@ angular.module('MainApp.controllers.sync', [])
 					
 					$scope.buttonAffect();
 			
-					$rootScope.uGmailCalendar = resp.items;
+					$rootScope.eUser.uGmailCalendar = resp.items;
 					
 					$scope.convertMe();
 					
@@ -277,16 +271,16 @@ angular.module('MainApp.controllers.sync', [])
     }
 	
 	$scope.convertMe = function() {
-		if ($rootScope.uGmailCalendar.length== 0)	return;
+		if ($rootScope.eUser.uGmailCalendar.length== 0)	return;
 		
 		// change time:
 		
 		var uGC= {};
-		uGC= $rootScope.uGmailCalendar;
+		uGC= $rootScope.eUser.uGmailCalendar;
 		
 		// array result is a array of array:
 		
-		$rootScope.uGmailCalendar = new Array();
+		$rootScope.eUser.uGmailCalendar = new Array();
 		
 		
 		for(var i=0;i<uGC.length;i++){
@@ -323,11 +317,11 @@ angular.module('MainApp.controllers.sync', [])
 			
 			// make a empty array of each day:
 		
-			$rootScope.uGmailCalendar[position] = new Array();
+			$rootScope.eUser.uGmailCalendar[position] = new Array();
 		}
 		
 		for(var i=0;i<uGC.length;i++){
-			$rootScope.uGmailCalendar[uGC[i].position].push(uGC[i]);
+			$rootScope.eUser.uGmailCalendar[uGC[i].position].push(uGC[i]);
 		}
 	}
 	
