@@ -151,7 +151,7 @@
 
 /*MONTH CALENDAR*/
 .bkg-style{transition: all linear 400ms; opacity: 0.9; min-height: 100%; min-width: 100%;}
-.bkg-01{ background: url("../img/bkg_01_jan.jpg") no-repeat;}
+.bkg-01{ background: url("../img/bkg_01_jan.jpg") no-repeat; background-position: center center;}
 .bkg-02{ background: url("../img/bkg_02_feb.jpg") no-repeat;}
 .bkg-03{ background: url("../img/bkg_03_mar.jpg") no-repeat;}
 .bkg-04{ background: url("../img/bkg_04_apr.jpg") no-repeat;}

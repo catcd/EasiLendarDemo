@@ -36,13 +36,12 @@
                 <tr data-ng-repeat="week in weeks">
                     <td data-ng-repeat="day in week.days" class="td-month-calendar">
                         <div data-different-month="day.month" data-current-day="day.numberDate"
-                        current-month="{{currentMonthNumber}}" current-year="{{currentYear}}" ng-click="showListEvent(day.numberDate,day.month,currentYear)">
-
-                            <input type="radio" id="{{day.month.toString()+day.numberDate.toString()}}" name="{{backgroundMonthName}}" radio-calendar="day.numberDate"
-                            radio-current-month="{{currentMonthNumber}}" radio-current-year="{{currentYear}}">
-                            <label for="{{day.month.toString()+day.numberDate.toString()}}"
-                            event-day="day.numberDate" event-month="{{day.month+1}}" event-year="{{currentYear}}">{{day.numberDate}}</label>
-
+                        current-month="{{currentMonthNumber}}" current-year="{{currentYear}}"
+                        ng-click="showListEvent(day.numberDate,day.month,currentYear)">
+                                <input type="radio" id="{{day.month.toString()+day.numberDate.toString()}}" name="{{backgroundMonthName}}" radio-calendar="day.numberDate"
+                                radio-current-month="{{currentMonthNumber}}" radio-current-year="{{currentYear}}">
+                                <label for="{{day.month.toString()+day.numberDate.toString()}}"
+                                >{{day.numberDate}}</label>
                         </div>
                     </td>
                 </tr>
