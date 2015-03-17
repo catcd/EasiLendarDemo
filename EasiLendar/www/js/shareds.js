@@ -67,7 +67,7 @@ angular.module('MainApp.shareds', [])
 		uPassword: '',		/*8-16 characters*/
 		uRemember: false,	/*remember me*/
 		uFriend: [],		/*array of objects { id, name }*/
-
+		uVIP : true,
 		isLogin: false,
 
 		uGmailCalendar: null,	/*Google API JSON	Calendar*/
@@ -155,6 +155,25 @@ angular.module('MainApp.shareds', [])
 	    };
 	}
 
+	/*
+	 * Update function
+	 * Only call when isLogin = true
+	 * save every data of user in server
+	 */
+	$rootScope.update = function() {
+		var ref = new Firebase(
+				"https://radiant-inferno-3243.firebaseio.com/Users/"
+						+ $rootScope.eUser.uID);
+		ref.set({
+			name : $rootScope.eUser.uName,
+			password : $rootScope.eUser.uPassword,
+			local_calendar : $rootScope.eUser.uLocalCalendar,
+			g_calendar : $rootScope.eUser.uGmailCalendar,
+			friends : $rootScope.eUser.uFriend,
+			VIP : $rootScope.eUser.uVIP,
+			gmail : $rootScope.eUser.uEmail,
+		});
+	}
 
 /*	// press again to exit
 	$ionicPlatform.registerBackButtonAction(function(e) {

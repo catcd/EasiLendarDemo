@@ -182,6 +182,9 @@ signIn.controller('SignInController',
 					$rootScope.eUser.uFriend = user.friends;
 					$rootScope.eUser.uGmailCalendar = user.g_calendar;
 					$rootScope.eUser.uLocalCalendar = user.local_calendar;
+					$rootScope.eUser.uVIP = user.VIP;
+					
+					$rootScope.eUser.isLogin = true;
 					
 					$state.go(link);
 				}
