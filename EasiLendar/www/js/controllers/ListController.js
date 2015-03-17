@@ -18,14 +18,13 @@ angular.module('MainApp.controllers.list', [])
 		var events = $rootScope.uGmailCalendar[date];
 
 	}*/
-	
 	//alert(countEvent.toString() + $scope.numberOfEvents);
-
+	
 	$scope.$watch('uGmailCalendar',function(newVal, oldVal){
 		if(newVal !== oldVal || $rootScope.uGmailCalendar !== null){
 			$scope.listEvents = [];
 			var count = 0;
-			for(i=0;i<30;i++){
+			for(var i=0;i<30;i++){
 				var date = new Date(2015, 3, i, 0,0,0,0);
 				$scope.listEvents[count] = $rootScope.uGmailCalendar[date]; 
 
