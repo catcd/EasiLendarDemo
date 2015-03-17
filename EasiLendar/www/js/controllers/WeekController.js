@@ -11,23 +11,20 @@ week.controller("WeekController", function($scope, $rootScope) {
 	$scope.bkgs = ["jan","feb","mar","apr","may","jun",
 		           "jul","aug","sep","oct","nov","dec"];
 	
+	// watch for changes in eUser.uGmailCalendar
+	$scope.$watch('eUser.uGmailCalendar', function() {
+		$scope.calendar = new Calendar($rootScope.eUser.uGmailCalendar);
+		$scope.calendar.setHours();
+		$scope.calendar.setEvents();
+	});
+
 	/* find number of days in a month */
 	var numOfDays = function(month, year) {
-		switch(month) {
-			case 0: case 2: case 4: case 6:
-			case 7: case 9: case 11:
-				return 31;
-			case 3: case 5: case 8: case 10:
-				return 30;
-			case 1:
-				if ((year%4==0 && year%100!=0) || year%400==0) {
-					return 29;
-				} else return 28;
-		};
+		return $rootScope.daysOfMonth(month+1, year);
 	};
 	
 	// create new Calendar Object
-	$scope.calendar = new Calendar($rootScope.uGmailCalendar);
+	$scope.calendar = new Calendar($rootScope.eUser.uGmailCalendar);
 	$scope.calendar.setHours();
 	$scope.calendar.setEvents();
 	
@@ -116,14 +113,18 @@ week.controller("WeekController", function($scope, $rootScope) {
 	       }
 	    };
 	    
-	    /* set events into navDates */
+	    /* set events into navDates 
+	     * most important function
+	     */
 	    this.setEvents = function () {
-	    	// go through all day in navWeek;
-	    	for (var i=0; i < 7; i++) {
-	    		var day = this.items[this.navDates[i].toString()];
-	    		// if there are events in this day
-	    		if (typeof(day) != "undefined") {
-	    			this.navDates[i].events = this.convertEvent(day);
+	    	if (this.items != null) {
+	    		// go through all day in navWeek;
+	    		for (var i=0; i < 7; i++) {
+	    			var day = this.items[this.navDates[i].toString()];
+	    			// if there are events in this day
+	    			if (typeof(day) != "undefined") {
+	    				this.navDates[i].events = this.convertEvent(day);
+	    			}
 	    		}
 	    	}
 	    	console.log(this.navDates);
