@@ -14,25 +14,25 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
                       "img/ava5.png","img/ava6.png","img/ava7.png","img/ava8.png"
                       ];
      $scope.friends = [
-                         {image: $scope.avatars[0], name:'Ngo Duc Dung', status: "I'm busy now", vip: false},
-                         {image: $scope.avatars[7], name:'Nguyen Thi Luong', status: "I'm free now", vip: false},
+                         {image: 1, name:'Ngo Duc Dung', status: "I'm busy now", vip: false},
+                         {image: 8, name:'Nguyen Thi Luong', status: "I'm free now", vip: false},
                          //{image:"img/ava1.png", name:'Can Duy Cat', status: "I'm busy now", vip: true},
-                         {image: $scope.avatars[4], name:'Nguyen Minh Trang', status: "I'm busy now", vip:true},
-                         {image: $scope.avatars[0], name:'Nguyen Manh Duy', status: "I'm free now", vip: false},
-                         {image: $scope.avatars[5], name:'Taylor Swiff', status: "I'm busy now", vip: true},
-                         {image: $scope.avatars[1], name:'Johnny Depp', status: "I'm busy now", vip: true},
-                         {image: $scope.avatars[6], name:'Katty Perry', status: "I'm busy now", vip: true},
-                         {image: $scope.avatars[2], name:'Barack Obama', status: "I'm busy now", vip: true},
-                         {image: $scope.avatars[1], name:'Justin Timberlake', status: "I'm busy now", vip:true},
-                         {image: $scope.avatars[0], name:'Justin Bieber', status: "I'm free now", vip: false},
-                         {image: $scope.avatars[5], name:'Emma Stone', status: "I'm free now", vip: true},
-                         {image: $scope.avatars[7], name:'Meryl Streep', status: "I'm busy now", vip: true},
-                         {image: $scope.avatars[6], name:'Kim kardashian', status: "I'm free now", vip: true},
-                         {image: $scope.avatars[0], name:'Cristiano Ronaldo', status: "I'm busy now", vip: true},
-                         {image: $scope.avatars[1], name:'Tom Cruise', status: "I'm busy now", vip: true},
-                         {image: $scope.avatars[1], name:'Brad Pitt', status: "I'm busy now", vip: true},
-                         {image: $scope.avatars[4], name:'Nguyen Ngoc Mai Anh', status: "I'm free now", vip: false},
-                         {image: $scope.avatars[2], name:'Luu Hieu Minh', status: "I'm free now", vip: false},
+                         {image: 5, name:'Nguyen Minh Trang', status: "I'm busy now", vip:true},
+                         {image: 1, name:'Nguyen Manh Duy', status: "I'm free now", vip: false},
+                         {image: 6, name:'Taylor Swiff', status: "I'm busy now", vip: true},
+                         {image: 2, name:'Johnny Depp', status: "I'm busy now", vip: true},
+                         {image: 7, name:'Katty Perry', status: "I'm busy now", vip: true},
+                         {image: 3, name:'Barack Obama', status: "I'm busy now", vip: true},
+                         {image: 2, name:'Justin Timberlake', status: "I'm busy now", vip:true},
+                         {image: 2, name:'Justin Bieber', status: "I'm free now", vip: false},
+                         {image: 6, name:'Emma Stone', status: "I'm free now", vip: true},
+                         {image: 8, name:'Meryl Streep', status: "I'm busy now", vip: true},
+                         {image: 7, name:'Kim kardashian', status: "I'm free now", vip: true},
+                         {image: 1, name:'Cristiano Ronaldo', status: "I'm busy now", vip: true},
+                         {image: 2, name:'Tom Cruise', status: "I'm busy now", vip: true},
+                         {image: 2, name:'Brad Pitt', status: "I'm busy now", vip: true},
+                         {image: 5, name:'Nguyen Ngoc Mai Anh', status: "I'm free now", vip: false},
+                         {image: 3, name:'Luu Hieu Minh', status: "I'm free now", vip: false},
        		];
     
       $scope.deleteFriend = function(friend){
@@ -41,7 +41,7 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 
       $scope.viewProfile = function(friend){
          $rootScope.eFriend.fName = $scope.friends[$scope.friends.indexOf(friend)].name;
-         $rootScope.eFriend.fAvatar = friend.image;
+         $rootScope.eFriend.fAvatar = $scope.friends[$scope.friends.indexOf(friend)].image;
       }
 })
 

@@ -32,7 +32,7 @@ angular.module('MainApp.controllers.list', [])
 				if ($scope.listEvents[count]== undefined) { continue; }
 				else { count++; }
 			}
-		$scope.numberOfEvents = countEvent;
+		//$scope.numberOfEvents = countEvent;
 		}
 	})
 
