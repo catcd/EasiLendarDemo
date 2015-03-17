@@ -8,12 +8,16 @@
 angular.module('MainApp.controllers.list', [])
 
 .controller("ListController", function($scope, $rootScope) {
-	$scope.$watch('uGmailCalendar', function(){
+	var toDay = (new Date()).setHours(0,0,0,0);
+	$scope.$watch('eUser.uGmailCalendar', function(){
 			var count = 0;
+			var curentDay = new Date();
 			$scope.listEvents = new Array();
 			for(var x in $rootScope.eUser.uGmailCalendar){
-				$scope.listEvents[count] = $rootScope.eUser.uGmailCalendar[x]; 
-				count++;
+				if( new Date(x) >= toDay ){
+					$scope.listEvents[count] = $rootScope.eUser.uGmailCalendar[x]; 
+					count++;
+				}
 			}
 	})
 
@@ -40,16 +44,18 @@ angular.module('MainApp.controllers.list', [])
 	};
 })
 
-.directive('currentDayInList',function(){
+.directive('currentTime',function(){
 	return{
 		restrict: 'A',
 		scope: {
-			isToDay: '=currentDayInList'
+			isToDay: '=currentTime'
 		},
 		link: function(scope,element,attr){
 			var toDay = new Date();
+			var month = toDay.getMonth();
+			var year = toDay.getFullYear();
 			scope.$watch('isToDay',function(){
-				if(scope.isToDay == toDay.getDate()){
+				if( scope.isToDay == toDay.getDate() && attr.currentMonth == month && attr.currentYear == year){
 					element.addClass('current-date-list');
 				}
 			});

@@ -18,6 +18,10 @@ angular.module('MainApp.controllers.month', [])
                     'June', 'July', 'August', 'September','October',
                      'November', 'December'
                     ];
+    $scope.bkgClass = [
+    				'bkg-01', 'bkg-02', 'bkg-03', 'bkg-04', 'bkg-05', 'bkg-06',
+    				'bkg-07', 'bkg-08', 'bkg-09', 'bkg-10', 'bkg-11', 'bkg-12'
+    				];
     $scope.weeks = [
                 {days: [
                     {numberDate: 1, month: 2}, {numberDate: 2, month: 2}, {numberDate: 3, month: 2}, {numberDate: 4, month: 2}, {numberDate: 5, month: 2}, {numberDate: 6, month: 2}, {numberDate: 7, month: 2}
@@ -38,18 +42,14 @@ angular.module('MainApp.controllers.month', [])
     $scope.currentMonthString = $scope.months[$scope.currentMonthNumber];
     $scope.currentDayInWeek = $scope.days[$scope.currentDate.getDay()];
 
-    $scope.previousMonth = function(form){
-        form.$setPristine();
-        form.$setUntouched();
+    $scope.previousMonth = function(){
         $scope.currentMonthNumber = ($scope.currentMonthNumber-1 >= 0 ? 0 : 12) + ($scope.currentMonthNumber-1);
         $scope.currentMonthString = $scope.months[$scope.currentMonthNumber];
         if($scope.currentMonthNumber == 11) { $scope.currentYear --; }
         $scope.buildWeeks();
     };
     
-    $scope.nextMonth = function(form){
-        form.$setPristine();
-        form.$setUntouched();
+    $scope.nextMonth = function(){
         $scope.currentMonthNumber = ($scope.currentMonthNumber+1) - ($scope.currentMonthNumber+1 > 11 ? 12 : 0);
         $scope.currentMonthString = $scope.months[$scope.currentMonthNumber];
         if($scope.currentMonthNumber == 0) { $scope.currentYear ++; }
@@ -108,81 +108,55 @@ angular.module('MainApp.controllers.month', [])
         delete $scope.newWeeks;
     }
 
-    $scope.backgroundMonth = function(){
-        if($scope.currentMonthString == 'January'){
-            $scope.backgroundMonthName = 'bkg-style bkg-01';
-        }
-        else if($scope.currentMonthString == 'February'){
-            $scope.backgroundMonthName = 'bkg-style bkg-02';
-        }
-        else if($scope.currentMonthString == 'March'){
-            $scope.backgroundMonthName = 'bkg-style bkg-03';
-        }
-        else if($scope.currentMonthString == 'April'){
-            $scope.backgroundMonthName = 'bkg-style bkg-04';
-        }
-        else if($scope.currentMonthString == 'May'){
-            $scope.backgroundMonthName = 'bkg-style bkg-05';
-        }
-        else if($scope.currentMonthString == 'June'){
-            $scope.backgroundMonthName = 'bkg-style bkg-06';
-        }
-        else if($scope.currentMonthString == 'July'){
-            $scope.backgroundMonthName = 'bkg-style bkg-07';
-        }
-        else if($scope.currentMonthString == 'August'){
-            $scope.backgroundMonthName = 'bkg-style bkg-08';
-        }
-        else if($scope.currentMonthString == 'September'){
-            $scope.backgroundMonthName = 'bkg-style bkg-09';
-        }
-        else if($scope.currentMonthString == 'October'){
-            $scope.backgroundMonthName = 'bkg-style bkg-10';
-        }
-        else if($scope.currentMonthString == 'November'){
-            $scope.backgroundMonthName = 'bkg-style bkg-11';
-        }
-        else{
-            $scope.backgroundMonthName = 'bkg-style bkg-12';
-        }
-        return $scope.backgroundMonthName;
-    };
+    $scope.backgroundMonth = function(index){
+        var className = 'bkg-style ' + $scope.bkgClass[index];
+		return className;
+    }
+
+    $scope.bkgE = 'bkg';
+    $scope.showListEvent = function(day,month,year){
+    	$scope.position = new Date(year,month,day,0,0,0,0);
+
+    	if(month > $scope.currentMonthNumber){
+    		$scope.nextMonth();	
+    	}
+    	else if(month < $scope.currentMonthNumber){
+    		$scope.previousMonth();
+    	}
+
+
+    }
 })
 
 .directive('radioCalendar', function(){
     return{
         restrict: 'A',
+        scope : {
+        	isToDay: '=radioCalendar'
+        },
         link: function(scope,element,attr){
-            /*
-            var labelRadio = element.next();
-            labelRadio.bind('mousedown',function(){
-                if(element.prop("checked") == true){
-                    labelRadio.bind('mouseup',function(){
-                        setTimeout(function(){
-                            element.prop('checked',false);
-                            element.parent().removeClass('radio-month-selected');
-                        },5);
-                    });
-                    var modelName = element.attr("data-ng-model");
-                }
-                else{
-                    labelRadio.bind('mouseup',function(){
-                        setTimeout(function(){
-                            element.prop('checked',true);
-                            element.parent().addClass('radio-month-selected');
-                        },5);
-                    });
-                }      
-            });
-            */
+        	//var currentDateRadio = null;
             element.bind('focus',function(){
-                    element.parent().addClass('radio-month-selected');
+            		var toDay = new Date();
+            		if(scope.isToDay == toDay.getDate() && attr.radioCurrentMonth == toDay.getMonth() 
+            			&& attr.radioCurrentYear == toDay.getFullYear()){ 
+            			element.parent().addClass('current-date-style'); 
+            			//currentDate = element;
+            		}
+                    else { 
+                    	element.parent().addClass('radio-month-selected'); 
+                    	if(attr.radioMonth !== currentMonthNumber){
+
+                    	}
+                    }
+
+
             });
             element.bind('blur',function(){
                     element.prop('checked',false);
                     element.parent().removeClass('radio-month-selected');
+                    //currentDate.prop('checked',true);
             });
-
         }
     };
 })
@@ -213,3 +187,4 @@ angular.module('MainApp.controllers.month', [])
         }
     };
 })
+

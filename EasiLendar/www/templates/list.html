@@ -16,10 +16,12 @@
     <ion-content id="content-month-calendar">
       <center><table class="list-calendar">
    			<tr class="tr-list-calendar" ng-repeat="events in listEvents">
-                <td class="td-list-calendar-1" ng-repeat="event in events | limitTo:1" current-day-in-list="event.date">
-    				<p class="p-list-calendar-number">{{event.date}}</p>
-    				<p class="p-list-calendar-text">{{event.day}}</p>
-                    <p class="p-list-calendar-month">{{months[event.month-1]}}</p>
+                <td class="td-list-calendar-1" ng-repeat="event in events | limitTo:1">
+                    <div current-time="event.date" current-month="{{event.month-1}}" current-year="{{event.year}}">
+        				<p class="p-list-calendar-number">{{event.date}}</p>
+        				<p class="p-list-calendar-text">{{event.day}}</p>
+                        <p class="p-list-calendar-month">{{months[event.month-1]}}</p>
+                    </div>
     			</td>
     			<td class="td-list-calendar-2">
     				<div class="div-list-calendar-1" ng-repeat="event in events" background-event="bkgE">

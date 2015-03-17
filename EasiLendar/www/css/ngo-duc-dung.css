@@ -150,7 +150,7 @@
 .event-color-5 { background-color: #069;}
 
 /*MONTH CALENDAR*/
-.bkg-style{transition: all linear 400ms; opacity: 0.9; min-height: 100%; max-width: 960px;}
+.bkg-style{transition: all linear 400ms; opacity: 0.9; min-height: 100%; min-width: 100%;}
 .bkg-01{ background: url("../img/bkg_01_jan.jpg") no-repeat;}
 .bkg-02{ background: url("../img/bkg_02_feb.jpg") no-repeat;}
 .bkg-03{ background: url("../img/bkg_03_mar.jpg") no-repeat;}
@@ -181,7 +181,7 @@
 .different-month-color {color: #E6E6E6;}
 .current-date-style { color: #ffffff; background-color: #33CCCC; border: 1px solid #E6E6E6;}
 .radio-month-selected { background-color: #416969; color: #ffffff;}
-.day-month-calendar { max-width: 500px; margin-top: 6px; margin-left: 8px;}
-.td-list-calendar-3 { width: 9%; color: #646464; text-align: center; font-size: 30px;}
+.day-month-calendar { max-width: 500px; margin-top: 15px; margin-left: 8px;}
+.td-list-calendar-3 { width: 3%; color: #646464; text-align: center; font-size: 30px; padding-left: 20px;}
 .td-list-calendar-4 { width: 95%; color: #ffffff; padding-bottom: 5px;}
-.div-list-calendar-2 { width: 85%;}
+.div-list-calendar-2 { width: 78%; max-width: 350px;}

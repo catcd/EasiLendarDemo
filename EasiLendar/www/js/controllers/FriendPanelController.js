@@ -10,11 +10,11 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 .controller('friendPanelController', function($scope, $rootScope, $ionicPopup) {
      $scope.searchFriend = '';
      $scope.mShow = false;	
-     $scope.avatars = ["img/ava1.png","img/ava2.png","img/ava3.png","img/ava4.png",
+     $scope.avatars = ["img/ava0.png","img/ava1.png","img/ava2.png","img/ava3.png","img/ava4.png",
                       "img/ava5.png","img/ava6.png","img/ava7.png","img/ava8.png"
                       ];
      $scope.friends = [
-                         {image: 1, name:'Ngo Duc Dung', status: "I'm busy now", vip: false},
+                         //{image: 1, name:'Ngo Duc Dung', status: "I'm busy now", vip: false},
                          {image: 8, name:'Nguyen Thi Luong', status: "I'm free now", vip: false},
                          //{image:"img/ava1.png", name:'Can Duy Cat', status: "I'm busy now", vip: true},
                          {image: 5, name:'Nguyen Minh Trang', status: "I'm busy now", vip:true},
@@ -22,12 +22,12 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
                          {image: 6, name:'Taylor Swiff', status: "I'm busy now", vip: true},
                          {image: 2, name:'Johnny Depp', status: "I'm busy now", vip: true},
                          {image: 7, name:'Katty Perry', status: "I'm busy now", vip: true},
-                         {image: 3, name:'Barack Obama', status: "I'm busy now", vip: true},
+                         {image: 0, name:'Barack Obama', status: "I'm busy now", vip: true},
                          {image: 2, name:'Justin Timberlake', status: "I'm busy now", vip:true},
                          {image: 2, name:'Justin Bieber', status: "I'm free now", vip: false},
                          {image: 6, name:'Emma Stone', status: "I'm free now", vip: true},
                          {image: 8, name:'Meryl Streep', status: "I'm busy now", vip: true},
-                         {image: 7, name:'Kim kardashian', status: "I'm free now", vip: true},
+                         {image: 7, name:'Kim Kardashian', status: "I'm free now", vip: true},
                          {image: 1, name:'Cristiano Ronaldo', status: "I'm busy now", vip: true},
                          {image: 2, name:'Tom Cruise', status: "I'm busy now", vip: true},
                          {image: 2, name:'Brad Pitt', status: "I'm busy now", vip: true},

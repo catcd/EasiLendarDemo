@@ -21,7 +21,7 @@
 	 	<div class="list">
 			<togglefriend id="myAvatar01" data-ng-repeat="friend in friends | filter:searchFriend" class="item myAvatar01 item-icon-right sideMenu my-repeat-animation">
 				<div data-ng-click="toggleFunc()">
-					<img class="item-image" src={{avatars[friend.image-1]}}>
+					<img class="item-image" src={{avatars[friend.image]}}>
 					<h2 class="easi-light-gray">{{friend.name}}</h2>
 					<p class="easi-light-gray">{{friend.status}}</p>
 					<i data-ng-show="friend.vip" class="icon ion-ribbon-b easi-vip-color" id="ribbon-b"></i>
