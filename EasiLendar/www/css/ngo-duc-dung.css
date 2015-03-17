@@ -129,12 +129,12 @@
 .table-list-calendar, .table-month-calendar {margin-top:-15px;}
 .list-calendar { max-width: 500px; margin-top: -3px; margin-left: -6px;}
 .td-list-calendar-1 {color: #646464; text-align: center; font-size: 30px;}
-.td-list-calendar-2 {color: #ffffff; padding-bottom: 5px; padding-left: 6px;}
+.td-list-calendar-2 {color: #ffffff; padding-bottom: 10px; padding-left: 6px;}
 .div-list-calendar-1, .div-list-calendar-2 {margin-left: 7px; margin-bottom: 10px; padding: 10px; font-size: 16px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
 .div-list-calendar-1 {width: 265px;}
 .p-list-calendar-number, .p-list-calendar-text{ width: 100%; padding-top: 15px;}
 .p-list-calendar-text { font-size: 15px; margin-top: -20px;}
-.p-list-calendar-month {font-size: 10px; margin-top: -10px;}
+.p-list-calendar-month {font-size: 11px; margin-top: -12px;}
 
 .current-date-list { color: #33CCCC;}
 .birthday-background, .holiday-background, .hotel-background, .restaurant-background, .ticket-background { color: #fff;}

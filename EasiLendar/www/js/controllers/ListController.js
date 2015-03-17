@@ -8,62 +8,32 @@
 angular.module('MainApp.controllers.list', [])
 
 .controller("ListController", function($scope, $rootScope) {
-	/*
-	$scope.numberOfEvents = 0;
-	var countEvent = 0;
-	var i;
-	for(i=0;i<30;i++){
-		
-		var date = new Date(2015,3,i,0,0,0,0);
-		var events = $rootScope.uGmailCalendar[date];
-
-	}*/
-	//alert(countEvent.toString() + $scope.numberOfEvents);
-	
-	$scope.$watch('uGmailCalendar',function(newVal, oldVal){
-		if(newVal !== oldVal || $rootScope.uGmailCalendar !== null){
-			$scope.listEvents = [];
+	$scope.$watch('uGmailCalendar', function(){
 			var count = 0;
-			for(var i=0;i<30;i++){
-				var date = new Date(2015, 3, i, 0,0,0,0);
-				$scope.listEvents[count] = $rootScope.uGmailCalendar[date]; 
-
-				if ($scope.listEvents[count]== undefined) { continue; }
-				else { count++; }
+			$scope.listEvents = new Array();
+			for(var x in $rootScope.eUser.uGmailCalendar){
+				$scope.listEvents[count] = $rootScope.eUser.uGmailCalendar[x]; 
+				count++;
 			}
-		//$scope.numberOfEvents = countEvent;
-		}
 	})
 
-	$scope.randomClass = function(){
-		$scope.allBkgClass = ['birthday-background', 'holiday-background', 'hotel-background', 
-		'restaurant-background', 'ticket-background', 'event-color-1', 'event-color-2',
-		'event-color-3', 'event-color-4', 'event-color-5'];
-
-		var className = $scope.allBkgClass[Math.floor((Math.random() * 10))];
-		return className;
-	}
+	//set random background
+	$scope.bkgE = 'bkg'; 
 })
 
 .directive('backgroundEvent',function(){
 	return{
 		restrict: 'A',
 		scope: {
-			isType: '=backgroundEvent'
+			isType : '=backgroundEvent'
 		},
 		link: function(scope,element,attr){
+			var allBkgClass = ['birthday-background', 'holiday-background', 'hotel-background', 
+								'restaurant-background', 'ticket-background', 'event-color-1', 'event-color-2',
+								'event-color-3', 'event-color-4', 'event-color-5'];
 			scope.$watch('isType',function(){
-				if(scope.isType == 0){
-					element.addClass('ticket-background');
-				}
-				else if(scope.isType == 1){
-					element.addClass('birthday-background');
-				}
-				else if(scope.isType == 2){
-					element.addClass('holiday-background');
-				}
-				else if(scope.isType == 3){
-					element.addClass('restaurant-background');
+				if(scope.isType == 'bkg'){
+					element.addClass( allBkgClass[Math.floor((Math.random() * 10))] );
 				}
 			});
 		}
