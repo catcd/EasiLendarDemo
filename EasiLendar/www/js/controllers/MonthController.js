@@ -187,4 +187,21 @@ angular.module('MainApp.controllers.month', [])
         }
     };
 })
-
+/*
+.directive('eventDay',function($rootScope){
+	return{
+		restrict:'A',
+		scope: {
+			haveEvent: '=eventDay'
+		},
+		link: function(scope,element,attr){
+			scope.$watch('haveEvent',function(){
+				var index = new Date(attr.eventYear, attr.eventMonth, haveEvent);
+				if($rootScope.eUser.uGmailCalendar[index] !== undefined){
+					element.addClass('day-has-event');
+				}
+			});
+		}
+	};
+})
+*/

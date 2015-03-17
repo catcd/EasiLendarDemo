@@ -185,3 +185,4 @@
 .td-list-calendar-3 { width: 3%; color: #646464; text-align: center; font-size: 30px; padding-left: 20px;}
 .td-list-calendar-4 { width: 95%; color: #ffffff; padding-bottom: 5px;}
 .div-list-calendar-2 { width: 78%; max-width: 350px;}
+.day-has-event{ border: 1px solid #646464; }

@@ -12,7 +12,7 @@
         <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
     </ion-nav-buttons>
 
-    <ion-content id="content-month-calendar" class="bkg-style bkg-01">
+    <ion-content id="content-month-calendar" ng-class="backgroundMonth(currentMonthNumber)">
         <form name="form_month_calendar" class="form-month-calendar"><center>
             <div class="title-month-calendar">
                 <a class="button-calendar button-previous-month icon ion-chevron-left easi-gray" 
@@ -37,9 +37,12 @@
                     <td data-ng-repeat="day in week.days" class="td-month-calendar">
                         <div data-different-month="day.month" data-current-day="day.numberDate"
                         current-month="{{currentMonthNumber}}" current-year="{{currentYear}}" ng-click="showListEvent(day.numberDate,day.month,currentYear)">
+
                             <input type="radio" id="{{day.month.toString()+day.numberDate.toString()}}" name="{{backgroundMonthName}}" radio-calendar="day.numberDate"
                             radio-current-month="{{currentMonthNumber}}" radio-current-year="{{currentYear}}">
-                            <label for="{{day.month.toString()+day.numberDate.toString()}}">{{day.numberDate}}</label>
+                            <label for="{{day.month.toString()+day.numberDate.toString()}}"
+                            event-day="day.numberDate" event-month="{{day.month+1}}" event-year="{{currentYear}}">{{day.numberDate}}</label>
+
                         </div>
                     </td>
                 </tr>
@@ -48,8 +51,7 @@
 
         <center><table class="day-month-calendar">
             <tr class="tr-list-calendar">
-                <td class="td-list-calendar-3" ng-repeat="event in eUser.uGmailCalendar[position] | limitTo:1"
-                event-day="event.date" event-month="{{event.month}}" event-year="{{event.year}}">
+                <td class="td-list-calendar-3" ng-repeat="event in eUser.uGmailCalendar[position] | limitTo:1">
                     <p class="p-list-calendar-number">{{event.date}}</p>
                     <p class="p-list-calendar-text">{{event.day}}</p>
                 </td>
