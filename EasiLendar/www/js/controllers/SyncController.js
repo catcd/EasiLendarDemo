@@ -265,6 +265,7 @@ angular.module('MainApp.controllers.sync', [])
 					
 					$rootScope.showAlert("Your calendar was update");
 					
+					console.log($rootScope.eUser.uGmailCalendar);
                 });
             });
 		}
@@ -290,7 +291,10 @@ angular.module('MainApp.controllers.sync', [])
 			// value position to get the position of array of event:
 			
 			var position= new Date(uGC[i].start.dateTime.getFullYear(), uGC[i].start.dateTime.getMonth(), uGC[i].start.dateTime.getDate(), 0, 0, 0, 0);
+			
 			uGC[i].position= position;
+			
+			if (position == "Invalid Date")	 continue;
 			
 			//Conver time to Day in week and Date in Month
 			
@@ -321,6 +325,7 @@ angular.module('MainApp.controllers.sync', [])
 		}
 		
 		for(var i=0;i<uGC.length;i++){
+			if (uGC[i].position == "Invalid Date")	 continue;
 			$rootScope.eUser.uGmailCalendar[uGC[i].position].push(uGC[i]);
 		}
 	}
