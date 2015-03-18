@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Nguyen Thi Luong
-	 last update: 24/02/2015
+	 last update: 18/03/2015
 	 type: calendar template -->
 
 <ion-view title="EasiLendar">
@@ -11,7 +11,8 @@
         <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
      	  <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
     </ion-nav-buttons>
-	<div  ng-class="backgroundMonth()">
+		
+    <div  ng-class="backgroundMonth()">
 		
 			<h2 id="h2-month"><br>{{currentMonthString}}, {{currentYear}}</h2>
 		
@@ -23,48 +24,31 @@
 		<td id="x2"><span >This Week ({{currentMonthCstring}} {{numberFirstDayInWeek}}- {{numberLastDayInWeek}})<br><span></td>
 		<td id="x3"><a class="button-calendar button-next-day icon ion-chevron-right easi-gray" > </a>   </td>
 		</table>
-		<br>
-		</div>
-		
-		<ion-content class="zzz"> <center>
+		<br><ion-content class="zzz"> <center>
 		
 		<div>
 		<br>
 		<br>
-			
-				<table class="day-table-calendar easi-no-border"><center>
-				<tr class="tr-day-calendar easi-no-border">
-					<td class="td-day-calendar-1 easi-no-border">
-						<p class="p-day-calendar-number easi-no-border">{{currentDateNumber}}</p>
-						<p class="p-day-calendar-text easi-no-border">{{currentDayInWeek}}</p>
-					</td>
-					<td class="td-day-calendar-2">
-						<div class="div-day-calendar easi-no-border event-color-1">
-							<span>Movie: Avangers 2 </span><br>
-							<span>18:00PM - 21:45PM</span><br>
-							
-						</div>
-						<div class="div-day-calendar easi-no-border event-color-2">
-							<span>Studying at 301-G2 UET - VNU </span><br>
-							<span>13:00PM - 17:50PM</span><br>
-							
-						</div>
-						<div class="div-day-calendar easi-no-border event-color-5">
-							<span>Friend's birthday at Friend's House</span><br>
-							<span>18:00PM - 22:00PM</span><br>
-							
-						</div>
-						<div class="div-day-calendar easi-no-border event-color-3">
-							<span>Make Love </span><br>
-							<span>18:00PM - 21:45PM</span><br>
-							
-						</div>
-					</td>
-					
-				</tr>
-				
-			</table>
-		 </div>
+            <!--Code something-->
+         
+        <!-- Change all class name if want to style something -->
+		 <center><table class="day-table-calendar easi-no-border">
+            <tr class="tr-day-calendar easi-no-border">
+                <td class="td-day-calendar-1 easi-no-border" ng-repeat="event in eUser.uGmailCalendar[indexOfToday] | limitTo:1">
+                    <p class="p-list-calendar-number">{{event.date}}</p>
+                    <p class="p-list-calendar-text">{{event.day}}</p>
+                </td>
+                <td class=class="td-day-calendar-2">
+                    <div class="div-day-calendar easi-no-border " ng-repeat="event in eUser.uGmailCalendar[indexOfToday]" background-event="bkgE">
+                        <span class="span-title-event">{{event.summary}}</span><br>
+                        <span>Time: {{event.start.dateTime}} - {{event.end.dateTime}}</span><br>
+                        <span>{{event.location}}</span>
+                    </div>
+                </td> 
+            </tr>
+        </table></center>
+        
+
     </ion-content>
 	
 <!--	<ion-content id="zzz"><center>

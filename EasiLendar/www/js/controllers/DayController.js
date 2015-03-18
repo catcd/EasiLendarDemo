@@ -1,17 +1,21 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Thi Luong
- * last update: 11/03/2015
+ * last update: 18/03/2015
  * type: day controller
  */
 
 angular.module('MainApp.controllers.day', [])
 
-.controller("DayController", function($scope) {
+.controller("DayController", function($scope, $rootScope) {
+	var toDay = new Date();
+	toDay = new Date(toDay.getFullYear(), toDay.getMonth(), toDay.getDate(),0,0,0,0);
+	$scope.indexOfToday = toDay.toString();
 	$scope.currentDate=new Date();
     $scope.currentDateNumber = $scope.currentDate.getDate();
     $scope.currentMonthNumber = $scope.currentDate.getMonth();
     $scope.currentYear = $scope.currentDate.getFullYear(); 
+	$scope.bkgE = 'bkg'; 
 /*Day*/
     $scope.days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 /* Month*/
@@ -127,27 +131,6 @@ angular.module('MainApp.controllers.day', [])
         }
         return $scope.backgroundMonthName;
     };
-   /* $scope.previousMonth = function(form)
-	{
-		form.$setPristine();
-        form.$setUntouched();
-		if($scope.currentDateNumber == 1) {
-			if($scope.currentMonthNumber == 3 )
-			{
-				
-				if($scope.currentYear%4==0){$scope.currentDateNumber = 28;} else{$scope.currentDateNumber = 29;}
-				$scope.currentMonthNumber = $scope.currentMonthNumber - 1
-			}
-			
-			
-			
-			$scope.currentDateNumber =  $scope.currentDateNumber - 1;
-				
-	
-			}
-			$scope.currentDateNumber = ($scope.currentDateNumber-1 >= 0 ? 0 : 28) + ($scope.currentDateNumber-1);
-			$scope
-		$scope.currentDateNumber = ($scope.currentDateNumber-1 >= 0 ? 0 : 30) + ($scope.currentDateNumber-1);
-		 
-	};*/
 })
+
+
