@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguo Duc Dung
- * last update: 17/03/2015
+ * last update: 18/03/2015
  * type: list controller
  */
 
@@ -23,6 +23,7 @@ angular.module('MainApp.controllers.list', [])
 
 	//set random background
 	$scope.bkgE = 'bkg'; 
+	var x = 0;
 })
 
 .directive('backgroundEvent',function(){
