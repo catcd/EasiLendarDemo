@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Manh Duy
- * last update: 17/03/2015
+ * last update: 19/03/2015
  * type: paticular controller
  */
  
@@ -10,14 +10,6 @@ angular.module('MainApp.controllers.sync', [])
 .controller('SyncController', function($scope, $rootScope,$window, $document) {
 
     $scope.logIN = -1;
-	
-	$scope.days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-	$scope.months = [
-                    'January', 'February','March', 'April', 'May',
-                    'June', 'July', 'August', 'September','October',
-                     'November', 'December'
-                    ];
-	$scope.typesOfEvent = ['BirthDay', 'Holiday', 'Restaurant', 'Important', 'Normal'];
 	
 	$scope.logInResult= false;
 	var email= '';
@@ -265,7 +257,6 @@ angular.module('MainApp.controllers.sync', [])
 					
 					$rootScope.showAlert("Your calendar was update");
 					
-					console.log($rootScope.eUser.uGmailCalendar);
                 });
             });
 		}
@@ -285,59 +276,38 @@ angular.module('MainApp.controllers.sync', [])
 		
 		
 		for(var i=0;i<uGC.length;i++){
-			uGC[i].end.dateTime = new Date(uGC[i].end.dateTime);
-			uGC[i].start.dateTime = new Date(uGC[i].start.dateTime);
+			
+			var end = new Date(uGC[i].end.dateTime);
+			var start = new Date(uGC[i].start.dateTime);
 			
 			// value position to get the position of array of event:
 			
-			var position= new Date(uGC[i].start.dateTime.getFullYear(), uGC[i].start.dateTime.getMonth(), uGC[i].start.dateTime.getDate(), 0, 0, 0, 0);
+			var position= new Date(start.getFullYear(), start.getMonth(), start.getDate());
 			
 			uGC[i].position= position;
-			
-			if (position == "Invalid Date")	 continue;
-			
-			//Conver time to Day in week and Date in Month
-			
-			var date = uGC[i].start.dateTime.getDate();
-			var day = $scope.days[uGC[i].start.dateTime.getDay()];
-			var month = uGC[i].start.dateTime.getMonth() + 1;
-			var year = uGC[i].start.dateTime.getFullYear();
-			
-			uGC[i].date = date;
-			uGC[i].day = day;
-			uGC[i].month = month;	
-			uGC[i].year = year;
 	
 			//Convert time to Hour and Minute
-			if(uGC[i].end.dateTime.getHours() >= 12) { var termEnd = 'PM';}
+			
+			if(end.getHours() >= 12) { var termEnd = 'PM';}
 			else {termEnd = 'AM';}
-			if(uGC[i].start.dateTime.getHours() >= 12) { var termStart = 'PM';}	
+			if(start.getHours() >= 12) { var termStart = 'PM';}	
 			else {termStart = 'AM'; }
 			
-			uGC[i].end.dateTime = uGC[i].end.dateTime.getHours() + ':' + (uGC[i].end.dateTime.getMinutes() < 10 ? '0':'') + uGC[i].end.dateTime.getMinutes() + termEnd ;
-			uGC[i].start.dateTime = uGC[i].start.dateTime.getHours() + ':' + (uGC[i].start.dateTime.getMinutes() < 10 ? '0':'') + uGC[i].start.dateTime.getMinutes() + termStart;	
+			uGC[i].endHour = end.getHours() + ':' + (end.getMinutes() < 10 ? '0':'') + end.getMinutes() + termEnd ;
+			uGC[i].startHour = start.getHours() + ':' + (start.getMinutes() < 10 ? '0':'') + start.getMinutes() + termStart;	
 			
 			uGC[i].mStatus= false;
 			
+			uGC[i].start.dateTime= start;
+			uGC[i].end.dateTime= end;
 			// make a empty array of each day:
 		
 			$rootScope.eUser.uGmailCalendar[position] = new Array();
 		}
 		
 		for(var i=0;i<uGC.length;i++){
-			if (uGC[i].position == "Invalid Date")	 continue;
 			$rootScope.eUser.uGmailCalendar[uGC[i].position].push(uGC[i]);
 		}
 	}
-	
-	/* */
-	$rootScope.mLength= function(array) {
-		var dem=0;
-		for (var x in array) {
-			dem++;
-		}
-		
-		return dem;
-	};
 	
 })
