@@ -286,20 +286,11 @@ angular.module('MainApp.controllers.sync', [])
 			
 			uGC[i].position= position;
 	
-			//Convert time to Hour and Minute
-			
-			if(end.getHours() >= 12) { var termEnd = 'PM';}
-			else {termEnd = 'AM';}
-			if(start.getHours() >= 12) { var termStart = 'PM';}	
-			else {termStart = 'AM'; }
-			
-			uGC[i].endHour = end.getHours() + ':' + (end.getMinutes() < 10 ? '0':'') + end.getMinutes() + termEnd ;
-			uGC[i].startHour = start.getHours() + ':' + (start.getMinutes() < 10 ? '0':'') + start.getMinutes() + termStart;	
-			
 			uGC[i].mStatus= false;
 			
 			uGC[i].start.dateTime= start;
 			uGC[i].end.dateTime= end;
+			
 			// make a empty array of each day:
 		
 			$rootScope.eUser.uGmailCalendar[position] = new Array();
