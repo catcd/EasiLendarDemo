@@ -255,12 +255,30 @@ angular.module('MainApp.controllers.sync', [])
 					
 					$scope.convertMe();
 					
+					console.log($rootScope.eUser.uGmailCalendar);
+					
 					$rootScope.showAlert("Your calendar was update");
 					
                 });
             });
 		}
     }
+	
+	// tomorrow of Date:
+	
+	$scope.tomorrow = function(today) {
+		var d = today.getTime();
+		var result = new Date (d + (24 * 60 * 60 * 1000));
+		return result;
+	}
+	
+	// yesterday of Date:
+	
+	$scope.yesterday = function(today) {
+		var d = today.getTime();
+		var r = new Date (d - (24 * 60 * 60 * 1000));
+		return r;
+	}
 	
 	$scope.convertMe = function() {
 		if ($rootScope.eUser.uGmailCalendar.length== 0)	return;
@@ -274,31 +292,133 @@ angular.module('MainApp.controllers.sync', [])
 		
 		$rootScope.eUser.uGmailCalendar = new Array();
 		
-		
+		var listNewEvent = new Array();
+				
 		for(var i=0;i<uGC.length;i++){
+			
+			// Handle all-day events (event.start and event.end has value "date" instead of "dateTime"):
+			
+			// Convert to form 00h00 dd/mm/yyyy -> 00h00 dd/mm/yyyy:
+			
+			if ((uGC[i].end.dateTime== undefined || uGC[i].start.dateTime== undefined)){
+				uGC[i].start.dateTime= new Date(uGC[i].start.date);
+				uGC[i].end.dateTime= new Date(uGC[i].end.date);
+				
+				uGC[i].start.dateTime.setHours(0);
+				uGC[i].start.dateTime.setMinutes(0);
+				uGC[i].end.dateTime.setHours(0);
+				uGC[i].end.dateTime.setMinutes(0);
+			}
+			
+			// Handle long-time events (event.start.dateTime and event.end.dateTime have two different date) and save to array newHandleCalendar:
 			
 			var end = new Date(uGC[i].end.dateTime);
 			var start = new Date(uGC[i].start.dateTime);
 			
-			// value position to get the position of array of event:
+			// each event ends in 0h00 -> convert to 23h59 of previous day:
 			
-			var position= new Date(start.getFullYear(), start.getMonth(), start.getDate());
+			if (end.getHours() == 0 && end.getMinutes() == 0 && end.getSeconds() == 0){
+				end.setHours(23);
+				end.setMinutes(59);
+				end.setSeconds(59);
+				end = $scope.yesterday(end);
+			}
 			
-			uGC[i].position= position;
+			// separate each long-time event to list of event:
+			
+			if (end.getFullYear() != start.getFullYear() || end.getDate() != start.getDate() || end.getMonth() != start.getMonth()){
+				var x=0;
+				
+				var tempEnd= start;
+				tempEnd.setHours(23);
+				tempEnd.setMinutes(59);
+				tempEnd.setSeconds(59);
+				
+				var tempStart= start;
+		
+				while (tempEnd.getTime() < end.getTime() + 24*60*60*1000){
+				
+					// start day:
 	
-			uGC[i].mStatus= false;
+					if (x==0){
+						
+						uGC[i].start.dateTime= new Date(uGC[i].start.dateTime);
+						
+						uGC[i].end.dateTime= tempEnd;
+						
+						tempStart = $scope.tomorrow(tempStart);
+						
+						tempStart.setHours(0);
+						tempStart.setMinutes(0);
+						tempStart.setSeconds(0);
+						
+						tempEnd= $scope.tomorrow(tempEnd);
+						
+						uGC[i].position = new Date(uGC[i].start.dateTime.getFullYear(), uGC[i].start.dateTime.getMonth(), uGC[i].start.dateTime.getDate());
+						uGC[i].mStatus= false;
+					}
+					
+					// all next day from start day:
+					
+					else{
+						var newEvent = JSON.parse( JSON.stringify( uGC[i] ) );
+						
+						// all- day events:
+						
+						if (tempEnd.getTime() < end.getTime()){
+							newEvent.start.dateTime = tempStart;
+							newEvent.end.dateTime = tempEnd;
+							
+							tempStart= $scope.tomorrow(tempStart);
+							tempEnd= $scope.tomorrow(tempEnd);
+						}
+						
+						// non all-day event:
+						
+						else{
+							newEvent.start.dateTime = tempStart;
+							newEvent.end.dateTime = end;
+							
+							tempStart= $scope.tomorrow(tempStart);
+							tempEnd= $scope.tomorrow(tempEnd);
+						}
+						
+						newEvent.position= new Date(newEvent.start.dateTime.getFullYear(), newEvent.start.dateTime.getMonth(), newEvent.start.dateTime.getDate());
+						newEvent.mStatus= false;
+						listNewEvent.push(newEvent);
+					}
+					
+					x++;
+				}
+			}
 			
-			uGC[i].start.dateTime= start;
-			uGC[i].end.dateTime= end;
+			else{
+				var position= new Date(start.getFullYear(), start.getMonth(), start.getDate());
 			
+				uGC[i].position= position;
+	
+				uGC[i].mStatus= false;
+			
+				uGC[i].start.dateTime= start;
+				uGC[i].end.dateTime= end;
+			}
+		}
+	
+		if (listNewEvent.length >0){
+			for (var i=0; i< listNewEvent.length; i++){
+				uGC.push(listNewEvent[i]);
+			}
+		}
+		
+		for (var i=0; i< uGC.length; i++){
 			// make a empty array of each day:
 		
-			$rootScope.eUser.uGmailCalendar[position] = new Array();
+			if ($rootScope.eUser.uGmailCalendar[uGC[i].position] == undefined)
+				$rootScope.eUser.uGmailCalendar[uGC[i].position] = new Array();
 		}
 		
 		for(var i=0;i<uGC.length;i++){
 			$rootScope.eUser.uGmailCalendar[uGC[i].position].push(uGC[i]);
 		}
 	}
-	
 })
