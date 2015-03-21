@@ -314,7 +314,8 @@ angular.module('MainApp.controllers.sync', [])
 			
 			var end = new Date(uGC[i].end.dateTime);
 			var start = new Date(uGC[i].start.dateTime);
-			
+			uGC[i].end.dateTime = new Date(uGC[i].end.dateTime);
+			uGC[i].start.dateTime = new Date(uGC[i].start.dateTime);
 			// each event ends in 0h00 -> convert to 23h59 of previous day:
 			
 			if (end.getHours() == 0 && end.getMinutes() == 0 && end.getSeconds() == 0){
@@ -360,6 +361,8 @@ angular.module('MainApp.controllers.sync', [])
 					
 					else{
 						var newEvent = JSON.parse( JSON.stringify( uGC[i] ) );
+						newEvent.start.dateTime= new Date(newEvent.start.dateTime);
+						newEvent.end.dateTime= new Date(newEvent.end.dateTime);
 						newEvent.position= new Date(tempStart.getFullYear(), tempStart.getMonth(), tempStart.getDate());
 						
 						// all- day events:
