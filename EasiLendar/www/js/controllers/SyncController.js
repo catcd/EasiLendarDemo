@@ -1,13 +1,13 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Manh Duy
- * last update: 19/03/2015
+ * last update: 21/03/2015
  * type: paticular controller
  */
  
 angular.module('MainApp.controllers.sync', [])
 
-.controller('SyncController', function($scope, $rootScope,$window, $document) {
+.controller('SyncController', function($scope, $rootScope, $window, $document, $cordovaCalendar) {
 
     $scope.logIN = -1;
 	
@@ -343,8 +343,7 @@ angular.module('MainApp.controllers.sync', [])
 					if (x==0){
 						
 						uGC[i].start.dateTime= new Date(uGC[i].start.dateTime);
-						
-						uGC[i].end.dateTime= tempEnd;
+						uGC[i].position = new Date(uGC[i].start.dateTime.getFullYear(), uGC[i].start.dateTime.getMonth(), uGC[i].start.dateTime.getDate());
 						
 						tempStart = $scope.tomorrow(tempStart);
 						
@@ -354,7 +353,6 @@ angular.module('MainApp.controllers.sync', [])
 						
 						tempEnd= $scope.tomorrow(tempEnd);
 						
-						uGC[i].position = new Date(uGC[i].start.dateTime.getFullYear(), uGC[i].start.dateTime.getMonth(), uGC[i].start.dateTime.getDate());
 						uGC[i].mStatus= false;
 					}
 					
@@ -362,12 +360,11 @@ angular.module('MainApp.controllers.sync', [])
 					
 					else{
 						var newEvent = JSON.parse( JSON.stringify( uGC[i] ) );
+						newEvent.position= new Date(tempStart.getFullYear(), tempStart.getMonth(), tempStart.getDate());
 						
 						// all- day events:
 						
 						if (tempEnd.getTime() < end.getTime()){
-							newEvent.start.dateTime = tempStart;
-							newEvent.end.dateTime = tempEnd;
 							
 							tempStart= $scope.tomorrow(tempStart);
 							tempEnd= $scope.tomorrow(tempEnd);
@@ -376,14 +373,11 @@ angular.module('MainApp.controllers.sync', [])
 						// non all-day event:
 						
 						else{
-							newEvent.start.dateTime = tempStart;
-							newEvent.end.dateTime = end;
 							
 							tempStart= $scope.tomorrow(tempStart);
 							tempEnd= $scope.tomorrow(tempEnd);
 						}
 						
-						newEvent.position= new Date(newEvent.start.dateTime.getFullYear(), newEvent.start.dateTime.getMonth(), newEvent.start.dateTime.getDate());
 						newEvent.mStatus= false;
 						listNewEvent.push(newEvent);
 					}
@@ -420,5 +414,32 @@ angular.module('MainApp.controllers.sync', [])
 		for(var i=0;i<uGC.length;i++){
 			$rootScope.eUser.uGmailCalendar[uGC[i].position].push(uGC[i]);
 		}
+	}
+	
+	/*  Sync to local calendar
+		Use Cordova.calendar  */
+		
+	$scope.syncToLocal= function(){
+		
+		// Fail to connect:
+		
+		if ($window.plugins == undefined){
+			$scope.showAlert("Can not sync with your local calendar");
+			return;
+		}
+		
+		// Access:
+		
+		$cordovaCalendar.listCalendars().then(function (result) {
+			//success:
+			
+			$rootScope.eUser.uLocalCalendar= result;
+			$scope.showAlert("Your local calendar was update");
+		
+		}, function (err) {
+			// error:
+			
+			$scope.showAlert("Can not sync with your local calendar");
+		});
 	}
 })
