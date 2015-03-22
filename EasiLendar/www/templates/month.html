@@ -1,9 +1,9 @@
 <!-- starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 17/03/2015
+	 last update: 22/03/2015
 	 type: calendar template -->
 
-<ion-view title="EasiLendar">
+<ion-view title="EasiLendar" data-ng-init="buildCurrentMonth()">
     <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
     </ion-nav-buttons>
@@ -12,17 +12,17 @@
         <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
     </ion-nav-buttons>
 
-    <ion-content id="content-month-calendar" ng-class="backgroundMonth(currentMonthNumber)">
-        <form name="form_month_calendar" class="form-month-calendar"><center>
-            <div class="title-month-calendar">
-                <a class="button-calendar button-previous-month icon ion-chevron-left easi-gray" 
-                data-ng-click="previousMonth()"></a>
-                <span class="span-month-calendar">{{currentMonthString}}, {{currentYear}}</span> 
-                <a class="button-calendar button-next-month icon ion-chevron-right easi-gray" 
-                data-ng-click="nextMonth()"></a>  
-            </div>
+    <div scrollbar-x="false" id="div-month-calendar" data-ng-class="backgroundMonth(currentMonthNumber)">
+        <div class="title-month-calendar">
+            <a class="button-calendar button-previous-month icon ion-chevron-left easi-gray" 
+            data-ng-click="previousMonth()" check-first-day="currentMonthNumber"></a>
+            <span class="span-month-calendar">{{currentMonthString}}, {{currentYear}}</span> 
+            <a class="button-calendar button-next-month icon ion-chevron-right easi-gray" 
+            data-ng-click="nextMonth()" check-first-day="currentMonthNumber"></a>  
+        </div>
 
-            <table class="table-month-calendar easi-no-border">
+        <div scrollbar-y="false" drag-content="false" class="month-calendar">
+            <center><table>
                 <tr class="tr-month-calendar">
                     <td class="td-header-month-calendar">S</td>
                     <td class="td-header-month-calendar">M</td>
@@ -38,30 +38,35 @@
                         <div data-different-month="day.month" data-current-day="day.numberDate"
                         current-month="{{currentMonthNumber}}" current-year="{{currentYear}}"
                         ng-click="showListEvent(day.numberDate,day.month,currentYear)">
-                                <input type="radio" id="{{day.month.toString()+day.numberDate.toString()}}" name="{{backgroundMonthName}}" radio-calendar="day.numberDate"
+                                <input type="radio" value="true" id="{{day.month.toString()+day.numberDate.toString()}}" name="{{currentMonthNumber}}" radio-calendar="day.numberDate"
                                 radio-current-month="{{currentMonthNumber}}" radio-current-year="{{currentYear}}">
+
                                 <label for="{{day.month.toString()+day.numberDate.toString()}}"
-                                >{{day.numberDate}}</label>
+                                day-has-event="day.numberDate" month-has-event="{{day.month}}" year-has-event="{{currentYear}}">
+                                {{day.numberDate}}</label>
                         </div>
                     </td>
                 </tr>
-            </table>
-        </center></form>
+            </table></center>
 
-        <center><table class="day-month-calendar">
-            <tr class="tr-list-calendar">
-                <td class="td-list-calendar-3" ng-repeat="event in eUser.uGmailCalendar[position] | limitTo:1">
-                    <p class="p-list-calendar-number">{{event.date}}</p>
-                    <p class="p-list-calendar-text">{{event.day}}</p>
-                </td>
-                <td class="td-list-calendar-4">
-                    <div class="div-list-calendar-2 background-size" ng-repeat="event in eUser.uGmailCalendar[position]" background-event="bkgE">
-                        <span class="span-title-event">{{event.summary}}</span><br>
-                        <span>Time: {{event.start.dateTime}} - {{event.end.dateTime}}</span><br>
-                        <span>{{event.location}}</span>
-                    </div>
-                </td> 
-            </tr>
-        </table></center>
-    </ion-content>
+            <ion-content id="content-month-calendar" data-ng-class="backgroundMonth(currentMonthNumber)">
+                <center><table class="day-month-calendar">
+                    <tr class="tr-list-calendar">
+                        <td class="td-list-calendar-3" ng-repeat="event in eUser.uGmailCalendar[position] | limitTo:1">
+                            <p class="p-list-calendar-number">{{position.getDate()}}</p>
+                            <p class="p-list-calendar-text">{{days[position.getDay()]}}</p>
+                        </td>
+                        <td class="td-list-calendar-4">
+                            <div class="div-list-calendar-2 background-size" ng-repeat="event in eUser.uGmailCalendar[position]" background-event="bkgE">
+                                <span class="span-title-event">{{event.summary}}</span><br>
+                                <span>Time: {{event.start.dateTime.getHours()}}:{{ (event.start.dateTime.getMinutes()<10)?'0':'' }}{{event.start.dateTime.getMinutes()}}{{ (event.start.dateTime.getHours() >= 12)?' PM':' AM' }} - {{event.end.dateTime.getHours()}}:{{(event.end.dateTime.getMinutes()<10)?'0':''}}{{event.end.dateTime.getMinutes()}}{{( event.end.dateTime.getHours() >= 12)?' PM':' AM' }}
+                                </span><br>
+                                <span>{{event.location}}</span>
+                            </div>
+                        </td> 
+                    </tr>
+                </table></center>
+            </ion-content>
+        </div>
+    </div>
 </ion-view>

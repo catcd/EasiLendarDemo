@@ -1,239 +1,141 @@
 <!-- 
 	starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 11/03/2015
+	 last update: 22/03/2015
 	 type: html -->
 
 <ion-view title="Search filter">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-chevron-left" data-ng-click="deleteValue(filter_form)" ui-sref="profile" menu-close>
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-easi-blue" style="border: 0" data-ng-disabled="filter_form.$invalid" ui-sref="result" menu-close>
+        Done</button>
+    </ion-nav-buttons>
 
-        <ion-nav-buttons side="left">
-            <button class="button button-icon button-clear ion-chevron-left" 
-            data-ng-click="deleteValue(filter_form)" ui-sref="profile" menu-close></button>
-        </ion-nav-buttons>
-        <ion-nav-buttons side="right">
-            <button class="button button-easi-blue" style="border: 0" 
-             data-ng-disabled="filter_form.$invalid"
-             ui-sref="result" menu-close>Done</button>
-        </ion-nav-buttons>
-
-<form name="filter_form">
+    <form name="filter_form">
         <ion-content padding="true">
+        <div class="list">
+            <!--START: Commom Filter -->
+            <div class="list list-inset">
+                <table id="table-duration-searching">
+                    <tr>
+                        <td id="td-title-searching">Title:</td>
+                        <td id="td-error-title" data-ng-show="filter_form.title.$invalid 
+                        && filter_form.title.$dirty" class="my-animation">
+                            <small class="error" id="error01" data-ng-show="filter_form.title.$error.required">
+                            Required!
+                            </small>
+                        </td>
+                    </tr>
+                </table>
+                <div class="item item-input" id="itemTitle">
+                    <input id="inputTitle" type="text" data-ng-model="eSearchFilter.mTitle" name="title" placeholder="Title" required>
+                </div>
 
-            <div class = "list">
-
-                <!--START: Commom Filter -->
-                <span id="span01">Common Filter</span>
-                <hr id="hr01"></hr>
-                <div class="list list-inset">
+                <div class="hide-div" data-slide-toggle="showTime"> 
                     <table id="table-duration-searching">
+                        <tr><td id="td-title-searching">Duration:</td></tr>
+                    </table>
+                    <div class="item item-input" id="itemDuration">
+                    <table id="table-duration">
                         <tr>
-                            <td id="td-title-searching">Title:</td>
-                            <td id="td-error-title" data-ng-show="filter_form.title.$invalid 
-                            && filter_form.title.$dirty" class="my-animation">
-                                <small class="error" id="error01" data-ng-show="filter_form.title.$error.required">
-                                Required!
-                                </small>
+                            <td id="span-duration">Hour: </td>
+                             <td id="td-duration">
+                                <input id="input01" type="number" name="hour" data-ng-model="timeValues.mDurationHour" auto-focus-input="2" min="0" max="23">
+                            </td>
+                            <td id="span-duration">Minute:</td>
+                            <td id="td-duration">
+                                <input id="input01" type="number" name="minute" data-ng-model="timeValues.mDurationMinute" min="0" max="59">
                             </td>
                         </tr>
                     </table>
-                    <div class="item item-input" id="itemTitle">
-                        <input id="inputTitle" type="text" data-ng-model="eSearchFilter.mTitle" name="title" placeholder="Title" required>
                     </div>
-                    <span>Duration: </span>
-                    <div class="item item-input" id="itemDuration">
-                       <table id="table01">
+                </div>
+
+                <div class="duration-day">
+                    <input type="checkbox" id="checkbox-time" value="true" data-ng-click="showDate()">
+                    <label id="td-title-searching">Number of days:</label>
+                    <div data-slide-toggle="showDay">
+                        <div class="item item-input" id="itemDuration">
+                            <input id="input01" type="number" name="day(s)" data-ng-model="eSearchFilter.mDuraion" min="1"placeholder="1">
+                            <span>day(s)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <span id="td-title-searching">Location:</span>
+                <div class="item item-input" id="itemLocation">
+                    <input id="input01" type="text" data-ng-model="eSearchFilter.mLocation" name="Location"placeholder="Location">
+                </div>
+            </div>
+            <!--End: Commom Filter -->
+            <!-- START: Advance Filter -->
+            <div class="easi-space" data-slide-toggle="mShow">
+                <div class="list">
+                    <span id="span02">Time:</span> <!-- {{timeValues.mToTime | date: "HH:mm:ss"}} -->
+                    <hr id="hr01"></hr>
+                    <table id="table-time">
+                        <tr id="tr-time">
+                            <td id="td-text">From: </td>
+                            <td id="td-time"><input id="input-time" type="time" data-ng-model="timeValues.mFromTime" name="fromTime" auto-focus-input="5"></td>
+                            <td id="td-text">To: </td>
+                            <td id="td-time"><input id="input-time" type="time" data-ng-model="timeValues.mToTime" name="toTime" min={{minTime}}>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="list list-inset" >
+                        <span id="span02">Expiration:</span>
+                        <hr id="hr01"></hr>
+                        <div class="item item-input" id="itemFromDay">
+                         <table id="table02">
                             <tr>
+                                <td style="width: 30%"><span id="span03">Starting:</span></td>
                                 <td style="width: 50%">
-                                    <input id="input01" type="number" data-ng-model="timeValues.mDurationHour" name="duration" placeholder="Hour" min="0" max="23" class="my-animation"
-                                    required input-required>
-                                </td>
-                                <td style="width: 50%">
-                                    <input id="input01" type="number" data-ng-model="timeValues.mDurationMinute" name="duration" placeholder="Minute" min="0" max="59" class="my-animation"required>
+                                    <input id="input01" type="date" data-ng-model="timeValues.mFromDay" name="fromDay">
                                 </td>
                             </tr>
                         </table>
+                        </div>
+                        <div class="item item-input" id="itemToDay">
+                         <table id="table02">
+                            <tr>
+                                <td style="width: 30%"><span id="span03">Ending:</span></td>
+                                <td style="width: 50%">
+                                    <input id="input01" type="date" data-ng-model="timeValues.mToDay" name="toDay"
+                                    min={{minDate}}>
+                                </td>
+                            </tr>
+                        </table>
+                        </div>
                     </div>
-                    <span id="span02">Location: </span>
-                    <div class="item item-input" id="itemLocation">
-                        <input id="input01" type="text" data-ng-model="eSearchFilter.mLocation" name="Location"placeholder="Location">
-                    </div>
-                </div>
-                <!--End: Commom Filter -->
-                
-                <!-- START: Advance Filter -->
-                <div class="easi-space" data-slide-toggle="mShow">
-                    <div class="list">
-                        <span id="span02">Time</span>
+                     <div id="inset02">
+                        <span id="span02">Avoid and Prioritize</span>
                         <hr id="hr01"></hr>
-                        <div class="item item-input" id="itemFrom">
-                            <table id="table02">
-                                <tr>
-                                <td style="width: 15%"><span id="span03">From:</span></td>
-                                <td style="width: 40%">
-                                    <input id="input01" type="number" data-ng-model="timeValues.mFromHour" name="fromHour" placeholder="Hour" min="0" max="23" class="my-animation">
-                                    <div id="div00" data-ng-show="filter_form.fromHour.$invalid && filter_form.fromHour.$dirty" class="my-animation">
-                                        <small class="error" id="error02" data-ng-show="filter_form.fromHour.$error.number">
-                                        Not a valid number!
-                                        </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.fromHour.$error.min">
-                                        Cannot be less than 0!
-                                        </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.fromHour.$error.max">
-                                        Cannot be greater than 24!
-                                        </small>
-                                    </div>
-                                </td>
-                                <td style="width: 40%">
-                                    <input id="input01" type="number" data-ng-model="timeValues.mFromMinute" name="fromMinute" placeholder="Minute" min="0" max="59">
-                                    <div id="div00" data-ng-show="filter_form.fromMinute.$invalid && filter_form.fromMinute.$dirty" class="my-animation">
-                                        <small class="error" id="error02" data-ng-show="filter_form.fromMinute.$error.number">
-                                        Not a valid number!
-                                        </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.fromMinute.$error.min">
-                                        Cannot be less than 0!
-                                        </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.fromMinute.$error.max">
-                                        Cannot be greater than 59!
-                                        </small>
-                                    </div>
-                                </td>
-                               </tr>
-                            </table>
-                        </div>
-                        <div class="item item-input" id="itemTo">
-                            <table id="table02">
-                                <tr>
-                                <td style="width: 15%"><span id="span03">To:</span></td>
-                                <td style="width: 40%">
-                                    <input id="input01" type="number" data-ng-model="timeValues.mToHour" name="toHour" placeholder="Hour" min="{{min}}" max="23" class="my-animation"> 
-                                    <div id="div00" data-ng-show="filter_form.toHour.$invalid && filter_form.toHour.$dirty" class="my-animation">
-                                        <small class="error" id="error02" data-ng-show="filter_form.toHour.$error.number">
-                                        Not a valid number!
-                                        </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.toHour.$error.min">
-                                        Cannot be less than {{min}}!
-                                        </small>
-                                         <small class="error" id="error02" data-ng-show="filter_form.toHour.$error.max">
-                                        Cannot great than 24!
-                                        </small>
-                                    </div>
-                                </td>
-                                <td style="width: 40%">
-                                    <input id="input01" type="number" data-ng-model="timeValues.mToMinute" name="toMinute" placeholder="Minute" min="0" max="59" class="my-animation">
-                                    <div id="div00" data-ng-show="filter_form.toMinute.$invalid && filter_form.toMinute.$dirty" class="my-animation">
-                                        <small class="error" id="error02" data-ng-show="filter_form.toMinute.$error.number">
-                                        Not a valid number!
-                                        </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.toMinute.$error.min">
-                                        Cannot be less than 0!
-                                        </small>
-                                        <small class="error" id="error02" data-ng-show="filter_form.toMinute.$error.max">
-                                        Cannot be greater than 59!
-                                        </small>
-                                    </div>
-                                </td>
-                             </tr>
-                            </table>
-                        </div>
-                        <div class="list list-inset" >
-                            <span id="span02">Expiration</span>
-                            <hr id="hr01"></hr>
-                            <div class="item item-input" id="itemFromDay">
-                             <table id="table02">
-                                <tr>
-                                    <td style="width: 30%"><span id="span03">Starting:</span></td>
-                                    <td style="width: 50%">
-                                        <input id="input01" type="date" data-ng-model="timeValues.mFromDay" name="fromDay">
-                                        <div id="div00" data-ng-show="filter_form.fromDay.$invalid && filter_form.fromDay.$dirty" class="my-animation"></div>
-                                    </td>
-                                </tr>
-                            </table>
-                            </div>
-                            <div class="item item-input" id="itemToDay">
-                             <table id="table02">
-                                <tr>
-                                    <td style="width: 30%"><span id="span03">Ending:</span></td>
-                                    <td style="width: 50%">
-                                        <input id="input01" type="date" data-ng-model="timeValues.mToDay" name="toDay">
-                                        <div id="div00" data-ng-show="filter_form.toDay.$invalid && filter_form.toDay.$dirty" class="my-animation"></div>
-                                    </td>
-                                </tr>
-                            </table>
-                            </div>
-                        </div>
-                                   
-                         <div class="list list-inset" id="inset02">
-                            <span id="span02">Avoid and Prioritize</span>
-                            <hr id="hr01"></hr> 
-                            <table id="table03">
-                                 <tr>
-                                  <td id="td03">Breakfast:</td>
+                        <table id="table03">
+                             <tr data-ng-repeat="time in priorityTimes">
+                                  <td id="td03">{{time.name}}:</td>
                                   <td id="td04">
                                     <div class="segmented-button">
-                                        <input type="radio" data-ng-model="eSearchFilter.mBreakfast" value="true" id="avoid00" check-uncheck-radio>
-                                        <label for="avoid00" class="first">Avoid</label>
-                                        <input type="radio" data-ng-model="eSearchFilter.mBreakfast" value="false" id="prioritize00" check-uncheck-radio>
-                                        <label for="prioritize00" class="last">Prioritize</label>
+                                        <input type="radio" data-ng-model="time.values" value="true" id="avoid{{time.index}}" check-uncheck-radio is-checked="time.values">
+                                        <label for="avoid{{time.index}}"  class="first">Avoid</label>
+                                        <input type="radio" data-ng-model="time.values" value="false" id="prioritize{{time.index}}" check-uncheck-radio is-checked="time.values">
+                                        <label for="prioritize{{time.index}}"  class="last">Prioritize</label>
                                     </div>
                                   </td>
-                                 </tr>
-                                 <tr>
-                                   <td id="td03">Lunch:</td>
-                                   <td id="td04">
-                                    <div class="segmented-button">
-                                        <input type="radio" data-ng-model="eSearchFilter.mLunch" value="true" id="avoid01" check-uncheck-radio>
-                                        <label for="avoid01" class="first">Avoid</label>
-                                        <input type="radio" data-ng-model="eSearchFilter.mLunch" value="false" id="prioritize01" check-uncheck-radio>
-                                        <label for="prioritize01" class="last">Prioritize</label>
-                                    </div>
-                                    </td>
-                                 </tr>
-                                  <tr>
-                                    <td id="td03">Dinner:</td>
-                                    <td id="td04">
-                                    <div class="segmented-button">
-                                        <input type="radio" data-ng-model="eSearchFilter.mDinner" value="true" id="avoid02" check-uncheck-radio>
-                                        <label for="avoid02" class="first">Avoid</label>
-                                        <input type="radio" data-ng-model="eSearchFilter.mDinner" value="false" id="prioritize02" check-uncheck-radio>
-                                        <label for="prioritize02" class="last">Prioritize</label>
-                                    </div>
-                                    </td>
-                                  </tr> 
-                                  <tr>
-                                    <td id="td03">Office-time:</td>
-                                    <td id="td04">
-                                    <div class="segmented-button">
-                                        <input type="radio" data-ng-model="eSearchFilter.mOffice" value="true" id="avoid03" check-uncheck-radio>
-                                        <label for="avoid03" class="first">Avoid</label>
-                                        <input type="radio" data-ng-model="eSearchFilter.mOffice" value="false" id="prioritize03" check-uncheck-radio>
-                                        <label for="prioritize03" class="last">Prioritize</label>
-                                    </div>
-                                  </tr> 
-                                  <tr>
-                                    <td id="td03">Holiday:</td>
-                                    <td id="td04">
-                                    <div class="segmented-button">
-                                        <input type="radio" data-ng-model="eSearchFilter.mHoliday" value="true" id="avoid04" check-uncheck-radio>
-                                        <label for="avoid04" class="first">Avoid</label>
-                                        <input type="radio" data-ng-model="eSearchFilter.mHoliday" value="false" id="prioritize04" check-uncheck-radio>
-                                        <label for="prioritize04" class="last">Prioritize</label>
-                                    </div>
-                                    </td>
-                                  </tr>
-                            </table>     
-                        </div>
+                             </tr>
+                        </table>     
                     </div>
                 </div>
-
-                <p id="p01">
-                    <button id="button-advance-filter" data-ng-disabled="unVip" data-ng-click="toggleFunc()"><b>{{titleOfButton}}</b></button>
-                    <i class="icon ion-arrow-up-b" data-change-icon="mShow"></i>
-                </p>
-                <hr id="hr02"></hr>
-
-                <!-- END: Advance Filter -->
             </div>
 
+            <p id="p01">
+                <button id="button-advance-filter" data-ng-disabled="unVip" data-ng-click="toggleFunc()">{{titleOfButton}}</button>
+                <i class="icon ion-arrow-up-b" id="icon-advance-filter" data-change-icon="mShow"></i>
+            </p>
+            <!-- END: Advance Filter -->
+        </div>
         </ion-content>
-</form>
+    </form>
 </ion-view>

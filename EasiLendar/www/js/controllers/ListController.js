@@ -1,17 +1,17 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguo Duc Dung
- * last update: 18/03/2015
+ * last update: 22/03/2015
  * type: list controller
  */
 
 angular.module('MainApp.controllers.list', [])
 
 .controller("ListController", function($scope, $rootScope) {
-	var toDay = (new Date()).setHours(0,0,0,0);
+	var toDay = new Date();
+	toDay = new Date(toDay.getFullYear(),toDay.getMonth(),toDay.getDate(),0,0,0,0);
 	$scope.$watch('eUser.uGmailCalendar', function(){
 			var count = 0;
-			var curentDay = new Date();
 			$scope.listEvents = new Array();
 			for(var x in $rootScope.eUser.uGmailCalendar){
 				if( new Date(x) >= toDay ){
@@ -20,10 +20,9 @@ angular.module('MainApp.controllers.list', [])
 				}
 			}
 	})
-
 	//set random background
 	$scope.bkgE = 'bkg'; 
-	var x = 0;
+	$scope.days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 })
 
 .directive('backgroundEvent',function(){

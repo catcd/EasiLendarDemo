@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 17/03/2015
+	 last update: 22/03/2015
 	 type: calendar template -->
 
 <ion-view title="EasiLendar">
@@ -13,20 +13,21 @@
     </ion-nav-buttons>
 
 
-    <ion-content id="content-month-calendar">
+    <ion-content scrollbar-y="false" id="content-list-calendar">
       <center><table class="list-calendar">
    			<tr class="tr-list-calendar" ng-repeat="events in listEvents">
                 <td class="td-list-calendar-1" ng-repeat="event in events | limitTo:1">
                     <div current-time="event.date" current-month="{{event.month-1}}" current-year="{{event.year}}">
-        				<p class="p-list-calendar-number">{{event.date}}</p>
-        				<p class="p-list-calendar-text">{{event.day}}</p>
-                        <p class="p-list-calendar-month">{{months[event.month-1]}}</p>
+        				<p class="p-list-calendar-number">{{event.start.dateTime.getDate()}}</p>
+        				<p class="p-list-calendar-text">{{ days[event.start.dateTime.getDay()] }}</p>
+                        <p class="p-list-calendar-month">{{ months[event.start.dateTime.getMonth()]}}</p>
                     </div>
     			</td>
     			<td class="td-list-calendar-2">
     				<div class="div-list-calendar-1" ng-repeat="event in events" background-event="bkgE">
     					<span class="span-title-event">{{event.summary}}</span><br>
-    					<span>Time: {{event.start.dateTime}} - {{event.end.dateTime}}</span><br>
+    					 <span>Time: {{event.start.dateTime.getHours()}}:{{ (event.start.dateTime.getMinutes()<10)?'0':'' }}{{event.start.dateTime.getMinutes()}}{{ (event.start.dateTime.getHours() >= 12)?' PM':' AM' }} - {{event.end.dateTime.getHours()}}:{{(event.end.dateTime.getMinutes()<10)?'0':''}}{{event.end.dateTime.getMinutes()}}{{( event.end.dateTime.getHours() >= 12)?' PM':' AM' }}
+                        </span><br>
     					<span>{{event.location}}</span>
     				</div>
     			</td>

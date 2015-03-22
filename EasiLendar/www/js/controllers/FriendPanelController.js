@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 17/03/2015
+ * last update: 18/03/2015
  * type: friend panel controller
  */
 
@@ -13,26 +13,27 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
      $scope.avatars = ["img/ava0.png","img/ava1.png","img/ava2.png","img/ava3.png","img/ava4.png",
                       "img/ava5.png","img/ava6.png","img/ava7.png","img/ava8.png"
                       ];
+     $scope.fStatus = ["I'm free now", "I'm busy now"];
      $scope.friends = [
-                         //{image: 1, name:'Ngo Duc Dung', status: "I'm busy now", vip: false},
-                         {image: 8, name:'Nguyen Thi Luong', status: "I'm free now", vip: false},
-                         //{image:"img/ava1.png", name:'Can Duy Cat', status: "I'm busy now", vip: true},
-                         {image: 5, name:'Nguyen Minh Trang', status: "I'm busy now", vip:true},
-                         {image: 1, name:'Nguyen Manh Duy', status: "I'm free now", vip: false},
-                         {image: 6, name:'Taylor Swiff', status: "I'm busy now", vip: true},
-                         {image: 2, name:'Johnny Depp', status: "I'm busy now", vip: true},
-                         {image: 7, name:'Katty Perry', status: "I'm busy now", vip: true},
-                         {image: 0, name:'Barack Obama', status: "I'm busy now", vip: true},
-                         {image: 2, name:'Justin Timberlake', status: "I'm busy now", vip:true},
-                         {image: 2, name:'Justin Bieber', status: "I'm free now", vip: false},
-                         {image: 6, name:'Emma Stone', status: "I'm free now", vip: true},
-                         {image: 8, name:'Meryl Streep', status: "I'm busy now", vip: true},
-                         {image: 7, name:'Kim Kardashian', status: "I'm free now", vip: true},
-                         {image: 1, name:'Cristiano Ronaldo', status: "I'm busy now", vip: true},
-                         {image: 2, name:'Tom Cruise', status: "I'm busy now", vip: true},
-                         {image: 2, name:'Brad Pitt', status: "I'm busy now", vip: true},
-                         {image: 5, name:'Nguyen Ngoc Mai Anh', status: "I'm free now", vip: false},
-                         {image: 3, name:'Luu Hieu Minh', status: "I'm free now", vip: false},
+                         {image: 1, name:'Ngo Duc Dung', status: 1, vip: false},
+                         {image: 8, name:'Nguyen Thi Luong', status: 0, vip: false},
+                         {image: 1, name:'Can Duy Cat', status: 1, vip: true},
+                         {image: 5, name:'Nguyen Minh Trang', status: 1, vip:true},
+                         {image: 1, name:'Nguyen Manh Duy', status: 0, vip: false},
+                         {image: 6, name:'Taylor Swiff', status: 1, vip: true},
+                         {image: 2, name:'Johnny Depp', status: 1, vip: true},
+                         {image: 7, name:'Katty Perry',status: 1, vip: true},
+                         {image: 0, name:'Barack Obama', status: 1, vip: true},
+                         {image: 2, name:'Justin Timberlake', status: 1, vip:true},
+                         {image: 2, name:'Justin Bieber', status: 0, vip: false},
+                         {image: 6, name:'Emma Stone', status: 0, vip: true},
+                         {image: 8, name:'Meryl Streep',status: 1, vip: true},
+                         {image: 7, name:'Kim Kardashian', status: 0, vip: true},
+                         {image: 1, name:'Cristiano Ronaldo', status: 1, vip: true},
+                         {image: 2, name:'Tom Cruise', status: 1, vip: true},
+                         {image: 2, name:'Brad Pitt', status: 1, vip: true},
+                         {image: 5, name:'Nguyen Ngoc Mai Anh', status: 0, vip: false},
+                         {image: 3, name:'Luu Hieu Minh', status: 0, vip: false},
        		];
     
       $scope.deleteFriend = function(friend){
