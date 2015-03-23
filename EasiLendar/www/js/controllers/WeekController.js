@@ -8,8 +8,16 @@
 var week = angular.module('MainApp.controllers.week', []);
 
 week.controller("WeekController", function($scope, $rootScope) {
+	
+	$scope.calendar = new WeekCalendar($rootScope.eUser.uGmailCalendar);
+	$scope.calendar.setNavDays();
 	// watch for changes in eUser.uGmailCalendar
-	$scope.$watch('eUser.uGmailCalendar', function() {
+	$scope.$watch('eSettings.sFirstDay', function() {
+		$scope.calendar = new WeekCalendar($rootScope.eUser.uGmailCalendar);
+		$scope.calendar.setNavDays();
+	});
+	// watch for changes in eSettings.sFirstDay
+	$scope.$watch('eSettings.sFirstDay', function() {
 		$scope.calendar = new WeekCalendar($rootScope.eUser.uGmailCalendar);
 		$scope.calendar.setNavDays();
 	});
@@ -100,7 +108,7 @@ week.controller("WeekController", function($scope, $rootScope) {
 		this.items = items;
 		
 		// current week
-		this.curWeek = $rootScope.newWeek();
+		this.curWeek = $rootScope.newWeek(null, $rootScope.eSettings.sFirstDay.slice(0,3)); 
 		
 		// current month 
 		this.curMonth1 = this.curWeek.month1; // 0 - 11

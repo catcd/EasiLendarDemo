@@ -24,8 +24,8 @@
     	<div class="calendar">
     		<div class="daytag">
     			<div class="row day">
-    				<div class="col" data-ng-repeat="day in weekDays">
-    					{{day}}
+    				<div class="col" data-ng-repeat="day in calendar.navDays">
+    					{{day.origin.day}}
     				</div>
     			</div>
     			<div class="row date">

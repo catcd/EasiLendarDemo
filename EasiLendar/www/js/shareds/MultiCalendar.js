@@ -229,7 +229,7 @@ multiCalendar.run(function($rootScope) {
 				return "Mon";
 			}
 		};
-		
+
 		/*
 		 * PRIVATE
 		 * return the current week if no argument
@@ -240,12 +240,15 @@ multiCalendar.run(function($rootScope) {
 				var date = new Date();	// current day
 				var curdays = [];	// array of current days
 				var pos;
-				switch (this.start) {
-					case "Sat" : pos = (date.getDay() + 1) % 7; // 0(Sat) - 6(Fri)
-					case "Sun" : pos = date.getDay(); // 0(Sun) - 6(Sat)
-					default : pos = (date.getDay() + 6) % 7; // 0(Mon) - 6(Sun)
+				switch (start) {
+					case "Sat" : 
+						pos = (date.getDay() + 1) % 7; break; // 0(Sat) - 6(Fri)
+					case "Sun" : 
+						pos = date.getDay(); break; // 0(Sun) - 6(Sat)
+					default : 
+						pos = (date.getDay() + 6) % 7; break; // 0(Mon) - 6(Sun)
 				};
-				
+	
 				curdays[pos] = new Day(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
 				
 				for (var i=pos; i < 6; i++) {
