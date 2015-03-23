@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 22/03/2015
+	 last update: 23/03/2015
 	 type: calendar template -->
 
 <ion-view title="EasiLendar" data-ng-init="buildCurrentMonth()">
@@ -38,8 +38,7 @@
                         <div data-different-month="day.month" data-current-day="day.numberDate"
                         current-month="{{currentMonthNumber}}" current-year="{{currentYear}}"
                         ng-click="showListEvent(day.numberDate,day.month,currentYear)">
-                                <input type="radio" value="true" id="{{day.month.toString()+day.numberDate.toString()}}" name="{{currentMonthNumber}}" radio-calendar="day.numberDate"
-                                radio-current-month="{{currentMonthNumber}}" radio-current-year="{{currentYear}}">
+                                <input type="radio" value="true" id="{{day.month.toString()+day.numberDate.toString()}}" name="{{currentMonthNumber}}">
 
                                 <label for="{{day.month.toString()+day.numberDate.toString()}}"
                                 day-has-event="day.numberDate" month-has-event="{{day.month}}" year-has-event="{{currentYear}}">
@@ -54,7 +53,7 @@
                     <tr class="tr-list-calendar">
                         <td class="td-list-calendar-3" ng-repeat="event in eUser.uGmailCalendar[position] | limitTo:1">
                             <p class="p-list-calendar-number">{{position.getDate()}}</p>
-                            <p class="p-list-calendar-text">{{days[position.getDay()]}}</p>
+                            <p class="p-list-calendar-text">{{weekDays[(position.getDay()-1<0)? 6:position.getDay()-1]}}</p>
                         </td>
                         <td class="td-list-calendar-4">
                             <div class="div-list-calendar-2 background-size" ng-repeat="event in eUser.uGmailCalendar[position]" background-event="bkgE">

@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 22/03/2015
+ * last update: 23/03/2015
  * type: month controller
  */
 
@@ -11,14 +11,14 @@ angular.module('MainApp.controllers.month', [])
     $scope.currentDate = new Date();
     $scope.currentDateNumber = $scope.currentDate.getDate();
     $scope.currentMonthNumber = $scope.currentDate.getMonth();
-    $scope.currentYear = $scope.currentDate.getFullYear(); 
-    $scope.days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    $scope.currentYear = $scope.currentDate.getFullYear();
     $scope.bkgClass = [
                     'easi-jan-bkg', 'easi-feb-bkg', 'easi-mar-bkg', 'easi-apr-bkg', 'easi-may-bkg', 'easi-jun-bkg',
                     'easi-jul-bkg', 'easi-aug-bkg', 'easi-sep-bkg', 'easi-oct-bkg', 'easi-nov-bkg', 'easi-dec-bkg'
                     ];
+    $scope.dayInWeek = ($scope.currentDate.getDay()-1 <0)? 6:$scope.currentDate.getDay()-1;             
     $scope.currentMonthString = $rootScope.months[$scope.currentMonthNumber];
-    $scope.currentDayInWeek = $scope.days[$scope.currentDate.getDay()];
+    $scope.currentDayInWeek = $rootScope.weekDays[$scope.dayInWeek];
     $scope.buildCurrentMonth = function(){
         $scope.weeks = new Array(5);
         for(var i=0;i<5;i++){
@@ -65,7 +65,7 @@ angular.module('MainApp.controllers.month', [])
         $scope.newWeeks[0].days[dayOfFirstDate].month = $scope.currentMonthNumber;
         for(j=0;j<dayOfFirstDate;j++){
             $scope.newWeeks[0].days[j].numberDate = numberDaysPreviousMonth - (dayOfFirstDate-1-j);
-            $scope.newWeeks[0].days[j].month =  $scope.currentMonthNumber-1;
+            $scope.newWeeks[0].days[j].month =  ($scope.currentMonthNumber-1 < 0)? 11:($scope.currentMonthNumber-1);
         }
         for(j=6;j>dayOfFirstDate;j--){
             $scope.newWeeks[0].days[j].numberDate = 1 + (j-dayOfFirstDate);
@@ -79,7 +79,7 @@ angular.module('MainApp.controllers.month', [])
                 
                 $scope.newWeeks[i].days[j].month =  $scope.currentMonthNumber;
                 if(i >= 3 && $scope.newWeeks[i-1].days[j].numberDate+7 > numberDaysCurrentMonth){
-                    $scope.newWeeks[i].days[j].month =  $scope.currentMonthNumber+1;
+                    $scope.newWeeks[i].days[j].month =  ($scope.currentMonthNumber+1 > 11)? 0:($scope.currentMonthNumber+1);
                 }
             }
         }
@@ -104,45 +104,19 @@ angular.module('MainApp.controllers.month', [])
         var className = 'bkg-style ' + $scope.bkgClass[index];
 		return className;
     }
-    
     $scope.position = new Date($scope.currentDate.getFullYear(),$scope.currentDate.getMonth(),$scope.currentDateNumber,0,0,0,0);
     $scope.bkgE = 'bkg';
     $scope.showListEvent = function(day,month,year){
     	if(month > $scope.currentMonthNumber){
-    		$scope.nextMonth();
-            $scope.position = new Date(year,month,day,0,0,0,0);	
+    		if(month == 11 && $scope.currentMonthNumber == 0) { $scope.previousMonth(); }
+    		else { $scope.nextMonth(); }
     	}
     	else if(month < $scope.currentMonthNumber){
-    		$scope.previousMonth();
-            $scope.position = new Date(year,month,day,0,0,0,0); 
+    		if(month == 0 && $scope.currentMonthNumber == 11) { $scope.nextMonth(); }
+    		else { $scope.previousMonth(); }
     	}
-        else { $scope.position = new Date(year,month,day,0,0,0,0); }
-
-
+		$scope.position = new Date(year,month,day,0,0,0,0);
     }
-})
-
-.directive('radioCalendar', function($document){
-    return{
-        restrict: 'A',
-        scope : {
-        	isToDay: '=radioCalendar'
-        },
-        link: function(scope,element,attr){
-            $document.bind('click',function(){
-                if(element.prop('checked') == false){
-                    element.parent().removeClass('radio-month-selected');
-                }
-                else{
-                    var toDay = new Date();
-                    if(scope.isToDay !== toDay.getDate() && attr.radioCurrentMonth !== toDay.getMonth() 
-                    && attr.radioCurrentYear !== toDay.getFullYear()){ 
-                        element.parent().addClass('radio-month-selected'); 
-                    }
-                }
-            })
-        }
-    };
 })
 
 .directive('differentMonth',function($document){
@@ -160,7 +134,6 @@ angular.module('MainApp.controllers.month', [])
             	if(scope.isCurrentDay == toDay.getDate() && scope.isDifferent == toDay.getMonth() 
             	   && year == toDay.getFullYear()){
             		element.addClass('current-date-style');
-                    element.children().prop('checked',true);
             	}
             })
             scope.$watch('isDifferent', function(){
@@ -168,11 +141,23 @@ angular.module('MainApp.controllers.month', [])
             		element.addClass('different-month-color');
             	}
             })
-
             element.bind('click',function(){
                 var id = '#' + scope.isDifferent + scope.isCurrentDay;
                 //Using find() function of JQUERY !
                 $document.find(id).prop('checked',true);
+            })
+
+            $document.bind('click',function(){
+                if(element.children().prop('checked') == false){
+                    element.removeClass('radio-month-selected');
+                }
+                else{
+                    if(scope.isCurrentDay == toDay.getDate() && scope.isDifferent == toDay.getMonth() 
+            	   	&& year == toDay.getFullYear()){ 
+                        element.addClass('current-date-style'); 
+                    }
+                    else { element.addClass('radio-month-selected'); }
+                }
             })
         }
     };

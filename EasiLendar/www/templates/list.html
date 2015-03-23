@@ -19,7 +19,7 @@
                 <td class="td-list-calendar-1" ng-repeat="event in events | limitTo:1">
                     <div current-time="event.date" current-month="{{event.month-1}}" current-year="{{event.year}}">
         				<p class="p-list-calendar-number">{{event.start.dateTime.getDate()}}</p>
-        				<p class="p-list-calendar-text">{{ days[event.start.dateTime.getDay()] }}</p>
+        				<p class="p-list-calendar-text">{{weekDays[(event.start.dateTime.getDay()-1<0)? 6:event.start.dateTime.getDay()-1]}}</p>
                         <p class="p-list-calendar-month">{{ months[event.start.dateTime.getMonth()]}}</p>
                     </div>
     			</td>

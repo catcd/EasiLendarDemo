@@ -21,8 +21,7 @@ angular.module('MainApp.controllers.list', [])
 			}
 	})
 	//set random background
-	$scope.bkgE = 'bkg'; 
-	$scope.days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+	$scope.bkgE = 'bkg';
 })
 
 .directive('backgroundEvent',function(){
