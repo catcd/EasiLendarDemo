@@ -66,7 +66,9 @@ signIn.controller('SignInController',
 		}, 3000);
 	};
 	
-	// convert string dateTime to object Date
+	/* convert string dateTime to object Date
+	 * PRIVATE
+	 */
 	var toDate = function() {
 		if ($rootScope.eUser.uGmailCalendar != null) {
 			for (x in $rootScope.eUser.uGmailCalendar) {

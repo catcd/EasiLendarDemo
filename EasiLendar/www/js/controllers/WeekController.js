@@ -12,7 +12,7 @@ week.controller("WeekController", function($scope, $rootScope) {
 	$scope.calendar = new WeekCalendar($rootScope.eUser.uGmailCalendar);
 	$scope.calendar.setNavDays();
 	// watch for changes in eUser.uGmailCalendar
-	$scope.$watch('eSettings.sFirstDay', function() {
+	$scope.$watch('eUser.uGmailCalendar', function() {
 		$scope.calendar = new WeekCalendar($rootScope.eUser.uGmailCalendar);
 		$scope.calendar.setNavDays();
 	});

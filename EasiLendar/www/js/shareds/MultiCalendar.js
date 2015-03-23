@@ -8,7 +8,6 @@
 var multiCalendar = angular.module('MainApp.shareds.multiCalendar', []);
 
 multiCalendar.run(function($rootScope) {
-	
 	// 12 colors for user's choices;
 	$rootScope.eventColor = ["#069","#f39","#06f","#960","#690","#fc0",
 	                         "#606","#f30","#996","#999","#f93","#f99"];
