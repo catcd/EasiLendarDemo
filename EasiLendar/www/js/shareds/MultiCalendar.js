@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 22/03/2015
+ * last update: 23/03/2015
  * type: multi calendar object and specific function for calendar
  */
 
@@ -46,7 +46,6 @@ multiCalendar.run(function($rootScope) {
 		return new Event(event);
 	};
 	
-	
 	/*
 	 * class Time 
 	 * argument time is object Date
@@ -59,62 +58,79 @@ multiCalendar.run(function($rootScope) {
 		 * return time in minutes (from 00:00:00)
 		 */
 		var toMinute = function() {
-			var hour = time.getHours(); // 0 - 23
-			var min = time.getMinutes(); // 0 - 59
-			return hour * 60 + min;	// 0 - 1439
+			if (time != null) {
+				var hour = time.getHours(); // 0 - 23
+				var min = time.getMinutes(); // 0 - 59
+				return hour * 60 + min;	// 0 - 1439
+			} else {
+				return null;
+			}
 		};
 		
 		// minutes from 00:00:00
 		this.minutes = toMinute();
 	};	// end of class Time
 	
-	
 	/*
 	 * Class Event
 	 * event is the original object of Google
 	 */
 	function Event(event) {
-		
-		this.origin = event;	// copy that event
-		
-		// type of this event
-		// "normal" / "all"/ "over"
-		this.type = this.setType();
-		
-		this.color = $rootScope.eventColor[this.origin.colorId];
+		// copy of event
+		this.origin = event;
 		
 		/*
 		 * PRIVATE
 		 * set type of this event
 		 * return 'normal'/'all'/'over'
 		 */
-		this.setType = function() {
-			var startDate = this.origin.start.dateTime.getDate();
-			var endDate = this.origin.end.dateTime.getDate();
+		var setType = function() {
+			if (event != null) {
+				var startDate = event.start.dateTime.getDate();
+				var endDate = event.end.dateTime.getDate();
 			
-			var startHour = this.origin.start.dateTime.getHours();
-			var startMin = this.origin.start.dateTime.getMinutes();
-			var startSec = this.origin.start.dateTime.getSeconds();
+				var startHour = event.start.dateTime.getHours();
+				var startMin = event.start.dateTime.getMinutes();
+				var startSec = event.start.dateTime.getSeconds();
+				
+				var endHour = event.end.dateTime.getHours();
+				var endMin = event.end.dateTime.getMinutes();
+				var endSec = event.end.dateTime.getSeconds();
 			
-			var endHour = this.origin.end.dateTime.getHours();
-			var endMin = this.origin.end.dateTime.getMinutes();
-			var endSec = this.origin.end.dateTime.getSeconds();
-			
-			// check 'all'
-			if (startDate == endDate && startHour == 0 && startMin == 0
+				// check 'all'
+				if (startDate == endDate && startHour == 0 && startMin == 0
 					&& startSec == 0 && endHour == 23 && endMin == 59
 					&& endSec == 59) {
-				return "all";
-			}
-			// check 'over'
-			else if (startDate != endDate) {
-				return "over";
-			}
-			// check 'normal'
-			else {
-				return "normal";
+					return "all";
+				}
+				// check 'over'
+				else if (startDate != endDate) {
+					return "over";
+				}
+				// check 'normal'
+				else {
+					return "normal";
+				}
+			} else return null;
+		};
+		
+		/* 
+		 * PRIVATE
+		 * set color
+		 */
+		var setColor = function() {
+			if (event.colorId == null) {
+				return $rootScope.eventColor[0];
+			} else {
+				return $rootScope.eventColor[event.colorId];
 			}
 		};
+		
+		// type of this event
+		// "normal" / "all"/ "over"
+		this.type = setType();
+		
+		this.color = setColor();
 	};
 	
 	/*
@@ -127,10 +143,28 @@ multiCalendar.run(function($rootScope) {
 		this.month = date.getMonth();	// 0 - 11
 		this.date = date.getDate();	// 1 - 31
 		this.day = $rootScope.weekDays[(date.getDay() + 6) % 7]; // Mon - Sun
+
+		/*
+		 * PRIVATE
+		 * set original events of this day to array of Events Object
+		 */
+		var setEvents = function() {
+			if ($rootScope.eUser.uGmailCalendar == null) return null;
+			
+			var temp = $rootScope.eUser.uGmailCalendar[date];
+			// if there is no event 
+			if (temp == null) return null;
+			
+			var events = [];
+			for (var i=0; i < temp.length; i++) {
+				events[i] = new Event(temp[i]);
+			}
+			return events;
+		};
 		
 		// array of Object Event in this day
-		this.events = this.setEvents();
-		
+		this.events = setEvents();
+
 		/* return the next day of this day */
 		this.nextDay = function() {
 			var date = this.date + 1;
@@ -173,25 +207,7 @@ multiCalendar.run(function($rootScope) {
 		this.toDate = function() {
 			return new Date(this.year, this.month, this.date);
 		};
-		
-		/*
-		 * PRIVATE
-		 * set original events of this day to array of Events Object
-		 */
-		this.setEvents = function() {
-			var temp = $rootScope.eUser.uID[new Date(this.year,this.month,this.date)];
-			// if there is no event 
-			if (temp == null) return null;
-			
-			var events = [];
-			for (var i=0; i < temp.length; i++) {
-				events[i] = new Event(temp[i]);
-			}
-			return events;
-		};
-		
 	};	// end of class Day
-	
 		
 	/*
 	 * class Week
@@ -200,11 +216,54 @@ multiCalendar.run(function($rootScope) {
 	 * default is "Mon"
 	 */
 	function Week(days, start) {
+		/*
+		 * PRIVATE
+		 * set start day of this week
+		 */
+		var setStart = function() {
+			if (days != null) {
+				return days[0].day;
+			} else if (start != null) {
+				return start;
+			} else {
+				return "Mon";
+			}
+		};
+		
+		/*
+		 * PRIVATE
+		 * return the current week if no argument
+		 */
+		var setDays = function() {
+			// set week as a current week
+			if (days == null) {
+				var date = new Date();	// current day
+				var curdays = [];	// array of current days
+				var pos;
+				switch (this.start) {
+					case "Sat" : pos = (date.getDay() + 1) % 7; // 0(Sat) - 6(Fri)
+					case "Sun" : pos = date.getDay(); // 0(Sun) - 6(Sat)
+					default : pos = (date.getDay() + 6) % 7; // 0(Mon) - 6(Sun)
+				};
+				
+				curdays[pos] = new Day(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
+				
+				for (var i=pos; i < 6; i++) {
+					curdays[i+1] = curdays[i].nextDay();
+				}
+				for (var i=pos; i > 0; i--) {
+					curdays[i-1] = curdays[i].prevDay();
+				}
+				return curdays;
+			} else {
+				return days;
+			}
+		};
 		
 		// start day of this week (setting)
-		this.start = this.setStart();
-		this.days = this.setDays();
-		
+		this.start = setStart();
+		this.days = setDays();
+	
 		this.month1 = this.days[0].month;
 		// month2 is "" if it's month1
 		this.month2 = this.days[6].month;
@@ -218,68 +277,24 @@ multiCalendar.run(function($rootScope) {
 		 * return Week Object
 		 */
 		this.nextWeek = function () {
-			var days = [];
-			days[0] = this.days[6].nextDay();
+			var tdays = [];
+			tdays[0] = this.days[6].nextDay();
 			for (var i=0; i < 6; i++) {
-				days[i+1] = days[i].nextDay();
+				tdays[i+1] = tdays[i].nextDay();
 			}
-			return new Week(days);
+			return new Week(tdays);
 		};
 		
 		/* find previous week 
 		 * return Week Object 
 		 */
 		this.prevWeek = function() {
-			var days = [];
-			days[6] = this.days[0].prevDay();
+			var tdays = [];
+			tdays[6] = this.days[0].prevDay();
 			for (var i=6; i > 0; i--) {
-				days[i-1] = days[i].prevDay();
+				tdays[i-1] = tdays[i].prevDay();
 			}
-			return new Week(days);
-		};
-		
-		/*
-		 * PRIVATE
-		 * set start day of this week
-		 */
-		this.setStart = function() {
-			if (days != null) {
-				return $rootScope.weekDays[days[0].day];
-			} else if (start != null) {
-				return start;
-			} else {
-				return "Mon";
-			}
-		};
-		
-		/*
-		 * PRIVATE
-		 * return the current week if no argument
-		 */
-		this.setDays = function() {
-			// set week as a current week
-			if (days == null) {
-				var date = new Date();	// current day
-				var days = [];	// array of current days
-				var pos;
-				switch (this.start) {
-					case "Sat" : pos = (date.getDay() + 1) % 7; // 0(Sat) - 6(Fri)
-					case "Sun" : pos = date.getDay(); // 0(Sun) - 6(Sat)
-					default : pos = (date.getDay() + 6) % 7; // 0(Mon) - 6(Sun)
-				};
-				
-				days[pos] = new Day(date);
-				
-				for (var i=pos; i < 6; i++) {
-					days[i+1] = days[i].nextDay();
-				}
-				for (var i=pos; i > 0; i--) {
-					days[i-1] = days[i].prevDay();
-				}
-				return days;
-			} else {
-				return days;
-			}
+			return new Week(tdays);
 		};
 	}; // end of class Week
 });
