@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 18/03/2015
+ * last update: 23/03/2015
  * type: friend panel controller
  */
 
@@ -85,6 +85,7 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	return{
 		restrict: 'A',
 		link: function(scope,element,attrs){
+			element.parent().addClass('search-friend-input-blur');
 			element.bind('focus',function(){
 				element.parent().removeClass('search-friend-input-blur');
 				element.parent().addClass('search-friend-input-focus');
