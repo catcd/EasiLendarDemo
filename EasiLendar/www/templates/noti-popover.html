@@ -1,0 +1,231 @@
+<!-- starter: Can Duy Cat
+   owner: Can Duy Cat
+   last update: 24/03/2015
+   type: noti popover -->
+<ion-popover-view id="f-popover-view">
+	<div class="tabs-striped tabs-color-dark">
+		<div class="tabs f-tabs" style="min-height: 30px; height: 30px">
+			<a class="tab-item {{mPopoverStatus[mPopoverActive=='friend']}}" ng-click="tabActive('friend')">
+				<p style="margin-top: -10px;">Friends</p>
+			</a>
+			<a class="tab-item {{mPopoverStatus[mPopoverActive=='request']}}" ng-click="tabActive('request')">
+				<p style="margin-top: -10px;">Request</p>
+			</a>
+			<a class="tab-item {{mPopoverStatus[mPopoverActive=='respond']}}" ng-click="tabActive('respond')">
+				<p style="margin-top: -10px;">Respond</p>
+			</a>
+		</div>
+	</div>
+	<ion-content style="margin-top: 32px; margin-bottom: 32px;">
+		<ul class="list">
+			<a class="item my-popover-item">
+				<img src="img/ava{{eUser.uAvatar}}.png">
+				<h2>Venkman</h2>
+				<p>Back off, man. I'm a scientist.</p>
+			</a>
+			<a class="item my-popover-item">
+				<img src="img/ava{{eUser.uAvatar}}.png">
+				<h2>Venkman</h2>
+				<p>Back off, man. I'm a scientist.</p>
+			</a>
+			<a class="item my-popover-item">
+				<img src="img/ava{{eUser.uAvatar}}.png">
+				<h2>Venkman</h2>
+				<p>Back off, man. I'm a scientist.</p>
+			</a>
+			<a class="item my-popover-item">
+				<img src="img/ava{{eUser.uAvatar}}.png">
+				<h2>Venkman</h2>
+				<p>Back off, man. I'm a scientist.</p>
+			</a>
+			<a class="item my-popover-item">
+				<img src="img/ava{{eUser.uAvatar}}.png">
+				<h2>Venkman</h2>
+				<p>Back off, man. I'm a scientist.</p>
+			</a>
+			<a class="item my-popover-item">
+				<img src="img/ava{{eUser.uAvatar}}.png">
+				<h2>Venkman</h2>
+				<p>Back off, man. I'm a scientist.</p>
+			</a>
+			<a class="item my-popover-item">
+				<img src="img/ava{{eUser.uAvatar}}.png">
+				<h2>Venkman</h2>
+				<p>Back off, man. I'm a scientist.</p>
+			</a>
+			<a class="item my-popover-item">
+				<img src="img/ava{{eUser.uAvatar}}.png">
+				<h2>Venkman</h2>
+				<p>Back off, man. I'm a scientist.</p>
+			</a>
+			<a class="item my-popover-item">
+				<img src="img/ava{{eUser.uAvatar}}.png">
+				<h2>Venkman</h2>
+				<p>Back off, man. I'm a scientist.</p>
+			</a>
+			<a class="item my-popover-item">
+				<img src="img/ava{{eUser.uAvatar}}.png">
+				<h2>Venkman</h2>
+				<p>Back off, man. I'm a scientist.</p>
+			</a>
+			<a class="item my-popover-item">
+				<img src="img/ava{{eUser.uAvatar}}.png">
+				<h2>Venkman</h2>
+				<p>Back off, man. I'm a scientist.</p>
+			</a>
+			<a class="item my-popover-item">
+				<img src="img/ava{{eUser.uAvatar}}.png">
+				<h2>Venkman</h2>
+				<p>Back off, man. I'm a scientist.</p>
+			</a>
+		</ul>
+	</ion-content>
+	<div class="bar bar-stable bar-footer" id="f-popover-h-bar">
+		<a id="f-popover-footer-link">See All</a>
+	</div>
+	<!--     <ion-tabs>
+		<ion-tab title="Friends">
+			<div style="margin-top: 51px;">
+				<ion-content style="height: 100%">
+				<ul class="list">
+					<a class="item my-popover-item">
+					  <img src="img/ava{{eUser.uAvatar}}.png">
+					  <h2>Venkman</h2>
+					  <p>Back off, man. I'm a scientist.</p>
+					</a>
+					<a class="item my-popover-item">
+					  <img src="img/ava{{eUser.uAvatar}}.png">
+					  <h2>Venkman</h2>
+					  <p>Back off, man. I'm a scientist.</p>
+					</a>
+					<a class="item my-popover-item">
+					  <img src="img/ava{{eUser.uAvatar}}.png">
+					  <h2>Venkman</h2>
+					  <p>Back off, man. I'm a scientist.</p>
+					</a>
+					<a class="item my-popover-item">
+					  <img src="img/ava{{eUser.uAvatar}}.png">
+					  <h2>Venkman</h2>
+					  <p>Back off, man. I'm a scientist.</p>
+					</a>
+					<a class="item my-popover-item">
+					  <img src="img/ava{{eUser.uAvatar}}.png">
+					  <h2>Venkman</h2>
+					  <p>Back off, man. I'm a scientist.</p>
+					</a>
+					<a class="item my-popover-item">
+					  <img src="img/ava{{eUser.uAvatar}}.png">
+					  <h2>Venkman</h2>
+					  <p>Back off, man. I'm a scientist.</p>
+					</a>
+					<a class="item my-popover-item">
+					  <img src="img/ava{{eUser.uAvatar}}.png">
+					  <h2>Venkman</h2>
+					  <p>Back off, man. I'm a scientist.</p>
+					</a>
+					<a class="item my-popover-item">
+					  <img src="img/ava{{eUser.uAvatar}}.png">
+					  <h2>Venkman</h2>
+					  <p>Back off, man. I'm a scientist.</p>
+					</a>
+					<a class="item my-popover-item">
+					  <img src="img/ava{{eUser.uAvatar}}.png">
+					  <h2>Venkman</h2>
+					  <p>Back off, man. I'm a scientist.</p>
+					</a>
+					<a class="item my-popover-item">
+					  <img src="img/ava{{eUser.uAvatar}}.png">
+					  <h2>Venkman</h2>
+					  <p>Back off, man. I'm a scientist.</p>
+					</a>
+					<a class="item my-popover-item">
+					  <img src="img/ava{{eUser.uAvatar}}.png">
+					  <h2>Venkman</h2>
+					  <p>Back off, man. I'm a scientist.</p>
+					</a>
+					<a class="item my-popover-item">
+					  <img src="img/ava{{eUser.uAvatar}}.png">
+					  <h2>Venkman</h2>
+					  <p>Back off, man. I'm a scientist.</p>
+					</a>
+				</ul>
+			</ion-content>
+			</div>
+		</ion-tab>
+		<ion-tab title="Meeting" badge="100">
+			<div style="margin-top: 50px;">
+				<ul class="list">
+					<li class="item">
+						<p>Ngo Duc Dung accepted your invitation</p>
+						<span>48min</span>
+					</li>
+					<li class="item item-icon-left"><i class="icon ion-person-add"></i>
+						<p>Ngo Duc Dung accepted your friend request</p>
+						<span>50min</span>
+					</li>
+					<li class="item">
+						<p>Nguyen Manh Duy accepted your invitation</p>
+						<span>1hour</span>
+					</li>
+					<li class="item">
+						<p>Nguyen Minh Trang accepted your invitation</p>
+						<span>1day</span>
+					</li>
+					<li class="item item-icon-left"><i class="icon ion-person-add"></i>
+						<p>Nguyen Thi Luong rejected your friend request</p>
+						<span>1month</span>
+					</li>
+					<li class="item">
+						<p>Nguyen Minh Trang accepted your invitation</p>
+						<span>1day</span>
+					</li>
+					<li class="item item-icon-left"><i class="icon ion-person-add"></i>
+						<p>Nguyen Manh Duy accepted your invitation</p>
+						<span>1hour</span>
+					</li>
+				</ul>
+			</div>
+		</ion-tab>
+	</ion-tabs>
+		<div class="bar bar-footer"></div> -->
+	<!-- <div class="bar bar-stable bar-header easi-no-border" id="popBar">
+	<p>Notifications</p>
+  </div>
+
+  <ion-content style="margin-top:30px; margin-bottom: 30px">
+	<ul class="list">
+	  <li class="item">
+		<p>Ngo Duc Dung accepted your invitation</p>
+		<span>48min</span>
+	  </li>
+	  <li class="item item-icon-left"><i class="icon ion-person-add"></i>
+		<p>Ngo Duc Dung accepted your friend request</p>
+		<span>50min</span>
+	  </li>
+	  <li class="item">
+		<p>Nguyen Manh Duy accepted your invitation</p>
+		<span>1hour</span>
+	  </li>
+	  <li class="item">
+		<p>Nguyen Minh Trang accepted your invitation</p>
+		<span>1day</span>
+	  </li>
+	  <li class="item item-icon-left"><i class="icon ion-person-add"></i>
+		<p>Nguyen Thi Luong rejected your friend request</p>
+		<span>1month</span>
+	  </li>
+	  <li class="item">
+		<p>Nguyen Minh Trang accepted your invitation</p>
+		<span>1day</span>
+	  </li>
+	  <li class="item item-icon-left"><i class="icon ion-person-add"></i>
+		<p>Nguyen Manh Duy accepted your invitation</p>
+		<span>1hour</span>
+	  </li>
+	</ul>
+  </ion-content>
+
+  <div class="bar bar-stable bar-footer" id="popBar">
+	<a>See All</a>
+  </div> -->
+</ion-popover-view>
