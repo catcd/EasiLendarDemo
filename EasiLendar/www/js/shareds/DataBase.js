@@ -1,13 +1,30 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 21/03/2015
+ * last update: 23/03/2015
  * type: all shared database variables and functions
  */
 
 var database = angular.module('MainApp.shareds.dataBase', []);
 
 database.run (function($rootScope) {
+	
+	/*
+	 * convert every dateTime object to String
+	 */
+	var toString = function () {
+		if ($rootScope.eUser.uGmailCalendar != null) {
+			for (x in $rootScope.eUser.uGmailCalendar) {
+				x = $rootScope.eUser.uGmailCalendar[x];
+				for (y in x) {
+					x[y].start.dateTime = x[y].start.dateTime.toString();
+					x[y].end.dateTime = x[y].end.dateTime.toString();
+					console.log(x[y].start.dateTime);
+				}
+			}
+		}
+	};
+	
 	/*
 	 * Update function
 	 * Only call when isLogin = true
@@ -17,6 +34,7 @@ database.run (function($rootScope) {
 		if ($rootScope.eUser.uID != "" 
 				&& typeof($rootScope.eUser.uID) != "undefined") {
 			
+			toString();
 			var ref = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/"
 					+ $rootScope.eUser.uID);

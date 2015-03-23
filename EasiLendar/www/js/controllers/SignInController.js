@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat 
  * owner: Nguyen Minh Trang 
- * last update: 21/03/2015 
+ * last update: 23/03/2015 
  * type: particular controller
  */
 
@@ -48,7 +48,7 @@ signIn.controller('SignInController',
 	};
 	
 	// show loading balls
-	$scope.loading = function() {
+	var loading = function() {
 		$ionicLoading.show({
 			template: '<div id="followingBallsG"><div id="followingBallsG_1" class="followingBallsG"></div><div id="followingBallsG_2" class="followingBallsG"></div><div id="followingBallsG_3" class="followingBallsG"></div><div id="followingBallsG_4" class="followingBallsG"></div></div>',
 			hideOnStateChange: true,
@@ -56,7 +56,7 @@ signIn.controller('SignInController',
 	};
 	
 	// show alert
-	$scope.showAlert = function() {
+	var showAlert = function() {
 		var alertPopup = $ionicPopup.alert({
 		     title: 'Registered!',
 		     template: 'Welcome to EasiLendar!',
@@ -66,9 +66,21 @@ signIn.controller('SignInController',
 		}, 3000);
 	};
 	
+	// convert string dateTime to object Date
+	var toDate = function() {
+		if ($rootScope.eUser.uGmailCalendar != null) {
+			for (x in $rootScope.eUser.uGmailCalendar) {
+				x = $rootScope.eUser.uGmailCalendar[x];
+				for (y in x) {
+					x[y].start.dateTime = new Date(x[y].start.dateTime);
+					x[y].end.dateTime = new Date(x[y].end.dateTime);
+				}
+			}
+		}
+	};
+	
 	// sign in function with firebase
 	$scope.signIn = function() {
-		$scope.loading();
 		if (!$scope.user.checkChar()) {
 			$scope.toWarning();
 		} else {
@@ -76,7 +88,8 @@ signIn.controller('SignInController',
 			var pass = $scope.user.password;
 			var ref = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
-
+			// loading
+			loading();
 			ref.on("value", function(snapshot) {
 				var user = snapshot.val();
 				if (user == null || user.password != pass) {
@@ -95,6 +108,8 @@ signIn.controller('SignInController',
 					
 					$rootScope.eUser.isLogin = true;
 					
+					toDate();
+					
 					$scope.user.reset();
 					$state.go(link);
 				}
@@ -106,7 +121,6 @@ signIn.controller('SignInController',
 	
 	// register function
 	$scope.register = function() {
-		$scope.loading();
 		// reset all warnings
 		for (var i = 0; i < 5; i++) {
 			$scope.warnings.reset(i);
@@ -138,7 +152,9 @@ signIn.controller('SignInController',
 			var ref = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/"
 							+ $scope.user.id);
-
+			// loading
+			loading();
+			
 			// get data from that link if exists, null if not
 			ref.on('value', function(snapshot) {
 				// if id existed => change ID message
@@ -170,7 +186,7 @@ signIn.controller('SignInController',
 					});
 					
 					// welcome message
-					$scope.showAlert();
+					showAlert();
 					$scope.user.reset();
 					$scope.toForm();
 				}
