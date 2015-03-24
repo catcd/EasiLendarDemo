@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 23/03/2015
+ * last update: 24/03/2015
  * type: multi calendar object and specific function for calendar
  */
 
@@ -73,18 +73,19 @@ multiCalendar.run(function($rootScope) {
 	/*
 	 * Class Event
 	 * event is the original object of Google
+	 * or event in Firebase
 	 */
 	function Event(event) {
 		// copy of event
 		this.origin = event;
-		
+
 		/*
 		 * PRIVATE
 		 * set type of this event
 		 * return 'normal'/'all'/'over'
 		 */
-		var setType = function() {
-			if (event != null) {
+		this.setType = function() {
+			if (event != null) {				
 				var startDate = event.start.dateTime.getDate();
 				var endDate = event.end.dateTime.getDate();
 			
@@ -127,7 +128,7 @@ multiCalendar.run(function($rootScope) {
 		
 		// type of this event
 		// "normal" / "all"/ "over"
-		this.type = setType();
+		this.type = this.setType();
 		
 		this.color = setColor();
 	};

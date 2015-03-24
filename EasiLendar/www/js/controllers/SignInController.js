@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat 
  * owner: Nguyen Minh Trang 
- * last update: 23/03/2015 
+ * last update: 24/03/2015 
  * type: particular controller
  */
 
@@ -71,13 +71,15 @@ signIn.controller('SignInController',
 	 */
 	var toDate = function() {
 		if ($rootScope.eUser.uGmailCalendar != null) {
+			var temp = [];
 			for (x in $rootScope.eUser.uGmailCalendar) {
-				x = $rootScope.eUser.uGmailCalendar[x];
-				for (y in x) {
-					x[y].start.dateTime = new Date(x[y].start.dateTime);
-					x[y].end.dateTime = new Date(x[y].end.dateTime);
+				temp[x] = $rootScope.eUser.uGmailCalendar[x];
+				for (y in temp[x]) {
+					temp[x][y].start.dateTime = new Date(temp[x][y].start.dateTime);
+					temp[x][y].end.dateTime = new Date(temp[x][y].end.dateTime);
 				}
 			}
+			$rootScope.eUser.uGmailCalendar = temp;
 		}
 	};
 	
@@ -91,7 +93,7 @@ signIn.controller('SignInController',
 			var ref = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
 			// loading
-			loading();
+			loading(); 
 			ref.on("value", function(snapshot) {
 				var user = snapshot.val();
 				if (user == null || user.password != pass) {

@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 23/03/2015
+ * last update: 24/03/2015
  * type: home controller
  */
 
@@ -11,7 +11,8 @@ week.controller("WeekController", function($scope, $rootScope) {
 	
 	$scope.calendar = new WeekCalendar($rootScope.eUser.uGmailCalendar);
 	$scope.calendar.setNavDays();
-	// watch for changes in eUser.uGmailCalendar
+	
+	// watch for changes in eUser.uGmailCalendar 
 	$scope.$watch('eUser.uGmailCalendar', function() {
 		$scope.calendar = new WeekCalendar($rootScope.eUser.uGmailCalendar);
 		$scope.calendar.setNavDays();
