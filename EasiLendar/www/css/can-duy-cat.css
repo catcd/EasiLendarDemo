@@ -69,29 +69,29 @@ p.bigName { color: #FFFFFF; font-size: 400%; margin-top: 30px; }
 	animation-delay: 0.51s;
 }
 @-moz-keyframes bounce_followingBallsG {
-				0% { background-color: #fff; left: 0px; }
-				50% { background-color: #fff; left: 185px; }
-				100% { background-color: #fff; left: 0px; }
+					0% { background-color: #fff; left: 0px; }
+					50% { background-color: #fff; left: 185px; }
+					100% { background-color: #fff; left: 0px; }
 }
 @-webkit-keyframes bounce_followingBallsG {
-				0% { background-color: #fff; left: 0px; }
-				50% { background-color: #fff; left: 185px; }
-				100% { background-color: #fff; left: 0px; }
+					0% { background-color: #fff; left: 0px; }
+					50% { background-color: #fff; left: 185px; }
+					100% { background-color: #fff; left: 0px; }
 }
 @-o-keyframes bounce_followingBallsG {
-				0% { background-color: #fff; left: 0px; }
-				50% { background-color: #fff; left: 185px; }
-				100% { background-color: #fff; left: 0px; }
+					0% { background-color: #fff; left: 0px; }
+					50% { background-color: #fff; left: 185px; }
+					100% { background-color: #fff; left: 0px; }
 }
 @-ms-keyframes bounce_followingBallsG {
-				0% { background-color: #fff; left: 0px; }
-				50% { background-color: #fff; left: 185px; }
-				100% { background-color: #fff; left: 0px; }
+					0% { background-color: #fff; left: 0px; }
+					50% { background-color: #fff; left: 185px; }
+					100% { background-color: #fff; left: 0px; }
 }
 @keyframes bounce_followingBallsG {
-				0% { background-color: #fff; left: 0px; }
-				50% { background-color: #fff; left: 185px; }
-				100% { background-color: #fff; left: 0px; }
+					0% { background-color: #fff; left: 0px; }
+					50% { background-color: #fff; left: 185px; }
+					100% { background-color: #fff; left: 0px; }
 }
 
 /* coming soon */
@@ -134,11 +134,7 @@ input.coming-input:-ms-input-placeholder { font-size: 12px; }
 
 /* side menu */
 #sideMenuContent { background-color: #646464; border: 0; }
-a#side-menuf { background-color: #646464; border: 0; color: #E6E6E6; }
-a#side-menu:link { background-color: #646464; border: 0; color: #E6E6E6; }
-a#side-menu:visited { background-color: #646464; border: 0; color: #E6E6E6; }
-a#side-menu:hover { background-color: #646464; border: 0; color: #E6E6E6; }
-a#side-menu:active { background-color: #33CCCC; border: 0; color: #E6E6E6; }
+a#side-menuf, a#side-menu:link, a#side-menu:visited, a#side-menu:hover, a#side-menu:active { background-color: #646464; border: 0; color: #E6E6E6; }
 hr.side-menu { border: 1px solid #707070; width: 90%; }
 hr.split-menu { border: 2px solid #707070; width: 95%; }
 p.splitMenu { margin-bottom: -8px; margin-left: 10px; margin-top: 10px; }
@@ -161,7 +157,7 @@ p.splitMenu { margin-bottom: -8px; margin-left: 10px; margin-top: 10px; }
 }
 #ava-menu-name { font-size: 20px; margin-top: 12px; }
 
-/* friend popover */
+/* popover */
 #f-popover-view {
 	border: 0;
 	border-radius: 0;
@@ -174,7 +170,7 @@ p.splitMenu { margin-bottom: -8px; margin-left: 10px; margin-top: 10px; }
 	height: 30px;
 	padding-left: 10px;
 }
-.f-tabs { top: 0; }
+.f-tabs { top: 0; min-height: 30px; height: 30px; }
 .my-popover-item, .my-popover-item .item-content { height: 45px; min-height: 45px; padding-left: 50px; }
 .my-popover-item > img:first-child, .my-popover-item .item-image, .my-popover-item .item-content > img:first-child, .my-popover-item .item-content .item-image {
 	height: 35px;
@@ -183,7 +179,11 @@ p.splitMenu { margin-bottom: -8px; margin-left: 10px; margin-top: 10px; }
 	position: absolute;
 	top: 3px;
 }
-#f-popover-footer-link { width:100%; }
+#f-popover-footer-left-link:hover, #f-popover-footer-left-link:active, #f-popover-footer-left-link:link, #f-popover-footer-left-link:visited { color: #646464; text-decoration: none; width: 50%; }
+#f-popover-footer-right-link:hover, #f-popover-footer-right-link:active, #f-popover-footer-right-link:link, #f-popover-footer-right-link:visited { color: #646464; text-decoration: none; width: 50%; }
+#popover-content { margin-top: 30px; margin-bottom: 30px; }
+/* friend popover */
+
 
 /* setting */
 .setting-title { margin-bottom: -5px; }
