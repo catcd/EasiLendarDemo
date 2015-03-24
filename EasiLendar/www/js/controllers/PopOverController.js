@@ -24,6 +24,15 @@ angular.module('MainApp.controllers.popover', [])
     $scope.tabActive = function(tabName) {
         $scope.mPopoverActive = tabName;
     };
+    $scope.nextRightNoti = function() {
+        if ($scope.mPopoverActive == "friend") {
+            $scope.mPopoverActive == "request";
+        } else if ($scope.mPopoverActive == "request") {
+            $scope.mPopoverActive == "respond";
+        } else {
+            $scope.mPopoverActive == "friend";
+        }
+    };
 
     /**
      * friend popover
@@ -134,6 +143,20 @@ angular.module('MainApp.controllers.popover', [])
             requestSheet();
         }, 5000);
 
+        /**
+         * Getures
+         */
+        // popover next and previous tab
+        var myPopoverContent = document.getElementById('popover-content');
+
+        // create a simple instance
+        // by default, it only adds horizontal recognizers
+        var mc = new Hammer(myPopoverContent);
+
+        // listen to events...
+        mc.on("panleft panright", function(ev) {
+            alert(ev.type);
+        });
     };
 })
 
