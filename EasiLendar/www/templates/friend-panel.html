@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
      owner: Ngo Duc Dung
-     last update: 23/03/2015 
+     last update: 25/03/2015 
      type: friend panel template -->
 
 <form data-ng-controller="friendPanelController">
@@ -18,19 +18,19 @@
 
 	<ion-content id="friendPanelContent">
 	 
-	 	<div class="list">
+	 	<div class="list easi-no-border">
 			<togglefriend id="myAvatar01" data-ng-repeat="friend in friends | filter:searchFriend" class="item myAvatar01 item-icon-right sideMenu my-repeat-animation">
-				<div data-ng-click="toggleFunc()">
-					<img class="item-image" src={{avatars[friend.image]}}>
-					<h2 class="easi-light-gray">{{friend.name}}</h2>
-					<p class="easi-light-gray">{{fStatus[friend.status]}}</p>
-					<i data-ng-show="friend.vip" class="icon ion-ribbon-b easi-vip-color" id="ribbon-b"></i>
+				<div class="easi-no-border" data-ng-click="toggleFunc()">
+					<img class="item-image easi-no-border" src="img/ava{{friend.image}}.png">
+					<h2 class="easi-light-gray easi-no-border">{{friend.name}}</h2>
+					<p class="easi-light-gray easi-no-border">{{fStatus[friend.status]}}</p>
+					<i data-ng-show="friend.vip" class="icon ion-ribbon-b easi-vip-color easi-no-border" id="ribbon-b"></i>
 				</div>
-				<div class="div02 my-repeat-animation" data-slide-toggle-friend="visible">
-					<div style="margin-right: 8px">
-						<button ui-sref="searchFilter" menu-close>Date</button>
-						<button data-ng-click="deleteFriend(friend)">Delete</button>
-						<button data-ng-click="viewProfile(friend)" ui-sref="profile" menu-close>View</button>
+				<div class="div02 easi-no-border my-repeat-animation" data-slide-toggle-friend="visible">
+					<div class="easi-no-border" style="margin-right: 8px">
+						<button class="easi-no-border" ui-sref="searchFilter" menu-close>Date</button>
+						<button class="easi-no-border" data-ng-click="deleteFriend(friend)">Delete</button>
+						<button class="easi-no-border" data-ng-click="viewProfile(friend)" ui-sref="profile" menu-close>View</button>
 					</div>
 				</div>
 				<hr id="hrFriendPanel">

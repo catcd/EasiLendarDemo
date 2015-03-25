@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 22/03/2015
+ * last update: 25/03/2015
  * type: paticular controller
  */
 
@@ -28,11 +28,13 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 	$scope.timeValues = {
 		mDurationHour: 0,
 		mDurationMinute: 15,
-		mFromTime:'',
-		mToTime:'',
-		mFromDay:'',
-		mToDay:''
+		mFromTime: null,
+		mToTime: null,
+		mFromDay: null,
+		mToDay: null
 	};
+	var resetValues = $scope.timeValues;
+
 	$scope.priorityTimes = [
 						{ name: 'Breakfast', values: null, index: 0},
 						{ name: 'Lunch', values: null, index: 1},
@@ -50,14 +52,18 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 	$scope.$watch('timeValues.mToTime',function(){
 		$rootScope.eSearchFilter.mTo = new Date($scope.timeValues.mToTime);
 	});
-	$scope.$watch('timeValues.mFromDay',function(){ 
-		var date = $scope.timeValues.mFromDay;
-		$rootScope.eSearchFilter.mFromDay = new Date(date.getFullYear(),date.getMonth(),date.getDate()+1);
-		$scope.minDate = $scope.timeValues.mFromDay;
+	$scope.$watch('timeValues.mFromDay',function(){
+		if($scope.timeValues.mFromDay !== null){ 
+			var date = $scope.timeValues.mFromDay;
+			$rootScope.eSearchFilter.mFromDay = new Date(date.getFullYear(),date.getMonth(),date.getDate(),0,0,0,0);
+			$scope.minDate = $scope.timeValues.mFromDay;
+		}
 	});
-	$scope.$watch('timeValues.mToDay',function(){ 
-		var date = $scope.timeValues.mToDay;
-		$rootScope.eSearchFilter.mToDay = new Date(date.getFullYear(),date.getMonth(),date.getDate()+1);
+	$scope.$watch('timeValues.mToDay',function(){
+		if($scope.timeValues.mToDay !== null){  
+			var date = $scope.timeValues.mToDay;
+			$rootScope.eSearchFilter.mToDay = new Date(date.getFullYear(),date.getMonth(),date.getDate(),0,0,0,0);
+		}
 	});
 	$scope.$watch('priorityTimes[0].values',function(){$rootScope.eSearchFilter.mBreakfast = $scope.priorityTimes[0].values; });
 	$scope.$watch('priorityTimes[1].values',function(){$rootScope.eSearchFilter.mLunch = $scope.priorityTimes[1].values; });
@@ -73,10 +79,9 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 	};
 	$scope.deleteValue = function(form){
 		/*RESET VALUE*/
-		$scope.newValues = {};
-		$rootScope.eSearchFilter = angular.copy($scope.newValues);
-		delete $scope.newValues;
-		delete $scope.timeValues;
+		$scope.timeValues = resetValues;
+		$rootScope.eSearchFilter = {};
+
 		/* RESET FORM*/
 		form.$setPristine();
   		form.$setUntouched();
@@ -99,9 +104,14 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
     $scope.showDate = function(){
     	$scope.showDay = !$scope.showDay;
     	$scope.showTime = !$scope.showTime;
-    	$scope.timeValues.mDurationHour = 0;
-    	$scope.timeValues.mDurationMinute = 0;
-    	$scope.timeValues.mDurationDay = 0;
+    	if($scope.showTime == true){
+    		$scope.timeValues.mDurationHour = 0;
+    		$scope.timeValues.mDurationMinute = 1;
+    	}
+    	else {
+    		$scope.timeValues.mDurationHour = 0;
+    		$scope.timeValues.mDurationMinute = 15;
+    	}
     }
 })
 

@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 23/03/2015
+ * last update: 25/03/2015
  * type: friend panel controller
  */
 
@@ -10,9 +10,6 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 .controller('friendPanelController', function($scope, $rootScope, $ionicPopup) {
      $scope.searchFriend = '';
      $scope.mShow = false;	
-     $scope.avatars = ["img/ava0.png","img/ava1.png","img/ava2.png","img/ava3.png","img/ava4.png",
-                      "img/ava5.png","img/ava6.png","img/ava7.png","img/ava8.png"
-                      ];
      $scope.fStatus = ["I'm free now", "I'm busy now"];
      $scope.friends = [
                          {image: 1, name:'Ngo Duc Dung', status: 1, vip: false},
@@ -43,6 +40,7 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
       $scope.viewProfile = function(friend){
          $rootScope.eFriend.fName = $scope.friends[$scope.friends.indexOf(friend)].name;
          $rootScope.eFriend.fAvatar = $scope.friends[$scope.friends.indexOf(friend)].image;
+         $rootScope.eFriend.fVip = $scope.friends[$scope.friends.indexOf(friend)].vip;
       }
 })
 

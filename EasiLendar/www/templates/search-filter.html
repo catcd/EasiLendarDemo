@@ -1,7 +1,7 @@
 <!-- 
 	starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 22/03/2015
+	 last update: 25/03/2015
 	 type: html -->
 
 <ion-view title="Search filter">
@@ -59,7 +59,7 @@
                     <label id="td-title-searching">Number of days:</label>
                     <div data-slide-toggle="showDay">
                         <div class="item item-input" id="itemDuration">
-                            <input id="input01" type="number" name="day(s)" data-ng-model="eSearchFilter.mDuraion" min="1"placeholder="1">
+                            <input id="input01" type="number" name="day(s)" data-ng-model="eSearchFilter.mDuration" min="1" placeholder="1">
                             <span>day(s)</span>
                         </div>
                     </div>
@@ -78,9 +78,9 @@
                     <hr id="hr01"></hr>
                     <table id="table-time">
                         <tr id="tr-time">
-                            <td id="td-text">From: </td>
+                            <td id="td-text">From:</td>
                             <td id="td-time"><input id="input-time" type="time" data-ng-model="timeValues.mFromTime" name="fromTime" auto-focus-input="5"></td>
-                            <td id="td-text">To: </td>
+                            <td id="td-text">To:</td>
                             <td id="td-time"><input id="input-time" type="time" data-ng-model="timeValues.mToTime" name="toTime" min={{minTime}}>
                             </td>
                         </tr>
@@ -130,10 +130,9 @@
                 </div>
             </div>
 
-            <p id="p01">
-                <button id="button-advance-filter" data-ng-disabled="unVip" data-ng-click="toggleFunc()">{{titleOfButton}}</button>
-                <i class="icon ion-arrow-up-b" id="icon-advance-filter" data-change-icon="mShow"></i>
-            </p>
+            <button id="button-advance-filter" data-ng-disabled="unVip" data-ng-click="toggleFunc()">{{titleOfButton}} 
+            <i class="icon ion-arrow-up-b" id="icon-advance-filter" data-change-icon="mShow"></i>
+            </button>
             <!-- END: Advance Filter -->
         </div>
         </ion-content>
