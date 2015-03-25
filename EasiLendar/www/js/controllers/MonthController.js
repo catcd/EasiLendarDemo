@@ -171,10 +171,12 @@ angular.module('MainApp.controllers.month', [])
         },
         link: function(scope,element,attr){
             scope.$watch('haveEvent',function(){
-            	var index = new Date(attr.year, attr.month, attr.date, 0,0,0,0);
-                if(scope.haveEvent[index] !== undefined){
-                	element.parent().addClass('day-has-event');
-                }
+            		if(scope.haveEvent !== null){
+		    			var index = new Date(attr.year, attr.month, attr.date, 0,0,0,0);
+		    			if(scope.haveEvent[index] !== undefined){
+		            		element.parent().addClass('day-has-event');
+		            	}
+		            }
             });
         }
     };
