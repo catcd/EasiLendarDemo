@@ -97,7 +97,7 @@ angular.module('MainApp.shareds.timeHeap', [])
 			var i = this.length-1;
 			var j = ( i - (i%2==0 ? 2:1) ) / 2;
 			while(j >= 0){
-				if(this.timeList[i] > this.timeList[j]){
+				if(this.timeList[i].getScore() > this.timeList[j].getScore()){
 					var term = this.timeList[i];
 					this.timeList[i] = this.timeList[j];
 					this.timeList[j] = term;
