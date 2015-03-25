@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 23/03/2015
+	 last update: 25/03/2015
 	 type: calendar template -->
 
 <ion-view title="EasiLendar" data-ng-init="buildCurrentMonth()">
@@ -41,7 +41,8 @@
                                 <input type="radio" value="true" id="{{day.month.toString()+day.numberDate.toString()}}" name="{{currentMonthNumber}}">
 
                                 <label for="{{day.month.toString()+day.numberDate.toString()}}"
-                                day-has-event="day.numberDate" month-has-event="{{day.month}}" year-has-event="{{currentYear}}">
+                                day-has-event="eUser.uGmailCalendar" date="{{day.numberDate}}"
+                                month="{{day.month}}" year="{{currentYear}}">
                                 {{day.numberDate}}</label>
                         </div>
                     </td>

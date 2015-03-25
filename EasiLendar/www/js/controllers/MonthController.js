@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 23/03/2015
+ * last update: 25/03/2015
  * type: month controller
  */
 
@@ -162,26 +162,23 @@ angular.module('MainApp.controllers.month', [])
         }
     };
 })
-/*
-.directive('dayHasEvent',function($rootScope,$document){
+
+.directive('dayHasEvent',function(){
     return{
         restrict: 'A',
         scope: {
             haveEvent: '=dayHasEvent'
         },
         link: function(scope,element,attr){
-            scope.$watch('eUser.uGmailCalendar',function(){
-                var index = new Date(attr.yearHasEvent,attr.monthHasEvent,scope.haveEvent,0,0,0,0);
-                var toDay = new Date();
-                toDay = new Date(toDay.getFullYear(),toDay.getMonth(),toDay.getDate(),0,0,0,0);
-                if($rootScope.eUser.uGmailCalendar[index] !== undefined){
-                    element.parent().addClass('day-has-event');
+            scope.$watch('haveEvent',function(){
+            	var index = new Date(attr.year, attr.month, attr.date, 0,0,0,0);
+                if(scope.haveEvent[index] !== undefined){
+                	element.parent().addClass('day-has-event');
                 }
-                if(index == toDay) { element.parent().removeClass('day-has-event'); }
             });
         }
     };
-})*/
+})
 
 .directive('checkFirstDay',function($document){
     return{
