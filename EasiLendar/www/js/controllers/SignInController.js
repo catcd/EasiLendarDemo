@@ -94,7 +94,7 @@ signIn.controller('SignInController',
 					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
 			// loading
 			loading(); 
-			ref.on("value", function(snapshot) {
+			ref.once("value", function(snapshot) {
 				var user = snapshot.val();
 				if (user == null || user.password != pass) {
 					$scope.toWarning();
@@ -160,7 +160,7 @@ signIn.controller('SignInController',
 			loading();
 			
 			// get data from that link if exists, null if not
-			ref.on('value', function(snapshot) {
+			ref.once('value', function(snapshot) {
 				// if id existed => change ID message
 				if (snapshot.val() != null) {
 					$scope.warnings.mes[0] = "Existed";
@@ -282,7 +282,7 @@ signIn.controller('SignInController',
 			// string
 			if (this.email == "") {
 				return "Required";
-			} else if (-1 == this.email.search("@")) {
+			} else if (-1 == this.email.search("@gmail.com")) {
 				return "Unvalid Email";
 			}
 			return true;

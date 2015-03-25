@@ -106,7 +106,7 @@ week.controller("WeekController", function($scope, $rootScope) {
 		this.hours = setHours();
 		
 		// array of (day-array of events)
-		this.items = items;
+		this.items = items;		// pointer
 		
 		// current week
 		this.curWeek = $rootScope.newWeek(null, $rootScope.eSettings.sFirstDay.slice(0,3)); 
@@ -144,7 +144,7 @@ week.controller("WeekController", function($scope, $rootScope) {
 	 */
 	function WeekDay(day) {
 		// the original day
-		this.origin = day;
+		this.origin = day;	// pointer
 		
 		/*
 		 * PRIVATE
@@ -186,7 +186,7 @@ week.controller("WeekController", function($scope, $rootScope) {
 	 */
 	function NorEvent(event) {
 		// copy the original event
-		this.event = event;
+		this.event = event;		// pointer
 
 		// re-construct dateTime to calculate (mins)
 		this.start = $rootScope.newTime(event.origin.start.dateTime)
