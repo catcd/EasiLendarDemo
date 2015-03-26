@@ -82,8 +82,8 @@ signIn.controller('SignInController',
 					$rootScope.eUser.uPassword = pass;
 					$rootScope.eUser.uRemember = $scope.isRemember;
 					$rootScope.eUser.uFriend = user.friends;
-					$rootScope.eUser.uFRequest = user.noti.fRequest;
-					$rootScope.eUser.uFAccepted = user.noti.fAccept;
+					$rootScope.eUser.uFRequest = (user.noti == null ? null : user.noti.fRequest);
+					$rootScope.eUser.uFAccepted = (user.noti == null ? null : user.noti.fAccept);
 					$rootScope.eUser.uGmailCalendar = user.g_calendar;
 					$rootScope.eUser.uLocalCalendar = user.local_calendar;
 					$rootScope.eUser.uVIP = user.VIP;
