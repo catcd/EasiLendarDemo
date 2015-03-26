@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat 
  * owner: Nguyen Minh Trang 
- * last update: 24/03/2015 
+ * last update: 26/03/2015 
  * type: particular controller
  */
 
@@ -47,14 +47,6 @@ signIn.controller('SignInController',
 		$state.go('warning');
 	};
 	
-	// show loading balls
-	var loading = function() {
-		$ionicLoading.show({
-			template: '<div id="followingBallsG"><div id="followingBallsG_1" class="followingBallsG"></div><div id="followingBallsG_2" class="followingBallsG"></div><div id="followingBallsG_3" class="followingBallsG"></div><div id="followingBallsG_4" class="followingBallsG"></div></div>',
-			hideOnStateChange: true,
-		});
-	};
-	
 	// show alert
 	var showAlert = function() {
 		var alertPopup = $ionicPopup.alert({
@@ -65,24 +57,7 @@ signIn.controller('SignInController',
 		     alertPopup.close(); //close the popup after 3 seconds for some reason
 		}, 3000);
 	};
-	
-	/* convert string dateTime to object Date
-	 * PRIVATE
-	 */
-	var toDate = function() {
-		if ($rootScope.eUser.uGmailCalendar != null) {
-			var temp = [];
-			for (x in $rootScope.eUser.uGmailCalendar) {
-				temp[x] = $rootScope.eUser.uGmailCalendar[x];
-				for (y in temp[x]) {
-					temp[x][y].start.dateTime = new Date(temp[x][y].start.dateTime);
-					temp[x][y].end.dateTime = new Date(temp[x][y].end.dateTime);
-				}
-			}
-			$rootScope.eUser.uGmailCalendar = temp;
-		}
-	};
-	
+
 	// sign in function with firebase
 	$scope.signIn = function() {
 		if (!$scope.user.checkChar()) {
@@ -93,7 +68,7 @@ signIn.controller('SignInController',
 			var ref = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
 			// loading
-			loading(); 
+			$rootScope.databaseLoading(); 
 			ref.once("value", function(snapshot) {
 				var user = snapshot.val();
 				if (user == null || user.password != pass) {
@@ -101,18 +76,22 @@ signIn.controller('SignInController',
 				} else {
 					// copy all user's data to $rootScope
 					$rootScope.eUser.uID = id;
+					$rootScope.eUser.uName = user.name;
+					$rootScope.eUser.uAvatar = user.avatar;
+					$rootScope.eUser.uEmail = user.gmail;
 					$rootScope.eUser.uPassword = pass;
 					$rootScope.eUser.uRemember = $scope.isRemember;
-					$rootScope.eUser.uEmail = user.gmail;
-					$rootScope.eUser.uName = user.name;
 					$rootScope.eUser.uFriend = user.friends;
+					$rootScope.eUser.uFRequest = user.noti.fRequest;
+					$rootScope.eUser.uFAccepted = user.noti.fAccept;
 					$rootScope.eUser.uGmailCalendar = user.g_calendar;
 					$rootScope.eUser.uLocalCalendar = user.local_calendar;
 					$rootScope.eUser.uVIP = user.VIP;
 					
 					$rootScope.eUser.isLogin = true;
 					
-					toDate();
+					$rootScope.eUser.uGmailCalendar = $rootScope.convertCal($rootScope.eUser.uGmailCalendar);
+					$rootScope.eUser.uLocalCalendar = $rootScope.convertCal($rootScope.eUser.uLocalCalendar);
 					
 					$scope.user.reset();
 					$state.go(link);
@@ -157,7 +136,7 @@ signIn.controller('SignInController',
 					"https://radiant-inferno-3243.firebaseio.com/Users/"
 							+ $scope.user.id);
 			// loading
-			loading();
+			$rootScope.databaseLoading();
 			
 			// get data from that link if exists, null if not
 			ref.once('value', function(snapshot) {
@@ -182,9 +161,14 @@ signIn.controller('SignInController',
 					ref.set({
 						name : $scope.user.name,
 						password : $scope.user.password,
-						local_calendar : "",
-						g_calendar : "",
-						friends : "",
+						avatar: "0",
+						local_calendar : null,
+						g_calendar : null,
+						friends : null,
+						noti: {
+							fRequest : null,
+							fAccept : null,
+						},
 						VIP : 0,
 						gmail : mail,
 					});
