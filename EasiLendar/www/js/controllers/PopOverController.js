@@ -24,6 +24,8 @@ angular.module('MainApp.controllers.popover', [])
     $scope.tabActive = function(tabName) {
         $scope.mPopoverActive = tabName;
     };
+
+    // function for gesture
     $scope.nextRightNoti = function() {
         if ($scope.mPopoverActive == "friend") {
             $scope.tabActive("request");
@@ -151,6 +153,24 @@ angular.module('MainApp.controllers.popover', [])
         $timeout(function() {
             requestSheet();
         }, 5000);
+    };
+
+    /**
+     * ng-style
+     */
+    // style for friend tab
+    var calMyMargin = function() {
+        if ($rootScope.eUser.uFALength != 0 || $scope.mPopoverActive == 'friend') {
+            return "69px";
+        } else {
+            return "0px";
+        }
+    };
+
+    var mMargin = calMyMargin();
+
+    $scope.marginFriendTab = {
+        "margin-top": mMargin,
     };
 })
 

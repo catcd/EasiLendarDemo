@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 21/03/2015
+ * last update: 26/03/2015
  * type: module all shared variables and functions used for this app
  */
 
@@ -67,22 +67,49 @@ angular.module('MainApp.shareds.application', [])
 		uPassword: '',		/*8-16 characters*/
 		uRemember: false,	/*remember me*/
 		uFriend: [],		/*array of objects { id, name }*/
-		uVIP : true,
+		uVIP : 0,
 		isLogin: false,
 
 		uGmailCalendar: null,	/*Google API JSON	Calendar*/
 		uLocalCalendar: null,	/*Google API JSON	Calendar*/
 
-		uFRequest: null,	/*List of requests*/
-		uFAccepted: null,	/*List of requests accepted*/
+		uFRequest: {},	/*List of requests*/
+		uFAccepted: {},	/*List of requests accepted*/
+		uFRLength: 0,
+		uFALength: 0,
 	};
+
+	/**
+	 * Demo data
+	 */
+	$rootScope.eUser.uFRequest["huongdung1"] = {name: "Ngo Duc Huong", ava: 1};
+	$rootScope.eUser.uFRequest["ttdungsexy"] = {name: "Tran Thu Dung", ava: 3};
+	$rootScope.eUser.uFRequest["minhchui02"] = {name: "Nguyen Minh Chui", ava: 5};
+	$rootScope.eUser.uFRequest["manhvan003"] = {name: "Nguyen Manh Van", ava: 8};
+	$rootScope.eUser.uFRequest["boykorea58"] = {name: "Kim Seung Trang", ava: 7};
+	$rootScope.eUser.uFRequest["hotgirlno1"] = {name: "Nguyen Thi Cam Duy", ava: 4};
+	$rootScope.eUser.uFRequest["justinbb02"] = {name: "Justin Bieber", ava: 4};
+	$rootScope.eUser.uFRequest["kimkashi07"] = {name: "Kim Kadashian", ava: 8};
+	$rootScope.eUser.uFRequest["gotgon1158"] = {name: "Yoona", ava: 7};
+	$rootScope.eUser.uFRequest["badboyking"] = {name: "Son Tung MTP", ava: 0};
+	$rootScope.eUser.uFRLength = 10;
+
+	$rootScope.eUser.uFAccepted["huongnd95"] = {name: "Ngo Duc Huong", ava: 1};
+	$rootScope.eUser.uFAccepted["dungtt96"] = {name: "Tran Thu Dung", ava: 3};
+	$rootScope.eUser.uFAccepted["vannm98"] = {name: "Nguyen Manh Van", ava: 8};
+	$rootScope.eUser.uFAccepted["trangks99"] = {name: "Kim Seung Trang", ava: 7};
+	$rootScope.eUser.uFAccepted["duyntc00"] = {name: "Nguyen Thi Cam Duy", ava: 4};
+	$rootScope.eUser.uFAccepted["luongnt58"] = {name: "Nguyen Thi Luong", ava: 8};
+	$rootScope.eUser.uFAccepted["taylor1989"] = {name: "Taylor Swift", ava: 6};
+	$rootScope.eUser.uFAccepted["obamano1"] = {name: "Barack Obama", ava: 0};
+	$rootScope.eUser.uFALength = 5;
 
 	// Friend's information
 	// Nguyen Minh Trang
 	$rootScope.eFriend = {
 		fName: '',				/*UTF-8*/
 		fAvatar: 0,				/*avatar index from 0 to 8*/
-		fVIP: null,				/*VIP or not*/
+		fVIP: 0,				/*VIP or not*/
 
 		fMultiCal: null,	/*MultiCalendar object	Calendar*/
 	};

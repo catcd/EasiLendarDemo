@@ -1,7 +1,7 @@
 /**
 * starter: Can Duy Cat
 * owner: Can Duy Cat
-* last update: 24/03/2015
+* last update: 26/03/2015
 * type: general css
 */
 
@@ -69,29 +69,29 @@ p.bigName { color: #FFFFFF; font-size: 400%; margin-top: 30px; }
 	animation-delay: 0.51s;
 }
 @-moz-keyframes bounce_followingBallsG {
-					0% { background-color: #fff; left: 0px; }
-					50% { background-color: #fff; left: 185px; }
-					100% { background-color: #fff; left: 0px; }
+						0% { background-color: #fff; left: 0px; }
+						50% { background-color: #fff; left: 185px; }
+						100% { background-color: #fff; left: 0px; }
 }
 @-webkit-keyframes bounce_followingBallsG {
-					0% { background-color: #fff; left: 0px; }
-					50% { background-color: #fff; left: 185px; }
-					100% { background-color: #fff; left: 0px; }
+						0% { background-color: #fff; left: 0px; }
+						50% { background-color: #fff; left: 185px; }
+						100% { background-color: #fff; left: 0px; }
 }
 @-o-keyframes bounce_followingBallsG {
-					0% { background-color: #fff; left: 0px; }
-					50% { background-color: #fff; left: 185px; }
-					100% { background-color: #fff; left: 0px; }
+						0% { background-color: #fff; left: 0px; }
+						50% { background-color: #fff; left: 185px; }
+						100% { background-color: #fff; left: 0px; }
 }
 @-ms-keyframes bounce_followingBallsG {
-					0% { background-color: #fff; left: 0px; }
-					50% { background-color: #fff; left: 185px; }
-					100% { background-color: #fff; left: 0px; }
+						0% { background-color: #fff; left: 0px; }
+						50% { background-color: #fff; left: 185px; }
+						100% { background-color: #fff; left: 0px; }
 }
 @keyframes bounce_followingBallsG {
-					0% { background-color: #fff; left: 0px; }
-					50% { background-color: #fff; left: 185px; }
-					100% { background-color: #fff; left: 0px; }
+						0% { background-color: #fff; left: 0px; }
+						50% { background-color: #fff; left: 185px; }
+						100% { background-color: #fff; left: 0px; }
 }
 
 /* coming soon */
@@ -170,7 +170,7 @@ p.splitMenu { margin-bottom: -8px; margin-left: 10px; margin-top: 10px; }
 	height: 30px;
 	padding-left: 10px;
 }
-.f-tabs { top: 0; min-height: 30px; height: 30px; }
+.f-tabs { height: 30px; min-height: 30px; top: 0; }
 .my-popover-item, .my-popover-item .item-content { height: 45px; min-height: 45px; padding-left: 50px; }
 .my-popover-item > img:first-child, .my-popover-item .item-image, .my-popover-item .item-content > img:first-child, .my-popover-item .item-content .item-image {
 	height: 35px;
@@ -181,9 +181,16 @@ p.splitMenu { margin-bottom: -8px; margin-left: 10px; margin-top: 10px; }
 }
 #f-popover-footer-left-link:hover, #f-popover-footer-left-link:active, #f-popover-footer-left-link:link, #f-popover-footer-left-link:visited { color: #646464; text-decoration: none; width: 50%; }
 #f-popover-footer-right-link:hover, #f-popover-footer-right-link:active, #f-popover-footer-right-link:link, #f-popover-footer-right-link:visited { color: #646464; text-decoration: none; width: 50%; }
-#popover-content { margin-top: 30px; margin-bottom: 30px; }
-/* friend popover */
+#popover-content { margin-bottom: 30px; margin-top: 30px; }
 
+/* friend popover */
+#friend-accepted {
+	border: 0;
+	left: 1px;
+	position: absolute;
+	top: 31px;
+	width: 100%;
+}
 
 /* setting */
 .setting-title { margin-bottom: -5px; }
