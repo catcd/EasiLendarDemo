@@ -2,12 +2,170 @@
 * starter: Can Duy Cat
 * owner: Can Duy Cat
 * last update: 26/03/2015
-* type: general css
+* type: Can Duy Cat css
 */
 
-/* loading + about */
+/**
+* home
+*/
+/* red plus button to add event */
+.add-event {
+	bottom: 0px;
+	max-width: 150px;
+	min-width: 110px;
+	position: absolute;
+	right: 0px;
+	width: 30%;
+}
+
+/**
+* loading + about
+*/
 img.logo { height: 30vh; margin-top: 15vh; }
 p.bigName { color: #FFFFFF; font-size: 400%; margin-top: 30px; }
+
+/**
+* coming soon
+*/
+.coming-content {
+	display: inline-block;
+	font-size: 25px;
+	margin-top: 25vh;
+	width: 300px;
+}
+div.coming-input { display: inline-block; margin-top: 30px; width: 300px; }
+input.coming-input {
+	color: #416969;
+	display: inline-block;
+	font-size: 11px;
+	height: 30px;
+	padding-left: 10px;
+	width: 155px;
+}
+/* coming-button */
+button.coming-button {
+	border: 1px solid black;
+	display: inline-block;
+	height: 30px;
+	min-height: 30px;
+	min-width: 40px;
+	width: 47px;
+}
+.coming-button.icon:before {
+	display: inline-block;
+	font-size: 24px;
+	line-height: 30px;
+	padding: 0 0 1px 0;
+	pointer-events: none;
+	vertical-align: inherit;
+}
+p.coming-slogan { font-family: Giddy; font-size: 22px; margin-top: 10px; }
+
+/* placeholder css in coming soon */
+/* Must use all these 4 css */
+/* WebKit browsers */
+input.coming-input::-webkit-input-placeholder { font-size: 11px; }
+/* Mozilla Firefox 4 to 18 */
+input.coming-input:-moz-placeholder { font-size: 12px; }
+/* Mozilla Firefox 19+ */
+input.coming-input::-moz-placeholder { font-size: 12px; }
+/* Internet Explorer 10+ */
+input.coming-input:-ms-input-placeholder { font-size: 12px; }
+
+/* setting */
+.setting-title { margin-bottom: -5px; }
+.setting-separate-bold { border: 2px solid #E6E6E6; width: 99%; }
+#setting-last-item { border-bottom: 0; }
+#setting-border-under-bold { border-bottom: 3px solid #E6E6E6; }
+
+/**
+* side menu
+*/
+#sideMenuContent { background-color: #646464; border: 0; }
+a#side-menuf, a#side-menu:link, a#side-menu:visited, a#side-menu:hover, a#side-menu:active { background-color: #646464; border: 0; color: #E6E6E6; }
+hr.side-menu { border: 1px solid #707070; width: 90%; }
+hr.split-menu { border: 2px solid #707070; width: 95%; }
+p.splitMenu { margin-bottom: -8px; margin-left: 10px; margin-top: 10px; }
+.button .icon {
+	border: 1px solid black;
+	display: inline-block;
+	font-size: 20px;
+	line-height: 20px;
+	padding: 0 0 1px 0;
+	pointer-events: none;
+	vertical-align: inherit;
+}
+/* User avatar */
+.myAvatar, .myAvatar .item-content { height: 30px; min-height: 51px; padding-left: 70px; }
+.myAvatar > img:first-child, .myAvatar .item-image, .myAvatar .item-content > img:first-child, .myAvatar .item-content .item-image {
+	left: 10px;
+	max-height: 30px;
+	max-width: 30px;
+	position: absolute;
+	top: 0px;
+}
+#ava-menu-name { font-size: 20px; margin-top: 12px; }
+
+/**
+* noti popover
+*/
+#f-popover-view {
+	border: 0;
+	border-radius: 0;
+	height: 65vh;
+	max-height: 500px;
+}
+#f-popover-h-bar {
+	border: 0;
+	border-radius: 0;
+	height: 30px;
+	padding-left: 10px;
+}
+.f-tabs { height: 30px; min-height: 30px; top: 0; }
+/* popover item with avatar */
+/* base on ionic (item item-avatar) */
+.my-popover-item, .my-popover-item .item-content { height: 45px; min-height: 45px; padding-left: 50px; }
+.my-popover-item > img:first-child, .my-popover-item .item-image, .my-popover-item .item-content > img:first-child, .my-popover-item .item-content .item-image {
+	height: 35px;
+	left: 8px;
+	min-height: 35px;
+	position: absolute;
+	top: 3px;
+}
+/* footer link in popover */
+#f-popover-footer-left-link:hover, #f-popover-footer-left-link:active, #f-popover-footer-left-link:link, #f-popover-footer-left-link:visited { color: #646464; text-decoration: none; width: 50%; }
+#f-popover-footer-right-link:hover, #f-popover-footer-right-link:active, #f-popover-footer-right-link:link, #f-popover-footer-right-link:visited { color: #646464; text-decoration: none; width: 50%; }
+#popover-content { margin-bottom: 30px; margin-top: 30px; }
+/* friend accepted */
+#friend-badge { position: absolute; right: 3px; top: 3px; }
+#fiend-tab-divider {
+	border: 0;
+	height: 25px;
+	left: 1px;
+	min-height: 25px;
+	position: absolute;
+	top: 75px;
+	width: 100%;
+}
+.friend-tab-divider-title { margin-top: 2px; width: 100%; }
+#friend-accepted {
+	border: 0;
+	left: 1px;
+	position: absolute;
+	top: 31px;
+	width: 100%;
+}
+
+/**
+* popup
+*/
+/* default-time-option.html */
+#search-time-zone { position: absolute; top: 65px; }
+#show-time-zone { font-size: 12px; height: 50px; padding: 5px; }
+#time-zone-list { height: 150px; margin-top: 42px; }
+#font17 { font-size: 17px; }
+
+/* loading ball */
 #followingBallsG { height: 16px; position: relative; width: 200px; }
 .followingBallsG {
 	-webkit-border-radius: 8px;
@@ -69,146 +227,27 @@ p.bigName { color: #FFFFFF; font-size: 400%; margin-top: 30px; }
 	animation-delay: 0.51s;
 }
 @-moz-keyframes bounce_followingBallsG {
-						0% { background-color: #fff; left: 0px; }
-						50% { background-color: #fff; left: 185px; }
-						100% { background-color: #fff; left: 0px; }
+	0% { background-color: #fff; left: 0px; }
+	50% { background-color: #fff; left: 185px; }
+	100% { background-color: #fff; left: 0px; }
 }
 @-webkit-keyframes bounce_followingBallsG {
-						0% { background-color: #fff; left: 0px; }
-						50% { background-color: #fff; left: 185px; }
-						100% { background-color: #fff; left: 0px; }
+	0% { background-color: #fff; left: 0px; }
+	50% { background-color: #fff; left: 185px; }
+	100% { background-color: #fff; left: 0px; }
 }
 @-o-keyframes bounce_followingBallsG {
-						0% { background-color: #fff; left: 0px; }
-						50% { background-color: #fff; left: 185px; }
-						100% { background-color: #fff; left: 0px; }
+	0% { background-color: #fff; left: 0px; }
+	50% { background-color: #fff; left: 185px; }
+	100% { background-color: #fff; left: 0px; }
 }
 @-ms-keyframes bounce_followingBallsG {
-						0% { background-color: #fff; left: 0px; }
-						50% { background-color: #fff; left: 185px; }
-						100% { background-color: #fff; left: 0px; }
+	0% { background-color: #fff; left: 0px; }
+	50% { background-color: #fff; left: 185px; }
+	100% { background-color: #fff; left: 0px; }
 }
 @keyframes bounce_followingBallsG {
-						0% { background-color: #fff; left: 0px; }
-						50% { background-color: #fff; left: 185px; }
-						100% { background-color: #fff; left: 0px; }
-}
-
-/* coming soon */
-.coming-content {
-	display: inline-block;
-	font-size: 25px;
-	margin-top: 25vh;
-	width: 300px;
-}
-div.coming-input { display: inline-block; margin-top: 30px; width: 300px; }
-input.coming-input {
-	color: #416969;
-	display: inline-block;
-	font-size: 11px;
-	height: 30px;
-	padding-left: 10px;
-	width: 155px;
-}
-button.coming-button {
-	border: 1px solid black;
-	display: inline-block;
-	height: 30px;
-	min-height: 30px;
-	min-width: 40px;
-	width: 47px;
-}
-.coming-button.icon:before {
-	display: inline-block;
-	font-size: 24px;
-	line-height: 30px;
-	padding: 0 0 1px 0;
-	pointer-events: none;
-	vertical-align: inherit;
-}
-p.coming-slogan { font-family: Giddy; font-size: 22px; margin-top: 10px; }
-input.coming-input::-webkit-input-placeholder { font-size: 11px; }
-input.coming-input:-moz-placeholder { font-size: 12px; }
-input.coming-input::-moz-placeholder { font-size: 12px; }
-input.coming-input:-ms-input-placeholder { font-size: 12px; }
-
-/* side menu */
-#sideMenuContent { background-color: #646464; border: 0; }
-a#side-menuf, a#side-menu:link, a#side-menu:visited, a#side-menu:hover, a#side-menu:active { background-color: #646464; border: 0; color: #E6E6E6; }
-hr.side-menu { border: 1px solid #707070; width: 90%; }
-hr.split-menu { border: 2px solid #707070; width: 95%; }
-p.splitMenu { margin-bottom: -8px; margin-left: 10px; margin-top: 10px; }
-.button .icon {
-	border: 1px solid black;
-	display: inline-block;
-	font-size: 20px;
-	line-height: 20px;
-	padding: 0 0 1px 0;
-	pointer-events: none;
-	vertical-align: inherit;
-}
-.myAvatar, .myAvatar .item-content { height: 30px; min-height: 51px; padding-left: 70px; }
-.myAvatar > img:first-child, .myAvatar .item-image, .myAvatar .item-content > img:first-child, .myAvatar .item-content .item-image {
-	left: 10px;
-	max-height: 30px;
-	max-width: 30px;
-	position: absolute;
-	top: 0px;
-}
-#ava-menu-name { font-size: 20px; margin-top: 12px; }
-
-/* popover */
-#f-popover-view {
-	border: 0;
-	border-radius: 0;
-	height: 65vh;
-	max-height: 500px;
-}
-#f-popover-h-bar {
-	border: 0;
-	border-radius: 0;
-	height: 30px;
-	padding-left: 10px;
-}
-.f-tabs { height: 30px; min-height: 30px; top: 0; }
-.my-popover-item, .my-popover-item .item-content { height: 45px; min-height: 45px; padding-left: 50px; }
-.my-popover-item > img:first-child, .my-popover-item .item-image, .my-popover-item .item-content > img:first-child, .my-popover-item .item-content .item-image {
-	height: 35px;
-	left: 8px;
-	min-height: 35px;
-	position: absolute;
-	top: 3px;
-}
-#f-popover-footer-left-link:hover, #f-popover-footer-left-link:active, #f-popover-footer-left-link:link, #f-popover-footer-left-link:visited { color: #646464; text-decoration: none; width: 50%; }
-#f-popover-footer-right-link:hover, #f-popover-footer-right-link:active, #f-popover-footer-right-link:link, #f-popover-footer-right-link:visited { color: #646464; text-decoration: none; width: 50%; }
-#popover-content { margin-bottom: 30px; margin-top: 30px; }
-
-/* friend popover */
-#friend-accepted {
-	border: 0;
-	left: 1px;
-	position: absolute;
-	top: 31px;
-	width: 100%;
-}
-
-/* setting */
-.setting-title { margin-bottom: -5px; }
-.setting-separate-bold { border: 2px solid #E6E6E6; width: 99%; }
-#setting-last-item { border-bottom: 0; }
-#setting-border-under-bold { border-bottom: 3px solid #E6E6E6; }
-
-/* popup */
-/* default-time-option.html */
-#search-time-zone { position: absolute; top: 65px; }
-#show-time-zone { font-size: 12px; height: 50px; padding: 5px; }
-#time-zone-list { height: 150px; margin-top: 42px; }
-#font17 { font-size: 17px; }
-
-/* home */
-.add-event {
-	bottom: 0px;
-	position: absolute;
-	right: 0px;
-	text-shadow: 5px 5px 10px #fff, 5px 5px 5px #fff, 5px 0px 5px #fff, 5px 0px 5px #fff;
+	0% { background-color: #fff; left: 0px; }
+	50% { background-color: #fff; left: 185px; }
+	100% { background-color: #fff; left: 0px; }
 }

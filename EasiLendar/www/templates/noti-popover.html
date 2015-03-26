@@ -25,10 +25,10 @@
 		<img src="img/ava{{friend.ava}}.png">
 		<p class="easi-space" ng-show="eUser.uFALength > 1">{{friend.name}} and {{eUser.uFALength - 1}} other now are your friends</p>
 		<p class="easi-space" ng-show="eUser.uFALength == 1">{{friend.name}} now is your friends</p>
-		<span class="badge badge-assertive" style="position: absolute; top: 3px; right: 3px;" ng-show="eUser.uFALength > 1">{{eUser.uFALength}}</span>
+		<span class="badge badge-assertive" id="friend-badge" ng-show="eUser.uFALength > 1">{{eUser.uFALength}}</span>
 	</a>
-	<div class="item item-divider easi-left" style="min-height: 25px; height: 25px; position: absolute; top: 75px; left: 1px; width: 100%; border: 0" ng-hide="eUser.uFALength == 0 || mPopoverActive!='friend'">
-		<p style="margin-top: 2px; width: 100%;">Friend requests</p>
+	<div class="item item-divider easi-left" id="fiend-tab-divider" ng-hide="eUser.uFALength == 0 || mPopoverActive!='friend'">
+		<p>Friend requests</p>
 	</div>
 
 	<!-- content -->
