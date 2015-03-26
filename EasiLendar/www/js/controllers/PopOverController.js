@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 25/03/2015
+ * last update: 26/03/2015
  * type: popover controller
  */
 
@@ -26,11 +26,20 @@ angular.module('MainApp.controllers.popover', [])
     };
     $scope.nextRightNoti = function() {
         if ($scope.mPopoverActive == "friend") {
-            $scope.mPopoverActive == "request";
+            $scope.tabActive("request");
         } else if ($scope.mPopoverActive == "request") {
-            $scope.mPopoverActive == "respond";
+            $scope.tabActive("respond");
         } else {
-            $scope.mPopoverActive == "friend";
+            $scope.tabActive("friend");
+        }
+    };
+    $scope.nextLeftNoti = function() {
+        if ($scope.mPopoverActive == "friend") {
+            $scope.tabActive("respond");
+        } else if ($scope.mPopoverActive == "request") {
+            $scope.tabActive("friend");
+        } else {
+            $scope.tabActive("request");
         }
     };
 
@@ -142,21 +151,6 @@ angular.module('MainApp.controllers.popover', [])
         $timeout(function() {
             requestSheet();
         }, 5000);
-
-        /**
-         * Getures
-         */
-        // popover next and previous tab
-        var myPopoverContent = document.getElementById('popover-content');
-
-        // create a simple instance
-        // by default, it only adds horizontal recognizers
-        var mc = new Hammer(myPopoverContent);
-
-        // listen to events...
-        mc.on("panleft panright", function(ev) {
-            alert(ev.type);
-        });
     };
 })
 

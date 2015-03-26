@@ -72,15 +72,19 @@ angular.module('MainApp.shareds.application', [])
 
 		uGmailCalendar: null,	/*Google API JSON	Calendar*/
 		uLocalCalendar: null,	/*Google API JSON	Calendar*/
+
+		uFRequest: null,	/*List of requests*/
+		uFAccepted: null,	/*List of requests accepted*/
 	};
 
 	// Friend's information
 	// Nguyen Minh Trang
 	$rootScope.eFriend = {
 		fName: '',				/*UTF-8*/
-		fAvatar: 0,
-		fGmailCalendar: null,	/*Google API JSON	Calendar*/
-		fLocalCalendar: null,	/*Google API JSON	Calendar*/
+		fAvatar: 0,				/*avatar index from 0 to 8*/
+		fVIP: null,				/*VIP or not*/
+
+		fMultiCal: null,	/*MultiCalendar object	Calendar*/
 	};
 
 	/**
