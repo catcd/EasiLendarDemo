@@ -135,8 +135,10 @@ database.run (function($rootScope, $ionicLoading) {
 					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
 			ref.once("value", function(snapshot) {
 				var user = snapshot.val();
-				var temp = $rootScope.newMultiCal(user.g_calendar);
-				$rootScope.eFriend.fMultiCal = $rootScope.newMultiCal(temp, user.local_calendar);
+				user.g_calendar = $rootScope.convertCal(user.g_calendar);
+				user.local_calendar = $rootScope.convertCal(user.local_calendar);
+				var temp = [user.g_calendar, user.local_calendar];
+				$rootScope.eFriend.fMultiCal = $rootScope.newMultiCal(temp);
 			});
 		}
 	};
