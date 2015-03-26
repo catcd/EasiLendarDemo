@@ -67,9 +67,9 @@ database.run (function($rootScope, $ionicLoading) {
 				avatar : $rootScope.eUser.uAvatar,
 				gmail : $rootScope.eUser.uEmail,
 				password : $rootScope.eUser.uPassword,
-				friends : $rootScope.eUser.uFriend,
-				local_calendar : $rootScope.eUser.uLocalCalendar,
-				g_calendar : $rootScope.eUser.uGmailCalendar,
+				friends : ($rootScope.eUser.uFriend == null?null:$rootScope.eUser.uFriend),
+				local_calendar : ($rootScope.eUser.uLocalCalendar == null?null:$rootScope.eUser.uLocalCalendar),
+				g_calendar : ($rootScope.eUser.uGmailCalendar==null?null:$rootScope.eUser.uGmailCalendar),
 				VIP : $rootScope.eUser.uVIP,
 				noti: {
 					fRequest: $rootScope.eUser.uFRequest,
