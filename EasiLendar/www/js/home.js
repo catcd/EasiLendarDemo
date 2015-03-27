@@ -68,22 +68,22 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds', 'n
 			.state('month', {
 				parent: 'home',
 				url: '/month',
-				templateUrl: 'templates/month.html',
+				templateUrl: 'templates/calendar-month.html',
 				controller: 'MonthController'
 			}).state('week', {
 				parent: 'home',
 				url: '/week',
-				templateUrl: 'templates/week.html',
+				templateUrl: 'templates/calendar-week.html',
 				controller: 'WeekController'
 			}).state('day', {
 				parent: 'home',
 				url: '/day',
-				templateUrl: 'templates/day.html',
+				templateUrl: 'templates/calendar-day.html',
 				controller: 'DayController'
 			}).state('list', {
 				parent: 'home',
 				url: '/list',
-				templateUrl: 'templates/list.html',
+				templateUrl: 'templates/calendar-list.html',
 				controller: 'ListController'
 			})
 			/**

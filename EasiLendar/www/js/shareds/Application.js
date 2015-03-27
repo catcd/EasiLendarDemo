@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 26/03/2015
+ * last update: 27/03/2015
  * type: module all shared variables and functions used for this app
  */
 
@@ -112,6 +112,10 @@ angular.module('MainApp.shareds.application', [])
 		fVIP: 0,				/*VIP or not*/
 
 		fMultiCal: null,	/*MultiCalendar object	Calendar*/
+	};
+	// Calendar's information
+	$rootScope.eCalendar = {
+		cDate: null, 	//Object Date that user click on month calendar
 	};
 
 	/**

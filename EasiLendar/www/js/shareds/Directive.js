@@ -53,4 +53,31 @@ angular.module('MainApp.shareds.directive', [])
 			});
 		}
 	};
-});
+})
+// Directive month
+// Draw the month have eDate
+.directive('easiMonth', function() {
+	return {
+		controller: MonthController,
+		restrict: 'E',
+		templateUrl: 'templates/template-month.html'
+	};
+})
+// Directive draw week
+// Draw the week have eDate
+.directive('easiWeek', function() {
+	return {
+		controller: WeekController,
+		restrict: 'E',
+		templateUrl: 'templates/template-week.html'
+	};
+})
+// Directive draw day event list
+// Draw the list event of eDate
+.directive('easiDay', function() {
+	return {
+		controller: Controller,
+		restrict: 'E',
+		templateUrl: 'templates/template-day-event-list.html'
+	};
+})
