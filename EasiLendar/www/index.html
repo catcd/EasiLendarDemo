@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Can Duy Cat
-	 last update: 26/03/2015
+	 last update: 28/03/2015
 	 type: html main file-->
 <!DOCTYPE html>
 <html ng-app="mainAPP">
@@ -10,56 +10,58 @@
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 	<title>EasiLendar</title>
 	<!-- ionic css -->
-	<link rel="stylesheet" href="lib/ionic/css/ionic.css">
+	<link rel="stylesheet" type="text/css" href="lib/ionic/css/ionic.css">
+	<link rel="stylesheet" type="text/css" href="lib/toast/css/angular-toastr.css">
 	<!-- my app's css -->
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/can-duy-cat.css">
-	<link rel="stylesheet" href="css/ngo-duc-dung.css">
-	<link rel="stylesheet" href="css/nguyen-manh-duy.css">
-	<link rel="stylesheet" href="css/nguyen-minh-trang.css">
-	<link rel="stylesheet" href="css/nguyen-thi-luong.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/can-duy-cat.css">
+	<link rel="stylesheet" type="text/css" href="css/ngo-duc-dung.css">
+	<link rel="stylesheet" type="text/css" href="css/nguyen-manh-duy.css">
+	<link rel="stylesheet" type="text/css" href="css/nguyen-minh-trang.css">
+	<link rel="stylesheet" type="text/css" href="css/nguyen-thi-luong.css">
 
 	<!-- lib js -->
-	<script src="lib/jquery/jquery-1.11.2.min.js"></script>
-	<script src="lib/firebase/firebase.js"></script>
-	<script src="lib/ionic/js/ionic.bundle.js"></script>
-	<script src="lib/ionic/js/ionic.js"></script>
-	<script src="lib/ionic/js/angular/angular.js"></script>
-	<script src="lib/api/ggapi.js"></script>
-	<script src="lib/cordova/ng-cordova.js"></script>
-	<script src="cordova.js"></script>
+	<script type="text/javascript" src="lib/toast/js/angular-toastr.tpls.js"></script>
+	<script type="text/javascript" src="lib/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="lib/firebase/firebase.js"></script>
+	<script type="text/javascript" src="lib/ionic/js/ionic.bundle.js"></script>
+	<script type="text/javascript" src="lib/ionic/js/ionic.js"></script>
+	<script type="text/javascript" src="lib/ionic/js/angular/angular.js"></script>
+	<script type="text/javascript" src="lib/api/ggapi.js"></script>
+	<script type="text/javascript" src="lib/cordova/ng-cordova.js"></script>
+	<script type="text/javascript" src="cordova.js"></script>
 
 	<!-- my app's js -->
-	<script src="js/home.js"></script>
-	<script src="js/controllers.js"></script>
-	<script src="js/shareds.js"></script>
+	<script type="text/javascript" src="js/home.js"></script>
+	<script type="text/javascript" src="js/controllers.js"></script>
+	<script type="text/javascript" src="js/shareds.js"></script>
 	<!-- All shared -->
-	<script src="js/shareds/Application.js"></script>
-	<script src="js/shareds/Calendar.js"></script>
-	<script src="js/shareds/DataBase.js"></script>
-	<script src="js/shareds/Directive.js"></script>
-	<script src="js/shareds/EasiLendarClass.js"></script>
-	<script src="js/shareds/MultiCalendar.js"></script>
-	<script src="js/shareds/Sync.js"></script>
-	<script src="js/shareds/TimeHeap.js"></script>
+	<script type="text/javascript" src="js/shareds/Application.js"></script>
+	<script type="text/javascript" src="js/shareds/Calendar.js"></script>
+	<script type="text/javascript" src="js/shareds/DataBase.js"></script>
+	<script type="text/javascript" src="js/shareds/Directive.js"></script>
+	<script type="text/javascript" src="js/shareds/EasiLendarClass.js"></script>
+	<script type="text/javascript" src="js/shareds/MultiCalendar.js"></script>
+	<script type="text/javascript" src="js/shareds/Sync.js"></script>
+	<script type="text/javascript" src="js/shareds/TimeHeap.js"></script>
 	<!-- All controller -->
-	<script src="js/controllers/AboutController.js"></script>
-	<script src="js/controllers/ComingSoonController.js"></script>
-	<script src="js/controllers/DayController.js"></script>
-	<script src="js/controllers/FriendPanelController.js"></script>
-	<script src="js/controllers/HomeController.js"></script>
-	<script src="js/controllers/ListController.js"></script>
-	<script src="js/controllers/LoadingController.js"></script>
-	<script src="js/controllers/MonthController.js"></script>
-	<script src="js/controllers/PopOverController.js"></script>
-	<script src="js/controllers/ProfileController.js"></script>
-	<script src="js/controllers/ResultController.js"></script>
-	<script src="js/controllers/SearchFilterController.js"></script>
-	<script src="js/controllers/SettingController.js"></script>
-	<script src="js/controllers/SideMenuController.js"></script>
-	<script src="js/controllers/SignInController.js"></script>
-	<script src="js/controllers/SyncController.js"></script>
-	<script src="js/controllers/WeekController.js"></script>
+	<script type="text/javascript" src="js/controllers/AboutController.js"></script>
+	<script type="text/javascript" src="js/controllers/ComingSoonController.js"></script>
+	<script type="text/javascript" src="js/controllers/DayController.js"></script>
+	<script type="text/javascript" src="js/controllers/FriendPanelController.js"></script>
+	<script type="text/javascript" src="js/controllers/HomeController.js"></script>
+	<script type="text/javascript" src="js/controllers/ListController.js"></script>
+	<script type="text/javascript" src="js/controllers/LoadingController.js"></script>
+	<script type="text/javascript" src="js/controllers/MonthController.js"></script>
+	<script type="text/javascript" src="js/controllers/PopOverController.js"></script>
+	<script type="text/javascript" src="js/controllers/ProfileController.js"></script>
+	<script type="text/javascript" src="js/controllers/ResultController.js"></script>
+	<script type="text/javascript" src="js/controllers/SearchFilterController.js"></script>
+	<script type="text/javascript" src="js/controllers/SettingController.js"></script>
+	<script type="text/javascript" src="js/controllers/SideMenuController.js"></script>
+	<script type="text/javascript" src="js/controllers/SignInController.js"></script>
+	<script type="text/javascript" src="js/controllers/SyncController.js"></script>
+	<script type="text/javascript" src="js/controllers/WeekController.js"></script>
 </head>
 
 <body ng-controller="PopOverController">
