@@ -155,6 +155,18 @@ p.splitMenu { margin-bottom: -8px; margin-left: 10px; margin-top: 10px; }
 	top: 31px;
 	width: 100%;
 }
+/**
+* sign out
+*/
+.toast-sign-out { bottom: 50px; right: 0; width: 100%; }
+#toast-container.toast-sign-out > div {
+	background-color: #419696;
+	box-shadow: 0 0 0;
+	margin: auto;
+	max-width: 400px;
+	min-width: 200px;
+	width: 50%;
+}
 
 /**
 * popup
@@ -227,27 +239,27 @@ p.splitMenu { margin-bottom: -8px; margin-left: 10px; margin-top: 10px; }
 	animation-delay: 0.51s;
 }
 @-moz-keyframes bounce_followingBallsG {
-	0% { background-color: #fff; left: 0px; }
-	50% { background-color: #fff; left: 185px; }
-	100% { background-color: #fff; left: 0px; }
+		0% { background-color: #fff; left: 0px; }
+		50% { background-color: #fff; left: 185px; }
+		100% { background-color: #fff; left: 0px; }
 }
 @-webkit-keyframes bounce_followingBallsG {
-	0% { background-color: #fff; left: 0px; }
-	50% { background-color: #fff; left: 185px; }
-	100% { background-color: #fff; left: 0px; }
+		0% { background-color: #fff; left: 0px; }
+		50% { background-color: #fff; left: 185px; }
+		100% { background-color: #fff; left: 0px; }
 }
 @-o-keyframes bounce_followingBallsG {
-	0% { background-color: #fff; left: 0px; }
-	50% { background-color: #fff; left: 185px; }
-	100% { background-color: #fff; left: 0px; }
+		0% { background-color: #fff; left: 0px; }
+		50% { background-color: #fff; left: 185px; }
+		100% { background-color: #fff; left: 0px; }
 }
 @-ms-keyframes bounce_followingBallsG {
-	0% { background-color: #fff; left: 0px; }
-	50% { background-color: #fff; left: 185px; }
-	100% { background-color: #fff; left: 0px; }
+		0% { background-color: #fff; left: 0px; }
+		50% { background-color: #fff; left: 185px; }
+		100% { background-color: #fff; left: 0px; }
 }
 @keyframes bounce_followingBallsG {
-	0% { background-color: #fff; left: 0px; }
-	50% { background-color: #fff; left: 185px; }
-	100% { background-color: #fff; left: 0px; }
+		0% { background-color: #fff; left: 0px; }
+		50% { background-color: #fff; left: 185px; }
+		100% { background-color: #fff; left: 0px; }
 }

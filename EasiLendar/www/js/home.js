@@ -64,7 +64,7 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds', 'n
 	/**
 	 * home's children
 	 * same as appFull but has 1 button
-		 */
+	 */
 		.state('month', {
 			parent: 'home',
 			url: '/month',

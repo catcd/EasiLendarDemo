@@ -6,8 +6,7 @@
  */
 
 angular.module('MainApp.shareds.application', [])
-
-.run(function($rootScope, $ionicPopup, $timeout, $state, $ionicPlatform, $ionicHistory) {
+.run(function($rootScope, $ionicPopup, $timeout, $state, $ionicPlatform, $ionicHistory, toastr, toastrConfig) {
 	/**
 	 * All shared variables
 	 */
@@ -121,20 +120,6 @@ angular.module('MainApp.shareds.application', [])
 	/**
 	 * All functions
 	 */
-	// Popup
-	// $rootScope.showPopup = function(mtitle, url) {
-	// 	var confirmPopup = $ionicPopup.confirm({
-	// 		title: mtitle,
-	// 		templateUrl: url
-	// 	});
-	// 	confirmPopup.then(function(res) {
-	// 		if (res) {
-	// 			// TODO ok
-	// 		} else {
-	// 			// TODO cancel
-	// 		}
-	// 	});
-	// }
 	$rootScope.showChoice = function(mtitle, url, msub) {
 		var confirmPopup = $ionicPopup.show({
 			title: mtitle,
@@ -238,13 +223,13 @@ angular.module('MainApp.shareds.application', [])
 		$state.go("form");
 
 		// notice
-		var confirmPopup = $ionicPopup.alert({
-			title: "Sign out successfully!",
-			subTitle: "Please sign in to use EasiLendar"
+		toastrConfig.positionClass = 'toast-sign-out';
+		toastrConfig.preventDuplicates = true;
+
+		toastr.success('Sign out successfully!', {
+		    timeOut: 3000,
+		    extendedTimeout: 2000
 		});
-		$timeout(function() {
-			confirmPopup.close();
-		}, 5000);
 	}
 
 	// go home function
