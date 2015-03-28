@@ -1,24 +1,31 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 25/03/2015
+ * last update: 26/03/2015
  * type: month controller
  */
 
 angular.module('MainApp.controllers.month', [])
 
-.controller("MonthController", function($scope, $rootScope) {
-    $scope.currentDate = new Date();
-    $scope.currentDateNumber = $scope.currentDate.getDate();
-    $scope.currentMonthNumber = $scope.currentDate.getMonth();
-    $scope.currentYear = $scope.currentDate.getFullYear();
+.controller("MonthController", function($scope, $rootScope /*, $document, $state*/) {
+    /*
+    $document.bind('click',function(){
+        $state.transitionTo($state.current, $stateParams, { 
+            reload: true, inherit: false, notify: false 
+        });
+    });*/
     $scope.bkgClass = [
                     'easi-jan-bkg', 'easi-feb-bkg', 'easi-mar-bkg', 'easi-apr-bkg', 'easi-may-bkg', 'easi-jun-bkg',
                     'easi-jul-bkg', 'easi-aug-bkg', 'easi-sep-bkg', 'easi-oct-bkg', 'easi-nov-bkg', 'easi-dec-bkg'
                     ];
+    $scope.currentDate = new Date();
+    $scope.currentDateNumber = $scope.currentDate.getDate();
+    $scope.currentMonthNumber = $scope.currentDate.getMonth();
+    $scope.currentYear = $scope.currentDate.getFullYear();
     $scope.dayInWeek = ($scope.currentDate.getDay()-1 <0)? 6:$scope.currentDate.getDay()-1;             
     $scope.currentMonthString = $rootScope.months[$scope.currentMonthNumber];
     $scope.currentDayInWeek = $rootScope.weekDays[$scope.dayInWeek];
+
     $scope.buildCurrentMonth = function(){
         $scope.weeks = new Array(5);
         for(var i=0;i<5;i++){
@@ -28,7 +35,7 @@ angular.module('MainApp.controllers.month', [])
             }
         }
         $scope.buildWeeks();
-    }
+    };
 
     $scope.previousMonth = function(){
         $scope.currentMonthNumber = ($scope.currentMonthNumber-1 >= 0 ? 0 : 12) + ($scope.currentMonthNumber-1);
@@ -45,7 +52,7 @@ angular.module('MainApp.controllers.month', [])
     }
 
     $scope.buildWeeks = function(){
-    	$scope.newWeeks = angular.copy($scope.weeks);
+        $scope.newWeeks = $scope.weeks;
         var firstDatePreviousMonth = new Date($scope.currentYear,$scope.currentMonthNumber,1);
         var dayOfFirstDate = firstDatePreviousMonth.getDay(); 
         var numberDaysPreviousMonth = (new Date($scope.currentYear,$scope.currentMonthNumber,0)).getDate();
@@ -102,20 +109,20 @@ angular.module('MainApp.controllers.month', [])
 
     $scope.backgroundMonth = function(index){
         var className = 'bkg-style ' + $scope.bkgClass[index];
-		return className;
+        return className;
     }
     $scope.position = new Date($scope.currentDate.getFullYear(),$scope.currentDate.getMonth(),$scope.currentDateNumber,0,0,0,0);
     $scope.bkgE = 'bkg';
     $scope.showListEvent = function(day,month,year){
-    	if(month > $scope.currentMonthNumber){
-    		if(month == 11 && $scope.currentMonthNumber == 0) { $scope.previousMonth(); }
-    		else { $scope.nextMonth(); }
-    	}
-    	else if(month < $scope.currentMonthNumber){
-    		if(month == 0 && $scope.currentMonthNumber == 11) { $scope.nextMonth(); }
-    		else { $scope.previousMonth(); }
-    	}
-		$scope.position = new Date(year,month,day,0,0,0,0);
+        if(month > $scope.currentMonthNumber){
+            if(month == 11 && $scope.currentMonthNumber == 0) { $scope.previousMonth(); }
+            else { $scope.nextMonth(); }
+        }
+        else if(month < $scope.currentMonthNumber){
+            if(month == 0 && $scope.currentMonthNumber == 11) { $scope.nextMonth(); }
+            else { $scope.previousMonth(); }
+        }
+        $scope.position = new Date(year,month,day,0,0,0,0);
     }
 })
 
@@ -127,19 +134,19 @@ angular.module('MainApp.controllers.month', [])
             isCurrentDay: "=currentDay"
         },
         link: function(scope,element,attr){
-        	var month = attr.currentMonth;
-        	var year = attr.currentYear;
-        	var toDay = new Date();
+            var month = attr.currentMonth;
+            var year = attr.currentYear;
+            var toDay = new Date();
             scope.$watch('isCurrentDay', function(){
-            	if(scope.isCurrentDay == toDay.getDate() && scope.isDifferent == toDay.getMonth() 
-            	   && year == toDay.getFullYear()){
-            		element.addClass('current-date-style');
-            	}
+                if(scope.isCurrentDay == toDay.getDate() && scope.isDifferent == toDay.getMonth() 
+                   && year == toDay.getFullYear()){
+                    element.addClass('current-date-style');
+                }
             })
             scope.$watch('isDifferent', function(){
-            	if(scope.isDifferent != month){
-            		element.addClass('different-month-color');
-            	}
+                if(scope.isDifferent != month){
+                    element.addClass('different-month-color');
+                }
             })
             element.bind('click',function(){
                 var id = '#' + scope.isDifferent + scope.isCurrentDay;
@@ -153,7 +160,7 @@ angular.module('MainApp.controllers.month', [])
                 }
                 else{
                     if(scope.isCurrentDay == toDay.getDate() && scope.isDifferent == toDay.getMonth() 
-            	   	&& year == toDay.getFullYear()){ 
+                    && year == toDay.getFullYear()){ 
                         element.addClass('current-date-style'); 
                     }
                     else { element.addClass('radio-month-selected'); }
@@ -171,12 +178,12 @@ angular.module('MainApp.controllers.month', [])
         },
         link: function(scope,element,attr){
             scope.$watch('haveEvent',function(){
-            		if(scope.haveEvent !== null){
-		    			var index = new Date(attr.year, attr.month, attr.date, 0,0,0,0);
-		    			if(scope.haveEvent[index] !== undefined){
-		            		element.parent().addClass('day-has-event');
-		            	}
-		            }
+                    if(scope.haveEvent !== null){
+                        var index = new Date(attr.year, attr.month, attr.date, 0,0,0,0);
+                        if(scope.haveEvent[index] !== undefined){
+                            element.parent().addClass('day-has-event');
+                        }
+                    }
             });
         }
     };

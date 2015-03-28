@@ -1,7 +1,7 @@
 <!-- starter: Can Duy Cat
-	 owner: Ngo Duc Dung
-	 last update: 25/03/2015
-	 type: calendar template -->
+     owner: Ngo Duc Dung
+     last update: 26/03/2015
+     type: calendar template -->
 
 <ion-view title="EasiLendar" data-ng-init="buildCurrentMonth()">
     <ion-nav-buttons side="left">
@@ -12,7 +12,7 @@
         <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
     </ion-nav-buttons>
 
-    <div scrollbar-x="false" id="div-month-calendar" data-ng-class="backgroundMonth(currentMonthNumber)">
+    <div id="div-month-calendar" data-ng-class="backgroundMonth(currentMonthNumber)">
         <div class="title-month-calendar">
             <a class="button-calendar button-previous-month icon ion-chevron-left easi-gray" 
             data-ng-click="previousMonth()" check-first-day="currentMonthNumber"></a>
@@ -21,7 +21,7 @@
             data-ng-click="nextMonth()" check-first-day="currentMonthNumber"></a>  
         </div>
 
-        <div scrollbar-y="false" drag-content="false" class="month-calendar">
+        <div scrollbar-y="false" class="month-calendar">
             <center><table>
                 <tr class="tr-month-calendar">
                     <td class="td-header-month-calendar">S</td>

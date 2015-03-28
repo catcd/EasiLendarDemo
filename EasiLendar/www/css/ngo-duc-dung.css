@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 25/03/2015
+ * last update: 28/03/2015
  * type: personal css
  */
 
@@ -63,12 +63,29 @@
 .footer-friend-panel {background-color: transparent;} 
 .search-friend-input-focus { opacity: 1;}
 .search-friend-input-blur {opacity: 0.4;}
+.blur-list-friend { opacity: 0.4;}
 .my-repeat-animation.ng-enter, 
 .my-repeat-animation.ng-leave {transition: 500ms linear all; position: relative; display: block; } 
 .my-repeat-animation.ng-leave.ng-leave-active,
 .my-repeat-animation.ng-enter {opacity: 0; transform: scaleY(0); height: 0px; margin-bottom: -34px;}        
 .my-repeat-animation.ng-leave {opacity: 1; transform: scaleY(1);}
 .my-repeat-animation.ng-enter.ng-enter-active {opacity: 1; transform: scaleY(1); height: 95px;}
+#refresh-list {margin-left: 110px; margin-top: 3px;}
+/*sort option*/
+.sort-option-div{
+    height: 30px;
+    font-size: 14px;
+    font-weight: bolder;
+}
+.sort-option-div button{
+    color: #E6E6E6;
+    background-color: #646464;
+    width: 32%;
+    margin-top: 5px;
+    margin-left: 1px;
+}
+.sort-option-div .first{ border-right: 1px solid #E6E6E6;}
+.sort-option-div .last{ border-left: 1px solid #E6E6E6; }
 
 /*SEARCHING FILTER*/
 #table03 { 
