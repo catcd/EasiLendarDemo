@@ -14,15 +14,15 @@
 		
     <div  ng-class="backgroundMonth()">
 		
-			<h2 id="h2-month"><br>{{currentMonthString}}, {{currentYear}}</h2>
+			<h2 id="h2-month"><br>{{navMonthName}}, {{navYear}}</h2>
 		
 		</div>
 		
 		<div id="xxx"><center> 
 		<table ><center>
-		<td id="x1"><a class="button-calendar button-previous-day icon ion-chevron-left easi-gray" > </a>    </td>
-		<td id="x2"><span >This Week ({{currentMonthCstring}} {{numberFirstDayInWeek}}- {{numberLastDayInWeek}})<br><span></td>
-		<td id="x3"><a class="button-calendar button-next-day icon ion-chevron-right easi-gray" > </a>   </td>
+		<td id="x1"><a class="button-calendar button-previous-day icon ion-chevron-left easi-gray"   data-ng-click = "previousDay()"> </a>    </td>
+		<td id="x2"><span >This Week ({{navShortMonth}} {{FirstDayWeek}}- {{LastDayWeek}})<br><span></td>
+		<td id="x3"><a class="button-calendar button-next-day icon ion-chevron-right easi-gray" data-ng-click = "NextDay()" > </a>   </td>
 		</table>
 		<br><ion-content class="zzz"> <center>
 		
@@ -34,15 +34,16 @@
         <!-- Change all class name if want to style something -->
 		 <center><table class="day-table-calendar easi-no-border">
             <tr class="tr-day-calendar easi-no-border">
-                <td class="td-day-calendar-1 easi-no-border" ng-repeat="event in eUser.uGmailCalendar[indexOfToday] | limitTo:1">
-                    <p class="p-list-calendar-number">{{event.date}}</p>
-                    <p class="p-list-calendar-text">{{event.day}}</p>
+                <td class="td-list-calendar-3"><!-- ng-repeat="event in eUser.uGmailCalendar[indexofNavDay] | limitTo:1"-->
+                    <p class="p-list-calendar-number">{{navDate}}</p>
+                    <p class="p-list-calendar-text">{{navDay}}</p>
                 </td>
                 <td class=class="td-day-calendar-2">
-                    <div class="div-day-calendar easi-no-border " ng-repeat="event in eUser.uGmailCalendar[indexOfToday]" background-event="bkgE">
+                    <div class="div-day-calendar easi-no-border " ng-repeat="event in eUser.uGmailCalendar[nu]" background-event="bkgE">
                         <span class="span-title-event">{{event.summary}}</span><br>
-                        <span>Time: {{event.start.dateTime}} - {{event.end.dateTime}}</span><br>
-                        <span>{{event.location}}</span>
+                        <span>Time:{{event.start.dateTime.getHours()}}:{{ (event.start.dateTime.getMinutes()<10)?'0':'' }}{{event.start.dateTime.getMinutes()}}{{ (event.start.dateTime.getHours() >= 12)?' PM':' AM' }} - {{event.end.dateTime.getHours()}}:{{(event.end.dateTime.getMinutes()<10)?'0':''}}{{event.end.dateTime.getMinutes()}}{{( event.end.dateTime.getHours() >= 12)?' PM':' AM' }}
+                       </span><br>
+					   <span>{{event.location}}</span>
                     </div>
                 </td> 
             </tr>

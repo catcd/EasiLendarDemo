@@ -3,7 +3,7 @@
 	 last update: 24/02/2015
 	 type: html -->
 
-<ion-view title="Ngo Duc Dung">
+<ion-view title={{eFriend.fName}}>
     <!-- User name This line can be change-->
     <!-- Button fixed -->
     <ion-nav-buttons side="left">
@@ -14,13 +14,13 @@
         <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
     </ion-nav-buttons>
     <!-- Main content -->
-    <ion-content padding="true">
+    <!--ion-content padding="true">
         <!-- can change -->
-        <div id="cover">
+        <div id="cover" >
             
-			<div class=" item item-thumbnail-left">
+			<div class=" item item-thumbnail-left" >
 			
-			<img  class="item-image" src="img/ava{{eFriend.fAvatar}}.png" >
+			<img  class="item-imagex" src="img/ava{{eFriend.fAvatar}}.png" >
                 <!-- avatar -->
                 <br>
 				 <div id="list-icon" >
@@ -36,7 +36,7 @@
 						{{eFriend.fName}}</span>
 					<!--User name-->
 				</h2>
-                <p>I&#39;m busy now</p>
+                <!--p>I&#39;m busy now</p>
                 <!-- Status must be sync if possible -->
 				</div>
             </div>
@@ -45,9 +45,47 @@
 		
         <div id="footered" ><center>
 			
-           <loadMonth></loadMonth>
-		    <img src="img/Week.png" style="width: 100vw; position: absolute; top: 0px; margin: 0 auto 0 auto ">
-            <!-- Replace by calendar putting function -->
+          
+    		<button class="icon ion-chevron-left easi-dark-blue" 
+                data-ng-click="calendar.prevWeek()"></button>
+            <div>{{calendar.navMonth+", "+calendar.navYear}}</div> 
+            <button class="icon ion-chevron-right easi-dark-blue" 
+                data-ng-click="calendar.nextWeek()"></button>  
+    	
+    	
+    	<div class="calendar">
+    		<div class="daytag">
+    			<div class="row day">
+    				<div class="col" data-ng-repeat="day in calendar.navDays">
+    					{{day.origin.day}}
+    				</div>
+    			</div>
+    			<div class="row date">
+    				<div class="col" data-ng-repeat="day in calendar.navDays">
+    					{{day.origin.date}}
+    				</div>
+    			</div>
+			</div>
+			  		
+    		<ion-content scrollbar-y="false">
+    		  	<div class="row row-content">
+    				<div class="hours">
+    					<div class="hour" data-ng-repeat="x in calendar.hours">
+    						{{x}}
+    					</div>
+    				</div>
+    				<div class="col daycol" data-ng-repeat="day in calendar.navDays">
+    					<div class="row nor-event" data-ng-repeat="event in day.norEvent" 
+    						data-ng-style="event.style">
+    						<div class="summary">{{event.event.origin.summary}}</div>
+    					</div>
+						<div class="row hourblock"  data-ng-repeat="x in calendar.hours">
+						</div>
+    				</div>
+    		    </div>
+    		</ion-content>
+    	</div>
+    </div>
         </div>
 
         <!-- out change -->
