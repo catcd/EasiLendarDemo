@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 28/03/2015
+ * last update: 30/03/2015
  * type: module all shared variables and functions used for this app
  */
 
@@ -117,6 +117,8 @@ angular.module('MainApp.shareds.application', [])
 		cDate: null, 	//Object Date that user click on month calendar
 	};
 
+	$rootScope.currentState = "loading";
+
 	/**
 	 * All functions
 	 */
@@ -145,26 +147,36 @@ angular.module('MainApp.shareds.application', [])
 		};
 	}
 
-/*	// press again to exit
+	// press again to exit
 	$ionicPlatform.registerBackButtonAction(function(e) {
-		if ($rootScope.backButtonPressedOnceToExit) {
-			ionic.Platform.exitApp();
+		if ($rootScope.currentState == 'month'
+			|| $rootScope.currentState == 'week'
+			|| $rootScope.currentState == 'day'
+			|| $rootScope.currentState == 'list'
+			|| $rootScope.currentState == 'form') {
+			if ($rootScope.backButtonPressedOnceToExit) {
+				navigator.app.exitApp();
+			} else {
+				$rootScope.backButtonPressedOnceToExit = true;
+
+				// toast
+				toastrConfig.positionClass = 'toast-sign-out';
+
+				toastr.success('Press Back again to exit.', {
+					timeOut: 2000
+				});
+				setTimeout(function() {
+					$rootScope.backButtonPressedOnceToExit = false;
+				}, 2000);
+			}
+			e.preventDefault();
 		} else if ($ionicHistory.backView()) {
-			$ionicHistory.goBack();
-		} else {
-			$rootScope.backButtonPressedOnceToExit = true;
-			window.plugins.toast.showShortCenter(
-				"Press back button again to exit",
-				function(a) {},
-				function(b) {}
-			);
-			setTimeout(function() {
-				$rootScope.backButtonPressedOnceToExit = false;
-			}, 2000);
-		}
-		e.preventDefault();
+	        $ionicHistory.goBack();
+	    }
 		return false;
-	}, 101);*/
+	}, 101);
+
+
 
 	// exit app function
 	// confirm and exit app
@@ -220,30 +232,31 @@ angular.module('MainApp.shareds.application', [])
 		// TODO
 
 		// change state
-		$state.go("form");
+		$rootScope.goToState("form");
 
 		// notice
 		toastrConfig.positionClass = 'toast-sign-out';
 		toastrConfig.preventDuplicates = true;
 
 		toastr.success('Sign out successfully!', {
-		    timeOut: 3000,
-		    extendedTimeout: 2000
+			timeOut: 3000,
+			extendedTimeout: 2000
 		});
 	}
 
 	// go home function
 	$rootScope.goHome = function() {
-		$state.go($rootScope.eSettings.sDefaultView);
+		$rootScope.goToState($rootScope.eSettings.sDefaultView);
 	}
 
 	// go to any state
 	$rootScope.goToState = function(state) {
-	    $ionicHistory.nextViewOptions({
-	        historyRoot: true,
-	        disableAnimate: true,
-	        expire: 300
-	    });
-	    $state.go(state);
+		$ionicHistory.nextViewOptions({
+			historyRoot: true,
+			disableAnimate: true,
+			expire: 300
+		});
+		$state.go(state);
+		$rootScope.currentState = state;
 	}
 })
