@@ -49,19 +49,19 @@ html { height: 100%; width: 100%; }
 .easi-dec-bkg { background: url("../img/bkg_12_dec.jpg"); }
 
 /* easi style */
-.easi-index-1 { z-index: 1; }
-.easi-index-2 { z-index: 2; }
-.easi-index-3 { z-index: 3; }
-.easi-center { text-align: center; }
-.easi-left { text-align: left; }
-.easi-right { text-align: right; }
-.easi-justify { text-align: justify; }
-.easi-space { margin-top: 10px; }
-.easi-up { margin-top: -10px; }
-.easi-no-shadow { box-shadow: 0 0 0; }
-.easi-no-radius { border-radius: 0; }
-.easi-no-border { border: 0; }
-.easi-fullw { width: 100%; }
+.easi-index-1 { z-index: 1 !important; }
+.easi-index-2 { z-index: 2 !important; }
+.easi-index-3 { z-index: 3 !important; }
+.easi-center { text-align: center !important; }
+.easi-left { text-align: left !important; }
+.easi-right { text-align: right !important; }
+.easi-justify { text-align: justify !important; }
+.easi-space { margin-top: 10px !important; }
+.easi-up { margin-top: -10px !important; }
+.easi-no-shadow { box-shadow: 0 0 0 !important; }
+.easi-no-radius { border-radius: 0 !important; }
+.easi-no-border { border: 0 !important; }
+.easi-fullw { width: 100% !important; }
 .bar .easi-title {
     font-size: 17px;
     font-weight: 500;
@@ -79,24 +79,24 @@ html { height: 100%; width: 100%; }
     white-space: nowrap;
     z-index: 0;
 }
-.bar .easi-title.easi-title-left { text-align: left; }
-.bar .easi-title.easi-title-right { text-align: right; }
-.bar .easi-title a { color: inherit; }
+.bar .easi-title.easi-title-left { text-align: left !important; }
+.bar .easi-title.easi-title-right { text-align: right !important; }
+.bar .easi-title a { color: inherit !important; }
 
 /* easi color */
-.easi-red { color: #D65930; }
-.easi-white { color: #FFFFFF; }
-.easi-gray { color: #646464; }
-.easi-light-gray { color: #E6E6E6; }
-.easi-blue { color: #33CCCC; }
-.easi-dark-blue { color: #416969; }
-.easi-vip-color { color: #FFCC00; }
-.easi-back-white { background-color: #FFFFFF; }
-.easi-back-gray { background-color: #646464; }
-.easi-back-light-gray { background-color: #E6E6E6; }
-.easi-back-blue { background-color: #33CCCC; }
-.easi-back-dark-blue { background-color: #416969; }
-.easi-full-blue { background-color: #33CCCC; height: 100vh; width: 100vw; }
+.easi-red { color: #D65930 !important; }
+.easi-white { color: #FFFFFF !important; }
+.easi-gray { color: #646464 !important; }
+.easi-light-gray { color: #E6E6E6 !important; }
+.easi-blue { color: #33CCCC !important; }
+.easi-dark-blue { color: #416969 !important; }
+.easi-vip-color { color: #FFCC00 !important; }
+.easi-back-white { background-color: #FFFFFF !important; }
+.easi-back-gray { background-color: #646464 !important; }
+.easi-back-light-gray { background-color: #E6E6E6 !important; }
+.easi-back-blue { background-color: #33CCCC !important; }
+.easi-back-dark-blue { background-color: #416969 !important; }
+.easi-full-blue { background-color: #33CCCC !important; height: 100vh !important; width: 100vw !important; }
 
 /* easi icons */
 

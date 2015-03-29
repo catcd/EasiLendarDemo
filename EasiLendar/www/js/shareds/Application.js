@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 27/03/2015
+ * last update: 28/03/2015
  * type: module all shared variables and functions used for this app
  */
 
@@ -81,27 +81,27 @@ angular.module('MainApp.shareds.application', [])
 	/**
 	 * Demo data
 	 */
-	$rootScope.eUser.uFRequest["huongdung1"] = {name: "Ngo Duc Huong", ava: 1};
-	$rootScope.eUser.uFRequest["ttdungsexy"] = {name: "Tran Thu Dung", ava: 3};
-	$rootScope.eUser.uFRequest["minhchui02"] = {name: "Nguyen Minh Chui", ava: 5};
-	$rootScope.eUser.uFRequest["manhvan003"] = {name: "Nguyen Manh Van", ava: 8};
-	$rootScope.eUser.uFRequest["boykorea58"] = {name: "Kim Seung Trang", ava: 7};
-	$rootScope.eUser.uFRequest["hotgirlno1"] = {name: "Nguyen Thi Cam Duy", ava: 4};
-	$rootScope.eUser.uFRequest["justinbb02"] = {name: "Justin Bieber", ava: 4};
-	$rootScope.eUser.uFRequest["kimkashi07"] = {name: "Kim Kadashian", ava: 8};
-	$rootScope.eUser.uFRequest["gotgon1158"] = {name: "Yoona", ava: 7};
-	$rootScope.eUser.uFRequest["badboyking"] = {name: "Son Tung MTP", ava: 0};
-	$rootScope.eUser.uFRLength = 10;
+	// $rootScope.eUser.uFRequest["huongdung1"] = {name: "Ngo Duc Huong", ava: 1};
+	// $rootScope.eUser.uFRequest["ttdungsexy"] = {name: "Tran Thu Dung", ava: 3};
+	// $rootScope.eUser.uFRequest["minhchui02"] = {name: "Nguyen Minh Chui", ava: 5};
+	// $rootScope.eUser.uFRequest["manhvan003"] = {name: "Nguyen Manh Van", ava: 8};
+	// $rootScope.eUser.uFRequest["boykorea58"] = {name: "Kim Seung Trang", ava: 7};
+	// $rootScope.eUser.uFRequest["hotgirlno1"] = {name: "Nguyen Thi Cam Duy", ava: 4};
+	// $rootScope.eUser.uFRequest["justinbb02"] = {name: "Justin Bieber", ava: 4};
+	// $rootScope.eUser.uFRequest["kimkashi07"] = {name: "Kim Kadashian", ava: 8};
+	// $rootScope.eUser.uFRequest["gotgon1158"] = {name: "Yoona", ava: 7};
+	// $rootScope.eUser.uFRequest["badboyking"] = {name: "Son Tung MTP", ava: 0};
+	// $rootScope.eUser.uFRLength = 10;
 
-	$rootScope.eUser.uFAccepted["huongnd95"] = {name: "Ngo Duc Huong", ava: 1};
-	$rootScope.eUser.uFAccepted["dungtt96"] = {name: "Tran Thu Dung", ava: 3};
-	$rootScope.eUser.uFAccepted["vannm98"] = {name: "Nguyen Manh Van", ava: 8};
-	$rootScope.eUser.uFAccepted["trangks99"] = {name: "Kim Seung Trang", ava: 7};
-	$rootScope.eUser.uFAccepted["duyntc00"] = {name: "Nguyen Thi Cam Duy", ava: 4};
-	$rootScope.eUser.uFAccepted["luongnt58"] = {name: "Nguyen Thi Luong", ava: 8};
-	$rootScope.eUser.uFAccepted["taylor1989"] = {name: "Taylor Swift", ava: 6};
-	$rootScope.eUser.uFAccepted["obamano1"] = {name: "Barack Obama", ava: 0};
-	$rootScope.eUser.uFALength = 5;
+	// $rootScope.eUser.uFAccepted["huongnd95"] = {name: "Ngo Duc Huong", ava: 1};
+	// $rootScope.eUser.uFAccepted["dungtt96"] = {name: "Tran Thu Dung", ava: 3};
+	// $rootScope.eUser.uFAccepted["vannm98"] = {name: "Nguyen Manh Van", ava: 8};
+	// $rootScope.eUser.uFAccepted["trangks99"] = {name: "Kim Seung Trang", ava: 7};
+	// $rootScope.eUser.uFAccepted["duyntc00"] = {name: "Nguyen Thi Cam Duy", ava: 4};
+	// $rootScope.eUser.uFAccepted["luongnt58"] = {name: "Nguyen Thi Luong", ava: 8};
+	// $rootScope.eUser.uFAccepted["taylor1989"] = {name: "Taylor Swift", ava: 6};
+	// $rootScope.eUser.uFAccepted["obamano1"] = {name: "Barack Obama", ava: 0};
+	// $rootScope.eUser.uFALength = 5;
 
 	// Friend's information
 	// Nguyen Minh Trang
@@ -235,5 +235,15 @@ angular.module('MainApp.shareds.application', [])
 	// go home function
 	$rootScope.goHome = function() {
 		$state.go($rootScope.eSettings.sDefaultView);
+	}
+
+	// go to any state
+	$rootScope.goToState = function(state) {
+	    $ionicHistory.nextViewOptions({
+	        historyRoot: true,
+	        disableAnimate: true,
+	        expire: 300
+	    });
+	    $state.go(state);
 	}
 })

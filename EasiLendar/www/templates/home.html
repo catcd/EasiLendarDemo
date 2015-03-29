@@ -1,14 +1,23 @@
 <!-- starter: Can Duy Cat
-	 owner: Can Duy Cat
-	 last update: 12/03/2015
-	 type: calendar template -->
+     owner: Can Duy Cat
+     last update: 29/03/2015
+     type: calendar template -->
 <ion-side-menus>
     <ion-side-menu-content class="easi-no-shadow">
         <ion-nav-bar class="bar-easi-blue"> </ion-nav-bar>
-        <button ui-sref={{eSettings.sDefaultView}}>
+        <!-- div of two button -->
+        <div class="easi-index-2 home-button-top">
+            <button class="button button-icon icon ion-reply-all" ng-click="goHome()"></button>
+            <button class="button button-icon icon ion-grid" ng-click="selectPopover($event)"></button>
+        </div>
+
+        <!-- create event button -->
+        <button ng-click="goHome()">
             <img class="easi-index-2 add-event" src="../img/btn_create.png" alt="Create">
         </button>
-        <ion-nav-view class="easi-index-1" animation="slide-left-right"></ion-nav-view>
+
+        <!-- ion-view is under these three buttons -->
+        <ion-nav-view class="easi-index-1"></ion-nav-view>
     </ion-side-menu-content>
 
     <ion-side-menu side="left">

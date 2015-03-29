@@ -1,54 +1,129 @@
 <!-- starter: Can Duy Cat
-     owner: Can Duy Cat
-     last update: 17/03/2015
-     type: menu panel template -->
+	 owner: Can Duy Cat
+	 last update: 29/03/2015
+	 type: menu panel template -->
 <ion-header-bar class="bar-easi-gray">
-    <p class="easi-light-gray easi-title">MENU</p>
+	<p class="easi-light-gray easi-title">MENU</p>
 </ion-header-bar>
 
 <ion-content id="sideMenuContent">
-    <div class="easi-space">
-        <!-- user information -->
-        <a class="item item-icon-right myAvatar" id="side-menu" ui-sref="comingSoon" menu-close>
-            <img src="img/ava{{eUser.uAvatar}}.png">
-            <h2 class="easi-light-gray" id="ava-menu-name">{{eUser.uName}}</h2>
-            <i class="icon ion-ribbon-b easi-vip-color"></i>
-        </a>
+	<div class="easi-space">
+		<!-- user information -->
+		<a class="item item-icon-right myAvatar side-menu-item" ng-click="goToState('comingSoon')" menu-close>
+			<img src="img/ava{{eUser.uAvatar}}.png">
+			<h2 class="easi-light-gray">{{eUser.uName}}</h2>
+			<i class="icon ion-ribbon-b easi-vip-color"></i>
+		</a>
 
-        <!-- all common item -->
-        <div ng-repeat="item in eMenu.mMenus">
-            <hr class="side-menu">
-            <a class="item item-icon-left" id="side-menu" ui-sref={{item.sref}} menu-close>
-                <i class="icon {{item.icon}}"></i> {{item.name}}
-            </a>
-        </div>
+		<!-- all common item -->
+		<!-- search everythings -->
+		<hr class="side-menu">
+		<a class="item item-icon-left side-menu-item" ng-click="goToState('comingSoon')" menu-close>
+			<i class="icon ion-search"></i>
+			<h2 class="easi-space easi-light-gray">Search</h2>
+		</a>
 
-        <p class="easi-light-gray split-menu">TOOLS</p>
-        <hr class="split-menu">
+		<!-- look for a personal meeting -->
+		<hr class="side-menu">
+		<a class="item item-icon-left side-menu-item" ng-click="goToState('comingSoon')" menu-close>
+			<i class="icon ion-person"></i>
+			<h2 class="easi-space easi-light-gray">Appointment</h2>
+		</a>
 
-        <!-- restore with another icon -->
-        <a class="item item-icon-left item-icon-right" id="side-menu" ui-sref="comingSoon" menu-close>
-            <i class="icon ion-refresh"></i> Restore
-            <i class="icon ion-alert-circled easi-red"></i>
-        </a>
-        <hr class="side-menu">
+		<!-- look for a group meeting time -->
+		<hr class="side-menu">
+		<a class="item item-icon-left side-menu-item" ng-click="goToState('comingSoon')" menu-close>
+			<i class="icon ion-person-stalker"></i>
+			<h2 class="easi-space easi-light-gray">Group meeting</h2>
+		</a>
 
-        <!-- all common item -->
-        <div ng-repeat="item in eMenu.mTools">
-            <a class="item item-icon-left" id="side-menu" ui-sref={{item.sref}} menu-close>
-                <i class="icon {{item.icon}}"></i> {{item.name}}
-            </a>
-            <hr class="side-menu">
-        </div>
+		<!-- schedule a lot of event -->
+		<hr class="side-menu">
+		<a class="item item-icon-left side-menu-item" ng-click="goToState('comingSoon')" menu-close>
+			<i class="icon ion-pizza"></i>
+			<h2 class="easi-space easi-light-gray">EasiSchedule</h2>
+		</a>
 
-        <!-- 2 non-sref item -->
-        <a class="item item-icon-left" id="side-menuf" ng-click="signOutEasi()" menu-close>
-            <i class="icon ion-power"></i> Sign out
-        </a>
-        <hr class="side-menu">
-        <a class="item item-icon-left" id="side-menuf" ng-click="exitEasi()" menu-close>
-            <i class="icon ion-log-out"></i> Exit
-        </a>
-        <hr class="side-menu">
-    </div>
+		<!-- remind in a day -->
+		<hr class="side-menu">
+		<a class="item item-icon-left side-menu-item" ng-click="goToState('comingSoon')" menu-close>
+			<i class="icon ion-checkmark-circled"></i>
+			<h2 class="easi-space easi-light-gray">Todo</h2>
+		</a>
+
+		<!-- sync calendar -->
+		<hr class="side-menu">
+		<a class="item item-icon-left side-menu-item" ng-click="goToState('sync')" menu-close>
+			<i class="icon ion-cloud"></i>
+			<h2 class="easi-space easi-light-gray">Sync</h2>
+		</a>
+
+		<!-- refresh all local data with online data -->
+		<hr class="side-menu">
+		<a class="item item-icon-left side-menu-item" ng-click="goToState('comingSoon')" menu-close>
+			<i class="icon ion-upload"></i>
+			<h2 class="easi-space easi-light-gray">Refresh</h2>
+		</a>
+
+		<!-- TOOLS -->
+		<p class="easi-light-gray split-menu">TOOLS</p>
+		<hr class="split-menu">
+
+		<!-- restore -->
+		<a class="item item-icon-left item-icon-right side-menu-item" ng-click="goToState('comingSoon')" menu-close>
+			<i class="icon ion-refresh"></i>
+			<h2 class="easi-space easi-light-gray">Restore</h2>
+			<i class="icon ion-alert-circled easi-red"></i>
+		</a>
+
+		<!-- share personal data -->
+		<hr class="side-menu">
+		<a class="item item-icon-left side-menu-item" ng-click="goToState('comingSoon')" menu-close>
+			<i class="icon ion-share"></i>
+			<h2 class="easi-space easi-light-gray">Share</h2>
+		</a>
+
+		<!-- export event to txt file -->
+		<hr class="side-menu">
+		<a class="item item-icon-left side-menu-item" ng-click="goToState('comingSoon')" menu-close>
+			<i class="icon ion-document-text"></i>
+			<h2 class="easi-space easi-light-gray">Export</h2>
+		</a>
+
+		<!-- advanced functions -->
+		<hr class="side-menu">
+		<a class="item item-icon-left side-menu-item" ng-click="goToState('comingSoon')" menu-close>
+			<i class="icon ion-ribbon-b easi-vip-color"></i>
+			<h2 class="easi-space easi-light-gray">EasiVIP</h2>
+		</a>
+
+		<!-- help -->
+		<hr class="side-menu">
+		<a class="item item-icon-left side-menu-item" ng-click="goToState('comingSoon')" menu-close>
+			<i class="icon ion-help-circled"></i>
+			<h2 class="easi-space easi-light-gray">Helps</h2>
+		</a>
+
+		<!-- setting -->
+		<hr class="side-menu">
+		<a class="item item-icon-left side-menu-item" ng-click="goToState('setting')" menu-close>
+			<i class="icon ion-android-settings"></i>
+			<h2 class="easi-space easi-light-gray">Settings</h2>
+		</a>
+
+		<!-- 2 non-sref item -->
+		<!-- sign out -->
+		<hr class="side-menu">
+		<a class="item item-icon-left side-menu-item" ng-click="signOutEasi()" menu-close>
+			<i class="icon ion-power"></i>
+			<h2 class="easi-space easi-light-gray">Sign out</h2>
+		</a>
+
+		<!-- exit EasiLendar -->
+		<hr class="side-menu">
+		<a class="item item-icon-left side-menu-item" ng-click="exitEasi()" menu-close>
+			<i class="icon ion-log-out"></i>
+			<h2 class="easi-space easi-light-gray">Exit</h2>
+		</a>
+	</div>
 </ion-content>

@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
    owner: Can Duy Cat
-   last update: 26/03/2015
+   last update: 29/03/2015
    type: noti popover -->
 <ion-popover-view id="f-popover-view">
 	<!-- tabs -->
@@ -21,12 +21,30 @@
 	</div>
 
 	<!-- friend accepted -->
-	<a class="item my-popover-item" ng-click="showAlert('Friend responds', '', 'All friend respond here!'); closePopover()" ng-hide="eUser.uFALength == 0 || mPopoverActive!='friend'" ng-repeat="friend in eUser.uFAccepted" ng-if="$first" id="friend-accepted">
+	<a id="friend-accepted"
+	class="item my-popover-item"
+	ng-click="showAlert('Friend responds', '', 'All friend respond here!');
+			closePopover()"
+	ng-hide="eUser.uFALength == 0 || mPopoverActive != 'friend'"
+	ng-repeat="friend in eUser.uFAccepted"
+	ng-if="$first">
 		<img src="img/ava{{friend.ava}}.png">
-		<p class="easi-space" ng-show="eUser.uFALength > 1">{{friend.name}} and {{eUser.uFALength - 1}} other now are your friends</p>
-		<p class="easi-space" ng-show="eUser.uFALength == 1">{{friend.name}} now is your friends</p>
-		<span class="badge badge-assertive" id="friend-badge" ng-show="eUser.uFALength > 1">{{eUser.uFALength}}</span>
+
+		<!-- one and some have diffirent noti -->
+		<p class="easi-space" ng-show="eUser.uFALength > 1">
+			{{friend.name}} and {{eUser.uFALength - 1}} other now are your friends
+		</p>
+		<p class="easi-space" ng-show="eUser.uFALength == 1">
+			{{friend.name}} now is your friends
+		</p>
+
+		<!-- badge number of accepted request -->
+		<span class="badge badge-assertive" id="friend-badge" ng-show="eUser.uFALength > 1">
+			{{eUser.uFALength}}
+		</span>
 	</a>
+
+	<!-- devider show when friends accepted shown -->
 	<div class="item item-divider easi-left" id="fiend-tab-divider" ng-hide="eUser.uFALength == 0 || mPopoverActive!='friend'">
 		<p>Friend requests</p>
 	</div>

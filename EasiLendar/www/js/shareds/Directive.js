@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 21/03/2015
+ * last update: 29/03/2015
  * type: all common directive
  */
 
@@ -58,7 +58,7 @@ angular.module('MainApp.shareds.directive', [])
 // Draw the month have eDate
 .directive('easiMonth', function() {
 	return {
-		controller: MonthController,
+		controller: 'MonthController',
 		restrict: 'E',
 		templateUrl: 'templates/template-month.html'
 	};
@@ -67,7 +67,7 @@ angular.module('MainApp.shareds.directive', [])
 // Draw the week have eDate
 .directive('easiWeek', function() {
 	return {
-		controller: WeekController,
+		controller: 'WeekController',
 		restrict: 'E',
 		templateUrl: 'templates/template-week.html'
 	};
@@ -76,7 +76,7 @@ angular.module('MainApp.shareds.directive', [])
 // Draw the list event of eDate
 .directive('easiDay', function() {
 	return {
-		controller: Controller,
+		controller: 'ListController',
 		restrict: 'E',
 		templateUrl: 'templates/template-day-event-list.html'
 	};
