@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 26/03/2015
+ * last update: 29/03/2015
  * type: month controller
  */
 
@@ -124,6 +124,50 @@ angular.module('MainApp.controllers.month', [])
         }
         $scope.position = new Date(year,month,day,0,0,0,0);
     }
+    /*
+    //Test TimeHeap and TimeNode class
+    var toDay = new Date();
+    var startDay = new Date();
+    var endDay = new Date();
+    var start = new Date(startDay.setHours(14,0,0));
+    var end = new Date(endDay.setHours(20,0,0));
+    var node1 = $rootScope.newTimeNode(start,end);
+    start = new Date(startDay.setHours(19,0,0));
+    end = new Date(endDay.setHours(20,0,0));
+    var node2 = $rootScope.newTimeNode(start,end);
+    start = new Date(startDay.setHours(7,0,0));
+    end = new Date(endDay.setHours(20,0,0));
+    var node3 = $rootScope.newTimeNode(start,end);
+    start = new Date(startDay.setHours(7,0,0));
+    end = new Date(endDay.setHours(23,0,0));
+    var node4 = $rootScope.newTimeNode(start,end);
+    start = new Date(startDay.setHours(8,0,0));
+    end = new Date(endDay.setHours(23,0,0));
+    var node5 = $rootScope.newTimeNode(start,end);
+    start = new Date(startDay.setHours(1,0,0));
+    end = new Date(endDay.setHours(23,0,0));
+    var node6 = $rootScope.newTimeNode(start,end);
+    //Test TimeHeap class
+    var heap = $rootScope.newTimeHeap(toDay);
+    heap.push(node1);
+    heap.push(node2);
+    heap.push(node3);
+    heap.push(node4);
+    heap.push(node5);
+    heap.push(node6);
+    for(var i = 0;i<heap.length; i++){
+        alert(heap.timeList[i].score);
+    }
+    
+    var nodeMax = angular.copy(heap.pop());
+    nodeMax = angular.copy(heap.pop());
+    nodeMax = angular.copy(heap.pop());
+    nodeMax = angular.copy(heap.pop());
+    nodeMax = angular.copy(heap.pop());
+    if(nodeMax !== undefined) { alert(nodeMax.score + '-' + heap.length); }
+    else { alert('Can pop anymore'); }
+    alert(heap.timeList[0].score);
+    alert(heap.timeList[1].score);*/
 })
 
 .directive('differentMonth',function($document){
