@@ -1,12 +1,11 @@
 <!-- starter: Can Duy Cat
    owner: Can Duy Cat
-   last update: 26/03/2015
+   last update: 31/03/2015
    type: template for noti friend tab -->
 <ul class="list" ng-style="marginFriendTab">
 	<!-- friend request list empty -->
 	<a class="button icon-left ion-person-add button-clear button-dark"
-	ui-sref="comingSoon"
-	ng-click="closePopover()"
+	ng-click="closePopover(); goToState('comingSoon')"
 	ng-show="eUser.uFRLength == 0">
 		Look for some friends.
 	</a>
