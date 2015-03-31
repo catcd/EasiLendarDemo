@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 25/03/2015
+ * last update: 29/03/2015
  * type: All common class for EasiLendar App
  * base on: javascript, Google Calendar API
  */
@@ -10,8 +10,8 @@ var easilendar = angular.module('MainApp.shareds.easiLendarClass', []);
 
 easilendar.run(function($rootScope) {
 	// 12 colors for user's choices;
-	$rootScope.eventColor = ["#069","#f39","#06f","#960","#690","#fc0",
-	                         "#606","#f30","#996","#999","#f93","#f99"];
+	$rootScope.eventColor = ["#09c","#0cf","#36f","#93f","#ff9999","#fc0",
+	                         "#f60","#0c6","#666","#99f","#393","#c30"];
 	
 	/* Day constructor function
 	 * date is Date object
