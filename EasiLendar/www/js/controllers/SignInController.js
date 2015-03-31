@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat 
  * owner: Nguyen Minh Trang 
- * last update: 26/03/2015 
+ * last update: 31/03/2015 
  * type: particular controller
  */
 
@@ -37,16 +37,6 @@ signIn.controller('SignInController',
 	// create new user
 	$scope.user = new User();
 	
-	// to form
-	$scope.toForm = function() {
-		$state.go('form');
-	};
-	
-	// to warning
-	$scope.toWarning = function() {
-		$state.go('warning');
-	};
-	
 	// show alert
 	var showAlert = function() {
 		var alertPopup = $ionicPopup.alert({
@@ -61,7 +51,7 @@ signIn.controller('SignInController',
 	// sign in function with firebase
 	$scope.signIn = function() {
 		if (!$scope.user.checkChar()) {
-			$scope.toWarning();
+			$rootScope.goToState('warning');
 		} else {
 			var id = $scope.user.id;
 			var pass = $scope.user.password;
@@ -72,7 +62,7 @@ signIn.controller('SignInController',
 			ref.once("value", function(snapshot) {
 				var user = snapshot.val();
 				if (user == null || user.password != pass) {
-					$scope.toWarning();
+					$rootScope.goToState('warning');
 				} else {
 					// copy all user's data to $rootScope
 					$rootScope.eUser.uID = id;
@@ -94,10 +84,10 @@ signIn.controller('SignInController',
 					$rootScope.eUser.uLocalCalendar = $rootScope.convertCal($rootScope.eUser.uLocalCalendar);
 					
 					$scope.user.reset();
-					$state.go(link);
+					$rootScope.goHome();
 				}
 			}, function(errorObject) {
-				$scope.toWarning();
+				$rootScope.goToState('warning');
 			});
 		}
 	};
@@ -176,7 +166,7 @@ signIn.controller('SignInController',
 					// welcome message
 					showAlert();
 					$scope.user.reset();
-					$scope.toForm();
+					$rootScope.goToState('form');
 				}
 			});
 		}
