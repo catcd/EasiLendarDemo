@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 29/03/2015
+ * last update: 31/03/2015
  * type: home controller
  */
 
@@ -84,6 +84,38 @@ week.controller("WeekController", function($scope, $rootScope) {
 				// convert object Event  to Event
 				this.navDays[i] = new WeekDay(this.navDays[i]);	// object WeekDay
 	    	}
+			// very complicate
+			for (var i=0; i < 7; i++) {
+				if (this.navDays[i].events != null) {
+					var length = this.navDays[i].events.length;
+					for (var j=0; j < length; j++) {
+						if (this.navDays[i].events[j].event.type == "over") {
+							var dur = this.navDays[i].events[j].duration;
+							for (var k=i+1; k < i + dur; k++) {
+								if (this.navDays[k].events != null && this.navDays[k].events[j] != null) {
+									for (var t=length; t > j; t--) {
+										this.navDays[k].events[t] = this.navDays[k].events[t-1];
+									}
+									this.navDays[k].events[j] = new EmptyEvent(this.navDays[i].events[j]);
+								} else if (this.navDays[k].events != null) {
+									var kLength = this.navDays[k].events.length;
+									for (var t=kLength; t <= j; t++) {
+										this.navDays[k].events[t] = new EmptyEvent(this.navDays[i].events[j]);
+									}
+								} else {
+									this.navDays[k].events = [];
+									for (var t=0; t <= j; t++) {
+										this.navDays[k].events[t] = new EmptyEvent(this.navDays[i].events[j]);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			// set height for the week content
+			this.setContentHeight();
 	    };
 		
 		/*
@@ -127,6 +159,26 @@ week.controller("WeekController", function($scope, $rootScope) {
 			
 		this.navBackground = "easi-" + $rootScope.shortMonths[this.curWeek.month2] + "-bkg";
 		
+		// week-content height
+		this.contentHeight = {
+			"height": "80%",
+		};
+		// set content height function
+		this.setContentHeight = function() {
+			var max = 0;
+			for (var i=0; i < 7; i++) {
+				if (this.navDays[i].events != null) {
+					if(this.navDays[i].events.length > max) {
+						max = this.navDays[i].events.length;
+					}
+				}
+			}
+			var height = 25 + 30 + max*22;
+			this.contentHeight = {
+				"height": 'calc(100% - '+height+'px)',
+			}	
+		};
+		
 		/* go to next week */
 		this.nextWeek = function() {
 			this.setNavTime(this.navWeek.nextWeek());
@@ -154,11 +206,10 @@ week.controller("WeekController", function($scope, $rootScope) {
 			if (this.origin != null && this.origin.events != null) {
 				var event = [];
 				var j=0;
-				for (var i=0; i < this.origin.events.length; i++) {
-					if (this.origin.events[i].type == type) {
-						switch (type) {
-							case "normal": 
-								event[j++] = new NorEvent(this.origin.events[i]); break;
+				// not normal
+				if (type == null) {
+					for (var i=0; i < this.origin.events.length; i++) {
+						switch (this.origin.events[i].type) {
 							case "all": 
 								event[j++] = new AllEvent(this.origin.events[i]); break;
 							case "over": 
@@ -173,6 +224,12 @@ week.controller("WeekController", function($scope, $rootScope) {
 									event[j++] = new OverEvent(this.origin.events[i], this.origin);
 								}
 						}
+					} 
+				} else {
+					for (var i=0; i < this.origin.events.length; i++) {
+						if (this.origin.events[i].type == type) {
+							event[j++] = new NorEvent(this.origin.events[i]);
+						}
 					}
 				} 
 				if (j == 0) return null;
@@ -180,12 +237,10 @@ week.controller("WeekController", function($scope, $rootScope) {
 			} else return null;
 		};
 		
-		// array of normal events 
+		// array of allday, overday and empty events
+		this.events = this.setEvent();
+		// array of normal event
 		this.norEvent = this.setEvent("normal");
-		// array of all day events
-		this.allEvent = this.setEvent("all");
-		//array of over day events
-		this.overEvent = this.setEvent("over");
 	}; // end of class WeekDay
 
 	/*
@@ -212,7 +267,9 @@ week.controller("WeekController", function($scope, $rootScope) {
 		this.durationToPx = function() {
 			// assume that it's in one day
 			var dur = this.end.minutes - this.start.minutes;
-			return parseInt(dur/12 * 8)+"px";
+			if (parseInt(dur/12 * 8) > 20)
+				return parseInt(dur/12 * 8)+"px";
+			else return 20+"px";
 		};
 		
 		/* 
@@ -250,6 +307,15 @@ week.controller("WeekController", function($scope, $rootScope) {
 		
 		this.style = {
 			"background-color": this.event.color,
+			'width': '100%',
+			'height': '20px',
+			'color': 'white',
+			'text-align': 'left',
+			'margin-top': '2px',
+			'font-size': '15px',
+			'overflow': 'hidden',
+			'position': 'relative',
+			'z-index': '1',
 		};
 		
 	}; // end of class AllEvent
@@ -286,15 +352,47 @@ week.controller("WeekController", function($scope, $rootScope) {
 			
 			// if this event cross over the next week
 			if (duration >= tempDuration) {
-				return tempDuration*13 + "%";
+				return tempDuration*100;
 			} else {
-				return duration*13 + "%";
+				return duration*100;
 			}
 		};
-		this.width = this.setWidth();
+		this.duration = this.setWidth() / 100;
+		this.width = (this.setWidth()+5) + "%";
 		this.style = {
 			"width": this.width,
 			"background-color": this.event.color,
+			'height': '20px',
+			'font-size': '15px',
+			'color': 'white',
+			'overflow': 'hidden',
+			'text-align': 'left',
+			'margin-top': '2px',
+			'position': 'relative',
+			'z-index': '1',
 		};
 	}; // end of class OverEvent
+	
+	/*
+	 * class EmptyEvent
+	 * for display over-day event
+	 */
+	function EmptyEvent(event) {
+		// set function
+		var set = function() {
+			var temp = angular.copy(event.event);
+			temp.origin.summary = null;
+			return temp;
+		};
+		
+		this.event = set();
+		
+		this.style = {
+			"height" : "20px",
+			"width": "90%",
+			"margin-top": "2px",
+			'position': 'relative',
+			'z-index': '1',
+		};
+	}; // end of class EmptyEvent
 });

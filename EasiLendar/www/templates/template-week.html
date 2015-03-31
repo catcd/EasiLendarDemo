@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Nguyen Minh Trang
-	 last update: 29/03/2015
+	 last update: 31/03/2015
 	 type: calendar of week only template -->
 
 <div class="week">
@@ -22,17 +22,13 @@
 				<div class="row date">
 					{{day.origin.date}}
 				</div>
-				<div class="row over-event" data-ng-repeat="event in day.overEvent"
-						data-ng-style="event.style">
-					{{event.event.origin.summary}}
-				</div>
-				<div class="row all-event" data-ng-repeat="event in day.allEvent"
+				<div class="row" data-ng-repeat="event in day.events"
 						data-ng-style="event.style">
 					{{event.event.origin.summary}}
 				</div>
 			</div>
 		</div>
-		<div class="week-content">
+		<div class="week-content" data-ng-style="calendar.contentHeight">
 		<ion-content scrollbar-y=false>
 		<div class="row row-content">
 			<div class="hours">

@@ -1,7 +1,7 @@
 /**
 * starter: Can Duy Cat
 * owner: Nguyen Minh Trang
-* last update: 29/03/2015
+* last update: 31/03/2015
 * type: personal css
 */
 
@@ -183,29 +183,30 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    padding-top: 20px;
+	margin-top: 24px;
+	padding-bottom: 50px;
 }
 /* template week */
 .week {
 	width: 100%;
 	max-width: 500px;
-	height: 97%;
+	height: 100%;
 	margin: 0 auto;
 }
 	/* header */
 .week .header {
 	width: 100%;
 	max-width: 500px;
-	height: 6%;	
+	height: 8%;	
 	text-align: center;
 	color: #416969;
+	padding-top: 10px;
 }
 .week .header div {
 	font-size: 20px;
 	display: inline-block;
 	width: 80%;
 	max-width: 350px;
-	margin-top: 3%;
 }
 .week .header button {
 	background: 0;
@@ -216,9 +217,8 @@
 	/* content */
 .week .calendar {
 	width: 100%;
-	height: 94%;
+	height: 92%;
 	color: #416969;
-	position: relative;
 }
 .week .row, .week .col {
 	border: 0;
@@ -252,7 +252,7 @@
 	float: right;
 }
 .row.date {
-	min-height: 35px;
+	min-height: 30px;
 	width: 100%;
 	font-size: 38px;
 	padding-top: 5%;
@@ -260,8 +260,6 @@
 	/* calendar content */
 .week .calendar .week-content {
 	width: 100%;
-	height: 88%;
-	margin-top: 0;
 	border: 1px solid #e6e6e6;
 	background-color: white;
 	position: relative;
@@ -293,38 +291,13 @@
 /* events' CSS */
 .row.nor-event {
 	width: 12%;
-	padding-top: 5px;
+	padding-top: 2px;
 	padding-left: 5px;
 	margin-left: 5px;
 	text-align: left;
 	font-size: 15px;
 	color: white;
+	overflow: hidden;
 	position: absolute;
-	z-index: 1;
-}
-.row.nor-event .summary {
-	height: 95%;
-	overflow: hidden;
-}
-.week .all-event {
-	width: 100%;
-	height: 20px;
-	color: white;
-	text-align: left;
-	font-size: 15px;
-	border-radius: 3px;
-	overflow: hidden;
-	position: relative;
-	z-index: 1;
-}
-.week .over-event {
-	height: 20px;
-	font-size: 15px;
-	color: white;
-	border-radius: 3px;
-	overflow: hidden;
-	text-align: left;
-	margin-left: 5px;
-	position: relative;
 	z-index: 1;
 }
