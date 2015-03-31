@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 28/03/2015
+ * last update: 31/03/2015
  * type: personal css
  */
 
@@ -88,6 +88,25 @@
 .sort-option-div .last{ border-left: 1px solid #E6E6E6; }
 
 /*SEARCHING FILTER*/
+.meet-friends{
+    border-bottom: 1px solid #E6E6E6;
+    margin: -2px auto 7px auto;
+}
+.name-friends{
+    display: inline-block;
+    font-weight: bolder;
+    font-style: italic;
+    margin-top: -10px;
+    margin-bottom: 5px;
+}
+.name-friends:hover{
+    font-size: 15px;
+    color: #33CCCC;
+}
+.button-delete{
+    font-size: 12px;
+}
+
 #table03 { 
     border: 0; 
     margin-top: -2px; 
@@ -231,7 +250,7 @@
 .my-repeat-animation.ng-hide { opacity: 0;}
 
 /*LIST CALENDAR*/
-.table-list-calendar, .table-month-calendar {margin-top:-15px;}
+.table-list-calendar {margin-top:-15px;}
 #content-list-calendar { max-width: 500px; margin: -20px auto auto auto;}
 .list-calendar { width: 100%; max-width: 500px;}
 .td-list-calendar-1 {
@@ -309,19 +328,23 @@
     font-size: 20px;
     color: #416969;
 }
-.button-calendar.active, .button-calendar.activated { opacity: 0.3;}
+.button-calendar.active, .button-calendar.activated{ opacity: 0.3;}
 .button-calendar:before, .button-calendar:before {font-size: 15px; color: #646464;}
 .button-previous-month { margin-right: 12px;}  
 .button-next-month { margin-left: 12px;}
 .span-month-calendar {
     padding-top: 3px; 
-    width: 200px; 
+    width: 150px; 
     display: inline-block; 
     font-size: 18px; 
     font-weight: bold;
 }
-.td-header-month-calendar { 
-    width: 30px; 
+.table-month-calendar{
+    width: 60%;
+    max-width: 500px;
+    margin-top: -16px;
+}
+.td-header-month-calendar {
     color: black; 
     font-weight: bold; 
     text-align: center; 
@@ -331,13 +354,13 @@
 }
 .td-month-calendar {
    width: 30px; 
-   color: black; 
-   text-align: center; 
+   color: black;
    padding: 6px;
 }
 .td-month-calendar div, .different-month-color {
+    margin: auto auto auto auto; 
     width: 30px; 
-    height:30px; 
+    height: 30px; 
     text-align: center; 
     margin-top: -8px; 
     border-radius: 100px;
@@ -368,3 +391,20 @@
 .td-list-calendar-4 { color: #ffffff; padding-bottom: 5px;}
 .div-list-calendar-2 {min-width: 270px; max-width: 270px;}
 .day-has-event{ border: 1px solid #416969;}
+
+/*months list*/
+.table-months-list{
+    border: 1px solid black;
+    margin-top: 20px;
+    width: 60%;
+    max-width: 500px;
+}
+.td-months-list{
+    border: 1px solid black;
+    width: 20%;
+    text-align: center;
+}
+.p-months-list{
+    width: 100%;
+    margin: 27px auto 27px auto;
+}

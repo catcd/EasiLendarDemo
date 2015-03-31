@@ -1,13 +1,13 @@
 <!-- starter: Can Duy Cat
      owner: Ngo Duc Dung
-     last update: 28/03/2015 
+     last update: 31/03/2015 
      type: friend panel template -->
 <form data-ng-controller="friendPanelController">
 	<togglefriend>
 		<ion-header-bar class="bar-easi-gray">
 		    <button class="button button-clear easi-no-border easi-gray"><p class="easi-light-gray">Friends</p></button>
-		    <button id="refresh-list" class="button button-icon icon ion-loop easi-no-border easi-light-gray" style="color: #E6E6E6" data-ng-click="refreshList()"></button>
-		    <button class="button button-icon  icon ion-arrow-down-b easi-no-border easi-light-gray" style="color: #E6E6E6" data-ng-click="toggleFunc(); gotoTop()" sort-option is-visible="visible">
+		    <button id="refresh-list" class="button button-icon icon ion-loop easi-no-border easi-light-gray" data-ng-click="refreshList()"></button>
+		    <button class="button button-icon  icon ion-arrow-down-b easi-no-border easi-light-gray" data-ng-click="toggleFunc(); gotoTop()" sort-option is-visible="visible">
 		    </button>
 		</ion-header-bar>
 	</togglefriend>
@@ -18,6 +18,7 @@
 	        <input id="search-input" type="search" data-ng-model="searchFriend.name" placeholder="Search" opacity-search-input>
 	    </label>
 	</ion-footer-bar>
+	
 	<ion-content id="friendPanelContent">
 		<div id='top'></div>
 		<div id='top' class="sort-option-div easi-no-border" data-slide-toggle-friend="visible">
@@ -37,9 +38,9 @@
 				
 				<div class="div02 easi-no-border my-repeat-animation" data-slide-toggle-friend="visible">
 					<div class="easi-no-border" style="margin-right: 8px">
-						<button class="easi-no-border" ui-sref="searchFilter" menu-close>Date</button>
+						<button class="easi-no-border" data-ng-click="appointMeeting(friend)" ui-sref="searchFilter" menu-close>Date</button>
 						<button class="easi-no-border" data-ng-click="deleteFriend(friend)">Delete</button>
-						<button class="easi-no-border" data-ng-click="viewProfile(friend)" ui-sref="profile" menu-close>View</button>
+						<button class="easi-no-border" data-ng-click="viewProfile(friend)">View</button>
 					</div>
 				</div>
 				<hr id="hrFriendPanel">

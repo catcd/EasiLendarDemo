@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 29/03/2015
+ * last update: 31/03/2015
  * type: TimeHeap object, Time Node object
  */
 
@@ -12,6 +12,24 @@ angular.module('MainApp.shareds.timeHeap', [])
 		return new TimeNode(mStart, mEnd);
 	};
 	
+	/**
+	 *Constructor with an array of TimeNode objects
+     *and return a TimeNode object with max score
+	 */
+	$rootScope.maxNode = function(array){
+		var maxScore = 0;
+		var maxNode = null;
+		for(var i=array.length-1; i>=0; i--){
+			var node = new TimeNode(array[i].start, array[i].end);
+			if(node.getScore() > maxScore){
+					maxScore = node.getScore();
+					maxNode = node;
+			}
+		}
+
+		return maxNode;
+	};
+
 	$rootScope.newTimeHeap = function(mDate) {
 		return new TimeHeap(mDate);
 	};
@@ -23,20 +41,20 @@ angular.module('MainApp.shareds.timeHeap', [])
 	 * constructor: TimeNode(start, end); auto rate the time and save to score
 	 */
 	function TimeNode(mStart, mEnd){
-		
-		var scoreArray = [	{start: 0, end: 6, pts: 0},
-							{start: 6, end: 8, pts: 5}, {start: 8, end: 11, pts: 10},
-							{start: 11, end: 14, pts: 2}, {start: 14, end: 17, pts: 20},
-							{start: 17, end: 20, pts: 5}, {start: 20, end: 23, pts: 10}  ];
+		var scoreArray = [{start: 0, end: 119, pts: 15}, {start: 120, end: 359, pts: 0},
+						  {start: 360, end: 479, pts: 15}, {start: 480, end: 659, pts: 30},
+						  {start: 660, end: 839, pts: 20}, {start: 840, end: 1019, pts: 50},
+						  {start: 1020, end: 1199, pts: 20}, {start: 1200, end: 1439, pts: 15} 
+						 ];
 		//auto rate the time and save to score
 		var rateScore = function(start,end){
 			var sumPts = 0;
 
 			if( start.getDate() < end.getDate() ) {
 				var d = angular.copy(start);
-				var endDay = new Date(d.setHours(23,0,0,0));
+				var endDay = new Date(d.setHours(23,59,0,0));
 				var startDay = new Date(d.setHours(24,0,0,0));
-				sumPts = rateScore(start,endDay) + rateScore(startDay,end) - 9;
+				sumPts = rateScore(start,endDay) + rateScore(startDay,end) - 5*($rootScope.eSearchFilter.mDuration);
 			}
 			else if ( start.getDate() > end.getDate()) {
 				sumPts = rateScore(end, start);
@@ -45,20 +63,24 @@ angular.module('MainApp.shareds.timeHeap', [])
 				var startTime = start.getHours() * 60 + start.getMinutes();
 				var endTime = end.getHours() * 60 + end.getMinutes();
 				
-				if(startTime > endTime){ sumPts = rateScore(end,start); }
-				else{
-					for(var i=0; i < scoreArray.length; i++){
-						if(start.getHours() >= scoreArray[i].end || end.getHours() <= scoreArray[i].start) { continue; }
-						else {
-							if(i==0) { sumPts = sumPts; }
+				if (startTime == endTime) { sumPts += 0; }
+				else if (startTime < endTime) {
+					if(startTime == 0 && endTime == 1439){ sumPts += 28635; }
+					else{
+						for(var i=0; i < scoreArray.length; i++){
+							if(startTime > scoreArray[i].end || endTime < scoreArray[i].start) { continue; }
 							else {
-								sumPts = sumPts + ((end.getHours() < scoreArray[i].end ? endTime:(scoreArray[i].end*60))
-									     - (start.getHours() > scoreArray[i].start ? startTime:(scoreArray[i].start*60)))
-										 * scoreArray[i].pts;
+								if(i==1) { sumPts = sumPts; }
+								else {
+									sumPts = sumPts + ((endTime < scoreArray[i].end ? endTime:scoreArray[i].end)
+										     - (startTime > scoreArray[i].start ? startTime:scoreArray[i].start))
+											 * scoreArray[i].pts;
+								}
 							}
 						}
 					}
 				}
+				else{ sumPts = rateScore(end,start); }
 			}
 
 			return sumPts;
@@ -98,10 +120,8 @@ angular.module('MainApp.shareds.timeHeap', [])
 	 * constructor: TimeHeap(mDate); auto contruct the heap with this.date is Monday of the week has mDate
 	 */
 	//TimeHeap array before using pop 
-	var cache = new Array();
-
 	function TimeHeap(mDate){
-		//find monday of the week has mDate
+		/*find monday of the week has mDate
 		var findMonday = function(date){
 			var d = date;
 			var monday = d.getDate() - (d.getDay() == 0 ? 6:d.getDay()) + 1;
@@ -109,10 +129,10 @@ angular.module('MainApp.shareds.timeHeap', [])
 			return d;
 		};
 
-		this.date = findMonday(mDate);
+		this.date = findMonday(mDate);*/
 		this.timeList = new Array();
 		this.length = 0;
-		cache[this.date] = new Array();
+		this.cache = null;
 
 		//push an item to bottom of array
 		this.push = function(item){
@@ -131,7 +151,7 @@ angular.module('MainApp.shareds.timeHeap', [])
 				j = ( i - (i%2==0 ? 2:1) ) / 2;
 			}
 
-			cache[this.date] = angular.copy(this.timeList);
+			this.cache = angular.copy(this.timeList);
 		};
 
 		//return and delete an item on top of array
@@ -166,9 +186,8 @@ angular.module('MainApp.shareds.timeHeap', [])
 
 		//parameter is date in the week that want to back up
 		//return all item in array as before using pop
-		this.backUp = function(date){
-			var index = findMonday(date);
-			this.timeList = cache[index];
+		this.backUp = function(){
+			this.timeList = angular.copy(this.cache);
 		};
 
 		//return length of array
@@ -181,10 +200,10 @@ angular.module('MainApp.shareds.timeHeap', [])
 			return this.timeList[0];
 		};
 
-		//return date - monday of the week has mDate
+		/*return date - monday of the week has mDate
 		this.getDate = function(){
 			return this.date;
-		}
+		}*/
 	};
 
 })

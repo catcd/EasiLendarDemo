@@ -36,12 +36,19 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
     
       $scope.deleteFriend = function(friend){
           $scope.friends.splice($scope.friends.indexOf(friend),1);
+          cacheFriend = angular.copy($scope.friends);
+      }
+
+      $scope.appointMeeting = function(friend){
+          $rootScope.eFriend.fName = $scope.friends[$scope.friends.indexOf(friend)].name;
+          //$rootScope.goToState('searchFilter');
       }
 
       $scope.viewProfile = function(friend){
           $rootScope.eFriend.fName = $scope.friends[$scope.friends.indexOf(friend)].name;
           $rootScope.eFriend.fAvatar = $scope.friends[$scope.friends.indexOf(friend)].image;
           $rootScope.eFriend.fVip = $scope.friends[$scope.friends.indexOf(friend)].vip;
+          $rootScope.goToState('profile');
       }
 
       //auto scroll to top of panel
@@ -175,13 +182,13 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
   return{
     restrict: 'A',
     link: function(scope,element,attrs){
-      element.parent().addClass('search-friend-input-blur');
+      element.parent().parent().addClass('search-friend-input-blur');
       element.bind('focus',function(){
-        element.parent().removeClass('search-friend-input-blur');
-        element.parent().addClass('search-friend-input-focus');
+        element.parent().parent().removeClass('search-friend-input-blur');
+        element.parent().parent().addClass('search-friend-input-focus');
       });
       element.bind('blur',function(){
-        element.parent().addClass('search-friend-input-blur');
+        element.parent().parent().addClass('search-friend-input-blur');
       });
     }
   };

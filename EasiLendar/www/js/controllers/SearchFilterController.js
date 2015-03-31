@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 25/03/2015
+ * last update: 31/03/2015
  * type: paticular controller
  */
 
@@ -81,12 +81,13 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 		/*RESET VALUE*/
 		$scope.timeValues = resetValues;
 		$rootScope.eSearchFilter = {};
-
+    	$scope.cancelMeeting();
 		/* RESET FORM*/
 		form.$setPristine();
   		form.$setUntouched();
   		$scope.mShow = false;
   		$scope.titleOfButton = 'ADVANCE FILTER';
+  		$rootScope.goToState('profile');
 	};
 
 	$scope.mVip = true; //user is VIP
@@ -112,6 +113,16 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
     		$scope.timeValues.mDurationHour = 0;
     		$scope.timeValues.mDurationMinute = 15;
     	}
+    }
+
+    $scope.$watch("eFriend.fName",function(){
+    	if($rootScope.eFriend.fName !== ''){ $scope.showDelButton = true; }
+    });
+    //remove someone from list of people whose you are appointing the time to meet
+    $scope.cancelMeeting = function(){
+    	$rootScope.eFriend.fName = '';
+    	$scope.showDelButton = false;
+    	$rootScope.goToState('profile');
     }
 })
 

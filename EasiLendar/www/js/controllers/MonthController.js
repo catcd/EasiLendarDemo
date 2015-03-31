@@ -1,32 +1,51 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 29/03/2015
+ * last update: 30/03/2015
  * type: month controller
  */
 
 angular.module('MainApp.controllers.month', [])
 
-.controller("MonthController", function($scope, $rootScope /*, $document, $state*/) {
-    /*
-    $document.bind('click',function(){
-        $state.transitionTo($state.current, $stateParams, { 
-            reload: true, inherit: false, notify: false 
-        });
-    });*/
+.controller("MonthController", function($scope, $rootScope, $state) {
+	
+	//$rootScope.eSettings.sFirstDay
+	$scope.$watch('eSettings.sFirstDay',function(){
+		if($rootScope.eSettings.sFirstDay == 'Sunday') { 
+		$scope.daysInWeek = [{day: 'S'},{day: 'M'},{day: 'T'},{day: 'W'},{day: 'T'},{day: 'F'},{day: 'S'}];
+		}
+		if($rootScope.eSettings.sFirstDay == 'Monday') { 
+			$scope.daysInWeek = [{day: 'M'},{day: 'T'},{day: 'W'},{day: 'T'},{day: 'F'},{day: 'S'},{day: 'S'}];
+		}
+		if($rootScope.eSettings.sFirstDay == 'Saturday') { 
+			$scope.daysInWeek = [{day: 'S'},{day: 'S'},{day: 'M'},{day: 'T'},{day: 'W'},{day: 'T'},{day: 'F'}];
+		}
+	});	
     $scope.bkgClass = [
                     'easi-jan-bkg', 'easi-feb-bkg', 'easi-mar-bkg', 'easi-apr-bkg', 'easi-may-bkg', 'easi-jun-bkg',
                     'easi-jul-bkg', 'easi-aug-bkg', 'easi-sep-bkg', 'easi-oct-bkg', 'easi-nov-bkg', 'easi-dec-bkg'
                     ];
-    $scope.currentDate = new Date();
-    $scope.currentDateNumber = $scope.currentDate.getDate();
-    $scope.currentMonthNumber = $scope.currentDate.getMonth();
-    $scope.currentYear = $scope.currentDate.getFullYear();
-    $scope.dayInWeek = ($scope.currentDate.getDay()-1 <0)? 6:$scope.currentDate.getDay()-1;             
-    $scope.currentMonthString = $rootScope.months[$scope.currentMonthNumber];
-    $scope.currentDayInWeek = $rootScope.weekDays[$scope.dayInWeek];
-
+    $scope.allMonths = [
+                    {first: 0, second: 1, third: 2, fourth: 3},
+                    {first: 4, second: 5, third: 6, fourth: 7},
+                    {first: 8, second: 9, third: 10, fourth: 11}
+                    ];
+    //refresh calendar when return from other states
+    $rootScope.$on('$stateChangeStart', 
+        function(event, toState, toParams, fromState, fromParams){
+            if(toState.name == 'month'){
+                $scope.buildCurrentMonth();
+            }   
+    })
+    
     $scope.buildCurrentMonth = function(){
+        $scope.currentDate = new Date();
+        $scope.currentDateNumber = $scope.currentDate.getDate();
+        $scope.currentMonthNumber = $scope.currentDate.getMonth();
+        $scope.currentYear = $scope.currentDate.getFullYear();             
+        $scope.currentMonthString = $rootScope.months[$scope.currentMonthNumber];
+        $scope.position = new Date($scope.currentDate.getFullYear(),$scope.currentDate.getMonth(),$scope.currentDateNumber,0,0,0,0);
+        
         $scope.weeks = new Array(5);
         for(var i=0;i<5;i++){
             $scope.weeks[i] = {days: new Array(7)};
@@ -35,8 +54,8 @@ angular.module('MainApp.controllers.month', [])
             }
         }
         $scope.buildWeeks();
-    };
-
+    }
+	
     $scope.previousMonth = function(){
         $scope.currentMonthNumber = ($scope.currentMonthNumber-1 >= 0 ? 0 : 12) + ($scope.currentMonthNumber-1);
         $scope.currentMonthString = $rootScope.months[$scope.currentMonthNumber];
@@ -54,7 +73,18 @@ angular.module('MainApp.controllers.month', [])
     $scope.buildWeeks = function(){
         $scope.newWeeks = $scope.weeks;
         var firstDatePreviousMonth = new Date($scope.currentYear,$scope.currentMonthNumber,1);
-        var dayOfFirstDate = firstDatePreviousMonth.getDay(); 
+        var dayOfFirstDate = 0;
+    	if($rootScope.eSettings.sFirstDay == 'Sunday') { 
+			dayOfFirstDate = firstDatePreviousMonth.getDay();
+		}
+		if($rootScope.eSettings.sFirstDay == 'Monday') { 
+			dayOfFirstDate = firstDatePreviousMonth.getDay();
+			dayOfFirstDate += (dayOfFirstDate > 0 ? -1:6); 
+		}
+		if($rootScope.eSettings.sFirstDay == 'Saturday') { 
+			dayOfFirstDate = firstDatePreviousMonth.getDay();
+			dayOfFirstDate += (dayOfFirstDate < 6 ? 1:-6); 
+		} 
         var numberDaysPreviousMonth = (new Date($scope.currentYear,$scope.currentMonthNumber,0)).getDate();
         var numberDaysCurrentMonth = (new Date($scope.currentYear,$scope.currentMonthNumber+1,0)).getDate();
         var j = 0;
@@ -111,7 +141,7 @@ angular.module('MainApp.controllers.month', [])
         var className = 'bkg-style ' + $scope.bkgClass[index];
         return className;
     }
-    $scope.position = new Date($scope.currentDate.getFullYear(),$scope.currentDate.getMonth(),$scope.currentDateNumber,0,0,0,0);
+
     $scope.bkgE = 'bkg';
     $scope.showListEvent = function(day,month,year){
         if(month > $scope.currentMonthNumber){
@@ -124,11 +154,16 @@ angular.module('MainApp.controllers.month', [])
         }
         $scope.position = new Date(year,month,day,0,0,0,0);
     }
-    /*
-    //Test TimeHeap and TimeNode class
+
+    //months list in year
+    $scope.showMonthsList = false;
+    $scope.showMonthCalendar = true;
+
+    /*//Test TimeHeap and TimeNode class
     var toDay = new Date();
     var startDay = new Date();
     var endDay = new Date();
+    /*
     var start = new Date(startDay.setHours(14,0,0));
     var end = new Date(endDay.setHours(20,0,0));
     var node1 = $rootScope.newTimeNode(start,end);
@@ -141,31 +176,33 @@ angular.module('MainApp.controllers.month', [])
     start = new Date(startDay.setHours(7,0,0));
     end = new Date(endDay.setHours(23,0,0));
     var node4 = $rootScope.newTimeNode(start,end);
-    start = new Date(startDay.setHours(8,0,0));
-    end = new Date(endDay.setHours(23,0,0));
-    var node5 = $rootScope.newTimeNode(start,end);
-    start = new Date(startDay.setHours(1,0,0));
-    end = new Date(endDay.setHours(23,0,0));
-    var node6 = $rootScope.newTimeNode(start,end);
+    *//*
+    var arrayNode = [
+         {start: new Date(startDay.setHours(20,0,0)), end: new Date(endDay.setHours(21,0,0))  },
+         {start: new Date(startDay.setHours(22,0,0)), end: new Date(endDay.setHours(23,0,0))  }
+    ];
+    for(i=0; i<arrayNode.length;i++){
+        var node = $rootScope.newTimeNode(arrayNode[i].start, arrayNode[i].end);
+        alert(node.score);
+    }
+    var max = $rootScope.maxNode(arrayNode);
+    alert(max.start);
+    *//*
     //Test TimeHeap class
     var heap = $rootScope.newTimeHeap(toDay);
     heap.push(node1);
     heap.push(node2);
     heap.push(node3);
-    heap.push(node4);
-    heap.push(node5);
-    heap.push(node6);
+    heap.push(node4);/*
     for(var i = 0;i<heap.length; i++){
         alert(heap.timeList[i].score);
     }
-    
     var nodeMax = angular.copy(heap.pop());
-    nodeMax = angular.copy(heap.pop());
-    nodeMax = angular.copy(heap.pop());
-    nodeMax = angular.copy(heap.pop());
-    nodeMax = angular.copy(heap.pop());
     if(nodeMax !== undefined) { alert(nodeMax.score + '-' + heap.length); }
     else { alert('Can pop anymore'); }
+    alert(heap.timeList[0].score);
+    alert("---After back up---");
+    heap.backUp();
     alert(heap.timeList[0].score);
     alert(heap.timeList[1].score);*/
 })

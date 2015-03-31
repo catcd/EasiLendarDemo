@@ -1,22 +1,26 @@
 <!-- 
 	starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 25/03/2015
+	 last update: 31/03/2015
 	 type: html -->
 
 <ion-view title="Search filter">
     <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-chevron-left" data-ng-click="deleteValue(filter_form)" ui-sref="profile" menu-close>
+        <button class="button button-icon button-clear ion-chevron-left" data-ng-click="deleteValue(filter_form)">
         </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="button button-easi-blue" style="border: 0" data-ng-disabled="filter_form.$invalid" ui-sref="result" menu-close>
+        <button class="button button-easi-blue" style="border: 0" data-ng-disabled="filter_form.$invalid" data-ng-click="goToState('result')">
         Done</button>
     </ion-nav-buttons>
 
     <form name="filter_form">
         <ion-content padding="true">
         <div class="list">
+            <div class="meet-friends">You are appointing the time to meet:
+            <div class="name-friends">{{eFriend.fName}}
+            <i class="button-delete icon ion-close easi-no-border" data-ng-show="showDelButton" data-ng-click="cancelMeeting()"></i></div></div>
+
             <!--START: Commom Filter -->
             <div class="list list-inset">
                 <table id="table-duration-searching">
