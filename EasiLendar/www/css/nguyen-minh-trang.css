@@ -1,7 +1,7 @@
 /**
 * starter: Can Duy Cat
 * owner: Nguyen Minh Trang
-* last update: 23/03/2015
+* last update: 29/03/2015
 * type: personal css
 */
 
@@ -175,91 +175,99 @@
 	border-bottom: 0;
 }
 
-/* week */
-.week {
+/* week-calendar */
+.week-calendar {
 	width: 100%;
 	height: 100%;
-}
-
-.week.background {
-    background-size: cover;
+	background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    padding-top: 20px;
+}
+/* template week */
+.week {
+	width: 100%;
+	max-width: 500px;
+	height: 97%;
+	margin: 0 auto;
 }
 	/* header */
 .week .header {
 	width: 100%;
 	max-width: 500px;
-	height: 80px;
-	margin: 22px auto 0 auto;
+	height: 6%;	
 	text-align: center;
 	color: #416969;
-	padding: 25px 0 25px 0;
 }
 .week .header div {
 	font-size: 20px;
 	display: inline-block;
 	width: 80%;
-	max-width: 300px;
+	max-width: 350px;
+	margin-top: 3%;
 }
 .week .header button {
 	background: 0;
-	width: 8%;
 	border: 0;
+	width: 8%;
 	font-size: 25px;
 }
 	/* content */
 .week .calendar {
 	width: 100%;
-	max-width: 500px;
-	margin: 0 auto;
-	height: 82%;
-	background-color: white;
-	border: 1px solid #e6e6e6;
+	height: 94%;
 	color: #416969;
+	position: relative;
 }
-
 .week .row, .week .col {
 	border: 0;
-	border-collapse: collapse;
 	padding: 0;
 	margin: 0;
+	border-collapse: collapse;
 }
 .week .row {
 	width: 100%;
 	max-width: 500px;
 }
 	/* calendar header */
-.daytag {
-	border-collapse: collapse;
-	width: 92%;
-	max-width: 500px;
-	height: 60px;
-	float: right;
-}
-.row.day {
-	height: 40%;
-	width: 100%;
-	text-align: center;
-}
-.row.date {
-	height: 60%;
-	width: 100%;
-	text-align: left;
-	font-size: 30px;
-	border-bottom: 1px solid #e6e6e6;
-}
-.daytag .col {
+.daytag  .col {
 	border-left: 1px solid #e6e6e6;
 }
-	/* calendar content */
-.week ion-content {
+.row.daytag {
+	border-collapse: collapse;
 	width: 100%;
 	max-width: 500px;
-	height: 73%;
-	margin: 118px auto 0 auto;
-	border-top: 1px solid #e6e6e6;
+	background-color: white;
+	border: 1px solid #e6e6e6;
+	border-bottom: 0;
+}
+.daytag .empty {
+	width: 8%;
+}
+.row.day {
+	height: 25px;
+	width: 100%;
+	padding-left: 25%;
+	float: right;
+}
+.row.date {
+	min-height: 35px;
+	width: 100%;
+	font-size: 38px;
+	padding-top: 5%;
+}
+	/* calendar content */
+.week .calendar .week-content {
+	width: 100%;
+	height: 88%;
+	margin-top: 0;
+	border: 1px solid #e6e6e6;
+	background-color: white;
+	position: relative;
+}
+.week-content ion-content {
+	margin-top: -45px;
 }
 .row-content {
 	border-bottom: 1px solid #e6e6e6;
@@ -281,9 +289,8 @@
 .row.hourblock {
 	height: 40px;
 	border-bottom: 1px solid #e6e6e6;
-
 }
-/* all events' CSS */
+/* events' CSS */
 .row.nor-event {
 	width: 12%;
 	padding-top: 5px;
@@ -298,4 +305,26 @@
 .row.nor-event .summary {
 	height: 95%;
 	overflow: hidden;
+}
+.week .all-event {
+	width: 100%;
+	height: 20px;
+	color: white;
+	text-align: left;
+	font-size: 15px;
+	border-radius: 3px;
+	overflow: hidden;
+	position: relative;
+	z-index: 1;
+}
+.week .over-event {
+	height: 20px;
+	font-size: 15px;
+	color: white;
+	border-radius: 3px;
+	overflow: hidden;
+	text-align: left;
+	margin-left: 5px;
+	position: relative;
+	z-index: 1;
 }

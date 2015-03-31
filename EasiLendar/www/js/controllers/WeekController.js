@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 24/03/2015
+ * last update: 29/03/2015
  * type: home controller
  */
 
@@ -106,7 +106,7 @@ week.controller("WeekController", function($scope, $rootScope) {
 		this.hours = setHours();
 		
 		// array of (day-array of events)
-		this.items = items;		// pointer
+		this.items = items;
 		
 		// current week
 		this.curWeek = $rootScope.newWeek(null, $rootScope.eSettings.sFirstDay.slice(0,3)); 
@@ -144,7 +144,7 @@ week.controller("WeekController", function($scope, $rootScope) {
 	 */
 	function WeekDay(day) {
 		// the original day
-		this.origin = day;	// pointer
+		this.origin = day;
 		
 		/*
 		 * PRIVATE
@@ -162,7 +162,16 @@ week.controller("WeekController", function($scope, $rootScope) {
 							case "all": 
 								event[j++] = new AllEvent(this.origin.events[i]); break;
 							case "over": 
-								event[j++] = new OverEvent(this.origin.events[i]); break;
+								var start = this.origin.events[i].origin.start.dateTime;
+								// the first day OR first day of the week (the event across week)
+								var date = this.origin.date;
+								var year = this.origin.year;
+								var month = this.origin.month;
+								if (start.getFullYear() == year && start.getMonth() == month && start.getDate() == date
+										|| this.origin.day == $rootScope.eSettings.sFirstDay.slice(0,3)) 
+								{
+									event[j++] = new OverEvent(this.origin.events[i], this.origin);
+								}
 						}
 					}
 				} 
@@ -177,7 +186,6 @@ week.controller("WeekController", function($scope, $rootScope) {
 		this.allEvent = this.setEvent("all");
 		//array of over day events
 		this.overEvent = this.setEvent("over");
-		
 	}; // end of class WeekDay
 
 	/*
@@ -186,7 +194,7 @@ week.controller("WeekController", function($scope, $rootScope) {
 	 */
 	function NorEvent(event) {
 		// copy the original event
-		this.event = event;		// pointer
+		this.event = event;
 
 		// re-construct dateTime to calculate (mins)
 		this.start = $rootScope.newTime(event.origin.start.dateTime)
@@ -237,14 +245,56 @@ week.controller("WeekController", function($scope, $rootScope) {
 	 * event is the Object Event of rootScope
 	 */
 	function AllEvent(event) {
+		// copy the original event
+		this.event = event;
+		
+		this.style = {
+			"background-color": this.event.color,
+		};
 		
 	}; // end of class AllEvent
 	
 	/*
 	 * class OverEvent
 	 * event is the Object Event of rootScope
+	 * date is object Day (the first day of event or first day of week)
 	 */
-	function OverEvent(event) {
+	function OverEvent(event, date) {
+		// copy the original event
+		this.event = event;
 		
+		/*
+		 * PRIVATE
+		 * set the width of this event (in %)
+		 * depends on how many days
+		 * 1 day's width: 13%
+		 */
+		this.setWidth = function() {
+			var startDate = date.toDate();
+			var endDate = event.origin.end.dateTime;
+			var duration = endDate.getDate() - startDate.getDate() + 1;	// the remain duration of event since "date"
+			var startDay = (startDate.getDay()+6) % 7;	// 0(Mon) - 6(Sun)
+			var startOfWeek = $rootScope.eSettings.sFirstDay.slice(0,3);	// Mon - Sun
+
+			var endOfWeek = 6; // always is 6
+			switch(startOfWeek) {
+				case "Mon": break;	// Mon(0) - Sun(6)
+				case "Sat": startDay = (startDay+2)%7; break; // Sat(0) - Fri(6)
+				case "Sun": startDay = (startDay+1)%7; break;	// Sun(0) - Sat(6)
+			};
+			var tempDuration = endOfWeek - startDay + 1; // the duration within this week
+			
+			// if this event cross over the next week
+			if (duration >= tempDuration) {
+				return tempDuration*13 + "%";
+			} else {
+				return duration*13 + "%";
+			}
+		};
+		this.width = this.setWidth();
+		this.style = {
+			"width": this.width,
+			"background-color": this.event.color,
+		};
 	}; // end of class OverEvent
 });

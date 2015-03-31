@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Nguyen Minh Trang
-	 last update: 23/03/2015
+	 last update: 28/03/2015
 	 type: calendar template -->
 
 <ion-view title="EasiLendar">
@@ -12,46 +12,7 @@
         <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
     </ion-nav-buttons>
     
-    <div class="week background" data-ng-class="calendar.navBackground">
-    	<div class="header">
-    		<button class="icon ion-chevron-left easi-dark-blue" 
-                data-ng-click="calendar.prevWeek()"></button>
-            <div>{{calendar.navMonth+", "+calendar.navYear}}</div> 
-            <button class="icon ion-chevron-right easi-dark-blue" 
-                data-ng-click="calendar.nextWeek()"></button>  
-    	</div>
-    	
-    	<div class="calendar">
-    		<div class="daytag">
-    			<div class="row day">
-    				<div class="col" data-ng-repeat="day in calendar.navDays">
-    					{{day.origin.day}}
-    				</div>
-    			</div>
-    			<div class="row date">
-    				<div class="col" data-ng-repeat="day in calendar.navDays">
-    					{{day.origin.date}}
-    				</div>
-    			</div>
-			</div>
-			  		
-    		<ion-content scrollbar-y="false">
-    		  	<div class="row row-content">
-    				<div class="hours">
-    					<div class="hour" data-ng-repeat="x in calendar.hours">
-    						{{x}}
-    					</div>
-    				</div>
-    				<div class="col daycol" data-ng-repeat="day in calendar.navDays">
-    					<div class="row nor-event" data-ng-repeat="event in day.norEvent" 
-    						data-ng-style="event.style">
-    						<div class="summary">{{event.event.origin.summary}}</div>
-    					</div>
-						<div class="row hourblock"  data-ng-repeat="x in calendar.hours">
-						</div>
-    				</div>
-    		    </div>
-    		</ion-content>
-    	</div>
+    <div class="week-calendar" data-ng-class="calendar.navBackground">
+    	<easi-week></easi-week>
     </div>
 </ion-view>
