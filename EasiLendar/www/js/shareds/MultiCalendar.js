@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 26/03/2015
+ * last update: 01/04/2015
  * type: multi calendar object and specific function for calendar
  */
 
@@ -32,25 +32,29 @@ multiCalendar.run(function($rootScope) {
 			var cal = [];
 			if (items == null) return null;
 			for (var i=0; i < items.length; i++) {
-				// items[i] is standard to compare with
-				for (var j in items[i]) {
-					var temp = new BusyDay(items[i][j]);
-					// if "j" doesn't has any normal event
-					if (temp.events == null) break;
+				if (items[i] != null) {
+					// items[i] is standard to compare with
+					for (var j in items[i]) {
+						var temp = new BusyDay(items[i][j]);
+						// if "j" doesn't has any normal event
+						if (temp.events == null) break;
 					
-					// go through others
-					for (var k = i+1; k < items.length; k++) {
-						// if items[k] doesn't have "j"
-						if (items[k][j] == null) { break; }
-						else {
-							temp = new BusyDay(temp.events,items[k][j]);
-							// delete it so it won't be compared next time
-							delete items[k][j];
+						// go through others
+						for (var k = i+1; k < items.length; k++) {
+							if (items[k] != null) {
+								// if items[k] doesn't have "j"
+								if (items[k][j] == null) { break; }
+								else {
+									temp = new BusyDay(temp.events,items[k][j]);
+									// delete it so it won't be compared next time
+									delete items[k][j];
+								}
+							}
 						}
+						cal[j] = temp.events;
+						// delete it so it won't be compared next time
+						delete items[i][j];
 					}
-					cal[j] = temp.events;
-					// delete it so it won't be compared next time
-					delete items[i][j];
 				}
 			}
 			return cal;
@@ -76,7 +80,7 @@ multiCalendar.run(function($rootScope) {
 			// combine 2 array into 1 array list
 			if (day1 != null) {
 				for (var i=0; i < day1.length; i++) {
-					list[list.length] = day1[i];
+					list[i] = day1[i];
 				}
 			}
 			if (day2 != null) {
@@ -103,14 +107,14 @@ multiCalendar.run(function($rootScope) {
 			// convert all event to BusyEvent
 			for (var i=0; i < list.length; i++) {
 				list[i] = new BusyEvent(list[i].start, list[i].end);
-				if (list[i].start == null) {
-					for (var j = i+1; j < list.length; j++) {
-						list[j-1] = list[j];
-					}
-					delete list[list.length];
+			}
+			var tempList = [];
+			for (var i=0; i < list.length; i++) {
+				if (list[i].start != null) {
+					tempList[tempList.length] = list[i];
 				}
 			}
-			return list;
+			return tempList;
 		};
 		
 		/*
@@ -125,7 +129,7 @@ multiCalendar.run(function($rootScope) {
 			for (var i=1; i < list.length; i++) {
 				// if we can combime list[i] and temp as 1 busy event
 				if (list[i].start.dateTime <= temp.end.dateTime) {
-					// list[i] is inside temp's interval
+					// list[i] is not completely inside temp's interval
 					if (list[i].end.dateTime >= temp.end.dateTime) {
 						temp = new BusyEvent(temp.start, list[i].end);
 					}
@@ -158,9 +162,10 @@ multiCalendar.run(function($rootScope) {
 			var endMonth = end.dateTime.getMonth();
 			var startYear = start.dateTime.getFullYear();
 			var endYear = end.dateTime.getFullYear();
+			var duration = end.dateTime.getHours() - start.dateTime.getHours();
 			// if not the same day
 			if (startDate != endDate || startMonth != endMonth
-					|| startYear != endYear) {
+					|| startYear != endYear || duration == 23) {
 				return false;
 			}
 			return true;
@@ -183,7 +188,7 @@ multiCalendar.run(function($rootScope) {
 				return end;
 			return null;
 		};
-		
+
 		this.start = this.setStart();
 		this.end = this.setEnd();
 	};
