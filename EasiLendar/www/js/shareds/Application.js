@@ -195,55 +195,6 @@ angular.module('MainApp.shareds.application', [])
 		});
 	}
 
-	// sign out function
-	// update data, reset setting, go to form.
-	$rootScope.signOutEasi = function() {
-		// update on database
-		$rootScope.update();
-
-		// Reset all data
-		// Setting
-		$rootScope.eSettings.sEvent = true;
-		$rootScope.eSettings.sHoliday = true;
-		$rootScope.eSettings.sBirthday = true;
-		$rootScope.eSettings.sLocalCalendar = true;
-		$rootScope.eSettings.sGmailCalendar = true;
-		$rootScope.eSettings.sDefaultView = 'month';
-		$rootScope.eSettings.sDayView = 'eventList';
-		$rootScope.eSettings.sFirstDay = 'Monday';
-		$rootScope.eSettings.sShowWeekNumber = true;
-		$rootScope.eSettings.sAutoSync = null;
-		$rootScope.eSettings.sSyncWith = 'both 3G and wifi';
-		$rootScope.eSettings.sDefaultDuration = 60;
-		$rootScope.eSettings.sDeviceTimeZone = true;
-		// User information
-		$rootScope.eUser.uID = '';
-		$rootScope.eUser.uName = '';
-		$rootScope.eUser.uAvatar = '0';
-		$rootScope.eUser.uEmail = '';
-		$rootScope.eUser.uPassword = '';
-		$rootScope.eUser.uRemember = false;
-		$rootScope.eUser.uFriend = [];
-		$rootScope.eUser.isLogin = false;
-		$rootScope.eUser.uGmailCalendar = null;
-		$rootScope.eUser.uLocalCalendar = null;
-
-		// Clear cache
-		// TODO
-
-		// change state
-		$rootScope.goToState("form");
-
-		// notice
-		toastrConfig.positionClass = 'toast-sign-out';
-		toastrConfig.preventDuplicates = true;
-
-		toastr.success('Sign out successfully!', {
-			timeOut: 3000,
-			extendedTimeout: 2000
-		});
-	}
-
 	// go home function
 	$rootScope.goHome = function() {
 		$rootScope.goToState($rootScope.eSettings.sDefaultView);
