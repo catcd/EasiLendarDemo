@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 30/03/2015
+ * last update: 02/04/2015
  * type: module all shared variables and functions used for this app
  */
 
@@ -171,8 +171,8 @@ angular.module('MainApp.shareds.application', [])
 			}
 			e.preventDefault();
 		} else if ($ionicHistory.backView()) {
-	        $ionicHistory.goBack();
-	    }
+			$ionicHistory.goBack();
+		}
 		return false;
 	}, 101);
 
@@ -209,5 +209,167 @@ angular.module('MainApp.shareds.application', [])
 		});
 		$state.go(state);
 		$rootScope.currentState = state;
+	}
+
+	// "hand-eyes" test for evaluate time
+	$rootScope.testEvaluate = function() {
+		console.log($rootScope.eUser.uGmailCalendar);
+		var mMCal = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar]);
+		console.log(mMCal);
+		var mStart = new Date(2015, 3, 1);
+		var mEnd = new Date(2015, 3, 3);
+		var mDuration = 60;
+		var mHeap = $rootScope.evaluateTime(mMCal, mStart, mEnd, mDuration);
+		console.log(mHeap);
+	}
+
+	/**
+	 * evaluate meeting time
+	 * return a timeHeap
+	 */
+	$rootScope.evaluateTime = function(mMCal, mStart, mEnd, mDuration) {
+		if(true) {
+			var mHeap = evaluateNormal(mMCal, mStart, mEnd, mDuration);
+		}
+
+		return mHeap;
+	}
+
+	var evaluateNormal = function(mMCal, mStart, mEnd, mDuration) {
+		// result Heap
+		var mHeap = $rootScope.newTimeHeap();
+
+		// pointer move from mStart to mEnd
+		var mCurrentDay = mStart;
+
+		// temp for event array
+		var arrayEvent = null;
+
+		// 2 busi events up and down
+		var upEvent = null;
+		var downEvent = null;
+
+		// temp day to move pointer
+		var tempDay = null;
+
+		// temp array to save list of time Node {start, end}
+		var tempArray = [];
+
+		while (mCurrentDay <= mEnd) {
+			// if (mMCal.calendar[mCurrentDay] == undefined) that day does not have any event
+			// so push to Heap step by step
+			// to reduce time
+			if (mMCal.calendar[mCurrentDay] == undefined) {
+				pushAllDay(mCurrentDay, mHeap);
+			}
+			// in the case that a day is not empty
+			else {
+				// get busi event
+				arrayEvent = mMCal.calendar[mCurrentDay];
+
+				// evaluate meeting time
+				// evaluate start of day
+				upEvent = arrayEvent[0];
+				downEvent = arrayEvent[0];
+				var i = 0;
+
+				// 3 variables to save year, month, date that start loop
+				// to reduce caculate time in while loop
+				var tYear = mCurrentDay.getFullYear();
+				var tMonth = mCurrentDay.getMonth();
+				var tDate = mCurrentDay.getDate();
+
+				while (new Date(tYear, tMonth, tDate, 0, i + mDuration) <= upEvent.start.dateTime) {
+					tempArray.push({
+						start: new Date(tYear, tMonth, tDate, 0, i),
+						end: new Date(tYear, tMonth, tDate, 0, i + mDuration)
+					});
+					i++;
+				}
+
+				mHeap.push($rootScope.maxNode(tempArray));
+				tempArray = [];
+
+				// evaluate middle of day
+				// if day has more than 1 busi event
+				if (arrayEvent.length > 1) {
+					for (var i = 1; i < arrayEvent.length; i++) {
+						upEvent = downEvent;
+						downEvent = arrayEvent[i];
+
+						var i = 0;
+						// 5 variables to save year, month, etc that start loop
+						// to reduce caculate time in while loop
+						var tYear = upEvent.end.dateTime.getFullYear();
+						var tMonth = upEvent.end.dateTime.getMonth();
+						var tDate = upEvent.end.dateTime.getDate();
+						var tHour = upEvent.end.dateTime.getHours();
+						var tMinutes = upEvent.end.dateTime.getMinutes();
+
+						while (new Date(tYear, tMonth, tDate, tHour, tMinutes + i + mDuration) <= downEvent.start.dateTime) {
+							tempArray.push({
+								start: new Date(tYear, tMonth, tDate, tHour, tMinutes + i),
+								end: new Date(tYear, tMonth, tDate, tHour, tMinutes + i + mDuration)
+							});
+							i++;
+						}
+
+						mHeap.push($rootScope.maxNode(tempArray));
+						tempArray = [];
+					}
+				}
+
+				// evaluate end of day
+				var i = 0;
+				// 5 variables to save year, month, etc that start loop
+				// to reduce caculate time in while loop
+				var tYear = downEvent.end.dateTime.getFullYear();
+				var tMonth = downEvent.end.dateTime.getMonth();
+				var tDate = downEvent.end.dateTime.getDate();
+				var tHour = downEvent.end.dateTime.getHours();
+				var tMinutes = downEvent.end.dateTime.getMinutes();
+
+				while (new Date(tYear, tMonth, tDate, tHour, tMinutes + i + mDuration) <= new Date(tYear, tMonth, tDate + 1)) {
+					tempArray.push({
+						start: new Date(tYear, tMonth, tDate, tHour, tMinutes + i),
+						end: new Date(tYear, tMonth, tDate, tHour, tMinutes + i + mDuration)
+					});
+					i++;
+				}
+
+				mHeap.push($rootScope.maxNode(tempArray));
+				tempArray = [];
+			}
+			mCurrentDay = $rootScope.tomorrow(mCurrentDay);
+		}
+
+		return mHeap;
+	}
+
+
+	// function to push timeNode to timeHeap step by step
+	// in order to reduce while loop to reduce time
+	var pushAllDay = function(mDate, mHeap) {
+		mHeap.push($rootScope.newTimeNode(mDate, $rootScope.tomorrow(mDate)));
+	}
+
+	// Function to caculate a time in what part of day
+	// return 0: 12: 00 am to 5: 59 am 0 pts
+	// return 1: 6: 00 am to 7: 59 am + 15 pts
+	// return 2: 8: 00 am to 10: 59 am + 30 pts
+	// return 3: 11: 00 am to 13: 59 pm + 20 pts
+	// return 4: 14: 00 pm to 16: 59 pm + 50 pts
+	// return 5: 17: 00 pm to 19: 59 pm + 20 pts
+	// return 6: 20: 00 pm to 12: 00 am + 15 pts
+	var whatPart = function(mHour) {
+		switch (mHour) {
+			case 0: case 1: case 2: case 3: case 4: case 5: return 0;
+			case 6: case 7: return 1;
+			case 8: case 9: case 10: return 2;
+			case 11: case 12: case 13: return 3;
+			case 14: case 15: case 16: return 4;
+			case 17: case 18: case 19: return 5;
+			case 20: case 21: case 22: case 23: return 6;
+		};
 	}
 })

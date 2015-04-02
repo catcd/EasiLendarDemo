@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 21/03/2015
+ * last update: 02/04/2015
  * type: module all shared variables and functions use for calendar
  */
 
@@ -37,4 +37,21 @@ angular.module('MainApp.shareds.calendar', [])
 			return 0;
 		};
 	};
+
+	/*
+	 * Caculate the next and previous day of one day
+	 */
+	// tomorrow of Date
+	$rootScope.tomorrow = function(today) {
+		var d = today.getTime();
+		var result = new Date (d + 86400000); // 86400000 is number of miliseconds in a day
+		return result;
+	}
+
+	// yesterday of Date:
+	$rootScope.yesterday = function(today) {
+		var d = today.getTime();
+		var r = new Date (d - 86400000); // 86400000 is number of miliseconds in a day
+		return r;
+	}
 })
