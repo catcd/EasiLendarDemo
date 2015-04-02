@@ -19,7 +19,7 @@ multiCalendar.run(function($rootScope) {
 	
 	/*
 	 * class MultiCal
-	 * items is array of all calendar
+	 * items is array of all calendar (pointer)
 	 * calendar is the array itself
 	 */
 	function MultiCal(items) {
@@ -29,25 +29,26 @@ multiCalendar.run(function($rootScope) {
 		 */
 		var setMultiCal = function() {
 			// array of arrays of events
+			var tempItems = angular.copy(items);
 			var cal = [];
-			if (items == null) return null;
-			for (var i=0; i < items.length; i++) {
-				if (items[i] != null) {
-					// items[i] is standard to compare with
-					for (var j in items[i]) {
-						var temp = new BusyDay(items[i][j]);
+			if (tempItems == null) return null;
+			for (var i=0; i < tempItems.length; i++) {
+				if (tempItems[i] != null) {
+					// tempItems[i] is standard to compare with
+					for (var j in tempItems[i]) {
+						var temp = new BusyDay(tempItems[i][j]);
 						// if "j" doesn't has any normal event
 						if (temp.events == null) break;
 					
 						// go through others
-						for (var k = i+1; k < items.length; k++) {
-							if (items[k] != null) {
-								// if items[k] doesn't have "j"
-								if (items[k][j] == null) { break; }
+						for (var k = i+1; k < tempItems.length; k++) {
+							if (tempItems[k] != null) {
+								// if tempItems[k] doesn't have "j"
+								if (tempItems[k][j] == null) { break; }
 								else {
-									temp = new BusyDay(temp.events,items[k][j]);
+									temp = new BusyDay(temp.events,tempItems[k][j]);
 									// delete it so it won't be compared next time
-									delete items[k][j];
+									delete tempItems[k][j];
 								}
 							}
 						}
