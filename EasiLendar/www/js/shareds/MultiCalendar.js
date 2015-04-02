@@ -114,7 +114,7 @@ multiCalendar.run(function($rootScope) {
 			}
 			// convert all event to BusyEvent
 			for (var i=0; i < list.length; i++) {
-				list[i] = new BusyEvent(list[i].start, list[i].end);
+				list[i] = $rootScope.newBusyEvent(list[i].start, list[i].end);
 			}
 			var tempList = [];
 			for (var i=0; i < list.length; i++) {
@@ -139,7 +139,7 @@ multiCalendar.run(function($rootScope) {
 				if (list[i].start.dateTime <= temp.end.dateTime) {
 					// list[i] is not completely inside temp's interval
 					if (list[i].end.dateTime >= temp.end.dateTime) {
-						temp = new BusyEvent(temp.start, list[i].end);
+						temp = $rootScope.newBusyEvent(temp.start, list[i].end);
 					}
 				} else {
 					events[events.length] = temp;
@@ -151,53 +151,5 @@ multiCalendar.run(function($rootScope) {
 		};
 		// array of BusyEvent in this day
 		this.events = setEvent();
-	};
-	
-	/* 
-	 * simple event class
-	 * start, end are start, end of event object
-	 * or BusyEvent object
-	 */
-	function BusyEvent (start, end) {
-		/*
-		 * PRIVATE
-		 * true if in the same date
-		 */
-		var check = function() {
-			var startDate = start.dateTime.getDate();
-			var endDate = end.dateTime.getDate();
-			var startMonth = start.dateTime.getMonth();
-			var endMonth = end.dateTime.getMonth();
-			var startYear = start.dateTime.getFullYear();
-			var endYear = end.dateTime.getFullYear();
-			var duration = end.dateTime.getHours() - start.dateTime.getHours();
-			// if not the same day
-			if (startDate != endDate || startMonth != endMonth
-					|| startYear != endYear || duration == 23) {
-				return false;
-			}
-			return true;
-		};
-		
-		/*
-		 * PRIVATE
-		 */
-		this.setStart= function() {
-			if (start != null && check())
-				return start;
-			return null;
-		};
-		
-		/*
-		 * PRIVATE
-		 */
-		this.setEnd = function() {
-			if (end != null && check())
-				return end;
-			return null;
-		};
-
-		this.start = this.setStart();
-		this.end = this.setEnd();
-	};
+	};	
 });

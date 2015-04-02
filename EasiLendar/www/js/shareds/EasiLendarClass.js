@@ -45,6 +45,13 @@ easilendar.run(function($rootScope) {
 	$rootScope.newEvent = function(event) {
 		return new Event(event);
 	};
+	/* 
+	 * BusyEvent constructor function
+	 * start, end is Object {dateTime: ..., timeZone: ...}
+	 */
+	$rootScope.newBusyEvent = function(start, end) {
+		return new BusyEvent(start, end);
+	}
 	
 	/*
 	 * class Time 
@@ -71,6 +78,54 @@ easilendar.run(function($rootScope) {
 		this.minutes = toMinute();
 	};	// end of class Time
 	
+	/* 
+	 * PRIVATE
+	 * check same day
+	 */
+	var isNormal = function(start, end) {
+		var startDate = start.dateTime.getDate();
+		var endDate = end.dateTime.getDate();
+		var startMonth = start.dateTime.getMonth();
+		var endMonth = end.dateTime.getMonth();
+		var startYear = start.dateTime.getFullYear();
+		var endYear = end.dateTime.getFullYear();
+
+		// if not the same day
+		if (startDate != endDate || startMonth != endMonth
+				|| startYear != endYear || (end.dateTime.getHours()==23 && end.dateTime.getMinutes()==59)) {
+			return false;
+		}
+		return true;
+	};
+	
+	/* 
+	 * Class BusyEvent
+	 * start, end is Object {dateTime: ..., timeZone: ...}
+	 */
+	function BusyEvent (start, end) {
+		/*
+		 * PRIVATE
+		 */
+		this.setStart= function() {
+			if (start != null && isNormal(start, end))
+				return start;
+			return null;
+		};
+		
+		/*
+		 * PRIVATE
+		 */
+		this.setEnd = function() {
+			if (end != null && isNormal(start, end))
+				return end;
+			return null;
+		};
+
+		this.start = this.setStart();
+		this.end = this.setEnd();
+		this.summary = "Busy";
+	}; // end of class BusyEvent
+	
 	/*
 	 * Class Event
 	 * event is the original object of Google
@@ -78,7 +133,7 @@ easilendar.run(function($rootScope) {
 	 */
 	function Event(event) {
 		// copy of event
-		this.origin = event;	// pointer
+		this.origin = angular.copy(event);	// pointer
 
 		/*
 		 * PRIVATE
@@ -105,7 +160,7 @@ easilendar.run(function($rootScope) {
 					return "all";
 				}
 				// check 'over'
-				else if (startDate != endDate) {
+				else if (!isNormal(event.start, event.end)) {
 					return "over";
 				}
 				// check 'normal'

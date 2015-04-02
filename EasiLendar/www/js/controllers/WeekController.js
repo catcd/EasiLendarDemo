@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 31/03/2015
+ * last update: 02/04/2015
  * type: home controller
  */
 
@@ -9,18 +9,50 @@ var week = angular.module('MainApp.controllers.week', []);
 
 week.controller("WeekController", function($scope, $rootScope) {
 	
-	$scope.calendar = new WeekCalendar($rootScope.eUser.uGmailCalendar);
-	$scope.calendar.setNavDays();
+	// Create a calendar that display user's calendar
+	$scope.myCalendar = function() {
+		$scope.calendar = new WeekCalendar($rootScope.eUser.uGmailCalendar);
+		$scope.calendar.setNavDays();
+	};
+	// Create a calendar that display user's friend's calendar (Busy calendar)
+	$scope.friendCalendar = function() {
+		$scope.calendar = new WeekCalendar($rootScope.eFriend.fMultiCal);
+		$scope.calendar.setNavDays();
+	};
+	// Create a calendar that display multi calendar when searching for meeting
+	$scope.multiCalendar = function() {
+		var multiCal = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal]);
+		$scope.calendar = new WeekCalendar(multiCal);
+		$scope.calendar.setNavDays();
+	};
+	
+	switch ($rootScope.currentState) {
+		case 'week' : $scope.myCalendar(); break;
+		case 'result' : $scope.multiCalendar(); break;
+		case 'profile' : $scope.friendCalendar(); break;
+	};
 	
 	// watch for changes in eUser.uGmailCalendar 
 	$scope.$watch('eUser.uGmailCalendar', function() {
-		$scope.calendar = new WeekCalendar($rootScope.eUser.uGmailCalendar);
-		$scope.calendar.setNavDays();
+		if ($rootScope.currentState == 'week') {
+			$scope.myCalendar();
+		} else {
+			$scope.multiCalendar();
+		}
 	});
+	
+	// watch for changes in eFriend.fMultiCal
+	$scope.$watch('eFriend.fMultiCal', function() {
+		$scope.multiCalendar();
+	});
+	
 	// watch for changes in eSettings.sFirstDay
 	$scope.$watch('eSettings.sFirstDay', function() {
-		$scope.calendar = new WeekCalendar($rootScope.eUser.uGmailCalendar);
-		$scope.calendar.setNavDays();
+		switch ($rootScope.currentState) {
+			case 'week' : $scope.myCalendar(); break;
+			case 'result' : $scope.multiCalendar(); break;
+			case 'profile' : $scope.friendCalendar(); break;
+		};
 	});
 	
 	/*
@@ -84,6 +116,22 @@ week.controller("WeekController", function($scope, $rootScope) {
 				// convert object Event  to Event
 				this.navDays[i] = new WeekDay(this.navDays[i]);	// object WeekDay
 	    	}
+			
+			switch ($rootScope.currentState) {
+				case 'week' : break;
+				case 'result' : case 'profile' :
+					for (var i=0; i < this.navDays.length; i++) {
+						this.navDays[i].events = null;
+						if (this.navDays[i].norEvent != null) {
+							for (var j=0; j < this.navDays[i].norEvent.length; j++) {
+								this.navDays[i].norEvent[j].event.origin.summary = "Busy";
+								this.navDays[i].norEvent[j].style['background-color'] = "#666";
+							}
+						}
+					}
+				break;
+			};
+			
 			// very complicate
 			for (var i=0; i < 7; i++) {
 				if (this.navDays[i].events != null) {
@@ -238,7 +286,7 @@ week.controller("WeekController", function($scope, $rootScope) {
 		};
 		
 		// array of allday, overday and empty events
-		this.events = this.setEvent();
+		this.events = $rootScope.currentState == 'week'?this.setEvent() : null;
 		// array of normal event
 		this.norEvent = this.setEvent("normal");
 	}; // end of class WeekDay
@@ -252,7 +300,7 @@ week.controller("WeekController", function($scope, $rootScope) {
 		this.event = event;
 
 		// re-construct dateTime to calculate (mins)
-		this.start = $rootScope.newTime(event.origin.start.dateTime)
+		this.start = $rootScope.newTime(event.origin.start.dateTime);
 		
 		// re-construct dateTime to calculate (mins)
 		this.end = $rootScope.newTime(event.origin.end.dateTime);
