@@ -29,8 +29,13 @@ multiCalendar.run(function($rootScope) {
 		 */
 		var setMultiCal = function() {
 			// copy items because it's pointer
-			var tempItems = angular.copy(items);
-			
+			var tempItems = [];
+			for (var i=0; i < items.length; i++) {
+				tempItems[i] = [];
+				for (var x in items[i]) {
+					tempItems[i][x] = angular.copy(items[i][x]);
+				}
+			}
 			// array of arrays of events
 			var cal = [];
 			if (tempItems == null) return null;
