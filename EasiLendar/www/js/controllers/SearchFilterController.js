@@ -1,13 +1,93 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 31/03/2015
+ * last update: 2/4/2015
  * type: paticular controller
  */
 
-angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
+angular.module('MainApp.controllers.searchFilter', [])
 
-.controller("SearchFilterController", function($rootScope, $scope, $ionicPopup) {
+//Service for google-map
+.service('Map',function($q){
+	this.init = function(){
+		//Create a map
+		var mapOptions = {
+            zoom: 13
+		};
+
+		this.map = new google.maps.Map(
+			document.getElementById("map"), mapOptions
+		);
+
+		this.places = new google.maps.places.PlacesService(this.map);
+		/*
+		//Get current location of client
+		if(navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+			this.pos = new google.maps.LatLng(position.coords.latitude,
+												position.coords.longitude);
+
+			var infowindow = new google.maps.InfoWindow({
+				map: this.map,
+				position: this.pos,
+				content: 'Your current location.'
+			});
+
+		    this.map.setCenter(pos);
+			}, function() {
+				handleNoGeolocation(true);
+			});
+		}	
+		else {
+			// Browser doesn't support Geolocation
+			handleNoGeolocation(false);
+		}*/
+	}
+	/*
+	this.handleNoGeolocation = function(errorFlag) {
+		if (errorFlag) {
+			var content = 'Error: The Geolocation service failed.';
+		} 
+		else {
+			var content = "Error: Your browser doesn't support geolocation.";
+		}
+
+		var options = {
+			map: this.map,
+			position: new google.maps.LatLng(60, 105),
+			content: content
+		};
+
+		var infowindow = new google.maps.InfoWindow(options);
+		this.map.setCenter(options.position);
+	}*/
+
+	this.search = function(str){
+		var d = $q.defer();
+		this.places.textSearch({query: str}, function(results,status){
+			if(status == 'OK'){
+				d.resolve(results[0]);
+			}
+			else d.reject(status);
+		});
+		return d.promise;
+	}
+
+	this.addMarker = function(res){
+		if(this.marker) this.marker.setMap(null);
+		this.marker = new google.maps.Marker({
+			map: this.map,
+			position: res.geometry.location,
+			animation: google.maps.Animation.DROP
+		});
+		
+		this.map.setCenter(res.geometry.location);
+	}
+
+	//google.maps.event.addDomListener(window, 'load', this.init);
+})		
+
+.controller("SearchFilterController", function($rootScope, $scope, $ionicPopup, Map) {
    		/*
    		$rootScope.eSearchFilter = {
 			mTitle:'',
@@ -33,7 +113,7 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 		mFromDay: null,
 		mToDay: null
 	};
-	var resetValues = $scope.timeValues;
+	var resetValues = angular.copy($scope.timeValues);
 
 	$scope.priorityTimes = [
 						{ name: 'Breakfast', values: null, index: 0},
@@ -77,11 +157,18 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
 			$rootScope.eSearchFilter.mDuration = $scope.timeValues.mDurationHour*60 + $scope.timeValues.mDurationMinute;
 		}
 	};
+
+	$scope.submit = function(form) {
+        if (form.$valid) {
+		   $rootScope.goToState('result');
+		}
+    };
+
 	$scope.deleteValue = function(form){
 		/*RESET VALUE*/
-		$scope.timeValues = resetValues;
+		$scope.timeValues = angular.copy(resetValues);
 		$rootScope.eSearchFilter = {};
-    	$scope.cancelMeeting();
+		$scope.list = new Array();
 		/* RESET FORM*/
 		form.$setPristine();
   		form.$setUntouched();
@@ -90,13 +177,13 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
   		$rootScope.goToState('profile');
 	};
 
-	$scope.mVip = true; //user is VIP
+	$scope.mVip = 1;
 	$scope.mShow = false;
 	$scope.showDay = true;
 	$scope.showTime = false;
   	$scope.titleOfButton = 'ADVANCE FILTER';
     $scope.toggleFunc = function(){
-    	if($scope.mVip == true){
+    	if($scope.mVip == 1){
             $scope.mShow = !$scope.mShow;
             if($scope.mShow == true) {$scope.titleOfButton = 'End';}
             else {$scope.titleOfButton = 'ADVANCE FILTER';}
@@ -115,15 +202,37 @@ angular.module('MainApp.controllers.searchFilter', ['ngAnimate'])
     	}
     }
 
+    //Add someone whose you want to appoint the time to meet
     $scope.$watch("eFriend.fName",function(){
-    	if($rootScope.eFriend.fName !== ''){ $scope.showDelButton = true; }
+    	if($rootScope.eFriend.fName !== ''){ 
+    		$scope.showButtonDelete = true;
+    	}
+    	else { $scope.showButtonDelete = false; }
     });
-    //remove someone from list of people whose you are appointing the time to meet
+    //remove
     $scope.cancelMeeting = function(){
     	$rootScope.eFriend.fName = '';
-    	$scope.showDelButton = false;
-    	$rootScope.goToState('profile');
     }
+    
+    //Google Map
+    $scope.place = {};
+	$scope.search = function(){
+		$scope.apiError = false;
+		Map.search($rootScope.eSearchFilter.mLocation).then(
+			function(res){
+				Map.addMarker(res);
+				$scope.place.name = res.name;
+				$scope.place.lat = res.geometry.location.lat();
+				$scope.place.lng = res.geometry.location.lng();
+			},
+			function(status){
+				$scope.apiError = true;
+				$scope.apiStatus = status;
+			}
+		);
+	}
+
+	Map.init();
 })
 
 .directive('checkUncheckRadio', function($rootScope){

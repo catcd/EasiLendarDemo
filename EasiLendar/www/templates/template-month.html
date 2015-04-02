@@ -2,41 +2,44 @@
 	 owner: Ngo Duc Dung
 	 last update: 30/03/2015
 	 type: calendar template -->
-	 
 <div class="title-month-calendar" data-ng-init="buildCurrentMonth()">
-    <a class="button-calendar button-previous-month icon ion-chevron-left easi-gray" 
-    data-ng-click="previousMonth()" check-first-day="currentMonthNumber"></a>
+    <a class="button-calendar button-previous-month icon ion-chevron-left easi-gray" data-ng-click="previousMonth()" check-first-day="currentMonthNumber"></a>
     <span class="span-month-calendar">{{currentMonthString}}, {{currentYear}}</span>
-    <a class="button-calendar button-next-month icon ion-chevron-right easi-gray" 
-    data-ng-click="nextMonth()" check-first-day="currentMonthNumber"></a>  
+    <a class="button-calendar button-next-month icon ion-chevron-right easi-gray" data-ng-click="nextMonth()" check-first-day="currentMonthNumber"></a>
 </div>
-
 <div scrollbar-y="false" class="month-calendar">
-	<center><table class="table-months-list">
-		<tr data-ng-repeat="month in allMonths" data-ng-show="showMonthsList">
-	    	<td class="td-months-list"><p class="p-months-list">{{shortMonths[month.first]}}</p></td>
-	    	<td class="td-months-list"><p class="p-months-list">{{shortMonths[month.second]}}</p></td>
-	    	<td class="td-months-list"><p class="p-months-list">{{shortMonths[month.third]}}</p></td>
-	    	<td class="td-months-list"><p class="p-months-list">{{shortMonths[month.fourth]}}</p></td>
-	    </tr>
-	</table></center>
-
-	<center><table class="table-month-calendar" data-ng-show="showMonthCalendar">
-	    <tr class="tr-month-calendar">
-	        <td data-ng-repeat="day in daysInWeek" class="td-header-month-calendar">{{day.day}}</td>
-	    </tr>
-	    <tr data-ng-repeat="week in weeks">
-	        <td data-ng-repeat="day in week.days" class="td-month-calendar">
-	            <div data-different-month="day.month" data-current-day="day.numberDate"
-	            current-month="{{currentMonthNumber}}" current-year="{{currentYear}}"
-	            ng-click="showListEvent(day.numberDate,day.month,currentYear)">
-	                <input type="radio" value="true" id="{{day.month.toString()+day.numberDate.toString()}}" name="{{currentMonthNumber}}">
-	                <label for="{{day.month.toString()+day.numberDate.toString()}}"
-	                day-has-event="eUser.uGmailCalendar" date="{{day.numberDate}}"
-	                month="{{day.month}}" year="{{currentYear}}">
-	                {{day.numberDate}}</label>
-	            </div>
-	        </td>
-	    </tr>
-	</table></center>
+    <center>
+        <table class="table-months-list">
+            <tr data-ng-repeat="month in allMonths" data-ng-show="showMonthsList">
+                <td class="td-months-list">
+                    <p class="p-months-list">{{shortMonths[month.first]}}</p>
+                </td>
+                <td class="td-months-list">
+                    <p class="p-months-list">{{shortMonths[month.second]}}</p>
+                </td>
+                <td class="td-months-list">
+                    <p class="p-months-list">{{shortMonths[month.third]}}</p>
+                </td>
+                <td class="td-months-list">
+                    <p class="p-months-list">{{shortMonths[month.fourth]}}</p>
+                </td>
+            </tr>
+        </table>
+    </center>
+    <center>
+        <table class="table-month-calendar" data-ng-show="showMonthCalendar">
+            <tr class="tr-month-calendar">
+                <td data-ng-repeat="day in daysInWeek" class="td-header-month-calendar">{{day.day}}</td>
+            </tr>
+            <tr data-ng-repeat="week in weeks">
+                <td data-ng-repeat="day in week.days" class="td-month-calendar">
+                    <div data-different-month="day.month" data-current-day="day.numberDate" current-month="{{currentMonthNumber}}" current-year="{{currentYear}}" ng-click="showListEvent(day.numberDate,day.month,currentYear)">
+                        <input type="radio" value="true" id="{{day.month.toString()+day.numberDate.toString()}}" name="{{currentMonthNumber}}">
+                        <label for="{{day.month.toString()+day.numberDate.toString()}}" day-has-event="eUser.uGmailCalendar" date="{{day.numberDate}}" month="{{day.month}}" year="{{currentYear}}">
+                            {{day.numberDate}}</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </center>
 </div>

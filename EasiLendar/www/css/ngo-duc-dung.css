@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 31/03/2015
+ * last update: 1/4/2015
  * type: personal css
  */
 
@@ -88,9 +88,7 @@
 .sort-option-div .last{ border-left: 1px solid #E6E6E6; }
 
 /*SEARCHING FILTER*/
-.meet-friends{
-    border-bottom: 1px solid #E6E6E6;
-    margin: -2px auto 7px auto;
+.meet-friends{ border-bottom: 1px solid #E6E6E6; margin: -2px auto 7px auto;
 }
 .name-friends{
     display: inline-block;
@@ -98,14 +96,10 @@
     font-style: italic;
     margin-top: -10px;
     margin-bottom: 5px;
+    margin-left: 5px;
 }
-.name-friends:hover{
-    font-size: 15px;
-    color: #33CCCC;
-}
-.button-delete{
-    font-size: 12px;
-}
+.name-friends:hover{ font-size: 15px; color: #33CCCC;}
+.button-delete { font-size: 12px;}
 
 #table03 { 
     border: 0; 
@@ -130,9 +124,9 @@
 #span01 { color: #646464; margin-left: 2px; display: inline-block;}
 #span02 { color: #646464; font-size: 14px;}
 #span03 { color: #646464; border: 0; font-size: 12px;}
-#input01, #inputTitle{ 
-    border: 0; 
-    margin-left: -5px; 
+#input01, #inputTitle{
+    margin-left: -10px;
+    margin-right: 10px; 
     margin-bottom: -3px; 
     margin-top: -5px;
 }
@@ -202,7 +196,7 @@
     height: 25px;
 }
 #icon-advance-filter { margin-left: 5px;}
-
+#map{width: 100%; height: 200px; margin-bottom: 20px;}
 /*segment button*/
 .segmented-button {
     border: 0;
@@ -235,14 +229,8 @@
 }
 
 /*validation*/
-#input01.ng-invalid, #input-time.ng-invalid { color: red; }
-#div00 {max-height: 20px;}
-#table-title-searching{ margin-top: -1px; width: 100%;}
-#td-title-searching {width: 10%; color: #646464}
-#td-error-title {width: 90%; text-align:right;}
-.error {color: red; font-size: 9px;}
-.error#error01 { margin-left: 10px;}
-.error#error02 { margin-left: -6px; }
+.filter-form.ng-submitted #inputTitle.ng-invalid{ background-color: #D65930; }
+.filter-form.ng-submitted #input01.ng-invalid{ color: #D65930; }
 
 /*show-hide*/
 .my-repeat-animation.ng-hide-add.ng-hide-add-active,
