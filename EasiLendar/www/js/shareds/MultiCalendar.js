@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 01/04/2015
+ * last update: 02/04/2015
  * type: multi calendar object and specific function for calendar
  */
 
@@ -28,8 +28,10 @@ multiCalendar.run(function($rootScope) {
 		 * set multiCalendar
 		 */
 		var setMultiCal = function() {
-			// array of arrays of events
+			// copy items because it's pointer
 			var tempItems = angular.copy(items);
+			
+			// array of arrays of events
 			var cal = [];
 			if (tempItems == null) return null;
 			for (var i=0; i < tempItems.length; i++) {
@@ -54,7 +56,7 @@ multiCalendar.run(function($rootScope) {
 						}
 						cal[j] = temp.events;
 						// delete it so it won't be compared next time
-						delete items[i][j];
+						delete tempItems[i][j];
 					}
 				}
 			}
