@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 02/04/2015
+ * last update: 03/04/2015
  * type: module all shared variables and functions used for this app
  */
 
@@ -216,8 +216,8 @@ angular.module('MainApp.shareds.application', [])
 		console.log($rootScope.eUser.uGmailCalendar);
 		var mMCal = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar]);
 		console.log(mMCal);
-		var mStart = new Date(2015, 3, 1);
-		var mEnd = new Date(2015, 3, 3);
+		var mStart = new Date(2015, 3, 3);
+		var mEnd = new Date(2015, 5, 3);
 		var mDuration = 60;
 		var mHeap = $rootScope.evaluateTime(mMCal, mStart, mEnd, mDuration);
 		console.log(mHeap);
@@ -287,15 +287,17 @@ angular.module('MainApp.shareds.application', [])
 					i++;
 				}
 
-				mHeap.push($rootScope.maxNode(tempArray));
+				if (tempArray.length != 0) {
+					mHeap.push($rootScope.maxNode(tempArray));
+				}
 				tempArray = [];
 
 				// evaluate middle of day
 				// if day has more than 1 busi event
 				if (arrayEvent.length > 1) {
-					for (var i = 1; i < arrayEvent.length; i++) {
+					for (var count = 1; count < arrayEvent.length; count++) {
 						upEvent = downEvent;
-						downEvent = arrayEvent[i];
+						downEvent = arrayEvent[count];
 
 						var i = 0;
 						// 5 variables to save year, month, etc that start loop
@@ -314,7 +316,9 @@ angular.module('MainApp.shareds.application', [])
 							i++;
 						}
 
-						mHeap.push($rootScope.maxNode(tempArray));
+						if (tempArray.length != 0) {
+							mHeap.push($rootScope.maxNode(tempArray));
+						}
 						tempArray = [];
 					}
 				}
@@ -337,7 +341,9 @@ angular.module('MainApp.shareds.application', [])
 					i++;
 				}
 
-				mHeap.push($rootScope.maxNode(tempArray));
+				if (tempArray.length != 0) {
+					mHeap.push($rootScope.maxNode(tempArray));
+				}
 				tempArray = [];
 			}
 			mCurrentDay = $rootScope.tomorrow(mCurrentDay);
