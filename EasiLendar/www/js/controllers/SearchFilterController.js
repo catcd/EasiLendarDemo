@@ -6,7 +6,7 @@
  */
 
 angular.module('MainApp.controllers.searchFilter', [])
-
+/*
 //Service for google-map
 .service('Map',function($q){
 	this.init = function(){
@@ -41,7 +41,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 		else {
 			// Browser doesn't support Geolocation
 			handleNoGeolocation(false);
-		}*/
+		}
 	}
 	/*
 	this.handleNoGeolocation = function(errorFlag) {
@@ -61,7 +61,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 		var infowindow = new google.maps.InfoWindow(options);
 		this.map.setCenter(options.position);
 	}*/
-
+		/*
 	this.search = function(str){
 		var d = $q.defer();
 		this.places.textSearch({query: str}, function(results,status){
@@ -84,10 +84,10 @@ angular.module('MainApp.controllers.searchFilter', [])
 		this.map.setCenter(res.geometry.location);
 	}
 
-	//google.maps.event.addDomListener(window, 'load', this.init);
-})		
+	google.maps.event.addDomListener(window, 'load', this.init);
+})*/
 
-.controller("SearchFilterController", function($rootScope, $scope, $ionicPopup, Map) {
+.controller("SearchFilterController", function($rootScope, $scope, $ionicPopup/*, Map*/) {
    		/*
    		$rootScope.eSearchFilter = {
 			mTitle:'',
@@ -213,7 +213,7 @@ angular.module('MainApp.controllers.searchFilter', [])
     $scope.cancelMeeting = function(){
     	$rootScope.eFriend.fName = '';
     }
-    
+    /*
     //Google Map
     $scope.place = {};
 	$scope.search = function(){
@@ -233,6 +233,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 	}
 
 	Map.init();
+	*/
 })
 
 .directive('checkUncheckRadio', function($rootScope){
