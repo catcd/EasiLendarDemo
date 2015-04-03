@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 02/04/2015
+ * last update: 03/04/2015
  * type: multi calendar object and specific function for calendar
  */
 
@@ -45,7 +45,7 @@ multiCalendar.run(function($rootScope) {
 					for (var j in tempItems[i]) {
 						var temp = new BusyDay(tempItems[i][j]);
 						// if "j" doesn't has any normal event
-						if (temp.events == null) break;
+						if (temp.events == null) continue;
 					
 						// go through others
 						for (var k = i+1; k < tempItems.length; k++) {
@@ -53,7 +53,7 @@ multiCalendar.run(function($rootScope) {
 								// if tempItems[k] doesn't have "j"
 								if (tempItems[k][j] == null) { break; }
 								else {
-									temp = new BusyDay(temp.events,tempItems[k][j]);
+									temp = new BusyDay(temp.events, tempItems[k][j]);
 									// delete it so it won't be compared next time
 									delete tempItems[k][j];
 								}
@@ -95,7 +95,7 @@ multiCalendar.run(function($rootScope) {
 				for (var i=0; i < day2.length; i++) {
 					list[list.length] = day2[i];
 				}
-			}				
+			}
 			// sort list array
 			for (var i=0; i < list.length; i++) {
 				var min = list[i];
@@ -122,6 +122,7 @@ multiCalendar.run(function($rootScope) {
 					tempList[tempList.length] = list[i];
 				}
 			}
+			if (tempList.length == 0) return null;
 			return tempList;
 		};
 		
@@ -133,21 +134,23 @@ multiCalendar.run(function($rootScope) {
 			if (day1 == null && day2 == null) return null;
 			var events = [];
 			var list = sort();	// list of all event (dateTime increasing)
-			var temp = list[0];
-			for (var i=1; i < list.length; i++) {
-				// if we can combime list[i] and temp as 1 busy event
-				if (list[i].start.dateTime <= temp.end.dateTime) {
-					// list[i] is not completely inside temp's interval
-					if (list[i].end.dateTime >= temp.end.dateTime) {
-						temp = $rootScope.newBusyEvent(temp.start, list[i].end);
+			if (list != null) {
+				var temp = list[0];
+				for (var i=1; i < list.length; i++) {
+					// if we can combime list[i] and temp as 1 busy event
+					if (list[i].start.dateTime <= temp.end.dateTime) {
+						// list[i] is not completely inside temp's interval
+						if (list[i].end.dateTime >= temp.end.dateTime) {
+							temp = $rootScope.newBusyEvent(temp.start, list[i].end);
+						}
+					} else {
+						events[events.length] = temp;
+						temp = list[i];
 					}
-				} else {
-					events[events.length] = temp;
-					temp = list[i];
 				}
+				events[events.length] = temp;
+				return events;
 			}
-			events[events.length] = temp;
-			return events;
 		};
 		// array of BusyEvent in this day
 		this.events = setEvent();

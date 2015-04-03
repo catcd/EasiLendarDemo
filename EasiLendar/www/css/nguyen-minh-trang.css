@@ -1,7 +1,7 @@
 /**
 * starter: Can Duy Cat
 * owner: Nguyen Minh Trang
-* last update: 02/04/2015
+* last update: 03/04/2015
 * type: personal css
 */
 
@@ -147,6 +147,10 @@
 	width: 100%;
 	height: 100%;
 	margin-top: 45px;
+	background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 .result .result-calendar {
 	width: 100%;
@@ -173,6 +177,10 @@
 	font-size: 20px;
 	text-align: left;
 	border-bottom: 1px solid #e6e6e6;
+}
+
+.result .next, .result .prev {
+	width: 49.5%;
 }
 
 /* week-calendar */

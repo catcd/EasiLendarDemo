@@ -11,14 +11,15 @@
         <button class="button button-easi-blue" data-ng-click="done()" menu-close>Done</button>
     </ion-nav-buttons>
 	
-	<div class="result">
+	<div class="result" data-ng-class="weekCalendar.navBackground">
 		<div class="result-calendar" scrollbar-y="false">
 			<easi-week></easi-week>
 		</div>
 		<ion-content class="options" scrollbar-y="false">
 			<ol class="list">
 				<button data-ng-repeat="x in options.list" class="item item-button button-block option" data-ng-click="options.selectOption(x)">{{x.display()}}</button>
-				<button class="button button-block button-easi-blue" data-ng-click="options.next()">Next</button>
+				<button class="button button-easi-blue prev" data-ng-click="options.prev()">Previous Week</button>
+				<button class="button button-easi-blue next" data-ng-click="options.next()">Next Week</button>
 			</ol>
 		</ion-content>
 	</div>

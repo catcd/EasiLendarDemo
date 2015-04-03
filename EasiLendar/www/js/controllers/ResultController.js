@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 02/04/2015
+ * last update: 03/04/2015
  * type: paticular controller
  */
 
@@ -15,57 +15,119 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 	$scope.done = function() {
 		$rootScope.goToState(link);
 	};
-	$rootScope.multiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal.calendar]);
-	$scope.$watch('eFriend.fMultiCal', function() {
-		$rootScope.multiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal.calendar]);
-	});
-	/*Class option */
-	function Option(score, date, from, to) {
-		/* Convert functions */
-		//Convert Date to dd/mm/yyyy format
-		var convertDate = function (date) {
+	
+	$rootScope.resultMultiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal.calendar]);
+	
+	$scope.weekCalendar = $rootScope.newWeekCalendar();
+	$scope.weekCalendar.setNavDays();
+	
+	$scope.navStart = new Date();	// today
+	$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();	// end of the week
+	
+	$scope.mHeap = $rootScope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
+	
+	$scope.options = {
+		list : [],
+		add : function(mHeap) {
+			if (mHeap != null) {
+				this.list = [];
+				for (var i=0; i < 5; i++) {
+			//		var max = mHeap.pop(); // Time Node
+			//		var option = new Option(max.start, max.end);
+				//	this.list.push(option);
+				}
+			}
+		},
+		selectOption : function(option) {
+			$scope.showAlert('Your meeting time: ' + option.display);
+		},
+		next : function() {
+			$scope.weekCalendar.nextWeek();
 			
-			return date;
+			if ($scope.weekCalendar.navDays[0].origin.toDate() >= new Date()) {
+				$scope.navStart = $scope.weekCalendar.navDays[0].origin.toDate();
+				$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
+				$scope.mHeap = $scope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
+			} else if ($scope.weekCalendar.navDays[6].origin.toDate() > new Date()) {
+				$scope.navStart = new Date();
+				$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
+				$scope.mHeap = $rootScope.evaluateTime($scope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
+			} else {
+				$scope.mHeap = null;
+			}
+			this.add($scope.mHeap);
+		},
+		prev : function() {
+			$scope.weekCalendar.prevWeek();
+			
+			if ($scope.weekCalendar.navDays[0].origin.toDate() >= new Date()) {
+				$scope.navStart = $scope.weekCalendar.navDays[0].origin.toDate();
+				$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
+				$scope.mHeap = $scope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
+			} else if ($scope.weekCalendar.navDays[6].origin.toDate() > new Date()) {
+				$scope.navStart = new Date();
+				$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
+				$scope.mHeap = $rootScope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
+			} else {
+				$scope.mHeap = null;
+			}
+			
+			this.add($scope.mHeap);
+		},
+	};
+	
+	$scope.options.add($scope.mHeap);
+	
+	// watch for changes in eFriend.fMultiCal
+	$scope.$watch('eFriend.fMultiCal', function() {
+		$rootScope.resultMultiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal.calendar]);
+		$scope.navStart = new Date();
+		$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
+		$scope.mHeap = $rootScope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
+		
+		$scope.options.add($scope.mHeap);
+	});
+
+	
+	/* Class option */
+	function Option(start, end) {
+		/* Convert functions */
+		// Convert Object Date to dd/mm/yyyy format
+		var convertDate = function (date) {
+			var year = date.getFullYear();
+			var month = date.getMonth(); 	// 0 - 11
+			var day = date.getDate();
+			if (day < 10) day = "0" + day;
+			if (month + 1 < 10) month = "0" + (month + 1);
+			return day + '/' + month + '/' + year;
 		};
-		//Convert time to hh:mm format
+		
+		// Convert time to hh:mm format
+		// time is Object date
 		var convertTime = function(time) {
-			if (typeof(time) != "number" || time < 0 || time > 1440) return "00:00";
-			var min = time%60;
-			var hour = (time-min)/60;
-			if (hour < 10) hour = "0"+hour;
-			if (min < 10) min = "0"+min;
-			return hour+":"+min;
+			var hour = time.getHours(); 	// 0 - 23
+			var min = time.getMinutes();  // 0 - 59
+			if (hour < 10) hour = "0" + hour;
+			if (min < 10) min = "0" + min;
+			return hour + ":" + min;
 		};
 		
 		/* initiate attributes */
-		this.score = score;
-		this.date = date;
-		this.from = convertTime(from);
-		this.to = convertTime(to);
+		this.date = convertDate(start);
+		this.from = convertTime(start);
+		this.to = convertTime(end);
 		
 		/* Display option */
 		this.display = function() {
-			return this.date + ": from " + this.from 
-			+ " - to " + this.to;
+			// not all day 
+			if (start.getDate() == end.getDate()) {
+				return this.date + ": from " + this.from 
+				+ " - to " + this.to;
+			}
+			// free all day
+			else {
+				return this.date + ": Any time";
+			}
 		};
-	};
-	
-	var op1 = new Option(1,"01/02/2015",150,300);
-	var op2 = new Option(2,"02/02/2015",840,1410);
-	var op3 = new Option(3,"06/02/2015",405,530);
-	var op4 = new Option(4,"10/02/2015",510,1110);
-	var op5 = new Option(5,"11/02/2015",900,1070);
-	$scope.options = {
-		list : [op1, op2, op3, op4, op5],
-		add : function(option) {
-			this.list.push(option);
-		},
-		selectOption : function(option) {
-			$scope.showAlert("You selected option "+ option.score);
-		},
-		next : function() {
-			$scope.showAlert("You click next");
-			$rootScope.goToState('week');
-		},
-	};
+	};	// end of class Option
 });
