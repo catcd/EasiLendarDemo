@@ -18,8 +18,8 @@
 		<ion-content class="options" scrollbar-y="false">
 			<ol class="list">
 				<button data-ng-repeat="x in options.list" class="item item-button button-block option" data-ng-click="options.selectOption(x)">{{x.display()}}</button>
-				<button class="button button-easi-blue prev" data-ng-click="options.prev()">Previous Week</button>
-				<button class="button button-easi-blue next" data-ng-click="options.next()">Next Week</button>
+				<button class="button button-easi-blue prev float-left" data-ng-click="options.prev()">Previous Week</button>
+				<button class="button button-easi-blue next float-right" data-ng-click="options.next()">Next Week</button>
 			</ol>
 		</ion-content>
 	</div>

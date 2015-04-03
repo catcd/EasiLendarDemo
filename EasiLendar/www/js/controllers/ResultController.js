@@ -16,25 +16,31 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 		$rootScope.goToState(link);
 	};
 	
+	// the multiCalendar combine this user calendar with user's friend's calendar
 	$rootScope.resultMultiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal.calendar]);
 	
+	// this scope's week calendar
 	$scope.weekCalendar = $rootScope.newWeekCalendar();
 	$scope.weekCalendar.setNavDays();
 	
-	$scope.navStart = new Date();	// today
+	var date = new Date();	// today
+	$scope.navStart = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 	$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();	// end of the week
 	
+	// the options heap
 	$scope.mHeap = $rootScope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
 	
+	// options object
 	$scope.options = {
 		list : [],
 		add : function(mHeap) {
-			if (mHeap != null) {
+			if (mHeap != null) {console.log(mHeap);
 				this.list = [];
 				for (var i=0; i < 5; i++) {
-			//		var max = mHeap.pop(); // Time Node
-			//		var option = new Option(max.start, max.end);
-				//	this.list.push(option);
+					var max = mHeap.pop(); // Time Node 
+					console.log(max);
+					var option = new Option(max.start, max.end);
+					this.list.push(option);
 				}
 			}
 		},
@@ -49,7 +55,8 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 				$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
 				$scope.mHeap = $scope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
 			} else if ($scope.weekCalendar.navDays[6].origin.toDate() > new Date()) {
-				$scope.navStart = new Date();
+				var date = new Date();	// today
+				$scope.navStart = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 				$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
 				$scope.mHeap = $rootScope.evaluateTime($scope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
 			} else {
@@ -65,7 +72,8 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 				$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
 				$scope.mHeap = $scope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
 			} else if ($scope.weekCalendar.navDays[6].origin.toDate() > new Date()) {
-				$scope.navStart = new Date();
+				var date = new Date();	// today
+				$scope.navStart = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 				$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
 				$scope.mHeap = $rootScope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
 			} else {
@@ -76,12 +84,14 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 		},
 	};
 	
+	// add options heap to options' list to display
 	$scope.options.add($scope.mHeap);
 	
 	// watch for changes in eFriend.fMultiCal
 	$scope.$watch('eFriend.fMultiCal', function() {
 		$rootScope.resultMultiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal.calendar]);
-		$scope.navStart = new Date();
+		var date = new Date();	// today
+		$scope.navStart = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 		$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
 		$scope.mHeap = $rootScope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
 		
