@@ -17,10 +17,10 @@ angular.module('MainApp.shareds.timeHeap', [])
      *and return a TimeNode object with max score
 	 */
 	$rootScope.maxNode = function(array){
+		//case: array is empty
 		if(array.length == 0){ 
 			console.log('Array is empty');
-			var d = new Date(); 
-			maxNode = new TimeNode(new Date(d.setHours(0,0,0,0)), new Date(d.setHours(0,0,0,0)));
+			maxNode = null;
 		}
 		else{
 			var maxNode = new TimeNode(array[array.length-1].start, array[array.length-1].end);
@@ -58,21 +58,26 @@ angular.module('MainApp.shareds.timeHeap', [])
 			var toDay = new Date();
 			toDay = new Date(toDay.setHours(0,0,0,0));
 
+			//convert to minutes
 			var startTime = start.getHours() * 60 + start.getMinutes();
 			var endTime = end.getHours() * 60 + end.getMinutes();
-			if(endTime == 0){ endTime = 1440; }
-			var d = angular.copy(start);
 
-			if(new Date(d.setHours(0,0,0,0)) > toDay) { sumPts = sumPts - (endTime - startTime); }
+			//case: end: 00:00:00 of next day of start
+			if(endTime == 0 && end > start){ endTime = 1440; } 
+
+			//minus (mDuration)pts if time node in next day of today
+			var d = angular.copy(start);
+			if(new Date(d.setHours(0,0,0,0)) > toDay) { sumPts = sumPts - ( ((end - start)/1000)/60 ); }
 			
-			if (startTime == endTime) { sumPts += 0; }
-			else if (startTime < endTime) {
-				if(startTime == 0 && endTime == 1439){ sumPts += 26835; }
+			//rate score in a day
+			if (start == end) { sumPts += 0; }
+			if (start < end) {
+				if(startTime == 0 && endTime >= 1439){ sumPts += 26835; } //all day
 				else{
 					for(var i=0; i < scoreArray.length; i++){
 						if(startTime > scoreArray[i].end || endTime < scoreArray[i].start) { continue; }
 						else {
-							if(i==0) { sumPts = sumPts; }
+							if(i==0) { sumPts += 0; }
 							else {
 								sumPts = sumPts + ((endTime < scoreArray[i].end ? endTime:scoreArray[i].end)
 									     - (startTime > scoreArray[i].start ? startTime:scoreArray[i].start))
@@ -109,8 +114,12 @@ angular.module('MainApp.shareds.timeHeap', [])
 			this.start = startTime;
 		};
 
-		this.setTime = function(endTime){
+		this.setEnd = function(endTime){
 			this.end = endTime;
+		};
+
+		this.setScore = function(score){
+			this.score = score;
 		};
 	}
 
@@ -136,25 +145,27 @@ angular.module('MainApp.shareds.timeHeap', [])
 		this.length = 0;
 		this.cache = null;
 
-		//push an item to bottom of array
+		//push an item (!== null) to bottom of array
 		this.push = function(item){
-			this.length++;
-			this.timeList[this.length-1] = item;
+			if(item !== null){
+				this.length++;
+				this.timeList[this.length-1] = item;
 
-			var i = this.length-1;
-			var j = ( i - (i%2==0 ? 2:1) ) / 2;
-			while(j >= 0){
-				if(this.timeList[i].getScore() > this.timeList[j].getScore()){
-					var term = angular.copy(this.timeList[i]);
-					this.timeList[i] = angular.copy(this.timeList[j]);
-					this.timeList[j] = angular.copy(term);
+				var i = this.length-1;
+				var j = ( i - (i%2==0 ? 2:1) ) / 2;
+				while(j >= 0){
+					if(this.timeList[i].getScore() > this.timeList[j].getScore()){
+						var term = angular.copy(this.timeList[i]);
+						this.timeList[i] = angular.copy(this.timeList[j]);
+						this.timeList[j] = angular.copy(term);
+					}
+
+					i = j;
+					j = ( i - (i%2==0 ? 2:1) ) / 2;
 				}
 
-				i = j;
-				j = ( i - (i%2==0 ? 2:1) ) / 2;
+				this.cache = angular.copy(this.timeList);
 			}
-
-			this.cache = angular.copy(this.timeList);
 		};
 
 		//return and delete an item on top of array
@@ -168,9 +179,9 @@ angular.module('MainApp.shareds.timeHeap', [])
 				var i = 0;
 				var j = 0;
 
-				while(this.timeList[j+1] !== null && this.timeList[j+2] !== null){
-					if(this.timeList[j+1] !== null && this.timeList[j+2] == null) { j += 1; }
-					else if(this.timeList[j+2] !== null && this.timeList[j+1] == null) {j += 2; }
+				while(this.timeList[j+1] !== undefined && this.timeList[j+2] !== undefined){
+					if(this.timeList[j+1] !== undefined && this.timeList[j+2] == undefined) { j += 1; }
+					else if(this.timeList[j+2] !== undefined && this.timeList[j+1] == undefined) {j += 2; }
 					else { j += (this.timeList[j+1].getScore() > this.timeList[j+2].getScore() ? 1:2) }
 
 					if(this.timeList[i].getScore() < this.timeList[j].getScore()){

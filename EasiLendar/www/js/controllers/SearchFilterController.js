@@ -6,44 +6,39 @@
  */
 
 angular.module('MainApp.controllers.searchFilter', [])
-/*
+
 //Service for google-map
 .service('Map',function($q){
 	this.init = function(){
 		//Create a map
-		var mapOptions = {
+        var mapOptions = {
             zoom: 13
-		};
+        };
+        map = new google.maps.Map(document.getElementById('map'),
+            mapOptions);
+        // Try HTML5 geolocation
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = new google.maps.LatLng(position.coords.latitude,
+                    position.coords.longitude);
+                
+                var marker = new google.maps.Marker({
+					map: map,
+					position: pos
+				});
 
-		this.map = new google.maps.Map(
-			document.getElementById("map"), mapOptions
-		);
+                map.setCenter(pos);
+            }, function() {
+                handleNoGeolocation(true);
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleNoGeolocation(false);
+        }
 
-		this.places = new google.maps.places.PlacesService(this.map);
-		/*
-		//Get current location of client
-		if(navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(function(position) {
-			this.pos = new google.maps.LatLng(position.coords.latitude,
-												position.coords.longitude);
-
-			var infowindow = new google.maps.InfoWindow({
-				map: this.map,
-				position: this.pos,
-				content: 'Your current location.'
-			});
-
-		    this.map.setCenter(pos);
-			}, function() {
-				handleNoGeolocation(true);
-			});
-		}	
-		else {
-			// Browser doesn't support Geolocation
-			handleNoGeolocation(false);
-		}
+        this.places = new google.maps.places.PlacesService(map);
 	}
-	/*
+	
 	this.handleNoGeolocation = function(errorFlag) {
 		if (errorFlag) {
 			var content = 'Error: The Geolocation service failed.';
@@ -60,9 +55,11 @@ angular.module('MainApp.controllers.searchFilter', [])
 
 		var infowindow = new google.maps.InfoWindow(options);
 		this.map.setCenter(options.position);
-	}*/
-		/*
+	}
+	
 	this.search = function(str){
+		this.map = new google.maps.Map(document.getElementById('map'),
+        {zoom: 13});
 		var d = $q.defer();
 		this.places.textSearch({query: str}, function(results,status){
 			if(status == 'OK'){
@@ -83,11 +80,9 @@ angular.module('MainApp.controllers.searchFilter', [])
 		
 		this.map.setCenter(res.geometry.location);
 	}
+})
 
-	google.maps.event.addDomListener(window, 'load', this.init);
-})*/
-
-.controller("SearchFilterController", function($rootScope, $scope, $ionicPopup/*, Map*/) {
+.controller("SearchFilterController", function($rootScope, $scope, $ionicPopup, Map) {
    		/*
    		$rootScope.eSearchFilter = {
 			mTitle:'',
@@ -213,7 +208,7 @@ angular.module('MainApp.controllers.searchFilter', [])
     $scope.cancelMeeting = function(){
     	$rootScope.eFriend.fName = '';
     }
-    /*
+    
     //Google Map
     $scope.place = {};
 	$scope.search = function(){
@@ -233,7 +228,6 @@ angular.module('MainApp.controllers.searchFilter', [])
 	}
 
 	Map.init();
-	*/
 })
 
 .directive('checkUncheckRadio', function($rootScope){

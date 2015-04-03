@@ -3,7 +3,7 @@
      owner: Ngo Duc Dung
      last update: 1/4/2015
      type: html -->
-<ion-view title="Search filter" data-ng-init="loadMap()">
+<ion-view title="Search filter">
     <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-chevron-left" data-ng-click="deleteValue(filter_form)"></button>
     </ion-nav-buttons>
@@ -11,7 +11,7 @@
         <button type="submit" class="button button-easi-blue easi-no-border" form="filter_form" data-ng-click="submit(filter_form)"> Done</button>
     </ion-nav-buttons>
     <form name="filter_form" id="filter_form" class="filter-form" novalidate>
-        <ion-content padding="true">
+        <ion-content padding="true" overflow-scroll="false" class="search-filter-content">
             <div class="list">
                 <div class="meet-friends">You are appointing the time to meet:
                     <div class="name-friends">{{eFriend.fName}}
@@ -59,7 +59,7 @@
                         <button type="button" class="button button-icon button-clear ion-search" data-ng-click="search()"></button>
                     </div>
                 </div>
-                <div id="map">MAP here</div>
+                <div id="map" class="item"></div>
                 <!--End: Commom Filter -->
                 <!-- START: Advance Filter -->
                 <div class="easi-space" data-slide-toggle="mShow">
@@ -128,5 +128,8 @@
                 <!-- END: Advance Filter -->
             </div>
         </ion-content>
+
+
+        
     </form>
 </ion-view>
