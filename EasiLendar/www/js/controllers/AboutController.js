@@ -9,5 +9,5 @@
 angular.module('MainApp.controllers.about', [])
 
 .controller("AboutController", function($scope) {
-	$scope.ver = "1.2.45.[207]";
+	$scope.ver = "1.2.46.[208]";
 })

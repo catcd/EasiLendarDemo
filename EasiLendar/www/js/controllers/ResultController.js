@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 11/03/2015
+ * last update: 02/04/2015
  * type: paticular controller
  */
 
@@ -13,9 +13,12 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 	var link = $rootScope.eSettings.sDefaultView;
 	
 	$scope.done = function() {
-		$state.go(link);
+		$rootScope.goToState(link);
 	};
-	
+	$rootScope.multiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal.calendar]);
+	$scope.$watch('eFriend.fMultiCal', function() {
+		$rootScope.multiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal.calendar]);
+	});
 	/*Class option */
 	function Option(score, date, from, to) {
 		/* Convert functions */
@@ -62,6 +65,7 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 		},
 		next : function() {
 			$scope.showAlert("You click next");
+			$rootScope.goToState('week');
 		},
 	};
 });

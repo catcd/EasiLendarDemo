@@ -124,16 +124,17 @@ easilendar.run(function($rootScope) {
 		this.start = this.setStart();
 		this.end = this.setEnd();
 		this.summary = "Busy";
+		this.colorId = 8;
 	}; // end of class BusyEvent
 	
 	/*
 	 * Class Event
 	 * event is the original object of Google
-	 * or event in Firebase
+	 * or event in Firebase or BusyEvent
 	 */
 	function Event(event) {
 		// copy of event
-		this.origin = angular.copy(event);	// pointer
+		this.origin = event;	// pointer
 
 		/*
 		 * PRIVATE
@@ -205,13 +206,19 @@ easilendar.run(function($rootScope) {
 		 * set original events of this day to array of Events Object
 		 */
 		var setEvents = function() {
-			if ($rootScope.eUser.uGmailCalendar == null) return null;
+			var calendar;
+			switch ($rootScope.currentState) {
+				case 'week': calendar = $rootScope.eUser.uGmailCalendar; break;
+				case 'profile': calendar = $rootScope.eFriend.fMultiCal.calendar; break;
+				case 'result': calendar = $rootScope.multiCalendar.calendar; break;
+			};
+			if (calendar == null) return null;
 			// if there is no event 
-			if ($rootScope.eUser.uGmailCalendar[date] == null) return null;
+			if (calendar[date] == null) return null;
 			
 			var events = [];
-			for (var i=0; i < $rootScope.eUser.uGmailCalendar[date].length; i++) {
-				events[i] = new Event($rootScope.eUser.uGmailCalendar[date][i]);
+			for (var i=0; i < calendar[date].length; i++) {
+				events[i] = new Event(calendar[date][i]);
 			}
 			return events;
 		};
@@ -224,17 +231,6 @@ easilendar.run(function($rootScope) {
 			var date = this.date + 1;
 			var month = this.month;
 			var year = this.year;
-			// number of days of this month
-			var num = $rootScope.daysOfMonth(month+1,year);
-			
-			if (date > num) {
-				month = month + 1;
-				date = date % num;
-			}
-			if (month == 12) {
-				month = 0;
-				year++;
-			}
 			// return the next day
 			return new Day(new Date(year, month, date));
 		};
@@ -244,15 +240,6 @@ easilendar.run(function($rootScope) {
 			var date = this.date - 1;
 			var month = this.month;
 			var year = this.year;
-			
-			if (date == 0) {
-				month = month - 1;
-				if (month == -1) {
-					month = 11;
-					year--;
-				}
-				date = $rootScope.daysOfMonth(month+1,year);
-			}
 			// return the previous day
 			return new Day(new Date(year, month, date));
 		};
@@ -304,7 +291,7 @@ easilendar.run(function($rootScope) {
 				};
 	
 				curdays[pos] = new Day(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
-				
+
 				for (var i=pos; i < 6; i++) {
 					curdays[i+1] = curdays[i].nextDay();
 				}

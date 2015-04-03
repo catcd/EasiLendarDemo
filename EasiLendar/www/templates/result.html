@@ -1,21 +1,25 @@
 <!-- starter: Can Duy Cat
 	 owner: Nguyen Minh Trang
-	 last update: 10/03/2015
+	 last update: 02/04/2015
 	 type: state template -->
 
-<ion-view title="Result" class="result">
+<ion-view title="Result">
     <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-chevron-left" ui-sref="searchFilter" menu-close></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
         <button class="button button-easi-blue" data-ng-click="done()" menu-close>Done</button>
     </ion-nav-buttons>
-    <ion-content class="calendar" scrollbar-y="false"> <img src="img/week.png" />
-    </ion-content>
-    <ion-content class="options" scrollbar-y="false" data-ng-controller="ResultController">
-        <ol class="list">
-            <button data-ng-repeat="x in options.list" class="item item-button button-block option" data-ng-click="options.selectOption(x)">{{x.display()}}</button>
-            <button class="button button-block button-easi-blue" data-ng-click="options.next()">Next</button>
-        </ol>
-    </ion-content>
+	
+	<div class="result">
+		<div class="result-calendar" scrollbar-y="false">
+			<easi-week></easi-week>
+		</div>
+		<ion-content class="options" scrollbar-y="false">
+			<ol class="list">
+				<button data-ng-repeat="x in options.list" class="item item-button button-block option" data-ng-click="options.selectOption(x)">{{x.display()}}</button>
+				<button class="button button-block button-easi-blue" data-ng-click="options.next()">Next</button>
+			</ol>
+		</ion-content>
+	</div>
 </ion-view>

@@ -8,59 +8,42 @@
 var week = angular.module('MainApp.controllers.week', []);
 
 week.controller("WeekController", function($scope, $rootScope) {
-	
-	// Create a calendar that display user's calendar
-	$scope.myCalendar = function() {
-		$scope.calendar = new WeekCalendar($rootScope.eUser.uGmailCalendar);
+
+	$scope.calendar = new WeekCalendar();
+	$scope.calendar.setNavDays();
+	// watch for currentState
+	$scope.$watch('currentState', function() {
+		$scope.calendar = new WeekCalendar();
 		$scope.calendar.setNavDays();
-	};
-	// Create a calendar that display user's friend's calendar (Busy calendar)
-	$scope.friendCalendar = function() {
-		$scope.calendar = new WeekCalendar($rootScope.eFriend.fMultiCal);
+	});
+	// watch for multiCalendar
+	$scope.$watch('multiCalendar', function() {
+		$scope.calendar = new WeekCalendar();
 		$scope.calendar.setNavDays();
-	};
-	// Create a calendar that display multi calendar when searching for meeting
-	$scope.multiCalendar = function() {
-		var multiCal = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal]);
-		$scope.calendar = new WeekCalendar(multiCal);
-		$scope.calendar.setNavDays();
-	};
-	
-	switch ($rootScope.currentState) {
-		case 'week' : $scope.myCalendar(); break;
-		case 'result' : $scope.multiCalendar(); break;
-		case 'profile' : $scope.friendCalendar(); break;
-	};
+	});
 	
 	// watch for changes in eUser.uGmailCalendar 
 	$scope.$watch('eUser.uGmailCalendar', function() {
-		if ($rootScope.currentState == 'week') {
-			$scope.myCalendar();
-		} else {
-			$scope.multiCalendar();
-		}
+		$scope.calendar = new WeekCalendar();
+		$scope.calendar.setNavDays();
 	});
 	
 	// watch for changes in eFriend.fMultiCal
 	$scope.$watch('eFriend.fMultiCal', function() {
-		$scope.multiCalendar();
+		$scope.calendar = new WeekCalendar();
+		$scope.calendar.setNavDays();
 	});
 	
 	// watch for changes in eSettings.sFirstDay
 	$scope.$watch('eSettings.sFirstDay', function() {
-		switch ($rootScope.currentState) {
-			case 'week' : $scope.myCalendar(); break;
-			case 'result' : $scope.multiCalendar(); break;
-			case 'profile' : $scope.friendCalendar(); break;
-		};
+		$scope.calendar = new WeekCalendar();
+		$scope.calendar.setNavDays();
 	});
 	
 	/*
 	 * class Calendar
-	 * items id array of array 
-	 * index is date string
 	 */
-	function WeekCalendar(items) {
+	function WeekCalendar() {
 		/* 
 		 * PRIVATE
 		 * set hours to display in calendar 
@@ -116,23 +99,8 @@ week.controller("WeekController", function($scope, $rootScope) {
 				// convert object Event  to Event
 				this.navDays[i] = new WeekDay(this.navDays[i]);	// object WeekDay
 	    	}
-			
-			switch ($rootScope.currentState) {
-				case 'week' : break;
-				case 'result' : case 'profile' :
-					for (var i=0; i < this.navDays.length; i++) {
-						this.navDays[i].events = null;
-						if (this.navDays[i].norEvent != null) {
-							for (var j=0; j < this.navDays[i].norEvent.length; j++) {
-								this.navDays[i].norEvent[j].event.origin.summary = "Busy";
-								this.navDays[i].norEvent[j].style['background-color'] = "#666";
-							}
-						}
-					}
-				break;
-			};
-			
-			// very complicate
+
+			// very complicate. Insert the EmptyEvent
 			for (var i=0; i < 7; i++) {
 				if (this.navDays[i].events != null) {
 					var length = this.navDays[i].events.length;
@@ -169,6 +137,7 @@ week.controller("WeekController", function($scope, $rootScope) {
 		/*
 		 * PRIVATE
 		 * Set Navigation Time function
+		 * week is object Week
 		 */
 		this.setNavTime = function (week) {
 			this.navWeek = week;
@@ -185,12 +154,9 @@ week.controller("WeekController", function($scope, $rootScope) {
 		 */
 		this.hours = setHours();
 		
-		// array of (day-array of events)
-		this.items = items;
-		
 		// current week
 		this.curWeek = $rootScope.newWeek(null, $rootScope.eSettings.sFirstDay.slice(0,3)); 
-		
+
 		// current month 
 		this.curMonth1 = this.curWeek.month1; // 0 - 11
 		this.curMonth2 = this.curWeek.month2; // 0 - 11
@@ -286,7 +252,7 @@ week.controller("WeekController", function($scope, $rootScope) {
 		};
 		
 		// array of allday, overday and empty events
-		this.events = $rootScope.currentState == 'week'?this.setEvent() : null;
+		this.events = this.setEvent();
 		// array of normal event
 		this.norEvent = this.setEvent("normal");
 	}; // end of class WeekDay
@@ -381,7 +347,6 @@ week.controller("WeekController", function($scope, $rootScope) {
 		 * PRIVATE
 		 * set the width of this event (in %)
 		 * depends on how many days
-		 * 1 day's width: 13%
 		 */
 		this.setWidth = function() {
 			var startDate = date.toDate();
@@ -406,7 +371,7 @@ week.controller("WeekController", function($scope, $rootScope) {
 			}
 		};
 		this.duration = this.setWidth() / 100;
-		this.width = (this.setWidth()+5) + "%";
+		this.width = (this.setWidth()+3) + "%";
 		this.style = {
 			"width": this.width,
 			"background-color": this.event.color,

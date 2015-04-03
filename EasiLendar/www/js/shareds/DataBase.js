@@ -229,7 +229,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 				user.local_calendar = $rootScope.convertCal(user.local_calendar);
 				var temp = [user.g_calendar, user.local_calendar];
 				$ionicLoading.hide();
-				console.log($rootScope.newMultiCal(temp));
+				$rootScope.eFriend.fMultiCal = $rootScope.newMultiCal(temp);
 			});
 		}
 	};
