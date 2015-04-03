@@ -228,10 +228,12 @@ angular.module('MainApp.shareds.application', [])
 	 * return a timeHeap
 	 */
 	$rootScope.evaluateTime = function(mMCal, mStart, mEnd, mDuration) {
+		// evaluate the normal case
 		if(true) {
 			var mHeap = evaluateNormal(mMCal, mStart, mEnd, mDuration);
 		}
 
+		//return the result
 		return mHeap;
 	}
 
@@ -252,8 +254,10 @@ angular.module('MainApp.shareds.application', [])
 		// temp day to move pointer
 		var tempDay = null;
 
-		// temp array to save list of time Node {start, end}
-		var tempArray = [];
+		// 2 variable for push part
+		// start and end
+		var mTempStart = null;
+		var mTempEnd = null;
 
 		while (mCurrentDay <= mEnd) {
 			// if (mMCal.calendar[mCurrentDay] == undefined) that day does not have any event
@@ -267,91 +271,112 @@ angular.module('MainApp.shareds.application', [])
 				// get busi event
 				arrayEvent = mMCal.calendar[mCurrentDay];
 
-				// evaluate meeting time
-				// evaluate start of day
+				/**
+				 * evaluate meeting time
+				 */
+				// construct up and down event
 				upEvent = arrayEvent[0];
 				downEvent = arrayEvent[0];
-				var i = 0;
 
-				// 3 variables to save year, month, date that start loop
-				// to reduce caculate time in while loop
-				var tYear = mCurrentDay.getFullYear();
-				var tMonth = mCurrentDay.getMonth();
-				var tDate = mCurrentDay.getDate();
+				/**
+				 * evaluate start of day
+				 */
 
-				while (new Date(tYear, tMonth, tDate, 0, i + mDuration) <= upEvent.start.dateTime) {
-					tempArray.push({
-						start: new Date(tYear, tMonth, tDate, 0, i),
-						end: new Date(tYear, tMonth, tDate, 0, i + mDuration)
-					});
-					i++;
-				}
+				// Variables to pass to pushPart()
+				// mTempStart = start of mCurrentday
+				// mTempEnd = start first event (upEvent)
+				mTempStart = mCurrentDay;
+				mTempEnd = upEvent.start.dateTime;
 
-				if (tempArray.length != 0) {
-					mHeap.push($rootScope.maxNode(tempArray));
-				}
-				tempArray = [];
+				pushPart(mHeap, mTempStart, mTempEnd, mDuration);
+				// end of evaluate start of day
 
-				// evaluate middle of day
+				/**
+				 * evaluate middle of day
+				 */
 				// if day has more than 1 busi event
+				// that day has some more empty part
+				// start evaluate middle of day
 				if (arrayEvent.length > 1) {
+					// loop from the second event to last event
 					for (var count = 1; count < arrayEvent.length; count++) {
+						// upEvent and downEvent will be the next event of themselves
+						// upEvent = last downEvent
+						// downEvent = the event that counter poit to (arrayEvent[count])
 						upEvent = downEvent;
 						downEvent = arrayEvent[count];
 
-						var i = 0;
-						// 5 variables to save year, month, etc that start loop
-						// to reduce caculate time in while loop
-						var tYear = upEvent.end.dateTime.getFullYear();
-						var tMonth = upEvent.end.dateTime.getMonth();
-						var tDate = upEvent.end.dateTime.getDate();
-						var tHour = upEvent.end.dateTime.getHours();
-						var tMinutes = upEvent.end.dateTime.getMinutes();
+						/**
+						 * evaluate a part between upEvent and downEvent
+						 */
 
-						while (new Date(tYear, tMonth, tDate, tHour, tMinutes + i + mDuration) <= downEvent.start.dateTime) {
-							tempArray.push({
-								start: new Date(tYear, tMonth, tDate, tHour, tMinutes + i),
-								end: new Date(tYear, tMonth, tDate, tHour, tMinutes + i + mDuration)
-							});
-							i++;
-						}
+						// Variables to pass to pushPart()
+						// mTempStart = end of current event (upEvent.end.dateTime)
+						// mTempEnd = start of next event (downEvent.start.dateTime)
+						mTempStart = upEvent.end.dateTime;
+						mTempEnd = downEvent.start.dateTime;
 
-						if (tempArray.length != 0) {
-							mHeap.push($rootScope.maxNode(tempArray));
-						}
-						tempArray = [];
+						pushPart(mHeap, mTempStart, mTempEnd, mDuration);
+						// end of evaluate a part
+						// next to a new loop
 					}
 				}
+				// end of evaluate middle of day
 
-				// evaluate end of day
-				var i = 0;
-				// 5 variables to save year, month, etc that start loop
-				// to reduce caculate time in while loop
-				var tYear = downEvent.end.dateTime.getFullYear();
-				var tMonth = downEvent.end.dateTime.getMonth();
-				var tDate = downEvent.end.dateTime.getDate();
-				var tHour = downEvent.end.dateTime.getHours();
-				var tMinutes = downEvent.end.dateTime.getMinutes();
+				/**
+				 * evaluate end of day
+				 */
 
-				while (new Date(tYear, tMonth, tDate, tHour, tMinutes + i + mDuration) <= new Date(tYear, tMonth, tDate + 1)) {
-					tempArray.push({
-						start: new Date(tYear, tMonth, tDate, tHour, tMinutes + i),
-						end: new Date(tYear, tMonth, tDate, tHour, tMinutes + i + mDuration)
-					});
-					i++;
-				}
+				// Variables to pass to pushPart()
+				// mTempStart = end of the last event (downEvent)
+				// mTempEnd = start of next day of current day
+				mTempStart = downEvent.end.dateTime;
+				mTempEnd = $rootScope.tomorrow(mCurrentDay);
 
-				if (tempArray.length != 0) {
-					mHeap.push($rootScope.maxNode(tempArray));
-				}
-				tempArray = [];
+				pushPart(mHeap, mTempStart, mTempEnd, mDuration);
+				// end of evaluate end of day
+
+				//end of evaluate meeting time
 			}
+
+			// move to next day
 			mCurrentDay = $rootScope.tomorrow(mCurrentDay);
 		}
 
+		// return a timeHeap of timeNode evaluated
 		return mHeap;
 	}
 
+	// function to push a part of day
+	// input a heap, a start time, an end time, duration
+	var pushPart = function(mHeap, mStart, mEnd, mDuration) {
+		// 5 variables to save year, month, etc that start loop
+		// to reduce caculate time in while loop
+		var tYear = mStart.getFullYear();
+		var tMonth = mStart.getMonth();
+		var tDate = mStart.getDate();
+		var tHour = mStart.getHours();
+		var tMinutes = mStart.getMinutes();
+
+		// count for while loop
+		var i = 0;
+
+		// temp array to save list of time Node {start, end}
+		var tempArray = [];
+
+		while (new Date(tYear, tMonth, tDate, tHour, tMinutes + i + mDuration) <= mEnd) {
+			tempArray.push({
+				start: new Date(tYear, tMonth, tDate, tHour, tMinutes + i),
+				end: new Date(tYear, tMonth, tDate, tHour, tMinutes + i + mDuration)
+			});
+			i++;
+		}
+
+		if (tempArray.length != 0) {
+			mHeap.push($rootScope.maxNode(tempArray));
+		}
+		tempArray = [];
+	}
 
 	// function to push timeNode to timeHeap step by step
 	// in order to reduce while loop to reduce time
