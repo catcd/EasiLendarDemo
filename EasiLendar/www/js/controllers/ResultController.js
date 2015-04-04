@@ -13,9 +13,10 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 	var link = $rootScope.eSettings.sDefaultView;
 	
 	$scope.done = function() {
+		$rootScope.eFriend.fMultiCal = null;
 		$rootScope.goToState(link);
 	};
-	
+
 	if ($rootScope.eFriend.fMultiCal != null) {
 		// the multiCalendar combine this user calendar with user's friend's calendar
 		$rootScope.resultMultiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal.calendar]);
@@ -98,7 +99,11 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 			$rootScope.resultMultiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal.calendar]);
 		} else {
 			$rootScope.resultMultiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar]);
-		}
+		}		
+		// this scope's week calendar
+		$scope.weekCalendar = $rootScope.newWeekCalendar();
+		$scope.weekCalendar.setNavDays();
+		
 		var date = new Date();	// today
 		$scope.navStart = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 		$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
@@ -118,7 +123,6 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 		$scope.navStart = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 		$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
 		$scope.mHeap = $rootScope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, $rootScope.eSearchFilter.mDuration);
-		
 		$scope.options.add($scope.mHeap);
 	});
 	

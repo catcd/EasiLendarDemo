@@ -82,8 +82,11 @@ signIn.controller('SignInController',
 					
 					$rootScope.eUser.uGmailCalendar = $rootScope.convertCal($rootScope.eUser.uGmailCalendar);
 					$rootScope.eUser.uLocalCalendar = $rootScope.convertCal($rootScope.eUser.uLocalCalendar);
-					$rootScope.getCalendar('dungk58'); // take demo calendar here
-					
+
+					// set uFRLength and uFALength
+					$rootScope.setUFRL();
+					$rootScope.setUFAL();
+
 					$scope.user.reset();
 					$rootScope.goHome();
 				}

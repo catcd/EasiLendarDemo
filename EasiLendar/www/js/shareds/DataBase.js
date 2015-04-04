@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 01/04/2015
+ * last update: 05/04/2015
  * type: all shared database variables and functions
  */
 
@@ -47,6 +47,24 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 			template: '<div id="followingBallsG"><div id="followingBallsG_1" class="followingBallsG"></div><div id="followingBallsG_2" class="followingBallsG"></div><div id="followingBallsG_3" class="followingBallsG"></div><div id="followingBallsG_4" class="followingBallsG"></div></div>',
 			hideOnStateChange: true,
 		});
+	};
+	
+	// set uFRequest's length to uFRLength
+	$rootScope.setUFRL = function() {
+		if ($rootScope.eUser.uFRequest ==  null) {
+			$rootScope.eUser.uFRLength = 0;
+		} else {
+			$rootScope.eUser.uFRLength = Object.keys($rootScope.eUser.uFRequest).length;
+		}
+	};
+	
+	// set uFAccepted's length to uFALength
+	$rootScope.setUFAL = function() {
+		if ($rootScope.eUser.uFAccepted ==  null) {
+			$rootScope.eUser.uFALength = 0;
+		} else {
+			$rootScope.eUser.uFALength = Object.keys($rootScope.eUser.uFAccepted).length;
+		}
 	};
 	
 	// sign out function
@@ -190,6 +208,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 
 						// delete the request of "id"
 						delete $rootScope.eUser.uFRequest[id];
+						$rootScope.setUFRL(); 	// set uFRLength
 						// add "id" to friends list
 						if ($rootScope.eUser.uFriend == null) $rootScope.eUser.uFriend = [];
 						$rootScope.eUser.uFriend[id] = {
@@ -228,8 +247,8 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 				user.g_calendar = $rootScope.convertCal(user.g_calendar);
 				user.local_calendar = $rootScope.convertCal(user.local_calendar);
 				var temp = [user.g_calendar, user.local_calendar];
-				$ionicLoading.hide();
 				$rootScope.eFriend.fMultiCal = $rootScope.newMultiCal(temp);
+				$ionicLoading.hide();
 			});
 		}
 	};
@@ -284,6 +303,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 			&& $rootScope.eUser.isLogin == true) {
 				
 			delete $rootScope.eUser.uFAccepted[id];
+			$rootScope.setUFAL();	// set uFALength
 			var accept = new Firebase(
 				"https://radiant-inferno-3243.firebaseio.com/Users/"
 				+ $rootScope.eUser.uID + "/noti/fAccept");
@@ -342,6 +362,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 			&& $rootScope.eUser.isLogin == true) {
 			
 			delete $rootScope.eUser.uFRequest[id];
+			$rootScope.setUFRL();	// set uFRLength
 			var request = new Firebase(
 				"https://radiant-inferno-3243.firebaseio.com/Users/"
 				+ $rootScope.eUser.uID + "/noti/fRequest");
@@ -355,6 +376,72 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 				}
 			};
 			request.set($rootScope.eUser.uFRequest, onComplete);
+		}
+	};
+
+	/*
+	 * searchFriend function
+	 * str is a str user inserted to search for
+	 * add to $rootScope.searchFriends any id or name that contains 'str'
+	 */ 
+	$rootScope.searchFriend = function(str) {
+		if ($rootScope.eUser.uID != "" 
+			&& typeof($rootScope.eUser.uID) != "undefined"
+			&& $rootScope.eUser.isLogin == true) {
+				
+			var ref = new Firebase("https://radiant-inferno-3243.firebaseio.com/Users");
+			// loading
+			$rootScope.databaseLoading();
+			ref.once("value", function(snapshot) {
+				var ids = [];
+				var names = [];
+				var avas = [];
+				var users = snapshot.forEach(function(child) {
+					ids.push(child.key());
+					names.push(child.val().name);
+					avas.push(child.val().avatar);
+				});
+				for (var i=0; i < ids.length; i++) {
+					var found1 = ids[i].search(str);
+					var found2 = names[i].search(str);
+					if (found1 != -1 || found2 != -1) {
+						$rootScope.searchFriends[ids[i]] = {
+							name : names[i],
+							ava : avas[i],
+						};
+					}
+				}
+				$ionicLoading.hide();
+			});
+		}
+	};
+	
+	/*
+	 * searchEvent function
+	 * str is str to search for (search in eUser.uGmailCalendar)
+	 * add to $rootScope.searchEvents any id or name that contains 'str'
+	 * do not interact with database
+	 */
+	$rootScope.searchEvent = function(str) {
+		if ($rootScope.eUser.uID != "" 
+			&& typeof($rootScope.eUser.uID) != "undefined"
+			&& $rootScope.eUser.isLogin == true) {
+			
+			// go through all days
+			for (var x in $rootScope.eUser.uGmailCalendar) {
+				// go through all events in this day
+				for (var y in $rootScope.eUser.uGmailCalendar[x]) {
+					var found1 = $rootScope.eUser.uGmailCalendar[x][y].summary.search(str);
+					var found2 = -1;
+					if ($rootScope.eUser.uGmailCalendar[x][y].location != null) {
+						found2 = $rootScope.eUser.uGmailCalendar[x][y].location.search(str);
+					}
+					// if event summary or location contains 'str'
+					if (found1 != -1 || found2 != -1) {
+						$rootScope.searchEvents[$rootScope.searchEvents.length] = $rootScope.eUser.uGmailCalendar[x][y];
+					}
+				}
+			}
 		}
 	};
 });

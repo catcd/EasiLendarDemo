@@ -216,7 +216,11 @@ easilendar.run(function($rootScope) {
 			var calendar;
 			switch ($rootScope.currentState) {
 				case 'week': calendar = $rootScope.eUser.uGmailCalendar; break;
-				case 'profile': calendar = $rootScope.eFriend.fMultiCal.calendar; break;
+				case 'profile': 
+					if ($rootScope.eFriend.fMultiCal != null) {
+						calendar = $rootScope.eFriend.fMultiCal.calendar;
+					} else calendar = null;
+					break;
 				case 'result': calendar = $rootScope.resultMultiCalendar.calendar; break;
 			};
 			if (calendar == null) return null;
