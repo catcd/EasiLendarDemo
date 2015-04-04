@@ -55,7 +55,8 @@ YouTube channel: [TEXAS Group YouTube Channel](https://www.youtube.com/channel/U
 
 Video Demo:
 
-- [EasiLendar Commercial Version 1](https://www.youtube.com/watch?v=TGB8TLSTENM "Commercial")
+- [EasiLendar Commercial Version 1](https://www.youtube.com/watch?v=TGB8TLSTENM "Commercial version 1")
+- [EasiLendar Commercial Version 2](https://www.youtube.com/watch?v=c0a6OfEMsEw "Commercial version 2")
 - [EasiLendar Demo 1.2](https://www.youtube.com/watch?v=6iD-pWrTYTY "Demo 1.2")
 
 ##About this application
