@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 14/03/2015
+ * last update: 04/04/2015
  * type: module (controller list)
  */
 
@@ -16,6 +16,7 @@ angular.module('MainApp.controllers', [
     'MainApp.controllers.popover',
     'MainApp.controllers.profile',
     'MainApp.controllers.result',
+    'MainApp.controllers.search',
     'MainApp.controllers.searchFilter',
     'MainApp.controllers.setting',
     'MainApp.controllers.sideMenu',

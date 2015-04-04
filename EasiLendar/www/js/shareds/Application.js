@@ -119,6 +119,8 @@ angular.module('MainApp.shareds.application', [])
 
 	$rootScope.currentState = "loading";
 
+
+
 	/**
 	 * All functions
 	 */

@@ -1,7 +1,7 @@
 /**
 * starter: Can Duy Cat
 * owner: Can Duy Cat
-* last update: 29/03/2015
+* last update: 05/04/2015
 * type: Can Duy Cat css
 */
 
@@ -220,6 +220,12 @@ p.split-menu {
 #show-time-zone { font-size: 12px; height: 50px; padding: 5px; }
 #time-zone-list { height: 150px; margin-top: 42px; }
 #font17 { font-size: 17px; }
+
+/**
+* search
+*/
+.item-search-event {height: 70px; margin-left: -8px;}
+#search-events {margin-top: -20px;}
 
 /* loading ball */
 #followingBallsG { height: 16px; position: relative; width: 200px; }

@@ -99,18 +99,17 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds', 'n
 			url: '/sync',
 			templateUrl: 'templates/sync.html',
 			controller: 'SyncController'
+		}).state('search', {
+		parent : 'appMenu',
+		url : '/search',
+		templateUrl : 'templates/search.html',
+		controller : 'SearchController'
 		})
 		// .state('myProfile', {
 		// parent : 'appMenu',
 		// url : '/my-profile',
 		// templateUrl : 'templates/my-profile.html',
 		// controller : 'MyProfileController'
-		// })
-		// .state('search', {
-		// parent : 'appMenu',
-		// url : '/search',
-		// templateUrl : 'templates/search.html',
-		// controller : 'SearchController'
 		// })
 	/**
 	 * appNone's children

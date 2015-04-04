@@ -1,4 +1,62 @@
 <!-- starter: Can Duy Cat
 	 owner: Can Duy Cat
-	 last update: 27/02/2015
+	 last update: 05/04/2015
 	 type: html template-->
+
+<ion-view title="Search">
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-home" ng-click="goHome()"></button>
+	</ion-nav-buttons>
+
+	<!-- search bar -->
+	<div class="bar bar-subheader item-input-inset">
+	    <label class="item-input-wrapper">
+	        <i class="icon ion-ios7-search placeholder-icon"></i>
+	        <input type="search" placeholder="Search" ng-model="searchInput">
+	    </label>
+
+	    <!-- submit button -->
+	    <button class="button button-clear" ng-click="search()">
+	        Go
+	    </button>
+	</div>
+
+	<!-- select tab -->
+	<div class="bar bar-subheader item item-select easi-back-light-gray"
+	style="height: 35px"
+	ng-click="showAlert('Search Filter', 'templates/search-option.html', 'Select one')">
+	    <div class="input-label">
+	        {{searchType.type}}
+	    </div>
+	</div>
+
+	<!-- noti if no result found -->
+	<h3 class="easi-gray easi-center" ng-show=isEmptyResult() style="position:absolute; top:110px; width:100%">
+		No Results Found.
+	</h3>
+
+	<!-- main content here -->
+	<ion-content style="margin-top: 78px;">
+		<!-- Search people div -->
+		<div id="search-people" class="list" ng-show=isShowPeople()>
+			<a ng-repeat="person in searchFriends" class="item my-popover-item item-button-right">
+				<img src="img/ava{{person.ava}}.png">
+				<p class="easi-space">{{person.name}}</p>
+				<button class="button button-easi-blue" ng-click="addPerson(person.ID)" style="margin-top:-3px">
+					<i class="icon ion-person-add"></i>
+				</button>
+			</a>
+		</div>
+
+		<!-- Search events div -->
+		<div id="search-events" class="list" ng-show=isShowEvents()>
+			<a ng-repeat="event in searchEvents"
+			class="item item-search-event"
+			ng-click="changeCall(event)">
+				<h3 style="margin-top: 3px">{{event.summary}}</h3>
+				<p>{{convertTime(event)}}</p>
+				<p>at {{event.location}}</p>
+			</a>
+		</div>
+	</ion-content>
+</ion-view>
