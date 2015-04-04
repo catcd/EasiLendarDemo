@@ -9,6 +9,9 @@ angular.module('MainApp.controllers.day', [])
 
 .controller("DayController", function($scope, $rootScope) {
 $scope.$watch('eSettings.sFirstDay', function() {
+	var start = $rootScope.eSettings.sFirstDay.slice(0,3);});
+	
+	var start = $rootScope.eSettings.sFirstDay.slice(0,3);
 	var toDay = new Date();
 	toDay = new Date(toDay.getFullYear(), toDay.getMonth(), toDay.getDate(),0,0,0,0);
 	$scope.indexOfToday = toDay.toString();
@@ -48,7 +51,7 @@ $scope.$watch('eSettings.sFirstDay', function() {
 		};
 	
 	var pos,sub,add,posOfDay;
-	var start = $rootScope.eSettings.sFirstDay.slice(0,3);
+	
 	switch(start){	case "Mon":	pos = 6;
 					case "Sat":	pos = 1;
 					case "Sun":	pos = 0;
@@ -114,6 +117,7 @@ $scope.$watch('eSettings.sFirstDay', function() {
 		}
 	};
 });
-});
+
+
 
 

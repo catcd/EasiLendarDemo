@@ -5,73 +5,157 @@
 * type: personal css
 */
 /* profile */
-#cover {
-    background-image: url(../img/smart_hotel.jpg);
+#cover{
+	background-image:url(../img/smart_hotel.jpg);
 	background-position: center center;
-	/*background-repeat: repeat ;*/
-	background-size:100% 100%;
+	background-size: 100% 100%;
 	background-origin: content-box;
-    height: 35vh;
-	margin: 0 auto 0 auto;
-	/*margin-left: -10px;
-	margin-top:-10px;*/
+	height:35vh;
+	margin:0 auto 0 auto;
 	max-width:700px;
 	max-height:400px;
-	
-    width: 100vw;
-	position: relative;
-}
+	position:relative;
+	}
+#avatar-vip{
+	margin-top:45px;
+	height:100px;
+	width:100px;	
+	position: absolute;
+	bottom:5px;
+	left:3px;
+	margin-left:5px;
+	}
+#vipx{
+	height:15px;
+	width:15px;
+	position: absolute;
+	top:0px;
+	right:8px;
+	}
+#avatar{
+	margin-top:10px;
+	margin-left:2px;
+	height:100px;
+	width:100px;
+	position: absolute;
+	bottom:0px;
+	left:0px;	
+	}
+#username{
+	font:15.5px;
+	height:30px;
+	width:300px;
+	left:100px;
+	bottom: 25px;
+	margin-left: 15px;
+	position: absolute;	
+	}
+#end-cover{
+	background-color:#FFF0FF;
+	position: absolute;
+	height: 30px;
+	margin: 0 auto 0 auto;
+	width:100%;
+	max-width:700px;
+	bottom:0px;
+	}
+#inform{	
+	height:25px;
+	margin-left:120px;
+	width:400px;
+	bottom: 3px;
+	background-color:#FFF0FF;
+	position:absolute;
+	}
+#item-imagex{	
+	height:90%;
+	width:90%;
+	max-height:100px;
+	max-width:100px;
+	margin-bottom: 1px;
+	margin-left: 1px;
+	bottom:5px;
+	}
 #list-icon{
-    position: absolute;
-    bottom: -5px; 
+	position: absolute;
+    bottom: -10px; 
 	margin-right:5px;
     right: 0; 
     background: transparent;
-    border: 0;
-	
-    float:right;
-	
-}
-#centered{
-    width:100vw;
-	
-	
-}
-#footered{
-	position: absolute; 
-	left: 0;
-}
-
-.item-thumbnail-left{
-	position: absolute;
-	bottom: 0px; 
-	background: transparent;
-	border: 0px;
+    border: 0;		
+ 	float:right;
+	}
+.tabs{
+	background-color:#F7F7FF;
+	margin-top:0px;
+	z-index:1;
+	left:0px;
+	position: relative;
 	max-width:700px;
 	width:100%;
-	margin-bottom: 3px;
-		
-	height:43%;
-	float:left;
-	padding-bottom: -3px;
-}
-.item-imagex {
-max-height:50px;
-max-width: 50px;
-margin-bottom:5px;
-margin-left:2px;
-}
-.customer span{
-	height: 70px;
-	font-size: 150%;
-	color: #416969;
-	
+	max-height:60px;
+	height: 40px;
+	text-align: left;
+	margin: 0 auto 0 auto;
+	border: 1px solid black;
+	//background-origin: content-box;
+	background-color: #F7F7FF;
 	}
-.customer .icon.ion-ribbon-b{
-	color: #FFCC00;
-	size: 50px;	
-	
+.nothing{
+	position:relative;
+	margin-left:-4px;
+	margin-right:-24px;
+	text-align:left;
+	border:1px solid black;
+	width:20px;
+	}
+.tab-fix{height:60px;}
+.icon.ion-ribbon-b{color: #FFCC00;	size: 50px;}
+#eding{
+	background-color:#F7F7FF;
+	margin-top:10px;
+	position: relative;
+	max-width:700px;
+	width:100%;
+	max-height:500px;
+	margin: 0 auto 0 auto;
+	border: 1px solid #CCCCB2;
+	background-origin: content-box;
+	}
+.showtab{position:relative;	max-width:700px;	margin:0 auto 0 auto;}
+/*introduction */
+#information{
+position:relative;
+max-height:800px;
+max-width:700px;
+height:500px;
+width: 600px;
 }
+#information-tab{
+	position:relative;
+	max-height:300px;
+	max-width:200px;
+	height:50vh;
+	width:100%;
+	}
+#information-in-tab{
+	position:absolute;
+	left:150px;
+	top:0px;
+	}
+/*Friend*/
+#friends{	position:relative;	height:60px;}
+#friend-name{
+	position:absolute;
+	left:60px;
+	top:15px;
+	float:center;
+	}
+#friend-avatar{	width:55px;	height:55px;	top:5px;}
+/*Calendar in profile*/
+#easiweek{
+	height:500px;
+	}
 /*DAY CALENDAR */
 #h2-month{margin-left:15% ;margin-top:10px; color: #002900;}
 #x{max-width:800px;width:100%;margin-bottom:20px; padding-bottom:5px; }

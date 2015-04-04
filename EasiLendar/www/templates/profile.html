@@ -2,92 +2,92 @@
 	 owner: Nguyen Thi Luong
 	 last update: 24/02/2015
 	 type: html -->
-
-<ion-view title={{eFriend.fName}}>
-    <!-- User name This line can be change-->
-    <!-- Button fixed -->
-    <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-home" ui-sref="month" menu-close></button>
-    </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
-        <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
-    </ion-nav-buttons>
-    <!-- Main content -->
-    <!--ion-content padding="true">
-        <!-- can change -->
-        <div id="cover" >
-            
-			<div class=" item item-thumbnail-left" >
-			
-			<img  class="item-imagex" src="img/ava{{eFriend.fAvatar}}.png" >
-                <!-- avatar -->
-                <br>
-				 <div id="list-icon" >
-                <button class="button button-icon icon ion-email easi-light-gray"></button>
-                <button class="button button-icon icon ion-coffee easi-light-gray" ui-sref="searchFilter" menu-close></button>
-                <button class="button button-icon icon ion-person-add easi-light-gray"></button>
-				</div>
-				<div id="centered">
-					
-				<h2 class="customer">
-				<span><i  class="icon ion-ribbon-b"></i>
-					<!-- VIP icon must be appeared if EasiVIP=true -->
-						{{eFriend.fName}}</span>
-					<!--User name-->
-				</h2>
-                <!--p>I&#39;m busy now</p>
-                <!-- Status must be sync if possible -->
-				</div>
-            </div>
-           
-        </div>
+	 
+	 
+	 <ion-view title={{eFriend.fName}}>
+		<!-- User name This line can be change-->
+		<!-- Button fixed -->
+		<ion-nav-buttons side="left"><!--goToState("month")-->
+			<button class="button button-icon button-clear ion-home" ng-click="goHome()" menu-close></button>
+		</ion-nav-buttons>
 		
-        <div id="footered" ><center>
-			
-          
-    		<button class="icon ion-chevron-left easi-dark-blue" 
-                data-ng-click="calendar.prevWeek()"></button>
-            <div>{{calendar.navMonth+", "+calendar.navYear}}</div> 
-            <button class="icon ion-chevron-right easi-dark-blue" 
-                data-ng-click="calendar.nextWeek()"></button>  
-    	
-    	
-    	<div class="calendar">
-    		<div class="daytag">
-    			<div class="row day">
-    				<div class="col" data-ng-repeat="day in calendar.navDays">
-    					{{day.origin.day}}
-    				</div>
-    			</div>
-    			<div class="row date">
-    				<div class="col" data-ng-repeat="day in calendar.navDays">
-    					{{day.origin.date}}
-    				</div>
-    			</div>
+		<ion-nav-buttons side="right">
+			<button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
+			<button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
+		</ion-nav-buttons>
+		<!-- -->
+		<div id="cover">
+		<div id= "end-cover">
+			<div id="inform">view:525</div>
+				<div id="list-icon">
+					<button class="button button-icon icon ion-email easi-light-gray"></button>
+					<button class="button button-icon icon ion-coffee easi-light-gray" ui-sref="searchFilter" menu-close></button>
+					<button class="button button-icon icon ion-person-add easi-light-gray"></button>
+				</div>
 			</div>
-			  		
-    		<ion-content scrollbar-y="false">
-    		  	<div class="row row-content">
-    				<div class="hours">
-    					<div class="hour" data-ng-repeat="x in calendar.hours">
-    						{{x}}
-    					</div>
-    				</div>
-    				<div class="col daycol" data-ng-repeat="day in calendar.navDays">
-    					<div class="row nor-event" data-ng-repeat="event in day.norEvent" 
-    						data-ng-style="event.style">
-    						<div class="summary">{{event.event.origin.summary}}</div>
-    					</div>
-						<div class="row hourblock"  data-ng-repeat="x in calendar.hours">
-						</div>
-    				</div>
-    		    </div>
-    		</ion-content>
-    	</div>
-    </div>
-        </div>
-
-        <!-- out change -->
-    </ion-content>
+			<div id="avatar-vip">
+				<div id="avatar">
+					<div id="vipx"><h2 class="customer">
+						<i  data-ng-show="eFriend.fVIP" class="icon ion-ribbon-b"></i></h2>
+					</div>
+					<img id="item-imagex" src="img/ava{{eFriend.fAvatar}}.png" >
+				</div>
+				<p id= "username">{{eFriend.fName}}</p>
+			</div>
+		</div>
+		<section ng-controller="ProfileController as tab">
+		<div class="tabs-striped tab-fix tabs-color-blue">
+			<div class="tabs">
+				<a class="tab-item active" href="" ng-class="{ active:tab.isSet(1) }" ng-click="tab.setTab(1)">	Calendar	</a>
+				<a class="tab-item" href="" ng-class="{ active:tab.isSet(2) }" ng-click="tab.setTab(2)">	Information	</a>
+				<a class="tab-item" href="" ng-class="{ active:tab.isSet(3) }" ng-click="tab.setTab(3)">	Friends		</a>
+				<a class="tab-item" href="" ng-class="{ active:tab.isSet(4) }" ng-click="tab.setTab(4)">	Attention	</a>		 	
+			</div>
+		</div>
+		 <div class ="showtab" ng-show="tab.isSet(1)">
+            <h4>Calendar</h4>
+            <div id="easiweek">
+			<easi-week></easi-week>
+			</div>
+          </div>
+		<div class ="showtab" ng-show="tab.isSet(2)">
+            <h4>Information	</h4>
+            <div id="information">
+				<div id="information-tab">
+					<ul class="nav nav-pills">
+						<p ng-class="{ active:tab.isSet(7) }">
+						<blockquote>  <p href="" ng-click="tab.setTab(7)">Survey</p></blockquote>
+						</p>
+						<p class="tab-item active" ng-class="{ active:tab.isSet(5) }">
+						  <p href="" ng-click="tab.setTab(5)">Base information</p>
+						</p>
+						<p ng-class="{ active:tab.isSet(6) }">
+						  <p href="" ng-click="tab.setTab(6)">contact</p>
+						</p>
+						
+					</ul>
+				</div>
+				<div id="information-in-tab">
+					<button class="button button-icon  ion-medkit"  menu-close> ask her information</button><br>
+			`		<button class="button button-icon  ion-university"  menu-close>UET university</button>	<br>
+					<button class="button button-icon  ion-nuclear"  menu-close> From: Cau Giay, Hanoi</button>
+				</div>
+			</div>
+		</div>
+		<div class ="showtab" ng-show="tab.isSet(3)">
+			<h4>Friends</h4>
+			<div id="friends" data-ng-repeat="friend in friends" >	
+				<img id="friend-avatar" data-ng-src="img/ava{{friend.image}}.png">
+				<div id="friend-name">{{friend.name}}</div> 
+			</div>
+			
+          </div>
+		  <div class ="showtab" ng-show="tab.isSet(4)">
+            <h4>Attention</h4>
+           <button class="button button-icon icon ion-coffee " menu-close></button>
+		   <p> she has 5 appointments with you </p>
+		  
+          </div>
+		</section>
+		</ion-content>
 </ion-view>
