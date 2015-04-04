@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 03/04/2015
+ * last update: 04/04/2015
  * type: paticular controller
  */
 
@@ -16,9 +16,12 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 		$rootScope.goToState(link);
 	};
 	
-	// the multiCalendar combine this user calendar with user's friend's calendar
-	$rootScope.resultMultiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal.calendar]);
-	
+	if ($rootScope.eFriend.fMultiCal != null) {
+		// the multiCalendar combine this user calendar with user's friend's calendar
+		$rootScope.resultMultiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal.calendar]);
+	} else {
+		$rootScope.resultMultiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar]);
+	}
 	// this scope's week calendar
 	$scope.weekCalendar = $rootScope.newWeekCalendar();
 	$scope.weekCalendar.setNavDays();
@@ -34,18 +37,19 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 	$scope.options = {
 		list : [],
 		add : function(mHeap) {
-			if (mHeap != null) {console.log(mHeap);
-				this.list = [];
-				for (var i=0; i < 5; i++) {
+			this.list = [];
+			if (mHeap != null) {
+				var num = mHeap.timeList.length;
+				if (num > 5) num = 5;
+				for (var i=0; i < num; i++) {
 					var max = mHeap.pop(); // Time Node 
-					console.log(max);
 					var option = new Option(max.start, max.end);
 					this.list.push(option);
 				}
 			}
 		},
 		selectOption : function(option) {
-			$scope.showAlert('Your meeting time: ' + option.display);
+			$scope.showAlert('Your meeting time: ' + option.display());
 		},
 		next : function() {
 			$scope.weekCalendar.nextWeek();
@@ -89,7 +93,12 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 	
 	// watch for changes in eFriend.fMultiCal
 	$scope.$watch('eFriend.fMultiCal', function() {
-		$rootScope.resultMultiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal.calendar]);
+		if ($rootScope.eFriend.fMultiCal != null) {
+			// the multiCalendar combine this user calendar with user's friend's calendar
+			$rootScope.resultMultiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal.calendar]);
+		} else {
+			$rootScope.resultMultiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar]);
+		}
 		var date = new Date();	// today
 		$scope.navStart = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 		$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
