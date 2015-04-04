@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 2/4/2015
+ * last update: 4/4/2015
  * type: paticular controller
  */
 
@@ -82,7 +82,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 	}
 })
 
-.controller("SearchFilterController", function($rootScope, $scope, $ionicPopup, Map) {
+.controller("SearchFilterController", function($rootScope, $scope, $ionicPopup, $ionicScrollDelegate, Map ) {
    		/*
    		$rootScope.eSearchFilter = {
 			mTitle:'',
