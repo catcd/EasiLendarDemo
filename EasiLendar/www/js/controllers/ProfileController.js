@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Thi Luong
- * last update: 24/02/2015
+ * last update: 04/04/2015
  * type: paticular controller
  */
 
@@ -20,6 +20,10 @@ profile.controller("ProfileController", function($scope, $ionicPopup, $rootScope
     };
 	$scope.weekCalendar = $rootScope.newWeekCalendar();
 	$scope.weekCalendar.setNavDays();
+	$scope.$watch('eFriend.fMultiCal', function() {
+		$scope.weekCalendar = $rootScope.newWeekCalendar();
+		$scope.weekCalendar.setNavDays();
+	});
 	$scope.friends=[
 	{image: 1, name:'Ngo Duc Dung', status: 1, vip: 0},
 	{image: 8, name:'Nguyen Thi Luong', status: 0, vip: 0},

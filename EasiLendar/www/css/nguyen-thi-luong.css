@@ -198,7 +198,7 @@ width: 600px;
 .bkg{ background-repeat: no-repeat; background-position:center center; margin: 0 auto 0 auto;height: 250px; width: 100%; max-width:960px;  padding-bottom:-10px;}}
 .bkg-01{ background: url("../img/bkg_01_jan.jpg") no-repeat;  background-size: 100% 100%; background-position:center center; height: 200px; width: 100%; max-width:500px; margin: 0 auto 0 auto; padding-bottom:-10px;}
 .bkg-02{ background: url("../img/bkg_02_feb.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
-.bkg-03{ background: url("../img/bkg_03_mar.jpg") no-repeat;  background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
+.bkg-03{ background: url("../img/bkg_03_mar.jpg") no-repeat;  background-size: 100% 100%; background-position:center center; height:250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
 .bkg-04{ background: url("../img/bkg_04_apr.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
 .bkg-05{ background: url("../img/bkg_05_may.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
 .bkg-06{ background: url("../img/bkg_06_jun.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
