@@ -31,7 +31,7 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 	$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();	// end of the week
 	
 	// the options heap
-	$scope.mHeap = $rootScope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
+	$scope.mHeap = $rootScope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, $rootScope.eSearchFilter.mDuration);
 	
 	// options object
 	$scope.options = {
@@ -57,12 +57,12 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 			if ($scope.weekCalendar.navDays[0].origin.toDate() >= new Date()) {
 				$scope.navStart = $scope.weekCalendar.navDays[0].origin.toDate();
 				$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
-				$scope.mHeap = $scope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
+				$scope.mHeap = $scope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, $rootScope.eSearchFilter.mDuration);
 			} else if ($scope.weekCalendar.navDays[6].origin.toDate() > new Date()) {
 				var date = new Date();	// today
 				$scope.navStart = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 				$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
-				$scope.mHeap = $rootScope.evaluateTime($scope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
+				$scope.mHeap = $rootScope.evaluateTime($scope.resultMultiCalendar, $scope.navStart, $scope.navEnd, $rootScope.eSearchFilter.mDuration);
 			} else {
 				$scope.mHeap = null;
 			}
@@ -74,12 +74,12 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 			if ($scope.weekCalendar.navDays[0].origin.toDate() >= new Date()) {
 				$scope.navStart = $scope.weekCalendar.navDays[0].origin.toDate();
 				$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
-				$scope.mHeap = $scope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
+				$scope.mHeap = $scope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, $rootScope.eSearchFilter.mDuration);
 			} else if ($scope.weekCalendar.navDays[6].origin.toDate() > new Date()) {
 				var date = new Date();	// today
 				$scope.navStart = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 				$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
-				$scope.mHeap = $rootScope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
+				$scope.mHeap = $rootScope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, $rootScope.eSearchFilter.mDuration);
 			} else {
 				$scope.mHeap = null;
 			}
@@ -102,11 +102,25 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 		var date = new Date();	// today
 		$scope.navStart = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 		$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
-		$scope.mHeap = $rootScope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, 120);
+		$scope.mHeap = $rootScope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, $rootScope.eSearchFilter.mDuration);
 		
 		$scope.options.add($scope.mHeap);
 	});
-
+	// watch for changes in eSearchFilter.mDuration
+	$scope.$watch('eSearchFilter.mDuration', function() {
+		if ($rootScope.eFriend.fMultiCal != null) {
+			// the multiCalendar combine this user calendar with user's friend's calendar
+			$rootScope.resultMultiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar, $rootScope.eFriend.fMultiCal.calendar]);
+		} else {
+			$rootScope.resultMultiCalendar = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar]);
+		}
+		var date = new Date();	// today
+		$scope.navStart = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+		$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
+		$scope.mHeap = $rootScope.evaluateTime($rootScope.resultMultiCalendar, $scope.navStart, $scope.navEnd, $rootScope.eSearchFilter.mDuration);
+		
+		$scope.options.add($scope.mHeap);
+	});
 	
 	/* Class option */
 	function Option(start, end) {
@@ -132,20 +146,22 @@ result.controller("ResultController", function($rootScope, $scope, $ionicPopup, 
 		};
 		
 		/* initiate attributes */
-		this.date = convertDate(start);
+		this.date1 = convertDate(start);
+		this.date2 = convertDate(end);
 		this.from = convertTime(start);
 		this.to = convertTime(end);
 		
 		/* Display option */
 		this.display = function() {
 			// not all day 
-			if (start.getDate() == end.getDate()) {
-				return this.date + ": from " + this.from 
+			if (this.date1 == this.date2) {
+				return this.date1 + ": from " + this.from 
 				+ " - to " + this.to;
-			}
-			// free all day
-			else {
-				return this.date + ": Any time";
+			} else if (this.from != "00:00") {
+				return this.date1 + ": from " + this.from 
+				+ " - to Midnight";
+			} else {
+				return this.date1 + ": Any time";
 			}
 		};
 	};	// end of class Option
