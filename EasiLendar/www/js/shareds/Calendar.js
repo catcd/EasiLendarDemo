@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 02/04/2015
+ * last update: 05/04/2015
  * type: module all shared variables and functions use for calendar
  */
 
@@ -53,5 +53,47 @@ angular.module('MainApp.shareds.calendar', [])
 		var d = today.getTime();
 		var r = new Date (d - 86400000); // 86400000 is number of miliseconds in a day
 		return r;
+	}
+
+	// convert time function
+	// input: an event
+	// output: a string
+	// format from hh:mm to hh:mm
+	$rootScope.convertTime = function(event) {
+		// get and convert start time
+		var mStart = (event.start.dateTime.getHours() < 10 ? "0" : "") + event.start.dateTime.getHours()
+					+ ":"
+					+ (event.start.dateTime.getMinutes() < 10 ? "0" : "") + event.start.dateTime.getMinutes();
+		// get and convert start date
+		var mStartDate = (event.start.dateTime.getDate() < 10 ? "0" : "") + event.start.dateTime.getDate()
+						+ "/"
+						+ (event.start.dateTime.getMonth() < 9 ? "0" : "") + (event.start.dateTime.getMonth() + 1)
+						+ "/"
+						+ event.start.dateTime.getFullYear();
+
+		// get and convert end time
+		var mEnd = (event.end.dateTime.getHours() < 10 ? "0" : "") + event.end.dateTime.getHours()
+					+ ":"
+					+ (event.end.dateTime.getMinutes() < 10 ? "0" : "") + event.end.dateTime.getMinutes();
+		// get and convert end date
+		var mEndDate = (event.end.dateTime.getDate() < 10 ? "0" : "") + event.end.dateTime.getDate()
+						+ "/"
+						+ (event.end.dateTime.getMonth() < 9 ? "0" : "") + (event.end.dateTime.getMonth() + 1)
+						+ "/"
+						+ event.end.dateTime.getFullYear();
+
+		// return data
+		// if start date and end date are equal
+		// return once
+		if (mStartDate == mEndDate) {
+			return "from " + mStart
+					+ " to " + mEnd + " " + mEndDate;
+		}
+		// if they are not equal
+		// return both start date and end date
+		else {
+			return "from " + mStart + " " + mStartDate +
+					" to " + mEnd + " " + mEndDate;
+		}
 	}
 })

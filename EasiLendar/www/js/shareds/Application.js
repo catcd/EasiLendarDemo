@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 03/04/2015
+ * last update: 05/04/2015
  * type: module all shared variables and functions used for this app
  */
 
@@ -69,6 +69,8 @@ angular.module('MainApp.shareds.application', [])
 		uVIP : 0,
 		isLogin: false,
 
+		uRequested: [],
+
 		uGmailCalendar: null,	/*Google API JSON	Calendar*/
 		uLocalCalendar: null,	/*Google API JSON	Calendar*/
 
@@ -78,48 +80,22 @@ angular.module('MainApp.shareds.application', [])
 		uFALength: 0,
 	};
 
-	/**
-	 * Demo data
-	 */
-	// $rootScope.eUser.uFRequest["huongdung1"] = {name: "Ngo Duc Huong", ava: 1};
-	// $rootScope.eUser.uFRequest["ttdungsexy"] = {name: "Tran Thu Dung", ava: 3};
-	// $rootScope.eUser.uFRequest["minhchui02"] = {name: "Nguyen Minh Chui", ava: 5};
-	// $rootScope.eUser.uFRequest["manhvan003"] = {name: "Nguyen Manh Van", ava: 8};
-	// $rootScope.eUser.uFRequest["boykorea58"] = {name: "Kim Seung Trang", ava: 7};
-	// $rootScope.eUser.uFRequest["hotgirlno1"] = {name: "Nguyen Thi Cam Duy", ava: 4};
-	// $rootScope.eUser.uFRequest["justinbb02"] = {name: "Justin Bieber", ava: 4};
-	// $rootScope.eUser.uFRequest["kimkashi07"] = {name: "Kim Kadashian", ava: 8};
-	// $rootScope.eUser.uFRequest["gotgon1158"] = {name: "Yoona", ava: 7};
-	// $rootScope.eUser.uFRequest["badboyking"] = {name: "Son Tung MTP", ava: 0};
-	// $rootScope.eUser.uFRLength = 10;
-
-	// $rootScope.eUser.uFAccepted["huongnd95"] = {name: "Ngo Duc Huong", ava: 1};
-	// $rootScope.eUser.uFAccepted["dungtt96"] = {name: "Tran Thu Dung", ava: 3};
-	// $rootScope.eUser.uFAccepted["vannm98"] = {name: "Nguyen Manh Van", ava: 8};
-	// $rootScope.eUser.uFAccepted["trangks99"] = {name: "Kim Seung Trang", ava: 7};
-	// $rootScope.eUser.uFAccepted["duyntc00"] = {name: "Nguyen Thi Cam Duy", ava: 4};
-	// $rootScope.eUser.uFAccepted["luongnt58"] = {name: "Nguyen Thi Luong", ava: 8};
-	// $rootScope.eUser.uFAccepted["taylor1989"] = {name: "Taylor Swift", ava: 6};
-	// $rootScope.eUser.uFAccepted["obamano1"] = {name: "Barack Obama", ava: 0};
-	// $rootScope.eUser.uFALength = 5;
-
 	// Friend's information
 	// Nguyen Minh Trang
 	$rootScope.eFriend = {
-		fName: '',				/*UTF-8*/
-		fAvatar: 0,				/*avatar index from 0 to 8*/
-		fVIP: 0,				/*VIP or not*/
+		fName: '',		/*UTF-8*/
+		fAvatar: 0,		/*avatar index from 0 to 8*/
+		fVIP: 0,		/*VIP or not*/
 
 		fMultiCal: null,	/*MultiCalendar object	Calendar*/
 	};
+
 	// Calendar's information
 	$rootScope.eCalendar = {
 		cDate: null, 	//Object Date that user click on month calendar
 	};
 
 	$rootScope.currentState = "loading";
-
-
 
 	/**
 	 * All functions
@@ -178,8 +154,6 @@ angular.module('MainApp.shareds.application', [])
 		return false;
 	}, 101);
 
-
-
 	// exit app function
 	// confirm and exit app
 	// only on the mobile or tablet device
@@ -213,22 +187,14 @@ angular.module('MainApp.shareds.application', [])
 		$rootScope.currentState = state;
 	}
 
-	// "hand-eyes" test for evaluate time
-	$rootScope.testEvaluate = function() {
-		console.log($rootScope.eUser.uGmailCalendar);
-		var mMCal = $rootScope.newMultiCal([$rootScope.eUser.uGmailCalendar]);
-		console.log(mMCal);
-		var mStart = new Date(2015, 3, 3);
-		var mEnd = new Date(2015, 5, 3);
-		var mDuration = 60;
-		var mHeap = $rootScope.evaluateTime(mMCal, mStart, mEnd, mDuration);
-		console.log(mHeap);
-	}
-
 	/**
 	 * evaluate meeting time
 	 * return a timeHeap
 	 */
+	// function to call
+	// in this function
+	// - suitable evaluating function will be called
+	// - output: a timeHeap
 	$rootScope.evaluateTime = function(mMCal, mStart, mEnd, mDuration) {
 		// evaluate the normal case
 		if(true) {
@@ -239,6 +205,8 @@ angular.module('MainApp.shareds.application', [])
 		return mHeap;
 	}
 
+	// evaluate normal case
+	// evaluate step by step from start of day to end of day
 	var evaluateNormal = function(mMCal, mStart, mEnd, mDuration) {
 		// result Heap
 		var mHeap = $rootScope.newTimeHeap();
