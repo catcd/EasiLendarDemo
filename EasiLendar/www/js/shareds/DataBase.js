@@ -261,7 +261,10 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 		if ($rootScope.eUser.uID != "" 
 			&& typeof($rootScope.eUser.uID) != "undefined"
 			&& $rootScope.eUser.isLogin == true) {
-				
+			
+			// request myself
+			if (id == $rootScope.eUser.uID) return null;
+			
 			var ref = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
 			// loading
@@ -385,6 +388,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 	 * add to $rootScope.searchFriends any id or name that contains 'str'
 	 */ 
 	$rootScope.searchFriend = function(str) {
+		$rootScope.searchFriends = [];
 		if ($rootScope.eUser.uID != "" 
 			&& typeof($rootScope.eUser.uID) != "undefined"
 			&& $rootScope.eUser.isLogin == true) {
@@ -401,11 +405,13 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 					names.push(child.val().name);
 					avas.push(child.val().avatar);
 				});
+				var length = 0;		// length of searchFriends
 				for (var i=0; i < ids.length; i++) {
 					var found1 = ids[i].search(str);
 					var found2 = names[i].search(str);
 					if (found1 != -1 || found2 != -1) {
-						$rootScope.searchFriends[ids[i]] = {
+						$rootScope.searchFriends[length++] = {
+							ID: ids[i],
 							name : names[i],
 							ava : avas[i],
 						};
@@ -423,10 +429,12 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 	 * do not interact with database
 	 */
 	$rootScope.searchEvent = function(str) {
+		$rootScope.searchEvents = [];
 		if ($rootScope.eUser.uID != "" 
 			&& typeof($rootScope.eUser.uID) != "undefined"
 			&& $rootScope.eUser.isLogin == true) {
 			
+			var length = 0;	// length of searchEvents
 			// go through all days
 			for (var x in $rootScope.eUser.uGmailCalendar) {
 				// go through all events in this day
@@ -438,7 +446,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 					}
 					// if event summary or location contains 'str'
 					if (found1 != -1 || found2 != -1) {
-						$rootScope.searchEvents[$rootScope.searchEvents.length] = $rootScope.eUser.uGmailCalendar[x][y];
+						$rootScope.searchEvents[length++] = $rootScope.eUser.uGmailCalendar[x][y];
 					}
 				}
 			}
