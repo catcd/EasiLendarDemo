@@ -80,6 +80,28 @@ angular.module('MainApp.shareds.application', [])
 		uFALength: 0,
 	};
 
+	// $rootScope.eUser.uFRequest["huongdung1"] = { id: "huongdung1", name: "Ngo Duc Huong", ava: 1};
+	// $rootScope.eUser.uFRequest["ttdungsexy"] = { id: "ttdungsexy", name: "Tran Thu Dung", ava: 3};
+	// $rootScope.eUser.uFRequest["minhchui02"] = { id: "minhchui02", name: "Nguyen Minh Chui", ava: 5};
+	// $rootScope.eUser.uFRequest["manhvan003"] = { id: "manhvan003", name: "Nguyen Manh Van", ava: 8};
+	// $rootScope.eUser.uFRequest["boykorea58"] = { id: "boykorea58", name: "Kim Seung Trang", ava: 7};
+	// $rootScope.eUser.uFRequest["hotgirlno1"] = { id: "hotgirlno1", name: "Nguyen Thi Cam Duy", ava: 4};
+	// $rootScope.eUser.uFRequest["justinbb02"] = { id: "justinbb02", name: "Justin Bieber", ava: 4};
+	// $rootScope.eUser.uFRequest["kimkashi07"] = { id: "kimkashi07", name: "Kim Kadashian", ava: 8};
+	// $rootScope.eUser.uFRequest["gotgon1158"] = { id: "gotgon1158", name: "Yoona", ava: 7};
+	// $rootScope.eUser.uFRequest["badboyking"] = { id: "badboyking", name: "Son Tung MTP", ava: 0};
+	// $rootScope.eUser.uFRLength = 10;
+
+	// $rootScope.eUser.uFAccepted["huongnd95"] = { id: "huongnd95", name: "Ngo Duc Huong", ava: 1};
+	// $rootScope.eUser.uFAccepted["dungttd96"] = { id: "dungttd96", name: "Tran Thu Dung", ava: 3};
+	// $rootScope.eUser.uFAccepted["vannm9896"] = { id: "vannm9896", name: "Nguyen Manh Van", ava: 8};
+	// $rootScope.eUser.uFAccepted["trangks99"] = { id: "trangks99", name: "Kim Seung Trang", ava: 7};
+	// $rootScope.eUser.uFAccepted["duyntc00a"] = { id: "duyntc00a", name: "Nguyen Thi Cam Duy", ava: 4};
+	// $rootScope.eUser.uFAccepted["luongnt58"] = { id: "luongnt58", name: "Nguyen Thi Luong", ava: 8};
+	// $rootScope.eUser.uFAccepted["taylor989"] = { id: "taylor989", name: "Taylor Swift", ava: 6};
+	// $rootScope.eUser.uFAccepted["obamano01"] = { id: "obamano01", name: "Barack Obama", ava: 0};
+	// $rootScope.eUser.uFALength = 8;
+
 	// Friend's information
 	// Nguyen Minh Trang
 	$rootScope.eFriend = {
@@ -138,11 +160,8 @@ angular.module('MainApp.shareds.application', [])
 				$rootScope.backButtonPressedOnceToExit = true;
 
 				// toast
-				toastrConfig.positionClass = 'toast-sign-out';
+				$rootScope.toastSuccessOne('Press Back again to exit.', 2000);
 
-				toastr.success('Press Back again to exit.', {
-					timeOut: 2000
-				});
 				setTimeout(function() {
 					$rootScope.backButtonPressedOnceToExit = false;
 				}, 2000);
@@ -354,7 +373,7 @@ angular.module('MainApp.shareds.application', [])
 		mHeap.push($rootScope.newTimeNode(mDate, $rootScope.tomorrow(mDate)));
 	}
 
-	// Function to caculate a time in what part of day
+	// Function to caculate a time in what part of day and return the points
 	// return 0: 12: 00 am to 5: 59 am 0 pts
 	// return 1: 6: 00 am to 7: 59 am + 15 pts
 	// return 2: 8: 00 am to 10: 59 am + 30 pts
@@ -362,15 +381,46 @@ angular.module('MainApp.shareds.application', [])
 	// return 4: 14: 00 pm to 16: 59 pm + 50 pts
 	// return 5: 17: 00 pm to 19: 59 pm + 20 pts
 	// return 6: 20: 00 pm to 12: 00 am + 15 pts
-	var whatPart = function(mHour) {
+	$rootScope.calPoint = function(mHour) {
 		switch (mHour) {
 			case 0: case 1: case 2: case 3: case 4: case 5: return 0;
-			case 6: case 7: return 1;
-			case 8: case 9: case 10: return 2;
-			case 11: case 12: case 13: return 3;
-			case 14: case 15: case 16: return 4;
-			case 17: case 18: case 19: return 5;
-			case 20: case 21: case 22: case 23: return 6;
+			case 6: case 7: return 15;
+			case 8: case 9: case 10: return 30;
+			case 11: case 12: case 13: return 20;
+			case 14: case 15: case 16: return 50;
+			case 17: case 18: case 19: return 20;
+			case 20: case 21: case 22: case 23: return 15;
 		};
+	}
+
+	/**
+	 * Toast function
+	 */
+	// toast success
+	// lots of toast show a time
+	// color #33CCCC
+	// width 50%
+	// position center bottom
+	$rootScope.toastSuccess = function(message, delay) {
+		toastrConfig.positionClass = 'toast-sign-out';
+		toastrConfig.preventDuplicates = false,
+
+		toastr.success(message, {
+			timeOut: delay
+		});
+	}
+
+	// toast success one
+	// only 1 toast show a time
+	// color #33CCCC
+	// width 50%
+	// position center bottom
+	$rootScope.toastSuccessOne = function(message, delay) {
+		toastrConfig.positionClass = 'toast-sign-out';
+		toastrConfig.preventDuplicates = true,
+
+		toastr.success(message, {
+			timeOut: delay
+		});
 	}
 })

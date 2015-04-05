@@ -25,6 +25,10 @@ angular.module('MainApp.controllers.search', [])
 		// demo data for friend
 		if ($rootScope.searchType.type == "All" || $rootScope.searchType.type == "People") {
 			$rootScope.searchFriend($scope.searchInput);
+			// $rootScope.searchFriends[0] = { ID: 'cancatdz', name: 'Cat Can', ava: 1 };
+			// $rootScope.searchFriends[1] = { ID: 'dungk58', name: 'Ngo Duc Huong', ava: 4 };
+			// $rootScope.searchFriends[2] = { ID: 'pagenguyen', name: 'Nguyen Minh Page', ava: 5 };
+
 			console.log($rootScope.searchFriends);
 		}
 
@@ -40,11 +44,7 @@ angular.module('MainApp.controllers.search', [])
 		$rootScope.request(ID);
 
 		// toast
-		toastrConfig.positionClass = 'toast-sign-out';
-
-		toastr.success('Sending request.', {
-			timeOut: 2000
-		});
+		$rootScope.toastSuccess('Sending request.', 2000);
 	}
 
 	// change event call
@@ -52,11 +52,7 @@ angular.module('MainApp.controllers.search', [])
 		// do something here
 
 		// toast
-		toastrConfig.positionClass = 'toast-sign-out';
-
-		toastr.success('Coming soon...', {
-			timeOut: 2000
-		});
+		$rootScope.toastSuccess('Coming soon...', 2000);
 	}
 
 	// function to check if empty result

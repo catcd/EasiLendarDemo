@@ -12,7 +12,7 @@
 	</a>
 
 	<!-- friend request list -->
-	<a ng-repeat="friend in eUser.uFRequest" class="item my-popover-item" ng-click="friendAction(friend.name)">
+	<a ng-repeat="friend in eUser.uFRequest" class="item my-popover-item" ng-click="friendAction(friend)">
 		<img src="img/ava{{friend.ava}}.png">
 		<p class="easi-space">{{friend.name}}</p>
 	</a>

@@ -23,8 +23,7 @@
 	<!-- friend accepted -->
 	<a id="friend-accepted"
 	class="item my-popover-item"
-	ng-click="showAlert('Friend responds', '', 'All friend respond here!');
-			closePopover()"
+	ng-click="showAlert('Friend accepted', 'templates/noti-friend-accepted.html', 'Click to see profile'); closePopover()"
 	ng-hide="eUser.uFALength == 0 || mPopoverActive != 'friend'"
 	ng-repeat="friend in eUser.uFAccepted"
 	ng-if="$first">

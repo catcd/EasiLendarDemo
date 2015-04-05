@@ -8,177 +8,178 @@
 angular.module('MainApp.controllers.popover', [])
 
 .controller('PopOverController', function($rootScope, $scope, $ionicPopover, $ionicActionSheet, $timeout) {
-    /**
-     * popover variable
-     */
-    // class
-    $scope.mPopoverStatus = {};
-    $scope.mPopoverStatus[true] = "active";
-    $scope.mPopoverStatus[false] = "";
+	/**
+	 * popover variable
+	 */
+	// class
+	$scope.mPopoverStatus = {};
+	$scope.mPopoverStatus[true] = "active";
+	$scope.mPopoverStatus[false] = "";
 
-    $scope.mPopoverActive = "";
+	$scope.mPopoverActive = "";
 
-    /**
-     * popover function
-     */
-    $scope.tabActive = function(tabName) {
-        $scope.mPopoverActive = tabName;
-    };
+	/**
+	 * popover function
+	 */
+	$scope.tabActive = function(tabName) {
+		$scope.mPopoverActive = tabName;
+	};
 
-    // function for gesture
-    $scope.nextRightNoti = function() {
-        if ($scope.mPopoverActive == "friend") {
-            $scope.tabActive("request");
-        } else if ($scope.mPopoverActive == "request") {
-            $scope.tabActive("respond");
-        } else {
-            $scope.tabActive("friend");
-        }
-    };
-    $scope.nextLeftNoti = function() {
-        if ($scope.mPopoverActive == "friend") {
-            $scope.tabActive("respond");
-        } else if ($scope.mPopoverActive == "request") {
-            $scope.tabActive("friend");
-        } else {
-            $scope.tabActive("request");
-        }
-    };
+	// function for gesture
+	$scope.nextRightNoti = function() {
+		if ($scope.mPopoverActive == "friend") {
+			$scope.tabActive("request");
+		} else if ($scope.mPopoverActive == "request") {
+			$scope.tabActive("respond");
+		} else {
+			$scope.tabActive("friend");
+		}
+	};
+	$scope.nextLeftNoti = function() {
+		if ($scope.mPopoverActive == "friend") {
+			$scope.tabActive("respond");
+		} else if ($scope.mPopoverActive == "request") {
+			$scope.tabActive("friend");
+		} else {
+			$scope.tabActive("request");
+		}
+	};
 
-    /**
-     * friend popover
-     */
-    $scope.friendPopover = $ionicPopover.fromTemplate(template, {
-        scope: $scope,
-    });
+	/**
+	 * friend popover
+	 */
+	$scope.friendPopover = $ionicPopover.fromTemplate(template, {
+		scope: $scope,
+	});
 
-    // .fromTemplateUrl() method
-    $ionicPopover.fromTemplateUrl('templates/noti-popover.html', {
-        scope: $scope,
-    }).then(function(popover) {
-        $scope.friendPopover = popover;
-    });
+	// .fromTemplateUrl() method
+	$ionicPopover.fromTemplateUrl('templates/noti-popover.html', {
+		scope: $scope,
+	}).then(function(popover) {
+		$scope.friendPopover = popover;
+	});
 
-    $scope.openPopover = function($event) {
-        $scope.tabActive("friend");
-        $scope.friendPopover.show($event);
-    };
-    $scope.closePopover = function() {
-        $scope.friendPopover.hide();
-    };
-    // Cleanup the popover when we're done with it!
-    $scope.$on('$destroy', function() {
-        $scope.friendPopover.remove();
-    });
+	$scope.openPopover = function($event) {
+		$scope.tabActive("friend");
+		$scope.friendPopover.show($event);
+	};
+	$scope.closePopover = function() {
+		$scope.friendPopover.hide();
+	};
+	// Cleanup the popover when we're done with it!
+	$scope.$on('$destroy', function() {
+		$scope.friendPopover.remove();
+	});
 
-    /**
-     * action sheet
-     */
-    // friend action sheet
-    $scope.friendAction = function(name) {
-        // Show the action sheet
-        var friendSheet = $ionicActionSheet.show({
-            buttons: [{
-                text: 'View'
-            }, {
-                text: 'Comfirm request'
-            }],
-            destructiveText: 'Delete request',
-            titleText: name + " request",
-            cancelText: 'Cancel',
-            cancel: function() {
-                // TODO cancel code here
-            },
-            destructiveButtonClicked: function() {
-                // TODO delete code here
-                $rootScope.showAlert("Deleted");
+	/**
+	 * action sheet
+	 */
+	// friend action sheet
+	$scope.friendAction = function(friend) {
+		// Show the action sheet
+		var friendSheet = $ionicActionSheet.show({
+			buttons: [{
+				text: 'View'
+			}, {
+				text: 'Comfirm request'
+			}],
+			destructiveText: 'Delete request',
+			titleText: friend.name + " request",
+			cancelText: 'Cancel',
+			cancel: function() {
+				// TODO cancel code here
+			},
+			destructiveButtonClicked: function() {
+				$rootScope.rejectF(friend.id);
 
-                return true;
-            },
-            buttonClicked: function(index) {
-                if (index == 0) {
-                    // TODO view code here
-                    $rootScope.showAlert("Viewing");
-                    $scope.closePopover();
-                } else {
-                    // TODO confirm code here
-                    $rootScope.showAlert("Comfirm friend request");
-                }
+				return true;
+			},
+			buttonClicked: function(index) {
+				if (index == 0) {
+					// TODO view code here
+					$rootScope.viewProfile(friend.id);
 
-                return true;
-            }
-        });
-        // hide the sheet after five seconds
-        $timeout(function() {
-            friendSheet();
-        }, 5000);
+					$scope.closePopover();
+				} else {
+					// TODO confirm code here
+					$rootScope.addFriend(friend.id);
+				}
 
-    };
+				return true;
+			}
+		});
 
-    // Request action sheet
-    $scope.requestAction = function(name) {
-        // Show the action sheet
-        var requestSheet = $ionicActionSheet.show({
-            buttons: [{
-                text: 'View detail'
-            }, {
-                text: 'Accept'
-            }],
-            destructiveText: 'Reject',
-            titleText: name + " appointment",
-            cancelText: 'Cancel',
-            cancel: function() {
-                // TODO cancel code here
-            },
-            destructiveButtonClicked: function() {
-                // TODO delete code here
-                $rootScope.showAlert("Deleted");
+		// hide the sheet after fifteen seconds
+		$timeout(function() {
+			friendSheet();
+		}, 15000);
+	};
 
-                return true;
-            },
-            buttonClicked: function(index) {
-                if (index == 0) {
-                    // TODO view code here
-                    $rootScope.showAlert("Viewing");
-                    $scope.closePopover();
-                } else {
-                    // TODO confirm code here
-                    $rootScope.showAlert("Accepted appointment");
-                }
+	// Request action sheet
+	$scope.requestAction = function(name) {
+		// Show the action sheet
+		var requestSheet = $ionicActionSheet.show({
+			buttons: [{
+				text: 'View detail'
+			}, {
+				text: 'Accept'
+			}],
+			destructiveText: 'Reject',
+			titleText: name + " appointment",
+			cancelText: 'Cancel',
+			cancel: function() {
+				// TODO cancel code here
+			},
+			destructiveButtonClicked: function() {
+				// TODO delete code here
+				$rootScope.showAlert("Deleted");
 
-                return true;
-            }
-        });
-        // hide the sheet after two seconds
-        $timeout(function() {
-            requestSheet();
-        }, 5000);
-    };
+				return true;
+			},
+			buttonClicked: function(index) {
+				if (index == 0) {
+					// TODO view code here
+					$rootScope.showAlert("Viewing");
+					$scope.closePopover();
+				} else {
+					// TODO confirm code here
+					$rootScope.showAlert("Accepted appointment");
+				}
 
-    /**
-     * ng-style
-     */
-    // style for friend tab
-    var calMyMargin = function() {
-        if ($rootScope.eUser.uFALength != 0 || $scope.mPopoverActive == 'friend') {
-            return "69px";
-        } else {
-            return "0px";
-        }
-    };
+				return true;
+			}
+		});
 
-    var mMargin = calMyMargin();
+		// hide the sheet after fifteen seconds
+		$timeout(function() {
+			requestSheet();
+		}, 15000);
+	};
 
-    $scope.marginFriendTab = {
-        "margin-top": mMargin,
-    };
+	/**
+	 * ng-style
+	 */
+	// style for friend tab
+	var calMyMargin = function() {
+		if ($rootScope.eUser.uFALength != 0 || $scope.mPopoverActive == 'friend') {
+			return "69px";
+		} else {
+			return "0px";
+		}
+	};
+
+	var mMargin = calMyMargin();
+
+	$scope.marginFriendTab = {
+		"margin-top": mMargin,
+	};
 })
 
 .directive('notiContent', function() {
-    return {
-        restrict: 'E',
-        templateUrl: function(elem, attr) {
-            return "templates/noti-" + attr.type + "-tab.html";
-        }
-    };
+	return {
+		restrict: 'E',
+		templateUrl: function(elem, attr) {
+			return "templates/noti-" + attr.type + "-tab.html";
+		}
+	};
 });

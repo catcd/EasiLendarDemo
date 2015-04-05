@@ -42,7 +42,9 @@
 			<a ng-repeat="person in searchFriends" class="item my-popover-item item-button-right">
 				<img src="img/ava{{person.ava}}.png">
 				<p class="easi-space">{{person.name}}</p>
-				<button class="button button-easi-blue" ng-click="addPerson(person.ID)" style="margin-top:-3px">
+				<button class="button button-easi-blue"
+				ng-click="addPerson(person.ID)"
+				style="margin-top:-3px">
 					<i class="icon ion-person-add"></i>
 				</button>
 			</a>
