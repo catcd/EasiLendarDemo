@@ -65,21 +65,28 @@ signIn.controller('SignInController',
 					$rootScope.goToState('warning');
 				} else {
 					// copy all user's data to $rootScope
-					$rootScope.eUser.uID = id;
-					$rootScope.eUser.uName = user.name;
-					$rootScope.eUser.uAvatar = user.avatar;
-					$rootScope.eUser.uEmail = user.gmail;
-					$rootScope.eUser.uPassword = pass;
-					$rootScope.eUser.uRemember = $scope.isRemember;
-					$rootScope.eUser.uFriend = user.friends;
-					$rootScope.eUser.uFRequest = (user.noti == null ? null : user.noti.fRequest);
-					$rootScope.eUser.uFAccepted = (user.noti == null ? null : user.noti.fAccept);
-					$rootScope.eUser.uGmailCalendar = user.g_calendar;
-					$rootScope.eUser.uLocalCalendar = user.local_calendar;
-					$rootScope.eUser.uVIP = user.VIP;
-					
-					$rootScope.eUser.isLogin = true;
-					
+					$rootScope.eUser = {
+						uID: id,
+						uName: user.name,
+						uAvatar: user.avatar,
+						uEmail: user.gmail,
+						uPassword: pass,
+						uRemember: $scope.isRemember,
+						uFriend: user.friends,
+						uVIP : user.VIP,
+						isLogin: true,
+
+						uRequested: user.requested,
+
+						uGmailCalendar: user.g_calendar,
+						uLocalCalendar: user.local_calendar,
+
+						uFRequest: (user.noti == null ? null : user.noti.fRequest),
+						uFAccepted: (user.noti == null ? null : user.noti.fAccept),
+						uFRLength: 0,
+						uFALength: 0,
+					};
+					// convert
 					$rootScope.eUser.uGmailCalendar = $rootScope.convertCal($rootScope.eUser.uGmailCalendar);
 					$rootScope.eUser.uLocalCalendar = $rootScope.convertCal($rootScope.eUser.uLocalCalendar);
 
@@ -155,14 +162,7 @@ signIn.controller('SignInController',
 					ref.set({
 						name : $scope.user.name,
 						password : $scope.user.password,
-						avatar: "0",
-						local_calendar : null,
-						g_calendar : null,
-						friends : null,
-						noti: {
-							fRequest : null,
-							fAccept : null,
-						},
+						avatar: 0,
 						VIP : 0,
 						gmail : mail,
 					});

@@ -67,100 +67,80 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 		}
 	};
 	
+	// clear all data in application when sign out
+	var clearData = function() {
+		// Reset all data
+		// Setting
+		$rootScope.eSettings = {
+			sEvent: true,
+			sHoliday: true,
+			sBirthday: true,
+			sLocalCalendar: true,
+			sGmailCalendar: true,
+
+			sDefaultView: 'month',
+			sDayView: 'eventList',
+			sFirstDay: 'Monday',
+			sShowWeekNumber: true,
+
+			sAutoSync: null,
+			sSyncWith: 'both 3G and wifi',
+
+			sDefaultDuration: 60,
+
+			sDeviceTimeZone: true,
+			sTimeZone: 0,
+		}
+		// User information
+		$rootScope.eUser = {
+			uID: '',
+			uName: '',
+			uAvatar: '0',
+			uEmail: '',
+			uPassword: '',
+			uRemember: false,
+			uFriend: [],
+			uVIP : 0,
+			uGmailCalendar: null,
+			uLocalCalendar: null,
+			isLogin: false,
+			uRequested: [],
+			uFRequest: {},
+			uFAccepted: {},
+			uFRLength: 0,
+			uFALength: 0,
+		}
+	};
+	
+	// check if user has signed in or not
+	var checkSignIn = function() {
+		if ($rootScope.eUser.uID != "" && $rootScope.eUser.uID != null
+				&& $rootScope.eUser.isLogin == true) {
+
+			return true;
+		} else return false;
+	};
+	
 	// sign out function
 	// update data, reset setting, go to form.
 	$rootScope.signOutEasi = function() {
-		// update on database
-		$rootScope.update();
-	}
+		// clear data
+		clearData();
+		
+		// Clear cache
+		// TODO
 	
-	/*
-	 * Update function
-	 * Only call when isLogin = true
-	 * save every data of user in server
-	 */
-	$rootScope.update = function() {
-		if ($rootScope.eUser.uID != "" 
-				&& typeof($rootScope.eUser.uID) != "undefined" 
-				&& $rootScope.eUser.isLogin == true) {
-					
-			toString();
-			var ref = new Firebase(
-					"https://radiant-inferno-3243.firebaseio.com/Users/"
-					+ $rootScope.eUser.uID);
-			// loading
-			$rootScope.databaseLoading();
-			var onComplete = function(error) {
-				if (error) {
-					console.log("failed");
-				} else {
-					// Clear cache
-					// TODO
-	
-					// change state
-					$rootScope.goToState("form");
+		// change state
+		$rootScope.goToState("form");
 
-					// notice
-					toastrConfig.positionClass = 'toast-sign-out';
-					toastrConfig.preventDuplicates = true;
+		// notice
+		toastrConfig.positionClass = 'toast-sign-out';
+		toastrConfig.preventDuplicates = true;
 
-					toastr.success('Sign out successfully!', {
-						timeOut: 3000,
-						extendedTimeout: 2000
-					});
-					
-					// Reset all data
-					// Setting
-					$rootScope.eSettings.sEvent = true;
-					$rootScope.eSettings.sHoliday = true;
-					$rootScope.eSettings.sBirthday = true;
-					$rootScope.eSettings.sLocalCalendar = true;
-					$rootScope.eSettings.sGmailCalendar = true;
-					$rootScope.eSettings.sDefaultView = 'month';
-					$rootScope.eSettings.sDayView = 'eventList';
-					$rootScope.eSettings.sFirstDay = 'Monday';
-					$rootScope.eSettings.sShowWeekNumber = true;
-					$rootScope.eSettings.sAutoSync = null;
-					$rootScope.eSettings.sSyncWith = 'both 3G and wifi';
-					$rootScope.eSettings.sDefaultDuration = 60;
-					$rootScope.eSettings.sDeviceTimeZone = true;
-					// User information
-					$rootScope.eUser.uID = '';
-					$rootScope.eUser.uName = '';
-					$rootScope.eUser.uAvatar = '0';
-					$rootScope.eUser.uEmail = '';
-					$rootScope.eUser.uPassword = '';
-					$rootScope.eUser.uRemember = false;
-					$rootScope.eUser.uFriend = [];
-					$rootScope.eUser.isLogin = false;
-					$rootScope.eUser.uGmailCalendar = null;
-					$rootScope.eUser.uLocalCalendar = null;
-				}
-			};
-			ref.set({
-				// Name
-				name : $rootScope.eUser.uName,
-				// Avatar
-				avatar : $rootScope.eUser.uAvatar,
-				// Gmail
-				gmail : $rootScope.eUser.uEmail,
-				// Password
-				password : $rootScope.eUser.uPassword,
-				// Friends list
-				friends : ($rootScope.eUser.uFriend == null?null:$rootScope.eUser.uFriend),
-				// Local calendar
-				local_calendar : ($rootScope.eUser.uLocalCalendar == null?null:$rootScope.eUser.uLocalCalendar),
-				// Google calendar
-				g_calendar : ($rootScope.eUser.uGmailCalendar==null?null:$rootScope.eUser.uGmailCalendar),
-				// VIP account
-				VIP : $rootScope.eUser.uVIP,
-				// notifications
-				noti: {
-					fRequest: $rootScope.eUser.uFRequest==null?null:$rootScope.eUser.uFRequest==null,
-					fAccept: $rootScope.eUser.uFAccepted==null?null:$rootScope.eUser.uFAccepted,
-				},
-			}, onComplete);
-		}
+		toastr.success('Sign out successfully!', {
+			timeOut: 3000,
+			extendedTimeout: 2000
+		});
 	};
 	
 	/*
@@ -168,10 +148,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 	 * add id of this user to "id"'s friends list
 	 */
 	$rootScope.addFriend = function(id) {
-		if ($rootScope.eUser.uID != "" 
-				&& typeof($rootScope.eUser.uID) != "undefined"
-				&& $rootScope.eUser.isLogin == true) {
-					
+		if (checkSignIn() && id != null && id != "") {
 			var ref = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users");
 					
@@ -185,47 +162,60 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 					$ionicLoading.hide();
 				}
 			};
-			idRef.once("value", function(snapshot) {
-				var user = snapshot.val();
-				// there is no user with that "id"
-				if (user == null) {
-					$rootScope.showAlert(id + "does not exist");
-				} else {
-					// check if id has sent a request
-					if ($rootScope.eUser.uFRequest != null && $rootScope.eUser.uFRequest[id] != null) {
-						// add this user's id to "id"'s friends list
-						var friend = idRef.child("friends/" + $rootScope.eUser.uID);
-						friend.set({
+			// check if id has sent a request
+			if ($rootScope.eUser.uFRequest != null && $rootScope.eUser.uFRequest[id] != null) {
+				idRef.once("value", function(snapshot) {
+					var user = snapshot.val();			
+					// there is no user with that "id"
+					if (user == null) {
+						$rootScope.showAlert(id + "does not exist");
+					} else {
+						// get basic info
+						var name = user.name;
+						var ava = user.avatar;
+						// add this user to "id"'s friends list
+						var fFriend = idRef.child("friends/" + $rootScope.eUser.uID);
+						fFriend.set({
+							id : $rootScope.eUser.uID,
 							name : $rootScope.eUser.uName,
 							ava: $rootScope.eUser.uAvatar,
 						});
-						// add this user's id to accepted list of "id"
-						var accept = idRef.child("noti/fAccept/" + $rootScope.eUser.uID);
-						accept.set({
+						// add this user to accepted list of "id"
+						var fAccept = idRef.child("noti/fAccept/" + $rootScope.eUser.uID);
+						fAccept.set({
+							id : $rootScope.eUser.uID,
 							name: $rootScope.eUser.uName,
 							ava: $rootScope.eUser.uAvatar,
 						});
-
+						// delete this user from requested list of id
+						var fRequested = idRef.child("requested/" + $rootScope.eUser.uID);
+						fRequested.set(null);
+						
 						// delete the request of "id"
 						delete $rootScope.eUser.uFRequest[id];
 						$rootScope.setUFRL(); 	// set uFRLength
+						
 						// add "id" to friends list
 						if ($rootScope.eUser.uFriend == null) $rootScope.eUser.uFriend = [];
 						$rootScope.eUser.uFriend[id] = {
-							name : user.name,
-							ava : user.avatar,
+							id : id,
+							name : name,
+							ava : ava,
 						};
 						// update on this account (not 'id')
-						var selfFriends = ref.child($rootScope.eUser.uID+"/friends");
-						var list = $rootScope.eUser.uFriend == null?null:$rootScope.eUser.uFriend;
-						selfFriends.set(list);
-						var selfFRequest = ref.child($rootScope.eUser.uID + "/noti/fRequest");
-						selfFRequest.set($rootScope.eUser.uFRequest, onComplete);
+						var uFriend = ref.child($rootScope.eUser.uID + "/friends/" + id);
+						uFriend.set({
+							id : id,
+							name : name,
+							ava : ava,
+						});
+						var uFRequest = ref.child($rootScope.eUser.uID + "/noti/fRequest/" + id);
+						uFRequest.set(null, onComplete);
 					}
-				}
-			}, function(errorObject) {
-				console.log("Failed to access" + ref);
-			});
+				}, function(errorObject) {
+					console.log("Failed to access" + ref);
+				});
+			}
 		}
 	};
 	
@@ -234,21 +224,24 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 	 * return object multiCalendar of "id" 
 	 */
 	$rootScope.getCalendar = function(id) {
-		if ($rootScope.eUser.uID != "" 
-			&& typeof($rootScope.eUser.uID) != "undefined"
-			&& $rootScope.eUser.isLogin == true) {
-				
+		if (checkSignIn() && id != null && id != "") {
 			var ref = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
 			// loading
 			$rootScope.databaseLoading();
 			ref.once("value", function(snapshot) {
 				var user = snapshot.val();
-				user.g_calendar = $rootScope.convertCal(user.g_calendar);
-				user.local_calendar = $rootScope.convertCal(user.local_calendar);
-				var temp = [user.g_calendar, user.local_calendar];
-				$rootScope.eFriend.fMultiCal = $rootScope.newMultiCal(temp);
-				$ionicLoading.hide();
+				if (user == null) {
+					$rootScope.showAlert(id + "does not exist");
+				} else {
+					user.g_calendar = $rootScope.convertCal(user.g_calendar);
+					user.local_calendar = $rootScope.convertCal(user.local_calendar);
+					var temp = [user.g_calendar, user.local_calendar];
+					$rootScope.eFriend.fMultiCal = $rootScope.newMultiCal(temp);
+					$ionicLoading.hide();
+				}
+			}, function(errorObject) {
+				console.log("Failed to access" + ref);
 			});
 		}
 	};
@@ -258,15 +251,18 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 	 * add this user's id to fRequest of "id"
 	 */
 	$rootScope.request = function(id) {
-		if ($rootScope.eUser.uID != "" 
-			&& typeof($rootScope.eUser.uID) != "undefined"
-			&& $rootScope.eUser.isLogin == true) {
-			
+		if (checkSignIn() && id != null && id != "") {
 			// request myself
 			if (id == $rootScope.eUser.uID) return null;
 			
 			var ref = new Firebase(
-					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
+					"https://radiant-inferno-3243.firebaseio.com/Users");
+					
+			// reference to uRequested list of this user
+			var uRequest = ref.child($rootScope.eUser.uID + "/requested/" + id);
+			// reference to id
+			var friend = ref.child(id);
+			
 			// loading
 			$rootScope.databaseLoading();
 			var onComplete = function(error) {
@@ -276,17 +272,24 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 					$ionicLoading.hide();
 				}
 			};
-			ref.once("value", function(snapshot) {
+			friend.once("value", function(snapshot) {
 				var user = snapshot.val();
 				// there is no user with that "id"
 				if (user == null) {
 					$rootScope.showAlert(id + "does not exist");
 				} else {
-					// add this user's id to "id"'s friends list
-					var request = ref.child("noti/fRequest/" + $rootScope.eUser.uID);
-					request.set({
+					// add this user to "id"'s friend request list
+					var fRequest = friend.child("noti/fRequest/" + $rootScope.eUser.uID);
+					fRequest.set({
+						id : $rootScope.eUser.uID,
 						name : $rootScope.eUser.uName,
 						ava: $rootScope.eUser.uAvatar,
+					});
+					// add id to this user's requested list
+					uRequest.set({
+						id : id,
+						name : user.name,
+						ava : user.avatar,
 					}, onComplete);
 				}
 			}, function(errorObject) {
@@ -301,15 +304,13 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 	 * 'id' is index of noti in uFAccepted array
 	 */
 	$rootScope.deleteFN = function(id) {
-		if ($rootScope.eUser.uID != "" 
-			&& typeof($rootScope.eUser.uID) != "undefined"
-			&& $rootScope.eUser.isLogin == true) {
-				
+		if (checkSignIn() && id != null && id != "") {
 			delete $rootScope.eUser.uFAccepted[id];
 			$rootScope.setUFAL();	// set uFALength
-			var accept = new Firebase(
+			
+			var uAccept = new Firebase(
 				"https://radiant-inferno-3243.firebaseio.com/Users/"
-				+ $rootScope.eUser.uID + "/noti/fAccept");
+				+ $rootScope.eUser.uID + "/noti/fAccept/" + id);
 			// loading
 			$rootScope.databaseLoading();
 			var onComplete = function(error) {
@@ -319,7 +320,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 					$ionicLoading.hide();
 				}
 			};
-			accept.set($rootScope.eUser.uFAccepted, onComplete);
+			uAccept.set(null, onComplete);
 		}
 	};
 	
@@ -328,18 +329,16 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 	 * delete friend with 'id'
 	 */
 	$rootScope.deleteF = function(id) {
-		if ($rootScope.eUser.uID != "" 
-			&& typeof($rootScope.eUser.uID) != "undefined"
-			&& $rootScope.eUser.isLogin == true) {
-			
+		if (checkSignIn() && id != null && id != "") {
 			// delete 'id' in user's friend list
 			delete $rootScope.eUser.uFriend[id];
-			var friend = new Firebase(
+			
+			var uFriend = new Firebase(
 				"https://radiant-inferno-3243.firebaseio.com/Users/"
-				+ $rootScope.eUser.uID + "/friends");
+				+ $rootScope.eUser.uID + "/friends/" + id);
 			// loading
 			$rootScope.databaseLoading();
-			friend.set($rootScope.eUser.uFriend);
+			uFriend.set(null);
 			
 			var onComplete = function(error) {
 				if (error) {
@@ -348,10 +347,10 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 					$ionicLoading.hide();
 				}
 			};
-			var idFriendList = new Firebase(
+			var fFriend = new Firebase(
 				"https://radiant-inferno-3243.firebaseio.com/Users/"
-				+ id + "/friends/"+ $rootScope.eUser.uID);
-			idFriendList.set(null, onComplete);
+				+ id + "/friends/" + $rootScope.eUser.uID);
+			fFriend.set(null, onComplete);
 		}
 	};
 	
@@ -360,15 +359,17 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 	 * reject friend request sent by 'id'
 	 */
 	$rootScope.rejectF = function(id) {
-		if ($rootScope.eUser.uID != "" 
-			&& typeof($rootScope.eUser.uID) != "undefined"
-			&& $rootScope.eUser.isLogin == true) {
-			
+		if (checkSignIn() && id != null && id != "") {
 			delete $rootScope.eUser.uFRequest[id];
 			$rootScope.setUFRL();	// set uFRLength
-			var request = new Firebase(
+			
+			var uRequest = new Firebase(
 				"https://radiant-inferno-3243.firebaseio.com/Users/"
-				+ $rootScope.eUser.uID + "/noti/fRequest");
+				+ $rootScope.eUser.uID + "/noti/fRequest/" + id);
+			var fRequested = new Firebase(
+				"https://radiant-inferno-3243.firebaseio.com/Users/"
+				+ id + "/requested/" + $rootScope.eUser.uID);
+				
 			// loading
 			$rootScope.databaseLoading();
 			var onComplete = function(error) {
@@ -378,7 +379,8 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 					$ionicLoading.hide();
 				}
 			};
-			request.set($rootScope.eUser.uFRequest, onComplete);
+			fRequested.set(null);
+			uRequest.set(null, onComplete);
 		}
 	};
 
@@ -389,10 +391,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 	 */ 
 	$rootScope.searchFriend = function(str) {
 		$rootScope.searchFriends = [];
-		if ($rootScope.eUser.uID != "" 
-			&& typeof($rootScope.eUser.uID) != "undefined"
-			&& $rootScope.eUser.isLogin == true) {
-				
+		if (checkSignIn()) {
 			var ref = new Firebase("https://radiant-inferno-3243.firebaseio.com/Users");
 			// loading
 			$rootScope.databaseLoading();
@@ -411,7 +410,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 					var found2 = names[i].search(str);
 					if (found1 != -1 || found2 != -1) {
 						$rootScope.searchFriends[length++] = {
-							ID: ids[i],
+							id : ids[i],
 							name : names[i],
 							ava : avas[i],
 						};
@@ -430,10 +429,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 	 */
 	$rootScope.searchEvent = function(str) {
 		$rootScope.searchEvents = [];
-		if ($rootScope.eUser.uID != "" 
-			&& typeof($rootScope.eUser.uID) != "undefined"
-			&& $rootScope.eUser.isLogin == true) {
-			
+		if (checkSignIn()) {
 			var length = 0;	// length of searchEvents
 			// go through all days
 			for (var x in $rootScope.eUser.uGmailCalendar) {
@@ -450,6 +446,156 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 					}
 				}
 			}
+		}
+	};
+	
+	/*
+	 * getInformation function
+	 * id is id of a person user want to get info
+	 * set info in eFriend
+	 */
+	$rootScope.getInformation = function(id) {
+		if (checkSignIn() && id != null && id != "") {
+			var ref = new Firebase(
+					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
+			// loading
+			$rootScope.databaseLoading();
+			ref.once("value", function(snapshot) {
+				var user = snapshot.val();
+				// there is no user with that "id"
+				if (user == null) {
+					$rootScope.showAlert(id + "does not exist");
+				} else {
+					// set user's info to $rootScope.eFriend
+					$rootScope.eFriend.fName = user.name;
+					$rootScope.eFriend.fAvatar = user.avatar;
+					$rootScope.eFriend.fVIP = user.VIP;
+					$ionicLoading.hide(); console.log($rootScope.eFriend);
+				}
+			}, function(errorObject) {
+				console.log("Failed to access" + ref);
+			});
+		}
+	};
+	
+	/*
+	 * refresh function
+	 * update everything from server
+	 */
+	$rootScope.refresh = function() {
+		if (checkSignIn()) {
+			var ref = new Firebase(
+					"https://radiant-inferno-3243.firebaseio.com/Users/" + $rootScope.eUser.uID);
+			// loading
+			$rootScope.databaseLoading(); 
+			ref.once("value", function(snapshot) {
+				var user = snapshot.val();
+				// copy all user's data to $rootScope
+				$rootScope.eUser = {
+					uID: $rootScope.eUser.uID,
+					uName: user.name,
+					uAvatar: user.avatar,
+					uEmail: user.gmail,
+					uPassword: user.password,
+					uRemember: false,
+					uFriend: user.friends,
+					uVIP : user.VIP,
+					isLogin: true,
+
+					uRequested: user.requested,
+
+					uGmailCalendar: user.g_calendar,
+					uLocalCalendar: user.local_calendar,
+
+					uFRequest: (user.noti == null ? null : user.noti.fRequest),
+					uFAccepted: (user.noti == null ? null : user.noti.fAccept),
+					uFRLength: 0,
+					uFALength: 0,
+				};
+				// convert
+				$rootScope.eUser.uGmailCalendar = $rootScope.convertCal($rootScope.eUser.uGmailCalendar);
+				$rootScope.eUser.uLocalCalendar = $rootScope.convertCal($rootScope.eUser.uLocalCalendar);
+
+				// set uFRLength and uFALength
+				$rootScope.setUFRL();
+				$rootScope.setUFAL();
+				
+				$ionicLoading.hide();
+				
+			}, function(errorObject) {
+				$rootScope.goToState('warning');
+			});
+		}
+	};
+	
+	/*
+	 * updateCalendar function
+	 * update user's calendar to server
+	 */
+	$rootScope.updateCalendar = function() {
+		if (checkSignIn()) {
+			toString();	// convert
+			var user = new Firebase(
+				"https://radiant-inferno-3243.firebaseio.com/Users/"
+				+ $rootScope.eUser.uID);
+				
+			// loading
+			$rootScope.databaseLoading();
+			var onComplete = function(error) {
+				if (error) {
+					console.log("failed");
+				} else {
+					$ionicLoading.hide();
+				}
+			};
+			var uGC = user.child("g_calendar");
+			if ($rootScope.eUser.uGmailCalendar != null) {
+				uGC.set($rootScope.eUser.uGmailCalendar);
+			} else {
+				uGC.set(null);
+			}
+			var uLocal = user.child("local_calendar");
+			if ($rootScope.eUser.uLocalCalendar != null) {
+				uLocal.set($rootScope.eUser.uLocalCalendar, onComplete);
+			} else {
+				uLocal.set(null, onComplete);
+			}
+		}
+	};
+	
+	/* 
+	 * viewProfile function
+	 * id is id of a person this user wants to view profile
+	 * set name, id, ava, calendar to eFriend
+	 */
+	$rootScope.viewProfile = function(id) {
+		if (checkSignIn() && id != null && id != "") {
+			var ref = new Firebase(
+					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
+			// loading
+			$rootScope.databaseLoading();
+			ref.once("value", function(snapshot) {
+				var user = snapshot.val();
+				// there is no user with that "id"
+				if (user == null) {
+					$rootScope.showAlert(id + "does not exist");
+				} else {
+					// set id's info to $rootScope.eFriend
+					$rootScope.eFriend.fName = user.name;
+					$rootScope.eFriend.fAvatar = user.avatar;
+					$rootScope.eFriend.fVIP = user.VIP;
+					// set fMultiCal
+					user.g_calendar = $rootScope.convertCal(user.g_calendar);
+					user.local_calendar = $rootScope.convertCal(user.local_calendar);
+					var temp = [user.g_calendar, user.local_calendar];
+					$rootScope.eFriend.fMultiCal = $rootScope.newMultiCal(temp);
+
+					$ionicLoading.hide();
+					$rootScope.goToState("profile");
+				}
+			}, function(errorObject) {
+				console.log("Failed to access" + ref);
+			});
 		}
 	};
 });
