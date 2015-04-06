@@ -14,24 +14,7 @@
 
 
     <ion-content scrollbar-y="false" id="content-list-calendar">
-      <center><table class="list-calendar">
-            <tr class="tr-list-calendar" ng-repeat="events in listEvents">
-                <td class="td-list-calendar-1" ng-repeat="event in events | limitTo:1">
-                    <div current-time="event.start.dateTime.getDate()" current-month="{{event.start.dateTime.getMonth()}}" current-year="{{event.start.dateTime.getFullYear()}}">
-                        <p class="p-list-calendar-number">{{event.start.dateTime.getDate()}}</p>
-                        <p class="p-list-calendar-text">{{weekDays[(event.start.dateTime.getDay()-1<0)? 6:event.start.dateTime.getDay()-1]}}</p>
-                        <p class="p-list-calendar-month">{{ months[event.start.dateTime.getMonth()]}}</p>
-                    </div>
-                </td>
-                <td class="td-list-calendar-2">
-                    <div class="div-list-calendar-1" ng-repeat="event in events" background-event="bkgE">
-                        <span class="span-title-event">{{event.summary}}</span><br>
-                         <span>Time: {{event.start.dateTime.getHours()}}:{{ (event.start.dateTime.getMinutes()<10)?'0':'' }}{{event.start.dateTime.getMinutes()}}{{ (event.start.dateTime.getHours() >= 12)?' PM':' AM' }} - {{event.end.dateTime.getHours()}}:{{(event.end.dateTime.getMinutes()<10)?'0':''}}{{event.end.dateTime.getMinutes()}}{{( event.end.dateTime.getHours() >= 12)?' PM':' AM' }}
-                        </span><br>
-                        <span>{{event.location}}</span>
-                    </div>
-                </td>
-            </tr>
-        </table></center>
+        <!--<button data-ng-click="eventToDay()">Click Me</button>-->
+        <easi-day></easi-day>
     </ion-content>
 </ion-view>

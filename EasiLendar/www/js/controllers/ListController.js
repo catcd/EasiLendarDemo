@@ -7,21 +7,20 @@
 
 angular.module('MainApp.controllers.list', [])
 
-.controller("ListController", function($scope, $rootScope) {
-	var toDay = new Date();
-	toDay = new Date(toDay.getFullYear(),toDay.getMonth(),toDay.getDate(),0,0,0,0);
-	$scope.$watch('eUser.uGmailCalendar', function(){
-			var count = 0;
-			$scope.listEvents = new Array();
-			for(var x in $rootScope.eUser.uGmailCalendar){
-				if( new Date(x) >= toDay ){
-					$scope.listEvents[count] = $rootScope.eUser.uGmailCalendar[x]; 
-					count++;
-				}
-			}
-	})
+.controller("ListController", function($scope, $rootScope, $ionicScrollDelegate, $location) {
+	$scope.dayID = Object.keys($rootScope.eUser.uGmailCalendar) ;
+    console.log($scope.dayID);
+	
 	//set random background
 	$scope.bkgE = 'bkg';
+    var toDay = new Date();
+    var string = toDay.toDateString();
+    /*
+    $scope.eventToDay = function(){
+        alert(string);
+        $location.hash(string);
+        $ionicScrollDelegate.anchorScroll(true);
+    }*/
 })
 
 .directive('backgroundEvent', function() {
@@ -59,6 +58,10 @@ angular.module('MainApp.controllers.list', [])
                 if (scope.isToDay == toDay.getDate() && attr.currentMonth == month && attr.currentYear == year) {
                     element.addClass('current-date-list');
                 }
+            });
+
+            element.bind('click',function(){
+                alert(element.attr('id'));
             });
         }
     };

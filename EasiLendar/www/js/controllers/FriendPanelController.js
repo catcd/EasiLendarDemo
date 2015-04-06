@@ -1,123 +1,72 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 4/4/2015
+ * last update: 6/4/2015
  * type: friend panel controller
  */
 
 angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 
-.controller('friendPanelController', function($scope, $rootScope, $location, $ionicScrollDelegate) {
-     $scope.searchFriend = '';
-     $scope.mShow = false;  
-     $scope.fStatus = ["I'm free now", "I'm busy now"];
+.controller('friendPanelController', function($scope, $rootScope, $location, $ionicScrollDelegate, $ionicPopup) {
+	$scope.searchFriend = '';
+	$scope.mShow = false;
 
-     $scope.arrID = Object.keys($rootScope.eUser.uFriend);
-     console.log($rootScope.eUser.uFriend);
-     console.log($scope.arrID);
+	var cacheFriend = angular.copy($rootScope.eUser.uFriend);
 
-      var cacheFriend = angular.copy($rootScope.eUser.uFriend);
-      var cacheID = angular.copy($scope.arrID);
-    
-      $scope.deleteFriend = function(id){
-          $scope.arrID.splice($scope.arrID.indexOf(id),1);
-          //cacheID = angular.copy($scope.arrID);
-          cacheFriend = angular.copy($rootScope.eUser.uFriend);
-      }
+	$scope.deleteFriend = function(friend) {
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'Are you sure ?'
+		});
+		confirmPopup.then(function(res) {
+			if(res) {
+				$rootScope.deleteF(friend.id);
+				cacheFriend = angular.copy($rootScope.eUser.uFriend);
+			}
+		});
+	}
 
-      $scope.appointMeeting = function(id){
-          $rootScope.eFriend.fName = $rootScope.eUser.uFriend[id].name;
-          //$rootScope.eFriend.fVip = $rootScope.eUser.uFriend[id].vip;
-          //$rootScope.goToState('searchFilter');
-      }
+	$scope.appointMeeting = function(friend) {
+	    $rootScope.eFriend.fName = friend.name;
+	    $rootScope.getCalendar(friend.id);
+	    //$rootScope.goToState('searchFilter');
+	}
 
-      $scope.viewProfile = function(id){
-          $rootScope.eFriend.fName = $rootScope.eUser.uFriend[id].name;
-          $rootScope.eFriend.fAvatar = $rootScope.eUser.uFriend[id].ava;
-          //$rootScope.eFriend.fVIP = $rootScope.eUser.uFriend[id].vip;
-          $rootScope.getCalendar(id);
-          $rootScope.goToState('profile');
-      }
+	$scope.viewProfile = function(friend) {
+	    $rootScope.viewProfile(friend.id);
+	}
 
-      //auto scroll to top of panel
-      $scope.gotoTop = function(){
-          // set the location.hash to the id of
-          // the element you wish to scroll to.
-          $location.hash('top');
-          $ionicScrollDelegate.anchorScroll(true);
-      };
+	//auto scroll to top of panel
+	$scope.gotoTop = function() {
+	    // set the location.hash to the id of
+	    // the element you wish to scroll to.
+	    $location.hash('top');
+	    $ionicScrollDelegate.anchorScroll(true);
+	};
 
-      //check: Did we sort friend list?
-      var checkSortAZ = false; 
-      var checkSortFB = false;
-      //sorting is based on status: free and busy
-      var sortFB = function(){
-          $rootScope.eUser.uFriend.sort(function(obj1, obj2){
-              return (obj1.status - obj2.status);
-          });
-          //array is sorted by status
-          checkSortFB = true;
-      }
+	//check: Did we sort friend list?
+	var checkSortAZ = false;
+	
+	//sorting is based on name
+	var sortAZ = function(array) {
+	        angular.forEach(array, function(obj1,obj2){
+	            return obj1.name.localeCompare(obj2.name);
+	        });
+	        //array is sorted by name
+	        checkSortAZ = true;
+	    }
+	
+	$scope.sort = function(typeSort) {
+	    if (typeSort == 'AZ') {
+	        //only sort by name
+	        sortAZ($rootScope.eUser.uFriend);
+	    }
+	}
+	//refresh list as before sorting
+	$scope.refreshList = function() {
+	    checkSortAZ = false;
+	    $rootScope.eUser.uFriend = angular.copy(cacheFriend);
+	}
 
-      //sorting is based on name
-      var sortAZ = function(array){
-          array.sort(function(obj1, obj2){
-                  return $rootScope.eUser.uFriend[obj1].name.localeCompare($rootScope.eUser.uFriend[obj2].name);
-          });
-          //array is sorted by name
-          checkSortAZ = true;
-      }
-      /*
-      //sorting is based on name and status
-      var multiSort = function(){
-          var k=-1;
-          for(var i=0; i<$rootScope.eUser.uFriend.length; i++){
-              if($rootScope.eUser.uFriend[i].status == 0){ k++;}
-          }
-          var freeFriend = $rootScope.eUser.uFriend.slice(0,k+1);
-          var busyFriend = $rootScope.eUser.uFriend.slice(k+1,$rootScope.eUser.uFriend.length);
-          sortAZ(freeFriend);
-          sortAZ(busyFriend);
-          $rootScope.eUser.uFriend = freeFriend.concat(busyFriend);
-          //array is sorted by name
-          checkSortAZ = true;
-      }*/
-	 
-      $scope.sort = function(typeSort){
-        if(typeSort == 'AZ') { 
-          //only sort by name
-          sortAZ($scope.arrID);
-          checkSortFB = false;
-          /*if(checkSortFB == false){ 
-            if(checkSortAZ == false) { sortAZ($rootScope.eUser.uFriend); } 
-          }
-          //continue sort by name if sorted by status
-          else { 
-            if(checSortAZ == false) { multiSort(); } 
-          }*/
-        }
-        /*
-        if(typeSort == 'FB') { 
-          if(checkSortAZ == false) { 
-            if(checkSortFB == false) { sortFB(); } 
-          }
-          //continue sort by status if sorted by name
-          else{
-            if(checkSortFB == false){ 
-                  sortFB(); 
-                  multiSort(); 
-            }
-          }
-        }*/
-      }
-
-      //refresh list as before sorting
-      $scope.refreshList = function(){
-          checkSortFB = false;
-          checkSortAZ = false;
-          $scope.arrID = angular.copy(cacheID);
-          $rootScope.eUser.uFriend = angular.copy(cacheFriend);
-      }
 })
 .directive('togglefriend', function($document) {
     return {
@@ -189,3 +138,21 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
     };
 })
 
+//filter friends list
+.filter('findingFriend',function(){
+	//items = friends array
+	return function(items, searchFriend){
+		if(!searchFriend){
+			return items;
+		}
+
+		var results = [];
+		angular.forEach(items, function(item){
+			if(item.name.toLowerCase().indexOf(searchFriend.toLowerCase()) > -1){
+				results.push(item);
+			}
+		});
+
+		return results;
+	};
+})

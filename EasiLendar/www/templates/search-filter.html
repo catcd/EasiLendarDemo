@@ -1,7 +1,7 @@
 <!-- 
     starter: Can Duy Cat
      owner: Ngo Duc Dung
-     last update: 4/4/2015
+     last update: 6/4/2015
      type: html -->
 <ion-view title="Search filter">
     <ion-nav-buttons side="left">
@@ -13,13 +13,14 @@
     <form name="filter_form" id="filter_form" class="filter-form" novalidate>
         <ion-content padding="true" overflow-scroll="false" class="search-filter-content">
             <div class="list">
-                <div class="meet-friends">You are appointing the time to meet:
-                    <div class="name-friends">{{eFriend.fName}}
-                        <i class="button-delete icon ion-close easi-no-border" data-ng-show="showButtonDelete" data-ng-click="cancelMeeting()"></i></div>
+                <div class="meet-friends">You want to meet:
+                    <div class="name-friends">{{eFriend.fName}}</div>
+                        <!--<i class="button-delete icon ion-close easi-no-border" data-ng-show="showButtonDelete" data-ng-click="cancelMeeting()"></i></div>-->
                 </div>
+                <!--
                 <div class="item item-input" id="itemTitle">
                     <input id="friend" type="text" data-ng-model="eFriend.fName" name="friend" placeholder="Do you want to meet?">
-                </div>
+                </div>-->
                 <!--START: Commom Filter -->
                 <div class="list list-inset">
                     Title:
@@ -45,7 +46,7 @@
                     </div>
                     <div class="duration-day">
                         <input type="checkbox" id="checkbox-time" value="true" data-ng-click="showDate()">
-                        <label id="td-title-searching">Number of days:</label>
+                        <label id="td-title-searching">All days:</label>
                         <div data-slide-toggle="showDay">
                             <div class="item item-input" id="itemDuration">
                                 <input id="input01" type="number" name="day(s)" data-ng-model="eSearchFilter.mDuration" min="1" placeholder="1">

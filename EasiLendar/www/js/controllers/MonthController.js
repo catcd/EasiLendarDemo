@@ -45,7 +45,8 @@ angular.module('MainApp.controllers.month', [])
         $scope.currentYear = $scope.currentDate.getFullYear();
         $scope.currentMonthString = $rootScope.months[$scope.currentMonthNumber];
         $scope.position = new Date($scope.currentDate.getFullYear(), $scope.currentDate.getMonth(), $scope.currentDateNumber, 0, 0, 0, 0);
-
+        $rootScope.eCalendar.cDate = angular.copy($scope.position);
+        
         $scope.weeks = new Array(5);
         for (var i = 0; i < 5; i++) {
             $scope.weeks[i] = {
@@ -174,8 +175,8 @@ angular.module('MainApp.controllers.month', [])
             }
         }
         $scope.position = new Date(year, month, day, 0, 0, 0, 0);
+        $rootScope.eCalendar.cDate = angular.copy($scope.position);
     }
-
 
     // Increment carousel thing
     $scope.next = function() {
@@ -243,7 +244,7 @@ angular.module('MainApp.controllers.month', [])
             scope.$watch('haveEvent', function() {
                 if (scope.haveEvent != null) {
                     var index = new Date(attr.year, attr.month, attr.date, 0, 0, 0, 0);
-                    if (scope.haveEvent[index] != null) {
+                    if (scope.haveEvent[index] != null && attr.month == attr.currentMonth) {
                         element.parent().addClass('day-has-event');
                     }
                 }

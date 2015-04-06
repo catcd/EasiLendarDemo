@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 1/4/2015
+ * last update: 6/4/2015
  * type: personal css
  */
 
@@ -24,6 +24,8 @@
     width: 52px;
     border: 0;
 }
+.myAvatar01 .name { margin-top: 19px; height: 37px;}
+
 #friendPanelContent { 
     background-color: #646464; 
     border: 0; 
@@ -87,8 +89,7 @@
 .sort-option-div .last{ border-left: 1px solid #E6E6E6; }
 
 /*SEARCHING FILTER*/
-.meet-friends{ border-bottom: 1px solid #E6E6E6; margin: -2px auto 7px auto;
-}
+.meet-friends{ border-bottom: 1px solid #E6E6E6; margin: -2px auto 7px auto;}
 .name-friends{
     display: inline-block;
     font-weight: bolder;
@@ -97,7 +98,7 @@
     margin-bottom: 5px;
     margin-left: 5px;
 }
-.name-friends:hover{ font-size: 15px; color: #33CCCC;}
+.name-friends{ font-size: 15px; color: #33CCCC;}
 .button-delete { font-size: 12px;}
 
 #table03 { 
@@ -175,6 +176,9 @@
 #table-time { width: 90%; margin-left: 9px; margin-top: -10px;}
 #td-text { width: 30%; color: #646464;}
 #td-time { height: 20px;}
+#span-duration { width: 10%; height: 20px;}
+#td-duration { padding-left: 10px; width: 40%;}
+#td-duration #input01 { height: 30px; margin-bottom: -10px; margin-top: -5px;}
 #input-time { margin-top: 4px; }
 #p01 { 
     color: #fff;
@@ -288,7 +292,7 @@
     background-position: center center;
     background-attachment: fixed;
 }
-#div-month-calendar { margin-top: 23px; height: 280px;}
+#div-month-calendar { margin-top: 23px; min-height: 100%;}
 .month-calendar{
     max-width: 500px;
     margin: -60px auto 0 auto;
@@ -299,7 +303,6 @@
 }
 #content-month-calendar {
     max-width: 500px;
-    z-index: -1;
     margin: 257px auto 0 auto;
     display: inline-block;
 }

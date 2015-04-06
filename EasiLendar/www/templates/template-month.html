@@ -7,6 +7,7 @@
     <span class="span-month-calendar">{{currentMonthString}}, {{currentYear}}</span>
     <a class="button-calendar button-next-month icon ion-chevron-right easi-gray" data-ng-click="nextMonth()" check-first-day="currentMonthNumber"></a>
 </div>
+
 <div scrollbar-y="false" class="month-calendar">
     <center>
         <table class="table-months-list">
@@ -35,11 +36,35 @@
                 <td data-ng-repeat="day in week.days" class="td-month-calendar">
                     <div data-different-month="day.month" data-current-day="day.numberDate" current-month="{{currentMonthNumber}}" current-year="{{currentYear}}" ng-click="showListEvent(day.numberDate,day.month,currentYear)">
                         <input type="radio" value="true" id="{{day.month.toString()+day.numberDate.toString()}}" name="{{currentMonthNumber}}">
-                        <label for="{{day.month.toString()+day.numberDate.toString()}}" day-has-event="eUser.uGmailCalendar" date="{{day.numberDate}}" month="{{day.month}}" year="{{currentYear}}">
+                        <label for="{{day.month.toString()+day.numberDate.toString()}}" day-has-event="eUser.uGmailCalendar" current-month="{{currentMonthNumber}}" date="{{day.numberDate}}" month="{{day.month}}" year="{{currentYear}}" current-month="currentMonthNumber">
                             {{day.numberDate}}</label>
                     </div>
                 </td>
             </tr>
         </table>
     </center>
+
+    <ion-content id="content-month-calendar">
+        <center>
+            <table class="day-month-calendar">
+                <tr class="tr-list-calendar">
+                    <td class="td-list-calendar-3" ng-repeat="event in eUser.uGmailCalendar[position] | limitTo:1">
+                        <p class="p-list-calendar-number">{{position.getDate()}}</p>
+                        <p class="p-list-calendar-text">{{weekDays[(position.getDay()-1
+                            <0)? 6:position.getDay()-1]}}</p>
+                    </td>
+                    <td class="td-list-calendar-4">
+                        <div class="div-list-calendar-2 background-size" ng-repeat="event in eUser.uGmailCalendar[position]" background-event="bkgE">
+                            <span class="span-title-event">{{event.summary}}</span>
+                            <br>
+                            <span>Time: {{event.start.dateTime.getHours()}}:{{ (event.start.dateTime.getMinutes()<10)?'0':'' }}{{event.start.dateTime.getMinutes()}}{{ (event.start.dateTime.getHours() >= 12)?' PM':' AM' }} - {{event.end.dateTime.getHours()}}:{{(event.end.dateTime.getMinutes()<10)?'0':''}}{{event.end.dateTime.getMinutes()}}{{( event.end.dateTime.getHours() >= 12)?' PM':' AM' }}
+                        </span>
+                            <br>
+                            <span>{{event.location}}</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </ion-content>
 </div>

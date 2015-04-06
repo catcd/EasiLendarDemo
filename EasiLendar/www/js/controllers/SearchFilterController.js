@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 4/4/2015
+ * last update: 6/4/2015
  * type: paticular controller
  */
 
@@ -196,29 +196,16 @@ angular.module('MainApp.controllers.searchFilter', [])
     		$scope.timeValues.mDurationMinute = 15;
     	}
     }
-
-    //Add someone whose you want to appoint the time to meet
-    $scope.$watch("eFriend.fName",function(){
-    	if($rootScope.eFriend.fName !== ''){ 
-    		$scope.showButtonDelete = true;
-    	}
-    	else { $scope.showButtonDelete = false; }
-    });
-    //remove
-    $scope.cancelMeeting = function(){
-    	$rootScope.eFriend.fName = '';
-    }
     
     //Google Map
-    $scope.place = {};
+    //$scope.place = {};
 	$scope.search = function(){
 		$scope.apiError = false;
 		Map.search($rootScope.eSearchFilter.mLocation).then(
 			function(res){
 				Map.addMarker(res);
-				$scope.place.name = res.name;
-				$scope.place.lat = res.geometry.location.lat();
-				$scope.place.lng = res.geometry.location.lng();
+				$rootScope.eSearchFilter.mLocation = res.formatted_address;
+				//console.log(res);
 			},
 			function(status){
 				$scope.apiError = true;
