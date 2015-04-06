@@ -101,8 +101,8 @@ angular.module('MainApp.controllers.searchFilter', [])
 			mHoliday: null
 		};*/
 	$scope.timeValues = {
-		mDurationHour: 0,
-		mDurationMinute: 15,
+		mDurationHour: $rootScope.eSettings.sDefaultDuration / 60,
+		mDurationMinute: $rootScope.eSettings.sDefaultDuration % 60,
 		mFromTime: null,
 		mToTime: null,
 		mFromDay: null,
@@ -153,6 +153,15 @@ angular.module('MainApp.controllers.searchFilter', [])
 		}
 	};
 
+	//previous state of search-filter state
+	$scope.preState = '';
+	$rootScope.$on('$stateChangeStart',
+        function(event, toState, toParams, fromState, fromParams) {
+            if (toState.name == 'searchFilter') {
+                $scope.preState = fromState.name;
+            }
+        })
+
 	$scope.submit = function(form) {
         if (form.$valid) {
 		   $rootScope.goToState('result');
@@ -169,7 +178,11 @@ angular.module('MainApp.controllers.searchFilter', [])
   		form.$setUntouched();
   		$scope.mShow = false;
   		$scope.titleOfButton = 'ADVANCE FILTER';
-  		$rootScope.goToState('profile');
+
+  		if($scope.preState == 'profile'){
+  			$rootScope.goToState('profile');
+  		}
+  		else { $rootScope.goHome(); }
 	};
 
 	$scope.mVip = 1;
@@ -192,8 +205,8 @@ angular.module('MainApp.controllers.searchFilter', [])
     		$scope.timeValues.mDurationMinute = 1;
     	}
     	else {
-    		$scope.timeValues.mDurationHour = 0;
-    		$scope.timeValues.mDurationMinute = 15;
+    		$scope.timeValues.mDurationHour = $rootScope.eSettings.sDefaultDuration / 60;
+    		$scope.timeValues.mDurationMinute = $rootScope.eSettings.sDefaultDuration % 60;
     	}
     }
     

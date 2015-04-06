@@ -1,16 +1,26 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguo Duc Dung
- * last update: 22/03/2015
+ * last update: 6/4/2015
  * type: list controller
  */
 
 angular.module('MainApp.controllers.list', [])
 
 .controller("ListController", function($scope, $rootScope, $ionicScrollDelegate, $location) {
-	$scope.dayID = Object.keys($rootScope.eUser.uGmailCalendar) ;
-    console.log($scope.dayID);
-	
+    $scope.$watch('eUser.uGmailCalendar', function(){
+        //console.log($rootScope.eUser.uGmailCalendar);
+        //$scope.dayID = [];
+        $scope.$watch('eUser.uGmailCalendar', function(){
+            var count = 0;
+            $scope.listEvents = new Array();
+            for(var x in $rootScope.eUser.uGmailCalendar){
+                    $scope.listEvents[count] = $rootScope.eUser.uGmailCalendar[x]; 
+                    count++;
+            }
+        })
+
+    });
 	//set random background
 	$scope.bkgE = 'bkg';
     var toDay = new Date();

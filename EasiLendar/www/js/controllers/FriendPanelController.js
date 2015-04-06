@@ -48,17 +48,30 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	
 	//sorting is based on name
 	var sortAZ = function(array) {
-	        angular.forEach(array, function(obj1,obj2){
-	            return obj1.name.localeCompare(obj2.name);
-	        });
-	        //array is sorted by name
-	        checkSortAZ = true;
-	    }
+		//array is sorted by name
+	    checkSortAZ = true;
+	   	array.sort(function(obj1,obj2){
+	   		return $rootScope.eUser.uFriend[obj2].name.localeCompare([obj1].name);
+	   	})
+
+	   	var sortedArray = [];
+	   	angular.forEach(array, function(id){
+	   		sortedArray.push($rootScope.eUser.uFriend[id]);
+	   	})
+
+	   	$rootScope.eUser.uFriend = angular.copy(sortedArray);
+	   	//console.log($rootScope.eUser.uFriend);
+	}
 	
 	$scope.sort = function(typeSort) {
 	    if (typeSort == 'AZ') {
 	        //only sort by name
-	        sortAZ($rootScope.eUser.uFriend);
+		   	var arrF = [];
+		   	for(var x in $rootScope.eUser.uFriend){
+		   		arrF.push(x);
+		   	}
+
+	        sortAZ(arrF);
 	    }
 	}
 	//refresh list as before sorting

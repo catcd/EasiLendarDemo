@@ -1,11 +1,11 @@
 <!-- starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 27/03/2015
+	 last update: 4/4/2015
 	 type: calendar even list template -->
 
 <center><table class="list-calendar">
-	<tr class="tr-list-calendar" ng-repeat="id in dayID">
-	    <td class="td-list-calendar-1" ng-repeat="event in eUser.uGmailCalendar[id] | limitTo:1">
+	<tr class="tr-list-calendar" ng-repeat="events in listEvents | filter">
+	    <td class="td-list-calendar-1" ng-repeat="event in events | limitTo:1">
 		    <div current-time="event.start.dateTime.getDate()" current-month="{{event.start.dateTime.getMonth()}}" current-year="{{event.start.dateTime.getFullYear()}}"
 		    id="{{event.start.dateTime.toDateString()}}">
 				<p class="p-list-calendar-number">{{event.start.dateTime.getDate()}}</p>
@@ -14,7 +14,7 @@
 			</div>
 		</td>
 		<td class="td-list-calendar-2">
-			<div class="div-list-calendar-1" ng-repeat="event in eUser.uGmailCalendar[id]" background-event="bkgE">
+			<div class="div-list-calendar-1" ng-repeat="event in events" background-event="bkgE">
 				<span class="span-title-event">{{event.summary}}</span><br>
 				<span>Time: {{event.start.dateTime.getHours()}}:{{ (event.start.dateTime.getMinutes()<10)?'0':'' }}{{event.start.dateTime.getMinutes()}}{{ (event.start.dateTime.getHours() >= 12)?' PM':' AM' }} - {{event.end.dateTime.getHours()}}:{{(event.end.dateTime.getMinutes()<10)?'0':''}}{{event.end.dateTime.getMinutes()}}{{( event.end.dateTime.getHours() >= 12)?' PM':' AM' }}
 				</span><br>
