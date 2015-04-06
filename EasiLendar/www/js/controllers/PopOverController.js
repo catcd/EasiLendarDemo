@@ -161,7 +161,7 @@ angular.module('MainApp.controllers.popover', [])
 	 */
 	// style for friend tab
 	var calMyMargin = function() {
-		if ($rootScope.eUser.uFALength != 0 || $scope.mPopoverActive == 'friend') {
+		if ($rootScope.eUser.uFALength != 0 && $scope.mPopoverActive == 'friend') {
 			return "69px";
 		} else {
 			return "0px";

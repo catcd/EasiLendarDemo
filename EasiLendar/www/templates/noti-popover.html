@@ -1,7 +1,8 @@
 <!-- starter: Can Duy Cat
    owner: Can Duy Cat
-   last update: 31/03/2015
+   last update: 06/04/2015
    type: noti popover -->
+
 <ion-popover-view id="f-popover-view">
 	<!-- tabs -->
 	<div class="tabs-striped tabs-color-dark">
@@ -57,15 +58,17 @@
 
 	<!-- footer bar -->
 	<div class="bar bar-stable bar-footer" id="f-popover-h-bar">
-		<a class="easi-left" id="f-popover-footer-left-link" 
+		<button id="popover-footer-left"
+		class="button button-clear"
 		ng-click="closePopover(); goToState('comingSoon')">
 			See All
-		</a>
+		</button>
 
-		<a class="easi-right" id="f-popover-footer-right-link" 
-		ng-click="closePopover(); goToState('comingSoon')" 
+		<button id="popover-footer-right"
+		class="button button-clear"
+		ng-click="closePopover(); goToState('comingSoon')"
 		ng-show="mPopoverActive == 'respond'">
 			Mark as Read
-		</a>
+		</button>
 	</div>
 </ion-popover-view>

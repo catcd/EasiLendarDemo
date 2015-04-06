@@ -7,7 +7,7 @@
 
 angular.module('MainApp.controllers.search', [])
 
-.controller("SearchController", function($scope, $rootScope, toastr, toastrConfig) {
+.controller("SearchController", function($scope, $rootScope, toastr, toastrConfig, $state) {
 	// search input
 	$scope.searchInput = "";
 
@@ -19,6 +19,21 @@ angular.module('MainApp.controllers.search', [])
 	$rootScope.searchType = {
 		type: "All"
 	};
+
+	$rootScope.$on('$stateChangeStart', function(event, toState) {
+		if (toState.name == 'search') {
+			resetData();
+		}
+	})
+
+	var resetData = function() {
+		// reset search input
+		$scope.searchInput = "";
+
+		// reset Variable to save search result
+		$rootScope.searchFriends = [];
+		$rootScope.searchEvents = [];
+	}
 
 	// search call
 	$scope.search = function() {
@@ -47,6 +62,25 @@ angular.module('MainApp.controllers.search', [])
 		$rootScope.toastSuccess('Sending request.', 2000);
 	}
 
+	// is hide button or not
+	$scope.isHide = function(ID) {
+		// my account
+		if (ID == $rootScope.eUser.uID) {
+			return true;
+		}
+
+		// friend
+		if ($rootScope.isFriend(ID)) {
+			return true;
+		}
+
+		// requested
+		if ($rootScope.isRequested(ID)) {
+			return true;
+		}
+		return false;
+	}
+
 	// change event call
 	$scope.changeCall = function(event) {
 		// do something here
@@ -57,20 +91,16 @@ angular.module('MainApp.controllers.search', [])
 
 	// function to check if empty result
 	$scope.isEmptyResult = function() {
-		return (($rootScope.searchType.type == "All" && $rootScope.searchFriends.length == 0 && $rootScope.searchEvents.length == 0)
-			|| ($rootScope.searchType.type == "People" && $rootScope.searchFriends.length == 0)
-			|| ($rootScope.searchType.type == "Events" && $rootScope.searchEvents.length == 0));
+		return (($rootScope.searchType.type == "All" && $rootScope.searchFriends.length == 0 && $rootScope.searchEvents.length == 0) || ($rootScope.searchType.type == "People" && $rootScope.searchFriends.length == 0) || ($rootScope.searchType.type == "Events" && $rootScope.searchEvents.length == 0));
 	}
 
 	// show people search
 	$scope.isShowPeople = function() {
-		return ($rootScope.searchType.type == "All"
-			|| $rootScope.searchType.type == "People");
+		return ($rootScope.searchType.type == "All" || $rootScope.searchType.type == "People");
 	}
 
 	// show event search
 	$scope.isShowEvents = function() {
-		return ($rootScope.searchType.type == "All"
-			|| $rootScope.searchType.type == "Events");
+		return ($rootScope.searchType.type == "All" || $rootScope.searchType.type == "Events");
 	}
 })

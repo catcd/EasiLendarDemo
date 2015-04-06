@@ -22,8 +22,7 @@
 	</div>
 
 	<!-- select tab -->
-	<div class="bar bar-subheader item item-select easi-back-light-gray"
-	style="height: 35px"
+	<div class="bar bar-subheader item item-select easi-back-light-gray height-35"
 	ng-click="showAlert('Search Filter', 'templates/search-option.html', 'Select one')">
 	    <div class="input-label">
 	        {{searchType.type}}
@@ -31,20 +30,22 @@
 	</div>
 
 	<!-- noti if no result found -->
-	<h3 class="easi-gray easi-center" ng-show=isEmptyResult() style="position:absolute; top:110px; width:100%">
+	<h3 class="easi-gray easi-center empty-result-noti" ng-show=isEmptyResult()>
 		No Results Found.
 	</h3>
 
 	<!-- main content here -->
-	<ion-content style="margin-top: 78px;">
+	<ion-content class="margin-content">
 		<!-- Search people div -->
 		<div id="search-people" class="list" ng-show=isShowPeople()>
-			<a ng-repeat="person in searchFriends" class="item my-popover-item item-button-right">
+			<a ng-repeat="person in searchFriends" 
+			ng-click="viewProfile(person.id)"
+			class="item my-popover-item item-button-right">
 				<img src="img/ava{{person.ava}}.png">
 				<p class="easi-space">{{person.name}}</p>
-				<button class="button button-easi-blue"
-				ng-click="addPerson(person.ID)"
-				style="margin-top:-3px">
+				<button class="button button-easi-blue up-3px"
+				ng-click="addPerson(person.id)"
+				ng-hide=isHide(person.id)>
 					<i class="icon ion-person-add"></i>
 				</button>
 			</a>
@@ -55,7 +56,7 @@
 			<a ng-repeat="event in searchEvents"
 			class="item item-search-event"
 			ng-click="changeCall(event)">
-				<h3 style="margin-top: 3px">{{event.summary}}</h3>
+				<h3 class="search-event-sum">{{event.summary}}</h3>
 				<p>{{convertTime(event)}}</p>
 				<p>at {{event.location}}</p>
 			</a>

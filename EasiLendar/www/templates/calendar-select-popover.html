@@ -1,7 +1,8 @@
 <!-- starter: Can Duy Cat
    owner: Can Duy Cat
-   last update: 29/03/2015
+   last update: 06/04/2015
    type: calendar select popover -->
+
 <ion-popover-view id="calendar-select-popover">
 	<!-- number for calendar icon -->
 	<p class="easi-index-2 easi-gray num-30-position"><b>30</b></p>
@@ -9,31 +10,35 @@
 	<p class="easi-index-2 easi-gray num-1-position"><b>1</b></p>
 
 	<!-- list of item -->
-    <div class="list easi-index-1">
+	<div class="list easi-index-1">
 		<a class="item item-icon-left" ng-click="closeSelect(); goToState('month')">
 			<i class="icon ion-calendar easi-gray"></i>
 			<h2 class="easi-space easi-gray">Month</h2>
 		</a>
+
 		<a class="item item-icon-left" ng-click="closeSelect(); goToState('week')">
 			<i class="icon ion-calendar easi-gray"></i>
 			<h2 class="easi-space easi-gray">Week</h2>
 		</a>
+
 		<a class="item item-icon-left" ng-click="closeSelect(); goToState('day')">
 			<i class="icon ion-calendar easi-gray"></i>
 			<h2 class="easi-space easi-gray">Day</h2>
 		</a>
+
 		<a class="item item-icon-left" ng-click="closeSelect(); goToState('list')">
 			<i class="icon ion-clipboard easi-gray"></i>
 			<h2 class="easi-space easi-gray">List</h2>
 		</a>
-		<a class="item item-icon-left" ng-click="closeSelect(); goToState('comingSoon')">
+
+		<a class="item item-icon-left" ng-click="closeSelect(); goToState('search')">
 			<i class="icon ion-search easi-gray"></i>
 			<h2 class="easi-space easi-gray">Search</h2>
 		</a>
-		<a class="item item-icon-left" ng-click="closeSelect(); goToState('comingSoon')">
+
+		<a class="item item-icon-left" ng-click="closeSelect(); refresh()">
 			<i class="icon ion-loop easi-gray"></i>
 			<h2 class="easi-space easi-gray">Refresh</h2>
 		</a>
-    </div>
+	</div>
 </ion-popover-view>
-<!--  -->

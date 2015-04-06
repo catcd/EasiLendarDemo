@@ -165,7 +165,8 @@ p.split-menu {
 	height: 30px;
 	padding-left: 10px;
 }
-.f-tabs { height: 30px; min-height: 30px; top: 0; }
+.f-tabs { height: 30px !important; min-height: 30px !important; top: 0; }
+
 /* popover item with avatar */
 /* base on ionic (item item-avatar) */
 .my-popover-item, .my-popover-item .item-content { height: 45px; min-height: 45px; padding-left: 50px; }
@@ -176,10 +177,27 @@ p.split-menu {
 	position: absolute;
 	top: 3px;
 }
+
 /* footer link in popover */
-#f-popover-footer-left-link:hover, #f-popover-footer-left-link:active, #f-popover-footer-left-link:link, #f-popover-footer-left-link:visited { color: #646464; text-decoration: none; width: 50%; }
-#f-popover-footer-right-link:hover, #f-popover-footer-right-link:active, #f-popover-footer-right-link:link, #f-popover-footer-right-link:visited { color: #646464; text-decoration: none; width: 50%; }
+#popover-footer-left {
+	color: #646464 !important;
+	font-size: 15px;
+	margin-top: -5px;
+	text-decoration: underline;
+	margin-left: -5px;
+	text-align: left;
+	width: 30% !important;
+}
+#popover-footer-right {
+	color: #646464 !important;
+	font-size: 15px;
+	margin-top: -5px;
+	text-decoration: underline;
+	text-align: right;
+	width: 50% !important;
+}
 #popover-content { margin-bottom: 30px; margin-top: 30px; }
+
 /* friend accepted */
 #friend-badge { position: absolute; right: 3px; top: 3px; }
 #fiend-tab-divider {
@@ -199,6 +217,8 @@ p.split-menu {
 	top: 31px;
 	width: 100%;
 }
+.button-no-request { margin-top: -5px; }
+
 /**
 * sign out
 */
@@ -224,8 +244,13 @@ p.split-menu {
 /**
 * search
 */
-.item-search-event {height: 70px; margin-left: -8px;}
-#search-events {margin-top: -20px;}
+.item-search-event { height: 70px; margin-left: -8px; }
+#search-people { margin-bottom: 10px; }
+.margin-content { margin-top: 78px; }
+.height-35 { height: 35px; }
+.empty-result-noti { position: absolute; top: 110px; width: 100%; }
+.up-3px { margin-top: -3px !important; }
+.search-event-sum { margin-top: 3px !important; }
 
 /* loading ball */
 #followingBallsG { height: 16px; position: relative; width: 200px; }
@@ -289,27 +314,27 @@ p.split-menu {
 	animation-delay: 0.51s;
 }
 @-moz-keyframes bounce_followingBallsG {
-	0% { background-color: #fff; left: 0px; }
-	50% { background-color: #fff; left: 185px; }
-	100% { background-color: #fff; left: 0px; }
+		0% { background-color: #fff; left: 0px; }
+		50% { background-color: #fff; left: 185px; }
+		100% { background-color: #fff; left: 0px; }
 }
 @-webkit-keyframes bounce_followingBallsG {
-	0% { background-color: #fff; left: 0px; }
-	50% { background-color: #fff; left: 185px; }
-	100% { background-color: #fff; left: 0px; }
+		0% { background-color: #fff; left: 0px; }
+		50% { background-color: #fff; left: 185px; }
+		100% { background-color: #fff; left: 0px; }
 }
 @-o-keyframes bounce_followingBallsG {
-	0% { background-color: #fff; left: 0px; }
-	50% { background-color: #fff; left: 185px; }
-	100% { background-color: #fff; left: 0px; }
+		0% { background-color: #fff; left: 0px; }
+		50% { background-color: #fff; left: 185px; }
+		100% { background-color: #fff; left: 0px; }
 }
 @-ms-keyframes bounce_followingBallsG {
-	0% { background-color: #fff; left: 0px; }
-	50% { background-color: #fff; left: 185px; }
-	100% { background-color: #fff; left: 0px; }
+		0% { background-color: #fff; left: 0px; }
+		50% { background-color: #fff; left: 185px; }
+		100% { background-color: #fff; left: 0px; }
 }
 @keyframes bounce_followingBallsG {
-	0% { background-color: #fff; left: 0px; }
-	50% { background-color: #fff; left: 185px; }
-	100% { background-color: #fff; left: 0px; }
+		0% { background-color: #fff; left: 0px; }
+		50% { background-color: #fff; left: 185px; }
+		100% { background-color: #fff; left: 0px; }
 }

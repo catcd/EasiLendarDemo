@@ -423,4 +423,16 @@ angular.module('MainApp.shareds.application', [])
 			timeOut: delay
 		});
 	}
+
+	// is friend function
+	// return true if ID is my friend
+	$rootScope.isFriend = function(ID) {
+		return ($rootScope.eUser.uFriend[ID] !== undefined);
+	}
+
+	// is requested function
+	// return true if ID is my friend
+	$rootScope.isRequested = function(ID) {
+		return ($rootScope.eUser.uRequested[ID] !== undefined);
+	}
 })
