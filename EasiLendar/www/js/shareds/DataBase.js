@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 05/04/2015
+ * last update: 06/04/2015
  * type: all shared database variables and functions
  */
 
@@ -286,6 +286,11 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 						ava: $rootScope.eUser.uAvatar,
 					});
 					// add id to this user's requested list
+					$rootScope.eUser.uRequested[id] = {
+						id : id,
+						name : user.name,
+						ava : user.avatar,
+					};
 					uRequest.set({
 						id : id,
 						name : user.name,
