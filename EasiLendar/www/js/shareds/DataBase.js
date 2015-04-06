@@ -173,12 +173,14 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 						// get basic info
 						var name = user.name;
 						var ava = user.avatar;
+						var vip = user.VIP;
 						// add this user to "id"'s friends list
 						var fFriend = idRef.child("friends/" + $rootScope.eUser.uID);
 						fFriend.set({
 							id : $rootScope.eUser.uID,
 							name : $rootScope.eUser.uName,
 							ava: $rootScope.eUser.uAvatar,
+							VIP : vip,
 						});
 						// add this user to accepted list of "id"
 						var fAccept = idRef.child("noti/fAccept/" + $rootScope.eUser.uID);
@@ -201,6 +203,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 							id : id,
 							name : name,
 							ava : ava,
+							VIP: vip,
 						};
 						// update on this account (not 'id')
 						var uFriend = ref.child($rootScope.eUser.uID + "/friends/" + id);
@@ -208,6 +211,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 							id : id,
 							name : name,
 							ava : ava,
+							VIP: vip,
 						});
 						var uFRequest = ref.child($rootScope.eUser.uID + "/noti/fRequest/" + id);
 						uFRequest.set(null, onComplete);
@@ -475,7 +479,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 					$rootScope.eFriend.fName = user.name;
 					$rootScope.eFriend.fAvatar = user.avatar;
 					$rootScope.eFriend.fVIP = user.VIP;
-					$ionicLoading.hide(); console.log($rootScope.eFriend);
+					$ionicLoading.hide();
 				}
 			}, function(errorObject) {
 				console.log("Failed to access" + ref);
