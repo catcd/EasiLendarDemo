@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 05/04/2015
+ * last update: 07/04/2015
  * type: module all shared variables and functions used for this app
  */
 
@@ -427,12 +427,20 @@ angular.module('MainApp.shareds.application', [])
 	// is friend function
 	// return true if ID is my friend
 	$rootScope.isFriend = function(ID) {
+		if ($rootScope.eUser.uFriend == null) {
+			return false;
+		}
+
 		return ($rootScope.eUser.uFriend[ID] !== undefined);
 	}
 
 	// is requested function
 	// return true if ID is my friend
 	$rootScope.isRequested = function(ID) {
+		if ($rootScope.eUser.uRequested == null) {
+			return false;
+		}
+
 		return ($rootScope.eUser.uRequested[ID] !== undefined);
 	}
 })
