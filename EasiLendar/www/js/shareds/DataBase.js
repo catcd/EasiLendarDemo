@@ -290,6 +290,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 						ava: $rootScope.eUser.uAvatar,
 					});
 					// add id to this user's requested list
+					if ($rootScope.eUser.uRequested == null) $rootScope.eUser.uRequested = [];
 					$rootScope.eUser.uRequested[id] = {
 						id : id,
 						name : user.name,
