@@ -51,7 +51,7 @@
 	position: absolute;	
 	}
 #end-cover{
-	background-color:#FFF0FF;
+	background-color:#A9BFD4;
 	position: absolute;
 	height: 30px;
 	margin: 0 auto 0 auto;
@@ -64,7 +64,7 @@
 	margin-left:120px;
 	width:400px;
 	bottom: 3px;
-	background-color:#FFF0FF;
+	background-color:#A9BFD4;
 	position:absolute;
 	}
 #item-imagex{	
@@ -86,7 +86,7 @@
  	float:right;
 	}
 .tabs{
-	background-color:#F7F7FF;
+	background-color:#DCDCF2;
 	margin-top:0px;
 	z-index:1;
 	left:0px;
@@ -98,9 +98,9 @@
 	text-align: left;
 	margin: 0 auto 0 auto;
 	border: 1px solid black;
-	//background-origin: content-box;
 	background-color: #F7F7FF;
 	}
+.fontOfTab{font-size:16px;margin-top:-6px;}
 .nothing{
 	position:relative;
 	margin-left:-4px;
@@ -153,9 +153,20 @@ width: 600px;
 	}
 #friend-avatar{	width:55px;	height:55px;	top:5px;}
 /*Calendar in profile*/
-#easiweek{
+.easiweek{
+	margin-top:-20px;
 	height:500px;
 	}
+
+.notEasiWeek{height:500px;	font-size:20px;	background:#E6E6E6;position:relative;}
+.suggest{
+	top:10%;
+	position: absolute;
+	left:10%;
+	text-overflow: ellipsis; 
+    overflow: hidden; 
+	white-space: pre-line;
+    width:80%}
 /*DAY CALENDAR */
 #h2-month{margin-left:15% ;margin-top:10px; color: #002900;}
 #x{max-width:800px;width:100%;margin-bottom:20px; padding-bottom:5px; }
@@ -179,7 +190,17 @@ width: 600px;
 .td-day-calendar-1 { width: 12%; color: #646464; text-align: center; font-size: 30px; margin-right:10px;}
 .td-day-calendar-1:hover{ color: #33CCCC; }
 .td-day-calendar-2 { width: 80%; color: #ffffff;}
-.div-day-calendar {  margin-bottom: 15px; padding: 10px; margin-right: 20px; font-size: 15.5px;width:80%;}
+.div-day-calendar{
+	 margin-left: 7px; 
+	 margin-top:5px;
+    margin-bottom: 10px; 
+    padding: 10px; 
+    font-size: 16px; 
+    text-overflow: ellipsis; 
+    overflow: hidden; 
+    white-space: nowrap;
+    width: 70%;
+    max-width: 430px;}
 .p-day-calendar-number, .p-day-calendar-text { width: 100%; padding-top: 15px;}
 .p-day-calendar-text { font-size: 15px; margin-top: -20px;}
 .event-color-1 { background-color: #32CD32;}

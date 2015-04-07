@@ -30,4 +30,10 @@ profile.controller("ProfileController", function($scope, $ionicPopup, $rootScope
     {image: 1, name:'Can Duy Cat', status: 1, vip: 1},
     {image: 1, name:'Nguyen Manh Duy', status: 0, vip: 0}
 	];
+	$scope.notCalendar='This calendar is private. Please, add friend to view.';
+	$scope.calendarOfFriend = function(){
+		if($rootScope.eFriend.fMultiCal==null)
+			return true;
+		};
+		
 })
