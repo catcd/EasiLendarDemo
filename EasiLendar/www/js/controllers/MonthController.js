@@ -7,12 +7,11 @@
 
 angular.module('MainApp.controllers.month', [])
 
-.controller("MonthController", function($scope, $rootScope, $state) {
-	
+.controller("MonthController", function($scope, $rootScope, $state, $document) {
 	//$rootScope.eSettings.sFirstDay
 	$scope.$watch('eSettings.sFirstDay',function(){
 		if($rootScope.eSettings.sFirstDay == 'Sunday') { 
-		$scope.daysInWeek = [{day: 'S'},{day: 'M'},{day: 'T'},{day: 'W'},{day: 'T'},{day: 'F'},{day: 'S'}];
+			$scope.daysInWeek = [{day: 'S'},{day: 'M'},{day: 'T'},{day: 'W'},{day: 'T'},{day: 'F'},{day: 'S'}];
 		}
 		if($rootScope.eSettings.sFirstDay == 'Monday') { 
 			$scope.daysInWeek = [{day: 'M'},{day: 'T'},{day: 'W'},{day: 'T'},{day: 'F'},{day: 'S'},{day: 'S'}];
@@ -20,21 +19,23 @@ angular.module('MainApp.controllers.month', [])
 		if($rootScope.eSettings.sFirstDay == 'Saturday') { 
 			$scope.daysInWeek = [{day: 'S'},{day: 'S'},{day: 'M'},{day: 'T'},{day: 'W'},{day: 'T'},{day: 'F'}];
 		}
-	}); 
-	$scope.bkgClass = [
-					'easi-jan-bkg', 'easi-feb-bkg', 'easi-mar-bkg', 'easi-apr-bkg', 'easi-may-bkg', 'easi-jun-bkg',
-					'easi-jul-bkg', 'easi-aug-bkg', 'easi-sep-bkg', 'easi-oct-bkg', 'easi-nov-bkg', 'easi-dec-bkg'
-					];
+	});
+
 	$scope.allMonths = [
 					{first: 0, second: 1, third: 2, fourth: 3},
 					{first: 4, second: 5, third: 6, fourth: 7},
 					{first: 8, second: 9, third: 10, fourth: 11}
 					];
-	$scope.shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 	//refresh calendar when return from other states
 	$rootScope.$on('$stateChangeStart',
 		function(event, toState, toParams, fromState, fromParams) {
 			if (toState.name == 'month') {
+				//months list in year
+				$scope.showMonthsList = false;
+				$scope.showMonthCalendar = true;
+				if($document.find('td').children().hasClass('current-month-style') == true){
+					$document.find('td').children().removeClass('current-month-style');
+				}
 				$scope.buildCurrentMonth();
 			}
 		})
@@ -176,7 +177,7 @@ angular.module('MainApp.controllers.month', [])
 	}
 
 	$scope.backgroundMonth = function(index) {
-		var className = 'bkg-style ' + $scope.bkgClass[index];
+		var className = 'bkg-style ' + 'easi-' + $rootScope.shortMonths[index] + '-bkg';
 		return className;
 	}
 
@@ -289,8 +290,8 @@ angular.module('MainApp.controllers.month', [])
 		},
 		link: function(scope, element, attr) {
 			element.bind('click', function() {
-				if($document.find('td').hasClass('current-month-style') == true){
-					$document.find('td').removeClass('current-month-style');
+				if($document.find('td').children().hasClass('current-month-style') == true){
+					$document.find('td').children().removeClass('current-month-style');
 				}
 
 				var currentMonth = (new Date()).getMonth();
@@ -323,7 +324,7 @@ angular.module('MainApp.controllers.month', [])
 			element.bind('click', function() {
 				var id = '#' + scope.isThisMonth;
 				//Using find() function of JQUERY !
-				$document.find(id).addClass('current-month-style');
+				$document.find(id).children().addClass('current-month-style');
 			});
 		}
 	};
@@ -334,11 +335,11 @@ angular.module('MainApp.controllers.month', [])
 		restrict: 'A',
 		link: function(scope, element, attr) {
 			element.bind('click',function(){
-				if($document.find('td').hasClass('current-month-style') == true){
-					$document.find('td').removeClass('current-month-style');
+				if($document.find('td').children().hasClass('current-month-style') == true){
+					$document.find('td').children().removeClass('current-month-style');
 				}
 
-				$document.find('#0').addClass('current-month-style');
+				$document.find('#0').children().addClass('current-month-style');
 			})
 		}
 	};

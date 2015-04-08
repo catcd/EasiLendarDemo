@@ -26,7 +26,7 @@
 }
 .myAvatar01 .name { margin-top: 19px; height: 37px;}
 
-#friendPanelContent { 
+#friend-panel-content { 
 	background-color: #646464; 
 	border: 0; 
 	margin-bottom:-45px; 
@@ -49,11 +49,12 @@
 }
 #myAvatar01 { background-color: #646464; border: 0; padding-bottom: 0px;}
 #ribbon-b { border: 0; height: 50px; margin-top: 5px;}
-#hrFriendPanel { 
-	border: 1px solid #707070; 
+#hr-friend-panel { 
+	border: 2px solid #707070; 
 	width: 90%; 
 	margin-top: 1px; 
-	margin-bottom: 0;}
+	margin-bottom: 0;
+}
 .div02 { text-align: right; border: 0; font-size: 13px; height: 25px;}
 .div02 button {
 	border:0; 
@@ -134,7 +135,7 @@
 #input01::-webkit-inner-spin-button {-webkit-appearance: none;}
 #hr01, #hr02 { border: 2px solid #E6E6E6; width: 100%; }
 #hr01 { margin-top: -2px; }
-.list { margin-top: -2px; }
+.list { margin-top: 2px; }
 #inset01 { 
 	border: 0; 
 	border-bottom: 0; 
@@ -166,10 +167,7 @@
 	width: 18px;
 	height: 18px;
 }
-.duration-day span{
-	font-size: 12.5px;
-	color: #646464;
-}
+.duration-day span{ font-size: 12.5px; color: #646464;}
 #itemLocation { border: 0; margin-bottom: -15px;}
 #itemTo { border: 0;}
 #itemToDay { border:0;}
@@ -250,11 +248,7 @@
 	font-size: 30px;
 	padding-left: 10px;
 }
-.td-list-calendar-2 { 
-	color: #ffffff; 
-	padding-bottom: 10px; 
-	padding-left: 5px;
-}
+.td-list-calendar-2 { color: #ffffff; padding-bottom: 10px; padding-left: 5px;}
 .div-list-calendar-1, .div-list-calendar-2 {
 	margin-left: 7px; 
 	margin-bottom: 10px; 
@@ -301,11 +295,7 @@
 	text-align: center;
 	max-height: 1000px;
 }
-#content-month-calendar {
-	max-width: 500px;
-	margin: 257px auto 0 auto;
-	display: inline-block;
-}
+#content-month-calendar { max-width: 500px; margin: 257px auto 0 auto; display: inline-block;}
 .title-month-calendar {
 	width: 100%;
 	max-width: 500px;
@@ -325,12 +315,9 @@
 	display: inline-block; 
 	font-size: 18px; 
 	font-weight: bold;
+	cursor:pointer;
 }
-.table-month-calendar{
-	width: 60%;
-	max-width: 500px;
-	margin-top: -16px;
-}
+.table-month-calendar{ width: 60%; max-width: 500px; margin-top: -16px;}
 .td-header-month-calendar {
 	color: black; 
 	font-weight: bold; 
@@ -339,11 +326,7 @@
 	padding-bottom: 10px; 
 	padding-top: 15px;
 }
-.td-month-calendar {
-	width: 30px; 
-	color: black; 
-	padding: 6px;
-}
+.td-month-calendar { width: 30px; color: black; padding: 6px;}
 .td-month-calendar div, .different-month-color {
 	margin: auto auto auto auto; 
 	width: 30px; 
@@ -380,20 +363,17 @@
 .day-has-event{ border: 1px solid #416969;}
 
 /*months list*/
-.table-months-list{ 
-	margin-top: 20px; 
-	width: 60%; 
-	max-width: 500px; 
-	cursor:pointer;
-}
+.table-months-list{ margin-top: 20px; max-width: 500px; cursor: pointer;}
 .td-months-list {
-	width: 20%;
-	text-align: center;
+	min-width: 80px;
 	color: #646464;
 	font-weight: bolder;
 	font-size: 15px;
+	text-align: center;
+	padding-right: 10px;
 }
-.td-months-list:active, .current-month-style{ color: #fff; border-radius: 100px;}
-.td-months-list:active{ background-color: #416969;}
+.div-months-list:hover, .current-month-style{ color: #fff; border-radius: 8px;}
+.div-months-list:hover{ background-color: #416969;}
 .current-month-style{ background-color: #33CCCC;}
-.p-months-list{ width: 100%; margin: 27px auto 27px auto;}
+.div-months-list{ width: 100%; min-height: 65px;}
+.p-months-list{ padding-top: 20px;}

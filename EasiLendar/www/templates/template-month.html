@@ -2,6 +2,7 @@
 	 owner: Ngo Duc Dung
 	 last update: 8/4/2015
 	 type: calendar template -->
+<!--<img class="easi-space">-->
 <div class="title-month-calendar" data-ng-init="buildCurrentMonth()" data-ng-show="showMonthCalendar">
 	<a class="button-calendar button-previous-month icon ion-chevron-left easi-gray" data-ng-click="previousMonth()" check-first-day="currentMonthNumber" this-year="{{currentYear}}"></a>
 	<span class="span-month-calendar" check-this-month="currentMonthNumber"
@@ -18,18 +19,26 @@
 <div scrollbar-y="false" class="month-calendar">
 	<center>
 		<table class="table-months-list" data-ng-show="showMonthsList">
-			<tr data-ng-repeat="month in allMonths">
+			<tr class="tr-months-list" data-ng-repeat="month in allMonths">
 				<td id="{{month.first}}" class="td-months-list" data-ng-click="thisMonth(currentYear,month.first)" check-first-day="month.first" this-year="{{currentYear}}">
-					<p class="p-months-list">{{shortMonths[month.first]}}</p>
+				    <div class="div-months-list">
+				        <p class="p-months-list">{{shortMonths[month.first].charAt(0).toUpperCase() + shortMonths[month.first].substr(1,3)}}</p>
+				    </div>
 				</td>
 				<td id="{{month.second}}" class="td-months-list" data-ng-click="thisMonth(currentYear,month.second)" check-first-day="month.second" this-year="{{currentYear}}">
-					<p class="p-months-list">{{shortMonths[month.second]}}</p>
+				    <div class="div-months-list">
+				        <p class="p-months-list">{{shortMonths[month.second].charAt(0).toUpperCase() + shortMonths[month.second].substr(1,3)}}</p>
+				    </div>
 				</td>
 				<td id="{{month.third}}" class="td-months-list" data-ng-click="thisMonth(currentYear,month.third)" check-first-day="month.third" this-year="{{currentYear}}">
-					<p class="p-months-list">{{shortMonths[month.third]}}</p>
+				    <div class="div-months-list">
+				        <p class="p-months-list">{{shortMonths[month.third].charAt(0).toUpperCase() + shortMonths[month.third].substr(1,3)}}</p>
+				    </div>
 				</td>
 				<td id="{{month.fourth}}" class="td-months-list" data-ng-click="thisMonth(currentYear,month.fourth)" check-first-day="month.fourth" this-year="{{currentYear}}">
-					<p class="p-months-list">{{shortMonths[month.fourth]}}</p>
+				    <div class="div-months-list">
+				        <p class="p-months-list">{{shortMonths[month.fourth].charAt(0).toUpperCase() + shortMonths[month.fourth].substr(1,3)}}</p>
+				    </div>
 				</td>
 			</tr>
 		</table>

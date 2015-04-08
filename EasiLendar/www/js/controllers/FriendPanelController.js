@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 6/4/2015
+ * last update: 8/4/2015
  * type: friend panel controller
  */
 
@@ -36,7 +36,7 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	}
 
 	//auto scroll to top of panel
-	$scope.gotoTop = function() {
+	$rootScope.gotoTop = function() {
 	    // set the location.hash to the id of
 	    // the element you wish to scroll to.
 	    $location.hash('top');

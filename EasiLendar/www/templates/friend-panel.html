@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
      owner: Ngo Duc Dung
-     last update: 6/4/2015 
+     last update: 8/4/2015 
      type: friend panel template -->
 <form data-ng-controller="friendPanelController">
     <togglefriend>
@@ -19,7 +19,7 @@
             <input id="search-input" type="search" data-ng-model="searchFriend" placeholder="Search" opacity-search-input>
         </label>
     </ion-footer-bar>
-    <ion-content id="friendPanelContent">
+    <ion-content id="friend-panel-content">
         <div id='top'></div>
         <div id='top' class="sort-option-div easi-no-border" data-slide-toggle-friend="visible">
             <button class="first easi-no-border" data-ng-click="sort('AZ')">A - Z</button>
@@ -32,7 +32,7 @@
                 <div class="easi-no-border" data-ng-click="toggleFunc()">
                     <img data-ng-src="img/ava{{person.ava}}.png" class="item-image easi-no-border">
                     <h2 class="name easi-light-gray easi-no-border">{{person.name}}</h2>
-                    <i data-ng-show="friend.vip" class="icon ion-ribbon-b easi-vip-color easi-no-border" id="ribbon-b"></i>
+                    <i data-ng-show="{{person.VIP}}" class="icon ion-ribbon-b easi-vip-color easi-no-border" id="ribbon-b"></i>
                 </div>
                 <div class="div02 easi-no-border my-repeat-animation" data-slide-toggle-friend="visible">
                     <div class="easi-no-border" style="margin-right: 8px">
@@ -41,7 +41,7 @@
                         <button class="easi-no-border" data-ng-click="viewProfile(person)">View</button>
                     </div>
                 </div>
-                <hr id="hrFriendPanel">
+                <hr id="hr-friend-panel">
 
             </togglefriend>
         </div>
