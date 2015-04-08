@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 06/04/2015
+ * last update: 08/04/2015
  * type: all shared database variables and functions
  */
 
@@ -401,7 +401,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 	 */ 
 	$rootScope.searchFriend = function(str) {
 		$rootScope.searchFriends = [];
-		if (checkSignIn()) {
+		if (checkSignIn() && str != '' && str != null) {
 			var ref = new Firebase("https://radiant-inferno-3243.firebaseio.com/Users");
 			// loading
 			$rootScope.databaseLoading();
@@ -439,7 +439,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 	 */
 	$rootScope.searchEvent = function(str) {
 		$rootScope.searchEvents = [];
-		if (checkSignIn()) {
+		if (checkSignIn() && str != '' && str != null) {
 			var length = 0;	// length of searchEvents
 			// go through all days
 			for (var x in $rootScope.eUser.uGmailCalendar) {
@@ -477,6 +477,7 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 					$rootScope.showAlert(id + "does not exist");
 				} else {
 					// set user's info to $rootScope.eFriend
+					$rootScope.eFriend.fID = id;
 					$rootScope.eFriend.fName = user.name;
 					$rootScope.eFriend.fAvatar = user.avatar;
 					$rootScope.eFriend.fVIP = user.VIP;
@@ -591,9 +592,11 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 					$rootScope.showAlert(id + "does not exist");
 				} else {
 					// set id's info to $rootScope.eFriend
+					$rootScope.eFriend.fID = id;
 					$rootScope.eFriend.fName = user.name;
 					$rootScope.eFriend.fAvatar = user.avatar;
 					$rootScope.eFriend.fVIP = user.VIP;
+					$rootScope.eFriend.fFriend = user.friends;
 					// set fMultiCal
 					user.g_calendar = $rootScope.convertCal(user.g_calendar);
 					user.local_calendar = $rootScope.convertCal(user.local_calendar);
@@ -608,4 +611,29 @@ database.run (function($rootScope, $ionicLoading, toastr, toastrConfig) {
 			});
 		}
 	};
+	
+	/*
+	 * getFriend function
+	 * get friend list of id
+	 */
+	$rootScope.getFriend = function(id) {
+		if (checkSignIn() && id != null && id != "") {
+			var ref = new Firebase(
+					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
+			// loading
+			$rootScope.databaseLoading();
+			ref.once("value", function(snapshot) {
+				var user = snapshot.val();
+				// there is no user with that "id"
+				if (user == null) {
+					$rootScope.showAlert(id + "does not exist");
+				} else {
+					$rootScope.eFriend.fFriend = user.friends;
+					$ionicLoading.hide();
+				}
+			}, function(errorObject) {
+				console.log("Failed to access" + ref);
+			});
+		}
+	}
 });
