@@ -2,10 +2,10 @@
     |  __| ____ ____  _| |    ___  ____   __| | ____ ____
     |  __ / _  |\  _\| | |   / _ \|  _ \ / _  |/ _  |    \
     |  __| (_| |_\ \ | | |__| (__/| | | | (_| | (_| | |__/
-    |____|\____|\___\|_|____|\___ |_| |_|\____|\____|_|\_\  Beta 1.2
+    |____|\____|\___\|_|____|\___ |_| |_|\____|\____|_|\_\  Alpha test 1.2
 #**_The Very Best Meeting Planer_**  
 
-Planning meetings with [Doodle](http://doodle.com/ "Doodle") is tedious and difficult with more than a few people who each have many constraints. For this project we create a better meeting planner, one that fills the same purpose as Doodle, but more efficiently (in terms of user time and elapsed time to find a meeting time).
+Planning meetings with some services is tedious and difficult with more than a few people who each have many constraints. For this project we create a better meeting planner, one that fills the same purpose as Doodle, but more efficiently (in terms of user time and elapsed time to find a meeting time).
 
 ##**Table of Contents**
 
@@ -14,7 +14,7 @@ Planning meetings with [Doodle](http://doodle.com/ "Doodle") is tedious and diff
   - [Project structure](#project-structure)
   - [External link](#external-link)
 - [About this application](#about-this-application)
-  - [Why choose EasiLendar over Doodle?](#why-choose-easilendar-over-doodle)
+  - [Why choose EasiLendar over others?](#why-choose-easilendar-over-others)
   - [What can it do?](#what-can-it-do)
     - [Common features](#common-features)
     - [Advanced features](#advanced-features)
@@ -60,7 +60,7 @@ Video Demo:
 - [EasiLendar Demo 1.2](https://www.youtube.com/watch?v=6iD-pWrTYTY "Demo 1.2")
 
 ##About this application
-###Why choose EasiLendar over Doodle?
+###Why choose EasiLendar over others?
 Many people use Doodle and similar services to find times to meet. When the number of participants is more than three or four, this usually leads to one of two scenarios:  
 
 - A poll is distributed with a few proposed meeting times. Each prospective participant has conflicts with at least one of the proposed times. A flurry of email follows, then either a new poll is distributed with agreed candidate times, or else the meeting time is just settled by email.

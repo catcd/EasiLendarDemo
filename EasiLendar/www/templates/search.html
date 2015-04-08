@@ -38,11 +38,10 @@
 	<ion-content class="margin-content">
 		<!-- Search people div -->
 		<div id="search-people" class="list" ng-show=isShowPeople()>
-			<a ng-repeat="person in searchFriends" 
-			ng-click="viewProfile(person.id)"
+			<a ng-repeat="person in searchFriends"
 			class="item my-popover-item item-button-right">
-				<img data-ng-src="img/ava{{person.ava}}.png">
-				<p class="easi-space">{{person.name}}</p>
+				<img data-ng-src="img/ava{{person.ava}}.png" ng-click="viewProfile(person.id)">
+				<p class="easi-space" ng-click="viewProfile(person.id)">{{person.name}}</p>
 				<button class="button button-easi-blue up-3px"
 				ng-click="addPerson(person.id)"
 				ng-hide=isHide(person.id)>
