@@ -30,7 +30,7 @@
             <togglefriend id="myAvatar01" data-ng-repeat="person in eUser.uFriend | findingFriend:searchFriend" class="item myAvatar01 item-icon-right sideMenu my-repeat-animation">
 
                 <div class="easi-no-border" data-ng-click="toggleFunc()">
-                    <img class="item-image easi-no-border" data-ng-src="img/ava{{person.ava}}.png">
+                    <img data-ng-src="img/ava{{person.ava}}.png" class="item-image easi-no-border">
                     <h2 class="name easi-light-gray easi-no-border">{{person.name}}</h2>
                     <i data-ng-show="friend.vip" class="icon ion-ribbon-b easi-vip-color easi-no-border" id="ribbon-b"></i>
                 </div>
