@@ -35,5 +35,38 @@ profile.controller("ProfileController", function($scope, $ionicPopup, $rootScope
 		if($rootScope.eFriend.fMultiCal==null)
 			return true;
 		};
-		
+	$scope.notFriend = function(id){
+	if($rootScope.isFriend(id)==false){return true;}}
+	 $scope.y =false;
+	//if(x ==  false){$scope.y = true;}
+	
+	$scope.deleteFriend = function(id) {
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'Are you sure ?'
+		});
+		confirmPopup.then(function(res) {
+			if(res) {
+				$rootScope.deleteF(id);
+				$rootScope.toastSuccess(' Deleting.', 2000);
+			}
+		});
+	}
+	$scope.addNewFriend = function(id){
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'Add friend!'
+		});
+		confirmPopup.then(function(res) {
+			if(res) {
+				$rootScope.request(id);
+				$rootScope.toastSuccess('Sending request.', 2000);
+			}
+		});
+	}
+	// add person call
+	$scope.addPerson = function(ID) {
+		$rootScope.request(ID);
+
+		// toast
+		$rootScope.toastSuccess('Sending request.', 2000);
+	}
 })

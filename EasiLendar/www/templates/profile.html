@@ -22,9 +22,15 @@
 				<div id="list-icon">
 					<button class="button button-icon icon ion-email easi-light-gray"></button>
 					<button class="button button-icon icon ion-coffee easi-light-gray" ui-sref="searchFilter" menu-close></button>
-					<button class="button button-icon icon ion-person-add easi-light-gray"></button>
+					<button data-ng-click ="deleteFriend(eFriend.fID)" data-ng-show="isFriend(eFriend.fID)" class="button button-icon icon ion-close-round easi-light-gray"></button>
+					<button data-ng-click="addNewFriend(eFriend.fID)" data-ng-show="notFriend(eFriend.fID)"class="button button-icon icon ion-person-add easi-light-gray"></button>
 				</div>
 			</div>
+				<div style="margin-top: 30px" id="div-log-in">
+			<center>
+				<a id="authorize-button" visibility= "hidden"></a>
+			</center>
+        </div>
 			<div id="avatar-vip">
 				<div id="avatar">
 					<div id="vipx"><h2 class="customer">
@@ -69,7 +75,7 @@
 				</div>
 				<div id="information-in-tab">
 					<button class="button button-icon  ion-medkit"  menu-close> Ask her information</button><br>
-			`		<button class="button button-icon  ion-university"  menu-close></button><p style="white-space: pre-line;"University of Engineering and Technology</p>	<br>
+			`		<button class="button button-icon  ion-university"  menu-close>University of Engineering and Technology</button>	<br>
 					<button class="button button-icon  ion-nuclear"  menu-close> From: Cau Giay, Hanoi</button>
 				</div>
 			</div>
@@ -79,12 +85,10 @@
 				<img id="friend-avatar" data-ng-src="img/ava{{friend.image}}.png">
 				<div id="friend-name">{{friend.name}}</div> 
 			</div>
-			
           </div>
 		  <div class ="showtab" ng-show="tab.isSet(4)">
            <button class="button button-icon icon ion-coffee " menu-close></button>
-		   <p> she has 5 appointments with you </p>
-		  
+		   <p> she has 5 appointments with you </p>	  
           </div>
 		</section>
 		</ion-content>

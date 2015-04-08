@@ -8,12 +8,12 @@
 #cover{
 	background-image:url(../img/smart_hotel.jpg);
 	background-position: center center;
-	background-size: 100% 100%;
+	/*background-size: 100% 100%;*/
 	background-origin: content-box;
-	height:35vh;
+	height:25vh;
 	margin:0 auto 0 auto;
 	max-width:700px;
-	max-height:400px;
+	max-height:350px;
 	position:relative;
 	}
 #avatar-vip{
@@ -42,12 +42,12 @@
 	left:0px;	
 	}
 #username{
-	font:15.5px;
+	font-size:17px;
 	height:30px;
 	width:300px;
 	left:100px;
 	bottom: 25px;
-	margin-left: 15px;
+	margin-left: 10px;
 	position: absolute;	
 	}
 #end-cover{
@@ -125,11 +125,11 @@
 .showtab{position:relative;	max-width:700px;	margin:0 auto 0 auto;}
 /*introduction */
 #information{
-position:relative;
-max-height:800px;
-max-width:700px;
-height:500px;
-width: 600px;
+	position:relative;
+	max-height:800px;
+	max-width:700px;
+	height:500px;
+	width: 600px;
 }
 #information-tab{
 	position:relative;
@@ -155,10 +155,15 @@ width: 600px;
 /*Calendar in profile*/
 .easiweek{
 	margin-top:-20px;
-	height:500px;
+	background-attachment:fixed;
+	background-position:center center;
+	background-size:cover;
+	background-repeat:no-repeat;
+	height:550px;
+	padding-bottom: 50px;
 	}
 
-.notEasiWeek{height:500px;	font-size:20px;	background:#E6E6E6;position:relative;}
+.notEasiWeek{height:500px;	font-size:20px;	background:#E6E6E6;position:relative;margin-top:-20px;}
 .suggest{
 	top:10%;
 	position: absolute;
