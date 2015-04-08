@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 6/4/2015
+ * last update: 8/4/2015
  * type: paticular controller
  */
 
@@ -83,30 +83,13 @@ angular.module('MainApp.controllers.searchFilter', [])
 })
 
 .controller("SearchFilterController", function($rootScope, $scope, $ionicPopup, $ionicScrollDelegate, Map ) {
-   		/*
-   		$rootScope.eSearchFilter = {
-			mTitle:'',
-			mDuration:0,
-			mLocation:'',
-
-			mFrom:0,				//date Object
-			mTo:0,					//date Object
-			mFromDay:'',			//date Object
-			mToDay:'',				// date Object
-
-			mBreakfast: null,
-			mLunch: null,			
-			mDinner: null,
-			mOffice: null,
-			mHoliday: null
-		};*/
 	$scope.timeValues = {
 		mDurationHour: $rootScope.eSettings.sDefaultDuration / 60,
 		mDurationMinute: $rootScope.eSettings.sDefaultDuration % 60,
 		mFromTime: null,
 		mToTime: null,
-		mFromDay: null,
-		mToDay: null
+		mFromDay: new Date(),
+		mToDay: new Date()
 	};
 	var resetValues = angular.copy($scope.timeValues);
 
@@ -135,7 +118,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 		}
 	});
 	$scope.$watch('timeValues.mToDay',function(){
-		if($scope.timeValues.mToDay !== null){  
+		if($scope.timeValues.mToDay !== undefined){  
 			var date = $scope.timeValues.mToDay;
 			$rootScope.eSearchFilter.mToDay = new Date(date.getFullYear(),date.getMonth(),date.getDate(),0,0,0,0);
 		}
