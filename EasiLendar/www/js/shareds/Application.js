@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 07/04/2015
+ * last update: 08/04/2015
  * type: module all shared variables and functions used for this app
  */
 
@@ -108,6 +108,9 @@ angular.module('MainApp.shareds.application', [])
 		fName: '',		/*UTF-8*/
 		fAvatar: 0,		/*avatar index from 0 to 8*/
 		fVIP: 0,		/*VIP or not*/
+		fID: '',
+		fInfor: null,
+		fFriend: {},
 
 		fMultiCal: null,	/*MultiCalendar object	Calendar*/
 	};

@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Can Duy Cat
-	 last update: 05/04/2015
+	 last update: 08/04/2015
 	 type: html template-->
 
 <ion-view title="Search">
@@ -41,7 +41,7 @@
 			<a ng-repeat="person in searchFriends" 
 			ng-click="viewProfile(person.id)"
 			class="item my-popover-item item-button-right">
-				<img src="img/ava{{person.ava}}.png">
+				<img data-ng-src="img/ava{{person.ava}}.png">
 				<p class="easi-space">{{person.name}}</p>
 				<button class="button button-easi-blue up-3px"
 				ng-click="addPerson(person.id)"
