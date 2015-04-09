@@ -37,9 +37,6 @@ profile.controller("ProfileController", function($scope, $ionicPopup, $rootScope
 		};
 	$scope.notFriend = function(id){
 	if($rootScope.isFriend(id)==false){return true;}}
-	 $scope.y =false;
-	//if(x ==  false){$scope.y = true;}
-	
 	$scope.deleteFriend = function(id) {
 		var confirmPopup = $ionicPopup.confirm({
 			title: 'Are you sure ?'
@@ -61,12 +58,5 @@ profile.controller("ProfileController", function($scope, $ionicPopup, $rootScope
 				$rootScope.toastSuccess('Sending request.', 2000);
 			}
 		});
-	}
-	// add person call
-	$scope.addPerson = function(ID) {
-		$rootScope.request(ID);
-
-		// toast
-		$rootScope.toastSuccess('Sending request.', 2000);
 	}
 })
