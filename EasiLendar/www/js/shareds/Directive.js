@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 29/03/2015
+ * last update: 12/04/2015
  * type: all common directive
  */
 
@@ -76,7 +76,7 @@ angular.module('MainApp.shareds.directive', [])
 // Draw the list event of eDate
 .directive('easiDay', function() {
 	return {
-		controller: 'ListController',
+		controller: 'MonthController',
 		restrict: 'E',
 		templateUrl: 'templates/template-day-event-list.html'
 	};

@@ -1,7 +1,7 @@
 /**
 * starter: Can Duy Cat
 * owner: Can Duy Cat
-* last update: 05/04/2015
+* last update: 14/04/2015
 * type: Can Duy Cat css
 */
 
@@ -135,19 +135,19 @@ p.split-menu {
 	font-size: 15px;
 	left: 18px;
 	position: absolute;
-	top: 13px;
+	top: 17px;
 }
 .num-7-position {
 	font-size: 15px;
 	left: 22px;
 	position: absolute;
-	top: 59px;
+	top: 63px;
 }
 .num-1-position {
 	font-size: 15px;
 	left: 22px;
 	position: absolute;
-	top: 105px;
+	top: 109px;
 }
 
 /**
@@ -182,18 +182,18 @@ p.split-menu {
 #popover-footer-left {
 	color: #646464 !important;
 	font-size: 15px;
-	margin-top: -5px;
-	text-decoration: underline;
 	margin-left: -5px;
+	margin-top: -5px;
 	text-align: left;
+	text-decoration: underline;
 	width: 30% !important;
 }
 #popover-footer-right {
 	color: #646464 !important;
 	font-size: 15px;
 	margin-top: -5px;
-	text-decoration: underline;
 	text-align: right;
+	text-decoration: underline;
 	width: 50% !important;
 }
 #popover-content { margin-bottom: 30px; margin-top: 30px; }
@@ -218,6 +218,9 @@ p.split-menu {
 	width: 100%;
 }
 .button-no-request { margin-top: -5px; }
+/* css for friends tab */
+.margin-top-0 { margin-top: 0px !important; }
+.margin-top-69 { margin-top: 69px !important; }
 
 /**
 * sign out
@@ -314,27 +317,27 @@ p.split-menu {
 	animation-delay: 0.51s;
 }
 @-moz-keyframes bounce_followingBallsG {
-		0% { background-color: #fff; left: 0px; }
-		50% { background-color: #fff; left: 185px; }
-		100% { background-color: #fff; left: 0px; }
+			0% { background-color: #fff; left: 0px; }
+			50% { background-color: #fff; left: 185px; }
+			100% { background-color: #fff; left: 0px; }
 }
 @-webkit-keyframes bounce_followingBallsG {
-		0% { background-color: #fff; left: 0px; }
-		50% { background-color: #fff; left: 185px; }
-		100% { background-color: #fff; left: 0px; }
+			0% { background-color: #fff; left: 0px; }
+			50% { background-color: #fff; left: 185px; }
+			100% { background-color: #fff; left: 0px; }
 }
 @-o-keyframes bounce_followingBallsG {
-		0% { background-color: #fff; left: 0px; }
-		50% { background-color: #fff; left: 185px; }
-		100% { background-color: #fff; left: 0px; }
+			0% { background-color: #fff; left: 0px; }
+			50% { background-color: #fff; left: 185px; }
+			100% { background-color: #fff; left: 0px; }
 }
 @-ms-keyframes bounce_followingBallsG {
-		0% { background-color: #fff; left: 0px; }
-		50% { background-color: #fff; left: 185px; }
-		100% { background-color: #fff; left: 0px; }
+			0% { background-color: #fff; left: 0px; }
+			50% { background-color: #fff; left: 185px; }
+			100% { background-color: #fff; left: 0px; }
 }
 @keyframes bounce_followingBallsG {
-		0% { background-color: #fff; left: 0px; }
-		50% { background-color: #fff; left: 185px; }
-		100% { background-color: #fff; left: 0px; }
+			0% { background-color: #fff; left: 0px; }
+			50% { background-color: #fff; left: 185px; }
+			100% { background-color: #fff; left: 0px; }
 }

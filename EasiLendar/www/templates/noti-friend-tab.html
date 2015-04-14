@@ -1,9 +1,9 @@
 <!-- starter: Can Duy Cat
    owner: Can Duy Cat
-   last update: 05/04/2015
+   last update: 14/04/2015
    type: template for noti friend tab -->
 
-<ul class="list" ng-style="marginFriendTab">
+<ul class="list {{friendTabClass[eUser.uFALength != 0]}}">
 	<!-- friend request list empty -->
 	<a class="button icon-left ion-person-add button-clear button-dark button-no-request"
 	ng-click="closePopover(); goToState('search')"
@@ -13,7 +13,7 @@
 
 	<!-- friend request list -->
 	<a ng-repeat="friend in eUser.uFRequest" class="item my-popover-item" ng-click="friendAction(friend)">
-		<img src="img/ava{{friend.ava}}.png">
+		<img data-ng-src="img/ava{{friend.ava}}.png">
 		<p class="easi-space">{{friend.name}}</p>
 	</a>
 </ul>

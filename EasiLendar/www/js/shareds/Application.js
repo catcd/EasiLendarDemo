@@ -153,25 +153,23 @@ angular.module('MainApp.shareds.application', [])
 	// press again to exit
 	$ionicPlatform.registerBackButtonAction(function(e) {
 		if ($rootScope.currentState == 'month'
-			|| $rootScope.currentState == 'week'
-			|| $rootScope.currentState == 'day'
-			|| $rootScope.currentState == 'list'
-			|| $rootScope.currentState == 'form') {
+		|| $rootScope.currentState == 'week'
+		|| $rootScope.currentState == 'day'
+		|| $rootScope.currentState == 'list'
+		|| $rootScope.currentState == 'form') {
 			if ($rootScope.backButtonPressedOnceToExit) {
 				navigator.app.exitApp();
 			} else {
 				$rootScope.backButtonPressedOnceToExit = true;
 
 				// toast
-				$rootScope.toastSuccessOne('Press Back again to exit.', 2000);
+				$rootScope.toastSuccess('Press Back again to exit.', 2000);
 
 				setTimeout(function() {
 					$rootScope.backButtonPressedOnceToExit = false;
 				}, 2000);
 			}
 			e.preventDefault();
-		} else if ($ionicHistory.backView()) {
-			$ionicHistory.goBack();
 		}
 		return false;
 	}, 101);

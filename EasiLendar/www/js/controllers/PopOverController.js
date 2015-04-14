@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 26/03/2015
+ * last update: 14/04/2015
  * type: popover controller
  */
 
@@ -157,22 +157,12 @@ angular.module('MainApp.controllers.popover', [])
 	};
 
 	/**
-	 * ng-style
+	 * class variable
 	 */
 	// style for friend tab
-	var calMyMargin = function() {
-		if ($rootScope.eUser.uFALength != 0 && $scope.mPopoverActive == 'friend') {
-			return "69px";
-		} else {
-			return "0px";
-		}
-	};
-
-	var mMargin = calMyMargin();
-
-	$scope.marginFriendTab = {
-		"margin-top": mMargin,
-	};
+	$scope.friendTabClass = {};
+	$scope.friendTabClass[true] = 'margin-top-69';
+	$scope.friendTabClass[false] = 'margin-top-0';
 })
 
 .directive('notiContent', function() {
