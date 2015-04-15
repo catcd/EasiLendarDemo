@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 8/4/2015
+ * last update: 15/04/2015
  * type: personal css
  */
 
@@ -25,7 +25,6 @@
 	border: 0;
 }
 .myAvatar01 .name { margin-top: 19px; height: 37px;}
-
 #friend-panel-content { 
 	background-color: #646464; 
 	border: 0; 
@@ -52,12 +51,12 @@
 #hr-friend-panel { 
 	border: 2px solid #707070; 
 	width: 90%; 
-	margin-top: 1px; 
+	margin-top: 1px;
 	margin-bottom: 0;
 }
-.div02 { text-align: right; border: 0; font-size: 13px; height: 25px;}
+.div02 { text-align: right; font-size: 14px; height: 23px; margin-bottom: 2px;}
 .div02 button {
-	border:0; 
+	border:0;
 	background-color: #646464; 
 	color:#E6E6E6; 
 	padding-top: 0;
@@ -239,8 +238,15 @@
 .my-repeat-animation.ng-hide { opacity: 0;}
 
 /*LIST CALENDAR*/
-.table-list-calendar {margin-top:-15px;}
-#content-list-calendar { max-width: 500px; margin: -20px auto auto auto;}
+.list-calendar-title {
+	height: 100px;
+	padding: 40px;
+	padding-left: 55px;
+	text-align: left;
+	font-size: 35px;
+	color: #416969;
+}
+#content-list-calendar { min-width: 400px; max-width: 500px; margin: -21px auto auto auto;}
 .list-calendar { width: 100%; max-width: 500px;}
 .td-list-calendar-1 {
 	color: #646464; 
@@ -281,10 +287,9 @@
 
 /*MONTH CALENDAR*/
 .bkg-style{
-	transition: all linear 0.8s; 
+	transition: all linear 0.8s;
 	background-size: cover;
 	background-position: center center;
-	background-attachment: fixed;
 }
 #div-month-calendar { margin-top: 23px; min-height: 100%;}
 .month-calendar{

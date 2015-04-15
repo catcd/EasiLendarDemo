@@ -1,16 +1,22 @@
 <!-- starter: Can Duy Cat
-     owner: Ngo Duc Dung
-     last update: 30/03/2015
-     type: calendar template -->
+	 owner: Ngo Duc Dung
+	 last update: 30/03/2015
+	 type: calendar template -->
 <ion-view title="EasiLendar">
-    <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
-    </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
-        <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
-    </ion-nav-buttons>
-    <div id="div-month-calendar" data-ng-class="backgroundMonth(currentMonthNumber)">
-        <easi-month></easi-month>
-    </div>
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
+		<button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
+	</ion-nav-buttons>
+	<div id="div-month-calendar" data-ng-class="backgroundMonth(currentMonthNumber)">
+		<easi-month></easi-month>
+
+	<ion-content id="content-month-calendar" data-ng-show="showMonthCalendar">
+		<center>
+			<easi-day></easi-day>
+		</center>
+	</ion-content>
+	</div>
 </ion-view>

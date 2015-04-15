@@ -1,20 +1,42 @@
 <!-- starter: Can Duy Cat
-     owner: Ngo Duc Dung
-     last update: 6/4/2015
-     type: calendar template -->
+	 owner: Ngo Duc Dung
+	 last update: 14/04/2015
+	 type: calendar template -->
 
 <ion-view title="EasiLendar">
-    <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
-    </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
-        <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
-    </ion-nav-buttons>
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
+		<button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
+	</ion-nav-buttons>
+	
+	<ion-content scrollbar-y="false" id="content-list-calendar" scroll-watch>
+		<div ng-repeat="month in threeMonths">
 
+			<div id="{{month.first.toDateString()}}" ng-class="background(month.first.getMonth())">{{months[month.first.getMonth()]}}, {{month.first.getFullYear()}}</div>
 
-    <ion-content scrollbar-y="false" id="content-list-calendar">
-        <!--<button data-ng-click="eventToDay()">Click Me</button>-->
-        <easi-day></easi-day>
-    </ion-content>
+			<center>
+			<table class="list-calendar">
+				<tr class="tr-list-calendar" ng-repeat="date in month.weeks" ng-show="eUser.uGmailCalendar[date] != undefined">
+					<td id="{{date.toDateString()}}" class="td-list-calendar-1" ng-repeat="event in eUser.uGmailCalendar[date] | limitTo:1">
+						<div current-time="event.start.dateTime.getDate()" current-month="{{event.start.dateTime.getMonth()}}" current-year="{{event.start.dateTime.getFullYear()}}"
+						id="{{event.start.dateTime.toDateString()}}">
+							<p class="p-list-calendar-number">{{event.start.dateTime.getDate()}}</p>
+							<p class="p-list-calendar-text">{{weekDays[(event.start.dateTime.getDay()-1<0)? 6:event.start.dateTime.getDay()-1]}}</p>
+						</div>
+					</td>
+					<td class="td-list-calendar-2">
+						<div class="div-list-calendar-1" ng-repeat="event in eUser.uGmailCalendar[date]" background-event="bkgE">
+							<span class="span-title-event">{{event.summary}}</span><br>
+							<span>Time: {{event.start.dateTime.getHours()}}:{{ (event.start.dateTime.getMinutes()<10)?'0':'' }}{{event.start.dateTime.getMinutes()}}{{ (event.start.dateTime.getHours() >= 12)?' PM':' AM' }} - {{event.end.dateTime.getHours()}}:{{(event.end.dateTime.getMinutes()<10)?'0':''}}{{event.end.dateTime.getMinutes()}}{{( event.end.dateTime.getHours() >= 12)?' PM':' AM' }}
+							</span><br>
+							<span>{{event.location}}</span>
+						</div>
+					</td>
+				</tr>
+			</table></center>
+		</div>
+	</ion-content>
 </ion-view>

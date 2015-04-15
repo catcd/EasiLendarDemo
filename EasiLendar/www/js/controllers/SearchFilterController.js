@@ -1,10 +1,11 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 8/4/2015
+ * last update: 15/04/2015
  * type: paticular controller
  */
 
+/*SEARCH-FILTER CONTROLLER*/
 angular.module('MainApp.controllers.searchFilter', [])
 
 //Service for google-map
@@ -268,12 +269,10 @@ angular.module('MainApp.controllers.searchFilter', [])
 			isChange: '=changeIcon'
 		},
 		link:function(scope,element,attr){
-			scope.$watch('isChange',function(){
-				if(scope.isChange == false){
-					element.attr('class','icon ion-arrow-down-b');
-				}
-				else { element.attr('class','icon ion-arrow-up-b'); }
-			});
+			if(scope.isChange == false){
+				element.attr('class','icon ion-arrow-down-b');
+			}
+			else { element.attr('class','icon ion-arrow-up-b'); }
 		}
 	};
 })
