@@ -185,12 +185,19 @@ input.coming-soon-input:-ms-input-placeholder { font-size: 12px; }
 /**
 * setting
 */
+.setting-content { padding-left: 10px; padding-right: 10px; }
+.setting-card {
+	margin-bottom: 0;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 15px;
+	max-width: 500px;
+}
 .setting-divider { border-bottom: 0 !important; height: 25px; min-height: 25px; }
 .setting-divider-title { left: 5px; position: inherit; top: 5px; }
 .setting-first-item { border-top: 0 !important; }
 .setting-divider-name { border-bottom: 0 !important; height: 30px; min-height: 30px; }
 .setting-easilendar { font-size: 25px !important; }
-.setting-card {max-width: 500px; margin-left: auto; margin-right: auto; }
 .setting-number-view-option-1 { left: 23px; position: absolute; top: 20px; }
 .setting-number-view-option-30 { left: 19px; position: absolute; top: 20px; }
 /* event duration popup */
