@@ -3,7 +3,7 @@
 	 last update: 14/04/2015
 	 type: calendar template -->
 
-<ion-view title="EasiLendar">
+<ion-view title="EasiLendar" ng-class="background(currentMonthNumber)">
 	<ion-nav-buttons side="left">
 		<button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
 	</ion-nav-buttons>
@@ -12,13 +12,16 @@
 		<button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
 	</ion-nav-buttons>
 	
-	<ion-content scrollbar-y="false" id="content-list-calendar" scroll-watch>
-		<div ng-repeat="month in threeMonths">
+	<div id="list-calendar-title" class="list-calendar-title">{{months[currentMonthNumber]}}, {{currentYear}}</div>
 
-			<div id="{{month.first.toDateString()}}" ng-class="background(month.first.getMonth())">{{months[month.first.getMonth()]}}, {{month.first.getFullYear()}}</div>
+	<ion-content scrollbar-y="false" id="content-list-calendar" on-swipe-up="scrollUp()" on-swipe-down="scrollDown()" scroll-watch>
+		<div id="div-list-calendar">
+			<center ng-repeat="month in allMonths">
+			<table id="{{month.first.toDateString()}}" class="list-calendar">
+				<tr ng-hide="month.events"><td>
+					<div class="no-event-calendar">No Events</div>
+				</td></tr>
 
-			<center>
-			<table class="list-calendar">
 				<tr class="tr-list-calendar" ng-repeat="date in month.weeks" ng-show="eUser.uGmailCalendar[date] != undefined">
 					<td id="{{date.toDateString()}}" class="td-list-calendar-1" ng-repeat="event in eUser.uGmailCalendar[date] | limitTo:1">
 						<div current-time="event.start.dateTime.getDate()" current-month="{{event.start.dateTime.getMonth()}}" current-year="{{event.start.dateTime.getFullYear()}}"

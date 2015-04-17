@@ -205,7 +205,7 @@
 	text-align: right;
 	width: 100%;
 }
-.segmented-button input[type="radio"] { display: none; height: 0px; width: 0px; }
+.segmented-button input[type="radio"] { height: 0; width: 0;}
 .segmented-button label {
 	border: 0;
 	color: #646464;
@@ -239,15 +239,26 @@
 
 /*LIST CALENDAR*/
 .list-calendar-title {
-	height: 100px;
+	height: 50px;
 	padding: 40px;
-	padding-left: 55px;
-	text-align: left;
+	text-align: center;
 	font-size: 35px;
 	color: #416969;
 }
-#content-list-calendar { min-width: 400px; max-width: 500px; margin: -21px auto auto auto;}
-.list-calendar { width: 100%; max-width: 500px;}
+#content-list-calendar {
+	min-width: 400px;
+	max-width: 500px;
+	margin: 40px auto auto auto;
+	z-index: -1;
+}
+.list-calendar { width: 100%; max-width: 500px; margin-bottom: 70px;}
+.no-event-calendar {
+	height: 100px;
+	padding-top: 40px;
+	text-align: center;
+	font-size: 30px;
+	color: #416969;
+}
 .td-list-calendar-1 {
 	color: #646464; 
 	text-align: center; 

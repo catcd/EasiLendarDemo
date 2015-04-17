@@ -7,7 +7,7 @@
 
 angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 
-.controller('friendPanelController', function($scope, $rootScope, $location, $ionicScrollDelegate, $ionicPopup) {
+.controller('friendPanelController', function($scope, $rootScope, $location, $ionicScrollDelegate) {
 	$scope.searchFriend = '';
 	$scope.mShow = false;
 
@@ -51,7 +51,7 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 		//array is sorted by name
 		checkSortAZ = true;
 		array.sort(function(obj1,obj2){
-			return $rootScope.eUser.uFriend[obj2].name.localeCompare([obj1].name);
+			return $rootScope.eUser.uFriend[obj1].name.localeCompare($rootScope.eUser.uFriend[obj2].name);
 		})
 
 		var sortedArray = [];
@@ -60,7 +60,6 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 		})
 
 		$rootScope.eUser.uFriend = angular.copy(sortedArray);
-		//console.log($rootScope.eUser.uFriend);
 	}
 	
 	$scope.sort = function(typeSort) {

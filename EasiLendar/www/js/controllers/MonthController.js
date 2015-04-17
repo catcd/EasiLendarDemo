@@ -11,7 +11,7 @@ window.google=window.google||{};google.maps=google.maps||{};(function(){function
 /*MONTH CONTROLLER*/
 angular.module('MainApp.controllers.month', [])
 
-.controller("MonthController", function($scope, $rootScope, $state, $document) {
+.controller("MonthController", function($scope, $rootScope, $document) {
 	$scope.allMonths = [
 					{first: 0, second: 1, third: 2, fourth: 3},
 					{first: 4, second: 5, third: 6, fourth: 7},
@@ -40,6 +40,12 @@ angular.module('MainApp.controllers.month', [])
 		$scope.position = new Date($scope.currentDate.getFullYear(), $scope.currentDate.getMonth(), $scope.currentDateNumber, 0, 0, 0, 0);
 		$rootScope.eCalendar.cDate = angular.copy($scope.position);
 		
+		/** All weeks of a month
+		  * week: array of days in month
+		  * days: array of 7 days in month
+		  * numberDate: date
+		  * month: month of date
+		  */
 		$scope.weeks = new Array(5);
 		for (var i = 0; i < 5; i++) {
 			$scope.weeks[i] = {

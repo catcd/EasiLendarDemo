@@ -83,7 +83,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 	}
 })
 
-.controller("SearchFilterController", function($rootScope, $scope, $ionicPopup, $ionicScrollDelegate, Map ) {
+.controller("SearchFilterController", function($rootScope, $scope, Map) {
 	$scope.timeValues = {
 		mDurationHour: $rootScope.eSettings.sDefaultDuration / 60,
 		mDurationMinute: $rootScope.eSettings.sDefaultDuration % 60,
@@ -92,6 +92,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 		mFromDay: new Date(),
 		mToDay: new Date()
 	};
+	var newSearchFilter = angular.copy($rootScope.eSearchFilter);
 	var resetValues = angular.copy($scope.timeValues);
 
 	$scope.priorityTimes = [
@@ -155,11 +156,18 @@ angular.module('MainApp.controllers.searchFilter', [])
 	$scope.deleteValue = function(form){
 		/*RESET VALUE*/
 		$scope.timeValues = angular.copy(resetValues);
-		$rootScope.eSearchFilter = {};
-		$scope.list = new Array();
+		$rootScope.eSearchFilter = angular.copy(newSearchFilter);
+		$scope.list = [];
 		/* RESET FORM*/
 		form.$setPristine();
   		form.$setUntouched();
+  		var inputs = document.getElementsByTagName('input');
+  		for(var i=0; i<inputs.length; i++){
+  			if(inputs[i].checked !== undefined || inputs[i].checked !== null){
+  				inputs[i].checked = false;
+  			}
+  		}
+
   		$scope.mShow = false;
   		$scope.titleOfButton = 'ADVANCE FILTER';
 
