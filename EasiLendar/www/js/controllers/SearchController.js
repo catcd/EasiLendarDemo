@@ -1,13 +1,13 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 05/04/2015
+ * last update: 18/04/2015
  * type: paticular controller
  */
 
 angular.module('MainApp.controllers.search', [])
 
-.controller("SearchController", function($scope, $rootScope, toastr, toastrConfig, $state) {
+.controller("SearchController", function($scope, $rootScope) {
 	// search input
 	$scope.searchInput = "";
 
@@ -22,22 +22,24 @@ angular.module('MainApp.controllers.search', [])
 
 	$rootScope.$on('$stateChangeStart', function(event, toState) {
 		if (toState.name == 'search') {
-			resetData();
+			$scope.resetData();
 		}
-	})
+	});
 
-	var resetData = function() {
+	$scope.resetData = function() {
 		// reset search input
 		$scope.searchInput = "";
 
 		// reset Variable to save search result
 		$rootScope.searchFriends = [];
 		$rootScope.searchEvents = [];
+
+		$rootScope.searchType.type = "All";
 	}
 
 	// search call
 	$scope.search = function() {
-		// demo data for friend
+		// search data for friend
 		if ($rootScope.searchType.type == "All" || $rootScope.searchType.type == "People") {
 			$rootScope.searchFriend($scope.searchInput);
 			// $rootScope.searchFriends[0] = { ID: 'cancatdz', name: 'Cat Can', ava: 1 };
@@ -47,7 +49,7 @@ angular.module('MainApp.controllers.search', [])
 			console.log($rootScope.searchFriends);
 		}
 
-		// demo data for events
+		// search data for events
 		if ($rootScope.searchType.type == "All" || $rootScope.searchType.type == "Events") {
 			$rootScope.searchEvent($scope.searchInput);
 			console.log($rootScope.searchEvents);

@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 29/03/2015
+ * last update: 18/04/2015
  * type: home controller
  */
 
@@ -23,7 +23,6 @@ angular.module('MainApp.controllers.home', [])
     });
 
     $scope.selectPopover = function($event) {
-        $scope.tabActive("friend");
         $scope.calendarPopover.show($event);
     };
     $scope.closeSelect = function() {
