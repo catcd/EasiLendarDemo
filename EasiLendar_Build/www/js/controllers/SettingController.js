@@ -1,0 +1,1 @@
+angular.module("MainApp.controllers.setting",[]).controller("SettingController",function($scope){});

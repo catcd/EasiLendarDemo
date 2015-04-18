@@ -1,0 +1,49 @@
+<!-- starter: Can Duy Cat
+	 owner: Nguyen Minh Trang
+	 last update: 08/04/2015
+	 type: state template -->
+
+<div class="registerForm" scrollbar-y="false">
+  <form method="POST" name="registerForm" data-ng-submit="register()">
+	<div>
+		<label class="font20"><strong>Easilendar ID:</strong></label>
+		<span class="float-right" data-ng-show="registerForm.$submitted && !warnings.check(0)">
+		  <i class="icon ion-alert"></i>{{warnings.mes[0]}}
+		</span>
+		<input class="item-input signin-form-input" data-ng-model="user.id" on-touch="warnings.reset(0)" type="text" name="userid"/>
+	</div>
+	<div>
+		<label class="font20"><strong>Your name:</strong></label>
+		<span class="float-right" data-ng-show="registerForm.$submitted && !warnings.check(1)">
+		  <i class="icon ion-alert"></i>{{warnings.mes[1]}}
+		</span>
+		<input class="item-input signin-form-input" data-ng-model="user.name" on-touch="warnings.reset(1)" type="text" name="username"/>
+	</div> 
+	<div class="input-block">
+		<label class="font20"><strong>Email:</strong></label>
+		<span class="float-right" data-ng-show="registerForm.$submitted && !warnings.check(2)">
+		  <i class="icon ion-alert"></i>{{warnings.mes[2]}}
+		</span>
+		<input class="item-input signin-form-input" data-ng-model="user.email" on-touch="warnings.reset(2)" type="text" name="useremail"/>
+	</div>
+	<div class="input-block">
+		<label class="font20"><strong>Password:</strong></label>
+		<span class="float-right" data-ng-show="registerForm.$submitted && !warnings.check(3)">
+		  <i class="icon ion-alert"></i>{{warnings.mes[3]}}
+		</span>
+		<input class="item-input signin-form-input" data-ng-model="user.password" on-touch="warnings.reset(3)" type="password" name="password"/>
+	</div>
+	<div>
+		<label class="font20"><strong>Confirm:</strong></label>
+		<span class="float-right" data-ng-show="registerForm.$submitted && !warnings.check(4)">
+		  <i class="icon ion-alert"></i>{{warnings.mes[4]}}
+		</span>
+		<input class="item-input signin-form-input" data-ng-model="user.re_password" on-touch="warnings.reset(4)" type="password"/>
+	</div>
+	<div class="terms">By clicking Register, you agree to our <a class="easi-dark-blue" href="">EasiLendar Terms</a></div>
+	<div>
+	  <input class="button button-easi-blue font20" type="submit" value="Register" />
+	  <input data-ng-click="goToState('form')" class="button button-easi-blue font20" type="button" value="Back"/>
+	</div>
+  </form>
+</div>

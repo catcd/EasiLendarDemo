@@ -1,0 +1,49 @@
+<!-- starter: Can Duy Cat
+	owner: Nguyen Manh Duy
+	last update: 21/03/2015
+	type: html -->
+
+<ion-view title="Sync" data-ng-init= "handleClientLoad()">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-home" ui-sref="{{eSettings.sDefaultView}}"> </button>
+    </ion-nav-buttons>
+	
+    <ion-content padding="true">	
+		<div id="firstContent" style="margin-top: 30px">
+            <h1  style=" font-size: 150%; margin-top: 25px; text-align: center;">
+				<strong style= "color: #b7353b" >Synchronize to Local Calendar</strong>
+			</h1>
+        </div>
+		
+		<div id="Local" style="margin-top: 40px">
+			<center>
+				<a id = "local-button" class= "button icon-left icon ion-iphone button-calm easi-no-border" style= "background-color: #416969; width: 270px" ng-click= "syncToLocal()"> Update Local Calendar </a>
+			</center>
+		</div>
+        <div id="secondContent" style="margin-top: 70px">
+            <h1  style=" font-size: 150%; margin-top: 25px; text-align: center;">
+				<strong style= "color: #b7353b" >Synchronize to Google Calendar</strong>
+			</h1>
+        </div>
+		
+		<div style="margin-top: 30px" id="hi">
+			<center>
+				<h4 id="hello" visibility= "hidden" style= "font-style : italic""></h4>
+			</center>
+        </div>
+
+		<div style="margin-top: 50px" id="div-update">
+			<center>
+				<a id="update-button" visibility= "hidden"></a>
+			</center>
+        </div>
+		
+		<div style="margin-top: 30px" id="div-log-in">
+			<center>
+				<a id="authorize-button" visibility= "hidden"></a>
+			</center>
+        </div>
+		
+        <p id="events" style="margin-top: 30px"></p>
+    </ion-content>
+</ion-view>

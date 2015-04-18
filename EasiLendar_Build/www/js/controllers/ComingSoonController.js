@@ -1,0 +1,1 @@
+angular.module("MainApp.controllers.comingSoon",[]).controller("ComingSoonController",function($scope,$ionicPopup,$timeout){$scope.confirm=function(mail){var confirm=$ionicPopup.alert({title:"Thanks for your observation!",template:"We are sending information to "+mail+" as soon as possible!"});$timeout(function(){confirm.close()},5E3)}});

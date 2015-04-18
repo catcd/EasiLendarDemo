@@ -1,0 +1,51 @@
+<!-- starter: Can Duy Cat
+	 owner: Nguyen Thi Luong
+	 last update: 18/03/2015
+	 type: calendar template -->
+
+<ion-view title="EasiLendar">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
+     	  <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
+    </ion-nav-buttons>
+		
+    <div  ng-class="backgroundMonth()">
+		<h2 id="h2-month"><br>{{navMonthName}}, {{navYear}}</h2>
+	</div>
+	
+	<div id="xxx"><center> 
+		<table >
+		<center>
+			<td id="x1">	<a class="button-calendar button-previous-day icon ion-chevron-left easi-gray"   data-ng-click = "previousDay()"> </a>	</td>
+			<td id="x2"><span >This Week ({{navShortMonth}} {{FirstDayWeek}} - {{LastDayWeek}})<br><span></td>
+			<td id="x3"><a class="button-calendar button-next-day icon ion-chevron-right easi-gray" data-ng-click = "NextDay()" > </a>   </td>
+		</table>
+		<br>
+		<ion-content class="zzz"><center>
+		
+		<br>
+		<center>
+			<table class="day-table-calendar easi-no-border">
+				<tr class="tr-day-calendar easi-no-border">
+				<!--Day-->
+					<td class="td-list-calendar-3">
+						<p class="p-list-calendar-number">	{{navDate}}	</p>
+						<p class="p-list-calendar-text">	{{navDay}}	</p>
+					</td>
+				<!--Calendar-->
+					<td class="td-day-calendar-2">
+						<div class="div-day-calendar easi-no-border " ng-repeat="event in eUser.uGmailCalendar[indexOfNavDay]" background-event="bkgE">
+							<span class="span-title-event">	{{event.summary}}	</span><br>
+							<span>	Time:{{event.start.dateTime.getHours()}}:{{ (event.start.dateTime.getMinutes()<10)?'0':'' }}{{event.start.dateTime.getMinutes()}}{{ (event.start.dateTime.getHours() >= 12)?' PM':' AM' }} - {{event.end.dateTime.getHours()}}:{{(event.end.dateTime.getMinutes()<10)?'0':''}}{{event.end.dateTime.getMinutes()}}{{( event.end.dateTime.getHours() >= 12)?' PM':' AM' }}
+							</span><br>
+						<span>{{event.location}}</span>
+						</div>
+					</td> 
+				</tr>
+			</table>
+		</center>  
+		</ion-content>
+</ion-view>
