@@ -143,6 +143,7 @@ This will open a dialog box allowing you to install the app. Select "__Open App 
 On the next two pages, select "__Install__" and "__Install__" again to install the .apk as the following instalation of Swipe.
 
 ![alt text][install-one]
+
 ![alt text][install-two]
 
 [install-one]: http://www.maketecheasier.com/wp-content/uploads/2011/01/apkinstaller-installapp.jpg "Install Step 1"
