@@ -1,13 +1,13 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 16/03/2015
+ * last update: 19/04/2015
  * type: loading controller
  */
 
 angular.module('MainApp.controllers.loading', [])
 
-.controller("LoadingController", function($scope, $rootScope, $cordovaNetwork, $ionicLoading, $state) {
+.controller("LoadingController", function($scope, $rootScope, $cordovaNetwork, $ionicLoading) {
 	$ionicLoading.show({
 		duration: 4000,
 		template: '<ion-content class="easi-full-blue"><center><img src="img/logo.png" class="logo"><br><p class="easi-font bigName">EasiLendar</p><br><div id="followingBallsG"><div id="followingBallsG_1" class="followingBallsG"></div><div id="followingBallsG_2" class="followingBallsG"></div><div id="followingBallsG_3" class="followingBallsG"></div><div id="followingBallsG_4" class="followingBallsG"></div></div></center></ion-content>'
@@ -16,8 +16,14 @@ angular.module('MainApp.controllers.loading', [])
 	window.onload = function() {
 		if (navigator.connection != undefined) checkConnection();		// if not working, skip it
 		getTimezone();
-		$state.go("form");
+		$rootScope.goToState("form");
 	}
+
+	$rootScope.$on('$stateChangeStart', function(event, toState) {
+		if (toState.name == 'loading') {
+			$rootScope.goToState("form");
+		}
+	});
 
 	function checkConnection() {
 	    var type = $cordovaNetwork.getNetwork();

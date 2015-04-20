@@ -1,18 +1,20 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 08/04/2015
+ * last update: 19/04/2015
  * type: module all shared variables and functions used for this app
  */
 
 angular.module('MainApp.shareds.application', [])
-.run(function($rootScope, $ionicPopup, $timeout, $state, $ionicPlatform, $ionicHistory, toastr, toastrConfig) {
-	/**
-	 * All shared variables
-	 */
-	// Search filter variables
-	// Ngo Duc Dung
-	$rootScope.eSearchFilter = {
+/**
+ * All shared variables
+ * Each group (object) is one services
+ */
+
+// Search filter variables
+// Ngo Duc Dung
+.factory('eSearchFilter', ['', function(){
+	return {
 		mTitle: '',		/*Name of meeting*/
 		mDuration: 0,	/*Duration of meeting */
 		mLocation: '',	/*Location of meeting*/
@@ -28,10 +30,12 @@ angular.module('MainApp.shareds.application', [])
 		mOffice: null,		/*none(default) = null;*/
 		mHoliday: null 		/**/
 	};
+}])
 
-	// Setting variables
-	// Can Duy Cat
-	$rootScope.eSettings = {
+// Setting variables
+// Can Duy Cat
+.factory('eSettings', ['', function(){
+	return {
 		sEvent: true,			/*Show/hide event*/
 		sHoliday: true,			/*Show/hide holiday*/
 		sBirthday: true,		/*Show/hide friend's birthday*/
@@ -55,10 +59,12 @@ angular.module('MainApp.shareds.application', [])
 
 		sInternet: 'wifi' /*enum{"wifi", "3G", "none"} Check device conection*/
 	};
+}])
 
-	// User information
-	// Nguyen Minh Trang
-	$rootScope.eUser = {
+// User information
+// Nguyen Minh Trang
+.factory('eUser', ['', function(){
+	return {
 		uID: '',			/*4-15 characters (A-Z, a-z, 0-9, _), unique*/
 		uName: '',			/*UTF-8*/
 		uAvatar: '0',
@@ -79,32 +85,34 @@ angular.module('MainApp.shareds.application', [])
 		uFRLength: 0,
 		uFALength: 0,
 	};
+}])
 
-	// $rootScope.eUser.uFRequest["huongdung1"] = { id: "huongdung1", name: "Ngo Duc Huong", ava: 1};
-	// $rootScope.eUser.uFRequest["ttdungsexy"] = { id: "ttdungsexy", name: "Tran Thu Dung", ava: 3};
-	// $rootScope.eUser.uFRequest["minhchui02"] = { id: "minhchui02", name: "Nguyen Minh Chui", ava: 5};
-	// $rootScope.eUser.uFRequest["manhvan003"] = { id: "manhvan003", name: "Nguyen Manh Van", ava: 8};
-	// $rootScope.eUser.uFRequest["boykorea58"] = { id: "boykorea58", name: "Kim Seung Trang", ava: 7};
-	// $rootScope.eUser.uFRequest["hotgirlno1"] = { id: "hotgirlno1", name: "Nguyen Thi Cam Duy", ava: 4};
-	// $rootScope.eUser.uFRequest["justinbb02"] = { id: "justinbb02", name: "Justin Bieber", ava: 4};
-	// $rootScope.eUser.uFRequest["kimkashi07"] = { id: "kimkashi07", name: "Kim Kadashian", ava: 8};
-	// $rootScope.eUser.uFRequest["gotgon1158"] = { id: "gotgon1158", name: "Yoona", ava: 7};
-	// $rootScope.eUser.uFRequest["badboyking"] = { id: "badboyking", name: "Son Tung MTP", ava: 0};
-	// $rootScope.eUser.uFRLength = 10;
+// $rootScope.eUser.uFRequest["huongdung1"] = { id: "huongdung1", name: "Ngo Duc Huong", ava: 1};
+// $rootScope.eUser.uFRequest["ttdungsexy"] = { id: "ttdungsexy", name: "Tran Thu Dung", ava: 3};
+// $rootScope.eUser.uFRequest["minhchui02"] = { id: "minhchui02", name: "Nguyen Minh Chui", ava: 5};
+// $rootScope.eUser.uFRequest["manhvan003"] = { id: "manhvan003", name: "Nguyen Manh Van", ava: 8};
+// $rootScope.eUser.uFRequest["boykorea58"] = { id: "boykorea58", name: "Kim Seung Trang", ava: 7};
+// $rootScope.eUser.uFRequest["hotgirlno1"] = { id: "hotgirlno1", name: "Nguyen Thi Cam Duy", ava: 4};
+// $rootScope.eUser.uFRequest["justinbb02"] = { id: "justinbb02", name: "Justin Bieber", ava: 4};
+// $rootScope.eUser.uFRequest["kimkashi07"] = { id: "kimkashi07", name: "Kim Kadashian", ava: 8};
+// $rootScope.eUser.uFRequest["gotgon1158"] = { id: "gotgon1158", name: "Yoona", ava: 7};
+// $rootScope.eUser.uFRequest["badboyking"] = { id: "badboyking", name: "Son Tung MTP", ava: 0};
+// $rootScope.eUser.uFRLength = 10;
 
-	// $rootScope.eUser.uFAccepted["huongnd95"] = { id: "huongnd95", name: "Ngo Duc Huong", ava: 1};
-	// $rootScope.eUser.uFAccepted["dungttd96"] = { id: "dungttd96", name: "Tran Thu Dung", ava: 3};
-	// $rootScope.eUser.uFAccepted["vannm9896"] = { id: "vannm9896", name: "Nguyen Manh Van", ava: 8};
-	// $rootScope.eUser.uFAccepted["trangks99"] = { id: "trangks99", name: "Kim Seung Trang", ava: 7};
-	// $rootScope.eUser.uFAccepted["duyntc00a"] = { id: "duyntc00a", name: "Nguyen Thi Cam Duy", ava: 4};
-	// $rootScope.eUser.uFAccepted["luongnt58"] = { id: "luongnt58", name: "Nguyen Thi Luong", ava: 8};
-	// $rootScope.eUser.uFAccepted["taylor989"] = { id: "taylor989", name: "Taylor Swift", ava: 6};
-	// $rootScope.eUser.uFAccepted["obamano01"] = { id: "obamano01", name: "Barack Obama", ava: 0};
-	// $rootScope.eUser.uFALength = 8;
+// $rootScope.eUser.uFAccepted["huongnd95"] = { id: "huongnd95", name: "Ngo Duc Huong", ava: 1};
+// $rootScope.eUser.uFAccepted["dungttd96"] = { id: "dungttd96", name: "Tran Thu Dung", ava: 3};
+// $rootScope.eUser.uFAccepted["vannm9896"] = { id: "vannm9896", name: "Nguyen Manh Van", ava: 8};
+// $rootScope.eUser.uFAccepted["trangks99"] = { id: "trangks99", name: "Kim Seung Trang", ava: 7};
+// $rootScope.eUser.uFAccepted["duyntc00a"] = { id: "duyntc00a", name: "Nguyen Thi Cam Duy", ava: 4};
+// $rootScope.eUser.uFAccepted["luongnt58"] = { id: "luongnt58", name: "Nguyen Thi Luong", ava: 8};
+// $rootScope.eUser.uFAccepted["taylor989"] = { id: "taylor989", name: "Taylor Swift", ava: 6};
+// $rootScope.eUser.uFAccepted["obamano01"] = { id: "obamano01", name: "Barack Obama", ava: 0};
+// $rootScope.eUser.uFALength = 8;
 
-	// Friend's information
-	// Nguyen Minh Trang
-	$rootScope.eFriend = {
+// Friend's information
+// Nguyen Minh Trang
+.factory('eFriend', ['', function(){
+	return {
 		fName: '',		/*UTF-8*/
 		fAvatar: 0,		/*avatar index from 0 to 8*/
 		fVIP: 0,		/*VIP or not*/
@@ -114,122 +122,30 @@ angular.module('MainApp.shareds.application', [])
 
 		fMultiCal: null,	/*MultiCalendar object	Calendar*/
 	};
+}])
 
-	// Calendar's information
-	$rootScope.eCalendar = {
+// Calendar's information
+// Ngo Duc Dung
+.factory('eCalendar', ['', function(){
+	return {
 		cDate: null, 	//Object Date that user click on month calendar
 	};
+}])
 
-	$rootScope.currentState = "loading";
+/**
+ * All functions
+ */
 
-	/**
-	 * All functions
-	 */
-	$rootScope.showChoice = function(mtitle, url, msub) {
-		var confirmPopup = $ionicPopup.show({
-			title: mtitle,
-			subTitle: msub,
-			templateUrl: url
-		});
-		$rootScope.closePopup = function() {
-			$timeout(function() {
-				confirmPopup.close();
-			}, 100);
-		};
-	}
-	$rootScope.showAlert = function(mtitle, url, msub) {
-		var confirmPopup = $ionicPopup.alert({
-			title: mtitle,
-			subTitle: msub,
-			templateUrl: url
-		});
-		$rootScope.closePopup = function() {
-			$timeout(function() {
-				confirmPopup.close();
-			}, 100);
-		};
-	}
-
-	// press again to exit
-	$ionicPlatform.registerBackButtonAction(function(e) {
-		if ($rootScope.currentState == 'month'
-		|| $rootScope.currentState == 'week'
-		|| $rootScope.currentState == 'day'
-		|| $rootScope.currentState == 'list'
-		|| $rootScope.currentState == 'form') {
-			if ($rootScope.backButtonPressedOnceToExit) {
-				navigator.app.exitApp();
-			} else {
-				$rootScope.backButtonPressedOnceToExit = true;
-
-				// toast
-				$rootScope.toastSuccess('Press Back again to exit.', 2000);
-
-				setTimeout(function() {
-					$rootScope.backButtonPressedOnceToExit = false;
-				}, 2000);
-			}
-			e.preventDefault();
-		}
-		return false;
-	}, 101);
-
-	// exit app function
-	// confirm and exit app
-	// only on the mobile or tablet device
-	$rootScope.exitEasi = function() {
-		var confirmPopup = $ionicPopup.confirm({
-			title: "Exit confirm",
-			subTitle: "Are you sure?"
-		});
-		confirmPopup.then(function(res) {
-			if (res) {
-				navigator.app.exitApp();
-			} else {
-				// TODO cancel
-			}
-		});
-	}
-
-	// go home function
-	$rootScope.goHome = function() {
-		$rootScope.goToState($rootScope.eSettings.sDefaultView);
-	}
-
-	// go to any state
-	$rootScope.goToState = function(state) {
-		$ionicHistory.nextViewOptions({
-			historyRoot: true,
-			disableAnimate: true,
-			expire: 300
-		});
-		$state.go(state);
-		$rootScope.currentState = state;
-	}
-
-	/**
-	 * evaluate meeting time
-	 * return a timeHeap
-	 */
-	// function to call
-	// in this function
-	// - suitable evaluating function will be called
-	// - output: a timeHeap
-	$rootScope.evaluateTime = function(mMCal, mStart, mEnd, mDuration) {
-		// evaluate the normal case
-		if(true) {
-			var mHeap = evaluateNormal(mMCal, mStart, mEnd, mDuration);
-		}
-
-		//return the result
-		return mHeap;
-	}
+// All function for single searching algorithm
+.factory('eSAlgorithm', ['', function(eTimeHeap, eCalendar){
+	var eTimeHeap = eTimeHeap;
+	var eCalendar = eCalendar;
 
 	// evaluate normal case
 	// evaluate step by step from start of day to end of day
 	var evaluateNormal = function(mMCal, mStart, mEnd, mDuration) {
 		// result Heap
-		var mHeap = $rootScope.newTimeHeap();
+		var mHeap = eTimeHeap.newTimeHeap();
 
 		// pointer move from mStart to mEnd
 		var mCurrentDay = mStart;
@@ -321,7 +237,7 @@ angular.module('MainApp.shareds.application', [])
 				// mTempStart = end of the last event (downEvent)
 				// mTempEnd = start of next day of current day
 				mTempStart = downEvent.end.dateTime;
-				mTempEnd = $rootScope.tomorrow(mCurrentDay);
+				mTempEnd = eCalendar.tomorrow(mCurrentDay);
 
 				pushPart(mHeap, mTempStart, mTempEnd, mDuration);
 				// end of evaluate end of day
@@ -330,7 +246,7 @@ angular.module('MainApp.shareds.application', [])
 			}
 
 			// move to next day
-			mCurrentDay = $rootScope.tomorrow(mCurrentDay);
+			mCurrentDay = eCalendar.tomorrow(mCurrentDay);
 		}
 
 		// return a timeHeap of timeNode evaluated
@@ -363,7 +279,7 @@ angular.module('MainApp.shareds.application', [])
 		}
 
 		if (tempArray.length != 0) {
-			mHeap.push($rootScope.maxNode(tempArray));
+			mHeap.push(eTimeHeap.maxNode(tempArray));
 		}
 		tempArray = [];
 	}
@@ -371,77 +287,191 @@ angular.module('MainApp.shareds.application', [])
 	// function to push timeNode to timeHeap step by step
 	// in order to reduce while loop to reduce time
 	var pushAllDay = function(mDate, mHeap) {
-		mHeap.push($rootScope.newTimeNode(mDate, $rootScope.tomorrow(mDate)));
+		mHeap.push(eTimeHeap.newTimeNode(mDate, eCalendar.tomorrow(mDate)));
 	}
+	return {
+		evaluateTime: function(mMCal, mStart, mEnd, mDuration) {
+			// evaluate the normal case
+			if(true) {
+				var mHeap = evaluateNormal(mMCal, mStart, mEnd, mDuration);
+			}
 
-	// Function to caculate a time in what part of day and return the points
-	// return 0: 12: 00 am to 5: 59 am 0 pts
-	// return 1: 6: 00 am to 7: 59 am + 15 pts
-	// return 2: 8: 00 am to 10: 59 am + 30 pts
-	// return 3: 11: 00 am to 13: 59 pm + 20 pts
-	// return 4: 14: 00 pm to 16: 59 pm + 50 pts
-	// return 5: 17: 00 pm to 19: 59 pm + 20 pts
-	// return 6: 20: 00 pm to 12: 00 am + 15 pts
-	$rootScope.calPoint = function(mHour) {
-		switch (mHour) {
-			case 0: case 1: case 2: case 3: case 4: case 5: return 0;
-			case 6: case 7: return 15;
-			case 8: case 9: case 10: return 30;
-			case 11: case 12: case 13: return 20;
-			case 14: case 15: case 16: return 50;
-			case 17: case 18: case 19: return 20;
-			case 20: case 21: case 22: case 23: return 15;
+			//return the result
+			return mHeap;
+		},
+		calPoint: function(mHour) {
+		// Function to caculate a time in what part of day and return the points
+		// return 0: 12: 00 am to 5: 59 am 0 pts
+		// return 1: 6: 00 am to 7: 59 am + 15 pts
+		// return 2: 8: 00 am to 10: 59 am + 30 pts
+		// return 3: 11: 00 am to 13: 59 pm + 20 pts
+		// return 4: 14: 00 pm to 16: 59 pm + 50 pts
+		// return 5: 17: 00 pm to 19: 59 pm + 20 pts
+		// return 6: 20: 00 pm to 12: 00 am + 15 pts
+			switch (mHour) {
+				case 0: case 1: case 2: case 3: case 4: case 5: return 0;
+				case 6: case 7: return 15;
+				case 8: case 9: case 10: return 30;
+				case 11: case 12: case 13: return 20;
+				case 14: case 15: case 16: return 50;
+				case 17: case 18: case 19: return 20;
+				case 20: case 21: case 22: case 23: return 15;
+			};
+		}
+	};
+}])
+
+/**
+ * Toast function
+ */
+.factory('eToast', ['', function(toastr, toastrConfig){
+	return {
+		// toast success
+		// lots of toast show a time
+		// color #33CCCC
+		// width 50%
+		// position center bottom
+		toastSuccess: function(message, delay) {
+			toastrConfig.positionClass = 'toast-sign-out';
+			toastrConfig.preventDuplicates = false,
+
+			toastr.success(message, {
+				timeOut: delay
+			});
+		}
+
+		// toast success one
+		// only 1 toast show a time
+		// color #33CCCC
+		// width 50%
+		// position center bottom
+		toastSuccessOne: function(message, delay) {
+			toastrConfig.positionClass = 'toast-sign-out';
+			toastrConfig.preventDuplicates = true,
+
+			toastr.success(message, {
+				timeOut: delay
+			});
+		}
+	};
+}])
+
+/**
+ * Check friend service
+ * Local functions
+ */
+.factory('eCheckFriend', ['', function(eUser){
+	return {
+		// is friend function
+		// return true if ID is my friend
+		isFriend: function(ID) {
+			if (eUser.uFriend == null) {
+				return false;
+			}
+
+			return (eUser.uFriend[ID] !== undefined);
+		}
+
+		// is requested function
+		// return true if ID is my friend
+		isRequested: function(ID) {
+			if (eUser.uRequested == null) {
+				return false;
+			}
+
+			return (eUser.uRequested[ID] !== undefined);
+		}
+	};
+}])
+
+// some functions that are initialized from start
+.run(function($rootScope, $ionicPopup, $timeout, $state, $ionicPlatform, $ionicHistory, toastr, toastrConfig) {
+
+	// Variable for save current state
+	$rootScope.currentState = "loading";
+
+	/**
+	 * All .run functions
+	 */
+	$rootScope.showChoice = function(mtitle, url, msub) {
+		var confirmPopup = $ionicPopup.show({
+			title: mtitle,
+			subTitle: msub,
+			templateUrl: url
+		});
+		$rootScope.closePopup = function() {
+			$timeout(function() {
+				confirmPopup.close();
+			}, 100);
+		};
+	}
+	$rootScope.showAlert = function(mtitle, url, msub) {
+		var confirmPopup = $ionicPopup.alert({
+			title: mtitle,
+			subTitle: msub,
+			templateUrl: url
+		});
+		$rootScope.closePopup = function() {
+			$timeout(function() {
+				confirmPopup.close();
+			}, 100);
 		};
 	}
 
-	/**
-	 * Toast function
-	 */
-	// toast success
-	// lots of toast show a time
-	// color #33CCCC
-	// width 50%
-	// position center bottom
-	$rootScope.toastSuccess = function(message, delay) {
-		toastrConfig.positionClass = 'toast-sign-out';
-		toastrConfig.preventDuplicates = false,
+	// press again to exit
+	$ionicPlatform.registerBackButtonAction(function(e) {
+		if ($rootScope.currentState == 'month'
+		|| $rootScope.currentState == 'week'
+		|| $rootScope.currentState == 'day'
+		|| $rootScope.currentState == 'list'
+		|| $rootScope.currentState == 'form') {
+			if ($rootScope.backButtonPressedOnceToExit) {
+				navigator.app.exitApp();
+			} else {
+				$rootScope.backButtonPressedOnceToExit = true;
 
-		toastr.success(message, {
-			timeOut: delay
+				// toast
+				$rootScope.toastSuccess('Press Back again to exit.', 2000);
+
+				setTimeout(function() {
+					$rootScope.backButtonPressedOnceToExit = false;
+				}, 2000);
+			}
+			e.preventDefault();
+		}
+		return false;
+	}, 101);
+
+	// exit app function
+	// confirm and exit app
+	// only on the mobile or tablet device
+	$rootScope.exitEasi = function() {
+		var confirmPopup = $ionicPopup.confirm({
+			title: "Exit confirm",
+			subTitle: "Are you sure?"
+		});
+		confirmPopup.then(function(res) {
+			if (res) {
+				navigator.app.exitApp();
+			} else {
+				// TODO cancel
+			}
 		});
 	}
 
-	// toast success one
-	// only 1 toast show a time
-	// color #33CCCC
-	// width 50%
-	// position center bottom
-	$rootScope.toastSuccessOne = function(message, delay) {
-		toastrConfig.positionClass = 'toast-sign-out';
-		toastrConfig.preventDuplicates = true,
+	// go home function
+	$rootScope.goHome = function() {
+		$rootScope.goToState($rootScope.eSettings.sDefaultView);
+	}
 
-		toastr.success(message, {
-			timeOut: delay
+	// go to any state
+	$rootScope.goToState = function(state) {
+		$ionicHistory.nextViewOptions({
+			historyRoot: true,
+			disableAnimate: true,
+			expire: 300
 		});
-	}
-
-	// is friend function
-	// return true if ID is my friend
-	$rootScope.isFriend = function(ID) {
-		if ($rootScope.eUser.uFriend == null) {
-			return false;
-		}
-
-		return ($rootScope.eUser.uFriend[ID] !== undefined);
-	}
-
-	// is requested function
-	// return true if ID is my friend
-	$rootScope.isRequested = function(ID) {
-		if ($rootScope.eUser.uRequested == null) {
-			return false;
-		}
-
-		return ($rootScope.eUser.uRequested[ID] !== undefined);
+		$state.go(state);
+		$rootScope.currentState = state;
 	}
 })
