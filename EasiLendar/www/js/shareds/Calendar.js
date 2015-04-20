@@ -1,27 +1,27 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 19/04/2015
+ * last update: 20/04/2015
  * type: module all shared variables and functions use for calendar
  */
 
-angular.module('MainApp.shareds.calendar')
+angular.module('MainApp.shareds.calendar', [])
 
 .factory('eCalendar', function(){
 	return {
 		/*
 		 * Calendar variables
 		 */
-		weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+		weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
 		months: ["January", "February", "March", "April", "May", "June",
 				"July", "August", "September", "October", "November", "December"
-		];
-		shortMonths: ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+		],
+		shortMonths: ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"],
 		// background name
 		bkgs: ["bkg_01_jan.jpg", "bkg_02_feb.jpg", "bkg_03_mar.jpg", "bkg_04_apr.jpg",
 			"bkg_05_may.jpg", "bkg_06_jun.jpg", "bkg_07_jul.jpg", "bkg_08_aug.jpg",
 			"bkg_09_sep.jpg", "bkg_10_oct.jpg", "bkg_11_nov.jpg", "bkg_12_dec.jpg"
-		];
+		],
 
 		/*
 		 * Calendar functions
@@ -37,7 +37,7 @@ angular.module('MainApp.shareds.calendar')
 					} else return 28;
 				return 0;
 			};
-		};
+		},
 
 		/*
 		 * Caculate the next and previous day of one day
@@ -47,14 +47,14 @@ angular.module('MainApp.shareds.calendar')
 			var d = today.getTime();
 			var result = new Date (d + 86400000); // 86400000 is number of miliseconds in a day
 			return result;
-		}
+		},
 
 		// yesterday of Date:
 		yesterday: function(today) {
 			var d = today.getTime();
 			var r = new Date (d - 86400000); // 86400000 is number of miliseconds in a day
 			return r;
-		}
+		},
 
 		// convert time function
 		// input: an event
@@ -98,4 +98,4 @@ angular.module('MainApp.shareds.calendar')
 			}
 		}
 	};
-}])
+})

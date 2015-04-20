@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 19/04/2015
+ * last update: 20/04/2015
  * type: module all shared variables and functions used for this app
  */
 
@@ -338,7 +338,7 @@ angular.module('MainApp.shareds.application', [])
 			toastr.success(message, {
 				timeOut: delay
 			});
-		}
+		},
 
 		// toast success one
 		// only 1 toast show a time
@@ -370,7 +370,7 @@ angular.module('MainApp.shareds.application', [])
 			}
 
 			return (eUser.uFriend[ID] !== undefined);
-		}
+		},
 
 		// is requested function
 		// return true if ID is my friend
