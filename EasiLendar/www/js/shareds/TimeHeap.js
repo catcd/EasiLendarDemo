@@ -7,7 +7,7 @@
 
 angular.module('MainApp.shareds.timeHeap', [])
 
-.factory('eTimeHeap', function(eSAlgorithm) {
+.factory('eTimeHeap', function(ePoint) {
 	// Define the constructor function.
 	function eTimeHeap() {}
 
@@ -53,10 +53,10 @@ angular.module('MainApp.shareds.timeHeap', [])
 	 * constructor: TimeNode(start, end); auto rate the time and save to score
 	 */
 	function TimeNode(mStart, mEnd){
-		var scoreArray = [{start: 0, end: 359, pts: eSAlgorithm.calPoint(0)},
-						  {start: 360, end: 479, pts: eSAlgorithm.calPoint(6)}, {start: 480, end: 659, pts: eSAlgorithm.calPoint(8)},
-						  {start: 660, end: 839, pts: eSAlgorithm.calPoint(11)}, {start: 840, end: 1019, pts: eSAlgorithm.calPoint(14)},
-						  {start: 1020, end: 1199, pts: eSAlgorithm.calPoint(17)}, {start: 1200, end: 1439, pts: eSAlgorithm.calPoint(20)} 
+		var scoreArray = [{start: 0, end: 359, pts: ePoint.calPoint(0)},
+						  {start: 360, end: 479, pts: ePoint.calPoint(6)}, {start: 480, end: 659, pts: ePoint.calPoint(8)},
+						  {start: 660, end: 839, pts: ePoint.calPoint(11)}, {start: 840, end: 1019, pts: ePoint.calPoint(14)},
+						  {start: 1020, end: 1199, pts: ePoint.calPoint(17)}, {start: 1200, end: 1439, pts: ePoint.calPoint(20)} 
 						 ];
 		//auto rate the time and save to score
 		var rateScore = function(start,end){
@@ -79,8 +79,8 @@ angular.module('MainApp.shareds.timeHeap', [])
 			if (start == end) { sumPts += 0; }
 			if (start < end) {
 				if(startTime == 0 && endTime >= 1439){ 
-				sumPts += ( 119*eSAlgorithm.calPoint(6) + 179*eSAlgorithm.calPoint(8) + 179*eSAlgorithm.calPoint(11)
-						  + 179*eSAlgorithm.calPoint(14) + 179*eSAlgorithm.calPoint(17) + 239*eSAlgorithm.calPoint(20) ); 
+				sumPts += ( 119*ePoint.calPoint(6) + 179*ePoint.calPoint(8) + 179*ePoint.calPoint(11)
+						  + 179*ePoint.calPoint(14) + 179*ePoint.calPoint(17) + 239*ePoint.calPoint(20) ); 
 				} //all day
 				else{
 					for(var i=0; i < scoreArray.length; i++){
@@ -215,5 +215,6 @@ angular.module('MainApp.shareds.timeHeap', [])
 		};
 	};
 
+	//return an eTimeHeap object
 	return (eTimeHeap);
 })

@@ -8,10 +8,11 @@
 /*SEARCH-FILTER CONTROLLER*/
 angular.module('MainApp.controllers.searchFilter', [])
 
-.controller("SearchFilterController", function($rootScope, $scope, eSearchFilter, eSettings) {
-	//Using eSearchFilter, eSettings factory
+.controller("SearchFilterController", function($rootScope, $scope, eSearchFilter, eSettings, eFriend) {
+	//Using eSearchFilter, eSettings, eFriend factory
 	$scope.eSearchFilter = eSearchFilter;
 	$scope.eSettings = eSettings;
+	$scope.eFriend = eFriend;
 
 	$scope.timeValues = {
 		mDurationHour: $scope.eSettings.sDefaultDuration / 60,

@@ -1,16 +1,17 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 19/04/2015
+ * last update: 21/04/2015
  * type: friend panel controller
  */
 
 angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 
-.controller('friendPanelController', function($scope, $rootScope, $location, $ionicScrollDelegate, eUser, eFriend) {
-	//Using eUser, eFriend factory
+.controller('friendPanelController', function($scope, $rootScope, $location, $ionicScrollDelegate, eUser, eFriend, eDatabase) {
+	//Using eUser, eFriend, eDatebase factory
 	$scope.eUser = eUser;
 	$scope.eFriend = eFriend;
+	$scope.eDatabase = eDatabase;
 
 	$scope.searchFriend = '';
 	$scope.mShow = false;
@@ -23,7 +24,7 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 		});
 		confirmPopup.then(function(res) {
 			if(res) {
-				$rootScope.deleteF(friend.id);
+				$scope.eDatabase.deleteF(friend.id);
 				cacheFriend = angular.copy($scope.eUser.uFriend);
 			}
 		});
@@ -31,12 +32,12 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 
 	$scope.appointMeeting = function(friend) {
 		$scope.eFriend.fName = friend.name;
-		$rootScope.getCalendar(friend.id);
+		$scope.eDatabase.getCalendar(friend.id);
 		$rootScope.goToState('searchFilter');
 	}
 
 	$scope.viewProfile = function(friend) {
-		$rootScope.viewProfile(friend.id);
+		$scope.eDatabase.viewProfile(friend.id);
 	}
 
 	//auto scroll to top of panel
