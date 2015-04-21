@@ -1,22 +1,13 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 03/04/2015
+ * last update: 21/04/2015
  * type: multi calendar object and specific function for calendar
  */
 
 var multiCalendar = angular.module('MainApp.shareds.multiCalendar', []);
 
-multiCalendar.run(function($rootScope) {
-	/*
-	 * constructor function
-	 * items is array of all calendar
-	 * the calendar is the array itself
-	 */
-	$rootScope.newMultiCal = function(items) {
-		return new MultiCal(items);
-	};
-	
+multiCalendar.factory('eMultiCalendar', function($rootScope, eEasiLendar) {	
 	/*
 	 * class MultiCal
 	 * items is array of all calendar (pointer)
@@ -114,7 +105,7 @@ multiCalendar.run(function($rootScope) {
 			}
 			// convert all event to BusyEvent
 			for (var i=0; i < list.length; i++) {
-				list[i] = $rootScope.newBusyEvent(list[i].start, list[i].end);
+				list[i] = eEasiLendar.newBusyEvent(list[i].start, list[i].end);
 			}
 			var tempList = [];
 			for (var i=0; i < list.length; i++) {
@@ -141,7 +132,7 @@ multiCalendar.run(function($rootScope) {
 					if (list[i].start.dateTime <= temp.end.dateTime) {
 						// list[i] is not completely inside temp's interval
 						if (list[i].end.dateTime >= temp.end.dateTime) {
-							temp = $rootScope.newBusyEvent(temp.start, list[i].end);
+							temp = eEasiLendar.newBusyEvent(temp.start, list[i].end);
 						}
 					} else {
 						events[events.length] = temp;
@@ -155,4 +146,14 @@ multiCalendar.run(function($rootScope) {
 		// array of BusyEvent in this day
 		this.events = setEvent();
 	};	
+	
+	return {
+		/*
+		* items is array of all calendar
+		* the calendar is the array itself
+		*/
+		newMultiCal : function(items) {
+			return new MultiCal(items);
+		},
+	};
 });

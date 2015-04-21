@@ -1,33 +1,39 @@
 /**
  * starter: Can Duy Cat 
  * owner: Nguyen Minh Trang 
- * last update: 06/04/2015 
+ * last update: 21/04/2015 
  * type: particular controller
  */
 
-var signIn = angular.module('MainApp.controllers.signIn', [ 'ionic' ]);
+var signIn = angular.module('MainApp.controllers.signIn', ['ionic']);
 
 signIn.controller('SignInController',
-		function($rootScope, $scope, $timeout, $http, $state, $ionicLoading, $ionicPopup) 
-{
+function($rootScope, $scope, $timeout, $http, $state, $ionicLoading, $ionicPopup, eSettings, eDatabase, eUser) {
+	// All constants
+	var MAX_ID_LENGTH = 15;
+	var MIN_ID_LENGTH = 4;
+	var MAX_PASSWORD_LENGTH = 16;
+	var MIN_PASSWORD_LENGTH = 8;
+	var NUM_OF_WARNINGS = 5;
+	
 	// link to home's default view
-	var link = $rootScope.eSettings.sDefaultView;
+	var link = eSettings.sDefaultView;
 
 	$scope.isRemember = false;
 
 	// warning object contains all warnings
 	$scope.warnings = {
-		// array of messages (5 mes)
-		mes : [ "", "", "", "", "" ],
+		// array of messages
+		mes : new Array(NUM_OF_WARNINGS),
 
 		// reset all messages (set to null)
 		reset : function(num) {
-			this.mes[num] = "";
+			this.mes[num] = null;
 		},
 
 		// check if mes[i] is a warning or NULL
 		check : function(num) {
-			if (this.mes[num] == "") {
+			if (this.mes[num] == null) {
 				return true;
 			} else
 				return false;
@@ -58,7 +64,7 @@ signIn.controller('SignInController',
 			var ref = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
 			// loading
-			$rootScope.databaseLoading(); 
+			eDatabase.databaseLoading(); 
 			ref.once("value", function(snapshot) {
 				var user = snapshot.val();
 				if (user == null || user.password != pass) {
@@ -87,12 +93,12 @@ signIn.controller('SignInController',
 						uFALength: 0,
 					};
 					// convert
-					$rootScope.eUser.uGmailCalendar = $rootScope.convertCal($rootScope.eUser.uGmailCalendar);
-					$rootScope.eUser.uLocalCalendar = $rootScope.convertCal($rootScope.eUser.uLocalCalendar);
+					eUser.uGmailCalendar = eDatabase.convertCal(eUser.uGmailCalendar);
+					eUser.uLocalCalendar = eDatabase.convertCal(eUser.uLocalCalendar);
 
 					// set uFRLength and uFALength
-					$rootScope.setUFRL();
-					$rootScope.setUFAL();
+					eDatabase.setUFRL();
+					eDatabase.setUFAL();
 
 					$scope.user.reset();
 					$rootScope.goHome();
@@ -106,7 +112,7 @@ signIn.controller('SignInController',
 	// register function
 	$scope.register = function() {
 		// reset all warnings
-		for (var i = 0; i < 5; i++) {
+		for (var i = 0; i < NUM_OF_WARNINGS; i++) {
 			$scope.warnings.reset(i);
 		}
 
@@ -122,7 +128,7 @@ signIn.controller('SignInController',
 		flag[4] = $scope.user.checkCPass(); // Confirm password: true or message
 
 		// if flag[i] is a string => it's a warning
-		for (var i = 0; i < 5; i++) {
+		for (var i = 0; i < NUM_OF_WARNINGS; i++) {
 			if (typeof (flag[i]) == "string") {
 				$scope.warnings.mes[i] = flag[i];
 				check = true;
@@ -137,7 +143,7 @@ signIn.controller('SignInController',
 					"https://radiant-inferno-3243.firebaseio.com/Users/"
 							+ $scope.user.id);
 			// loading
-			$rootScope.databaseLoading();
+			eDatabase.databaseLoading();
 			
 			// get data from that link if exists, null if not
 			ref.once('value', function(snapshot) {
@@ -199,7 +205,7 @@ signIn.controller('SignInController',
 		 */
 		this.checkChar = function() {
 			// check input length
-			if (this.id.length > 15 || this.id.length < 4)
+			if (this.id.length > MAX_ID_LENGTH || this.id.length < MIN_ID_LENGTH)
 				return false;
 			// check input characters (ASCII)
 			for (var i = 0; i < this.id.length; i++) {
@@ -228,9 +234,9 @@ signIn.controller('SignInController',
 			if (this.id == "") {
 				return "Required";
 			} else if (!this.checkChar()) {
-				if (this.id.length < 4) {
+				if (this.id.length < MIN_ID_LENGTH) {
 					return "ID is too short";
-				} else if (this.id.length > 15) {
+				} else if (this.id.length > MAX_ID_LENGTH) {
 					return "ID is too long";
 				} else {
 					return "Unexpected";
@@ -274,9 +280,9 @@ signIn.controller('SignInController',
 			// string
 			if (this.password == "") {
 				return "Required";
-			} else if (this.password.length < 8) {
+			} else if (this.password.length < MIN_PASSWORD_LENGTH) {
 				return "Too short";
-			} else if (this.password.length > 16) {
+			} else if (this.password.length > MAX_PASSWORD_LENGTH) {
 				return "Too long";
 			}
 			return true;
