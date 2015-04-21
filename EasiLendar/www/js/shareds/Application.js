@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 20/04/2015
+ * last update: 21/04/2015
  * type: module all shared variables and functions used for this app
  */
 
@@ -13,7 +13,7 @@ angular.module('MainApp.shareds.application', [])
 
 // Search filter variables
 // Ngo Duc Dung
-.factory('eSearchFilter', ['', function(){
+.factory('eSearchFilter', function(){
 	return {
 		mTitle: '',		/*Name of meeting*/
 		mDuration: 0,	/*Duration of meeting */
@@ -30,11 +30,11 @@ angular.module('MainApp.shareds.application', [])
 		mOffice: null,		/*none(default) = null;*/
 		mHoliday: null 		/**/
 	};
-}])
+})
 
 // Setting variables
 // Can Duy Cat
-.factory('eSettings', ['', function(){
+.factory('eSettings', function(){
 	return {
 		sEvent: true,			/*Show/hide event*/
 		sHoliday: true,			/*Show/hide holiday*/
@@ -59,11 +59,11 @@ angular.module('MainApp.shareds.application', [])
 
 		sInternet: 'wifi' /*enum{"wifi", "3G", "none"} Check device conection*/
 	};
-}])
+})
 
 // User information
 // Nguyen Minh Trang
-.factory('eUser', ['', function(){
+.factory('eUser', function(){
 	return {
 		uID: '',			/*4-15 characters (A-Z, a-z, 0-9, _), unique*/
 		uName: '',			/*UTF-8*/
@@ -85,7 +85,7 @@ angular.module('MainApp.shareds.application', [])
 		uFRLength: 0,
 		uFALength: 0,
 	};
-}])
+})
 
 // $rootScope.eUser.uFRequest["huongdung1"] = { id: "huongdung1", name: "Ngo Duc Huong", ava: 1};
 // $rootScope.eUser.uFRequest["ttdungsexy"] = { id: "ttdungsexy", name: "Tran Thu Dung", ava: 3};
@@ -111,7 +111,7 @@ angular.module('MainApp.shareds.application', [])
 
 // Friend's information
 // Nguyen Minh Trang
-.factory('eFriend', ['', function(){
+.factory('eFriend', function(){
 	return {
 		fName: '',		/*UTF-8*/
 		fAvatar: 0,		/*avatar index from 0 to 8*/
@@ -122,22 +122,22 @@ angular.module('MainApp.shareds.application', [])
 
 		fMultiCal: null,	/*MultiCalendar object	Calendar*/
 	};
-}])
+})
 
 // Calendar's information
 // Ngo Duc Dung
-.factory('eCalendar', ['', function(){
+.factory('eDate', function(){
 	return {
 		cDate: null, 	//Object Date that user click on month calendar
 	};
-}])
+})
 
 /**
  * All functions
  */
 
 // All function for single searching algorithm
-.factory('eSAlgorithm', ['', function(eTimeHeap, eCalendar){
+.factory('eSAlgorithm', function(eTimeHeap, eCalendar){
 	var eTimeHeap = eTimeHeap;
 	var eCalendar = eCalendar;
 
@@ -251,7 +251,7 @@ angular.module('MainApp.shareds.application', [])
 
 		// return a timeHeap of timeNode evaluated
 		return mHeap;
-	}
+	};
 
 	// function to push a part of day
 	// input a heap, a start time, an end time, duration
@@ -282,13 +282,14 @@ angular.module('MainApp.shareds.application', [])
 			mHeap.push(eTimeHeap.maxNode(tempArray));
 		}
 		tempArray = [];
-	}
+	};
 
 	// function to push timeNode to timeHeap step by step
 	// in order to reduce while loop to reduce time
 	var pushAllDay = function(mDate, mHeap) {
 		mHeap.push(eTimeHeap.newTimeNode(mDate, eCalendar.tomorrow(mDate)));
-	}
+	};
+
 	return {
 		evaluateTime: function(mMCal, mStart, mEnd, mDuration) {
 			// evaluate the normal case
@@ -319,12 +320,12 @@ angular.module('MainApp.shareds.application', [])
 			};
 		}
 	};
-}])
+})
 
 /**
  * Toast function
  */
-.factory('eToast', ['', function(toastr, toastrConfig){
+.factory('eToast', function(toastr, toastrConfig){
 	return {
 		// toast success
 		// lots of toast show a time
@@ -354,13 +355,13 @@ angular.module('MainApp.shareds.application', [])
 			});
 		}
 	};
-}])
+})
 
 /**
  * Check friend service
  * Local functions
  */
-.factory('eCheckFriend', ['', function(eUser){
+.factory('eCheckFriend', function(eUser){
 	return {
 		// is friend function
 		// return true if ID is my friend
@@ -382,10 +383,12 @@ angular.module('MainApp.shareds.application', [])
 			return (eUser.uRequested[ID] !== undefined);
 		}
 	};
-}])
+})
 
 // some functions that are initialized from start
-.run(function($rootScope, $ionicPopup, $timeout, $state, $ionicPlatform, $ionicHistory, toastr, toastrConfig) {
+.run(function($rootScope, $ionicPopup, $timeout, $state, $ionicPlatform, $ionicHistory, toastr, toastrConfig, eSettings) {
+	// inject services
+	var eSettings = eSettings;
 
 	// Variable for save current state
 	$rootScope.currentState = "loading";
@@ -420,11 +423,11 @@ angular.module('MainApp.shareds.application', [])
 
 	// press again to exit
 	$ionicPlatform.registerBackButtonAction(function(e) {
-		if ($rootScope.currentState == 'month'
+		if ($rootScope.currentState == 'form'
+		|| $rootScope.currentState == 'month'
 		|| $rootScope.currentState == 'week'
 		|| $rootScope.currentState == 'day'
-		|| $rootScope.currentState == 'list'
-		|| $rootScope.currentState == 'form') {
+		|| $rootScope.currentState == 'list') {
 			if ($rootScope.backButtonPressedOnceToExit) {
 				navigator.app.exitApp();
 			} else {
@@ -461,11 +464,14 @@ angular.module('MainApp.shareds.application', [])
 
 	// go home function
 	$rootScope.goHome = function() {
-		$rootScope.goToState($rootScope.eSettings.sDefaultView);
+		$rootScope.goToState(eSettings.sDefaultView);
 	}
 
 	// go to any state
 	$rootScope.goToState = function(state) {
+		// delete stack history
+		// push new page to the top of the stack
+		// disable all animation
 		$ionicHistory.nextViewOptions({
 			historyRoot: true,
 			disableAnimate: true,

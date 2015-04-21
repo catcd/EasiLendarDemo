@@ -1,13 +1,13 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 18/04/2015
+ * last update: 21/04/2015
  * type: paticular controller
  */
 
 angular.module('MainApp.controllers.search', [])
 
-.controller("SearchController", function($scope, $rootScope) {
+.controller("SearchController", function($scope, $rootScope, eToast, eDatabase, eUser, eCheckFriend) {
 	// search input
 	$scope.searchInput = "";
 
@@ -41,7 +41,7 @@ angular.module('MainApp.controllers.search', [])
 	$scope.search = function() {
 		// search data for friend
 		if ($rootScope.searchType.type == "All" || $rootScope.searchType.type == "People") {
-			$rootScope.searchFriend($scope.searchInput);
+			eDatabase.searchFriend($scope.searchInput);
 			// $rootScope.searchFriends[0] = { ID: 'cancatdz', name: 'Cat Can', ava: 1 };
 			// $rootScope.searchFriends[1] = { ID: 'dungk58', name: 'Ngo Duc Huong', ava: 4 };
 			// $rootScope.searchFriends[2] = { ID: 'pagenguyen', name: 'Nguyen Minh Page', ava: 5 };
@@ -51,33 +51,33 @@ angular.module('MainApp.controllers.search', [])
 
 		// search data for events
 		if ($rootScope.searchType.type == "All" || $rootScope.searchType.type == "Events") {
-			$rootScope.searchEvent($scope.searchInput);
+			eDatabase.searchEvent($scope.searchInput);
 			console.log($rootScope.searchEvents);
 		}
 	}
 
 	// add person call
 	$scope.addPerson = function(ID) {
-		$rootScope.request(ID);
+		eDatabase.request(ID);
 
 		// toast
-		$rootScope.toastSuccess('Sending request.', 2000);
+		eToast.toastSuccess('Sending request.', 2000);
 	}
 
 	// is hide button or not
 	$scope.isHide = function(ID) {
 		// my account
-		if (ID == $rootScope.eUser.uID) {
+		if (ID == eUser.uID) {
 			return true;
 		}
 
 		// friend
-		if ($rootScope.isFriend(ID)) {
+		if (eCheckFriend.isFriend(ID)) {
 			return true;
 		}
 
 		// requested
-		if ($rootScope.isRequested(ID)) {
+		if (eCheckFriend.isRequested(ID)) {
 			return true;
 		}
 		return false;
@@ -88,7 +88,7 @@ angular.module('MainApp.controllers.search', [])
 		// do something here
 
 		// toast
-		$rootScope.toastSuccess('Coming soon...', 2000);
+		eToast.toastSuccess('Coming soon...', 2000);
 	}
 
 	// function to check if empty result

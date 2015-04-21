@@ -7,7 +7,10 @@
 
 angular.module('MainApp.controllers.popover', [])
 
-.controller('PopOverController', function($rootScope, $scope, $ionicPopover, $ionicActionSheet, $timeout) {
+.controller('PopOverController', function($rootScope, $scope, $ionicPopover, $ionicActionSheet, $timeout, eDatabase) {
+	// inject services
+	var eDatabase = eDatabase;
+
 	/**
 	 * popover variable
 	 */
@@ -90,19 +93,19 @@ angular.module('MainApp.controllers.popover', [])
 				// TODO cancel code here
 			},
 			destructiveButtonClicked: function() {
-				$rootScope.rejectF(friend.id);
+				eDatabase.rejectF(friend.id);
 
 				return true;
 			},
 			buttonClicked: function(index) {
 				if (index == 0) {
 					// TODO view code here
-					$rootScope.viewProfile(friend.id);
+					eDatabase.viewProfile(friend.id);
 
 					$scope.closePopover();
 				} else {
 					// TODO confirm code here
-					$rootScope.addFriend(friend.id);
+					eDatabase.addFriend(friend.id);
 				}
 
 				return true;
