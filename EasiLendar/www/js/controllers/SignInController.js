@@ -33,7 +33,7 @@ function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eD
 
 		// check if mes[i] is a warning or NULL
 		check : function(num) {
-			if (this.mes[num] == null) {
+			if (this.mes[num] == undefined) {
 				return true;
 			} else
 				return false;

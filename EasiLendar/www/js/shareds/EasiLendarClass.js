@@ -10,8 +10,8 @@ var easilendar = angular.module('MainApp.shareds.easiLendarClass', []);
 
 easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend, eSettings) {
 	// 12 colors for user's choices;
-	$rootScope.eventColor = ["#09c","#0cf","#36f","#93f","#ff9999","#fc0",
-	                         "#f60","#0c6","#666","#99f","#393","#c30"];
+	var eventColor = ["#09c","#0cf","#36f","#93f","#ff9999","#fc0",
+	                  "#f60","#0c6","#666","#99f","#393","#c30"];
 	
 	// Constants
 	var HEIGHT_OF_DAYTAG = 25 + 30;	// day + date
@@ -145,9 +145,9 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 		 */
 		var setColor = function() {
 			if (event.colorId == null) {
-				return $rootScope.eventColor[0];
+				return eventColor[0];
 			} else {
-				return $rootScope.eventColor[event.colorId];
+				return eventColor[event.colorId];
 			}
 		};
 		
@@ -684,6 +684,9 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 	}; // end of class EmptyEvent
 
 	return {
+		// colors
+		eventColor: eventColor,
+		
 		/* Day constructor function
 		* date is Date object
 		*/

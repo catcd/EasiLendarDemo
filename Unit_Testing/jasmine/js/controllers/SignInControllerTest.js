@@ -1,21 +1,39 @@
 /**
  * starter: Can Duy Cat 
  * owner: Nguyen Minh Trang 
- * last update: 18/04/2015 
+ * last update: 21/04/2015 
  * type: unit test
  */
 
-describe('Sign In', function() {
-	beforeEach(module('MainApp.controllers.signIn'));
+describe('Sign In Controller Test', function() {
 	var $controller, $rootScope, $scope;
+	var eSettings, eUser, eDatabase;
+	
+	beforeEach(module('MainApp.controllers.signIn'));
+	
+	// simulate services
+	var eSettings = {
+		sDefaultView: null,
+	};
+	var eDatabase = {
+		databaseLoading: function() {},
+		convertCal: function(calendar) {},
+		setUFRL: function() {},
+		setUFAL: function() {},
+	};
+	var eUser = {};
+	
 	beforeEach(inject(function(_$rootScope_, _$controller_) {
-		// The injector unwraps the underscores (_) from around the parameter names when matching
-		$controller = _$controller_;
 		$rootScope = _$rootScope_;
+		$controller = _$controller_;
 		$scope = $rootScope.$new();
-		
-		$rootScope.eSettings = {sDefaultView : ""};
-		$controller('SignInController', {'$rootScope' : $rootScope, '$scope': $scope });
+		$controller('SignInController', {
+			'$rootScope': $rootScope,
+			'$scope': $scope,
+			'eSettings': eSettings,
+			'eDatabase': eDatabase,
+			'eUser': eUser,
+		});
 	}));
 	
 	describe('User', function() {		
@@ -131,7 +149,7 @@ describe('Sign In', function() {
 		
 		it('should have no warning by default', function() {
 			for (var i=0; i < 5; i++) {
-				expect(warnings.mes[i]).toBe("");
+				expect(warnings.mes[i]).toBeUndefined();
 			}
 		});
 		
@@ -165,6 +183,122 @@ describe('Sign In', function() {
 			for(var i=0; i < 5; i++) {
 				warnings.reset(i);
 			}
+		});
+	});
+	
+	xdescribe('check sign in', function() {
+		var originalTimeout;
+		beforeEach(function() {
+			// go to any state
+			$rootScope.goToState = function(state) {
+				$rootScope.currentState = state;
+			};
+			$rootScope.goHome = function() {};
+			
+			originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+			jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+		});
+		
+		describe('correct ID, correct Password', function() {
+			beforeEach(function(done) {
+				$scope.user.id = "test1";
+				$scope.user.password = "easilendar1";
+				$scope.signIn();
+				setTimeout(function() {
+					done();
+				}, 8000);
+			});
+			it('should sign in', function(done) {
+				expect(eUser.isLogin).toBe(true);
+				done();
+			});
+		});
+		
+		describe('correct ID, wrong Password', function() {
+			beforeEach(function(done) {
+				$scope.user.id = "test1";
+				$scope.user.password = "12341234";
+				$scope.signIn();
+				setTimeout(function() {
+					done();
+				}, 8000);
+			});
+			it('should not sign in', function(done) {
+				expect(eUser.isLogin).toBe(false);
+				done();
+			});
+		});
+		
+		describe('wrong ID, correct Password', function() {
+			beforeEach(function(done) {
+				$scope.user.id = "test123";
+				$scope.user.password = "easilendar1";
+				$scope.signIn();
+				setTimeout(function() {
+					done();
+				}, 8000);
+			});
+			it('should not sign in', function(done) {
+				expect(eUser.isLogin).toBe(false);
+				done();
+			});
+		});
+		
+		describe('wrong ID, wrong Password', function() {
+			beforeEach(function(done) {
+				$scope.user.id = "test123";
+				$scope.user.password = "12341234";
+				$scope.signIn();
+				setTimeout(function() {
+					done();
+				}, 8000);
+			});
+			it('should not sign in', function(done) {
+				expect(eUser.isLogin).toBe(false);
+				done();
+			});
+		});
+		
+		afterEach(function() {
+			eUser.isLogin = false;
+			jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+		});
+	});
+	
+	xdescribe('check register', function() {
+		var originalTimeout;
+		beforeEach(function() {
+			// go to any state
+			$rootScope.goToState = function(state) {
+				$rootScope.currentState = state;
+			};
+			$rootScope.goHome = function() {};
+			
+			originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+			jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+		});
+		
+		describe('existed user', function() {
+			beforeEach(function(done) {
+				$scope.user.id = "test1";
+				$scope.user.name = "test1";
+				$scope.user.email = "easilendar1@gmail.com";
+				$scope.user.password = "easilendar1";
+				$scope.user.re_password = "easilendar1";
+				$scope.register();
+				setTimeout(function() {
+					done();
+				}, 8000);
+			});
+			it('should not register and show: "Existed"', function(done) {
+				expect($scope.user.id).toBe("test1");
+				expect($scope.warnings.mes[0]).toBe("Existed");
+				done();
+			});
+		});
+		
+		afterEach(function() {
+			jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
 		});
 	});
 });
