@@ -8,8 +8,9 @@
 /*MONTH CONTROLLER*/
 angular.module('MainApp.controllers.month', [])
 
-.controller("MonthController", function($scope, $rootScope, $document,/* eDate,*/ eUser, eSettings) {
-	//Using eUser, eSettings, eDate factory
+.controller("MonthController", function($scope, $rootScope, $document, eDate, eCalendar, eUser, eSettings) {
+	//Using eUser, eSettings, eDate, eCalendar factory
+	$scope.eCalendar = eCalendar;
 	$scope.eDate = eDate;
 	$scope.eUser = eUser;
 	$scope.eSettings = eSettings;
@@ -38,9 +39,9 @@ angular.module('MainApp.controllers.month', [])
 		$scope.currentDateNumber = $scope.currentDate.getDate();
 		$scope.currentMonthNumber = $scope.currentDate.getMonth();
 		$scope.currentYear = $scope.currentDate.getFullYear();
-		$scope.currentMonthString = $scope.eDate.months[$scope.currentMonthNumber];
+		$scope.currentMonthString = $scope.eCalendar.months[$scope.currentMonthNumber];
 		$scope.position = new Date($scope.currentDate.getFullYear(), $scope.currentDate.getMonth(), $scope.currentDateNumber, 0, 0, 0, 0);
-		$scope.eDate.cDate = angular.copy($scope.position);
+		$scope.eCalendar.cDate = angular.copy($scope.position);
 		
 		/** All weeks of a month
 		  * week: array of days in month
@@ -65,7 +66,7 @@ angular.module('MainApp.controllers.month', [])
 
 	$scope.previousMonth = function() {
 		$scope.currentMonthNumber = ($scope.currentMonthNumber - 1 >= 0 ? 0 : 12) + ($scope.currentMonthNumber - 1);
-		$scope.currentMonthString = $scope.eDate.months[$scope.currentMonthNumber];
+		$scope.currentMonthString = $scope.eCalendar.months[$scope.currentMonthNumber];
 		if ($scope.currentMonthNumber == 11) {
 			$scope.currentYear--;
 		}
@@ -74,7 +75,7 @@ angular.module('MainApp.controllers.month', [])
 
 	$scope.nextMonth = function() {
 		$scope.currentMonthNumber = ($scope.currentMonthNumber + 1) - ($scope.currentMonthNumber + 1 > 11 ? 12 : 0);
-		$scope.currentMonthString = $scope.eDate.months[$scope.currentMonthNumber];
+		$scope.currentMonthString = $scope.eCalendar.months[$scope.currentMonthNumber];
 		if ($scope.currentMonthNumber == 0) {
 			$scope.currentYear++;
 		}
@@ -83,7 +84,7 @@ angular.module('MainApp.controllers.month', [])
 
 	$scope.thisMonth = function(year,month){
 		$scope.currentMonthNumber = month;
-		$scope.currentMonthString = $scope.eDate.months[$scope.currentMonthNumber];
+		$scope.currentMonthString = $scope.eCalendar.months[$scope.currentMonthNumber];
 		$scope.currentYear = year;
 		$scope.buildWeeks();
 		$scope.changeState();
@@ -127,7 +128,7 @@ angular.module('MainApp.controllers.month', [])
 		} else {
 			$scope.position = firstDatePreviousMonth;
 		}
-
+		$scope.eDate.cDate = angular.copy($scope.position);
 		//Build weeks and days in month
 		$scope.newWeeks[0].days[dayOfFirstDate].numberDate = 1;
 		$scope.newWeeks[0].days[dayOfFirstDate].month = $scope.currentMonthNumber;
@@ -179,7 +180,7 @@ angular.module('MainApp.controllers.month', [])
 	}
 
 	$scope.backgroundMonth = function(index) {
-		var className = 'bkg-style ' + 'easi-' + $rootScope.shortMonths[index] + '-bkg';
+		var className = 'bkg-style ' + 'easi-' + $scope.eCalendar.shortMonths[index] + '-bkg';
 		return className;
 	}
 
