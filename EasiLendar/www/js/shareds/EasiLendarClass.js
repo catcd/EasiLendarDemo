@@ -344,9 +344,9 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 		 */
 		var setNavMonth = function(month1, month2) {
 			if (month1 == month2) {
-				return $rootScope.months[month1];
+				return eCalendar.months[month1];
 			} else {
-				return $rootScope.months[month1] + "-" + $rootScope.months[month2];
+				return eCalendar.months[month1] + "-" +eCalendar.months[month2];
 			}
 		};
 		

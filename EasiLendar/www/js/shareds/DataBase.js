@@ -30,45 +30,9 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 	var clearData = function() {
 		// Reset all data
 		// Setting
-		eSettings = {
-			sEvent: true,
-			sHoliday: true,
-			sBirthday: true,
-			sLocalCalendar: true,
-			sGmailCalendar: true,
-
-			sDefaultView: 'month',
-			sDayView: 'eventList',
-			sFirstDay: 'Monday',
-			sShowWeekNumber: true,
-
-			sAutoSync: null,
-			sSyncWith: 'both 3G and wifi',
-
-			sDefaultDuration: 60,
-
-			sDeviceTimeZone: true,
-			sTimeZone: 0,
-		}
+		eSettings.reset();
 		// User information
-		eUser = {
-			uID: '',
-			uName: '',
-			uAvatar: '0',
-			uEmail: '',
-			uPassword: '',
-			uRemember: false,
-			uFriend: [],
-			uVIP : 0,
-			uGmailCalendar: null,
-			uLocalCalendar: null,
-			isLogin: false,
-			uRequested: [],
-			uFRequest: {},
-			uFAccepted: {},
-			uFRLength: 0,
-			uFALength: 0,
-		}
+		eUser.reset();
 	};
 
 	// check if user has signed in or not
@@ -462,32 +426,31 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 				this.databaseLoading(); 
 				ref.once("value", function(snapshot) {
 					var user = snapshot.val();
-					// copy all user's data to $rootScope
-					eUser = {
-						uID: eUser.uID,
-						uName: user.name,
-						uAvatar: user.avatar,
-						uEmail: user.gmail,
-						uPassword: user.password,
-						uRemember: false,
-						uFriend: user.friends,
-						uVIP : user.VIP,
-						isLogin: true,
+					// copy all user's data to eUser
+					eUser.uID = id;
+					eUser.uName = user.name;
+					eUser.uAvata = user.avatar;
+					eUser.uEmail = user.gmail;
+					eUser.uPassword = pass;
+					eUser.uRemember = $scope.isRemember;
+					eUser.uFriend = user.friends;
+					eUser.uVIP = user.VIP;
+					eUser.isLogin = true;
 
-						uRequested: user.requested,
+					eUser.uRequested = user.requested;
 
-						uGmailCalendar: user.g_calendar,
-						uLocalCalendar: user.local_calendar,
+					eUser.uGmailCalendar = user.g_calendar;
+					eUser.uLocalCalendar = user.local_calendar;
 
-						uFRequest: (user.noti == null ? null : user.noti.fRequest),
-						uFAccepted: (user.noti == null ? null : user.noti.fAccept),
-						uFRLength: 0,
-						uFALength: 0,
-					};
+					eUser.uFRequest = (user.noti == null ? null : user.noti.fRequest);
+					eUser.uFAccepted = (user.noti == null ? null : user.noti.fAccept);
+					eUser.uFRLength = 0;
+					eUser.uFALength = 0;
+					
 					// convert
-					eUser.uGmailCalendar = this.convertCal($rootScope.eUser.uGmailCalendar);
-					eUser.uLocalCalendar = this.convertCal($rootScope.eUser.uLocalCalendar);
-				
+					eUser.uGmailCalendar = this.convertCal(eUser.uGmailCalendar);
+					eUser.uLocalCalendar = this.convertCal(eUser.uLocalCalendar);
+
 					// set uFRLength and uFALength
 					this.setUFRL();
 					this.setUFAL();

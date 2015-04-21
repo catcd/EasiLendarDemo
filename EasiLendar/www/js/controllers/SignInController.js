@@ -8,7 +8,7 @@
 var signIn = angular.module('MainApp.controllers.signIn', ['ionic']);
 
 signIn.controller('SignInController',
-function($rootScope, $scope, $timeout, $http, $state, $ionicLoading, $ionicPopup, eSettings, eDatabase, eUser) {
+function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eDatabase, eUser) {
 	// All constants
 	var MAX_ID_LENGTH = 15;
 	var MIN_ID_LENGTH = 4;
@@ -70,28 +70,27 @@ function($rootScope, $scope, $timeout, $http, $state, $ionicLoading, $ionicPopup
 				if (user == null || user.password != pass) {
 					$rootScope.goToState('warning');
 				} else {
-					// copy all user's data to $rootScope
-					$rootScope.eUser = {
-						uID: id,
-						uName: user.name,
-						uAvatar: user.avatar,
-						uEmail: user.gmail,
-						uPassword: pass,
-						uRemember: $scope.isRemember,
-						uFriend: user.friends,
-						uVIP : user.VIP,
-						isLogin: true,
+					// copy all user's data to eUser
+					eUser.uID = id;
+					eUser.uName = user.name;
+					eUser.uAvata = user.avatar;
+					eUser.uEmail = user.gmail;
+					eUser.uPassword = pass;
+					eUser.uRemember = $scope.isRemember;
+					eUser.uFriend = user.friends;
+					eUser.uVIP = user.VIP;
+					eUser.isLogin = true;
 
-						uRequested: user.requested,
+					eUser.uRequested = user.requested;
 
-						uGmailCalendar: user.g_calendar,
-						uLocalCalendar: user.local_calendar,
+					eUser.uGmailCalendar = user.g_calendar;
+					eUser.uLocalCalendar = user.local_calendar;
 
-						uFRequest: (user.noti == null ? null : user.noti.fRequest),
-						uFAccepted: (user.noti == null ? null : user.noti.fAccept),
-						uFRLength: 0,
-						uFALength: 0,
-					};
+					eUser.uFRequest = (user.noti == null ? null : user.noti.fRequest);
+					eUser.uFAccepted = (user.noti == null ? null : user.noti.fAccept);
+					eUser.uFRLength = 0;
+					eUser.uFALength = 0;
+					
 					// convert
 					eUser.uGmailCalendar = eDatabase.convertCal(eUser.uGmailCalendar);
 					eUser.uLocalCalendar = eDatabase.convertCal(eUser.uLocalCalendar);
