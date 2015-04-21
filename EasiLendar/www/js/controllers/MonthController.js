@@ -1,17 +1,19 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 15/04/2015
+ * last update: 19/04/2015
  * type: month controller
  */
  
-/*GOOGLE MAP - LIBRARY*/
-window.google=window.google||{};google.maps=google.maps||{};(function(){function a(d){document.write('<script src="'+d+'"><\/script>')}var b=google.maps.modules={};google.maps.__gjsload__=function(d,e){b[d]=e};google.maps.Load=function(d){delete google.maps.Load;d([0.009999999776482582,[[["https://mts0.googleapis.com/vt?lyrs=m@296000000\u0026src=api\u0026hl=vi-VN\u0026","https://mts1.googleapis.com/vt?lyrs=m@296000000\u0026src=api\u0026hl=vi-VN\u0026"],null,null,null,null,"m@296000000",["https://mts0.google.com/vt?lyrs=m@296000000\u0026src=api\u0026hl=vi-VN\u0026","https://mts1.google.com/vt?lyrs=m@296000000\u0026src=api\u0026hl=vi-VN\u0026"]],[["https://khms0.googleapis.com/kh?v=169\u0026hl=vi-VN\u0026","https://khms1.googleapis.com/kh?v=169\u0026hl=vi-VN\u0026"],null,null,null,1,"169",["https://khms0.google.com/kh?v=169\u0026hl=vi-VN\u0026","https://khms1.google.com/kh?v=169\u0026hl=vi-VN\u0026"]],[["https://mts0.googleapis.com/vt?lyrs=h@296000000\u0026src=api\u0026hl=vi-VN\u0026","https://mts1.googleapis.com/vt?lyrs=h@296000000\u0026src=api\u0026hl=vi-VN\u0026"],null,null,null,null,"h@296000000",["https://mts0.google.com/vt?lyrs=h@296000000\u0026src=api\u0026hl=vi-VN\u0026","https://mts1.google.com/vt?lyrs=h@296000000\u0026src=api\u0026hl=vi-VN\u0026"]],[["https://mts0.googleapis.com/vt?lyrs=t@132,r@296000000\u0026src=api\u0026hl=vi-VN\u0026","https://mts1.googleapis.com/vt?lyrs=t@132,r@296000000\u0026src=api\u0026hl=vi-VN\u0026"],null,null,null,null,"t@132,r@296000000",["https://mts0.google.com/vt?lyrs=t@132,r@296000000\u0026src=api\u0026hl=vi-VN\u0026","https://mts1.google.com/vt?lyrs=t@132,r@296000000\u0026src=api\u0026hl=vi-VN\u0026"]],null,null,[["https://cbks0.googleapis.com/cbk?","https://cbks1.googleapis.com/cbk?"]],[["https://khms0.googleapis.com/kh?v=85\u0026hl=vi-VN\u0026","https://khms1.googleapis.com/kh?v=85\u0026hl=vi-VN\u0026"],null,null,null,null,"85",["https://khms0.google.com/kh?v=85\u0026hl=vi-VN\u0026","https://khms1.google.com/kh?v=85\u0026hl=vi-VN\u0026"]],[["https://mts0.googleapis.com/mapslt?hl=vi-VN\u0026","https://mts1.googleapis.com/mapslt?hl=vi-VN\u0026"]],[["https://mts0.googleapis.com/mapslt/ft?hl=vi-VN\u0026","https://mts1.googleapis.com/mapslt/ft?hl=vi-VN\u0026"]],[["https://mts0.googleapis.com/vt?hl=vi-VN\u0026","https://mts1.googleapis.com/vt?hl=vi-VN\u0026"]],[["https://mts0.googleapis.com/mapslt/loom?hl=vi-VN\u0026","https://mts1.googleapis.com/mapslt/loom?hl=vi-VN\u0026"]],[["https://mts0.googleapis.com/mapslt?hl=vi-VN\u0026","https://mts1.googleapis.com/mapslt?hl=vi-VN\u0026"]],[["https://mts0.googleapis.com/mapslt/ft?hl=vi-VN\u0026","https://mts1.googleapis.com/mapslt/ft?hl=vi-VN\u0026"]],[["https://mts0.googleapis.com/mapslt/loom?hl=vi-VN\u0026","https://mts1.googleapis.com/mapslt/loom?hl=vi-VN\u0026"]]],["vi-VN","US",null,0,null,null,"https://maps.gstatic.com/mapfiles/","https://csi.gstatic.com","https://maps.googleapis.com","https://maps.googleapis.com",null,"https://maps.google.com","https://gg.google.com","https://maps.gstatic.com/maps-api-v3/api/images/","https://www.google.com/maps",0],["https://maps.gstatic.com/maps-api-v3/api/js/20/8/intl/vi_ALL","3.20.8"],[746415530],1,null,null,null,null,null,"",["drawing","places"],null,1,"https://khms.googleapis.com/mz?v=169\u0026",null,"https://earthbuilder.googleapis.com","https://earthbuilder.googleapis.com",null,"https://mts.googleapis.com/vt/icon",[["https://mts0.googleapis.com/vt","https://mts1.googleapis.com/vt"],["https://mts0.googleapis.com/vt","https://mts1.googleapis.com/vt"],null,null,null,null,null,null,null,null,null,null,["https://mts0.google.com/vt","https://mts1.google.com/vt"],"/maps/vt",296000000,132],2,500,[null,"https://g0.gstatic.com/landmark/tour","https://g0.gstatic.com/landmark/config","","https://www.google.com/maps/preview/log204","","https://static.panoramio.com.storage.googleapis.com/photos/",["https://geo0.ggpht.com/cbk","https://geo1.ggpht.com/cbk","https://geo2.ggpht.com/cbk","https://geo3.ggpht.com/cbk"]],["https://www.google.com/maps/api/js/master?pb=!1m2!1u20!2s8!2svi-VN!3sUS!4s20/8/intl/vi_ALL","https://www.google.com/maps/api/js/widget?pb=!1m2!1u20!2s8!2svi-VN"],null,1,0,"/maps/api/js/ApplicationService.GetEntityDetails",0],c)};var c=(new Date).getTime();a("https://maps.gstatic.com/maps-api-v3/api/js/20/8/intl/vi_ALL/main.js");a("https://maps.gstatic.com/maps-api-v3/api/js/20/8/intl/vi_ALL/drawing.js");a("https://maps.gstatic.com/maps-api-v3/api/js/20/8/intl/vi_ALL/places.js")})();
-
 /*MONTH CONTROLLER*/
 angular.module('MainApp.controllers.month', [])
 
-.controller("MonthController", function($scope, $rootScope, $document) {
+.controller("MonthController", function($scope, $rootScope, $document,/* eDate,*/ eUser, eSettings) {
+	//Using eUser, eSettings, eDate factory
+	$scope.eDate = eDate;
+	$scope.eUser = eUser;
+	$scope.eSettings = eSettings;
+
 	$scope.allMonths = [
 					{first: 0, second: 1, third: 2, fourth: 3},
 					{first: 4, second: 5, third: 6, fourth: 7},
@@ -36,9 +38,9 @@ angular.module('MainApp.controllers.month', [])
 		$scope.currentDateNumber = $scope.currentDate.getDate();
 		$scope.currentMonthNumber = $scope.currentDate.getMonth();
 		$scope.currentYear = $scope.currentDate.getFullYear();
-		$scope.currentMonthString = $rootScope.months[$scope.currentMonthNumber];
+		$scope.currentMonthString = $scope.eDate.months[$scope.currentMonthNumber];
 		$scope.position = new Date($scope.currentDate.getFullYear(), $scope.currentDate.getMonth(), $scope.currentDateNumber, 0, 0, 0, 0);
-		$rootScope.eCalendar.cDate = angular.copy($scope.position);
+		$scope.eDate.cDate = angular.copy($scope.position);
 		
 		/** All weeks of a month
 		  * week: array of days in month
@@ -63,7 +65,7 @@ angular.module('MainApp.controllers.month', [])
 
 	$scope.previousMonth = function() {
 		$scope.currentMonthNumber = ($scope.currentMonthNumber - 1 >= 0 ? 0 : 12) + ($scope.currentMonthNumber - 1);
-		$scope.currentMonthString = $rootScope.months[$scope.currentMonthNumber];
+		$scope.currentMonthString = $scope.eDate.months[$scope.currentMonthNumber];
 		if ($scope.currentMonthNumber == 11) {
 			$scope.currentYear--;
 		}
@@ -72,7 +74,7 @@ angular.module('MainApp.controllers.month', [])
 
 	$scope.nextMonth = function() {
 		$scope.currentMonthNumber = ($scope.currentMonthNumber + 1) - ($scope.currentMonthNumber + 1 > 11 ? 12 : 0);
-		$scope.currentMonthString = $rootScope.months[$scope.currentMonthNumber];
+		$scope.currentMonthString = $scope.eDate.months[$scope.currentMonthNumber];
 		if ($scope.currentMonthNumber == 0) {
 			$scope.currentYear++;
 		}
@@ -81,7 +83,7 @@ angular.module('MainApp.controllers.month', [])
 
 	$scope.thisMonth = function(year,month){
 		$scope.currentMonthNumber = month;
-		$scope.currentMonthString = $rootScope.months[$scope.currentMonthNumber];
+		$scope.currentMonthString = $scope.eDate.months[$scope.currentMonthNumber];
 		$scope.currentYear = year;
 		$scope.buildWeeks();
 		$scope.changeState();
@@ -99,16 +101,16 @@ angular.module('MainApp.controllers.month', [])
 		$scope.newWeeks = $scope.weeks;
 		var firstDatePreviousMonth = new Date($scope.currentYear, $scope.currentMonthNumber, 1);
 		var dayOfFirstDate = 0;
-		if ($rootScope.eSettings.sFirstDay == 'Sunday') {
+		if ($scope.eSettings.sFirstDay == 'Sunday') {
 			dayOfFirstDate = firstDatePreviousMonth.getDay();
 			$scope.daysInWeek = [{day: 'S'},{day: 'M'},{day: 'T'},{day: 'W'},{day: 'T'},{day: 'F'},{day: 'S'}];
 		}
-		if ($rootScope.eSettings.sFirstDay == 'Monday') {
+		if ($scope.eSettings.sFirstDay == 'Monday') {
 			dayOfFirstDate = firstDatePreviousMonth.getDay();
 			dayOfFirstDate += (dayOfFirstDate > 0 ? -1 : 6);
 			$scope.daysInWeek = [{day: 'M'},{day: 'T'},{day: 'W'},{day: 'T'},{day: 'F'},{day: 'S'},{day: 'S'}];
 		}
-		if ($rootScope.eSettings.sFirstDay == 'Saturday') {
+		if ($scope.eSettings.sFirstDay == 'Saturday') {
 			dayOfFirstDate = firstDatePreviousMonth.getDay();
 			dayOfFirstDate += (dayOfFirstDate < 6 ? 1 : -6);
 			$scope.daysInWeek = [{day: 'S'},{day: 'S'},{day: 'M'},{day: 'T'},{day: 'W'},{day: 'T'},{day: 'F'}];
@@ -197,7 +199,7 @@ angular.module('MainApp.controllers.month', [])
 			}
 		}
 		$scope.position = new Date(year, month, day, 0, 0, 0, 0);
-		$rootScope.eCalendar.cDate = angular.copy($scope.position);
+		$scope.eDate.cDate = angular.copy($scope.position);
 	}
 
 	// Increment carousel thing

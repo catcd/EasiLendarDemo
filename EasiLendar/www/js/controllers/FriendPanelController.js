@@ -1,17 +1,21 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 8/4/2015
+ * last update: 19/04/2015
  * type: friend panel controller
  */
 
 angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 
-.controller('friendPanelController', function($scope, $rootScope, $location, $ionicScrollDelegate) {
+.controller('friendPanelController', function($scope, $rootScope, $location, $ionicScrollDelegate, eUser, eFriend) {
+	//Using eUser, eFriend factory
+	$scope.eUser = eUser;
+	$scope.eFriend = eFriend;
+
 	$scope.searchFriend = '';
 	$scope.mShow = false;
 
-	var cacheFriend = angular.copy($rootScope.eUser.uFriend);
+	var cacheFriend = angular.copy($scope.eUser.uFriend);
 
 	$scope.deleteFriend = function(friend) {
 		var confirmPopup = $ionicPopup.confirm({
@@ -20,13 +24,13 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 		confirmPopup.then(function(res) {
 			if(res) {
 				$rootScope.deleteF(friend.id);
-				cacheFriend = angular.copy($rootScope.eUser.uFriend);
+				cacheFriend = angular.copy($scope.eUser.uFriend);
 			}
 		});
 	}
 
 	$scope.appointMeeting = function(friend) {
-		$rootScope.eFriend.fName = friend.name;
+		$scope.eFriend.fName = friend.name;
 		$rootScope.getCalendar(friend.id);
 		$rootScope.goToState('searchFilter');
 	}
@@ -51,22 +55,22 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 		//array is sorted by name
 		checkSortAZ = true;
 		array.sort(function(obj1,obj2){
-			return $rootScope.eUser.uFriend[obj1].name.localeCompare($rootScope.eUser.uFriend[obj2].name);
+			return $scope.eUser.uFriend[obj1].name.localeCompare($scope.eUser.uFriend[obj2].name);
 		})
 
 		var sortedArray = [];
 		angular.forEach(array, function(id){
-			sortedArray.push($rootScope.eUser.uFriend[id]);
+			sortedArray.push($scope.eUser.uFriend[id]);
 		})
 
-		$rootScope.eUser.uFriend = angular.copy(sortedArray);
+		$scope.eUser.uFriend = angular.copy(sortedArray);
 	}
 	
 	$scope.sort = function(typeSort) {
 		if (typeSort == 'AZ') {
 			//only sort by name
 			var arrF = [];
-			for(var x in $rootScope.eUser.uFriend){
+			for(var x in $scope.eUser.uFriend){
 				arrF.push(x);
 			}
 
@@ -76,10 +80,11 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	//refresh list as before sorting
 	$scope.refreshList = function() {
 		checkSortAZ = false;
-		$rootScope.eUser.uFriend = angular.copy(cacheFriend);
+		$scope.eUser.uFriend = angular.copy(cacheFriend);
 	}
 
 })
+
 .directive('togglefriend', function($document) {
 	return {
 		restrict: 'E',

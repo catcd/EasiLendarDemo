@@ -22,22 +22,22 @@
 			<tr class="tr-months-list" data-ng-repeat="month in allMonths">
 				<td id="{{month.first}}" class="td-months-list" data-ng-click="thisMonth(currentYear,month.first)" check-first-day="month.first" this-year="{{currentYear}}">
 				    <div class="div-months-list">
-				        <p class="p-months-list">{{shortMonths[month.first].charAt(0).toUpperCase() + shortMonths[month.first].substr(1,3)}}</p>
+				        <p class="p-months-list">{{eCalendar.shortMonths[month.first].charAt(0).toUpperCase() + eCalendar.shortMonths[month.first].substr(1,3)}}</p>
 				    </div>
 				</td>
 				<td id="{{month.second}}" class="td-months-list" data-ng-click="thisMonth(currentYear,month.second)" check-first-day="month.second" this-year="{{currentYear}}">
 				    <div class="div-months-list">
-				        <p class="p-months-list">{{shortMonths[month.second].charAt(0).toUpperCase() + shortMonths[month.second].substr(1,3)}}</p>
+				        <p class="p-months-list">{{eCalendar.shortMonths[month.second].charAt(0).toUpperCase() + eCalendar.shortMonths[month.second].substr(1,3)}}</p>
 				    </div>
 				</td>
 				<td id="{{month.third}}" class="td-months-list" data-ng-click="thisMonth(currentYear,month.third)" check-first-day="month.third" this-year="{{currentYear}}">
 				    <div class="div-months-list">
-				        <p class="p-months-list">{{shortMonths[month.third].charAt(0).toUpperCase() + shortMonths[month.third].substr(1,3)}}</p>
+				        <p class="p-months-list">{{eCalendar.shortMonths[month.third].charAt(0).toUpperCase() + eCalendar.shortMonths[month.third].substr(1,3)}}</p>
 				    </div>
 				</td>
 				<td id="{{month.fourth}}" class="td-months-list" data-ng-click="thisMonth(currentYear,month.fourth)" check-first-day="month.fourth" this-year="{{currentYear}}">
 				    <div class="div-months-list">
-				        <p class="p-months-list">{{shortMonths[month.fourth].charAt(0).toUpperCase() + shortMonths[month.fourth].substr(1,3)}}</p>
+				        <p class="p-months-list">{{eCalendar.shortMonths[month.fourth].charAt(0).toUpperCase() + eCalendar.shortMonths[month.fourth].substr(1,3)}}</p>
 				    </div>
 				</td>
 			</tr>

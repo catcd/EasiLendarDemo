@@ -1,13 +1,17 @@
 /**
  * starter: Can Duy Cat
- * owner: Nguo Duc Dung
- * last update: 17/04/2015
+ * owner: Ngo Duc Dung
+ * last update: 19/04/2015
  * type: list controller
  */
 
 angular.module('MainApp.controllers.list', [])
 
-.controller("ListController", function($scope, $rootScope, $ionicScrollDelegate, $location) {
+.controller("ListController", function($scope, $rootScope, $ionicScrollDelegate, $location, eUser, eCalendar) {
+	//Using eUser, eCalendar factory
+	$scope.eUser = eUser;
+	$scope.eCalendar = eCalendar;
+
 	var toDay = new Date();
 	toDay = new Date(toDay.setHours(0,0,0,0));
 
@@ -32,12 +36,13 @@ angular.module('MainApp.controllers.list', [])
 		for(var j=1; j<=$scope.allMonths[i].length; j++){
 			$scope.allMonths[i].weeks.push(new Date(d.getFullYear(), d.getMonth(), j));
 
-			if($rootScope.eUser.uGmailCalendar !== null){
-				if(j >= 1 && $rootScope.eUser.uGmailCalendar[$scope.allMonths[i].weeks[j-1].toString()] !== undefined){
+			if($scope.eUser.uGmailCalendar !== null){
+				if(j > 1 && $scope.eUser.uGmailCalendar[$scope.allMonths[i].weeks[j-1].toString()] !== undefined){
 					$scope.allMonths[i].events = true;
 				}
 			}
 		}
+		//console.log($scope.allMonths[i]);
 	};
 
 	//build previous Month
@@ -47,10 +52,10 @@ angular.module('MainApp.controllers.list', [])
 		obj.last = new Date(date.getFullYear(), date.getMonth(),0);
 		obj.length =  obj.last.getDate();
 
-		for(var j=1; j<=obj.weeks.length; j++){
+		for(var j=1; j<=obj.length; j++){
 			obj.weeks.push(new Date(obj.last.getFullYear(), obj.last.getMonth(), j));
-			if($rootScope.eUser.uGmailCalendar !== null){
-				if(j>=1 && $rootScope.eUser.uGmailCalendar[obj.weeks[j-1].toString()] !== undefined){
+			if($scope.eUser.uGmailCalendar !== null){
+				if(j>1 && $scope.eUser.uGmailCalendar[obj.weeks[j-1].toString()] !== undefined){
 					obj.events = true;
 				}
 			}
@@ -71,22 +76,23 @@ angular.module('MainApp.controllers.list', [])
 
 
 	/* Set pixel for some positions */
-	var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 60;
-	var winHeight = window.innerHeight;
 
 	//Load next month when scroll UP
 	$scope.scrollUp = function(){
+		var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 60;
+		var winHeight = window.innerHeight;
 		var lastTable = document.getElementById($scope.allMonths[$scope.allMonths.length-1].first.toDateString());
 		var posLast = lastTable.getBoundingClientRect();
 
 		if(posLast.bottom <= winHeight - 30){
-			var date = $scope.allMonths[$scope.allMonths.length-1].first;
-			$scope.buildNextMonth(date);
+			$scope.buildNextMonth(toDay);
 		}
 	};
 
 	//Load previous month when scroll DOWN
 	$scope.scrollDown = function(){
+		var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 60;
+		var winHeight = window.innerHeight;
 		var firstTable = document.getElementById($scope.allMonths[0].first.toDateString());
 		var posFirst = firstTable.getBoundingClientRect();
 
@@ -96,14 +102,14 @@ angular.module('MainApp.controllers.list', [])
 		}
 	}
 
-	console.log($scope.allMonths);
+	//console.log($scope.allMonths);
 
 	//set random background event
 	$scope.bkgE = 'bkg';
 
 	//set month background
 	$scope.background = function(index) {
-		var className = 'bkg-style ' + 'easi-' + $rootScope.shortMonths[index] + '-bkg';
+		var className = 'bkg-style ' + 'easi-' + $scope.eCalendar.shortMonths[index] + '-bkg';
 		return className;
 	}
 })

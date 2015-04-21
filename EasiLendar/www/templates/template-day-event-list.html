@@ -9,7 +9,7 @@
 		<tr class="tr-list-calendar">
 			<td class="td-list-calendar-3" ng-repeat="event in eUser.uGmailCalendar[position] | limitTo:1">
 				<p class="p-list-calendar-number">{{position.getDate()}}</p>
-				<p class="p-list-calendar-text">{{weekDays[(position.getDay()-1
+				<p class="p-list-calendar-text">{{eCalendar.weekDays[(position.getDay()-1
 					<0)? 6:position.getDay()-1]}}</p>
 			</td>
 			<td class="td-list-calendar-4">

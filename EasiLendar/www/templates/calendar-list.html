@@ -12,7 +12,7 @@
 		<button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
 	</ion-nav-buttons>
 	
-	<div id="list-calendar-title" class="list-calendar-title">{{months[currentMonthNumber]}}, {{currentYear}}</div>
+	<div id="list-calendar-title" class="list-calendar-title">{{eCalendar.months[currentMonthNumber]}}, {{currentYear}}</div>
 
 	<ion-content scrollbar-y="false" id="content-list-calendar" on-swipe-up="scrollUp()" on-swipe-down="scrollDown()" scroll-watch>
 		<div id="div-list-calendar">
@@ -27,7 +27,7 @@
 						<div current-time="event.start.dateTime.getDate()" current-month="{{event.start.dateTime.getMonth()}}" current-year="{{event.start.dateTime.getFullYear()}}"
 						id="{{event.start.dateTime.toDateString()}}">
 							<p class="p-list-calendar-number">{{event.start.dateTime.getDate()}}</p>
-							<p class="p-list-calendar-text">{{weekDays[(event.start.dateTime.getDay()-1<0)? 6:event.start.dateTime.getDay()-1]}}</p>
+							<p class="p-list-calendar-text">{{eCalendar.weekDays[(event.start.dateTime.getDay()-1<0)? 6:event.start.dateTime.getDay()-1]}}</p>
 						</div>
 					</td>
 					<td class="td-list-calendar-2">

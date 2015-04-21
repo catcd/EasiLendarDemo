@@ -7,37 +7,43 @@
 
 angular.module('MainApp.shareds.timeHeap', [])
 
-.run(function($rootScope/*, $ionicPopup, $timeout, $state, $ionicPlatform, $ionicHistory*/) {
-	$rootScope.newTimeNode = function(mStart, mEnd) {
-		return new TimeNode(mStart, mEnd);
-	};
+.factory('eTimeHeap', function(eSAlgorithm) {
+	// Define the constructor function.
+	function eTimeHeap() {}
+
+	//Define public method
+	eTimeHeap.prototype = {
+		newTimeNode: function(mStart, mEnd) {
+			return new TimeNode(mStart, mEnd);
+		},
 	
-	/**
-	 *Constructor with an array of TimeNode objects
-     *and return a TimeNode object with max score
-	 */
-	$rootScope.maxNode = function(array){
-		//case: array is empty
-		if(array.length == 0){ 
-			console.log('Array is empty');
-			maxNode = null;
-		}
-		else{
-			var maxNode = new TimeNode(array[array.length-1].start, array[array.length-1].end);
-			var maxScore = maxNode.getScore();
-			for(var i=array.length-2; i>=0; i--){
-				var node = new TimeNode(array[i].start, array[i].end);
-				if(node.getScore() > maxScore){
-						maxScore = node.getScore();
-						maxNode = node;
+		/**
+		 *Constructor with an array of TimeNode objects
+	     *and return a TimeNode object with max score
+		 */
+		maxNode: function(array){
+			//case: array is empty
+			if(array.length == 0){ 
+				console.log('Array is empty');
+				maxNode = null;
+			}
+			else{
+				var maxNode = new TimeNode(array[array.length-1].start, array[array.length-1].end);
+				var maxScore = maxNode.getScore();
+				for(var i=array.length-2; i>=0; i--){
+					var node = new TimeNode(array[i].start, array[i].end);
+					if(node.getScore() > maxScore){
+							maxScore = node.getScore();
+							maxNode = node;
+					}
 				}
 			}
-		}
-		return maxNode;
-	};
+			return maxNode;
+		},
 
-	$rootScope.newTimeHeap = function() {
-		return new TimeHeap();
+		newTimeHeap: function() {
+			return new TimeHeap();
+		}
 	};
 
 	/**
@@ -47,10 +53,10 @@ angular.module('MainApp.shareds.timeHeap', [])
 	 * constructor: TimeNode(start, end); auto rate the time and save to score
 	 */
 	function TimeNode(mStart, mEnd){
-		var scoreArray = [{start: 0, end: 359, pts: $rootScope.calPoint(0)},
-						  {start: 360, end: 479, pts: $rootScope.calPoint(6)}, {start: 480, end: 659, pts: $rootScope.calPoint(8)},
-						  {start: 660, end: 839, pts: $rootScope.calPoint(11)}, {start: 840, end: 1019, pts: $rootScope.calPoint(14)},
-						  {start: 1020, end: 1199, pts: $rootScope.calPoint(17)}, {start: 1200, end: 1439, pts: $rootScope.calPoint(20)} 
+		var scoreArray = [{start: 0, end: 359, pts: eSAlgorithm.calPoint(0)},
+						  {start: 360, end: 479, pts: eSAlgorithm.calPoint(6)}, {start: 480, end: 659, pts: eSAlgorithm.calPoint(8)},
+						  {start: 660, end: 839, pts: eSAlgorithm.calPoint(11)}, {start: 840, end: 1019, pts: eSAlgorithm.calPoint(14)},
+						  {start: 1020, end: 1199, pts: eSAlgorithm.calPoint(17)}, {start: 1200, end: 1439, pts: eSAlgorithm.calPoint(20)} 
 						 ];
 		//auto rate the time and save to score
 		var rateScore = function(start,end){
@@ -63,7 +69,7 @@ angular.module('MainApp.shareds.timeHeap', [])
 			var endTime = end.getHours() * 60 + end.getMinutes();
 
 			//case: end: 00:00:00 of next day of start
-			if(endTime == 0 && end > start){ endTime = 1440; } 
+			if(endTime == 0 && end > start){ endTime = 1440; }
 
 			//minus (mDuration)pts if time node in next day of today
 			var d = angular.copy(start);
@@ -73,8 +79,8 @@ angular.module('MainApp.shareds.timeHeap', [])
 			if (start == end) { sumPts += 0; }
 			if (start < end) {
 				if(startTime == 0 && endTime >= 1439){ 
-				sumPts += ( 119*$rootScope.calPoint(6) + 179*$rootScope.calPoint(8) + 179*$rootScope.calPoint(11)
-						  + 179*$rootScope.calPoint(14) + 179*$rootScope.calPoint(17) + 239*$rootScope.calPoint(20) ); 
+				sumPts += ( 119*eSAlgorithm.calPoint(6) + 179*eSAlgorithm.calPoint(8) + 179*eSAlgorithm.calPoint(11)
+						  + 179*eSAlgorithm.calPoint(14) + 179*eSAlgorithm.calPoint(17) + 239*eSAlgorithm.calPoint(20) ); 
 				} //all day
 				else{
 					for(var i=0; i < scoreArray.length; i++){
@@ -135,15 +141,6 @@ angular.module('MainApp.shareds.timeHeap', [])
 	 */
 	//TimeHeap array before using pop 
 	function TimeHeap(){
-		/*find monday of the week has mDate
-		var findMonday = function(date){
-			var d = date;
-			var monday = d.getDate() - (d.getDay() == 0 ? 6:d.getDay()) + 1;
-			d = new Date(d.setDate(monday));
-			return d;
-		};
-
-		this.date = findMonday(mDate);*/
 		this.timeList = new Array();
 		this.length = 0;
 		this.cache = null;
@@ -216,11 +213,7 @@ angular.module('MainApp.shareds.timeHeap', [])
 		this.getTop = function(){
 			return this.timeList[0];
 		};
-
-		/*return date - monday of the week has mDate
-		this.getDate = function(){
-			return this.date;
-		}*/
 	};
 
+	return (eTimeHeap);
 })
