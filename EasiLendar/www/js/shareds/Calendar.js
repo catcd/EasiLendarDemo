@@ -35,7 +35,7 @@ angular.module('MainApp.shareds.calendar', [])
 					if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
 						return 29;
 					} else return 28;
-				return 0;
+				default: return 0;
 			};
 		},
 
