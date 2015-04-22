@@ -1,51 +1,13 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 3/4/2015
+ * last update: 22/4/2015
  * type: TimeHeap object, Time Node object
  */
 
 angular.module('MainApp.shareds.timeHeap', [])
 
 .factory('eTimeHeap', function(ePoint) {
-	// Define the constructor function.
-	function eTimeHeap() {}
-
-	//Define public method
-	eTimeHeap.prototype = {
-		newTimeNode: function(mStart, mEnd) {
-			return new TimeNode(mStart, mEnd);
-		},
-	
-		/**
-		 *Constructor with an array of TimeNode objects
-	     *and return a TimeNode object with max score
-		 */
-		maxNode: function(array){
-			//case: array is empty
-			if(array.length == 0){ 
-				console.log('Array is empty');
-				maxNode = null;
-			}
-			else{
-				var maxNode = new TimeNode(array[array.length-1].start, array[array.length-1].end);
-				var maxScore = maxNode.getScore();
-				for(var i=array.length-2; i>=0; i--){
-					var node = new TimeNode(array[i].start, array[i].end);
-					if(node.getScore() > maxScore){
-							maxScore = node.getScore();
-							maxNode = node;
-					}
-				}
-			}
-			return maxNode;
-		},
-
-		newTimeHeap: function() {
-			return new TimeHeap();
-		}
-	};
-
 	/**
 	 * TimeNode object
 	 * include: var start, end, score
@@ -215,6 +177,40 @@ angular.module('MainApp.shareds.timeHeap', [])
 		};
 	};
 
-	//return an eTimeHeap object
-	return (eTimeHeap);
+	//return an Object of eTimeHeap factory
+	return {
+		//Time Node contructor
+		newTimeNode: function(mStart, mEnd) {
+			return new TimeNode(mStart, mEnd);
+		},
+	
+		/**
+		 *Constructor with an array of TimeNode objects
+	     *and return a TimeNode object with max score
+		 */
+		maxNode: function(array){
+			//case: array is empty
+			if(array.length == 0){ 
+				console.log('Array is empty');
+				maxNode = null;
+			}
+			else{
+				var maxNode = new TimeNode(array[array.length-1].start, array[array.length-1].end);
+				var maxScore = maxNode.getScore();
+				for(var i=array.length-2; i>=0; i--){
+					var node = new TimeNode(array[i].start, array[i].end);
+					if(node.getScore() > maxScore){
+							maxScore = node.getScore();
+							maxNode = node;
+					}
+				}
+			}
+			return maxNode;
+		},
+
+		//TimeHeap contructor
+		newTimeHeap: function() {
+			return new TimeHeap();
+		}
+	};
 })
