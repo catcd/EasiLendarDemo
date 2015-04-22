@@ -7,7 +7,7 @@
 
 angular.module('MainApp.controllers.setting', [])
 
-.controller('SettingController', function($scope, eSetting) {
+.controller('SettingController', function($scope, $rootScope, eSettings) {
 	// inject services
-	var eSetting = eSetting;
+	$rootScope.eSettings = eSettings;
 })

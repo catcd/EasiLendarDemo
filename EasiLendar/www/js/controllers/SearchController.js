@@ -64,6 +64,14 @@ angular.module('MainApp.controllers.search', [])
 		eToast.toastSuccess('Sending request.', 2000);
 	}
 
+	// add person call
+	$scope.viewPerson = function(ID) {
+		eDatabase.viewProfile(ID);
+
+		// toast
+		eToast.toastSuccess('Please wait a moment!', 1500);
+	}
+
 	// is hide button or not
 	$scope.isHide = function(ID) {
 		// my account
