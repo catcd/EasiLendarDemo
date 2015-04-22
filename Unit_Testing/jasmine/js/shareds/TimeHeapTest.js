@@ -3,7 +3,7 @@
  * owner: Ngo Duc Dung
  * last update: 22/4/2015
  * type: TimeHeap object, Time Node object
- * number of tests: 30
+ * number of tests: 10
  */
 
 /** Test for:
@@ -12,27 +12,30 @@
   * TimeHeap class
   */
 
-/*$provide.factory('ePoint', function(){
-	var calPointFake = jasmine.createSpy('calPoint').andCallFake(
-		function(){
-			
-		}
-	)
-
-return ePoint: ePoint
-});*/
-
 describe('TimeNode and TimeHeap', function() {
 	var eTimeHeap;
-	var ePointMock;
+	var ePointFake;
 
 	beforeEach(function(){
 		module('MainApp.shareds.timeHeap', function($provide){
-			ePointMock = jasmine.createSpyObj('ePoint',['calPoint']);
-
-			$provide.value('ePoint', ePointMock);
+			//Fake ePoint service
+			ePointFake = {
+				calPoint: function(mHour){
+					switch (mHour) {
+						case 0: case 1: case 2: case 3: case 4: case 5: return 0;
+						case 6: case 7: return 15;
+						case 8: case 9: case 10: return 30;
+						case 11: case 12: case 13: return 20;
+						case 14: case 15: case 16: return 50;
+						case 17: case 18: case 19: return 20;
+						case 20: case 21: case 22: case 23: return 15;
+					};
+				}
+			};
+			$provide.value('ePoint', ePointFake);
 		});
 
+		//inject the service we're testing
 		inject(function(_eTimeHeap_){
 			eTimeHeap = _eTimeHeap_;
 		});
@@ -43,9 +46,11 @@ describe('TimeNode and TimeHeap', function() {
 			var start = new Date(2015,3,22);
 			var end = new Date(2015,3,23);
 
-			it('should create a object when pass 2 parameters', function(){
+			it('should create a object when pass start and time of an event', function(){
 				var obj = eTimeHeap.newTimeNode(start,end);
-				expect(obj).toBeDefined();
+				expect(obj.hasOwnProperty('getStart')).toBe(true);
+				expect(obj.hasOwnProperty('getEnd')).toBe(true);
+				expect(obj.hasOwnProperty('getScore')).toBe(true);
 			});
 
 			it('should create an object with start property is an object Date', function(){
@@ -57,42 +62,15 @@ describe('TimeNode and TimeHeap', function() {
 				var obj = eTimeHeap.newTimeNode(start,end);
 				expect(obj.end).toEqual(end);
 			});
-
-			it('should create an object with getStart function', function(){
-				var obj = eTimeHeap.newTimeNode(start,end);
-				expect(obj.hasOwnProperty('getStart')).toBe(true);
-			});
-
-			it('should create an object with getEnd function', function(){
-				var obj = eTimeHeap.newTimeNode(start,end);
-				expect(obj.hasOwnProperty('getEnd')).toBe(true);
-			});
-
-			it('should create an object with getScore function', function(){
-				var obj = eTimeHeap.newTimeNode(start,end);
-				expect(obj.hasOwnProperty('getScore')).toBe(true);
-			});
-
-			it('should create an object with setStart function', function(){
-				var obj = eTimeHeap.newTimeNode(start,end);
-				expect(obj.hasOwnProperty('setStart')).toBe(true);
-			});
-
-			it('should create an object with setEnd function', function(){
-				var obj = eTimeHeap.newTimeNode(start,end);
-				expect(obj.hasOwnProperty('setEnd')).toBe(true);
-			});
-
-			it('should create an object with setScore function', function(){
-				var obj = eTimeHeap.newTimeNode(start,end);
-				expect(obj.hasOwnProperty('setScore')).toBe(true);
-			});
 		});
 
 		describe('TimeHeap', function(){
-			it('should create an object', function(){
+			it('should create an object with push, pop, backUp function', function(){
 				var heap = eTimeHeap.newTimeHeap();
 				expect(heap).toBeDefined();
+				expect(heap.hasOwnProperty('push')).toBe(true);
+				expect(heap.hasOwnProperty('pop')).toBe(true);
+				expect(heap.hasOwnProperty('backUp')).toBe(true);
 			});
 
 			it('should create an object with timeList property is an empty array', function(){
@@ -109,31 +87,6 @@ describe('TimeNode and TimeHeap', function() {
 				var heap = eTimeHeap.newTimeHeap();
 				expect(heap.cache).toBe(null);
 			});
-
-			it('should create an object with push function', function(){
-				var heap = eTimeHeap.newTimeHeap();
-				expect(heap.hasOwnProperty('push')).toBe(true);
-			});
-
-			it('should create an object with pop function', function(){
-				var heap = eTimeHeap.newTimeHeap();
-				expect(heap.hasOwnProperty('pop')).toBe(true);
-			});
-
-			it('should create an object with getTop function', function(){
-				var heap = eTimeHeap.newTimeHeap();
-				expect(heap.hasOwnProperty('getTop')).toBe(true);
-			});
-
-			it('should create an object with getLength function', function(){
-				var heap = eTimeHeap.newTimeHeap();
-				expect(heap.hasOwnProperty('getLength')).toBe(true);
-			});
-
-			it('should create an object with backUp function', function(){
-				var heap = eTimeHeap.newTimeHeap();
-				expect(heap.hasOwnProperty('backUp')).toBe(true);
-			});
 		});
 
 		describe('MaxNode', function(){
@@ -141,7 +94,16 @@ describe('TimeNode and TimeHeap', function() {
 				var array = new Array();
 				var obj = eTimeHeap.maxNode(array);
 				expect(obj).toBe(null);
-			})
+			});
+
+			it('should return null when pass an undefined variable or null', function(){
+				var array = null;
+				var obj = eTimeHeap.maxNode(array);
+				expect(obj).toBe(null);
+				array = undefined;
+				obj = eTimeHeap.maxNode(array);
+				expect(obj).toBe(null);
+			});
 
 			it('should return an object TimeNode object when pass a non-empty array', function(){
 				var array = [
@@ -152,8 +114,12 @@ describe('TimeNode and TimeHeap', function() {
 				expect(obj.start).toEqual(new Date(2015,3,20));
 				expect(obj.hasOwnProperty('getStart')).toBe(true);
 				expect(obj.hasOwnProperty('getScore')).toBe(true);
-			})
+			});
 		});
+	});
+
+	describe('Set values', function(){
+
 	});
 
 	describe('All cases can happen', function(){
@@ -172,26 +138,66 @@ describe('TimeNode and TimeHeap', function() {
 				expect(obj.end).toEqual(end);
 			});
 
-			/*xit('should return 2700 points when start is 8:00AM and end is 9:30AM in same day', function(){
+			it('should return correct points points when start is 8:00AM and end is 8:01AM in same day', function(){
+				var start = new Date(2015,3,18,8,0,0);
+				var end = new Date(2015,3,18,8,1,0);
+				var node = eTimeHeap.newTimeNode(start,end);
+				expect(node.getScore()).toEqual(ePointFake.calPoint(8));
+			});
+
+			it('should return correct points points when start is 8:00AM and end is 9:30AM in same day', function(){
 				var start = new Date(2015,3,18,8,0,0);
 				var end = new Date(2015,3,18,9,30,0);
-
-				var node = $rootScope.newTimeNode(start,end);
-
-				expect(node.getScore()).toBe(2700);
-			});*/
-
-			/*xit('should return 1770 when start is 8:59AM and end is 9:59AM in same day', function(){
-
+				var node = eTimeHeap.newTimeNode(start,end);
+				expect(node.getScore()).toEqual(60*ePointFake.calPoint(8)+30*ePointFake.calPoint(8));
 			});
 
-			xit('should return 0 when start is the same time as end', function(){
-
+			it('should return correct points when start is 8:59AM and end is 9:59AM in same day', function(){
+				var start = new Date(2015,3,18,8,59,0);
+				var end = new Date(2015,3,18,9,59,0);
+				var node = eTimeHeap.newTimeNode(start,end);
+				expect(node.getScore()).toEqual(60*ePointFake.calPoint(8));
 			});
 
-			xit('should return 26850 points when end is next day of start', function(){
+			it('should return correct points when start is 8:59AM and end is 10:00AM in same day', function(){
+				var start = new Date(2015,3,18,8,59,0);
+				var end = new Date(2015,3,18,10,0,0);
+				var node = eTimeHeap.newTimeNode(start,end);
+				expect(node.getScore()).toEqual(60*ePointFake.calPoint(8)+ePointFake.calPoint(8));
+			});
 
-			});*/
+			it('should return correct points points when start is 9:00AM and end is 10:00AM in same day', function(){
+				var start = new Date(2015,3,18,9,0,0);
+				var end = new Date(2015,3,18,10,0,0);
+				var node = eTimeHeap.newTimeNode(start,end);
+				expect(node.getScore()).toEqual(60*ePointFake.calPoint(8));
+			});
+
+			it('should return correct points when start is the next day of current date', function(){
+				var maxPoint = 119*ePointFake.calPoint(6) + 179*ePointFake.calPoint(8) + 179*ePointFake.calPoint(11)
+						   + 179*ePointFake.calPoint(14) + 179*ePointFake.calPoint(17) + 239*ePointFake.calPoint(20);
+				var toDay = new Date();
+				var start = new Date(toDay.setDate(toDay.getDate()+1));
+				var end = start;
+				var node = eTimeHeap.newTimeNode(start,end);
+				expect(node.getScore()).toEqual(0 - ( ((end - start)/1000)/60 ));
+			});
+
+			it('should return 0 point when start is the same time as end', function(){
+				var start = new Date(2015,3,18,0,0,0);
+				var end = new Date(2015,3,18,0,0,0);
+				var node = eTimeHeap.newTimeNode(start,end);
+				expect(node.getScore()).toEqual(0);
+			});
+
+			it('should return max points when start is 00:00AM of today and end is 00:00AM of tomorrow', function(){
+				var maxPoint = 119*ePointFake.calPoint(6) + 179*ePointFake.calPoint(8) + 179*ePointFake.calPoint(11)
+						   + 179*ePointFake.calPoint(14) + 179*ePointFake.calPoint(17) + 239*ePointFake.calPoint(20);
+				var start = new Date(2015,3,18,0,0,0);
+				var end = new Date(2015,3,18,24,0,0);
+				var node = eTimeHeap.newTimeNode(start,end);
+				expect(node.getScore()).toEqual(maxPoint);
+			});
 		});
 	});
 
