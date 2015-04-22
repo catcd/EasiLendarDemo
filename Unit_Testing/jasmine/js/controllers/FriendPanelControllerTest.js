@@ -34,7 +34,7 @@ describe('Friend Panel', function() {
 		);
 	}));
 	
-	describe('Sort Friend', function() {
+	xdescribe('Sort Friend', function() {
 		it('should sort list of friends by name from A to Z', function() {
 			var sortedList = [
 				{name: 'Barack Obama'}, {name: 'Emma Stone'}, 
@@ -48,7 +48,7 @@ describe('Friend Panel', function() {
 		});
 	});
 
-	describe('Search Friend', function(){
+	xdescribe('Search Friend', function(){
 		it('should return 0 when can not find friend', function(){
 			var array = $filter('findingFriend');
 			expect(array($rootScope.eUser.uFriend,'Google').length).toEqual(0);
