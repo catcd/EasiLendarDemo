@@ -51,6 +51,10 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 	 * check same day
 	 */
 	var isNormal = function(start, end) {
+		if(start == null || end == null) return false;
+		if (start.dateTime == undefined || end.dateTime == undefined) return false;
+		if (typeof(start.dateTime) != "object" || typeof(end.dateTime) != "object") return false;
+		
 		var startDate = start.dateTime.getDate();
 		var endDate = end.dateTime.getDate();
 		var startMonth = start.dateTime.getMonth();
@@ -60,7 +64,8 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 
 		// if not the same day
 		if (startDate != endDate || startMonth != endMonth
-				|| startYear != endYear || (end.dateTime.getHours()==23 && end.dateTime.getMinutes()==59)) {
+				|| startYear != endYear || (end.dateTime.getHours()==23 
+				&& end.dateTime.getMinutes()==59)) {
 			return false;
 		}
 		return true;
@@ -74,23 +79,23 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 		/*
 		 * PRIVATE
 		 */
-		this.setStart= function() {
+		var setStart= function() {
 			if (start != null && isNormal(start, end))
 				return start;
 			return null;
 		};
-		
+
 		/*
 		 * PRIVATE
 		 */
-		this.setEnd = function() {
+		var setEnd = function() {
 			if (end != null && isNormal(start, end))
 				return end;
 			return null;
 		};
 
-		this.start = this.setStart();
-		this.end = this.setEnd();
+		this.start = setStart();
+		this.end = setEnd();
 		this.summary = "Busy";
 		this.colorId = 8;
 	}; // end of class BusyEvent
@@ -113,19 +118,14 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 			if (event != null) {				
 				var startDate = event.start.dateTime.getDate();
 				var endDate = event.end.dateTime.getDate();
-			
 				var startHour = event.start.dateTime.getHours();
 				var startMin = event.start.dateTime.getMinutes();
-				var startSec = event.start.dateTime.getSeconds();
-				
 				var endHour = event.end.dateTime.getHours();
 				var endMin = event.end.dateTime.getMinutes();
-				var endSec = event.end.dateTime.getSeconds();
 			
 				// check 'all'
 				if (startDate == endDate && startHour == 0 && startMin == 0
-					&& startSec == 0 && endHour == 23 && endMin == 59
-					&& endSec == 59) {
+					&& endHour == 23 && endMin ==59) {
 					return "all";
 				}
 				// check 'over'
@@ -144,7 +144,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 		 * set color
 		 */
 		var setColor = function() {
-			if (event.colorId == null) {
+			if (event == null || event.colorId == null) {
 				return eventColor[0];
 			} else {
 				return eventColor[event.colorId];
@@ -687,18 +687,35 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 		// colors
 		eventColor: eventColor,
 		
+		/*
+		* Time constructor function
+		* time is object Date (Event's start/end .dateTime)
+		*/
+		newTime : function(time) {
+			return new Time(time);
+		},
+		
+		/* 
+		* BusyEvent constructor function
+		* start, end is Object {dateTime: ..., timeZone: ...}
+		*/
+		newBusyEvent : function(start, end) {
+			return new BusyEvent(start, end);
+		},
+		
+		/*
+		* Event constructor function
+		* event is the original object of Google
+		*/
+		newEvent : function(event) {
+			return new Event(event);
+		},
+		
 		/* Day constructor function
 		* date is Date object
 		*/
 		newDay : function(date) {
 			return new Day(date);
-		},
-		
-		/*
-		* WeekCalendar constructor
-		*/
-		newWeekCalendar : function() {
-			return new WeekCalendar();
 		},
 		
 		/*
@@ -712,27 +729,10 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 		},
 		
 		/*
-		* Time constructor function
-		* time is object Date (Event's start/end .dateTime)
+		* WeekCalendar constructor
 		*/
-		newTime : function(time) {
-			return new Time(time);
-		},
-		
-		/*
-		* Event constructor function
-		* event is the original object of Google
-		*/
-		newEvent : function(event) {
-			return new Event(event);
-		},
-		
-		/* 
-		* BusyEvent constructor function
-		* start, end is Object {dateTime: ..., timeZone: ...}
-		*/
-		newBusyEvent : function(start, end) {
-			return new BusyEvent(start, end);
+		newWeekCalendar : function() {
+			return new WeekCalendar();
 		},
 	};
 });

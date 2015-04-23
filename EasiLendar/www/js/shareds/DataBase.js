@@ -513,12 +513,13 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 						eFriend.fAvatar = user.avatar;
 						eFriend.fVIP = user.VIP;
 						eFriend.fFriend = user.friends;
-						// set fMultiCal
-						user.g_calendar = this.convertCal(user.g_calendar);
-						user.local_calendar = this.convertCal(user.local_calendar);
-						var temp = [user.g_calendar, user.local_calendar];
-						eFriend.fMultiCal = eMultiCalendar.newMultiCal(temp);
-					
+						if (eFriend.fFriend[eUser.uID] != undefined) {
+							// set fMultiCal
+							user.g_calendar = this.convertCal(user.g_calendar);
+							user.local_calendar = this.convertCal(user.local_calendar);
+							var temp = [user.g_calendar, user.local_calendar];
+							eFriend.fMultiCal = eMultiCalendar.newMultiCal(temp);
+						} else eFriend.fMultiCal = null;
 						$ionicLoading.hide();
 						$rootScope.goToState("profile");
 					}
