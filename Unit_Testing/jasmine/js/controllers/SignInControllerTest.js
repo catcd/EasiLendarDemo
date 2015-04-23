@@ -186,17 +186,20 @@ describe('Sign In Controller Test', function() {
 		});
 	});
 	
-	xdescribe('check sign in', function() {
+	describe('check sign in', function() {
 		var originalTimeout;
 		beforeEach(function() {
+			$rootScope.currentState = "form";
 			// go to any state
 			$rootScope.goToState = function(state) {
 				$rootScope.currentState = state;
 			};
-			$rootScope.goHome = function() {};
+			$rootScope.goHome = function() {
+				$rootScope.currentState = "home";
+			};
 			
 			originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-			jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+			jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 		});
 		
 		describe('correct ID, correct Password', function() {
@@ -206,11 +209,11 @@ describe('Sign In Controller Test', function() {
 				$scope.signIn();
 				setTimeout(function() {
 					done();
-				}, 8000);
+				}, 7000);
 			});
-			it('should sign in', function(done) {
+			it('should sign in', function() {
 				expect(eUser.isLogin).toBe(true);
-				done();
+				expect($rootScope.currentState).toBe("home");
 			});
 		});
 		
@@ -221,11 +224,11 @@ describe('Sign In Controller Test', function() {
 				$scope.signIn();
 				setTimeout(function() {
 					done();
-				}, 8000);
+				}, 7000);
 			});
-			it('should not sign in', function(done) {
+			it('should not sign in', function() {
 				expect(eUser.isLogin).toBe(false);
-				done();
+				expect($rootScope.currentState).toBe("warning");
 			});
 		});
 		
@@ -236,11 +239,11 @@ describe('Sign In Controller Test', function() {
 				$scope.signIn();
 				setTimeout(function() {
 					done();
-				}, 8000);
+				}, 7000);
 			});
-			it('should not sign in', function(done) {
+			it('should not sign in', function() {
 				expect(eUser.isLogin).toBe(false);
-				done();
+				expect($rootScope.currentState).toBe("warning");
 			});
 		});
 		
@@ -251,21 +254,22 @@ describe('Sign In Controller Test', function() {
 				$scope.signIn();
 				setTimeout(function() {
 					done();
-				}, 8000);
+				}, 7000);
 			});
-			it('should not sign in', function(done) {
+			it('should not sign in', function() {
 				expect(eUser.isLogin).toBe(false);
-				done();
+				expect($rootScope.currentState).toBe("warning");
 			});
 		});
 		
 		afterEach(function() {
 			eUser.isLogin = false;
+			$rootScope.currentState = "form";
 			jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
 		});
 	});
 	
-	xdescribe('check register', function() {
+	describe('check register', function() {
 		var originalTimeout;
 		beforeEach(function() {
 			// go to any state
@@ -275,7 +279,7 @@ describe('Sign In Controller Test', function() {
 			$rootScope.goHome = function() {};
 			
 			originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-			jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+			jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 		});
 		
 		describe('existed user', function() {
@@ -288,12 +292,11 @@ describe('Sign In Controller Test', function() {
 				$scope.register();
 				setTimeout(function() {
 					done();
-				}, 8000);
+				}, 7000);
 			});
-			it('should not register and show: "Existed"', function(done) {
+			it('should not register', function() {
 				expect($scope.user.id).toBe("test1");
 				expect($scope.warnings.mes[0]).toBe("Existed");
-				done();
 			});
 		});
 		
