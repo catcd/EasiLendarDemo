@@ -22,7 +22,7 @@ describe('Month Calendar', function() {
 			
 			//eDate = jasmine.createSpyObj('eDate',['cDate']);
 			eUser = {
-				uGmailCalendar: jasmine.createSpy();
+				uGmailCalendar: jasmine.createSpy()
 			};
 
 			//$provide.value('eDate', eDate);
