@@ -1,19 +1,28 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 22/4/2015
+ * last update: 24/04/2015
  * type: TimeHeap object, Time Node object
  */
 
 angular.module('MainApp.shareds.timeHeap', [])
 
 .factory('eTimeHeap', function(ePoint) {
+	// Check an object is TimeNode object or not
+	var checkTimeNodeObj = function(obj){
+		if(obj.hasOwnProperty('start') == true && obj.hasOwnProperty('end') == true && obj.hasOwnProperty('score') == true 
+		&& obj.hasOwnProperty('getScore') == true && obj.hasOwnProperty('getStart') == true && obj.hasOwnProperty('getEnd') == true){
+			return true;
+		}
+	};
+
 	/**
 	 * TimeNode object
 	 * include: var start, end, score
 				all basic getting, setting function (getEnd(), setEnd(object Date), etc.)
 	 * constructor: TimeNode(start, end); auto rate the time and save to score
 	 */
+
 	function TimeNode(mStart, mEnd){
 		var scoreArray = [{start: 0, end: 359, pts: ePoint.calPoint(0)},
 						  {start: 360, end: 479, pts: ePoint.calPoint(6)}, {start: 480, end: 659, pts: ePoint.calPoint(8)},
@@ -54,7 +63,7 @@ angular.module('MainApp.shareds.timeHeap', [])
 									     - (startTime > scoreArray[i].start ? startTime:scoreArray[i].start))
 										 * scoreArray[i].pts;
 								if(endTime == scoreArray[i].end) { sumPts = sumPts - scoreArray[i].pts; }
-								if(endTime == scoreArray[i].end+1) {sumPts = sumPts + scoreArray[i].pts; }
+								if(endTime == scoreArray[i].end + 1) { sumPts = sumPts + scoreArray[i].pts; }
 							}
 						}
 					}
@@ -64,9 +73,22 @@ angular.module('MainApp.shareds.timeHeap', [])
 			return sumPts;
 		};
 
-		this.start = mStart;
-		this.end = mEnd;
-		this.score = rateScore(mStart,mEnd);
+		if(mStart == null || mEnd == null){
+			this.score = -1;
+		}
+		else if(mStart == null && mEnd == null){
+			this.score = -1;
+		}
+		else {
+			if(mStart > mEnd) { 
+				var term = angular.copy(mStart);
+				mStart = angular.copy(mEnd);
+				mEnd = angular.copy(term);
+			}
+			this.start = (mStart.hasOwnProperty('getStart') == false) ? new Date(mStart) : mStart ;
+			this.end = (mEnd.hasOwnProperty('getStart') == false) ? new Date(mEnd) : mEnd ;
+			this.score = rateScore(mStart,mEnd); 
+		}
 
 		this.getStart = function(){
 			return this.start;
@@ -82,15 +104,29 @@ angular.module('MainApp.shareds.timeHeap', [])
 		};
 
 		this.setStart = function(startTime){
-			this.start = startTime;
+			if(startTime != null || startTime != undefined){
+				if(startTime.hasOwnProperty('getDate') == true || startTime <= this.end){
+					this.start = startTime;
+					this.score = rateScore(startTime,this.end);
+				}
+			}
 		};
 
 		this.setEnd = function(endTime){
-			this.end = endTime;
+			if(endTime != null || endTime != undefined){
+				if(endTime.hasOwnProperty('getDate') == true || this.start <= endTime){
+					this.end = endTime;
+					this.score = rateScore(this.start,endTime);
+				}
+			}
 		};
 
 		this.setScore = function(score){
-			this.score = score;
+			if(score != null || score != undefined){
+				if(score.length == null){
+					this.score = score;
+				}
+			}
 		};
 	}
 
@@ -107,9 +143,9 @@ angular.module('MainApp.shareds.timeHeap', [])
 		this.length = 0;
 		this.cache = null;
 
-		//push an item (!== null) to bottom of array
+		//push an TimeNode object (!= null && != undefined) to bottom of array
 		this.push = function(item){
-			if(item !== null){
+			if(item != null && item != undefined && checkTimeNodeObj(item) == true){
 				this.length++;
 				this.timeList[this.length-1] = item;
 
@@ -141,9 +177,9 @@ angular.module('MainApp.shareds.timeHeap', [])
 				var i = 0;
 				var j = 0;
 
-				while(this.timeList[j+1] !== undefined && this.timeList[j+2] !== undefined){
-					if(this.timeList[j+1] !== undefined && this.timeList[j+2] == undefined) { j += 1; }
-					else if(this.timeList[j+2] !== undefined && this.timeList[j+1] == undefined) {j += 2; }
+				while(this.timeList[j+1] != undefined && this.timeList[j+2] != undefined){
+					if(this.timeList[j+1] != undefined && this.timeList[j+2] == undefined) { j += 1; }
+					else if(this.timeList[j+2] != undefined && this.timeList[j+1] == undefined) {j += 2; }
 					else { j += (this.timeList[j+1].getScore() > this.timeList[j+2].getScore() ? 1:2) }
 
 					if(this.timeList[i].getScore() < this.timeList[j].getScore()){
@@ -164,6 +200,7 @@ angular.module('MainApp.shareds.timeHeap', [])
 		//return all item in array as before using pop
 		this.backUp = function(){
 			this.timeList = angular.copy(this.cache);
+			this.length = this.timeList.length;
 		};
 
 		//return length of array
@@ -190,21 +227,37 @@ angular.module('MainApp.shareds.timeHeap', [])
 		 */
 		maxNode: function(array){
 			//case: array is empty
-			if(array.length == 0){ 
-				console.log('Array is empty');
-				maxNode = null;
-			}
+			if(array == null || array == undefined) { maxNode = null; }
 			else{
-				var maxNode = new TimeNode(array[array.length-1].start, array[array.length-1].end);
-				var maxScore = maxNode.getScore();
-				for(var i=array.length-2; i>=0; i--){
-					var node = new TimeNode(array[i].start, array[i].end);
-					if(node.getScore() > maxScore){
-							maxScore = node.getScore();
-							maxNode = node;
+				if(array.length == 0 || array.length == null){ maxNode = null; }
+				else{
+					var maxNode, maxScore;
+					var valid = 0;
+					if(array[array.length-1].start != undefined && array[array.length-1].end != undefined){
+						maxNode = new TimeNode(array[array.length-1].start, array[array.length-1].end);
+						maxScore = maxNode.getScore();
+						valid++;
 					}
+
+					for(var i=array.length-2; i>=0; i--){
+						if(array[i].start != undefined && array[i].end != undefined){
+							var node = new TimeNode(array[i].start, array[i].end);
+							if(maxNode == null){ 
+								maxNode = angular.copy(node);
+								maxScore = maxNode.getScore;
+							}
+							if(node.getScore() > maxScore){
+									maxScore = node.getScore();
+									maxNode = node;
+							}
+							valid++;
+						}
+					}
+
+					if(valid == 0) { maxNode = null; }
 				}
 			}
+
 			return maxNode;
 		},
 
