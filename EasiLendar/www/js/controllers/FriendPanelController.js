@@ -1,13 +1,13 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 21/04/2015
+ * last update: 24/04/2015
  * type: friend panel controller
  */
 
 angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 
-.controller('friendPanelController', function($scope, $rootScope, $location, $ionicScrollDelegate, eUser, eFriend, eDatabase) {
+.controller('friendPanelController', function($scope, $rootScope, $location, $ionicScrollDelegate, $ionicPopup, eUser, eFriend, eDatabase) {
 	//Using eUser, eFriend, eDatebase factory
 	$scope.eUser = eUser;
 	$scope.eFriend = eFriend;
@@ -16,16 +16,22 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	$scope.searchFriend = '';
 	$scope.mShow = false;
 
-	var cacheFriend = angular.copy($scope.eUser.uFriend);
+	$scope.cacheFriend = angular.copy($scope.eUser.uFriend);
+
+	//refresh list as before sorting
+	$scope.refreshList = function() {
+		$scope.eUser.uFriend = angular.copy($scope.cacheFriend);
+	}
 
 	$scope.deleteFriend = function(friend) {
 		var confirmPopup = $ionicPopup.confirm({
 			title: 'Are you sure ?'
 		});
+
 		confirmPopup.then(function(res) {
 			if(res) {
 				$scope.eDatabase.deleteF(friend.id);
-				cacheFriend = angular.copy($scope.eUser.uFriend);
+				$scope.cacheFriend = angular.copy($scope.eUser.uFriend);
 			}
 		});
 	}
@@ -47,14 +53,9 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 		$location.hash('top');
 		$ionicScrollDelegate.anchorScroll(true);
 	};
-
-	//check: Did we sort friend list?
-	var checkSortAZ = false;
 	
 	//sorting is based on name
 	var sortAZ = function(array) {
-		//array is sorted by name
-		checkSortAZ = true;
 		array.sort(function(obj1,obj2){
 			return $scope.eUser.uFriend[obj1].name.localeCompare($scope.eUser.uFriend[obj2].name);
 		})
@@ -65,25 +66,55 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 		})
 
 		$scope.eUser.uFriend = angular.copy(sortedArray);
-	}
+	};
 	
+	var sortViewTime = function(array){
+		array.sort(function(obj1,obj2){
+			return ( $scope.eUser.uFriend[obj2].viewTime - $scope.eUser.uFriend[obj1].viewTime );
+		});
+
+		var sortedArray = [];
+		angular.forEach(array, function(id){
+			sortedArray.push($scope.eUser.uFriend[id]);
+		});
+
+		$scope.eUser.uFriend = angular.copy(sortedArray);
+	};
+
+	var sortDateTime = function(array){
+		array.sort(function(obj1,obj2){
+			return ( $scope.eUser.uFriend[obj2].dateTime - $scope.eUser.uFriend[obj1].dateTime );
+		});
+
+		var sortedArray = [];
+		angular.forEach(array, function(id){
+			sortedArray.push($scope.eUser.uFriend[id]);
+		});
+
+		$scope.eUser.uFriend = angular.copy(sortedArray);
+	};
+
 	$scope.sort = function(typeSort) {
+		var arrF = [];
+		for(var x in $scope.eUser.uFriend){
+			arrF.push(x);
+		}
+
 		if (typeSort == 'AZ') {
 			//only sort by name
-			var arrF = [];
-			for(var x in $scope.eUser.uFriend){
-				arrF.push(x);
-			}
-
 			sortAZ(arrF);
 		}
-	}
-	//refresh list as before sorting
-	$scope.refreshList = function() {
-		checkSortAZ = false;
-		$scope.eUser.uFriend = angular.copy(cacheFriend);
-	}
 
+		if(typeSort == 'viewTime') {
+			//sort by number of viewing times in descending order
+			sortViewTime(arrF);
+		}
+
+		if(typeSort == 'dateTime') {
+			//sort by the most recently date
+			sortDateTime(arrF);
+		}
+	}
 })
 
 .directive('togglefriend', function($document) {
@@ -169,6 +200,7 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 				results.push(item);
 			}
 		});
+
 		return results;
 	};
 })

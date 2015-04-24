@@ -1,18 +1,19 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 19/04/2015
+ * last update: 24/04/2015
  * type: paticular controller
  */
 
 /*SEARCH-FILTER CONTROLLER*/
 angular.module('MainApp.controllers.searchFilter', [])
 
-.controller("SearchFilterController", function($rootScope, $scope, eSearchFilter, eSettings, eFriend) {
+.controller("SearchFilterController", function($rootScope, $scope, eSearchFilter, eSettings, eFriend, eUser) {
 	//Using eSearchFilter, eSettings, eFriend factory
 	$scope.eSearchFilter = eSearchFilter;
 	$scope.eSettings = eSettings;
 	$scope.eFriend = eFriend;
+	$scope.eUser = eUser;
 
 	$scope.timeValues = {
 		mDurationHour: $scope.eSettings.sDefaultDuration / 60,
@@ -22,7 +23,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 		mFromDay: new Date(),
 		mToDay: new Date()
 	};
-	var newSearchFilter = angular.copy($scope.eSearchFilter);
+
 	var resetValues = angular.copy($scope.timeValues);
 
 	$scope.priorityTimes = [
@@ -32,12 +33,13 @@ angular.module('MainApp.controllers.searchFilter', [])
 						{ name: 'Office', values: null, index: 3},
 						{ name: 'Holiday', values: null, index: 4}
 						];
+	var pristine = angular.copy($scope.priorityTimes);
 
 	$scope.$watch('timeValues.mDurationHour',function(){ $scope.convertToMinute(); });
 	$scope.$watch('timeValues.mDurationMinute',function(){ $scope.convertToMinute(); });
 	$scope.$watch('timeValues.mFromTime',function(){
 		$scope.eSearchFilter.mFrom = new Date($scope.timeValues.mFromTime);
-		$scope.minTime = new Date($scope.timeValues.mFromTime);
+		$scope.minTime = $scope.timeValues.mFromTime;
 	});
 	$scope.$watch('timeValues.mToTime',function(){
 		$scope.eSearchFilter.mTo = new Date($scope.timeValues.mToTime);
@@ -71,66 +73,66 @@ angular.module('MainApp.controllers.searchFilter', [])
 	//previous state of search-filter state
 	$scope.preState = '';
 	$rootScope.$on('$stateChangeStart',
-        function(event, toState, toParams, fromState, fromParams) {
-            if (toState.name == 'searchFilter') {
-                $scope.preState = fromState.name;
-            }
-        })
+		function(event, toState, toParams, fromState, fromParams) {
+			if (toState.name == 'searchFilter') {
+				$scope.preState = fromState.name;
+			}
+		})
 
 	$scope.submit = function(form) {
-        if (form.$valid) {
+		if (form.$valid) {
 		   $rootScope.goToState('result');
 		}
-    };
+	};
 
 	$scope.deleteValue = function(form){
 		/*RESET VALUE*/
 		$scope.timeValues = angular.copy(resetValues);
-		$scope.eSearchFilter = angular.copy(newSearchFilter);
-		$scope.list = [];
+		$scope.eSearchFilter.resetData();
+		$scope.priorityTimes = angular.copy(pristine);
 		/* RESET FORM*/
 		form.$setPristine();
-  		form.$setUntouched();
-  		var inputs = document.getElementsByTagName('input');
-  		for(var i=0; i<inputs.length; i++){
-  			if(inputs[i].checked !== undefined || inputs[i].checked !== null){
-  				inputs[i].checked = false;
-  			}
-  		}
+		form.$setUntouched();
+		var inputs = document.getElementsByTagName('input');
+		for(var i=0; i<inputs.length; i++){
+			if(inputs[i].checked !== undefined || inputs[i].checked !== null){
+				inputs[i].checked = false;
+			}
+		}
 
-  		$scope.mShow = false;
-  		$scope.titleOfButton = 'ADVANCE FILTER';
+		$scope.mShow = false;
+		$scope.titleOfButton = 'ADVANCE FILTER';
 
-  		if($scope.preState == 'profile'){
-  			$rootScope.goToState('profile');
-  		}
-  		else { $rootScope.goHome(); }
+		if($scope.preState == 'profile'){
+			$rootScope.goToState('profile');
+		}
+		else { $rootScope.goHome(); }
 	};
 
-	$scope.mVip = 1;
 	$scope.mShow = false;
 	$scope.showDay = true;
 	$scope.showTime = false;
-  	$scope.titleOfButton = 'ADVANCE FILTER';
-    $scope.toggleFunc = function(){
-    	if($scope.mVip == 1){
-            $scope.mShow = !$scope.mShow;
-            if($scope.mShow == true) {$scope.titleOfButton = 'End';}
-            else {$scope.titleOfButton = 'ADVANCE FILTER';}
-    	}
-    };
-    $scope.showDate = function(){
-    	$scope.showDay = !$scope.showDay;
-    	$scope.showTime = !$scope.showTime;
-    	if($scope.showTime == true){
-    		$scope.timeValues.mDurationHour = 0;
-    		$scope.timeValues.mDurationMinute = 1;
-    	}
-    	else {
-    		$scope.timeValues.mDurationHour = $scope.eSettings.sDefaultDuration / 60;
-    		$scope.timeValues.mDurationMinute = $scope.eSettings.sDefaultDuration % 60;
-    	}
-    }
+	$scope.titleOfButton = 'ADVANCE FILTER';
+	$scope.toggleFunc = function(){
+		if($scope.eUser.uVIP == 1){
+			$scope.mShow = !$scope.mShow;
+			if($scope.mShow == true) {$scope.titleOfButton = 'End';}
+			else {$scope.titleOfButton = 'ADVANCE FILTER';}
+		}
+	};
+
+	$scope.showDate = function(){
+		$scope.showDay = !$scope.showDay;
+		$scope.showTime = !$scope.showTime;
+		if($scope.showTime == true){
+			$scope.timeValues.mDurationHour = 0;
+			$scope.timeValues.mDurationMinute = 1;
+		}
+		else {
+			$scope.timeValues.mDurationHour = $scope.eSettings.sDefaultDuration / 60;
+			$scope.timeValues.mDurationMinute = $scope.eSettings.sDefaultDuration % 60;
+		}
+	}
 })
 
 .directive('checkUncheckRadio', function(){
@@ -143,20 +145,20 @@ angular.module('MainApp.controllers.searchFilter', [])
 			var labelRadio = element.next();
 			labelRadio.bind('mousedown',function(){
 				if(element.prop("checked") == true){
-		 			labelRadio.bind('mouseup',function(){
-		 				setTimeout(function(){
-		 					element.prop('checked',false);
-		 				},5);
-		 			});
-			 		scope.isChecked = null;
-		 		}
-		 		else{
-		 			labelRadio.bind('mouseup',function(){
-		 				setTimeout(function(){
-		 					element.prop('checked',true);
-		 				},5);
-		 			});
-		 		}
+					labelRadio.bind('mouseup',function(){
+						setTimeout(function(){
+							element.prop('checked',false);
+						},5);
+					});
+					scope.isChecked = null;
+				}
+				else{
+					labelRadio.bind('mouseup',function(){
+						setTimeout(function(){
+							element.prop('checked',true);
+						},5);
+					});
+				}
 			});
 		}
 	};
@@ -164,20 +166,20 @@ angular.module('MainApp.controllers.searchFilter', [])
 
 .directive('slideToggle', function() {  
   return {
-    restrict: 'A',      
-    scope:{
-      isOpen: "=slideToggle"
-    },  
-    link: function(scope, element, attr) {
-    	if(element.attr('class') !== 'hide-div'){ 
-        	element.hide();
-    	}
-      	scope.$watch('isOpen', function(newVal,oldVal){
-	        if(newVal !== oldVal){ 
-	          element.stop().slideToggle("slow");
-	        }
-	    });
-    }
+	restrict: 'A',      
+	scope:{
+	  isOpen: "=slideToggle"
+	},  
+	link: function(scope, element, attr) {
+		if(element.attr('class') !== 'hide-div'){ 
+			element.hide();
+		}
+		scope.$watch('isOpen', function(newVal,oldVal){
+			if(newVal !== oldVal){ 
+			  element.stop().slideToggle("slow");
+			}
+		});
+	}
   };  
 })
 
@@ -204,10 +206,10 @@ angular.module('MainApp.controllers.searchFilter', [])
 		},
 		link: function(scope,element,attr){
 		  element.bind('input',function(){
-		    if(element.val().length >= scope.maxlength){
-			    $timeout(function(){
-			      element.parent().parent().find('input')[1].focus();
-			    });
+			if(element.val().length >= scope.maxlength){
+				$timeout(function(){
+				  element.parent().parent().find('input')[1].focus();
+				});
 			}
 		  });
 		}
