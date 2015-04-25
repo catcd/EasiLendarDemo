@@ -122,6 +122,7 @@
 	border: 1px solid #CCCCB2;
 	background-origin: content-box;
 	}
+	.list{height :30px; }
 .showtab{position:relative;	max-width:700px;	margin:0 auto 0 auto;}
 /*introduction */
 #information{
@@ -144,14 +145,15 @@
 	top:0px;
 	}
 /*Friend*/
-#friends{	position:relative;	height:60px;}
+#friends{	position:relative;	height:50px; top:5px;padding-top:5px;z-index:0;}
 #friend-name{
 	position:absolute;
-	left:60px;
-	top:15px;
+	left:70px;
+	top:20px;
 	float:center;
 	}
-#friend-avatar{	width:55px;	height:55px;	top:5px;}
+
+#friend-avatar{	width:45px;	height:45px;	margin-top:5px;}
 /*Calendar in profile*/
 .easiweek{
 	margin-top:-20px;
@@ -159,7 +161,7 @@
 	background-position:center center;
 	background-size:cover;
 	background-repeat:no-repeat;
-	height:550px;
+	height:450px;
 	padding-bottom: 50px;
 	}
 
@@ -172,6 +174,7 @@
     overflow: hidden; 
 	white-space: pre-line;
     width:80%}
+
 /*DAY CALENDAR */
 #h2-month{margin-left:15% ;margin-top:10px; color: #002900;}
 #x{max-width:800px;width:100%;margin-bottom:20px; padding-bottom:5px; }
@@ -222,10 +225,10 @@
 	font-size:200%;
 }
 .bkg{ background-repeat: no-repeat; background-position:center center; margin: 0 auto 0 auto;height: 250px; width: 100%; max-width:960px;  padding-bottom:-10px;}}
-.bkg-01{ background: url("../img/bkg_01_jan.jpg") no-repeat;  background-size: 100% 100%; background-position:center center; height: 200px; width: 100%; max-width:500px; margin: 0 auto 0 auto; padding-bottom:-10px;}
+.bkg-01{ background: url("../img/bkg_01_jan.jpg") no-repeat;  background-size: 100% 100%; background-position:center center ; height: 200px; width: 100%; max-width:500px; margin: 0 auto 0 auto; padding-bottom:-10px;}
 .bkg-02{ background: url("../img/bkg_02_feb.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
 .bkg-03{ background: url("../img/bkg_03_mar.jpg") no-repeat;  background-size: 100% 100%; background-position:center center; height:250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
-.bkg-04{ background: url("../img/bkg_04_apr.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
+.bkg-04{ background: url("../img/bkg_04_apr.jpg") no-repeat;   background-size: 100% 100%; background-position:center center ; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
 .bkg-05{ background: url("../img/bkg_05_may.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
 .bkg-06{ background: url("../img/bkg_06_jun.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
 .bkg-07{ background: url("../img/bkg_07_jul.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}

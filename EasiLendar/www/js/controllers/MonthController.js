@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 19/04/2015
+ * last update: 25/04/2015
  * type: month controller
  */
  
@@ -32,16 +32,17 @@ angular.module('MainApp.controllers.month', [])
 				}
 				$scope.buildCurrentMonth();
 			}
-		})
+		});
 
 	$scope.buildCurrentMonth = function() {
 		$scope.currentDate = new Date();
+		$scope.currentDate = new Date($scope.currentDate.setHours(0,0,0,0));
 		$scope.currentDateNumber = $scope.currentDate.getDate();
 		$scope.currentMonthNumber = $scope.currentDate.getMonth();
 		$scope.currentYear = $scope.currentDate.getFullYear();
 		$scope.currentMonthString = $scope.eCalendar.months[$scope.currentMonthNumber];
-		$scope.position = new Date($scope.currentDate.getFullYear(), $scope.currentDate.getMonth(), $scope.currentDateNumber, 0, 0, 0, 0);
-		$scope.eCalendar.cDate = angular.copy($scope.position);
+		$scope.position = angular.copy($scope.currentDate);
+		$scope.eDate.cDate = angular.copy($scope.position);
 		
 		/** All weeks of a month
 		  * week: array of days in month
@@ -83,11 +84,13 @@ angular.module('MainApp.controllers.month', [])
 	}
 
 	$scope.thisMonth = function(year,month){
-		$scope.currentMonthNumber = month;
-		$scope.currentMonthString = $scope.eCalendar.months[$scope.currentMonthNumber];
-		$scope.currentYear = year;
-		$scope.buildWeeks();
-		$scope.changeState();
+		if(year >= 0 && month >= 0 && month <= 11){
+			$scope.currentMonthNumber = month;
+			$scope.currentMonthString = $scope.eCalendar.months[$scope.currentMonthNumber];
+			$scope.currentYear = year;
+			$scope.buildWeeks();
+			$scope.changeState();
+		}
 	}
 
 	$scope.previousYear = function(){
@@ -129,6 +132,7 @@ angular.module('MainApp.controllers.month', [])
 			$scope.position = firstDatePreviousMonth;
 		}
 		$scope.eDate.cDate = angular.copy($scope.position);
+
 		//Build weeks and days in month
 		$scope.newWeeks[0].days[dayOfFirstDate].numberDate = 1;
 		$scope.newWeeks[0].days[dayOfFirstDate].month = $scope.currentMonthNumber;
@@ -186,21 +190,23 @@ angular.module('MainApp.controllers.month', [])
 
 	$scope.bkgE = 'bkg';
 	$scope.showListEvent = function(day, month, year) {
-		if (month > $scope.currentMonthNumber) {
-			if (month == 11 && $scope.currentMonthNumber == 0) {
-				$scope.previousMonth();
-			} else {
-				$scope.nextMonth();
+		if(day >= 0 && month >= 0 && year >= 0){
+			if (month > $scope.currentMonthNumber) {
+				if (month == 11 && $scope.currentMonthNumber == 0) {
+					$scope.previousMonth();
+				} else {
+					$scope.nextMonth();
+				}
+			} else if (month < $scope.currentMonthNumber) {
+				if (month == 0 && $scope.currentMonthNumber == 11) {
+					$scope.nextMonth();
+				} else {
+					$scope.previousMonth();
+				}
 			}
-		} else if (month < $scope.currentMonthNumber) {
-			if (month == 0 && $scope.currentMonthNumber == 11) {
-				$scope.nextMonth();
-			} else {
-				$scope.previousMonth();
-			}
+			$scope.position = new Date(year, month, day, 0, 0, 0, 0);
+			$scope.eDate.cDate = angular.copy($scope.position);
 		}
-		$scope.position = new Date(year, month, day, 0, 0, 0, 0);
-		$scope.eDate.cDate = angular.copy($scope.position);
 	}
 
 	// Increment carousel thing
@@ -221,6 +227,21 @@ angular.module('MainApp.controllers.month', [])
 		$scope.showMonthsList = !$scope.showMonthsList;
 		$scope.showMonthCalendar = !$scope.showMonthCalendar;
 	}
+
+	/** Change month calendar when week calendar changes
+	  * date: a date in month or weeks that is used to build calendar
+	  */
+	$rootScope.changeMonth = function(date){
+		$scope.currentDate = date;
+		$scope.currentDateNumber = date.getDate();
+		$scope.currentMonthNumber = date.getMonth();
+		$scope.currentYear = date.getFullYear();
+		$scope.currentMonthString = $scope.eCalendar.months[$scope.currentMonthNumber];
+		$scope.position = angular.copy(date);
+		$scope.eDate.cDate = angular.copy($scope.position);
+
+		$scope.buildWeeks();
+	};
 })
 
 .directive('differentMonth', function($document) {

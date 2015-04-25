@@ -1,40 +1,47 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 22/04/2015
+ * last update: 25/04/2015
  * type: unit test
  * base on: javascript, Google Calendar API
  */
 
+var app = angular.module("MainApp.shareds.application", [])
+.factory("eUser", function() {
+	return {
+		uGmailCalendar: null,
+	};
+})
+.factory("eFriend", function() {
+	return {
+		fMultiCal: null,
+	}
+})
+.factory("eSettings", function() {
+	return {
+		sFirstDay: "Mon",
+	}
+})
+.factory("$rootScope", function() {
+	return {
+		currentState: "week",
+	};
+});
+
 describe('EasiLendar Classes Test', function() {
-	var eEasiLendar;
-	
-	// fake services
-//	var eFriend = {fMultiCal: null};
-//	var eSettings = {sFirstDay: "Monday"};
-//	var eCalendar = {
-//		months: ["January", "February", "March", "April", "May", "June",
-//				"July", "August", "September", "October", "November", "December"
-//		],
-//		weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-//		shortMonths: ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"],
-//	};
-	var $rootScope = {currentState: "week"};
-	
+	var eEasiLendar, eCalendar, eUser, eSettings, eFriend;
 	beforeEach(function() {
-		module('MainApp.shareds.easiLendarClass', function($provide) {
-			eCalendarMock = jasmine.createSpyObj('eCalendar', ['weekDays', 'months', 'shortMonths']);
-			eUserMock = jasmine.createSpyObj('eUser', ['uGmailCalendar']);
-			eFriendMock = jasmine.createSpyObj('eFriend', ['fMultiCal']);
-			eSettingsMock = jasmine.createSpyObj('eSettings', ['sFirstDay']);
-			$provide.value('eCalendar', eCalendarMock);
-			$provide.value('eUser', eUserMock);
-			$provide.value('eFriend', eFriendMock);
-			$provide.value('eSettings', eSettingsMock);
-		});
-		
-		inject(function(_eEasiLendar_) {
+		module('MainApp.shareds.calendar');
+		module('MainApp.shareds.application');
+		module('MainApp.shareds.easiLendarClass');
+		var $rootScope = {currentState: "week"};
+		inject(function(_eEasiLendar_, _eCalendar_, _eUser_, _eFriend_, _eSettings_, _$rootScope_) {
+			$rootScope = _$rootScope_;
 			eEasiLendar = _eEasiLendar_;
+			eCalendar = _eCalendar_;
+			eUser = _eUser_;
+			eFriend = _eFriend_;
+			eSettings = _eSettings_;
 		});
 	});
 	
@@ -225,7 +232,7 @@ describe('EasiLendar Classes Test', function() {
 		var event1, event2, event3;
 		beforeEach(function() {
 			// normal event
-			event1 = {
+			event1 = {	
 				start: {dateTime: new Date(2015,3,22,7,9,0)},
 				end: {dateTime: new Date(2015,3,22,13,30,0)},
 				colorId: 2,
@@ -243,13 +250,16 @@ describe('EasiLendar Classes Test', function() {
 				colorId: 4,
 			};
 		});
+		
+		it("should create Event Object", function() {
+			var e = eEasiLendar.newEvent();
+			expect(e).toBeDefined();
+		});
+		
 		describe("Missing argument", function() {
 			var e;
 			beforeEach(function() {
 				e = eEasiLendar.newEvent();
-			});
-			it("should create Event Object", function() {
-				expect(e).toBeDefined();
 			});
 			it("origin should be undefined if no argument", function() {
 				expect(e.origin).toBeUndefined();
@@ -262,14 +272,256 @@ describe('EasiLendar Classes Test', function() {
 				expect(e.type).toBeNull();
 			});
 			it("color should be #09c(default color) if no argument", function() {
-				
+				expect(e.color).toEqual(eEasiLendar.eventColor[0]);
 			});
-	
-		
+		});
+		describe("Argument 'event' is normal event", function() {
+			var e;
+			beforeEach(function() {
+				e = eEasiLendar.newEvent(event1);
+			});
+			it("origin should be 'event' argument", function() {
+				expect(e.origin).toBe(event1);
+			});
+			it("type should be 'normal'", function() {
+				expect(e.type).toBe("normal");
+			});
+			it("color should be '#36f'", function() {
+				expect(e.color).toBe(eEasiLendar.eventColor[2]);
+			});
+		});
+		describe("Argument 'event' is overday event", function() {
+			var e;
+			beforeEach(function() {
+				e = eEasiLendar.newEvent(event2);
+			});
+			it("origin should be 'event' argument", function() {
+				expect(e.origin).toBe(event2);
+			});
+			it("type should be 'over'", function() {
+				expect(e.type).toBe("over");
+			});
+			it("color should be '#93f'", function() {
+				expect(e.color).toBe(eEasiLendar.eventColor[3]);
+			});
+		});
+		describe("Argument 'event' is allday event", function() {
+			var e;
+			beforeEach(function() {
+				e = eEasiLendar.newEvent(event3);
+			});
+			it("origin should be 'event' argument", function() {
+				expect(e.origin).toBe(event3);
+			});
+			it("type should be 'all'", function() {
+				expect(e.type).toBe("all");
+			});
+			it("color should be '#ff9999'", function() {
+				expect(e.color).toBe(eEasiLendar.eventColor[4]);
+			});
+		});
 	});
 	
 	describe("Day Class", function() {
+		var event1, event2, event3;
+		var date1, date2, date3, date4;
+		beforeEach(function() {
+			// normal event
+			event1 = {	
+				start: {dateTime: new Date(2015,3,22,7,9,0)},
+				end: {dateTime: new Date(2015,3,22,13,30,0)},
+				colorId: 2,
+			};
+			// overday event
+			event2 = {
+				start: {dateTime: new Date(2015,2,21,12,40,0)},
+				end: {dateTime: new Date(2015,2,23,18,6,12)},
+				colorId: 3,
+			};
+			// allday event
+			event3 = {
+				start: {dateTime: new Date(2015,5,22,0,0,0)},
+				end: {dateTime: new Date(2015,5,22,23,59,0)},
+				colorId: 4,
+			};
+			date1 = new Date(2015,2,21);
+			date2 = new Date(2015,2,23);
+			date3 = new Date(2015,3,22);
+			date4 = new Date(2015,5,22);
+			
+			var arr = [];
+			arr[date1] = [event2];
+			arr[date2] = [event2];
+			arr[date3] = [event1];
+			arr[date4] = [event3];
+			eUser.uGmailCalendar = arr;
+		});
 		
+		it("should create Day object", function() {
+			var d = eEasiLendar.newDay(); 
+			expect(d).toBeDefined();
+		});
+			
+		describe("Missing argument", function(){
+			var d;
+			beforeEach(function() {
+				d = eEasiLendar.newDay();
+			});
+			it("year should be null", function() {
+				expect(d.year).toBeNull();
+			});
+			it("month should be null", function() {
+				expect(d.month).toBeNull();
+			});
+			it("date should be null", function() {
+				expect(d.date).toBeNull();
+			});
+			it("day should be null", function() {
+				expect(d.day).toBeNull();
+			});
+			it("events should be null", function() {
+				expect(d.events).toBeNull();
+			});
+			it("next day should be null", function() {
+				expect(d.nextDay()).toBeNull();
+			});
+			it("previous day should be null", function() {
+				expect(d.prevDay()).toBeNull();
+			});
+		});
+		
+		describe("'date' argument is the day that has a normal event", function() {
+			var d;
+			beforeEach(function() {
+				d = eEasiLendar.newDay(date3);
+			});
+			it("year should be 2015", function() {
+				expect(d.year).toBe(2015);
+			});
+			it("month should be April", function() {
+				expect(eCalendar.months[d.month]).toBe(eCalendar.months[3]);
+			});
+			it("date should be 22", function() {
+				expect(d.date).toBe(22);
+			});
+			it("day should be Wed", function() {
+				expect(d.day).toBe("Wed");
+			});
+			
+			describe("Events array", function() {
+				it("should contains elements", function() {
+					expect(d.events).not.toBeNull();
+				});
+				it("should contains all events of 'date'", function() {
+					expect(d.events.length).toBe(eUser.uGmailCalendar[date3].length);
+				});
+				it("should convert all events of 'date' to Event objects", function() {
+					expect(d.events[0].origin).toBe(event1);
+					expect(d.events[0].type).toBe("normal");
+					expect(d.events[0].color).toBe("#36f");
+				});
+			});
+		});
+		
+		describe("'date' argument is the day that has a overday event", function() {
+			var d;
+			beforeEach(function() {
+				d = eEasiLendar.newDay(date1);
+			});
+			it("year should be 2015", function() {
+				expect(d.year).toBe(2015);
+			});
+			it("month should be March", function() {
+				expect(eCalendar.months[d.month]).toBe(eCalendar.months[2]);
+			});
+			it("date should be 21", function() {
+				expect(d.date).toBe(21);
+			});
+			it("day should be Sat", function() {
+				expect(d.day).toBe("Sat");
+			});
+			
+			describe("Events array", function() {
+				it("should contains elements", function() {
+					expect(d.events).not.toBeNull();
+				});
+				it("should contains all events of 'date'", function() {
+					expect(d.events.length).toBe(eUser.uGmailCalendar[date3].length);
+				});
+				it("should convert all events of 'date' to Event objects", function() {
+					expect(d.events[0].origin).toBe(event2);
+					expect(d.events[0].type).toBe("over");
+					expect(d.events[0].color).toBe("#93f");
+				});
+			});
+		});
+		
+		describe("'date' argument is the day that has a allday event", function() {
+			var d;
+			beforeEach(function() {
+				d = eEasiLendar.newDay(date4);
+			});
+			it("year should be 2015", function() {
+				expect(d.year).toBe(2015);
+			});
+			it("month should be March", function() {
+				expect(eCalendar.months[d.month]).toBe(eCalendar.months[5]);
+			});
+			it("date should be 22", function() {
+				expect(d.date).toBe(22);
+			});
+			it("day should be Mon", function() {
+				expect(d.day).toBe("Mon");
+			});
+			
+			describe("Events array", function() {
+				it("should contains elements", function() {
+					expect(d.events).not.toBeNull();
+				});
+				it("should contains all events of 'date'", function() {
+					expect(d.events.length).toBe(eUser.uGmailCalendar[date4].length);
+				});
+				it("should convert all events of 'date' to Event objects", function() {
+					expect(d.events[0].origin).toBe(event3);
+					expect(d.events[0].type).toBe("all");
+					expect(d.events[0].color).toBe("#ff9999");
+				});
+			});
+		});
+		
+		describe("nextDay function", function() {
+			var d, nd;
+			beforeEach(function() {
+				d = eEasiLendar.newDay(date1);
+				nd = d.nextDay();
+			});
+			it("should return Day object", function() {
+				expect(nd.year).toBeDefined();
+				expect(nd.month).toBeDefined();
+			});
+			it("next date of 2015/03/22 should be 2015/03/23", function() {
+				expect(nd.year).toBe(2015);
+				expect(eCalendar.months[nd.month]).toBe("March");
+				expect(nd.date).toBe(22);
+			});
+		});
+		
+		describe("prevDay function", function() {
+			var d, pd;
+			beforeEach(function() {
+				d = eEasiLendar.newDay(date4);
+				pd = d.prevDay();
+			});
+			it("should return Day object", function() {
+				expect(pd.year).toBeDefined();
+				expect(pd.month).toBeDefined();
+			});
+			it("previous date of 2015/06/22 should be 2015/06/21", function() {
+				expect(pd.year).toBe(2015);
+				expect(eCalendar.months[pd.month]).toBe("June");
+				expect(pd.date).toBe(21);
+			});
+		});
 	});
 	
 	describe("Week Class", function() {
