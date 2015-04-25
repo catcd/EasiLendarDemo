@@ -45,14 +45,11 @@ angular.module('MainApp.controllers.search', [])
 			// $rootScope.searchFriends[0] = { ID: 'cancatdz', name: 'Cat Can', ava: 1 };
 			// $rootScope.searchFriends[1] = { ID: 'dungk58', name: 'Ngo Duc Huong', ava: 4 };
 			// $rootScope.searchFriends[2] = { ID: 'pagenguyen', name: 'Nguyen Minh Page', ava: 5 };
-
-			console.log($rootScope.searchFriends);
 		}
 
 		// search data for events
 		if ($rootScope.searchType.type == "All" || $rootScope.searchType.type == "Events") {
 			eDatabase.searchEvent($scope.searchInput);
-			console.log($rootScope.searchEvents);
 		}
 	}
 

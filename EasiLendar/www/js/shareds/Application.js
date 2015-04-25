@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 22/04/2015
+ * last update: 25/04/2015
  * type: module all shared variables and functions used for this app
  */
 
@@ -21,8 +21,8 @@ angular.module('MainApp.shareds.application', [])
 
 		mFrom: 0,		/*Time to start searching: Minute(s) from 24:00am*/
 		mTo: 0,			/*Time to end searching: Minute(s) from 24:00am*/
-		mFromDay: '',	/*Day to start searching: format: ddmmyy*/
-		mToDay: '',		/*Day to end searching: format: ddmmyy*/
+		mFromDay: null,	/*Day to start searching: format: ddmmyy*/
+		mToDay: null,		/*Day to end searching: format: ddmmyy*/
 
 		mBreakfast: null,	/*Avoid/Prioritize*/
 		mLunch: null,		/*avoid = true;*/
@@ -37,8 +37,8 @@ angular.module('MainApp.shareds.application', [])
 
 			this.mFrom = 0;
 			this.mTo = 0;
-			this.mFromDay = '';
-			this.mToDay = '';
+			this.mFromDay = null;
+			this.mToDay = null;
 
 			this.mBreakfast = null;
 			this.mLunch = null;
@@ -112,13 +112,15 @@ angular.module('MainApp.shareds.application', [])
 		uPassword: '',		/*8-16 characters*/
 		uRemember: false,	/*remember me*/
 		uFriend: [],		/*array of objects { id, name }*/
-		uVIP : 0,
+		uVIP : false,
 		isLogin: false,
 
 		uRequested: [],
 
 		uGmailCalendar: null,	/*Google API JSON	Calendar*/
 		uLocalCalendar: null,	/*Google API JSON	Calendar*/
+		uFaceCalendar: null,	/*Google API JSON	Calendar*/
+		uOutlookCalendar: null,	/*Google API JSON	Calendar*/
 
 		uFRequest: {},	/*List of requests*/
 		uFAccepted: {},	/*List of requests accepted*/
@@ -133,7 +135,7 @@ angular.module('MainApp.shareds.application', [])
 			this.uPassword = '';
 			this.uRemember = false;
 			this.uFriend = [];
-			this.uVIP  = 0;
+			this.uVIP  = false;
 			this.isLogin = false;
 
 			this.uRequested = [];
@@ -177,7 +179,7 @@ angular.module('MainApp.shareds.application', [])
 	return {
 		fName: '',		/*UTF-8*/
 		fAvatar: 0,		/*avatar index from 0 to 8*/
-		fVIP: 0,		/*VIP or not*/
+		fVIP: false,		/*VIP or not*/
 		fID: '',
 		fInfor: null,
 		fFriend: {},
@@ -187,7 +189,7 @@ angular.module('MainApp.shareds.application', [])
 		resetData: function(){
 			this.fName = '';
 			this.fAvatar = 0;
-			this.fVIP = 0;
+			this.fVIP = false;
 			this.fID = '';
 			this.fInfor = null;
 			this.fFriend = {};
@@ -393,13 +395,13 @@ angular.module('MainApp.shareds.application', [])
 		// return 5: 17: 00 pm to 19: 59 pm + 20 pts
 		// return 6: 20: 00 pm to 12: 00 am + 15 pts
 			switch (mHour) {
-				case 0: case 1: case 2: case 3: case 4: case 5: return 0;
 				case 6: case 7: return 15;
 				case 8: case 9: case 10: return 30;
 				case 11: case 12: case 13: return 20;
 				case 14: case 15: case 16: return 50;
 				case 17: case 18: case 19: return 20;
 				case 20: case 21: case 22: case 23: return 15;
+				default: return 0;
 			};
 		}
 	};
@@ -466,101 +468,4 @@ angular.module('MainApp.shareds.application', [])
 			return (eUser.uRequested[ID] !== undefined);
 		}
 	};
-})
-
-// some functions that are initialized from start
-.run(function($rootScope, $ionicPopup, $timeout, $state, $ionicPlatform, $ionicHistory, toastr, toastrConfig, eSettings) {
-	// inject services
-	var eSettings = eSettings;
-
-	// Variable for save current state
-	$rootScope.currentState = "loading";
-
-	/**
-	 * All .run functions
-	 */
-	$rootScope.showChoice = function(mtitle, url, msub) {
-		var confirmPopup = $ionicPopup.show({
-			title: mtitle,
-			subTitle: msub,
-			templateUrl: url
-		});
-		$rootScope.closePopup = function() {
-			$timeout(function() {
-				confirmPopup.close();
-			}, 100);
-		};
-	}
-	$rootScope.showAlert = function(mtitle, url, msub) {
-		var confirmPopup = $ionicPopup.alert({
-			title: mtitle,
-			subTitle: msub,
-			templateUrl: url
-		});
-		$rootScope.closePopup = function() {
-			$timeout(function() {
-				confirmPopup.close();
-			}, 100);
-		};
-	}
-
-	// press again to exit
-	$ionicPlatform.registerBackButtonAction(function(e) {
-		if ($rootScope.currentState == 'form'
-		|| $rootScope.currentState == 'month'
-		|| $rootScope.currentState == 'week'
-		|| $rootScope.currentState == 'day'
-		|| $rootScope.currentState == 'list') {
-			if ($rootScope.backButtonPressedOnceToExit) {
-				navigator.app.exitApp();
-			} else {
-				$rootScope.backButtonPressedOnceToExit = true;
-
-				// toast
-				$rootScope.toastSuccess('Press Back again to exit.', 2000);
-
-				setTimeout(function() {
-					$rootScope.backButtonPressedOnceToExit = false;
-				}, 2000);
-			}
-			e.preventDefault();
-		}
-		return false;
-	}, 101);
-
-	// exit app function
-	// confirm and exit app
-	// only on the mobile or tablet device
-	$rootScope.exitEasi = function() {
-		var confirmPopup = $ionicPopup.confirm({
-			title: "Exit confirm",
-			subTitle: "Are you sure?"
-		});
-		confirmPopup.then(function(res) {
-			if (res) {
-				navigator.app.exitApp();
-			} else {
-				// TODO cancel
-			}
-		});
-	}
-
-	// go home function
-	$rootScope.goHome = function() {
-		$rootScope.goToState(eSettings.sDefaultView);
-	}
-
-	// go to any state
-	$rootScope.goToState = function(state) {
-		// delete stack history
-		// push new page to the top of the stack
-		// disable all animation
-		$ionicHistory.nextViewOptions({
-			historyRoot: true,
-			disableAnimate: true,
-			expire: 300
-		});
-		$state.go(state);
-		$rootScope.currentState = state;
-	}
 })

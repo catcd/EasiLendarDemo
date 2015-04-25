@@ -1,13 +1,13 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 14/04/2015
+ * last update: 25/04/2015
  * type: popover controller
  */
 
 angular.module('MainApp.controllers.popover', [])
 
-.controller('PopOverController', function($rootScope, $scope, $ionicPopover, $ionicActionSheet, $timeout, eDatabase) {
+.controller('PopOverController', function($rootScope, $scope, $ionicPopover, $ionicActionSheet, eDatabase) {
 	// inject services
 	var eDatabase = eDatabase;
 
@@ -25,7 +25,9 @@ angular.module('MainApp.controllers.popover', [])
 	 * popover function
 	 */
 	$scope.tabActive = function(tabName) {
-		$scope.mPopoverActive = tabName;
+		if (tabName == "friend" || tabName == "request" || tabName == "respond") {
+			$scope.mPopoverActive = tabName;
+		}
 	};
 
 	// function for gesture
@@ -41,16 +43,18 @@ angular.module('MainApp.controllers.popover', [])
 	$scope.nextLeftNoti = function() {
 		if ($scope.mPopoverActive == "friend") {
 			$scope.tabActive("respond");
-		} else if ($scope.mPopoverActive == "request") {
-			$scope.tabActive("friend");
-		} else {
+		} else if ($scope.mPopoverActive == "respond") {
 			$scope.tabActive("request");
+		} else {
+			$scope.tabActive("friend");
 		}
 	};
 
 	/**
 	 * friend popover
 	 */
+	var template = "";
+
 	$scope.friendPopover = $ionicPopover.fromTemplate(template, {
 		scope: $scope,
 	});
@@ -111,11 +115,6 @@ angular.module('MainApp.controllers.popover', [])
 				return true;
 			}
 		});
-
-		// hide the sheet after fifteen seconds
-		$timeout(function() {
-			friendSheet();
-		}, 15000);
 	};
 
 	// Request action sheet
@@ -152,11 +151,6 @@ angular.module('MainApp.controllers.popover', [])
 				return true;
 			}
 		});
-
-		// hide the sheet after fifteen seconds
-		$timeout(function() {
-			requestSheet();
-		}, 15000);
 	};
 
 	/**

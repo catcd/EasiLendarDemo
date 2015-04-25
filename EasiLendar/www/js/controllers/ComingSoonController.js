@@ -1,13 +1,13 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 21/04/2015
+ * last update: 25/04/2015
  * type: coming soon controller
  */
 
 angular.module('MainApp.controllers.comingSoon', [])
 
-.controller("ComingSoonController", function($scope, $ionicPopup, $timeout) {
+.controller("ComingSoonController", function($scope, $ionicPopup) {
 	$scope.confirm = function(mail) {
 		// check email
 		if (mail) {
@@ -16,7 +16,7 @@ angular.module('MainApp.controllers.comingSoon', [])
 				title: 'Thanks for your observation!',
 				template: "We are sending information to " + mail + " as soon as possible!"
 			});
-			$timeout(function() {
+			setTimeout(function() {
 				confirm.close();
 			}, 5000);
 		} else {
@@ -25,10 +25,9 @@ angular.module('MainApp.controllers.comingSoon', [])
 				title: 'Oop! Something is wrong!',
 				template: "Your input email is uncorrect. Please try again!"
 			});
-			$timeout(function() {
+			setTimeout(function() {
 				confirm.close();
 			}, 5000);
-
 		}
 	}
 })

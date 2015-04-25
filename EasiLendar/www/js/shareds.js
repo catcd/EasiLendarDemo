@@ -1,8 +1,8 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 29/03/2015
- * type: all shared module 
+ * last update: 25/04/2015
+ * type: all shared module
  */
 
 angular.module('MainApp.shareds', [
@@ -12,6 +12,7 @@ angular.module('MainApp.shareds', [
 	'MainApp.shareds.directive',
 	'MainApp.shareds.easiLendarClass',
 	'MainApp.shareds.multiCalendar',
+	'MainApp.shareds.run',
 	'MainApp.shareds.sync',
 	'MainApp.shareds.timeHeap'
 ])
