@@ -1,9 +1,9 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 21/04/2015
+ * last update: 25/04/2015
  * type: test for functions use for calendar
- * test: 38
+ * test: 49
  */
 
 describe('Calendar service test', function() {
@@ -68,27 +68,44 @@ describe('Calendar service test', function() {
 	});
 
 	describe('Test daysOfMonth', function() {
-
+		// invalid month
+		// bigger than 12
 		it('should return 0 if month is 13/2015', function() {
 			var days = eCalendar.daysOfMonth(13, 2015);
 
 			expect(days).toEqual(0);
 		});
 
+		// zero month
 		it('should return 0 if month is 0/2015', function() {
 			var days = eCalendar.daysOfMonth(0, 2015);
 
 			expect(days).toEqual(0);
 		});
 
+		// negative month
 		it('should return 0 if month is -5/2015', function() {
 			var days = eCalendar.daysOfMonth(-5, 2015);
 
 			expect(days).toEqual(0);
 		});
 
+		// all 31-days month
+		// random year
 		it('should return 31 if month is 01/2015', function() {
 			var days = eCalendar.daysOfMonth(1, 2015);
+
+			expect(days).toEqual(31);
+		});
+
+		it('should return 31 if month is 03/1015', function() {
+			var days = eCalendar.daysOfMonth(3, 1015);
+
+			expect(days).toEqual(31);
+		});
+
+		it('should return 31 if month is 05/2010', function() {
+			var days = eCalendar.daysOfMonth(5, 2010);
 
 			expect(days).toEqual(31);
 		});
@@ -99,19 +116,39 @@ describe('Calendar service test', function() {
 			expect(days).toEqual(31);
 		});
 
-		it('should return 31 if month is 12/2017', function() {
-			var days = eCalendar.daysOfMonth(12, 2017);
+		it('should return 31 if month is 08/2016', function() {
+			var days = eCalendar.daysOfMonth(8, 2016);
 
 			expect(days).toEqual(31);
 		});
 
-		it('should return 30 if month is 09/1995', function() {
+		it('should return 31 if month is 10/2017', function() {
+			var days = eCalendar.daysOfMonth(10, 2017);
+
+			expect(days).toEqual(31);
+		});
+
+		it('should return 31 if month is 12/2222', function() {
+			var days = eCalendar.daysOfMonth(12, 2222);
+
+			expect(days).toEqual(31);
+		});
+
+		// all 30-days month
+		// random year
+		it('should return 30 if month is 04/1995', function() {
+			var days = eCalendar.daysOfMonth(4, 1995);
+
+			expect(days).toEqual(30);
+		});
+
+		it('should return 30 if month is 06/1995', function() {
 			var days = eCalendar.daysOfMonth(9, 1995);
 
 			expect(days).toEqual(30);
 		});
 
-		it('should return 30 if month is 06/2115', function() {
+		it('should return 30 if month is 09/2115', function() {
 			var days = eCalendar.daysOfMonth(6, 2115);
 
 			expect(days).toEqual(30);
@@ -123,6 +160,8 @@ describe('Calendar service test', function() {
 			expect(days).toEqual(30);
 		});
 
+		// test February
+		// leap year
 		it('should return 29 if month is 02/2016', function() {
 			var days = eCalendar.daysOfMonth(2, 2016);
 
@@ -141,6 +180,7 @@ describe('Calendar service test', function() {
 			expect(days).toEqual(29);
 		});
 
+		// normal year
 		it('should return 28 if month is 02/001', function() {
 			var days = eCalendar.daysOfMonth(2, 1);
 
@@ -162,28 +202,56 @@ describe('Calendar service test', function() {
 
 	describe('Test tomorrow', function() {
 
-		it('today is 01/01/2015 should return tommorow is 02/01/2015', function() {
+		// first day to second day
+		it('first day to second day today is 01/01/2015 should return tommorow is 02/01/2015', function() {
 			var today = new Date(2015, 0, 1);
 			var tomorrow = eCalendar.tomorrow(today);
 
 			expect(tomorrow).toEqual(new Date(2015, 0, 2));
 		});
 
-		it('today is 31/12/2015 should return tommorow is 01/01/2015', function() {
+		// next year
+		it('next year today is 31/12/2015 should return tommorow is 01/01/2016', function() {
 			var today = new Date(2015, 11, 31);
 			var tomorrow = eCalendar.tomorrow(today);
 
 			expect(tomorrow).toEqual(new Date(2016, 0, 1));
 		});
 
-		it('today is 14/09/2015 should return tommorow is 15/09/2015', function() {
+		// next month
+		it('next month today is 31/01/2015 should return tommorow is 01/02/2015', function() {
+			var today = new Date(2015, 0, 31);
+			var tomorrow = eCalendar.tomorrow(today);
+
+			expect(tomorrow).toEqual(new Date(2015, 1, 1));
+		});
+
+		// next month 28/2 leap year
+		it('next month 28/2 leap year today is 28/02/2016 should return tommorow is 29/02/2016', function() {
+			var today = new Date(2016, 1, 28);
+			var tomorrow = eCalendar.tomorrow(today);
+
+			expect(tomorrow).toEqual(new Date(2016, 1, 29));
+		});
+
+		// next month 28/2 normal year
+		it('next month 28/2 normal year today is 28/02/2013 should return tommorow is 01/03/2013', function() {
+			var today = new Date(2013, 1, 28);
+			var tomorrow = eCalendar.tomorrow(today);
+
+			expect(tomorrow).toEqual(new Date(2013, 2, 1));
+		});
+
+		// normal
+		it('normal day today is 14/09/2015 should return tommorow is 15/09/2015', function() {
 			var today = new Date(2015, 8, 14);
 			var tomorrow = eCalendar.tomorrow(today);
 
 			expect(tomorrow).toEqual(new Date(2015, 8, 15));
 		});
 
-		it('today is 14:00 14/09/2015 should return tommorow is 14:00 15/09/2015', function() {
+		// with time
+		it('with time today is 14:00 14/09/2015 should return tommorow is 14:00 15/09/2015', function() {
 			var today = new Date(2015, 8, 14, 14);
 			var tomorrow = eCalendar.tomorrow(today);
 
@@ -193,28 +261,56 @@ describe('Calendar service test', function() {
 
 	describe('Test yesterday', function() {
 
-		it('today is 01/01/2015 should return yesterday is 31/12/2014', function() {
+		// previous year
+		it('previous year today is 01/01/2015 should return yesterday is 31/12/2014', function() {
 			var today = new Date(2015, 0, 1);
 			var yesterday = eCalendar.yesterday(today);
 
 			expect(yesterday).toEqual(new Date(2014, 11, 31));
 		});
 
-		it('today is 31/12/2015 should return yesterday is 30/12/2014', function() {
+		// last day to the pre-last day
+		it('last day to the pre-last day today is 31/12/2015 should return yesterday is 30/12/2015', function() {
 			var today = new Date(2015, 11, 31);
 			var yesterday = eCalendar.yesterday(today);
 
 			expect(yesterday).toEqual(new Date(2015, 11, 30));
 		});
 
-		it('today is 14/09/2015 should return yesterday is 13/09/2014', function() {
+		// previous month
+		it('previous month today is 01/05/2015 should return yesterday is 30/04/2015', function() {
+			var today = new Date(2015, 4, 1);
+			var yesterday = eCalendar.yesterday(today);
+
+			expect(yesterday).toEqual(new Date(2015, 3, 30));
+		});
+
+		// previous month 1/3 leap year
+		it('previous month 1/3 leap year today is 01/03/2016 should return yesterday is 29/02/2016', function() {
+			var today = new Date(2016, 2, 1);
+			var yesterday = eCalendar.yesterday(today);
+
+			expect(yesterday).toEqual(new Date(2016, 1, 29));
+		});
+
+		// previous month 1/3 normal year
+		it('previous month 1/3 normal year today is 01/03/2014 should return yesterday is 28/02/2014', function() {
+			var today = new Date(2014, 2, 1);
+			var yesterday = eCalendar.yesterday(today);
+
+			expect(yesterday).toEqual(new Date(2014, 1, 28));
+		});
+
+		// normal
+		it('normal day today is 14/09/2015 should return yesterday is 13/09/2015', function() {
 			var today = new Date(2015, 8, 14);
 			var yesterday = eCalendar.yesterday(today);
 
 			expect(yesterday).toEqual(new Date(2015, 8, 13));
 		});
 
-		it('today is 14:00 14/09/2015 should return yesterday is 14:00 13/09/2014', function() {
+		// with time
+		it('with time today is 14:00 14/09/2015 should return yesterday is 14:00 13/09/2015', function() {
 			var today = new Date(2015, 8, 14, 14);
 			var yesterday = eCalendar.yesterday(today);
 
