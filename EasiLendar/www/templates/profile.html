@@ -20,10 +20,10 @@
 		<div id= "end-cover">
 			<div id="inform">view:525</div>
 				<div id="list-icon">
-					<button class="button button-icon icon ion-email easi-light-gray"></button>
-					<button class="button button-icon icon ion-coffee easi-light-gray" ui-sref="searchFilter" menu-close></button>
-					<button data-ng-click ="deleteFriend(eFriend.fID)" data-ng-show="isFriend(eFriend.fID)" class="button button-icon icon ion-close-round easi-light-gray"></button>
-					<button data-ng-click="addNewFriend(eFriend.fID)" data-ng-show="notFriend(eFriend.fID)"class="button button-icon icon ion-person-add easi-light-gray"></button>
+					<button style ="margin-top:7px;"class="button button-icon icon ion-email easi-light-gray"></button>
+					<button style ="margin-top:3px;"class="button button-icon icon ion-coffee easi-light-gray" ui-sref="searchFilter" menu-close></button>
+					<button style ="margin-top:3px;"data-ng-click ="deleteFriend(eFriend.fID)" data-ng-show="isFriend(eFriend.fID)" class="button button-icon icon ion-person easi-light-gray"></button>
+					<button style ="margin-top:3px;"data-ng-click="addNewFriend(eFriend.fID)" data-ng-show="notFriend(eFriend.fID)"class="button button-icon icon ion-person-add easi-light-gray"></button>
 				</div>
 			</div>
 				<div style="margin-top: 30px" id="div-log-in">
@@ -44,7 +44,7 @@
 		<section ng-controller="ProfileController as tab">
 		<div class="tabs-striped tab-fix tabs-color-blue">
 			<div class="tabs">
-				<a class="tab-item active" href="" ng-class="{ active:tab.isSet(1) }" ng-click="tab.setTab(1)"><p class="fontOfTab">	Calendar	</p></a>
+				<a class="tab-item active" nav-direction="forward"  href="" ng-class="{ active:tab.isSet(1) }" ng-click="tab.setTab(1)"><p class="fontOfTab">	Calendar	</p></a>
 				<a class="tab-item" href="" ng-class="{ active:tab.isSet(2) }" ng-click="tab.setTab(2)"><p class="fontOfTab">	Information	</p></a>
 				<a class="tab-item" href="" ng-class="{ active:tab.isSet(3) }" ng-click="tab.setTab(3)"><p class="fontOfTab">	Friends		</p></a>
 				<a class="tab-item" href="" ng-class="{ active:tab.isSet(4) }" ng-click="tab.setTab(4)"><p class="fontOfTab">	Attention	</p></a>		 	
@@ -62,14 +62,14 @@
             <div id="information">
 				<div id="information-tab">
 					<ul class="nav nav-pills">
-						<p ng-class="{ active:tab.isSet(7) }">
-						<blockquote>  <p href="" ng-click="tab.setTab(7)">Survey</p></blockquote>
+						<p ng-class="">
+						<blockquote>  <submit href="" ng-click="">Survey</submit></blockquote>
 						</p>
-						<p class="tab-item active" ng-class="{ active:tab.isSet(5) }">
-						  <p href="" ng-click="tab.setTab(5)">Basic information</p>
+						<p class="" ng-class="">
+						  <a href="" ng-click="">Basic information</a>
 						</p>
-						<p ng-class="{ active:tab.isSet(6) }">
-						  <p href="" ng-click="tab.setTab(6)">Contact</p>
+						<p ng-class="">
+						  <p href="" ng-click="">Contact</p>
 						</p>
 					</ul>
 				</div>
@@ -81,10 +81,11 @@
 			</div>
 		</div>
 		<div class ="showtab" ng-show="tab.isSet(3)">
-			<div id="friends" data-ng-repeat="friend in friends" >	
+			<a  class="item friends" data-ng-repeat="friend in friends" >	
 				<img id="friend-avatar" data-ng-src="img/ava{{friend.image}}.png">
 				<div id="friend-name">{{friend.name}}</div> 
-			</div>
+		
+			</a>
           </div>
 		  <div class ="showtab" ng-show="tab.isSet(4)">
            <button class="button button-icon icon ion-coffee " menu-close></button>

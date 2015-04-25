@@ -7,7 +7,7 @@
 
 var profile = angular.module('MainApp.controllers.profile', [])
 
-profile.controller("ProfileController", function($scope, $ionicPopup, $rootScope) {
+profile.controller("ProfileController", function($scope, $ionicPopup, $rootScope,eFriend,eEasiLendar,eCheckFriend,eDatabase,eToast) {
 	
 	this.tab = 1;
 
@@ -18,10 +18,10 @@ profile.controller("ProfileController", function($scope, $ionicPopup, $rootScope
     this.isSet = function(tabName){
       return this.tab === tabName;
     };
-	$scope.weekCalendar = $rootScope.newWeekCalendar();
-	$scope.weekCalendar.setNavDays();
+	$scope.weekCalendar = eEasiLendar.newWeekCalendar();
+	//$scope.weekCalendar.setNavDays();
 	$scope.$watch('eFriend.fMultiCal', function() {
-		$scope.weekCalendar = $rootScope.newWeekCalendar();
+		$scope.weekCalendar = eEasiLendar.newWeekCalendar();
 		$scope.weekCalendar.setNavDays();
 	});
 	$scope.friends=[
@@ -32,19 +32,21 @@ profile.controller("ProfileController", function($scope, $ionicPopup, $rootScope
 	];
 	$scope.notCalendar='This calendar is private. Please, add friend to view.';
 	$scope.calendarOfFriend = function(){
-		if($rootScope.eFriend.fMultiCal==null)
+		if(eFriend.fMultiCal==null)
 			return true;
+		else return false;
 		};
 	$scope.notFriend = function(id){
-	if($rootScope.isFriend(id)==false){return true;}}
+	if(eCheckFriend.isFriend(id)==false){return true;}
+	}
 	$scope.deleteFriend = function(id) {
 		var confirmPopup = $ionicPopup.confirm({
 			title: 'Are you sure ?'
 		});
 		confirmPopup.then(function(res) {
 			if(res) {
-				$rootScope.deleteF(id);
-				$rootScope.toastSuccess(' Deleting.', 2000);
+				eDatabase.deleteF(id);
+				eToast.toastSuccess(' Deleting.', 2000);
 			}
 		});
 	}
@@ -54,8 +56,8 @@ profile.controller("ProfileController", function($scope, $ionicPopup, $rootScope
 		});
 		confirmPopup.then(function(res) {
 			if(res) {
-				$rootScope.request(id);
-				$rootScope.toastSuccess('Sending request.', 2000);
+				eDatabase.request(id);
+				eToast.toastSuccess('Sending request.', 2000);
 			}
 		});
 	}

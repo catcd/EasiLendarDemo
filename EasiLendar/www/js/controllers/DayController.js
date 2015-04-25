@@ -7,11 +7,14 @@
 
 angular.module('MainApp.controllers.day', [])
 
-.controller("DayController", function($scope, $rootScope) {
+.controller("DayController", function($scope, $rootScope,eSettings,eCalendar,eEasiLendar,eUser) {
+$scope.eUser = eUser;
+	$scope.eCalendar = eCalendar;
+
 $scope.$watch('eSettings.sFirstDay', function() {
-	var start = $rootScope.eSettings.sFirstDay.slice(0,3);});
+	var start = eSettings.sFirstDay;});
 	
-	var start = $rootScope.eSettings.sFirstDay.slice(0,3);
+	var start = eSettings.sFirstDay;
 	var toDay = new Date();
 	toDay = new Date(toDay.getFullYear(), toDay.getMonth(), toDay.getDate(),0,0,0,0);
 	$scope.indexOfToday = toDay.toString();
@@ -20,7 +23,7 @@ $scope.$watch('eSettings.sFirstDay', function() {
 	$scope.NavDay = angular.copy(curDate);
 	$scope.NavDay = new Date($scope.NavDay.getFullYear(), $scope.NavDay.getMonth(), $scope.NavDay.getDate(),0,0,0,0);
 	$scope.indexofNavDay = $scope.NavDay.toString();
-	var Day = $rootScope.newDay($scope.NavDay);
+	var Day = eEasiLendar.newDay($scope.NavDay);
 
 	$scope.NavDay = new Date(Day.year, Day.month, Day.date,0,0,0,0);
 	$scope.indexOfNavDay = $scope.NavDay.toString();
@@ -29,7 +32,7 @@ $scope.$watch('eSettings.sFirstDay', function() {
 	$scope.navDay = Day.day;
 	//navigation Month
 	$scope.navMonthNumber = Day.month;
-	$scope.navMonthName = $rootScope.months[$scope.navMonthNumber];
+	$scope.navMonthName = eCalendar.months[$scope.navMonthNumber];
 	
 	//navigation Year
 	$scope.navYear = Day.year;
@@ -44,56 +47,58 @@ $scope.$watch('eSettings.sFirstDay', function() {
     };
 	var setNavMonth = function(month1, month2) {
 			if (month1 == month2) {
-				return $rootScope.months[month1];
+				return eCalendar.months[month1];
 			} else {
-				return $rootScope.months[month1] + "-" + $rootScope.months[month2];
+				return eCalendar.months[month1] + "-" + eCalendar.months[month2];
 			}
 		};
 	
-	var pos,sub,add,posOfDay;
 	
-	switch(start){	case "Mon":	pos = 6;
-					case "Sat":	pos = 1;
-					case "Sun":	pos = 0;
+	$scope.FirstLastDay = function(day){
+	var pos,sub,add,posOfDay;
+		switch(start){	case "Monday":	pos = 6;
+					case "Saturday":	pos = 1;
+					case "Sunday":	pos = 0;
 				};
-	for(var i=0; i<7;i++){
-		if(Day.day == $rootScope.weekDays[i])
-		{posOfDay = i; break;}
-	}
-	sub = (posOfDay +pos)%7;
-	add = 7-sub;
-	for(var i=0; i<sub;i++){Day = Day.prevDay();}
-	$scope.firstDay = Day;
-	$scope.FirstDayWeek = $scope.firstDay.date;
-	for(var i=0; i<6; i++){Day = Day.nextDay();}
-	$scope.lastDay = angular.copy(Day);
-	$scope.LastDayWeek = $scope.lastDay.date;
-	for(var i=0; i<add; i++){Day = Day.prevDay();}
-	$scope.navShortMonth = setNavMonth($scope.firstDay.month, $scope.lastDay.month);
+		var FirstLastDay =[];
+		for(var i=0; i<7;i++){
+			if(Day.day == eCalendar.weekDays[i])
+			{posOfDay = i; break;}
+		}
+		sub = (posOfDay +pos)%7;
+		add = 7-sub;
+		for(var i=0; i<sub;i++){day = day.prevDay();}
+		FirstLastDay[0] = day;
+		for(var i=0; i<6; i++){day = day.nextDay();}
+		FirstLastDay[1] =angular.copy(day);
+		for(var i=0; i<add; i++){day = day.prevDay();}
+		
+		return FirstLastDay;
+	};
+	
+	var week= $scope.FirstLastDay(Day);
+	$scope.FirstDayWeek=week[0].date;
+	$scope.LastDayWeek=week[1].date;
+	$scope.navShortMonth = setNavMonth(week[0].month, week[1].month);
+	
 	// nextDay function
 	$scope.NextDay = function(){
 		Day =Day.nextDay();
-		//Day = Day.nextDay();
 		$scope.navDate = Day.date;
 		$scope.navDay = Day.day;
 		//navigation Month
 		$scope.navMonthNumber = Day.month;
-		$scope.navMonthName = $rootScope.months[$scope.navMonthNumber];
+		$scope.navMonthName =eCalendar.months[$scope.navMonthNumber];
 		//navigation Year
 		$scope.navYear = Day.year;
 		$scope.NavDay = new Date(Day.year, Day.month, Day.date,0,0,0,0);
 		$scope.indexOfNavDay = $scope.NavDay.toString();
-
-		if(Day.date > $scope.LastDayWeek && Day.month >= $scope.lastDay.month){
-			$scope.firstDay = Day;
-			$scope.FirstDayWeek = $scope.firstDay.date;
-			for(var i=0;i<7; i++){
-				$scope.lastDay = $scope.lastDay.nextDay();
-				}
-			$scope.LastDayWeek = $scope.lastDay.date;
-			$scope.navShortMonth = setNavMonth($scope.firstDay.month, $scope.lastDay.month);
-		}
+		week =  $scope.FirstLastDay(Day);
+		$scope.FirstDayWeek=week[0].date;
+		$scope.LastDayWeek=week[1].date;
+		$scope.navShortMonth = setNavMonth(week[0].month, week[1].month);
 	};
+		
 	//previous day function
 	$scope.previousDay = function(){
 		Day = Day.prevDay();
@@ -101,20 +106,15 @@ $scope.$watch('eSettings.sFirstDay', function() {
 		$scope.navDay = Day.day;
 		//navigation Month
 		$scope.navMonthNumber = Day.month;
-		$scope.navMonthName = $rootScope.months[$scope.navMonthNumber];
+		$scope.navMonthName = eCalendar.months[$scope.navMonthNumber];
 		//navigation Year
 		$scope.navYear = Day.year;
 		$scope.NavDay = new Date(Day.year, Day.month, Day.date,0,0,0,0);
 		$scope.indexOfNavDay = $scope.NavDay.toString();
-		if(Day.date < $scope.FirstDayWeek && Day.month <= $scope.firstDay.month){
-			$scope.lastDay = Day;
-			$scope.LastDayWeek = $scope.lastDay.date;
-			for(var i=0; i<7; i++){
-				$scope.firstDay = $scope.firstDay.prevDay();
-				}
-			$scope.FirstDayWeek = $scope.firstDay.date;	
-			$scope.navShortMonth = setNavMonth($scope.firstDay.month, $scope.lastDay.month);
-		}
+		week =  $scope.FirstLastDay(Day);
+		$scope.FirstDayWeek=week[0].date;
+		$scope.LastDayWeek=week[1].date;
+		$scope.navShortMonth = setNavMonth(week[0].month, week[1].month);
 	};
 });
 
