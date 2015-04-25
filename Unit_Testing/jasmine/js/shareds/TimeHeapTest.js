@@ -3,7 +3,7 @@
  * owner: Ngo Duc Dung
  * last update: 24/04/2015
  * type: TimeHeap object, Time Node object
- * number of tests: 73
+ * number of tests: 74
  */
 
 /** Test for:
