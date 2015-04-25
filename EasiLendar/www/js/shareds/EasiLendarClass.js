@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 21/04/2015
+ * last update: 25/04/2015
  * type: All common class for EasiLendar App
  * base on: javascript, Google Calendar API
  */
@@ -164,10 +164,10 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 	 */
 	function Day(date) {
 		// convert time
-		this.year = date.getFullYear();
-		this.month = date.getMonth();	// 0 - 11
-		this.date = date.getDate();	// 1 - 31
-		this.day = eCalendar.weekDays[(date.getDay() + 6) % 7]; // Mon - Sun
+		this.year = (date != undefined)?date.getFullYear():null;
+		this.month = (date != undefined)?date.getMonth():null;	// 0 - 11
+		this.date = (date != undefined)?date.getDate():null;	// 1 - 31
+		this.day = (date != undefined)?eCalendar.weekDays[(date.getDay() + 6) % 7]:null; // Mon - Sun
 
 		/*
 		 * PRIVATE
@@ -189,6 +189,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 			if (calendar[date] == null) return null;
 			
 			var events = [];
+			// convert event to Event object
 			for (var i=0; i < calendar[date].length; i++) {
 				events[i] = new Event(calendar[date][i]);
 			}
@@ -196,24 +197,28 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 		};
 		
 		// array of Object Event in this day
-		this.events = setEvents();
+		this.events = (date != undefined)?setEvents():null;
 
 		/* return the next day of this day */
 		this.nextDay = function() {
-			var date = this.date + 1;
-			var month = this.month;
-			var year = this.year;
-			// return the next day
-			return new Day(new Date(year, month, date));
+			if (this.date != null) {
+				var date = this.date + 1;
+				var month = this.month;
+				var year = this.year;
+				// return the next day
+				return new Day(new Date(year, month, date));
+			} else return null;
 		};
 		
 		/* return the previous day of this day */
 		this.prevDay = function() {
-			var date = this.date - 1;
-			var month = this.month;
-			var year = this.year;
-			// return the previous day
-			return new Day(new Date(year, month, date));
+			if (this.date != null) {
+				var date = this.date - 1;
+				var month = this.month;
+				var year = this.year;
+				// return the previous day
+				return new Day(new Date(year, month, date));
+			} else return null;
 		};
 		
 		/* convert to object Date */
