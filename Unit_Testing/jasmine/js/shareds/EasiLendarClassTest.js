@@ -1,38 +1,37 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 25/04/2015
+ * last update: 26/04/2015
  * type: unit test
  * base on: javascript, Google Calendar API
  */
-
-var app = angular.module("MainApp.shareds.application", [])
-.factory("eUser", function() {
-	return {
-		uGmailCalendar: null,
-	};
-})
-.factory("eFriend", function() {
-	return {
-		fMultiCal: null,
-	}
-})
-.factory("eSettings", function() {
-	return {
-		sFirstDay: "Mon",
-	}
-})
-.factory("$rootScope", function() {
-	return {
-		currentState: "week",
-	};
-});
-
+ 
 describe('EasiLendar Classes Test', function() {
 	var eEasiLendar, eCalendar, eUser, eSettings, eFriend;
+	angular.module("applicationMock", [])
+	.factory("eUser", function() {
+		return {
+			uGmailCalendar: null,
+		};
+	})
+	.factory("eFriend", function() {
+		return {
+			fMultiCal: null,
+		}
+	})
+	.factory("eSettings", function() {
+		return {
+			sFirstDay: "Mon",
+		}
+	})
+	.factory("$rootScope", function() {
+		return {
+			currentState: "week",
+		};
+	});
 	beforeEach(function() {
 		module('MainApp.shareds.calendar');
-		module('MainApp.shareds.application');
+		module('applicationMock');
 		module('MainApp.shareds.easiLendarClass');
 		var $rootScope = {currentState: "week"};
 		inject(function(_eEasiLendar_, _eCalendar_, _eUser_, _eFriend_, _eSettings_, _$rootScope_) {
