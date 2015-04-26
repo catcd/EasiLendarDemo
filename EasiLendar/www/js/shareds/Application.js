@@ -424,6 +424,9 @@ angular.module('MainApp.shareds.application', [])
 			toastrConfig.newestOnTop = true;
 			toastrConfig.extendedTimeOut = 1000;
 			toastrConfig.preventDuplicates = false;
+			toastrConfig.maxOpened = 0;
+			toastrConfig.onShown = null;
+			toastrConfig.onHidden = null;
 
 			toastr.success(message, {
 				timeOut: delay
@@ -466,6 +469,9 @@ angular.module('MainApp.shareds.application', [])
 			toastrConfig.newestOnTop = true;
 			toastrConfig.extendedTimeOut = 1000;
 			toastrConfig.preventDuplicates = false;
+			toastrConfig.maxOpened = 0;
+			toastrConfig.onShown = null;
+			toastrConfig.onHidden = null;
 
 			toastr.info(message, {
 				timeOut: delay
@@ -508,6 +514,9 @@ angular.module('MainApp.shareds.application', [])
 			toastrConfig.newestOnTop = true;
 			toastrConfig.extendedTimeOut = 1000;
 			toastrConfig.preventDuplicates = false;
+			toastrConfig.maxOpened = 0;
+			toastrConfig.onShown = null;
+			toastrConfig.onHidden = null;
 
 			toastr.error(message, {
 				timeOut: delay
@@ -550,6 +559,9 @@ angular.module('MainApp.shareds.application', [])
 			toastrConfig.newestOnTop = true;
 			toastrConfig.extendedTimeOut = 1000;
 			toastrConfig.preventDuplicates = false;
+			toastrConfig.maxOpened = 0;
+			toastrConfig.onShown = null;
+			toastrConfig.onHidden = null;
 
 			toastr.warning(message, {
 				timeOut: delay
