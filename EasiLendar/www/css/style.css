@@ -1,7 +1,7 @@
 /**
 * starter: Nguyen Minh Trang
 * owner: Can Duy Cat
-* last update: 12/03/2015
+* last update: 26/04/2015
 * type: general css
 *
 * My app's style
@@ -14,10 +14,10 @@
 @font-face { font-family: Giddy; src: url(../font/GiddyupStd.otf); }
 * { font: 100%/150% Ion, helvetica, sans-serif; }
 input, button, select, textarea, optgroup, option {
-    font-family: inherit;
-    font-size: inherit;
-    font-style: inherit;
-    font-weight: inherit;
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit;
 }
 .easi-font { font-family: Giddy; }
 
@@ -26,11 +26,11 @@ html { height: 100%; width: 100%; }
 .popup-head { background-color: transparent; border: 0; }
 .popup-body { background-color: #E6E6E6; border: 0; }
 .popup-buttons .button {
-    background-color: #416969;
-    border: 0;
-    border-radius: 0px;
-    color: white;
-    font-size: 18px;
+	background-color: #416969;
+	border: 0;
+	border-radius: 0px;
+	color: white;
+	font-size: 18px;
 }
 .popup-buttons .button:hover { background-color: #646464; }
 
@@ -48,6 +48,48 @@ html { height: 100%; width: 100%; }
 .easi-nov-bkg { background: url("../img/bkg_11_nov.jpg"); }
 .easi-dec-bkg { background: url("../img/bkg_12_dec.jpg"); }
 
+/* toastr */
+/* success */
+.easi-toast-success { bottom: 50px; right: 0; width: 100%; }
+#toast-container.easi-toast-success > div {
+	background-color: #419696;
+	box-shadow: 0 0 0;
+	margin: auto;
+	max-width: 400px;
+	min-width: 200px;
+	width: 50%;
+}
+/* info */
+.easi-toast-info { bottom: 50px; right: 0; width: 100%; }
+#toast-container.easi-toast-info > div {
+	background-color: #33CCCC;
+	box-shadow: 0 0 0;
+	margin: auto;
+	max-width: 400px;
+	min-width: 200px;
+	width: 50%;
+}
+/* error */
+.easi-toast-error { bottom: 50px; right: 0; width: 100%; }
+#toast-container.easi-toast-error > div {
+	background-color: #D65930;
+	box-shadow: 0 0 0;
+	margin: auto;
+	max-width: 400px;
+	min-width: 200px;
+	width: 50%;
+}
+/* warning */
+.easi-toast-warning { bottom: 50px; right: 0; width: 100%; }
+#toast-container.easi-toast-warning > div {
+	background-color: #646464;
+	box-shadow: 0 0 0;
+	margin: auto;
+	max-width: 400px;
+	min-width: 200px;
+	width: 50%;
+}
+
 /* easi style */
 .easi-index-1 { z-index: 1 !important; }
 .easi-index-2 { z-index: 2 !important; }
@@ -63,21 +105,21 @@ html { height: 100%; width: 100%; }
 .easi-no-border { border: 0 !important; }
 .easi-fullw { width: 100% !important; }
 .bar .easi-title {
-    font-size: 17px;
-    font-weight: 500;
-    height: 43px;
-    left: 0;
-    line-height: 44px;
-    margin: 0 10px;
-    min-width: 30px;
-    overflow: hidden;
-    position: absolute;
-    right: 0;
-    text-align: center;
-    text-overflow: ellipsis;
-    top: 0;
-    white-space: nowrap;
-    z-index: 0;
+	font-size: 17px;
+	font-weight: 500;
+	height: 43px;
+	left: 0;
+	line-height: 44px;
+	margin: 0 10px;
+	min-width: 30px;
+	overflow: hidden;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	text-overflow: ellipsis;
+	top: 0;
+	white-space: nowrap;
+	z-index: 0;
 }
 .bar .easi-title.easi-title-left { text-align: left !important; }
 .bar .easi-title.easi-title-right { text-align: right !important; }
@@ -102,18 +144,18 @@ html { height: 100%; width: 100%; }
 
 /* easi bars */
 .bar.bar-easi-blue {
-    background-color: #416969;
-    background-image: linear-gradient(0deg, #315050, #315050 50%, transparent 50%);
-    border-color: #315050;
-    color: #fff;
+	background-color: #416969;
+	background-image: linear-gradient(0deg, #315050, #315050 50%, transparent 50%);
+	border-color: #315050;
+	color: #fff;
 }
 .bar.bar-easi-blue .title { color: #fff; }
 .bar.bar-easi-blue.bar-footer { background-image: linear-gradient(180deg, #315050, #315050 50%, transparent 50%); }
 .bar.bar-easi-gray {
-    background-color: #646464;
-    background-image: linear-gradient(0deg, #505050, #505050 50%, transparent 50%);
-    border-color: #505050;
-    color: #fff;
+	background-color: #646464;
+	background-image: linear-gradient(0deg, #505050, #505050 50%, transparent 50%);
+	border-color: #505050;
+	color: #fff;
 }
 .bar.bar-easi-gray .title { color: #fff; }
 .bar.bar-easi-gray.bar-footer { background-image: linear-gradient(180deg, #505050, #505050 50%, transparent 50%); }
@@ -121,22 +163,22 @@ html { height: 100%; width: 100%; }
 .bar-easi-blue .button:hover { color: #fff; text-decoration: none; }
 .bar-easi-blue .button.activated, .bar-easi-blue .button.active { background-color: #315050; border-color: #315050; box-shadow: inset 0 1px 4px rgba(0, 0, 0, .1); }
 .bar-easi-blue .button.button-clear {
-    background: 0 0;
-    border-color: transparent;
-    box-shadow: none;
-    color: #fff;
-    font-size: 17px;
+	background: 0 0;
+	border-color: transparent;
+	box-shadow: none;
+	color: #fff;
+	font-size: 17px;
 }
 .bar-easi-blue .button.button-icon { background: 0 0; border-color: transparent; }
 .bar-easi-gray .button { background-color: #646464; border-color: #505050; color: #fff; }
 .bar-easi-gray .button:hover { color: #fff; text-decoration: none; }
 .bar-easi-gray .button.activated, .bar-easi-gray .button.active { background-color: #505050; border-color: #505050; box-shadow: inset 0 1px 4px rgba(0, 0, 0, .1); }
 .bar-easi-gray .button.button-clear {
-    background: 0 0;
-    border-color: transparent;
-    box-shadow: none;
-    color: #fff;
-    font-size: 17px;
+	background: 0 0;
+	border-color: transparent;
+	box-shadow: none;
+	color: #fff;
+	font-size: 17px;
 }
 .bar-easi-gray .button.button-icon { background: 0 0; border-color: transparent; }
 
@@ -146,18 +188,18 @@ html { height: 100%; width: 100%; }
 
 /* easi button */
 .button.button-easi-blue {
-    background-color: #416969;
-    border: 0;
-    border-radius: 0;
-    color: #fff;
+	background-color: #416969;
+	border: 0;
+	border-radius: 0;
+	color: #fff;
 }
 .button.button-easi-blue:hover { color: #fff; text-decoration: none; }
 .button.button-easi-blue.activated, .button.button-easi-blue.active { background-color: #315050; border: 0; box-shadow: none; }
 .button.button-easi-blue.button-clear {
-    background: 0 0;
-    border: 0;
-    box-shadow: none;
-    color: #416969;
+	background: 0 0;
+	border: 0;
+	box-shadow: none;
+	color: #416969;
 }
 .button.button-easi-blue.button-icon { background: 0 0; border: 0; }
 .button.button-easi-blue.button-outline { background: 0 0; border: 0; color: #416969; }

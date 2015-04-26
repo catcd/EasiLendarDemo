@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 25/04/2015
+ * last update: 26/04/2015
  * type: module all shared variables and functions used for this app
  */
 
@@ -414,12 +414,16 @@ angular.module('MainApp.shareds.application', [])
 	return {
 		// toast success
 		// lots of toast show a time
-		// color #33CCCC
+		// color #419696
 		// width 50%
 		// position center bottom
 		toastSuccess: function(message, delay) {
-			toastrConfig.positionClass = 'toast-sign-out';
-			toastrConfig.preventDuplicates = false,
+			toastrConfig.allowHtml = true;
+			toastrConfig.positionClass = 'easi-toast-success';
+			toastrConfig.tapToDismiss = true;
+			toastrConfig.newestOnTop = true;
+			toastrConfig.extendedTimeOut = 1000;
+			toastrConfig.preventDuplicates = false;
 
 			toastr.success(message, {
 				timeOut: delay
@@ -428,17 +432,153 @@ angular.module('MainApp.shareds.application', [])
 
 		// toast success one
 		// only 1 toast show a time
-		// color #33CCCC
+		// color #419696
 		// width 50%
 		// position center bottom
 		toastSuccessOne: function(message, delay) {
-			toastrConfig.positionClass = 'toast-sign-out';
-			toastrConfig.preventDuplicates = true,
+			toastrConfig.allowHtml = true;
+			toastrConfig.positionClass = 'easi-toast-success';
+			toastrConfig.tapToDismiss = true;
+			toastrConfig.newestOnTop = true;
+			toastrConfig.extendedTimeOut = 1000;
+			toastrConfig.maxOpened = 1;
+			toastrConfig.onShown = function(){
+				toastrConfig.preventDuplicates = true;
+			};
+			toastrConfig.onHidden = function(){
+				toastrConfig.preventDuplicates = false;
+			};
 
 			toastr.success(message, {
 				timeOut: delay
 			});
-		}
+		},
+
+		// toast info
+		// lots of toast show a time
+		// color #33CCCC
+		// width 50%
+		// position center bottom
+		toastInfo: function(message, delay) {
+			toastrConfig.allowHtml = true;
+			toastrConfig.positionClass = 'easi-toast-info';
+			toastrConfig.tapToDismiss = true;
+			toastrConfig.newestOnTop = true;
+			toastrConfig.extendedTimeOut = 1000;
+			toastrConfig.preventDuplicates = false;
+
+			toastr.info(message, {
+				timeOut: delay
+			});
+		},
+
+		// toast info one
+		// only 1 toast show a time
+		// color #33CCCC
+		// width 50%
+		// position center bottom
+		toastInfoOne: function(message, delay) {
+			toastrConfig.allowHtml = true;
+			toastrConfig.positionClass = 'easi-toast-info';
+			toastrConfig.tapToDismiss = true;
+			toastrConfig.newestOnTop = true;
+			toastrConfig.extendedTimeOut = 1000;
+			toastrConfig.maxOpened = 1;
+			toastrConfig.onShown = function(){
+				toastrConfig.preventDuplicates = true;
+			};
+			toastrConfig.onHidden = function(){
+				toastrConfig.preventDuplicates = false;
+			};
+
+			toastr.info(message, {
+				timeOut: delay
+			});
+		},
+
+		// toast error
+		// lots of toast show a time
+		// color #D65930
+		// width 50%
+		// position center bottom
+		toastError: function(message, delay) {
+			toastrConfig.allowHtml = true;
+			toastrConfig.positionClass = 'easi-toast-error';
+			toastrConfig.tapToDismiss = true;
+			toastrConfig.newestOnTop = true;
+			toastrConfig.extendedTimeOut = 1000;
+			toastrConfig.preventDuplicates = false;
+
+			toastr.error(message, {
+				timeOut: delay
+			});
+		},
+
+		// toast error one
+		// only 1 toast show a time
+		// color #D65930
+		// width 50%
+		// position center bottom
+		toastErrorOne: function(message, delay) {
+			toastrConfig.allowHtml = true;
+			toastrConfig.positionClass = 'easi-toast-error';
+			toastrConfig.tapToDismiss = true;
+			toastrConfig.newestOnTop = true;
+			toastrConfig.extendedTimeOut = 1000;
+			toastrConfig.maxOpened = 1;
+			toastrConfig.onShown = function(){
+				toastrConfig.preventDuplicates = true;
+			};
+			toastrConfig.onHidden = function(){
+				toastrConfig.preventDuplicates = false;
+			};
+
+			toastr.error(message, {
+				timeOut: delay
+			});
+		},
+
+		// toast warning
+		// lots of toast show a time
+		// color #646464
+		// width 50%
+		// position center bottom
+		toastWarning: function(message, delay) {
+			toastrConfig.allowHtml = true;
+			toastrConfig.positionClass = 'easi-toast-warning';
+			toastrConfig.tapToDismiss = true;
+			toastrConfig.newestOnTop = true;
+			toastrConfig.extendedTimeOut = 1000;
+			toastrConfig.preventDuplicates = false;
+
+			toastr.warning(message, {
+				timeOut: delay
+			});
+		},
+
+		// toast warning one
+		// only 1 toast show a time
+		// color #646464
+		// width 50%
+		// position center bottom
+		toastWarningOne: function(message, delay) {
+			toastrConfig.allowHtml = true;
+			toastrConfig.positionClass = 'easi-toast-warning';
+			toastrConfig.tapToDismiss = true;
+			toastrConfig.newestOnTop = true;
+			toastrConfig.extendedTimeOut = 1000;
+			toastrConfig.maxOpened = 1;
+			toastrConfig.onShown = function(){
+				toastrConfig.preventDuplicates = true;
+			};
+			toastrConfig.onHidden = function(){
+				toastrConfig.preventDuplicates = false;
+			};
+
+			toastr.warning(message, {
+				timeOut: delay
+			});
+		},
 	};
 })
 

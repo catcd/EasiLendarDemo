@@ -225,15 +225,6 @@ p.split-menu {
 /**
 * sign out
 */
-.toast-sign-out { bottom: 50px; right: 0; width: 100%; }
-#toast-container.toast-sign-out > div {
-	background-color: #419696;
-	box-shadow: 0 0 0;
-	margin: auto;
-	max-width: 400px;
-	min-width: 200px;
-	width: 50%;
-}
 
 /**
 * popup
