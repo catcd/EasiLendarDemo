@@ -8,7 +8,13 @@
 var profile = angular.module('MainApp.controllers.profile', [])
 
 profile.controller("ProfileController", function($scope, $ionicPopup, $rootScope,eFriend,eEasiLendar,eCheckFriend,eDatabase,eToast) {
-	
+
+
+	$scope.eEasiLendar=eEasiLendar;
+	$scope.eFriend=eFriend;
+	$scope.eCheckFriend=eCheckFriend;
+	$scope.eDatabase=eDatabase;
+	$scope.eToast = eToast;
 	this.tab = 1;
 
     this.setTab = function(newValue){

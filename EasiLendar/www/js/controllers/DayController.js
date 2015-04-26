@@ -13,8 +13,8 @@ $scope.eUser = eUser;
 
 $scope.$watch('eSettings.sFirstDay', function() {
 	var start = eSettings.sFirstDay;});
-	
-	var start = eSettings.sFirstDay;
+		
+
 	var toDay = new Date();
 	toDay = new Date(toDay.getFullYear(), toDay.getMonth(), toDay.getDate(),0,0,0,0);
 	$scope.indexOfToday = toDay.toString();
@@ -46,23 +46,25 @@ $scope.$watch('eSettings.sFirstDay', function() {
 		return $scope.BKG[$scope.navMonthNumber];  
     };
 	var setNavMonth = function(month1, month2) {
-			if (month1 == month2) {
-				return eCalendar.months[month1];
-			} else {
-				return eCalendar.months[month1] + "-" + eCalendar.months[month2];
-			}
-		};
+		if (month1 == month2) {
+			return eCalendar.months[month1];
+		} else {
+			return eCalendar.months[month1] + "-" + eCalendar.months[month2];
+		}
+	};
 	
 	
 	$scope.FirstLastDay = function(day){
-	var pos,sub,add,posOfDay;
+		var start = eSettings.sFirstDay;
+		var pos,sub,add,posOfDay;
 		switch(start){	case "Monday":	pos = 6;
-					case "Saturday":	pos = 1;
-					case "Sunday":	pos = 0;
+						case "Saturday":	pos = 1;
+						case "Sunday":	pos = 0;
 				};
 		var FirstLastDay =[];
+			
 		for(var i=0; i<7;i++){
-			if(Day.day == eCalendar.weekDays[i])
+			if(day.day == eCalendar.weekDays[i])
 			{posOfDay = i; break;}
 		}
 		sub = (posOfDay +pos)%7;
@@ -70,9 +72,9 @@ $scope.$watch('eSettings.sFirstDay', function() {
 		for(var i=0; i<sub;i++){day = day.prevDay();}
 		FirstLastDay[0] = day;
 		for(var i=0; i<6; i++){day = day.nextDay();}
-		FirstLastDay[1] =angular.copy(day);
+		FirstLastDay[1] = angular.copy(day);
 		for(var i=0; i<add; i++){day = day.prevDay();}
-		
+			
 		return FirstLastDay;
 	};
 	
@@ -80,7 +82,7 @@ $scope.$watch('eSettings.sFirstDay', function() {
 	$scope.FirstDayWeek=week[0].date;
 	$scope.LastDayWeek=week[1].date;
 	$scope.navShortMonth = setNavMonth(week[0].month, week[1].month);
-	
+		
 	// nextDay function
 	$scope.NextDay = function(){
 		Day =Day.nextDay();
