@@ -229,6 +229,67 @@ angular.module('MainApp.shareds.sync', [])
 				eUser.uGmailCalendar[uGC[i].position].push(uGC[i]);
 			}
 		},
+		
+		addSingleEventWithFriend : function(summary, start, end, location, friend){
+			
+			if (start.getTime() > end.getTime())	return;
+			if (start.getTime() == undefined || end.getTime()== undefined)	return;
+			
+			// Add to Google Calendar:
+			
+			var resource = {
+				"summary": summary,
+				"location": location,
+				"start": {
+					"dateTime": start
+				},
+				"end": {
+					"dateTime": end
+				}
+			};
+			
+			var request = gapi.client.calendar.events.insert({
+				'calendarId': 'primary',
+				'resource': resource
+			});
+			
+			request.execute(function(resp) {
+				//handle result:
+				
+				if (resp && !resp.error){
+					return true;
+				}
+				
+				else{
+					return false;
+				}
+			});
+			
+			// Add to eUser.uGmailCalendar:
+			
+			var position = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+			
+			var start= {dateTime: start};
+			var end= {dateTime: end};
+			
+			if (friend!= undefined){
+				var user= {summary: summary, start:start, end:end, location: location, friend: friend, position: position};
+			}
+			
+			else{
+				var user= {summary: summary, start:start, end:end, location: location, position: position};
+			}
+			
+			if (eUser.uGmailCalendar[position] == undefined){
+				eUser.uGmailCalendar[position]= new Array();
+			}
+			
+			eUser.uGmailCalendar[position].push(user);
+		},
+		
+		addSingleEventWithoutFriend : function(summary, start, end, location){
+			this.addSingleEventWithFriend(summary, start, end, location);
+		},
 	};
 })
 		

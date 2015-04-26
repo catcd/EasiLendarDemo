@@ -6,7 +6,7 @@
  */
 
  
-describe('Sync', function() {
+describe('Sync', function(eUser) {
 	beforeEach(module('MainApp.controllers.sync'));
 	var $controller, $rootScope, $scope;
 	beforeEach(inject(function(_$rootScope_, _$controller_) {
@@ -96,17 +96,51 @@ describe('Sync', function() {
 		});
 		
 		it('Google Calendar should be gotten from api', function(){
-			for each(var index in $rootScope.eUser.uGmailCalendar){
+			for each(var index in eUser.uGmailCalendar){
 				length++;
 			}
 			
 			expect(length).not.toEqual(0);
 		});
 		
+		it('Google Calendar should be an array which longest length is less than 1k01', function(){
+			for each(var index in eUser.uGmailCalendar){
+				length++;
+			}
+			
+			expect(length).toBeLessThan(1001);
+		});
+		
 		it('Google Calendar should be convert to array which index is an Object Date', function(){
 			var length = 0;
-			for each(var index in $rootScope.eUser.uGmailCalendar){
+			for each(var index in eUser.uGmailCalendar){
 				expect(index.getTime()).not.toBeUndefined();
+			}
+		});
+		
+		it ('Google Calendar should be gotten from a day which after 1 year ago', function(){
+			var toDay = new Date();
+			var dd = toDay.getDate();
+			var mm = toDay.getMonth() + 1; //January is 0!
+			var yyyy = toDay.getFullYear();
+
+			if (dd < 10) {
+				dd = '0' + dd;
+			}
+
+			if (mm < 10) {
+				mm = '0' + mm;
+			}
+
+			toDay = mm + '/' + dd + '/' + yyyy;
+
+			// form of timeMax: "yyyy-mm-dd T hh:mm:ss - offset
+
+			var oneYearAgo = (yyyy - 1) + '-' + mm + '-' + dd + 'T' + '00:00:00-00:00';
+
+			for each(var index in eUser.uGmailCalendar){
+				expect(oneYearAgo.getTime()).toBeLessThan(index.getTime());
+				break;
 			}
 		});
 		
@@ -114,7 +148,7 @@ describe('Sync', function() {
 			var next= null;
 			var previous= null;
 			var i=0;
-			for each(var index in $rootScope.eUser.uGmailCalendar){
+			for each(var index in eUser.uGmailCalendar){
 				if (i==0)	previous= index;
 				else {
 					next= index;
@@ -126,11 +160,29 @@ describe('Sync', function() {
 			}
 		});
 		
-		it('Google Calendar array should have each element which is a non-empty array', function(){
-			for each(var index in $rootScope.eUser.uGmailCalendar){
-				expect($rootScope.eUser.uGmailCalendar[index].length).not.toEqual(0);
+		it ('Google Calendar should be an array which all elements are defined', function(){
+			for each(var index in eUser.uGmailCalendar){
+				expect(eUser.uGmailCalendar[index]).toBeDefined();
 			}
 		});
+		
+		it('Google Calendar array should have each element which is a non-empty array', function(){
+			for each(var index in eUser.uGmailCalendar){
+				expect(eUser.uGmailCalendar[index].length).not.toEqual(0);
+			}
+		});
+		
+		it ('Google Calendar should be an array which all elements has position (time of event) equal to index', function(){
+			for each(var index in eUser.uGmailCalendar){
+				var current= eUser.uGmailCalendar[index];
+				
+				for (var i=0; i< current.length; i++){
+					expect(current[i].position).toBeDefined();
+					expect(current[i].position.getTime())= index.getTime();
+				}
+			}
+		});
+		
 	});
 	
 	describe('sync to local calendar', function(){
@@ -142,5 +194,17 @@ describe('Sync', function() {
 				expect(cordovaCalendar.listCalendars()).toHaveBeenCalled();
 			}
 		});
+		
+		it ('if window.plugin is defined, function cordovaCalendar.listCalendars() should return response is an array of events', function(){
+			if (window.plugin != undefined){
+				$cordovaCalendar.listCalendars().then(function(result) {
+				//success:
+				expect(result.length).not.toEqual(0);
+			}, function(err) {
+				// error: not handle;
+			});
+		});
+		
+		
 	});
 });

@@ -16,6 +16,10 @@ angular.module('MainApp.controllers.sync', [])
 	
 	$scope.eSync= eSync;
 	$scope.eUser= eUser;
+	
+	clientId= '164260242142-4er9a46uufjlu6h6hsbv3s7479mqv6pr.apps.googleusercontent.com';
+	scopes= 'https://www.googleapis.com/auth/calendar';
+		
 	// function to load Google API and start all mode when click sync button:
 
 	$scope.handleClientLoad = function() {
@@ -26,8 +30,8 @@ angular.module('MainApp.controllers.sync', [])
 
 	$scope.checkAuth = function() {
 		gapi.auth.authorize({
-			client_id: $scope.eSync.clientId,
-			scope: 	$scope.eSync.scopes,
+			client_id: clientId,
+			scope: scopes,
 			immediate: true,
 			cookie_policy: 'single_host_origin'
 		}, $scope.handleAuthResult);
@@ -35,9 +39,9 @@ angular.module('MainApp.controllers.sync', [])
 	}
 
 	$scope.handleAuthResult = function(authResult) {
-		var authorizeButton = document.getElementById('authorize-button');
-
+	
 		if (authResult && !authResult.error) {
+			alert(1);
 			$scope.logIN = 1;
 			
 			//result= authResult.access_token;
@@ -47,16 +51,17 @@ angular.module('MainApp.controllers.sync', [])
 				var request = gapi.client.calendar.events.list({
 					'calendarId': 'primary',
 					"singleEvents": "true",
-					'maxResults': 1,
+					'maxResults': 1, 
 					"orderBy": "startTime",
 				});
 				request.execute(function(resp) {
 					if (resp.items.length != 0) {
 						$scope.email = resp.items[0].creator.email;
-						$scope.buttonAffect();
 					}
+					$scope.buttonAffect();
 				});
 			});
+			
 		} else {
 			showAlert("You have never signed in. Please log in to synchronize with your Google Calendar!");
 			$scope.logIN = 0;
@@ -219,7 +224,16 @@ angular.module('MainApp.controllers.sync', [])
 					console.log($scope.eUser.uGmailCalendar);
 
 					$rootScope.showAlert("Your calendar was update");
-
+					
+					/* for test:
+					
+					var st= new Date(toDay);
+					var en= new Date(st.getTime() + 1221);
+					
+					$scope.eSync.addSingleEventWithoutFriend("test", st, en, "umbala");
+					
+					*/
+					
 				});
 			});
 		}
