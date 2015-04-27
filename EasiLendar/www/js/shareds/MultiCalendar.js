@@ -19,6 +19,7 @@ multiCalendar.factory('eMultiCalendar', function($rootScope, eEasiLendar) {
 		 * set multiCalendar
 		 */
 		var setMultiCal = function() {
+			if (items == undefined) return null;
 			// copy items because it's pointer
 			var tempItems = [];
 			for (var i=0; i < items.length; i++) {

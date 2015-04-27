@@ -83,17 +83,14 @@ function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eD
 
 					eUser.uRequested = user.requested;
 
-					eUser.uGmailCalendar = user.g_calendar;
-					eUser.uLocalCalendar = user.local_calendar;
+					// convert
+					eUser.uGmailCalendar = eDatabase.convertCal(user.g_calendar);
+					eUser.uLocalCalendar = eDatabase.convertCal(user.local_calendar);
 
 					eUser.uFRequest = (user.noti == null ? null : user.noti.fRequest);
 					eUser.uFAccepted = (user.noti == null ? null : user.noti.fAccept);
 					eUser.uFRLength = 0;
 					eUser.uFALength = 0;
-					
-					// convert
-					eUser.uGmailCalendar = eDatabase.convertCal(eUser.uGmailCalendar);
-					eUser.uLocalCalendar = eDatabase.convertCal(eUser.uLocalCalendar);
 
 					// set uFRLength and uFALength
 					eDatabase.setUFRL();

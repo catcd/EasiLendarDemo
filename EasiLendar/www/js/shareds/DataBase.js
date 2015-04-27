@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat 
  * owner: Nguyen Minh Trang 
- * last update: 21/04/2015 
+ * last update: 26/04/2015 
  * type: all shared database variables and functions
  */
 
@@ -30,9 +30,9 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 	var clearData = function() {
 		// Reset all data
 		// Setting
-		eSettings.reset();
+		eSettings.resetData();
 		// User information
-		eUser.reset();
+		eUser.resetData();
 	};
 
 	// check if user has signed in or not
@@ -53,51 +53,53 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		}
 	};
 	
-	return {
-		// convert string dateTime to object Date
-		convertCal : function(calendar) {
-			if (calendar != null && calendar != "") {
-				var temp = [];
-				for (var x in calendar) {
-					temp[x] = calendar[x];
-					for (var y in temp[x]) { 
-						temp[x][y].start.dateTime = new Date(temp[x][y].start.dateTime);
-						temp[x][y].end.dateTime = new Date(temp[x][y].end.dateTime);
-					}
+	// convert string dateTime to object Date
+	var convertCal = function(calendar) {
+		if (calendar != null && calendar != "") {
+			var temp = [];
+			for (var x in calendar) {
+				temp[x] = calendar[x];
+				for (var y in temp[x]) { 
+					temp[x][y].start.dateTime = new Date(temp[x][y].start.dateTime);
+					temp[x][y].end.dateTime = new Date(temp[x][y].end.dateTime);
 				}
-				return temp;
 			}
-		},
+			return temp;
+		} else return null;
+	};
+	
+	function db() {
+		this.convertCal = convertCal;
 	
 		// show loading balls
-		databaseLoading : function() {
+		this.databaseLoading = function() {
 			$ionicLoading.show({
 				template: '<div id="followingBallsG"><div id="followingBallsG_1" class="followingBallsG"></div><div id="followingBallsG_2" class="followingBallsG"></div><div id="followingBallsG_3" class="followingBallsG"></div><div id="followingBallsG_4" class="followingBallsG"></div></div>',
 				hideOnStateChange: true,
 			});
-		},
+		};
 	
 		// set uFRequest's length to uFRLength
-		setUFRL : function() {
+		this.setUFRL = function() {
 			if (eUser.uFRequest ==  null) {
 				eUser.uFRLength = 0;
 			} else {
 				eUser.uFRLength = Object.keys(eUser.uFRequest).length;
 			}
-		},
+		};
 	
 		// set uFAccepted's length to uFALength
-		setUFAL : function() {
+		this.setUFAL = function() {
 			if (eUser.uFAccepted ==  null) {
 				eUser.uFALength = 0;
 			} else {
 				eUser.uFALength = Object.keys(eUser.uFAccepted).length;
 			}
-		},
+		};
 		
 		// sign out function
 		// update data, reset setting, go to form.
-		signOutEasi : function() {
+		this.signOutEasi = function() {
 			// clear data
 			clearData();
 		
@@ -109,12 +111,12 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 
 			// notice
 			eToast.toastSuccessOne('Sign out successfully!', 3000);
-		},
+		};
 	
 		/*
 		 * Add friend function add id of this user to "id"'s friends list
 		 */
-		addFriend : function(id) {
+		this.addFriend = function(id) {
 			if (checkSignIn() && id != null && id != "") {
 				var ref = new Firebase(
 				"https://radiant-inferno-3243.firebaseio.com/Users");
@@ -182,12 +184,12 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					});
 				}
 			}
-		},
+		};
 	
 		/*
 		 * get friend's calendar function return object multiCalendar of "id"
 		 */
-		getCalendar : function(id) {
+		this.getCalendar = function(id) {
 			if (checkSignIn() && id != null && id != "") {
 				var ref = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
@@ -208,12 +210,12 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					console.log("Failed to access" + ref);
 				});
 			}
-		},
+		};
 
 		/*
 		 * request friend add this user's id to fRequest of "id"
 		 */
-		request : function(id) {
+		this.request = function(id) {
 			if (checkSignIn() && id != null && id != "") {
 				// request myself
 				if (id == eUser.uID) return null;
@@ -259,13 +261,13 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					console.log("Failed to access" + ref);
 				});
 			}
-		},
+		};
 		
 		/*
 	 	* deleteFN function delete friend accepted noti 'id' is index of noti in
 	 	* uFAccepted array
 	 	*/
-		deleteFN : function(id) {
+		this.deleteFN = function(id) {
 			if (checkSignIn() && id != null && id != "") {
 				delete eUser.uFAccepted[id];
 				this.setUFAL();	// set uFALength
@@ -277,12 +279,12 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 				this.databaseLoading();
 				uAccept.set(null, onComplete);
 			}
-		},
+		};
 	
 		/*
 	 	* deleteF function delete friend with 'id'
 	 	*/
-		deleteF : function(id) {
+		this.deleteF = function(id) {
 			if (checkSignIn() && id != null && id != "") {
 				// delete 'id' in user's friend list
 				delete eUser.uFriend[id];
@@ -299,12 +301,12 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					+ id + "/friends/" + eUser.uID);
 				fFriend.set(null, onComplete);
 			}
-		},
+		};
 	
 		/*
 	 	* rejectF function reject friend request sent by 'id'
 	 	*/
-		rejectF : function(id) {
+		this.rejectF = function(id) {
 			if (checkSignIn() && id != null && id != "") {
 				delete eUser.uFRequest[id];
 				this.setUFRL();	// set uFRLength
@@ -321,13 +323,13 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 				fRequested.set(null);
 				uRequest.set(null, onComplete);
 			}
-		},
+		};
 
 		/*
 	 	* searchFriend function str is a str user inserted to search for add to
 	 	* $rootScope.searchFriends any id or name that contains 'str'
 	 	*/ 
-		searchFriend : function(str) {
+		this.searchFriend = function(str) {
 			$rootScope.searchFriends = [];
 			if (checkSignIn() && str != '' && str != null) {
 				var ref = new Firebase("https://radiant-inferno-3243.firebaseio.com/Users");
@@ -357,14 +359,14 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					$ionicLoading.hide();
 				});
 			}
-		},
+		};
 	
 		/*
 	 	* searchEvent function str is str to search for (search in
 	 	* eUser.uGmailCalendar) add to $rootScope.searchEvents any id or name that
 	 	* contains 'str' do not interact with database
 	 	*/
-		searchEvent : function(str) {
+		this.searchEvent = function(str) {
 			$rootScope.searchEvents = [];
 			if (checkSignIn() && str != '' && str != null) {
 				var length = 0;	// length of searchEvents
@@ -384,13 +386,13 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					}
 				}
 			}
-		},
+		};
 	
 		/*
 	 	* getInformation function id is id of a person user want to get info set
 	 	* info in eFriend
 	 	*/
-		getInformation : function(id) {
+		this.getInformation = function(id) {
 			if (checkSignIn() && id != null && id != "") {
 				var ref = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
@@ -413,12 +415,12 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					console.log("Failed to access" + ref);
 				});
 			}
-		},
+		};
 	
 		/*
 	 	* refresh function update everything from server
 	 	*/
-		refresh : function() {
+		this.refresh = function() {
 			if (checkSignIn()) {
 				var ref = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/" + eUser.uID);
@@ -439,17 +441,14 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 
 					eUser.uRequested = user.requested;
 
-					eUser.uGmailCalendar = user.g_calendar;
-					eUser.uLocalCalendar = user.local_calendar;
+					// convert
+					eUser.uGmailCalendar = convertCal(user.g_calendar);
+					eUser.uLocalCalendar = convertCal(user.local_calendar);
 
 					eUser.uFRequest = (user.noti == null ? null : user.noti.fRequest);
 					eUser.uFAccepted = (user.noti == null ? null : user.noti.fAccept);
 					eUser.uFRLength = 0;
 					eUser.uFALength = 0;
-					
-					// convert
-					eUser.uGmailCalendar = this.convertCal(eUser.uGmailCalendar);
-					eUser.uLocalCalendar = this.convertCal(eUser.uLocalCalendar);
 
 					// set uFRLength and uFALength
 					this.setUFRL();
@@ -461,12 +460,12 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					$rootScope.goToState('warning');
 				});
 			}
-		},
+		};
 	
 		/*
 	 	* updateCalendar function update user's calendar to server
 	 	*/
-		updateCalendar : function() {
+		this.updateCalendar = function() {
 			if (checkSignIn()) {
 				toString();	// convert
 				var user = new Firebase(
@@ -489,13 +488,13 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					uLocal.set(null, onComplete);
 				}
 			}
-		},
+		};
 	
 		/*
 	 	* viewProfile function id is id of a person this user wants to view profile
 	 	* set name, id, ava, calendar to eFriend
 	 	*/
-		viewProfile : function(id) {
+		this.viewProfile = function(id) {
 			if (checkSignIn() && id != null && id != "") {
 				var ref = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
@@ -513,11 +512,11 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 						eFriend.fAvatar = user.avatar;
 						eFriend.fVIP = user.VIP;
 						eFriend.fFriend = user.friends;
-						if (eFriend.fFriend[eUser.uID] != undefined) {
+						if (eFriend.fFriend[eUser.uID] != undefined) {console.log(user.g_calendar);
 							// set fMultiCal
-							user.g_calendar = this.convertCal(user.g_calendar);
-							user.local_calendar = this.convertCal(user.local_calendar);
-							var temp = [user.g_calendar, user.local_calendar];
+							var g_calendar = convertCal(user.g_calendar);			
+							var local_calendar = convertCal(user.local_calendar);
+							var temp = [g_calendar, local_calendar];
 							eFriend.fMultiCal = eMultiCalendar.newMultiCal(temp);
 						} else eFriend.fMultiCal = null;
 						$ionicLoading.hide();
@@ -527,12 +526,12 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					console.log("Failed to access" + ref);
 				});
 			}
-		},
+		};
 
 		/*
 	 	* getFriend function get friend list of id
 	 	*/
-		getFriend : function(id) {
+		this.getFriend = function(id) {
 			if (checkSignIn() && id != null && id != "") {
 				var ref = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
@@ -551,6 +550,9 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					console.log("Failed to access" + ref);
 				});
 			}
-		},
+		};
 	};
+	
+	var db = new db();
+	return db;
 });
