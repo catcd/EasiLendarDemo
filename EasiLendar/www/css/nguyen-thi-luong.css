@@ -5,7 +5,7 @@
 * type: personal css
 */
 /* profile */
-#cover{
+#profile_cover{
 	background-image:url(../img/smart_hotel.jpg);
 	background-position: center center;
 	/*background-size: 100% 100%;*/
@@ -16,7 +16,7 @@
 	max-height:350px;
 	position:relative;
 	}
-#avatar-vip{
+#profile_avatar-vip{
 	margin-top:45px;
 	height:100px;
 	width:100px;	
@@ -25,14 +25,14 @@
 	left:3px;
 	margin-left:5px;
 	}
-#vipx{
+#profile_vipx{
 	height:15px;
 	width:15px;
 	position: absolute;
 	top:0px;
 	right:8px;
 	}
-#avatar{
+#profile_avatar{
 	margin-top:10px;
 	margin-left:2px;
 	height:100px;
@@ -41,7 +41,7 @@
 	bottom:0px;
 	left:0px;	
 	}
-#username{
+#profile_username{
 	font-size:17px;
 	height:30px;
 	width:300px;
@@ -50,7 +50,7 @@
 	margin-left: 10px;
 	position: absolute;	
 	}
-#end-cover{
+#profile_end-cover{
 	background-color:#A9BFD4;
 	position: absolute;
 	height: 30px;
@@ -59,7 +59,7 @@
 	max-width:700px;
 	bottom:0px;
 	}
-#inform{	
+#profile_inform{	
 	height:25px;
 	margin-left:120px;
 	width:400px;
@@ -67,7 +67,7 @@
 	background-color:#A9BFD4;
 	position:absolute;
 	}
-#item-imagex{	
+#profile_item-imagex{	
 	height:90%;
 	width:90%;
 	max-height:100px;
@@ -76,7 +76,7 @@
 	margin-left: 1px;
 	bottom:5px;
 	}
-#list-icon{
+#profile_list-icon{
 	position: absolute;
     bottom: -10px; 
 	margin-right:5px;
@@ -100,8 +100,10 @@
 	border: 1px solid black;
 	background-color: #F7F7FF;
 	}
-.fontOfTab{font-size:16px;margin-top:-6px;}
-.nothing{
+.profile_button1{margin-top:7px}
+.profile_button2{margin-top:3px}
+.profile_fontOfTab{font-size:16px;margin-top:-6px;}
+.profile_nothing{
 	position:relative;
 	margin-left:-4px;
 	margin-right:-24px;
@@ -109,9 +111,9 @@
 	border:1px solid black;
 	width:20px;
 	}
-.tab-fix{height:60px;}
-.icon.ion-ribbon-b{color: #FFCC00;	size: 50px;}
-#eding{
+.profile_tab-fix{height:60px;}
+.profile_icon.ion-ribbon-b{color: #FFCC00;	size: 50px;}
+#profile_eding{
 	background-color:#F7F7FF;
 	margin-top:10px;
 	position: relative;
@@ -122,40 +124,40 @@
 	border: 1px solid #CCCCB2;
 	background-origin: content-box;
 	}
-	.list{height :30px; }
-.showtab{position:relative;	max-width:700px;	margin:0 auto 0 auto;}
+.profile_list{height :30px; }
+.profile_showtab{position:relative;	max-width:700px;	margin:0 auto 0 auto;}
 /*introduction */
-#information{
+#profile_information{
 	position:relative;
 	max-height:800px;
 	max-width:700px;
 	height:500px;
 	width: 600px;
 }
-#information-tab{
+#profile_information-tab{
 	position:relative;
 	max-height:300px;
 	max-width:200px;
 	height:50vh;
 	width:100%;
 	}
-#information-in-tab{
+#profile_information-in-tab{
 	position:absolute;
 	left:150px;
 	top:0px;
 	}
 /*Friend*/
-#friends{	position:relative;	height:50px; top:5px;padding-top:5px;z-index:0;}
-#friend-name{
+#profile_friends{	position:relative;	height:50px; top:5px;padding-top:5px;z-index:0;}
+#profile_friend-name{
 	position:absolute;
 	left:70px;
 	top:20px;
 	float:center;
 	}
 
-#friend-avatar{	width:45px;	height:45px;	margin-top:5px;}
+#profile_friend-avatar{	width:45px;	height:45px;	margin-top:5px;}
 /*Calendar in profile*/
-.easiweek{
+.profile_easiweek{
 	margin-top:-20px;
 	background-attachment:fixed;
 	background-position:center center;
@@ -165,8 +167,8 @@
 	padding-bottom: 50px;
 	}
 
-.notEasiWeek{height:500px;	font-size:20px;	background:#E6E6E6;position:relative;margin-top:-20px;}
-.suggest{
+.profile_notEasiWeek{height:500px;	font-size:20px;	background:#E6E6E6;position:relative;margin-top:-20px;}
+.profile_suggest{
 	top:10%;
 	position: absolute;
 	left:10%;
@@ -176,11 +178,11 @@
     width:80%}
 
 /*DAY CALENDAR */
-#h2-month{margin-left:15% ;margin-top:10px; color: #002900;}
-#x{max-width:800px;width:100%;margin-bottom:20px; padding-bottom:5px; }
-#x1{width:10%;text-align:left;margin-left:10px;}
-#x2{width:80% ;margin-left:1.5%;}
-#x3{width:40px;margin-right:10px;}
+#day_h2-month{margin-left:15% ;margin-top:10px; color: #002900;}
+#day_week{max-width:800px;width:100%;margin-bottom:20px; padding-bottom:5px;margin-left:20%;margin-top:10px; }
+#day_prevDay{width:10%;text-align:left;margin-left:10px;}
+#day_inweek{width:80% ;margin-left:1.5%;font-size:17px;}
+#day_nextDay{width:40px;margin-right:10px;}
 #xxx{
 	color: #416969;
 	font-size:15.5px;
@@ -193,12 +195,11 @@
 	
 	
 }
-.day-table-calendar {margin-top:-25px;max-width:800px;width:100%;}
-.tr-day-calendar {}
-.td-day-calendar-1 { width: 12%; color: #646464; text-align: center; font-size: 30px; margin-right:10px;}
-.td-day-calendar-1:hover{ color: #33CCCC; }
-.td-day-calendar-2 { width: 80%; color: #ffffff;}
-.div-day-calendar{
+.day_table-calendar {margin-top:-25px;max-width:800px;width:100%;}
+.day_tr-calendar {}
+.day_td-calendar-2 { width: 80%; color: #ffffff;}
+.day_td-calendar-2:hover{ color: #33CCCC; }
+.day_div-calendar{
 	 margin-left: 7px; 
 	 margin-top:5px;
     margin-bottom: 10px; 
@@ -209,15 +210,16 @@
     white-space: nowrap;
     width: 70%;
     max-width: 430px;}
-.p-day-calendar-number, .p-day-calendar-text { width: 100%; padding-top: 15px;}
+
+
+.day_p-calendar-number, .day_p-calendar-text { width: 100%; padding-top: 15px;}
+.day_p-calendar-text { font-size: 15px; margin-top: -20px;}
 .p-day-calendar-text { font-size: 15px; margin-top: -20px;}
 .event-color-1 { background-color: #32CD32;}
 .event-color-2 { background-color: #33CCCC;}
 .event-color-3 { background-color: #315050;}
 .event-color-4 { background-color: #191970;}
 .event-color-5 { background-color: #FF0000;}
-
-
 #yyy{
 	color: #416969;
 	position: absolute;
@@ -237,35 +239,10 @@
 .bkg-10{ background: url("../img/bkg_10_oct.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
 .bkg-11{ background: url("../img/bkg_11_nov.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
 .bkg-12{ background: url("../img/bkg_12_dec.jpg") no-repeat;   background-size: 100% 100%; background-position:center center; height: 250px; width: 100%; max-width:960px; margin: 0 auto 0 auto; padding-bottom:-10px;}
-.button-previous-day {margin-left:5px;}
-.button-next-day {margin-right:10px; }
 
-.zzz {
+.day_calendar {
 	padding: 0;
 	margin-top:-50px;
 	margin-bottom:30%;
 	margin: 250px auto 0 auto;
 }
-#table1 table{margin-top:-15px;border: 1px solid #7D7D83;
-    border-collapse: collapse;
-	background-color:#A7C942;
-    margin: 0 auto 0 auto;}
-}
-#table1 tr {height:25px;width:700px;}
-#table1 td{width:400px;height:25px;}
-#table1 .td1{width:10%;border: 1px solid #7D7D83;
-    border-collapse: collapse;
-    margin: 0 auto 0 auto;
-
-
-}
-#table1 .td2{width:385px;border: 1px solid #7D7D83;
-    border-collapse: collapse;
-    margin: 0 auto 0 auto;
-background-color:while;
-}
-}
-.td3{width:85%;background-color: #F39;height:25px}
-.td4{width:85%;background-color: #9CF;height:25px}
-.td5{width:85%;background-color: #0F9;height:25px}
-#chia-rong{height:15px; background-color:white; border: 1px solid border: 1px solid #A7C942;; margin: 0 auto 0 auto;}

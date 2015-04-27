@@ -16,14 +16,14 @@
 			<button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
 		</ion-nav-buttons>
 		<!-- -->
-		<div id="cover">
-		<div id= "end-cover">
-			<div id="inform">view:525</div>
-				<div id="list-icon">
-					<button style ="margin-top:7px;"class="button button-icon icon ion-email easi-light-gray"></button>
-					<button style ="margin-top:3px;"class="button button-icon icon ion-coffee easi-light-gray" ui-sref="searchFilter" menu-close></button>
-					<button style ="margin-top:3px;"data-ng-click ="deleteFriend(eFriend.fID)" data-ng-show="isFriend(eFriend.fID)" class="button button-icon icon ion-person easi-light-gray"></button>
-					<button style ="margin-top:3px;"data-ng-click="addNewFriend(eFriend.fID)" data-ng-show="notFriend(eFriend.fID)"class="button button-icon icon ion-person-add easi-light-gray"></button>
+		<div id="profile_cover">
+		<div id= "profile_end-cover">
+			<div id="profile_inform">view:525</div>
+				<div id="profile_list-icon">
+					<button class="button profile_button1 button-icon icon ion-email easi-light-gray"></button>
+					<button class="button profile_button2 button-icon icon ion-coffee easi-light-gray" ui-sref="searchFilter" menu-close></button>
+					<button data-ng-click ="deleteFriend(eFriend.fID)" data-ng-show="isFriend(eFriend.fID)" class="button profile_button2 button-icon icon ion-person easi-light-gray"></button>
+					<button data-ng-click="addNewFriend(eFriend.fID)" data-ng-show="notFriend(eFriend.fID)"class="button profile_button2 button-icon icon ion-person-add easi-light-gray"></button>
 				</div>
 			</div>
 				<div style="margin-top: 30px" id="div-log-in">
@@ -31,63 +31,63 @@
 				<a id="authorize-button" visibility= "hidden"></a>
 			</center>
         </div>
-			<div id="avatar-vip">
-				<div id="avatar">
-					<div id="vipx"><h2 class="customer">
+			<div id="profile_avatar-vip">
+				<div id="profile_avatar">
+					<div id="profile_vipx"><h2 class="customer">
 						<i  data-ng-show="eFriend.fVIP" class="icon ion-ribbon-b"></i></h2>
 					</div>
-					<img id="item-imagex" src="img/ava{{eFriend.fAvatar}}.png" >
+					<img id="profile_item-imagex" src="img/ava{{eFriend.fAvatar}}.png" >
 				</div>
-				<p id= "username">{{eFriend.fName}}</p>
+				<p id= "profile_username">{{eFriend.fName}}</p>
 			</div>
 		</div>
 		<section ng-controller="ProfileController as tab">
 		<div class="tabs-striped tab-fix tabs-color-blue">
 			<div class="tabs">
-				<a class="tab-item active" nav-direction="forward"  href="" ng-class="{ active:tab.isSet(1) }" ng-click="tab.setTab(1)"><p class="fontOfTab">	Calendar	</p></a>
-				<a class="tab-item" href="" ng-class="{ active:tab.isSet(2) }" ng-click="tab.setTab(2)"><p class="fontOfTab">	Information	</p></a>
-				<a class="tab-item" href="" ng-class="{ active:tab.isSet(3) }" ng-click="tab.setTab(3)"><p class="fontOfTab">	Friends		</p></a>
-				<a class="tab-item" href="" ng-class="{ active:tab.isSet(4) }" ng-click="tab.setTab(4)"><p class="fontOfTab">	Attention	</p></a>		 	
+				<a class="tab-item active" nav-direction="forward"  href="" ng-class="{ active:tab.isSet(1) }" ng-click="tab.setTab(1)"><p class="profile_fontOfTab">	Calendar	</p></a>
+				<a class="tab-item" href="" ng-class="{ active:tab.isSet(2) }" ng-click="tab.setTab(2)"><p class="profile_fontOfTab">	Information	</p></a>
+				<a class="tab-item" href="" ng-class="{ active:tab.isSet(3) }" ng-click="tab.setTab(3)"><p class="profile_fontOfTab">	Friends		</p></a>
+				<a class="tab-item" href="" ng-class="{ active:tab.isSet(4) }" ng-click="tab.setTab(4)"><p class="profile_fontOfTab">	Attention	</p></a>		 	
 			</div>
 		</div>
-		 <div class ="showtab" ng-show="tab.isSet(1)">         
-		 <div class = "notEasiWeek" data-ng-show="calendarOfFriend()">
-		 <div class =	"suggest">
+		 <div class ="profile_showtab" ng-show="tab.isSet(1)">         
+		 <div class = "profile_notEasiWeek" data-ng-show="calendarOfFriend()">
+		 <div class =	"profile_suggest">
 		 {{notCalendar}}</div> </div>
-        <div class ="easiweek" data-ng-class="weekCalendar.navBackground">
+        <div class ="profile_easiweek" data-ng-class="weekCalendar.navBackground">
 			<easi-week></easi-week>
 		</div>
           </div>
-		<div class ="showtab" ng-show="tab.isSet(2)">
-            <div id="information">
-				<div id="information-tab">
+		<div class ="profile_showtab" ng-show="tab.isSet(2)">
+            <div id="profile_information">
+				<div id="profile_information-tab">
 					<ul class="nav nav-pills">
 						<p ng-class="">
 						<blockquote>  <submit href="" ng-click="">Survey</submit></blockquote>
 						</p>
 						<p class="" ng-class="">
-						  <a href="" ng-click="">Basic information</a>
+						  <p href="" ng-click="">Basic information</a>
 						</p>
 						<p ng-class="">
 						  <p href="" ng-click="">Contact</p>
 						</p>
 					</ul>
 				</div>
-				<div id="information-in-tab">
+				<div id="profile_information-in-tab">
 					<button class="button button-icon  ion-medkit"  menu-close> Ask him information</button><br>
 			`		<button class="button button-icon  ion-university"  menu-close>University of Engineering and Technology</button>	<br>
 					<button class="button button-icon  ion-nuclear"  menu-close> From: Cau Giay, Hanoi</button>
 				</div>
 			</div>
 		</div>
-		<div class ="showtab" ng-show="tab.isSet(3)">
+		<div class ="profile_showtab" ng-show="tab.isSet(3)">
 			<a  class="item friends" data-ng-repeat="friend in friends" >	
-				<img id="friend-avatar" data-ng-src="img/ava{{friend.image}}.png">
-				<div id="friend-name">{{friend.name}}</div> 
+				<img id="profile_friend-avatar" data-ng-src="img/ava{{friend.image}}.png">
+				<div id="profile_friend-name">{{friend.name}}</div> 
 		
 			</a>
           </div>
-		  <div class ="showtab" ng-show="tab.isSet(4)">
+		  <div class ="profile_showtab" ng-show="tab.isSet(4)">
            <button class="button button-icon icon ion-coffee " menu-close></button>
 		   <p> He has 5 appointments with you </p>	  
           </div>
