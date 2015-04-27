@@ -32,12 +32,7 @@ describe('Sync', function(eUser) {
 			var clientId = '164260242142-4er9a46uufjlu6h6hsbv3s7479mqv6pr.apps.googleusercontent.com';
 			var scopes = 'https://www.googleapis.com/auth/calendar';
 			
-			expect(gapi.auth.authorize({
-										client_id: clientId,
-										scope: scopes,
-										immediate: true,
-										cookie_policy: 'single_host_origin'
-										}, $scope.handleAuthResult)).toBeDefined());
+			expect(gapi.auth.authorize).toBeDefined();
 		});
 	});
 	

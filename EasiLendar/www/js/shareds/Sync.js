@@ -14,6 +14,8 @@ angular.module('MainApp.shareds.sync', [])
 		// function should be called in the first Sign-In (for Page):
 		
 		logInResult: false,
+		logIN: -1,
+		email: '',
 		apiKey: 'AIzaSyAmBIdo6sEPU5QK3lqVrflqNNyoRhCBF7I',
 		clientId: '164260242142-4er9a46uufjlu6h6hsbv3s7479mqv6pr.apps.googleusercontent.com',
 		scopes: 'https://www.googleapis.com/auth/calendar',
@@ -23,8 +25,8 @@ angular.module('MainApp.shareds.sync', [])
 			// Log in to google account:
 
 			gapi.auth.authorize({
-				client_id: clientId,
-				scope: scopes,
+				client_id: this.clientId,
+				scope: this.scopes,
 				immediate: true,
 				approval_prompt: 'force',
 				include_granted_scopes: false,
@@ -230,10 +232,112 @@ angular.module('MainApp.shareds.sync', [])
 			}
 		},
 		
-		addSingleEventWithFriend : function(summary, start, end, location, friend){
+		
+		handleClientLoad : function() {
+			if (this.logIN == -1) {
+				window.setTimeout(this.checkAuth, 1);
+			}
+		},
+		
+		checkAuth : function() {
+			gapi.auth.authorize({
+				client_id: clientId,
+				scope: scopes,
+				immediate: true,
+				cookie_policy: 'single_host_origin'
+			}, this.handleAuthResult);
+		},
+		
+		handleAuthResult : function(authResult) {
+	
+			if (authResult && !authResult.error) {
+			
+				this.logIN = 1;
+			
+				//result= authResult.access_token;
+				var temp;
+
+				gapi.client.load('calendar', 'v3', function() {
+					var request = gapi.client.calendar.events.list({
+						'calendarId': 'primary',
+						"singleEvents": "true",
+						'maxResults': 1, 
+						"orderBy": "startTime",
+					});
+					request.execute(function(resp) {
+						if (resp.items.length != 0) {
+							this.email = resp.items[0].creator.email;
+						}
+					});
+				});
+			
+			} else {
+				this.logIN = 0;
+			}
+		},
+		
+		handleResult : function(authResult) {
+	
+			if (authResult && !authResult.error) {
+				this.logIN = 1;
+
+				//result= authResult.access_token;
+
+				// Load calendar:
+
+				this.makeApiCallNoBound();
+			}
+		},
+
+		handleAuthClick : function(event) {
+			if (this.logIN != 0) {
+				//do nothing...
+				return true;
+			} else {
+				gapi.auth.authorize({
+				client_id: this.clientId,
+				scope: 	this.scopes,
+				approval_prompt: 'force',
+				include_granted_scopes: false,
+				immediate: false,
+				cookie_policy: 'single_host_origin'
+				}, this.handleResult);
+
+				return false;
+			}
+		},
+		
+		logMeOut : function() {
+			this.logIN = 0;
+			
+			// code for local host:
+
+			// code can not be used for local host:
+
+			/*var theUrl= 'https://accounts.google.com/o/oauth2/revoke?token='+result;
+
+			var li = document.createElement('li');
+
+			li.appendChild(document.createTextNode(theUrl));
+			document.getElementById('events').appendChild(li);
+
+			var xmlHttp = null;
+
+			xmlHttp = new XMLHttpRequest();
+			xmlHttp.open( "GET", theUrl, false );
+			xmlHttp.send( null ); */
+		},
+		
+		
+		/*  All function add- del- edit 
+			event Of Google calendar   */
+		
+		addSingleEvent : function(summary, start, end, location){
+			
+			var result;
 			
 			if (start.getTime() > end.getTime())	return;
-			if (start.getTime() == undefined || end.getTime()== undefined)	return;
+			if (start.getTime() == undefined || end.getTime()== undefined)	return false;
 			
 			// Add to Google Calendar:
 			
@@ -257,38 +361,110 @@ angular.module('MainApp.shareds.sync', [])
 				//handle result:
 				
 				if (resp && !resp.error){
-					return true;
+					result= true;
 				}
 				
 				else{
-					return false;
+					result= false;
 				}
 			});
 			
-			// Add to eUser.uGmailCalendar:
+			return result;
+		},
+	
+		deleteEventWithId : function(Id){
 			
-			var position = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+			// delete in eUser.uGmailCalendar:
 			
-			var start= {dateTime: start};
-			var end= {dateTime: end};
+			// first, search for id:
+			var found= false;
 			
-			if (friend!= undefined){
-				var user= {summary: summary, start:start, end:end, location: location, friend: friend, position: position};
+			for each (var index in eUser.uGmailCalendar){
+				for (var i=0; i< eUser.uGmailCalendar[index].length; i++){
+					if (eUser.uGmailCalendar[index][i].id == Id){
+						delete eUser.uGmailCalendar[index][i];
+						found= true;
+						break;
+					}
+				}
 			}
 			
-			else{
-				var user= {summary: summary, start:start, end:end, location: location, position: position};
-			}
+			if (found== false)	return false;
 			
-			if (eUser.uGmailCalendar[position] == undefined){
-				eUser.uGmailCalendar[position]= new Array();
-			}
+			// delete in google calendar:
 			
-			eUser.uGmailCalendar[position].push(user);
+			var request = gapi.client.calendar.events.insert({
+				'calendarId': 'primary',
+				'eventId': Id
+			});
+			
+			request.execute(function(resp) {
+				//handle result:
+				
+				if (resp && !resp.error){
+					result= true;
+				}
+				
+				else{
+					result= false;
+				}
+			});
+			
+			return result;
 		},
 		
-		addSingleEventWithoutFriend : function(summary, start, end, location){
-			this.addSingleEventWithFriend(summary, start, end, location);
+		editEventWithId : function(Id, newEvent){
+			var request = gapi.client.calendar.events.insert({
+				'calendarId': 'primary',
+				'eventId': Id,
+				'body': newEvent
+			});
+			
+			request.execute(function(resp) {
+				//handle result:
+				
+				if (resp && !resp.error){
+					result= true;
+				}
+				
+				else{
+					result= false;
+				}
+			});
+			
+			return result;
+		},
+		
+		
+		/*  Sync to local calendar
+			Use Cordova.calendar  */
+
+			
+		syncToLocal : function() {
+
+			// Fail to connect:
+
+			if ($window.plugins == undefined) {
+				return false;
+			}
+
+			// Access:
+
+			$cordovaCalendar.listCalendars().then(function(result) {
+				//success:
+
+				eUser.uLocalCalendar = result;
+				this.handleLocalCalendar();
+				return true;
+				
+			}, function(err) {
+				// error:
+				return false;
+			});
+		},
+		
+		handleLocalCalendar : function() {
+			// bla bla
 		},
 	};
 })
