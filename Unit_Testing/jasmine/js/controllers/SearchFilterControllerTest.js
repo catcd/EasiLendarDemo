@@ -1,9 +1,9 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 24/04/2015
+ * last update: 26/04/2015
  * type: paticular controller
- * number of tests: 57
+ * number of tests: 72
  */
 
 /** Test for:
@@ -13,8 +13,8 @@
   */
 
 describe('Search Filter', function(){
-	var $controller, $rootScope, $scope;
-	var eSearchFilter, eSettings, eFriend;
+	var $controller, $rootScope, $scope, $filter;
+	var eSearchFilter, eSettings, eFriend, eDatabase;
 
 	beforeEach(module('MainApp.controllers.searchFilter'));
 
@@ -61,12 +61,21 @@ describe('Search Filter', function(){
 	};
 
 	eUser = {
-		uVIP: 0
+		uVIP: 0,
+		uFriend : [
+			{name: 'Cat Can'}, {name: 'Page Nguyen'},
+			{name: '#dung@'}, {name: 'Dungk58'}
+		]
 	};
 
-	beforeEach(inject(function(_$rootScope_, _$controller_){
+	eDatabase = {
+		getCalendar: function(id){}
+	};
+
+	beforeEach(inject(function(_$rootScope_, _$controller_,_$filter_){
 		$rootScope = _$rootScope_;
 		$controller = _$controller_;
+		$filter = _$filter_;
 		$scope = $rootScope.$new();
 			
 		$rootScope = {
@@ -81,7 +90,8 @@ describe('Search Filter', function(){
 			'eSearchFilter': eSearchFilter,
 			'eSettings': eSettings,
 			'eFriend': eFriend,
-			'eUser': eUser
+			'eUser': eUser,
+			'eDatabase': eDatabase
 			}
 		);
 	}));
@@ -171,6 +181,18 @@ describe('Search Filter', function(){
 			it('should create titleOfButton is ADVANCE FILTER', function(){
 				expect($scope.titleOfButton).toBe('ADVANCE FILTER');
 			});
+
+			it('should create personName is ""', function(){
+				expect($scope.personName).toBe('');
+			});
+
+			it('should create showButtonDelete is false', function(){
+				expect($scope.showButtonDelete).toBe(false);
+			});
+
+			it('should create showListPersons is false', function(){
+				expect($scope.showListPersons).toBe(false);
+			});
 		});
 	});
 
@@ -240,6 +262,18 @@ describe('Search Filter', function(){
 				$scope.priorityTimes[4].values = true;
 				$scope.$apply();
 				expect(eSearchFilter.mHoliday).toBe(true);
+			});
+
+			it('should set showListPersons is true when personName is different to ""', function(){
+				$scope.personName = 'a';
+				$scope.$apply();
+				expect($scope.showListPersons).toBe(true);
+			});
+
+			it('should set showListPersons is false when personName is ""', function(){
+				$scope.personName = '';
+				$scope.$apply();
+				expect($scope.showListPersons).toBe(false);
 			});
 		});
 
@@ -434,15 +468,11 @@ describe('Search Filter', function(){
 
 		describe('Toggle function', function(){
 			describe('If person is VIP user', function(){
-				it('should change mShow to true when it is false', function(){
+				it('should change mShow to true when it is false, change mShow to false when it is true', function(){
 					eUser.uVIP = 1;
 					$scope.mShow = false;
 					$scope.toggleFunc();
 					expect($scope.mShow).toBe(true);
-				});
-
-				it('should change mShow to false when it is true', function(){
-					eUser.uVIP = 1;
 					$scope.mShow = true;
 					$scope.toggleFunc();
 					expect($scope.mShow).toBe(false);
@@ -477,25 +507,19 @@ describe('Search Filter', function(){
 		});
 
 		describe('showDate function', function(){
-			it('should change showDay to false when it is true', function(){
+			it('should change showDay to false when it is true, change showDay to true when it is false', function(){
 				$scope.showDay = true;
 				$scope.showDate();
 				expect($scope.showDay).toBe(false);
-			});
-
-			it('should change showDay to true when it is false', function(){
 				$scope.showDay = false;
 				$scope.showDate();
 				expect($scope.showDay).toBe(true);
 			});
 
-			it('should change showTime to false when it is true', function(){
+			it('should change showTime to false when it is true, change showTime to true when it is false', function(){
 				$scope.showTime = true;
 				$scope.showDate();
 				expect($scope.showTime).toBe(false);
-			});
-
-			it('should change showTime to true when it is false', function(){
 				$scope.showTime = false;
 				$scope.showDate();
 				expect($scope.showTime).toBe(true);
@@ -514,6 +538,109 @@ describe('Search Filter', function(){
 				$scope.$apply();
 				expect(eSearchFilter.mDuration).toEqual(eSettings.sDefaultDuration);
 			});
+		});
+
+		describe('hideListPerson function', function(){
+			it('should set showListPersons is false', function(){
+				$scope.hideListPerson();
+				expect($scope.showListPersons).toBe(false);
+			});
+		});
+
+		describe('wantToMeet function', function(){
+			it('should set value to eFriend.fName, personName, showButtonDelete and call getCalendar function', function(){
+				spyOn(eDatabase, 'getCalendar');
+				var person = {
+					id: '001',
+					name: 'Dung'
+				};
+				$scope.wantToMeet(person);
+				expect(eFriend.fName).toBe(person.name);
+				expect($scope.personName).toBe(person.name);
+				expect($scope.showButtonDelete).toBe(true);
+				expect(eDatabase.getCalendar).toHaveBeenCalled();
+			});
+		});
+
+		describe('cancelMeeting function', function(){
+			it('should set eFriend.fName, eFriend.fMultiCal, personName, showButtonDelete to pristine value', function(){
+				$scope.cancelMeeting();
+				expect(eFriend.fName).toBe(null);
+				expect($scope.personName).toBe('');
+				expect($scope.showButtonDelete).toBe(false);
+				expect(eFriend.fMultiCal).toBe(null);
+			});
+		});
+	});
+
+	describe('Filter test', function(){
+		it('should return length of result array is 0 when can not find friend', function(){
+			var array = $filter('filterFriend');
+			expect(array(eUser.uFriend,'Google').length).toEqual(0);
+		});
+
+		it('should return length of result array 1 when have one person that need to be found in list', function(){
+			var array = $filter('filterFriend');
+			expect(array(eUser.uFriend,'Dungk58').length).toEqual(1);
+		});
+
+		it('should return all friends when does not input any thing into search text', function(){
+			var array = $filter('filterFriend');
+			expect(array(eUser.uFriend,'').length).toEqual(eUser.uFriend.length);
+		});
+
+		it('should return list has Cat Can and Page Nguyen when input "a" letter', function(){
+			var array = $filter('filterFriend');
+			var result = [
+						{name: 'Cat Can'}, {name: 'Page Nguyen'}
+						];
+			expect(array(eUser.uFriend,'a')).toEqual(result);
+		});
+
+		it('should return list has Cat Can when input "c"', function(){
+			var array = $filter('filterFriend');
+			var result = [
+						{name: 'Cat Can'}
+						];
+			expect(array(eUser.uFriend,'c')).toEqual(result);
+		});
+
+		it('should return list has Cat Can when input "   c"', function(){
+			var array = $filter('filterFriend');
+			var result = [
+						{name: 'Cat Can'}
+						];
+			expect(array(eUser.uFriend,'  ')).toEqual([]);
+			expect(array(eUser.uFriend,'c')).toEqual(result);
+		});
+
+		it('should return length of result array is 0 when only input spaces', function(){
+			var array = $filter('filterFriend');
+			expect(array(eUser.uFriend,'   ').length).toEqual(0);
+		});
+
+		it('should return list has Dungk58 when input "8"', function(){
+			var array = $filter('filterFriend');
+			expect(array(eUser.uFriend,'8')).toEqual([{name: 'Dungk58'}]);
+		});
+
+		it('should return list has #dung@ when input "#@" then return empty list when input "*"', function(){
+			var array = $filter('filterFriend');
+			expect(array(eUser.uFriend,'#')).toEqual([{name: '#dung@'}]);
+			expect(array(eUser.uFriend,'@')).toEqual([{name: '#dung@'}]);
+			expect(array(eUser.uFriend,'*')).toEqual([]);
+		});
+
+		it('should return empty list when input "123" then return full friends in list when delete "123"', function(){
+			var array = $filter('filterFriend');
+			var result =  [
+				{name: 'Cat Can'}, {name: 'Page Nguyen'},
+				{name: '#dung@'}, {name: 'Dungk58'}
+			];
+			expect(array(eUser.uFriend,'123')).toEqual([]);
+			expect(array(eUser.uFriend,'12')).toEqual([]);
+			expect(array(eUser.uFriend,'1')).toEqual([]);
+			expect(array(eUser.uFriend,'')).toEqual(result);
 		});
 	});
 });

@@ -250,7 +250,7 @@ describe('Month Calendar', function() {
 		describe('$scope.backgroundMonth', function(){
 			it('should return a class that set background for month has number is index', function(){
 				var className = $scope.backgroundMonth(3);
-				expect(className).toBe('bkg-style easi-apr-bkg');
+				expect(className).toBe('list-bkg-style easi-apr-bkg');
 			});
 		});
 

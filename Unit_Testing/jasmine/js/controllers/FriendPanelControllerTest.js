@@ -3,7 +3,7 @@
  * owner: Ngo Duc Dung
  * last update: 24/04/2015
  * type: friend panel controller
- * number of tests: 23
+ * number of tests: 21
  */
 
 /** Test for:
@@ -115,13 +115,10 @@ describe('Friend Panel', function() {
 		});
 
 		describe('appointMeeting', function(){
-			it('should call getCalendar function in DataBase.js', function(){
+			it('should call getCalendar and goToState function in DataBase.js', function(){
 				spyOn(eDatabase, 'getCalendar');
 				$scope.appointMeeting(eUser.uFriend[0]);
 				expect(eDatabase.getCalendar).toHaveBeenCalled();
-			});
-
-			it('should call goToState function in DataBase.js', function(){
 				spyOn($rootScope, 'goToState');
 				$scope.appointMeeting(eUser.uFriend[0]);
 				expect($rootScope.goToState).toHaveBeenCalled();
@@ -129,13 +126,10 @@ describe('Friend Panel', function() {
 		});
 
 		describe('gotoTop', function(){
-			it('should call hash function of $location', function(){
+			it('should call hash and anchorScroll function of $location', function(){
 				spyOn($location, 'hash');
 				$rootScope.gotoTop();
 				expect($location.hash).toHaveBeenCalled();
-			});
-
-			it('should call anchorScroll function of $ionicScrollDelegate', function(){
 				spyOn($ionicScrollDelegate, 'anchorScroll');
 				$rootScope.gotoTop();
 				expect($ionicScrollDelegate.anchorScroll).toHaveBeenCalled();
