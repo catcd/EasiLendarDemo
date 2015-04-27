@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 19/04/2015
+ * last update: 26/04/2015
  * type: list controller
  */
 
@@ -22,7 +22,7 @@ angular.module('MainApp.controllers.list', [])
 	* last: last day of month
 	* events: false if month doen not have any events
 	*/
-	
+		
 	//build next Month
 	$scope.buildNextMonth = function(date){
 		var i = $scope.allMonths.length;
@@ -109,20 +109,46 @@ angular.module('MainApp.controllers.list', [])
 
 	//set month background
 	$scope.background = function(index) {
-		var className = 'bkg-style ' + 'easi-' + $scope.eCalendar.shortMonths[index] + '-bkg';
+		var className = 'list-bkg-style ' + 'easi-' + $scope.eCalendar.shortMonths[index] + '-bkg';
 		return className;
 	}
 })
 
-/*.directive('scrollWatch', function(){
+.directive('listEvents', function(){
 	return{
-		restrict: 'A',
+		restrict: 'E',
 		controller: 'ListController',
 		link: function(scope, element, attr){
-			
+			var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 60;
+			var winHeight = window.innerHeight;
+
+			var today = new Date();
+			scope.currMonth = today.getMonth();
+			scope.currYear = today.getFullYear();
+
+			var content = document.getElementById('list-content-calendar');
+			var contentElm = angular.element(content);
+			var tables = content.getElementsByTagName('table');
+
+			contentElm.bind('scroll', function(){
+				var date;
+				for(var i=0; i<tables.length; i++){
+					var tableElm = angular.element(tables[i]);
+					var tablePos = tables[i].getBoundingClientRect();
+					if(tableElm != undefined){
+						if(tablePos.top <= top){
+							date = new Date( tableElm.attr('id') );
+						}
+					}
+				}
+				if(date != undefined && date != null){
+					scope.currMonth = date.getMonth();
+					scope.currYear = date.getFullYear();
+				}
+			});
 		}
 	};
-})*/
+})
 
 .directive('backgroundEvent', function() {
 	return {
@@ -154,7 +180,7 @@ angular.module('MainApp.controllers.list', [])
 			var month = toDay.getMonth();
 			var year = toDay.getFullYear();
 			if (scope.isToDay == toDay.getDate() && attr.currentMonth == month && attr.currentYear == year) {
-				element.addClass('current-date-list');
+				element.addClass('list-current-date');
 			}
 
 			/*element.bind('click', function(){

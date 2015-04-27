@@ -50,7 +50,7 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	$rootScope.gotoTop = function() {
 		// set the location.hash to the id of
 		// the element you wish to scroll to.
-		$location.hash('top');
+		$location.hash('friend-top');
 		$ionicScrollDelegate.anchorScroll(true);
 	};
 	
@@ -156,13 +156,13 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	return {
 		restrict: 'A',
 		link: function(scope, element, attrs) {
-			element.parent().parent().addClass('search-friend-input-blur');
+			element.parent().parent().addClass('friend-search-input-blur');
 			element.bind('focus', function() {
-				element.parent().parent().removeClass('search-friend-input-blur');
-				element.parent().parent().addClass('search-friend-input-focus');
+				element.parent().parent().removeClass('friend-search-input-blur');
+				element.parent().parent().addClass('friend-search-input-focus');
 			});
 			element.bind('blur', function() {
-				element.parent().parent().addClass('search-friend-input-blur');
+				element.parent().parent().addClass('friend-search-input-blur');
 			});
 		}
 	};
@@ -178,9 +178,9 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 			scope.$watch('isVisible', function() {
 				var listFriend = element.parent().parent().next().next().children().children().next().next();
 				if (scope.isVisible == true) {
-					listFriend.addClass('blur-list-friend');
+					listFriend.addClass('friend-blur-list');
 				} else {
-					listFriend.removeClass('blur-list-friend');
+					listFriend.removeClass('friend-blur-list');
 				}
 			});
 		}

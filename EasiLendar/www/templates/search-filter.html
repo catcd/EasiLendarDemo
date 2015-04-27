@@ -1,134 +1,141 @@
 <!-- 
-    starter: Can Duy Cat
-     owner: Ngo Duc Dung
-     last update: 6/4/2015
-     type: html -->
+	starter: Can Duy Cat
+	 owner: Ngo Duc Dung
+	 last update: 26/04/2015
+	 type: html -->
 <ion-view title="Search filter">
-    <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-chevron-left" data-ng-click="deleteValue(filter_form)"></button>
-    </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-        <button type="submit" class="button button-easi-blue easi-no-border" form="filter_form" data-ng-click="submit(filter_form)">Done</button>
-    </ion-nav-buttons>
-    <form name="filter_form" id="filter_form" class="filter-form" novalidate>
-        <ion-content padding="true" overflow-scroll="false" class="search-filter-content">
-            <div class="list">
-                <div class="meet-friends">You want to meet:
-                    <div class="name-friends">{{eFriend.fName}}</div>
-                        <!--<i class="button-delete icon ion-close easi-no-border" data-ng-show="showButtonDelete" data-ng-click="cancelMeeting()"></i></div>-->
-                </div>
-                <!--
-                <div class="item item-input" id="itemTitle">
-                    <input id="friend" type="text" data-ng-model="eFriend.fName" name="friend" placeholder="Do you want to meet?">
-                </div>-->
-                <!--START: Commom Filter -->
-                <div class="list list-inset">
-                    Title:
-                    <div class="item item-input" id="itemTitle">
-                        <input id="inputTitle" type="text" data-ng-model="eSearchFilter.mTitle" name="title" placeholder="Title" required>
-                    </div>
-                    <div class="hide-div" data-slide-toggle="showTime">
-                        <table><td>Duration:</td></table>
-                        <div class="item item-input" id="itemDuration">
-                            <table id="table-duration">
-                                <tr>
-                                    <td id="span-duration">Hour: </td>
-                                    <td id="td-duration">
-                                        <input id="input01" type="number" name="hour" data-ng-model="timeValues.mDurationHour" auto-focus-input="2" min="0" max="23">
-                                    </td>
-                                    <td id="span-duration">Minute:</td>
-                                    <td id="td-duration">
-                                        <input id="input01" type="number" name="minute" data-ng-model="timeValues.mDurationMinute" min="0" max="59">
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="duration-day">
-                        <input type="checkbox" id="checkbox-time" value="true" data-ng-click="showDate()">
-                        <label id="td-title-searching">All days:</label>
-                        <div data-slide-toggle="showDay">
-                            <div class="item item-input" id="itemDuration">
-                                <input id="input01" type="number" name="day(s)" data-ng-model="eSearchFilter.mDuration" min="1" placeholder="1">
-                                <span>day(s)</span>
-                            </div>
-                        </div>
-                    </div>
-                    <span id="td-title-searching">Location:</span>
-                    <div class="item item-input" id="itemLocation">
-                        <input id="input01" type="text" data-ng-model="eSearchFilter.mLocation" name="Location" placeholder="Location">
-                    </div>
-                </div>
-                <!--End: Commom Filter -->
-                <!-- START: Advance Filter -->
-                <div class="easi-space" data-slide-toggle="mShow">
-                    <div class="list">
-                        <span id="span02">Time:</span>
-                        <!-- {{timeValues.mToTime | date: "HH:mm:ss"}} -->
-                        <hr id="hr01"></hr>
-                        <table id="table-time">
-                            <tr id="tr-time">
-                                <td id="td-text">From:</td>
-                                <td id="td-time">
-                                    <input id="input-time" type="time" data-ng-model="timeValues.mFromTime" name="fromTime" auto-focus-input="5">
-                                </td>
-                                <td id="td-text">To:</td>
-                                <td id="td-time">
-                                    <input id="input-time" type="time" data-ng-model="timeValues.mToTime" name="toTime" min={{minTime}}>
-                                </td>
-                            </tr>
-                        </table>
-                        <div class="list list-inset">
-                            <span id="span02">Expiration:</span>
-                            <hr id="hr01"></hr>
-                            <div class="item item-input" id="itemFromDay">
-                                <table id="table02">
-                                    <tr>
-                                        <td style="width: 30%"><span id="span03">Starting:</span></td>
-                                        <td style="width: 50%">
-                                            <input id="input01" type="date" data-ng-model="timeValues.mFromDay" name="fromDay">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="item item-input" id="itemToDay">
-                                <table id="table02">
-                                    <tr>
-                                        <td style="width: 30%"><span id="span03">Ending:</span></td>
-                                        <td style="width: 50%">
-                                            <input id="input01" type="date" data-ng-model="timeValues.mToDay" name="toDay" min={{minDate}}>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <div id="inset02">
-                            <span id="span02">Avoid and Prioritize</span>
-                            <hr id="hr01"></hr>
-                            <table id="table03">
-                                <tr data-ng-repeat="time in priorityTimes">
-                                    <td id="td03">{{time.name}}:</td>
-                                    <td id="td04">
-                                        <div class="segmented-button">
-                                            <input type="radio" data-ng-model="time.values" value="true" id="avoid{{time.index}}" check-uncheck-radio is-checked="time.values">
-                                            <label for="avoid{{time.index}}" class="first">Avoid</label>
-                                            <input type="radio" data-ng-model="time.values" value="false" id="prioritize{{time.index}}" check-uncheck-radio is-checked="time.values">
-                                            <label for="prioritize{{time.index}}" class="last">Prioritize</label>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <button type="button" id="button-advance-filter" data-ng-click="toggleFunc()">{{titleOfButton}}
-                    <i class="icon ion-arrow-up-b" id="icon-advance-filter" data-change-icon="mShow"></i>
-                </button>
-                <!-- END: Advance Filter -->
-            </div>
-        </ion-content>
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-chevron-left" data-ng-click="deleteValue(filter_form)"></button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button type="submit" class="button button-easi-blue easi-no-border" form="filter_form" data-ng-click="submit(filter_form)">Done</button>
+	</ion-nav-buttons>
+
+	<form name="filter_form" id="filter_form" class="search-filter-form" novalidate>
+		<div class="search-filter-meet-friends">You want to meet:
+			<div class="search-filter-name-friends">{{eFriend.fName}}</div>
+			<i class="search-filter-button-delete icon ion-close easi-no-border" data-ng-show="showButtonDelete" data-ng-click="cancelMeeting()"></i>
+		</div>
+		<div class="search-filter-div-person">
+			<input id="search-filter-input-person" type="text" data-ng-model="personName" placeholder="Do you want to meet ?" required>
+		</div>
+		<div class="search-filter-list-persons" data-ng-show="showListPersons">
+			<div class="search-filter-person" data-ng-repeat="person in eUser.uFriend | filterFriend:personName" data-ng-click="wantToMeet(person)">
+			<img data-ng-src="img/ava{{person.ava}}.png" class="search-filter-image-person">
+			<span class="search-filter-span-person">{{person.name}}</span>
+			</div>
+		</div>
+
+		<ion-content padding="true" on-swipe-up="hideListPerson()" on-swipe-down="hideListPerson()" class="search-filter-content">
+			<div class="seach-filter-list">
+				<!--START: Commom Filter -->
+				<div class="search-filter-list">
+					Title:
+					<div class="item item-input search-filter-input" id="search-filter-itemTitle">
+						<input id="search-filter-inputTitle" type="text" data-ng-model="eSearchFilter.mTitle" name="title" placeholder="Title" required>
+					</div>
+					<div class="hide-div" data-slide-toggle="showTime">
+						<table><td>Duration:</td></table>
+						<div class="item item-input search-filter-input" id="search-filter-itemDuration">
+							<table id="search-filter-table-duration">
+								<tr>
+									<td id="search-filter-span-duration">Hour: </td>
+									<td id="search-filter-td-duration">
+										<input id="search-filter-input01" type="number" name="hour" data-ng-model="timeValues.mDurationHour" auto-focus-input="2" min="0" max="23">
+									</td>
+									<td id="search-filter-span-duration">Minute:</td>
+									<td id="search-filter-td-duration">
+										<input id="search-filter-input01" type="number" name="minute" data-ng-model="timeValues.mDurationMinute" min="0" max="59">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="search-filter-duration-day">
+						<input type="checkbox" id="checkbox-time" value="true" data-ng-click="showDate()">
+						<label id="search-filter-td-title-searching">All days:</label>
+						<div data-slide-toggle="showDay">
+							<div class="item item-input search-filter-input">
+								<input id="search-filter-input01" type="number" name="day(s)" data-ng-model="eSearchFilter.mDuration" min="1" placeholder="1">
+								<span>day(s)</span>
+							</div>
+						</div>
+					</div>
+					<span id="search-filter-td-title-searching">Location:</span>
+					<div class="item item-input search-filter-input">
+						<input id="search-filter-input01" type="text" data-ng-model="eSearchFilter.mLocation" name="Location" placeholder="Location">
+					</div>
+				</div>
+				<!--End: Commom Filter -->
+				<!-- START: Advance Filter -->
+				<div class="easi-space" data-slide-toggle="mShow">
+					<div class="search-filter-list">
+						<span id="search-filter-span02">Time:</span>
+						<!-- {{timeValues.mToTime | date: "HH:mm:ss"}} -->
+						<hr id="search-filter-hr01"></hr>
+						<table id="search-filter-table-time">
+							<tr id="search-filter-tr-time">
+								<td id="search-filter-td-text">From:</td>
+								<td id="search-filter-td-time">
+									<input id="search-filter-input-time" type="time" data-ng-model="timeValues.mFromTime" name="fromTime" auto-focus-input="5">
+								</td>
+								<td id="search-filter-td-text">To:</td>
+								<td id="search-filter-td-time">
+									<input id="search-filter-input-time" type="time" data-ng-model="timeValues.mToTime" name="toTime" min={{minTime}}>
+								</td>
+							</tr>
+						</table>
+						<div>
+							<span id="search-filter-span02">Expiration:</span>
+							<hr id="search-filter-hr01"></hr>
+							<div class="item item-input search-filter-input" id="search-filter-itemFromDay">
+								<table id="search-filter-table02">
+									<tr>
+										<td style="width: 30%"><span id="search-filter-span03">Starting:</span></td>
+										<td style="width: 50%">
+											<input id="search-filter-input01" type="date" data-ng-model="timeValues.mFromDay" name="fromDay">
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="item item-input search-filter-input" id="search-filter-itemToDay">
+								<table id="search-filter-table02">
+									<tr>
+										<td style="width: 30%"><span id="search-filter-span03">Ending:</span></td>
+										<td style="width: 50%">
+											<input id="search-filter-input01" type="date" data-ng-model="timeValues.mToDay" name="toDay" min={{minDate}}>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div id="search-filter-inset02">
+							<span id="search-filter-span02">Avoid and Prioritize</span>
+							<hr id="search-filter-hr01"></hr>
+							<table id="search-filter-table03">
+								<tr data-ng-repeat="time in priorityTimes">
+									<td id="search-filter-td03">{{time.name}}:</td>
+									<td id="search-filter-td04">
+										<div class="search-filter-segmented-button">
+											<input type="radio" data-ng-model="time.values" value="true" id="avoid{{time.index}}" check-uncheck-radio is-checked="time.values">
+											<label for="avoid{{time.index}}" class="first">Avoid</label>
+											<input type="radio" data-ng-model="time.values" value="false" id="prioritize{{time.index}}" check-uncheck-radio is-checked="time.values">
+											<label for="prioritize{{time.index}}" class="last">Prioritize</label>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<button type="button" id="search-filter-button-advance" data-ng-click="toggleFunc()">{{titleOfButton}}
+					<i class="icon ion-arrow-up-b" id="search-filter-icon-advance" data-change-icon="mShow"></i>
+				</button>
+				<!-- END: Advance Filter -->
+			</div>
+		</ion-content>
 
 
-        
-    </form>
+		
+	</form>
 </ion-view>

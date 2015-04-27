@@ -1,19 +1,20 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 24/04/2015
+ * last update: 26/04/2015
  * type: paticular controller
  */
 
 /*SEARCH-FILTER CONTROLLER*/
 angular.module('MainApp.controllers.searchFilter', [])
 
-.controller("SearchFilterController", function($rootScope, $scope, eSearchFilter, eSettings, eFriend, eUser) {
+.controller("SearchFilterController", function($rootScope, $scope, $document, eSearchFilter, eSettings, eFriend, eUser, eDatabase) {
 	//Using eSearchFilter, eSettings, eFriend factory
 	$scope.eSearchFilter = eSearchFilter;
 	$scope.eSettings = eSettings;
 	$scope.eFriend = eFriend;
 	$scope.eUser = eUser;
+	$scope.eDatabase = eDatabase;
 
 	$scope.timeValues = {
 		mDurationHour: $scope.eSettings.sDefaultDuration / 60,
@@ -102,6 +103,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 
 		$scope.mShow = false;
 		$scope.titleOfButton = 'ADVANCE FILTER';
+		$scope.cancelMeeting();
 
 		if($scope.preState == 'profile'){
 			$rootScope.goToState('profile');
@@ -132,6 +134,46 @@ angular.module('MainApp.controllers.searchFilter', [])
 			$scope.timeValues.mDurationHour = $scope.eSettings.sDefaultDuration / 60;
 			$scope.timeValues.mDurationMinute = $scope.eSettings.sDefaultDuration % 60;
 		}
+	}
+
+	/* Chose person who you want to meet */
+	$scope.personName = ''; 				//search person input to find who you want to meet
+	$scope.showButtonDelete = false;		//hide button delete
+	$scope.showListPersons = false;			//hide list of persons
+	
+	$scope.$watch('personName', function(){
+		if($scope.personName != '') {
+			$scope.showListPersons = true;
+		}
+		else { $scope.showListPersons = false; }
+	});
+
+	//hide list of persons when click anywhere
+	$document.bind('click', function(){ $scope.showListPersons = false; });
+	//hide list of persons when scroll content
+	$scope.hideListPerson = function() {
+		$scope.showListPersons = false;
+	};
+	//show list when click to input
+	/*var input = document.getElementById('input-person-filter');
+	var inputElem = angular.element(input);
+	inputElem.bind('click', function(){
+		$scope.showListPersons = false;
+	});*/
+
+	$scope.wantToMeet = function(person){
+		$scope.eFriend.fName = person.name;
+		$scope.personName = person.name;
+		$scope.showButtonDelete = true;
+		$scope.eDatabase.getCalendar(person.id);
+		//console.log($scope.eFriend.fMultiCal);
+	};
+
+	$scope.cancelMeeting = function(){
+		$scope.eFriend.fName = null;
+		$scope.personName = '';
+		$scope.showButtonDelete = false;
+		$scope.eFriend.fMultiCal = null;
 	}
 })
 
@@ -213,5 +255,22 @@ angular.module('MainApp.controllers.searchFilter', [])
 			}
 		  });
 		}
+	};
+})
+
+.filter('filterFriend',function(){
+	//items = friends array
+	return function(items, person){
+		if(!person){
+			return items;
+		}
+		var results = [];
+		angular.forEach(items, function(item){
+			if(item.name.toLowerCase().indexOf(person.toLowerCase()) > -1){
+				results.push(item);
+			}
+		});
+
+		return results;
 	};
 })

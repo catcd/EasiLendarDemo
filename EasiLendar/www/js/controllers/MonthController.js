@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 25/04/2015
+ * last update: 26/04/2015
  * type: month controller
  */
  
@@ -27,8 +27,8 @@ angular.module('MainApp.controllers.month', [])
 				//months list in year
 				$scope.showMonthsList = false;
 				$scope.showMonthCalendar = true;
-				if($document.find('td').children().hasClass('current-month-style') == true){
-					$document.find('td').children().removeClass('current-month-style');
+				if($document.find('td').children().hasClass('month-current-style') == true){
+					$document.find('td').children().removeClass('month-current-style');
 				}
 				$scope.buildCurrentMonth();
 			}
@@ -184,11 +184,10 @@ angular.module('MainApp.controllers.month', [])
 	}
 
 	$scope.backgroundMonth = function(index) {
-		var className = 'bkg-style ' + 'easi-' + $scope.eCalendar.shortMonths[index] + '-bkg';
+		var className = 'list-bkg-style ' + 'easi-' + $scope.eCalendar.shortMonths[index] + '-bkg';
 		return className;
 	}
 
-	$scope.bkgE = 'bkg';
 	$scope.showListEvent = function(day, month, year) {
 		if(day >= 0 && month >= 0 && year >= 0){
 			if (month > $scope.currentMonthNumber) {
@@ -242,6 +241,8 @@ angular.module('MainApp.controllers.month', [])
 
 		$scope.buildWeeks();
 	};
+
+	$scope.bkgE = 'bkg'; //set background for events
 })
 
 .directive('differentMonth', function($document) {
@@ -257,11 +258,11 @@ angular.module('MainApp.controllers.month', [])
 			var toDay = new Date();
 			if (scope.isCurrentDay == toDay.getDate() && scope.isDifferent == toDay.getMonth() && year == toDay.getFullYear()) {
 				element.children().prop('checked',true);
-				element.addClass('current-date-style');
+				element.addClass('month-current-date-style');
 			}
 		
 			if (scope.isDifferent != month) {
-				element.addClass('different-month-color');
+				element.addClass('month-different-color');
 			}
 			
 			element.bind('click', function() {
@@ -272,12 +273,12 @@ angular.module('MainApp.controllers.month', [])
 
 			$document.bind('click', function() {
 				if (element.children().prop('checked') == false) {
-					element.removeClass('radio-month-selected');
+					element.removeClass('month-radio-selected');
 				} else {
 					if (scope.isCurrentDay == toDay.getDate() && scope.isDifferent == toDay.getMonth() && year == toDay.getFullYear()) {
-						element.addClass('current-date-style');
+						element.addClass('month-current-date-style');
 					} else {
-						element.addClass('radio-month-selected');
+						element.addClass('month-radio-selected');
 					}
 				}
 			})
@@ -295,7 +296,7 @@ angular.module('MainApp.controllers.month', [])
 			if (scope.haveEvent != null) {
 				var index = new Date(attr.year, attr.month, attr.date, 0, 0, 0, 0);
 				if (scope.haveEvent[index] != null && attr.month == attr.currentMonth) {
-					element.parent().addClass('day-has-event');
+					element.parent().addClass('month-day-has-event');
 				}
 			}
 		}
@@ -310,8 +311,8 @@ angular.module('MainApp.controllers.month', [])
 		},
 		link: function(scope, element, attr) {
 			element.bind('click', function() {
-				if($document.find('td').children().hasClass('current-month-style') == true){
-					$document.find('td').children().removeClass('current-month-style');
+				if($document.find('td').children().hasClass('month-current-style') == true){
+					$document.find('td').children().removeClass('month-current-style');
 				}
 
 				var currentMonth = (new Date()).getMonth();
@@ -344,7 +345,7 @@ angular.module('MainApp.controllers.month', [])
 			element.bind('click', function() {
 				var id = '#' + scope.isThisMonth;
 				//Using find() function of JQUERY !
-				$document.find(id).children().addClass('current-month-style');
+				$document.find(id).children().addClass('month-current-style');
 			});
 		}
 	};
@@ -355,12 +356,58 @@ angular.module('MainApp.controllers.month', [])
 		restrict: 'A',
 		link: function(scope, element, attr) {
 			element.bind('click',function(){
-				if($document.find('td').children().hasClass('current-month-style') == true){
-					$document.find('td').children().removeClass('current-month-style');
+				if($document.find('td').children().hasClass('month-current-style') == true){
+					$document.find('td').children().removeClass('month-current-style');
 				}
 
-				$document.find('#0').children().addClass('current-month-style');
+				$document.find('#0').children().addClass('month-current-style');
 			})
 		}
 	};
 })
+
+.directive('showEvents', function(){
+	return{
+		restrict: 'E',
+		link: function(scope, element, attr){
+			scope.date = new Date(attr.year, attr.month, attr.day);
+		}
+	};
+})
+
+.directive('backgroundColorEvent', function(){
+	return {
+		restrict: 'A',
+		scope: {
+			isType: '=backgroundColorEvent'
+		},
+		link: function(scope, element, attr) {
+			var allBkgClass = ['event-color-1', 'event-color-2',
+				'event-color-3', 'event-color-4', 'event-color-5'
+			];
+			if (scope.isType == 'bkg') {
+				element.addClass(allBkgClass[Math.floor((Math.random() * 5))]);
+			}
+		}
+	};
+})
+
+.directive('currentDayAndDifferentMonth', function(){
+	return {
+		restrict: 'A',
+		scope: {
+			day: '=currentDayAndDifferentMonth'
+		},
+		link: function(scope, element, attr){
+			var today = new Date();
+			today = new Date(today.setHours(0,0,0,0));
+			var date = new Date(attr.year, attr.month, scope.day, 0,0,0,0);
+			if(date.toString() == today.toString()){
+				element.addClass('list-current-date');
+			}
+			if(attr.month != attr.currentMonth){
+				element.addClass('month-different-opacity');
+			}
+		}
+	};
+});
