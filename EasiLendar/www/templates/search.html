@@ -22,42 +22,43 @@
 	</div>
 
 	<!-- select tab -->
-	<div class="bar bar-subheader item item-select easi-back-light-gray height-35"
+	<div class="bar bar-subheader item item-select easi-back-light-gray"
+	id="search-subheader"
 	ng-click="showAlert('Search Filter', 'templates/search-option.html', 'Select one')">
 	    <div class="input-label">
-	        {{searchType.type}}
+	        <h2 id="search-option-label">{{searchType.type}}</h2>
 	    </div>
 	</div>
 
 	<!-- noti if no result found -->
-	<h3 class="easi-gray easi-center empty-result-noti" ng-show=isEmptyResult()>
+	<h3 class="easi-gray easi-center search-empty-result" ng-show=isEmptyResult()>
 		No Results Found.
 	</h3>
 
 	<!-- main content here -->
-	<ion-content class="margin-content">
+	<ion-content class="search-margin-content">
 		<!-- Search people div -->
-		<div id="search-people" class="list" ng-show=isShowPeople()>
-			<a ng-repeat="person in searchFriends"
-			class="item my-popover-item item-button-right">
-				<img data-ng-src="img/ava{{person.ava}}.png" ng-click="viewProfile(person.id)">
-				<p class="easi-space" ng-click="viewProfile(person.id)">{{person.name}}</p>
-				<button class="button button-easi-blue up-3px"
-				ng-click="addPerson(person.id)"
-				ng-hide=isHide(person.id)>
-					<i class="icon ion-person-add"></i>
-				</button>
-			</a>
+		<div id="search-people-result" class="list" ng-show=isShowPeople()>
+			<div ng-repeat="person in searchFriends">
+				<a class="item easi-item-avatar easi-index-1" ng-click="clickPeople(person)">
+					<img data-ng-src="img/ava{{person.ava}}.png">
+					<h2 class="easi-space search-person-result-name">{{person.name}}</h2>
+					<button class="button button-easi-blue easi-index-2 search-person-button"
+					ng-click="addPerson(person.id)"
+					ng-hide=isHide(person.id)>
+						<i class="icon ion-person-add"></i>
+					</button>
+				</a>
+			</div>
 		</div>
 
 		<!-- Search events div -->
-		<div id="search-events" class="list" ng-show=isShowEvents()>
+		<div id="search-events-result" class="list" ng-show=isShowEvents()>
 			<a ng-repeat="event in searchEvents"
-			class="item item-search-event"
+			class="item search-item-event-result"
 			ng-click="changeCall(event)">
-				<h3 class="search-event-sum">{{event.summary}}</h3>
-				<p>{{convertTime(event)}}</p>
-				<p>at {{event.location}}</p>
+				<h2 class="search-event-sum">{{event.summary}}</h2>
+				<p>{{eventDetail(event)}}</p>
 			</a>
 		</div>
 	</ion-content>

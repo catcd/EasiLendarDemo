@@ -1,15 +1,16 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 25/04/2015
+ * last update: 28/04/2015
  * type: popover controller
  */
 
 angular.module('MainApp.controllers.popover', [])
 
-.controller('PopOverController', function($rootScope, $scope, $ionicPopover, $ionicActionSheet, eDatabase) {
+.controller('PopOverController', function($rootScope, $scope, $ionicPopover, $ionicActionSheet, eDatabase, eUser) {
 	// inject services
-	var eDatabase = eDatabase;
+	$scope.eUser = eUser;
+	$scope.eDatabase = eDatabase;
 
 	/**
 	 * popover variable
@@ -158,8 +159,8 @@ angular.module('MainApp.controllers.popover', [])
 	 */
 	// style for friend tab
 	$scope.friendTabClass = {};
-	$scope.friendTabClass[true] = 'margin-top-69';
-	$scope.friendTabClass[false] = 'margin-top-0';
+	$scope.friendTabClass[true] = 'noti-margin-down';
+	$scope.friendTabClass[false] = 'noti-margin-top';
 })
 
 .directive('notiContent', function() {

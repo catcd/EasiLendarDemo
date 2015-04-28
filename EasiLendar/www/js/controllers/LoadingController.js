@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 19/04/2015
+ * last update: 28/04/2015
  * type: loading controller
  */
 
@@ -13,10 +13,12 @@ angular.module('MainApp.controllers.loading', [])
 
 	$ionicLoading.show({
 		duration: 4000,
-		template: '<ion-content class="easi-full-blue"><center><img src="img/logo.png" class="logo"><br><p class="easi-font bigName">EasiLendar</p><br><div id="followingBallsG"><div id="followingBallsG_1" class="followingBallsG"></div><div id="followingBallsG_2" class="followingBallsG"></div><div id="followingBallsG_3" class="followingBallsG"></div><div id="followingBallsG_4" class="followingBallsG"></div></div></center></ion-content>'
+		template: '<ion-content class="easi-full-blue"><center><img src="img/logo.png" class="easi-logo"><br><p class="easi-font easi-big-name">EasiLendar</p><br><div id="followingBallsG"><div id="followingBallsG_1" class="followingBallsG"></div><div id="followingBallsG_2" class="followingBallsG"></div><div id="followingBallsG_3" class="followingBallsG"></div><div id="followingBallsG_4" class="followingBallsG"></div></div></center></ion-content>'
 	});
 
-	window.onload = function() {
+	window.onload = $scope.loadingFunction;
+
+	$scope.loadingFunction = function() {
 		if (navigator.connection != undefined) checkConnection();		// if not working, skip it
 		getTimezone();
 		$rootScope.goToState("form");

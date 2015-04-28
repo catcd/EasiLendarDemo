@@ -1,14 +1,14 @@
 <!-- starter: Can Duy Cat
-   owner: Can Duy Cat
-   last update: 06/04/2015
-   type: template for noti friend accepted popup -->
+	 owner: Can Duy Cat
+	 last update: 28/04/2015
+	 type: template for noti friend accepted popup -->
 
-<ul class="list" style="height:200px">
+<ul class="list noti-friend-accepted-list" ng-controller="PopOverController">
 	<!-- friend accepted list -->
 	<a ng-repeat="friend in eUser.uFAccepted"
-	class="item my-popover-item"
-	ng-click="closePopup(); deleteFN(friend.id); viewProfile(friend.id);">
-		<img src="img/ava{{friend.ava}}.png">
-		<p class="easi-space">{{friend.name}}</p>
+	class="item easi-item-avatar"
+	ng-click="closePopup(); eDatabase.deleteFN(friend.id); eDatabase.viewProfile(friend.id);">
+		<img data-ng-src="img/ava{{friend.ava}}.png">
+		<h2 class="easi-space">{{friend.name}}</h2>
 	</a>
 </ul>

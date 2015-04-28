@@ -1,19 +1,21 @@
 <!-- starter: Can Duy Cat
    owner: Can Duy Cat
-   last update: 14/04/2015
+   last update: 28/04/2015
    type: template for noti friend tab -->
 
 <ul class="list {{friendTabClass[eUser.uFALength != 0]}}">
 	<!-- friend request list empty -->
-	<a class="button icon-left ion-person-add button-clear button-dark button-no-request"
+	<a class="button button-clear button-dark icon-left ion-person-add noti-button-no-request"
 	ng-click="closePopover(); goToState('search')"
 	ng-show="eUser.uFRLength == 0">
 		Look for some friends.
 	</a>
 
 	<!-- friend request list -->
-	<a ng-repeat="friend in eUser.uFRequest" class="item my-popover-item" ng-click="friendAction(friend)">
-		<img data-ng-src="img/ava{{friend.ava}}.png">
-		<p class="easi-space">{{friend.name}}</p>
-	</a>
+	<div class="easi-no-padding" id="noti-friend-request-list">
+		<a ng-repeat="friend in eUser.uFRequest" class="item easi-item-avatar" ng-click="friendAction(friend)">
+			<img data-ng-src="img/ava{{friend.ava}}.png">
+			<h2 class="easi-space">{{friend.name}}</h2>
+		</a>
+	</div>
 </ul>

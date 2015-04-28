@@ -7,7 +7,7 @@
 
 angular.module('MainApp.controllers.search', [])
 
-.controller("SearchController", function($scope, $rootScope, eToast, eDatabase, eUser, eCheckFriend) {
+.controller("SearchController", function($scope, $rootScope, eToast, eDatabase, eUser, eCheckFriend, eCalendar) {
 	// search input
 	$scope.searchInput = "";
 
@@ -85,6 +85,12 @@ angular.module('MainApp.controllers.search', [])
 		if (eCheckFriend.isRequested(ID)) {
 			return true;
 		}
+
+		// requested
+		if (eCheckFriend.isRequestedMe(ID)) {
+			return true;
+		}
+
 		return false;
 	}
 
@@ -94,6 +100,25 @@ angular.module('MainApp.controllers.search', [])
 
 		// toast
 		eToast.toastSuccess('Coming soon...', 2000);
+	}
+
+	// click people
+	$scope.clickPeople = function(person) {
+		if (person.id == eUser.uID) {
+			$rootScope.goToState('myProfile');
+		} else {
+			eDatabase.viewProfile(person.id);
+		}
+	}
+
+	// event detail function
+	$scope.eventDetail = function(event){
+		var result = eCalendar.convertTime(event);
+		if (event.location != undefined) {
+			result = result + " at " + event.location;
+		}
+
+		return result;
 	}
 
 	// function to check if empty result

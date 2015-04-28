@@ -6,10 +6,57 @@
 */
 
 /**
+* coming soon
+*/
+.coming-soon-content {
+	display: inline-block;
+	font-size: 25px;
+	margin-top: 25vh;
+	width: 300px;
+}
+div.coming-soon-input { display: inline-block; margin-top: 30px; width: 300px; }
+input.coming-soon-input {
+	color: #416969;
+	display: inline-block;
+	font-size: 11px;
+	height: 30px;
+	padding-left: 10px;
+	width: 155px;
+}
+p.coming-soon-slogan { font-family: Giddy; font-size: 22px; margin-top: 10px; }
+/* coming-soon-button */
+button.coming-soon-button {
+	border: 1px solid black;
+	display: inline-block;
+	height: 30px;
+	min-height: 30px;
+	min-width: 40px;
+	width: 47px;
+}
+.coming-soon-button.icon:before {
+	display: inline-block;
+	font-size: 24px;
+	line-height: 30px;
+	padding: 0 0 1px 0;
+	pointer-events: none;
+	vertical-align: inherit;
+}
+/* placeholder css in coming-soon */
+/* Must use all these 4 css */
+/* WebKit browsers */
+input.coming-soon-input::-webkit-input-placeholder { font-size: 12px; }
+/* Mozilla Firefox 4 to 18 */
+input.coming-soon-input:-moz-placeholder { font-size: 12px; }
+/* Mozilla Firefox 19+ */
+input.coming-soon-input::-moz-placeholder { font-size: 12px; }
+/* Internet Explorer 10+ */
+input.coming-soon-input:-ms-input-placeholder { font-size: 12px; }
+
+/**
 * home
 */
 /* red plus button to add event */
-.add-event {
+.home-create-event {
 	bottom: 0px;
 	max-width: 100px;
 	min-width: 80px;
@@ -24,66 +71,129 @@
 	top: 40px;
 	width: 80px;
 }
-
-/**
-* loading + about
-*/
-img.logo { height: 30vh; margin-top: 15vh; }
-p.bigName { color: #FFFFFF; font-size: 400%; margin-top: 30px; }
-
-/**
-* coming soon
-*/
-.coming-content {
-	display: inline-block;
-	font-size: 25px;
-	margin-top: 25vh;
-	width: 300px;
+/* calendar select popover */
+.home-popover-item { height: 47px; }
+#home-calendar-select-popover {
+	border: 0;
+	border-radius: 0;
+	height: 273px;
+	top: 0;
+	width: 169px;
 }
-div.coming-input { display: inline-block; margin-top: 30px; width: 300px; }
-input.coming-input {
-	color: #416969;
-	display: inline-block;
-	font-size: 11px;
+.home-num-30-position {
+	font-size: 15px;
+	left: 18px;
+	position: absolute;
+	top: 17px;
+}
+.home-num-7-position {
+	font-size: 15px;
+	left: 22px;
+	position: absolute;
+	top: 63px;
+}
+.home-num-1-position {
+	font-size: 15px;
+	left: 22px;
+	position: absolute;
+	top: 109px;
+}
+
+/**
+* notification popover
+*/
+#noti-popover-view {
+	border: 0;
+	border-radius: 0;
+	height: 65vh;
+	max-height: 500px;
+}
+.noti-tabs { height: 30px !important; min-height: 30px !important; top: 0; }
+#noti-popover-content { margin-bottom: 30px; margin-top: 30px; }
+/* footer bar in popover */
+#noti-popover-footer-bar {
+	border: 0;
+	border-radius: 0;
 	height: 30px;
 	padding-left: 10px;
-	width: 155px;
 }
-/* coming-button */
-button.coming-button {
-	border: 1px solid black;
-	display: inline-block;
-	height: 30px;
-	min-height: 30px;
-	min-width: 40px;
-	width: 47px;
+#noti-popover-footer-left {
+	color: #646464 !important;
+	font-size: 15px;
+	margin-left: -5px;
+	margin-top: -5px;
+	text-align: left;
+	text-decoration: underline;
+	width: 30% !important;
 }
-.coming-button.icon:before {
-	display: inline-block;
-	font-size: 24px;
-	line-height: 30px;
-	padding: 0 0 1px 0;
-	pointer-events: none;
-	vertical-align: inherit;
+#noti-popover-footer-right {
+	color: #646464 !important;
+	font-size: 15px;
+	margin-top: -5px;
+	text-align: right;
+	text-decoration: underline;
+	width: 50% !important;
 }
-p.coming-slogan { font-family: Giddy; font-size: 22px; margin-top: 10px; }
+/* friend accepted */
+#noti-friend-accepted-badge { position: absolute; right: 3px; top: 3px; }
+#noti-friend-tab-divider {
+	border: 0;
+	height: 25px;
+	left: 1px;
+	min-height: 25px;
+	position: absolute;
+	top: 81px;
+	width: 100%;
+}
+#noti-friend-tab-divider-title { margin-left: -10px; margin-top: -5px; width: 100%; }
+#noti-friend-accepted {
+	border: 0;
+	left: 1px;
+	position: absolute;
+	top: 31px;
+	width: 100%;
+}
+.noti-button-no-request { margin-top: -5px; }
+.noti-friend-accepted-list { height: 200px !important; }
+/* css for friends tab */
+#noti-friend-request-list { }
+.noti-margin-top { margin-top: 0px !important; }
+.noti-margin-down { margin-top: 73px !important; }
 
-/* placeholder css in coming soon */
-/* Must use all these 4 css */
-/* WebKit browsers */
-input.coming-input::-webkit-input-placeholder { font-size: 11px; }
-/* Mozilla Firefox 4 to 18 */
-input.coming-input:-moz-placeholder { font-size: 12px; }
-/* Mozilla Firefox 19+ */
-input.coming-input::-moz-placeholder { font-size: 12px; }
-/* Internet Explorer 10+ */
-input.coming-input:-ms-input-placeholder { font-size: 12px; }
+/**
+* search
+*/
+#search-subheader { height: 35px; }
+#search-option-label { left: 10px; position: absolute; top: 8px; }
+.search-margin-content { margin-top: 76px; }
+/* 2 div of result */
+.search-empty-result { position: absolute; top: 110px; width: 100%; }
+#search-people-result { margin-bottom: -1px; }
+#search-events-result { }
+/* search people */
+.search-person-result-name { }
+.search-person-button {
+	height: 38px !important;
+	min-height: 38px;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+/* search events */
+.search-item-event-result { height: 50px; padding: 5px; }
 
-/* setting */
+/**
+* setting
+*/
 .setting-title { margin-bottom: -5px; }
 .setting-separate-bold { border: 2px solid #E6E6E6; width: 99%; }
 #setting-last-item { border-bottom: 0; }
 #setting-border-under-bold { border-bottom: 3px solid #E6E6E6; }
+.setting-input-event-duration { padding-left: 40px; width: 200px; }
+/* default-time-option.html */
+#setting-search-time-zone { position: absolute; top: 65px; }
+.setting-show-time-zone { font-size: 12px !important; height: 50px !important; padding: 5px !important; }
+#setting-time-zone-list { height: 150px; margin-top: 42px; }
 
 /**
 * side menu
@@ -143,116 +253,3 @@ p.side-menu-split {
 	margin-left: 10px;
 	margin-top: 5px;
 }
-
-/**
-* calendar select popover
-*/
-#calendar-select-popover {
-	border: 0;
-	border-radius: 0;
-	height: 273px;
-	width: 169px;
-}
-.num-30-position {
-	font-size: 15px;
-	left: 18px;
-	position: absolute;
-	top: 17px;
-}
-.num-7-position {
-	font-size: 15px;
-	left: 22px;
-	position: absolute;
-	top: 63px;
-}
-.num-1-position {
-	font-size: 15px;
-	left: 22px;
-	position: absolute;
-	top: 109px;
-}
-
-/**
-* noti popover
-*/
-#f-popover-view {
-	border: 0;
-	border-radius: 0;
-	height: 65vh;
-	max-height: 500px;
-}
-#f-popover-h-bar {
-	border: 0;
-	border-radius: 0;
-	height: 30px;
-	padding-left: 10px;
-}
-.f-tabs { height: 30px !important; min-height: 30px !important; top: 0; }
-
-/* footer link in popover */
-#popover-footer-left {
-	color: #646464 !important;
-	font-size: 15px;
-	margin-left: -5px;
-	margin-top: -5px;
-	text-align: left;
-	text-decoration: underline;
-	width: 30% !important;
-}
-#popover-footer-right {
-	color: #646464 !important;
-	font-size: 15px;
-	margin-top: -5px;
-	text-align: right;
-	text-decoration: underline;
-	width: 50% !important;
-}
-#popover-content { margin-bottom: 30px; margin-top: 30px; }
-
-/* friend accepted */
-#friend-badge { position: absolute; right: 3px; top: 3px; }
-#fiend-tab-divider {
-	border: 0;
-	height: 25px;
-	left: 1px;
-	min-height: 25px;
-	position: absolute;
-	top: 81px;
-	width: 100%;
-}
-.friend-tab-divider-title { margin-top: 2px; width: 100%; }
-#friend-accepted {
-	border: 0;
-	left: 1px;
-	position: absolute;
-	top: 31px;
-	width: 100%;
-}
-.button-no-request { margin-top: -5px; }
-/* css for friends tab */
-.margin-top-0 { margin-top: 0px !important; }
-.margin-top-75 { margin-top: 73px !important; }
-
-/**
-* sign out
-*/
-
-/**
-* popup
-*/
-/* default-time-option.html */
-#search-time-zone { position: absolute; top: 65px; }
-#show-time-zone { font-size: 12px; height: 50px; padding: 5px; }
-#time-zone-list { height: 150px; margin-top: 42px; }
-#font17 { font-size: 17px; }
-
-/**
-* search
-*/
-.item-search-event { height: 70px; margin-left: -8px; }
-#search-people { margin-bottom: 10px; }
-.margin-content { margin-top: 78px; }
-.height-35 { height: 35px; }
-.empty-result-noti { position: absolute; top: 110px; width: 100%; }
-.up-3px { margin-top: -3px !important; }
-.search-event-sum { margin-top: 3px !important; }

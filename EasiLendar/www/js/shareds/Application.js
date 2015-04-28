@@ -119,7 +119,7 @@ angular.module('MainApp.shareds.application', [])
 		uVIP : false,
 		isLogin: false,
 
-		uRequested: [],
+		uRequested: {},
 
 		uGmailCalendar: null,	/*Google API JSON	Calendar*/
 		uLocalCalendar: null,	/*Google API JSON	Calendar*/
@@ -142,7 +142,7 @@ angular.module('MainApp.shareds.application', [])
 			this.uVIP  = false;
 			this.isLogin = false;
 
-			this.uRequested = [];
+			this.uRequested = {};
 
 			this.uGmailCalendar = null;
 			this.uLocalCalendar = null;
@@ -432,6 +432,16 @@ angular.module('MainApp.shareds.application', [])
 			}
 
 			return (eUser.uRequested[ID] !== undefined);
+		},
+
+		// is requested me function
+		// return true if ID is my friend
+		isRequestedMe: function(ID) {
+			if (eUser.uFRequest == null) {
+				return false;
+			}
+
+			return (eUser.uFRequest[ID] !== undefined);
 		}
 	};
 })
