@@ -511,7 +511,7 @@ p.side-menu-split {
 .my-profile-tab-4 label { background-color: #5F9C8C; }
 .my-profile-tab-4 label:hover { background-color: #F6F6F6; color: #416969; }
 .my-profile-tab [type=radio] { display: none; }
-[type=radio]:checked ~ label { background-color: #98D2C3; color: #416969; }
+.my-profile-tab [type=radio]:checked ~ label { background-color: #98D2C3; color: #416969; }
 .my-profile-overview-box, .my-profile-information-box, .my-profile-friends-box, .my-profile-more-box { margin: auto auto auto auto; max-width: 1440px; min-height: calc(100vh - 40vw - 162px); }
 .my-profile-friend-card { background-color: #F6F6F6; margin: 10px; max-width: 1440px; }
 .my-profile-friend-card-content { background-color: #F6F6F6; }
@@ -534,6 +534,45 @@ p.side-menu-split {
 .my-profile-item-avatar > div > div { display: inline-block; padding-top: 10px; width: 30%; }
 .my-profile-item-avatar > div > div > i { color: #D6D6D6; font-size: 25px; }
 .my-profile-item-avatar > button { position: absolute; right: 3px; top: 0; }
+.my-profile-card { margin: 15px auto 0 auto; max-width: 1440px; }
+.my-profile-time-item {
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	margin: 0 20px;
+	padding-bottom: 20px;
+}
+.my-profile-quote-item { opacity: 1; padding-bottom: 15px; }
+#my-profile-date { font-size: 25px !important; }
+#my-profile-time { font-size: 20px !important; }
+.my-profile-friends-info { width: 100%; }
+.my-profile-friends-info-item { display: inline-block; width: 20%; }
+.my-profile-friends-info-item:hover { cursor: pointer; }
+.my-profile-friends-info-item > img {
+	border: 2px solid #E6E6E6;
+	border-radius: 100%;
+	display: block;
+	margin: auto;
+	width: 80%;
+}
+.my-profile-friends-info-item > p {
+	display: block;
+	font-size: 15px !important;
+	margin: auto;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 80%;
+}
+.my-profile-friends-info-item > div {
+	border: 2px solid #E6E6E6;
+	border-radius: 100%;
+	display: block;
+	height: 16vw;
+	margin: auto;
+	width: 80%;
+}
+.my-profile-friends-info-item > div > p { font-size: 7vw; line-height: 16vw; width: 100%; }
 
 /* Profile */
 .profile-content { }
@@ -547,7 +586,7 @@ p.side-menu-split {
 .profile-avatar-container {
 	background-color: transparent;
 	height: auto;
-	margin: 15% 0 15px 5%;
+	margin: 10% 0 15px 5%;
 	width: 30%;
 }
 .profile-name, .profile-account-type, .profile-status { left: 36%; position: absolute; }
@@ -558,6 +597,11 @@ p.side-menu-split {
 .profile-status > p { display: inline-block; font-size: 18px !important; }
 .profile-bar { background-color: inherit !important; }
 .profile-buttons { position: absolute; right: 0; }
-.profile-second-content { margin-top: calc(45% + 55px); }
-.profile-calendar-box, .profile-information-box, .profile-friends-box, .profile-more-box { margin: auto auto auto auto; max-width: 1440px; min-height: calc(100vh - 45vw - 100px); }
-.profile-calendar-box { height: calc(100vh - 45vw - 100px); }
+.profile-second-content { margin-top: calc(40% + 55px); }
+.profile-calendar-box, .profile-information-box, .profile-friends-box, .profile-more-box {
+	border: 1px solid black;
+	margin: auto auto auto auto;
+	max-width: 1440px;
+	min-height: calc(100vh - 40vw - 100px);
+}
+.profile-calendar-box { height: calc(100vh - 40vw - 100px); }

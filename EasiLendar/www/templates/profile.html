@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Can Duy Cat
-	 last update: 05/05/2015
+	 last update: 07/05/2015
 	 type: profile state template -->
 
 <ion-view title="{{eFriend.fName}}">
@@ -15,7 +15,7 @@
 	<ion-content scroll="false" class="profile-content">
 		<div class="item easi-no-padding easi-no-border profile-head-information">
 			<div class="item easi-no-padding easi-no-border profile-avatar-container">
-				<img data-ng-src="img/ava{{eUser.uAvatar}}.png"
+				<img data-ng-src="img/ava{{eFriend.fAvatar}}.png"
 				class="my-profile-avatar">
 			</div>
 
@@ -77,7 +77,9 @@
 
 				<ion-slide>
 					<div class="profile-friends-box">
-						<div class="card my-profile-friend-card" ng-repeat="friend in eFriend.fFriend">
+						<div class="card my-profile-friend-card"
+						ng-repeat="friend in eFriend.fFriend"
+						ng-hide="friend.id == eUser.uID">
 							<div class="item my-profile-item-avatar my-profile-friend-card-content">
 								<img data-ng-src="img/ava{{friend.ava}}.png"
 								class="my-profile-friend-avatar"

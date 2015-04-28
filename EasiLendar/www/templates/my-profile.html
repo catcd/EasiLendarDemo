@@ -1,10 +1,9 @@
 <!-- starter: Can Duy Cat
 	 owner: Can Duy Cat
-	 last update: 05/05/2015
+	 last update: 08/05/2015
 	 type: html template-->
 
 <ion-view hide-nav-bar="true">
-
 	<ion-header-bar class="bar-header easi-no-border my-profile-header"
 	align-title="center">
 		<button class="button button-icon easi-index-2 easi-white icon
@@ -24,13 +23,13 @@
 
 	<ion-content scroll="false" class="easi-index-1 my-profile-content">
 		<div class="item easi-no-padding easi-no-border my-profile-head-information">
-			<div class="item easi-no-padding easi-no-border my-prrofile-container">
+			<div class="item easi-no-padding easi-no-border my-profile-container">
 				<button class="button button-icon icon ion-ios-arrow-left
-				easi-white easi-fade-fast my-prifile-navbutton-left"
+				easi-white easi-fade-fast my-profile-navbutton-left"
 				ng-click="nextLeftAva()"
 				ng-show="isEditing"></button>
 
-				<div class="item easi-no-padding easi-no-border my-prrofile-avatar-container">
+				<div class="item easi-no-padding easi-no-border my-profile-avatar-container">
 					<i class="icon ion-android-create easi-back-white easi-center
 					my-profile-edit-button easi-fade-fast"
 					ng-click="edit()"
@@ -48,7 +47,7 @@
 				</div>
 
 				<button class="button button-icon icon ion-ios-arrow-right
-				easi-white easi-fade-fast my-prifile-navbutton-right"
+				easi-white easi-fade-fast my-profile-navbutton-right"
 				ng-click="nextRightAva()"
 				ng-show="isEditing"></button>
 			</div>
@@ -88,12 +87,95 @@
 			<ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" show-pager="false" slide-interval="0">
 				<ion-slide>
 					<div class="my-profile-overview-box">
-						<h1>Overview</h1>
+						<div class="item item-text-wrap easi-center my-profile-time-item">
+							<h2 class="easi-dark-blue" id="my-profile-date">{{timeInfo.date}}</h2>
+							<h2 class="easi-dark-blue" id="my-profile-time">{{timeInfo.time}}</h2>
+							<h2 class="easi-dark-blue" id="my-profile-status"></h2>
+						</div>
+
+						<div class="item item-text-wrap easi-center easi-gray easi-fade-fast
+						easi-no-border easi-no-margin my-profile-quote-item"
+						ng-click="generateRand()">
+							{{quote[rand].quote}}
+							<br>{{quote[rand].author}}
+						</div>
+
+						<div class="my-profile-friends-info">
+							<div ng-repeat="friend in eUser.uFriend"
+							class="my-profile-friends-info-item"
+							ng-show="{{$index < 4}}"
+							ng-click="activeTab(2)">
+								<img data-ng-src="img/ava{{friend.ava}}.png" alt="avatar">
+								<p class="easi-center easi-gray">{{friend.name}}</p>
+							</div>
+
+							<div class="my-profile-friends-info-item"
+							ng-show="isShowFriendMore().show"
+							ng-click="activeTab(2)">
+								<div class="easi-back-gray">
+									<p class="easi-white easi-center">
+										+{{isShowFriendMore().count - 4}}
+									</p>
+								</div>
+
+								<p class="easi-center easi-gray">More</p>
+							</div>
+						</div>
 					</div>
 				</ion-slide>
+
 				<ion-slide>
 					<div class="my-profile-information-box">
-						<h1>Information</h1>
+						<div class="list card my-profile-info-card">
+							<div class="item item-divider easi-back-white easi-no-padding setting-divider">
+								<h2 class="easi-dark-blue setting-divider-title">
+									<b>Basic information</b>
+								</h2>
+							</div>
+
+							<div class="item item-icon-left setting-first-item">
+								<i class="icon ion-android-person easi-dark-blue"></i>
+								Name: {{eUser.uName}}
+							</div>
+
+							<div class="item item-icon-left">
+								<i class="icon ion-icecream easi-dark-blue"></i>
+								Birth date: {{info().birth.date}}
+							</div>
+
+							<div class="item item-icon-left">
+								<i class="icon ion-calendar easi-dark-blue"></i>
+								Birth year: {{info().birth.year}}
+							</div>
+
+							<div class="item item-icon-left">
+								<i class="icon ion-transgender easi-dark-blue"></i>
+								Gender: {{info().gender}}
+							</div>
+						</div>
+
+						<div class="list card my-profile-info-card">
+							<div class="item item-divider easi-back-white easi-no-padding setting-divider">
+								<h2 class="easi-dark-blue setting-divider-title">
+									<b>Contact information</b>
+								</h2>
+							</div>
+
+							<div class="item item-icon-left setting-first-item">
+								<i class="icon ion-android-mail easi-dark-blue"></i>
+								Email: {{eUser.uEmail}}@gmail.com
+							</div>
+
+							<div class="item item-icon-left">
+								<i class="icon ion-android-phone-portrait easi-dark-blue"></i>
+								Phone: {{info().phone}}
+							</div>
+
+							<div class="item item-icon-left">
+								<i class="icon ion-android-pin easi-dark-blue"></i>
+								Address: {{info().address}}
+							</div>
+						</div>
 					</div>
 				</ion-slide>
 
@@ -132,12 +214,11 @@
 
 				<ion-slide>
 					<div class="my-profile-more-box">
-						<h2>Coming soon...</h2>
+						<br>
+						<h2><pre>  we are coming soon...</pre></h2>
 					</div>
 				</ion-slide>
 			</ion-slide-box>
 		</ion-content>
 	</ion-content>
-
-
 </ion-view>
