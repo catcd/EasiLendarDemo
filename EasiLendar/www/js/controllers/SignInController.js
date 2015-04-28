@@ -1,24 +1,36 @@
 /**
- * starter: Can Duy Cat 
- * owner: Nguyen Minh Trang 
- * last update: 21/04/2015 
+ * starter: Can Duy Cat
+ * owner: Nguyen Minh Trang
+ * last update: 21/04/2015
  * type: particular controller
  */
 
-var signIn = angular.module("MainApp.controllers.signIn", [ "ionic" ]);
+var signIn = angular.module( "MainApp.controllers.signIn", [ "ionic" ] );
 
-signIn.controller("SignInController", function($rootScope, $scope, $timeout,
-		$ionicLoading, $ionicPopup, eSettings, eDatabase, eUser) {
+signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
+		$ionicLoading, $ionicPopup, eSettings, eDatabase, eUser ) {
 
 	// All constants
-	var MAX_ID_LENGTH = 15;
-	var MIN_ID_LENGTH = 4;
-	var MAX_PASSWORD_LENGTH = 16;
-	var MIN_PASSWORD_LENGTH = 8;
-	var NUM_OF_WARNINGS = 5;
+	var MAX_ID_LENGTH = 15,
+	MIN_ID_LENGTH = 4,
+	MAX_PASSWORD_LENGTH = 16,
+	MIN_PASSWORD_LENGTH = 8,
+	NUM_OF_WARNINGS = 5,
 
 	// link to home's default view
-	var link = eSettings.sDefaultView;
+	link = eSettings.sDefaultView,
+	
+	// show alert
+	showAlert = function() {
+		var alertPopup = $ionicPopup.alert({
+			title: "Registered!",
+			template: "Welcome to EasiLendar!"
+		});
+		$timeout( function() {
+			alertPopup.close(); // close the popup after 3 seconds for some
+			// reason
+		}, 3000 );
+	};
 
 	$scope.isRemember = false;
 
@@ -28,12 +40,12 @@ signIn.controller("SignInController", function($rootScope, $scope, $timeout,
 		mes: new Array(NUM_OF_WARNINGS),
 
 		// reset all messages (set to null)
-		reset: function(num) {
+		reset: function( num ) {
 			this.mes[num] = null;
 		},
 
 		// check if mes[i] is a warning or NULL
-		check: function(num) {
+		check: function( num ) {
 			if (this.mes[num] === undefined) {
 				return true;
 			} else
@@ -44,22 +56,10 @@ signIn.controller("SignInController", function($rootScope, $scope, $timeout,
 	// create new user
 	$scope.user = new User();
 
-	// show alert
-	var showAlert = function() {
-		var alertPopup = $ionicPopup.alert({
-			title: "Registered!",
-			template: "Welcome to EasiLendar!",
-		});
-		$timeout(function() {
-			alertPopup.close(); // close the popup after 3 seconds for some
-			// reason
-		}, 3000);
-	};
-
 	// sign in function with firebase
 	$scope.signIn = function() {
 		if (!$scope.user.checkChar()) {
-			$rootScope.goToState("warning");
+			$rootScope.goToState( "warning" );
 		} else {
 			var id = $scope.user.id;
 			var pass = $scope.user.password;
@@ -67,10 +67,10 @@ signIn.controller("SignInController", function($rootScope, $scope, $timeout,
 					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
 			// loading
 			eDatabase.databaseLoading();
-			ref.once("value", function(snapshot) {
+			ref.once( "value", function( snapshot ) {
 				var user = snapshot.val();
 				if (user === null || user.password != pass) {
-					$rootScope.goToState("warning");
+					$rootScope.goToState( "warning" );
 				} else {
 					// copy all user's data to eUser
 					eUser.uID = id;
@@ -105,8 +105,8 @@ signIn.controller("SignInController", function($rootScope, $scope, $timeout,
 					$scope.user.reset();
 					$rootScope.goHome();
 				}
-			}, function(errorObject) {
-				$rootScope.goToState("warning");
+			}, function( errorObject ) {
+				$rootScope.goToState( "warning" );
 			});
 		}
 	};
@@ -115,13 +115,13 @@ signIn.controller("SignInController", function($rootScope, $scope, $timeout,
 	$scope.register = function() {
 		// reset all warnings
 		for (var i = 0; i < NUM_OF_WARNINGS; i++) {
-			$scope.warnings.reset(i);
+			$scope.warnings.reset( i );
 		}
 
 		// flag array, contains temporary warning messages
-		var flag = [];
+		var flag = [],
 		// check if there is a warning
-		var check = false;
+		check = false;
 
 		flag[0] = $scope.user.checkID(); // ID: true or message
 		flag[1] = $scope.user.checkName(); // Name: true or message
@@ -141,13 +141,13 @@ signIn.controller("SignInController", function($rootScope, $scope, $timeout,
 		if (!check) {
 			// create a reference to Firebase
 			var ref = new Firebase(
-					"https://radiant-inferno-3243.firebaseio.com/Users/" + 
+					"https://radiant-inferno-3243.firebaseio.com/Users/" +
 					$scope.user.id);
 			// loading
 			eDatabase.databaseLoading();
 
 			// get data from that link if exists, null if not
-			ref.once("value", function(snapshot) {
+			ref.once( "value", function( snapshot ) {
 				// if id existed => change ID message
 				if (snapshot.val() !== null) {
 					$scope.warnings.mes[0] = "Existed";
@@ -157,27 +157,27 @@ signIn.controller("SignInController", function($rootScope, $scope, $timeout,
 				if (!check) {
 					// cut email string to save (get rid of
 					// '@gmail.com')
-					var pos = $scope.user.email.search("@");
+					var pos = $scope.user.email.search( "@" );
 					var mail;
 					if (pos == -1) {
 						mail = $scope.user.email;
 					} else {
-						mail = $scope.user.email.slice(0, pos);
+						mail = $scope.user.email.slice( 0, pos );
 					}
 
 					// create new user
-					ref.set({
-						name : $scope.user.name,
-						password : $scope.user.password,
-						avatar : 0,
-						VIP : 0,
-						gmail : mail,
-					});
+					ref.set( {
+						name: $scope.user.name,
+						password: $scope.user.password,
+						avatar: 0,
+						VIP: 0,
+						gmail: mail
+					} );
 
 					// welcome message
 					showAlert();
 					$scope.user.reset();
-					$rootScope.goToState("form");
+					$rootScope.goToState( "form" );
 				}
 			});
 		}
@@ -206,19 +206,22 @@ signIn.controller("SignInController", function($rootScope, $scope, $timeout,
 		 */
 		this.checkChar = function() {
 			// check input length
-			if (this.id.length > MAX_ID_LENGTH || this.id.length < MIN_ID_LENGTH)
+			if (this.id.length > MAX_ID_LENGTH ||
+			this.id.length < MIN_ID_LENGTH) {
 				return false;
+			}
 			// check input characters (ASCII)
 			for (var i = 0; i < this.id.length; i++) {
-				if (this.id.charCodeAt(i) < 48) {
+				if (this.id.charCodeAt( i ) < 48) {
 					return false;
-				} else if (this.id.charCodeAt(i) > 57 && this.id.charCodeAt(i) < 65) {
+				} else if (this.id.charCodeAt( i ) > 57 && this.id.charCodeAt( i ) < 65) {
 					return false;
-				} else if (this.id.charCodeAt(i) > 90 && this.id.charCodeAt(i) < 97 && 
-						this.id.charCodeAt(i) != 95) {
+				} else if (this.id.charCodeAt( i ) > 90 && this.id.charCodeAt( i ) < 97 &&
+						this.id.charCodeAt( i ) != 95) {
 					return false;
-				} else if (this.id.charCodeAt(i) > 122)
+				} else if (this.id.charCodeAt( i ) > 122) {
 					return false;
+				}			
 			}
 			return true;
 		};
@@ -265,7 +268,7 @@ signIn.controller("SignInController", function($rootScope, $scope, $timeout,
 			// string
 			if (this.email === "") {
 				return "Required";
-			} else if (-1 == this.email.search("@gmail.com")) {
+			} else if (-1 == this.email.search( "@gmail.com" )) {
 				return "Unvalid Email";
 			}
 			return true;
