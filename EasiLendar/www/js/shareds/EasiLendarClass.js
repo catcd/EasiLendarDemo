@@ -88,6 +88,45 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 	};
 	
 	/* 
+	* check if date1, date2 are same date
+	* date1, date2 are Date
+	*/
+	var areSameDate = function(date1, date2) {
+		if (isNull(date1) && isNull(date2)) {
+			return false;
+		} else {
+			if (date1.getFullYear() == date2.getFullYear() &&
+				date1.getMonth() == date2.getMonth() &&
+				date1.getDate() == date2.getDate() &&
+				date1.getHours() == date2.getHours() &&
+				date1.getMinutes() == date2.getMinutes() &&
+				date1.getSeconds() == date2.getSeconds()) {
+				
+				return true;
+			}
+			return false;
+		}
+	};
+	
+	/* 
+	* check if date1, date2 are same date
+	* date1, date2 are Date
+	*/
+	var areSameDay = function(date1, date2) {
+		if (isNull(date1) && isNull(date2)) {
+			return false;
+		} else {
+			if (date1.getFullYear() == date2.getFullYear() &&
+				date1.getMonth() == date2.getMonth() &&
+				date1.getDate() == date2.getDate()) {
+				
+				return true;
+			}
+			return false;
+		}
+	};
+	
+	/* 
 	 * Class BusyEvent
 	 * start, end is Object {dateTime: ..., timeZone: ...}
 	 */
@@ -720,6 +759,12 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 		
 		// check type of event
 		isType: isType,
+		
+		// check if 2 Date are same day
+		areSameDay: areSameDay,
+		
+		// check if 2 Date are same date
+		areSameDate: areSameDate,
 		
 		/*
 		* Time constructor function

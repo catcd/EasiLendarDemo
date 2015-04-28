@@ -90,9 +90,33 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 		} else return null;
 	};
 	
+	/*
+	* set uFRequest's length to uFRLength
+	*/
+	var setUFRL = function() {
+		if (isNull( eUser.uFRequest )) {
+			eUser.uFRLength = 0;
+		} else {
+			eUser.uFRLength = Object.keys( eUser.uFRequest ).length;
+		}
+	};
+	
+	/*
+	* set uFAccepted's length to uFALength
+	*/
+	var setUFAL = function() {
+		if (isNull( eUser.uFAccepted )) {
+			eUser.uFALength = 0;
+		} else {
+			eUser.uFALength = Object.keys( eUser.uFAccepted ).length;
+		}
+	};
+	
 	function DataBase() {
 		this.convertCal = convertCal;
-
+		this.setUFRL = setUFRL;
+		this.setUFAL = setUFAL;
+		
 		/*
 		* show loading balls
 		*/
@@ -105,28 +129,6 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 				class='followingBallsG'></div></div>",
 				hideOnStateChange: true
 			} );
-		};
-	
-		/*
-		* set uFRequest's length to uFRLength
-		*/
-		this.setUFRL = function() {
-			if (isNull( eUser.uFRequest )) {
-				eUser.uFRLength = 0;
-			} else {
-				eUser.uFRLength = Object.keys( eUser.uFRequest ).length;
-			}
-		};
-	
-		/*
-		* set uFAccepted's length to uFALength
-		*/
-		this.setUFAL = function() {
-			if (isNull( eUser.uFAccepted )) {
-				eUser.uFALength = 0;
-			} else {
-				eUser.uFALength = Object.keys( eUser.uFAccepted ).length;
-			}
 		};
 		
 		/*
@@ -192,7 +194,7 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 					
 							// delete the request of "id"
 							delete eUser.uFRequest[id];
-							this.setUFRL(); 	// set uFRLength
+							setUFRL(); 	// set uFRLength
 						
 							// add "id" to friends list
 							if (isNull( eUser.uFriend )) {
@@ -238,8 +240,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 					if (isNull( user )) {
 						alert( id + "does not exist" );
 					} else {
-						user.g_calendar = this.convertCal( user.g_calendar );
-						user.local_calendar = this.convertCal( user.local_calendar );
+						user.g_calendar = convertCal( user.g_calendar );
+						user.local_calendar = convertCal( user.local_calendar );
 						var temp = [ user.g_calendar, user.local_calendar ];
 						eFriend.fMultiCal = eMultiCalendar.newMultiCal( temp );
 						$ionicLoading.hide();
@@ -315,7 +317,7 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 		this.deleteFN = function( id ) {
 			if (checkSignIn() && !isNull( id )) {
 				delete eUser.uFAccepted[id];
-				this.setUFAL();	// set uFALength
+				setUFAL();	// set uFALength
 			
 				var uAccept = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/" +
@@ -358,7 +360,7 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 		this.rejectF = function( id ) {
 			if (checkSignIn() && !isNull( id )) {
 				delete eUser.uFRequest[id];
-				this.setUFRL();	// set uFRLength
+				setUFRL();	// set uFRLength
 			
 				var uRequest = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/" +
@@ -509,8 +511,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 					eUser.uFALength = 0;
 
 					// set uFRLength and uFALength
-					this.setUFRL();
-					this.setUFAL();
+					setUFRL();
+					setUFAL();
 				
 					$ionicLoading.hide();
 				
@@ -574,7 +576,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 						eFriend.fAvatar = user.avatar;
 						eFriend.fVIP = user.VIP;
 						eFriend.fFriend = user.friends;
-						if (!isNull( eFriend.fFriend[eUser.uID] )) {
+						if (!isNull(eUser.uFriend) && !isNull(eUser.uFriend[id]) &&
+							!isNull( eFriend.fFriend[eUser.uID] )) {
 							// set fMultiCal
 							var g_calendar = convertCal( user.g_calendar );			
 							var local_calendar = convertCal( user.local_calendar );
@@ -641,14 +644,14 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 			this.databaseLoading();
 			if (etype != "over") {
 				var temp = isNull( eUser.uGmailCalendar[date1] ) ? null :
-					 eUser.uGmailCalendar[date1];
+					 angular.copy(eUser.uGmailCalendar[date1]);
 				// has only 1 day to update
 				day.child( date1.toString() ).set( temp, onComplete );
 			} else {
 				// update every from date1 to date2
 				while (date1 <= date2) {
 					var temp = isNull( eUser.uGmailCalendar[date1] ) ? null :
-						eUser.uGmailCalendar[date1];
+						angular.copy(eUser.uGmailCalendar[date1]);
 					if (date1 < date2) {
 						day.child( date1.toString() ).set( temp );
 					} else {

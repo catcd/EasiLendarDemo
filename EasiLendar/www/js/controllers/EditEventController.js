@@ -49,14 +49,10 @@ angular.module('MainApp.controllers.editEvent', [])
 		return h + ":" + m;
 	};
 	
-	// close function
-	$scope.close = function() {
-		// clear data
-		eEvent.type = null;
-		$rootScope.goToState( eEvent.popBackState() );
-	};
-	
 	$scope.form = new Form();
+	$scope.$watch("currentState", function() {
+		$scope.form = new Form();
+	});
 	
 	/* 
 	* class EventForm
@@ -112,13 +108,22 @@ angular.module('MainApp.controllers.editEvent', [])
 				isNaN( min )) {
 				return null;
 			} else {
-				return new Date( y, m, d, hour, min, 0 );
+				return new Date( y, m-1, d, hour, min, 0 );
 			}
 		};
 		
 		this.allday = false;
 		
 		this.event = setEvent();
+		
+		/*
+		* close function
+		*/
+		this.close = function() {
+			// clear data
+			eEvent.type = null;
+			$rootScope.goToState( eEvent.popBackState() );
+		};
 			
 		/*
 		* save function
@@ -133,12 +138,11 @@ angular.module('MainApp.controllers.editEvent', [])
 				date1 = strToDate( this.event.date1, this.event.time1 );
 				date2 = strToDate( this.event.date2, this.event.time2 );
 			}
-			// user did not change anything
-			if (this.event.title == eEvent.pointer.summary && this.event.location ==
-				eEvent.pointer.location && date1 == eEvent.pointer.start.dateTime &&
-				date2 == eEvent.pointer.end.dateTime) {
-					$scope.close();
-			} else {
+			// user change something
+			if (this.event.title != eEvent.pointer.summary || this.event.location !=
+				eEvent.pointer.location || !eEasiLendar.areSameDate(date1,
+					eEvent.pointer.start.dateTime) || !eEasiLendar.areSameDate(
+					date2, eEvent.pointer.end.dateTime)) { console.log(date1); console.log(eEvent.pointer.start.dateTime)
 				// input is valid
 				if (!isNull( date1 ) && !isNull( date2 )) {
 					if (this.allday) {
@@ -156,9 +160,10 @@ angular.module('MainApp.controllers.editEvent', [])
 							console.log("event doesn't have id, something is wrong");
 						}
 					}
-					$scope.close();
 				}
 			}
+			// close form
+			this.close();
 		};
 	}	// end of class Form
 })
@@ -167,6 +172,9 @@ angular.module('MainApp.controllers.editEvent', [])
 	// type is "create" or "edit"
 	$rootScope.toEventForm = function( type ) {
 		if (type === null) return false;
+		if (type == "create") {
+			eEvent.pointer = null;
+		}
 		eEvent.type = type;
 		eEvent.pushBackState( $rootScope.currentState );
 		$rootScope.goToState( "editEvent" );
