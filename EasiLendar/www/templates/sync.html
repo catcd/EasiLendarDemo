@@ -1,49 +1,29 @@
 <!-- starter: Can Duy Cat
-	owner: Nguyen Manh Duy
-	last update: 21/03/2015
+	owner: Ngo Duc Dung
+	last update: 28/04/2015
 	type: html -->
 
 <ion-view title="Sync" data-ng-init= "handleClientLoad()">
-    <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-home" ng-click="goHome()"> </button>
-    </ion-nav-buttons>
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-home" ng-click="goHome()"> </button>
+	</ion-nav-buttons>
 	
-    <ion-content padding="true">	
-		<div id="firstContent" style="margin-top: 30px">
-            <h1  style=" font-size: 150%; margin-top: 25px; text-align: center;">
-				<strong style= "color: #b7353b" >Synchronize to Local Calendar</strong>
-			</h1>
-        </div>
-		
-		<div id="Local" style="margin-top: 40px">
-			<center>
-				<a id = "local-button" class= "button icon-left icon ion-iphone button-calm easi-no-border" style= "background-color: #416969; width: 270px" ng-click= "syncToLocal()"> Update Local Calendar </a>
-			</center>
+	<ion-content id="sync-content" class="sync-content">
+		<div data-ng-repeat="apps in allApps">
+			<p class="sync-p-title-{{apps.title}}">{{apps.title.toUpperCase()}} {{(apps.title == 'social') ? 'NETWORK':'APPS'}}</p>
+			<hr class="sync-hr-title"></hr>
+			<slide-toggle-sync class="item sync-slide-{{app.name}}" data-ng-repeat="app in apps.array">
+				<div class="sync-div-name" data-ng-click="toggleFunc(app.name)">
+					<img class="sync-img-{{app.name}}" data-ng-src="img/{{app.name}}.png">
+					<div class="sync-div-title-{{app.name}}">{{app.name.charAt(0).toUpperCase() + app.name.substr(1,app.name.length-1)}} {{(app.name == 'facebook')?'':'Calendar'}}</div>
+				</div>
+				<div class="sync-div-options" toggle="visible.value">
+					<div id="sync-{{option.id}}" class="sync-{{option.id}}-{{app.name}}" data-ng-click="(option.name=='Update events') ? updateEvents(app.name):logout(app.name)" data-ng-repeat="option in app.options">
+					<i class="sync-icon-{{option.id}} {{(option.name == 'Update events') ? 'ion-loop':'ion-reply'}}"></i>
+					{{option.name}}
+					</div>
+				</div>
+			</slide-toggle-sync>
 		</div>
-        <div id="secondContent" style="margin-top: 70px">
-            <h1  style=" font-size: 150%; margin-top: 25px; text-align: center;">
-				<strong style= "color: #b7353b" >Synchronize to Google Calendar</strong>
-			</h1>
-        </div>
-		
-		<div style="margin-top: 30px" id="hi">
-			<center>
-				<h4 id="hello" visibility= "hidden" style= "font-style : italic"></h4>
-			</center>
-        </div>
-
-		<div style="margin-top: 50px" id="div-update">
-			<center>
-				<a id="update-button" visibility= "hidden"></a>
-			</center>
-        </div>
-		
-		<div style="margin-top: 30px" id="div-log-in">
-			<center>
-				<a id="authorize-button" visibility= "hidden"></a>
-			</center>
-        </div>
-		
-        <p id="events" style="margin-top: 30px"></p>
-    </ion-content>
+	</ion-content>
 </ion-view>

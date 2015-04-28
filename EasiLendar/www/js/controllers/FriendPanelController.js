@@ -117,34 +117,43 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	}
 })
 
-.directive('togglefriend', function($document) {
+.directive('slideToggleFunc', function($document) {
 	return {
 		restrict: 'E',
 		link: function(scope, element, attr, $index) {
-			scope.visible = false;
+			scope.visible = { index: false, value: false};
 			scope.toggleFunc = function() {
-				scope.visible = !scope.visible;
+				scope.visible.value = !scope.visible.value;
 			};
 			$document.bind('click', function(event) {
-				var isClickedElement = element.find(event.target).length > 0;
-				if (isClickedElement) return;
-				scope.visible = false;
+				/*var isClickedElement = element.find(event.target).length > 0;
+				if (isClickedElement) return;*/
+				if(scope.visible.index == true){
+					scope.visible.index = false;
+					scope.visible.value = false;
+				};
+
+				if(scope.visible.value == true){
+					scope.visible.index = true;
+				}
+
 				scope.$apply();
 			});
 		}
 	};
 })
 
-.directive('slideToggleFriend', function() {
+.directive('toggle', function() {
 	return {
 		restrict: 'A',
 		scope: {
-			isOpen: "=slideToggleFriend"
+			isOpen: "=toggle"
 		},
 		link: function(scope, element, attr) {
 			element.hide();
+			var i = 0;
 			scope.$watch('isOpen', function(newVal, oldVal) {
-				if (newVal !== oldVal) {
+				if (newVal != oldVal) {
 					element.stop().slideToggle(200);
 				}
 			});

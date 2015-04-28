@@ -1,57 +1,50 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 27/04/2015
+ * last update: 28/04/2015
  * type: personal css
  */
 
-/*FRIEND PANEL*/
-.friend-myAvatar01 { max-height: 86px; padding-left: 70px; padding: 4px;}
-.friend-myAvatar01 > img:first-child, .friend-myAvatar01 .item-image, .friend-myAvatar01 .item-content > img:first-child, .friend-myAvatar01 .item-content .item-image {
-	left: 10px;
-	height: 50px;
-	position: absolute;
-	top: 4px;
-	width: 52px;
+/* FRIEND PANEL */
+.friend-myAvatar01 {
 	border: 0;
+	border-bottom: 1px solid #707070;
+	background-color: #646464;
+	margin: auto auto auto auto;
+	padding: 4px;
+	width: 90%;
+	max-height: 86px;
+	min-height: 65px;
 }
-.friend-myAvatar01.name { margin-top: 19px; height: 37px;}
-#friend-panel-content { 
-	background-color: #646464; 
-	border: 0; 
-	margin-bottom:-45px; 
-	padding-bottom: 45px; 
+.friend-myAvatar01 > img:first-child, .friend-myAvatar01 .item-image, .friend-myAvatar01 .item-content > img:first-child, .friend-myAvatar01 .item-content .item-image {
+	margin: -17px auto auto auto;
+	height: 50px;
+	width: 52px;
+	position: absolute;
+}
+#friend-panel-content {
+	background-color: #646464;
+	margin-bottom:-45px;
+	padding-bottom: 45px;
 	z-index: 1;
 }
 .friend-myAvatar01 h2 {
-	margin-top: 10px; 
-	font-size: 15px; 
-	font-weight: normal; 
-	margin-left: 63px; 
+	margin: 20px auto auto 63px;
+	height: 32px;
+	font-size: 15px;
+	font-weight: normal;
 	overflow: hidden;
 }
 .friend-myAvatar01 p {
 	color: #E6E6E6; 
-	font-size: 14px; 
+	font-size: 14px;
 	font-weight: normal; 
 	margin-left: 63px; 
 	padding-top: 1px;
 }
-#friend-myAvatar01 { background-color: #646464; border: 0; padding-bottom: 0px;}
-#friend-ribbon-b { border: 0; height: 50px; margin-top: 5px;}
-#friend-hr-panel { 
-	border: 2px solid #707070; 
-	width: 90%; 
-	margin-top: 1px;
-	margin-bottom: 0;
-}
+#friend-ribbon-b { height: 50px; margin-top: 5px;}
 .friend-div02 { text-align: right; font-size: 14px; height: 23px; margin-bottom: 2px;}
-.friend-div02 button {
-	border:0;
-	background-color: #646464; 
-	color:#E6E6E6; 
-	padding-top: 0;
-}
+.friend-div02 button { background-color: #646464; color:#E6E6E6; padding-top: 0;}
 .friend-footer-panel {background-color: transparent;} 
 .friend-search-input-focus { opacity: 1;}
 .friend-search-input-blur { opacity: 0.4;}
@@ -64,11 +57,7 @@
 .friend-repeat-animation.ng-enter.ng-enter-active {opacity: 1; transform: scaleY(1); height: 95px;}
 #friend-refresh-list {margin-left: 110px; margin-top: 3px;}
 /*sort option*/
-.friend-sort-option-div{
-	height: 30px;
-	font-size: 14px;
-	font-weight: bolder;
-}
+.friend-sort-option-div{ height: 30px; font-size: 14px; font-weight: bolder;}
 .friend-sort-option-div button{
 	color: #E6E6E6;
 	background-color: #646464;
@@ -79,7 +68,7 @@
 .friend-sort-option-div .first{ border-right: 1px solid #E6E6E6;}
 .friend-sort-option-div .last{ border-left: 1px solid #E6E6E6; }
 
-/*SEARCHING FILTER*/
+/* SEARCHING FILTER */
 
 /* Person name filter */
 .search-filter-content { margin: 70px auto auto auto; z-index: -1;}
@@ -236,7 +225,7 @@
 .search-filter-form.ng-submitted #search-filter-inputTitle.ng-invalid, .search-filter-form.ng-submitted #search-filter-input-person{ background-color: #D65930; }
 .search-filter-form.ng-submitted #search-filter-input01.ng-invalid{ color: #D65930; }
 
-/*LIST CALENDAR*/
+/* LIST CALENDAR */
 .list-calendar-title {
 	height: 50px;
 	padding: 40px;
@@ -298,7 +287,7 @@
 .event-color-4 { background-color: #960;}
 .event-color-5 { background-color: #069;}
 
-/*MONTH CALENDAR VER 1*/
+/* MONTH CALENDAR VER 1 */
 .list-bkg-style {
 	transition: all linear 0.8s;
 	background-size: cover;
@@ -396,7 +385,7 @@
 .month-div-list{ width: 100%; min-height: 65px;}
 .month-p-list{ padding-top: 20px;}
 
-/*MONTH CALENDAR VER 2*/
+/* MONTH CALENDAR VER 2 */
 .month-calendar-2 { max-width: 500px;}
 .month-button-previous-2 { padding-right: 20px;}
 .month-button-next-2 { padding-left: 20px;}
@@ -445,3 +434,49 @@
 }
 .month-different-opacity { opacity: 0.2;}
 .list-current-date { color: #33CCCC;}
+
+/* SYNC */
+.sync-content { margin: 10px auto auto auto; width: 99%;}
+.sync-p-title-social, .sync-p-title-calendar {
+	padding-left: 3px;
+	font-size: 15px;
+	font-weight: bold;
+	color: #646464;
+}
+.sync-p-title-calendar{ margin: -20px auto -1px auto;}
+.sync-hr-title { border: 1px solid #E6E6E6; width: 99%; margin: 5px auto -1px auto;}
+.sync-slide-facebook, .sync-slide-local, .sync-slide-google {
+	border: 0;
+	width: 99%;
+}
+.sync-slide-facebook { padding-bottom: 8px; margin: 12px auto 30px auto;}
+.sync-slide-local { border-bottom: 1px solid #E6E6E6; padding-bottom: 6px; margin: 12px auto 30px auto;}
+.sync-slide-google { margin-top: -20px; padding-bottom: 5px; margin: -19px auto auto auto;}
+.sync-div-name {
+	cursor: pointer;
+	margin: -17px -20px auto -20px;
+	padding-top: 6px;
+	min-height: 42px;
+}
+.sync-div-name:active, .sync-logout-facebook:active, .sync-events-facebook:active, 
+.sync-events-local:active, .sync-logout-google:active, .sync-events-google:active {
+	background-color: #416969;
+	color: #fff;
+}
+.sync-div-name:active .sync-div-title-facebook, .sync-div-name:active .sync-div-title-local,
+.sync-div-name:active .sync-div-title-google { color: #fff;}
+.sync-div-title-facebook, .sync-div-title-local, .sync-div-title-google { margin: -28px auto auto 45px; font-size: 16px; color: #646464;}
+.sync-div-name .sync-div-title-google { margin-top: -32px;}
+.sync-img-facebook, .sync-img-local{ margin: auto auto auto 10px; height: 25px; width: 25px;}
+.sync-img-google { margin: auto auto auto 8px; height: 30px; width: 30px;}
+.sync-div-options { margin: auto -12px 5px -12px;}
+.sync-logout-facebook, .sync-logout-google, .sync-events-facebook, .sync-events-local, .sync-events-google {
+	cursor: pointer;
+	margin: 5px 0 auto 0;
+	padding-left: 5px;
+	padding-top: 2px;
+	height: 30px;
+	font-size: 15px;
+}
+.sync-icon-logout, .sync-icon-events { margin: auto 5px auto auto;}
+.sync-icon-logout { padding-right: 3px;}

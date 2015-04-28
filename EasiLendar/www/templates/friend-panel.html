@@ -1,18 +1,18 @@
 <!-- starter: Can Duy Cat
      owner: Ngo Duc Dung
-     last update: 8/4/2015 
+     last update: 28/04/2015 
      type: friend panel template -->
 <form data-ng-controller="friendPanelController">
-    <togglefriend>
+    <slide-toggle-func>
         <ion-header-bar class="bar-easi-gray">
             <button class="button button-clear easi-no-border easi-gray">
                 <p class="easi-light-gray">Friends</p>
             </button>
             <button id="friend-refresh-list" class="button button-icon icon ion-loop easi-no-border easi-light-gray" data-ng-click="refreshList()"></button>
-            <button class="button button-icon icon ion-arrow-down-b easi-no-border easi-light-gray" data-ng-click="toggleFunc(); gotoTop()" sort-option is-visible="visible">
+            <button class="button button-icon icon ion-arrow-down-b easi-no-border easi-light-gray" data-ng-click="toggleFunc(); gotoTop()" sort-option is-visible="visible.value">
             </button>
         </ion-header-bar>
-    </togglefriend>
+    </slide-toggle-func>
     <ion-footer-bar class="bar bar-footer item-input-inset easi-back-gray friend-footer-panel" data-ng-click="gotoTop()">
         <label class="item-input-wrapper">
             <i class="icon ion-ios7-search placeholder-icon"></i>
@@ -21,29 +21,28 @@
     </ion-footer-bar>
     <ion-content id="friend-panel-content">
         <div id='friend-top'></div>
-        <div id='friend-top' class="friend-sort-option-div easi-no-border" data-slide-toggle-friend="visible">
+        <div id='friend-top' class="friend-sort-option-div easi-no-border" toggle="visible.value">
             <button class="first easi-no-border" data-ng-click="sort('AZ')">A - Z</button>
             <button class="easi-no-border">...</button> <!--data-ng-click="sort('FB')"-->
             <button class="last easi-no-border">...</button>
         </div>
         <div class="friend-list easi-no-border">
-            <togglefriend id="friend-myAvatar01" data-ng-repeat="person in eUser.uFriend | findingFriend:searchFriend" class="item friend-myAvatar01 item-icon-right sideMenu friend-repeat-animation">
+            <slide-toggle-func data-ng-repeat="person in eUser.uFriend | findingFriend:searchFriend" class="item item-icon-right sideMenu friend-myAvatar01 friend-repeat-animation">
 
                 <div class="easi-no-border" data-ng-click="toggleFunc()">
                     <img data-ng-src="img/ava{{person.ava}}.png" class="item-image easi-no-border">
-                    <h2 class="name easi-light-gray easi-no-border">{{person.name}}</h2>
+                    <h2 class="friend-name easi-light-gray">{{person.name}}</h2>
                     <i data-ng-show="{{person.VIP}}" class="icon ion-ribbon-b easi-vip-color easi-no-border" id="friend-ribbon-b"></i>
                 </div>
-                <div class="friend-div02 easi-no-border friend-repeat-animation" data-slide-toggle-friend="visible">
+                <div class="friend-div02 easi-no-border friend-repeat-animation" toggle="visible.value">
                     <div class="easi-no-border" style="margin-right: 8px">
                         <button class="easi-no-border" data-ng-click="appointMeeting(person)"menu-close>Date</button>
                         <button class="easi-no-border" data-ng-click="deleteFriend(person)">Delete</button>
                         <button class="easi-no-border" data-ng-click="viewProfile(person)" menu-close>View</button>
                     </div>
                 </div>
-                <hr id="friend-hr-panel">
 
-            </togglefriend>
+            </slide-toggle-func>
         </div>
         <img id="empty-image-50px">
     </ion-content>
