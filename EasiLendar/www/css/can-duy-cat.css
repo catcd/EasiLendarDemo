@@ -185,10 +185,14 @@ input.coming-soon-input:-ms-input-placeholder { font-size: 12px; }
 /**
 * setting
 */
-.setting-title { margin-bottom: -5px; }
-.setting-separate-bold { border: 2px solid #E6E6E6; width: 99%; }
-#setting-last-item { border-bottom: 0; }
-#setting-border-under-bold { border-bottom: 3px solid #E6E6E6; }
+.setting-divider { border-bottom: 0 !important; height: 25px; min-height: 25px; }
+.setting-divider-title { left: 5px; position: inherit; top: 5px; }
+.setting-first-item { border-top: 0 !important; }
+.setting-divider-name { border-bottom: 0 !important; height: 30px; min-height: 30px; }
+.setting-easilendar { font-size: 25px !important; }
+.setting-number-view-option-1 { left: 23px; position: absolute; top: 20px; }
+.setting-number-view-option-30 { left: 19px; position: absolute; top: 20px; }
+/* event duration popup */
 .setting-input-event-duration { padding-left: 40px; width: 200px; }
 /* default-time-option.html */
 #setting-search-time-zone { position: absolute; top: 65px; }

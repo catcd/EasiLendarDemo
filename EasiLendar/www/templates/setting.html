@@ -6,43 +6,75 @@
 	<ion-nav-buttons side="left">
 		<button class="button button-icon button-clear ion-home" ng-click="goHome()"></button>
 	</ion-nav-buttons>
-	<ion-content padding="true">
-		<div class="list">
-			<p class="easi-gray setting-title">
-				<b>GENERAL</b>
-			</p><hr class="setting-separate-bold">
+	<ion-content>
+		<div class="list card">
+			<div class="item item-divider easi-back-white easi-no-padding setting-divider">
+				<h2 class="easi-dark-blue setting-divider-title">
+					<b>General</b>
+				</h2>
+			</div>
 
-			<div class="item easi-space" ng-click="showAlert('Event options', 'templates/event-select.html', 'Select event types to show!')">
+			<div class="item item-icon-left setting-first-item"
+			ng-click="showAlert('Event options', 'templates/event-select.html', 'Select event types to show!')">
+				<i class="icon ion-eye easi-dark-blue"></i>
 				Event options
 			</div>
-			<div class="item easi-space" ng-click="showAlert('Select calendar', 'templates/calendar-select.html', 'Select calendar application')" id="setting-last-item">
+
+			<div class="item item-icon-left"
+			ng-click="showAlert('Select calendar', 'templates/calendar-select.html', 'Select calendar application')">
+				<i class="icon ion-calendar easi-dark-blue"></i>
 				Select calendar
 			</div>
+		</div>
 
-			<p class="easi-gray setting-title">
-				<b>VIEW SETTINGS</b>
-			</p><hr class="setting-separate-bold">
+		<div class="list card">
+			<div class="item item-divider easi-back-white easi-no-padding setting-divider">
+				<h2 class="easi-dark-blue setting-divider-title">
+					<b>View</b>
+				</h2>
+			</div>
 
-			<div class="item easi-space" ng-click="showAlert('Start of the week', 'templates/day-select.html', 'Select the first day of week in the calendar')">
+			<div class="item item-icon-left setting-first-item"
+			ng-click="showAlert('Start of the week', 'templates/day-select.html', 'Select the first day of week in the calendar')">
+				<i class="icon ion-more easi-dark-blue"></i>
 				Start of the week
 				<span class="item-note">
 					{{eSettings.sFirstDay}}
 				</span>
 			</div>
-			<div class="item easi-space" ng-click="showAlert('Default view', 'templates/default-view-select.html', 'Select the default calendar in home page')">
+
+			<div class="item item-icon-left"
+			ng-click="showAlert('Default view', 'templates/default-view-select.html', 'Select the default calendar in home page')">
+				<i class="icon ion-qr-scanner easi-dark-blue"></i>
 				Default view
 				<span class="item-note">
 					{{eSettings.sDefaultView}} calendar
 				</span>
 			</div>
-			<div class="item easi-space" ng-click="showAlert('Day view option', 'templates/day-view-option.html',  'Select the default view of day calendar')" id="setting-border-under-bold">
+
+			<div class="item item-icon-left"
+			ng-click="showAlert('Day view option', 'templates/day-view-option.html', 'Select the default view of day calendar')">
+				<i class="icon ion-calendar easi-dark-blue"></i>
+				<p class="easi-dark-blue setting-number-view-option-1"><b>1</b></p>
 				Day view option
 				<span class="item-note">
 					{{eSettings.sDayView}}
 				</span>
 			</div>
-			<div class="item item-toggle" id="setting-last-item">
-				<p class="easi-space" id="font17">Show week number</p>
+
+			<div class="item item-icon-left"
+			ng-click="showAlert('Month view option', 'templates/month-view-option.html', 'Select the default view of month calendar')">
+				<i class="icon ion-calendar easi-dark-blue"></i>
+				<p class="easi-dark-blue setting-number-view-option-30"><b>30</b></p>
+				Month view option
+				<span class="item-note">
+					{{eSettings.sMonthView}}
+				</span>
+			</div>
+
+			<div class="item item-toggle item-icon-left">
+				<i class="icon ion-closed-captioning easi-dark-blue"></i>
+				Show week number
 				<label class="toggle toggle-dark">
 					<input type="checkbox" ng-model="eSettings.sShowWeekNumber">
 					<div class="track">
@@ -50,13 +82,24 @@
 					</div>
 				</label>
 			</div>
+		</div>
 
-			<p class="easi-gray setting-title">
-				<b>OTHER</b>
-			</p><hr class="setting-separate-bold">
+		<div class="list card">
+			<div class="item item-divider easi-back-white easi-no-padding setting-divider">
+				<h2 class="easi-dark-blue setting-divider-title">
+					<b>Other</b>
+				</h2>
+			</div>
 
-			<div class="item item-toggle" id="setting-last-item">
-				<p class="easi-space" id="font17">Auto sync</p>
+			<div class="item item-icon-left setting-first-item"
+			ng-click="showAlert('Default event duration', 'templates/default-event-duration.html', 'Select default duration for new event')">
+				<i class="icon ion-code-working easi-dark-blue"></i>
+				Default event duration
+			</div>
+
+			<div class="item item-toggle item-icon-left">
+				<i class="icon ion-loop easi-dark-blue"></i>
+				Auto sync
 				<label class="toggle toggle-dark">
 					<input type="checkbox" ng-model="eSettings.sAutoSync">
 					<div class="track">
@@ -64,13 +107,21 @@
 					</div>
 				</label>
 			</div>
-			<div class="item easi-space" ng-click="eSettings.sAutoSync ? showAlert('Auto sync option', 'templates/default-sync-option.html', 'Select conection to auto sync') : showAlert('Oop! Auto sync is turned off!', '', 'Turn it on to use this feature')" id="setting-border-under-bold">
+
+			<div class="item item-icon-left"
+			ng-click="eSettings.sAutoSync ?
+			showAlert('Auto sync option', 'templates/default-sync-option.html', 'Select conection to auto sync')
+			: showAlert('Oop! Auto sync is turned off!', '', 'Turn it on to use this feature')">
+				<i class="icon ion-wrench easi-dark-blue"></i>
 				Auto sync option
-				<p><small>Auto sync with {{eSettings.sSyncWith}}</small></p>
+				<span class="item-note">
+					{{eSettings.sSyncWith}}
+				</span>
 			</div>
 
-			<div class="item item-toggle" id="setting-last-item">
-				<p class="easi-space" id="font17">Use device time zone</p>
+			<div class="item item-toggle item-icon-left">
+				<i class="icon ion-clock easi-dark-blue"></i>
+				Use device time zone
 				<label class="toggle toggle-dark">
 					<input type="checkbox" ng-model="eSettings.sDeviceTimeZone">
 					<div class="track">
@@ -78,20 +129,31 @@
 					</div>
 				</label>
 			</div>
-			<div class="item easi-space" ng-click="!eSettings.sDeviceTimeZone ? showAlert('Time zone','templates/default-time-option.html', 'Search for your time zone.') : showAlert('Use device time zone', '', 'Turn it off to change time zone yourself')">
+
+			<div class="item item-icon-left"
+			ng-click="!eSettings.sDeviceTimeZone ?
+			showAlert('Time zone','templates/default-time-option.html', 'Search for your time zone.')
+			: showAlert('Use device time zone', '', 'Turn it off to change time zone yourself')">
+				<i class="icon ion-hammer easi-dark-blue"></i>
 				Time zone
-				<p><small>{{eSettings.sZoneName[eSettings.sTimeZone+11]}}</small></p>
+				<span class="item-note">
+					{{eSettings.sZoneName[eSettings.sTimeZone+11]}}
+				</span>
+			</div>
+		</div>
+
+		<div class="list card">
+			<div class="item item-divider easi-back-white easi-no-padding setting-divider-easilendar">
+				<h2 class="easi-dark-blue setting-divider-title easi-font setting-easilendar">
+					<b>EasiLendar</b>
+				</h2>
 			</div>
 
-			<div class="item easi-space" ng-click="showAlert('Default event duration', 'templates/default-event-duration.html', 'Select default duration for new event')">
-				Default event duration
-			</div>
-
-			<div class="item easi-space" ng-click="goToState('comingSoon')">
+			<div class="item setting-first-item" ng-click="goToState('comingSoon')">
 				Suggested apps
 			</div>
 
-			<div class="item easi-space" id="setting-last-item" ng-click="goToState('about')">
+			<div class="item" id="setting-last-item" ng-click="goToState('about')">
 				<b>About</b>
 			</div>
 		</div>

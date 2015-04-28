@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 28/04/2015
+ * last update: 29/04/2015
  * type: module all shared variables and functions used for this app
  */
 
@@ -59,6 +59,7 @@ angular.module('MainApp.shareds.application', [])
 		sLocalCalendar: true,	/*Use (or not) local calendar*/
 		sGmailCalendar: true,	/*Use (or not) Gmail calendar*/
 		sFaceCalendar: true,	/*Use (or not) Facebook calendar*/
+		sOutlookCalendar: true,	/*Use (or not) Facebook calendar*/
 
 		sDefaultView: 'month',		/*enum{"day", "week", "month", "list") calendar on home page*/
 		sDayView: 'eventList',		/*enum{"timeGrid", "eventList") day calendar*/
