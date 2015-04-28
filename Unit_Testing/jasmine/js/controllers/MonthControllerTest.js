@@ -1,9 +1,9 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 25/04/2015
+ * last update: 28/04/2015
  * type: month controller
- * number of tests: 40
+ * number of tests: 41
  */
 
 /** Test for:
@@ -323,13 +323,38 @@ describe('Month Calendar', function() {
 			});
 		});
 
-		describe('$rootScope.buildMonth', function(){
+		describe('$rootScope.changeMonth', function(){
 			var today = new Date();
 			today = new Date(today.setHours(0,0,0,0));
 
 			it('should set currentDate, currentDateNumber, currentMonthNumber, currentYear, currentMonthString, position when pass a date of month or week', function(){
 				$scope.buildCurrentMonth();
 				$rootScope.changeMonth(today);
+
+				expect($scope.currentDate.toString()).toEqual(today.toString());
+				expect($scope.currentDateNumber).toEqual(today.getDate());
+				expect($scope.currentMonthNumber).toEqual(today.getMonth());
+				expect($scope.currentMonthString).toEqual(eCalendar.months[$scope.currentMonthNumber]);
+				expect($scope.currentYear).toEqual(today.getFullYear());
+				expect($scope.position.toString()).toEqual(today.toString());
+				expect(eDate.cDate.toString()).toEqual(today.toString());
+			});
+
+			it('should call $scope.buildWeeks in buildMonth function', function(){
+				spyOn($scope, 'buildWeeks');
+				$rootScope.changeMonth(today);
+
+				expect($scope.buildWeeks).toHaveBeenCalled();
+			});
+		});
+
+		describe('$rootScope.monthToday', function(){
+			var today = new Date();
+			today = new Date(today.setHours(0,0,0,0));
+
+			it('should set currentDate, currentDateNumber, currentMonthNumber, currentYear, currentMonthString, position is today', function(){
+				$scope.buildCurrentMonth();
+				$rootScope.monthToday();
 
 				expect($scope.currentDate.toString()).toEqual(today.toString());
 				expect($scope.currentDateNumber).toEqual(today.getDate());

@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 26/04/2015
+	 last update: 29/04/2015
 	 type: calendar template -->
 
 <list-events><ion-view title="EasiLendar" ng-class="background(currMonth)">
@@ -21,7 +21,7 @@
 				</td></tr>
 
 				<tr class="list-tr-calendar" ng-repeat="date in month.weeks" ng-show="eUser.uGmailCalendar[date] != undefined">
-					<td id="{{date.toDateString()}}" class="list-td-calendar-1" ng-repeat="event in eUser.uGmailCalendar[date] | limitTo:1">
+					<td id="td-{{date.toDateString()}}" class="list-td-calendar-1" ng-repeat="event in eUser.uGmailCalendar[date] | limitTo:1">
 						<div current-time="event.start.dateTime.getDate()" current-month="{{event.start.dateTime.getMonth()}}" current-year="{{event.start.dateTime.getFullYear()}}"
 						id="{{event.start.dateTime.toDateString()}}">
 							<p class="list-p-calendar-number">{{date.getDate()}}</p>

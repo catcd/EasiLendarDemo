@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 26/04/2015
+ * last update: 28/04/2015
  * type: month controller
  */
  
@@ -241,6 +241,21 @@ angular.module('MainApp.controllers.month', [])
 
 		$scope.buildWeeks();
 	};
+
+	/* Return today */
+	$rootScope.monthToday = function(){
+		var date = new Date();
+		data = new Date(date.setHours(0,0,0,0));
+		$scope.currentDate = date;
+		$scope.currentDateNumber = date.getDate();
+		$scope.currentMonthNumber = date.getMonth();
+		$scope.currentYear = date.getFullYear();
+		$scope.currentMonthString = $scope.eCalendar.months[$scope.currentMonthNumber];
+		$scope.position = angular.copy(date);
+		$scope.eDate.cDate = angular.copy($scope.position);
+
+		$scope.buildWeeks();
+	}
 
 	$scope.bkgE = 'bkg'; //set background for events
 })

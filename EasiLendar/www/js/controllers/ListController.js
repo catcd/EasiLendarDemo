@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 26/04/2015
+ * last update: 29/04/2015
  * type: list controller
  */
 
@@ -76,11 +76,11 @@ angular.module('MainApp.controllers.list', [])
 
 
 	/* Set pixel for some positions */
+	var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 25;
+	var winHeight = window.innerHeight;
 
 	//Load next month when scroll UP
 	$scope.scrollUp = function(){
-		var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 60;
-		var winHeight = window.innerHeight;
 		var lastTable = document.getElementById($scope.allMonths[$scope.allMonths.length-1].first.toDateString());
 		var posLast = lastTable.getBoundingClientRect();
 
@@ -91,8 +91,6 @@ angular.module('MainApp.controllers.list', [])
 
 	//Load previous month when scroll DOWN
 	$scope.scrollDown = function(){
-		var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 60;
-		var winHeight = window.innerHeight;
 		var firstTable = document.getElementById($scope.allMonths[0].first.toDateString());
 		var posFirst = firstTable.getBoundingClientRect();
 
@@ -100,7 +98,27 @@ angular.module('MainApp.controllers.list', [])
 			var date = $scope.allMonths[0].first;
 			$scope.buildPrevMonth(date);
 		}
-	}
+	};
+
+	//Scroll to current day in list
+	$rootScope.listToday = function(){
+		var currDay = document.getElementById(toDay.toDateString());
+
+		if(currDay == undefined || currDay == null){
+			$rootScope.showAlert('Today has no events');
+		}
+		else{
+			var currDayElm = angular.element(currDay);
+			var currPos = currDay.getBoundingClientRect();
+
+			if(currPos < 0){
+				$ionicScrollDelegate.scrollBy(0,-(top+currPos.top),false);
+			}	
+			else{
+				$ionicScrollDelegate.scrollBy(0,currPos.top-top,false);
+			}
+		}
+	};
 
 	//console.log($scope.allMonths);
 
@@ -182,10 +200,6 @@ angular.module('MainApp.controllers.list', [])
 			if (scope.isToDay == toDay.getDate() && attr.currentMonth == month && attr.currentYear == year) {
 				element.addClass('list-current-date');
 			}
-
-			/*element.bind('click', function(){
-				console.log(element.parent().attr('id'));
-			})*/
 		}
 	};
 })
