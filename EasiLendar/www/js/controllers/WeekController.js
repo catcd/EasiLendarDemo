@@ -7,7 +7,12 @@
 
 var week = angular.module('MainApp.controllers.week', []);
 
-week.controller("WeekController", function($scope, eEasiLendar) {
+week.controller("WeekController", function($rootScope, $scope, eEasiLendar) {
+	// today function
+	$rootScope.weekToday = function() {
+		$scope.weekCalendar = eEasiLendar.newWeekCalendar();
+		$scope.weekCalendar.setNavDays();
+	};
 	
 	$scope.weekCalendar = eEasiLendar.newWeekCalendar();
 	$scope.weekCalendar.setNavDays();

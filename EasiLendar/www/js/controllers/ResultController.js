@@ -21,7 +21,7 @@ result.controller("ResultController",
 		$rootScope.goToState(link);
 	};
 
-	if (eFriend.fMultiCal != null) {
+	if (eFriend.fMultiCal !== null) {
 		// the multiCalendar combine this user calendar with user's friend's calendar
 		$rootScope.resultMultiCalendar = eMultiCalendar.newMultiCal([eUser.uGmailCalendar, eFriend.fMultiCal.calendar]);
 	} else {
@@ -43,7 +43,7 @@ result.controller("ResultController",
 		list : [],
 		add : function(mHeap) {
 			this.list = [];
-			if (mHeap != null) {
+			if (mHeap !== null) {
 				var num = mHeap.timeList.length;
 				if (num > NUM_OF_OPTIONS) num = NUM_OF_OPTIONS;
 				for (var i=0; i < num; i++) {
@@ -98,7 +98,7 @@ result.controller("ResultController",
 	
 	// watch for changes in eFriend.fMultiCal
 	$scope.$watch('eFriend.fMultiCal', function() {
-		if (eFriend.fMultiCal != null) {
+		if (eFriend.fMultiCal !== null) {
 			// the multiCalendar combine this user calendar with user's friend's calendar
 			$rootScope.resultMultiCalendar = eMultiCalendar.newMultiCal([eUser.uGmailCalendar, eFriend.fMultiCal.calendar]);
 		} else {
@@ -117,7 +117,7 @@ result.controller("ResultController",
 	});
 	// watch for changes in eSearchFilter.mDuration
 	$scope.$watch('eSearchFilter.mDuration', function() {
-		if (eFriend.fMultiCal != null) {
+		if (eFriend.fMultiCal !== null) {
 			// the multiCalendar combine this user calendar with user's friend's calendar
 			$rootScope.resultMultiCalendar = eMultiCalendar.newMultiCal([eUser.uGmailCalendar, eFriend.fMultiCal.calendar]);
 		} else {
@@ -163,14 +163,12 @@ result.controller("ResultController",
 		this.display = function() {
 			// not all day 
 			if (this.date1 == this.date2) {
-				return this.date1 + ": from " + this.from 
-				+ " - to " + this.to;
+				return this.date1 + ": from " + this.from + " - to " + this.to;
 			} else if (this.from != "00:00") {
-				return this.date1 + ": from " + this.from 
-				+ " - to Midnight";
+				return this.date1 + ": from " + this.from + " - to Midnight";
 			} else {
 				return this.date1 + ": Any time";
 			}
 		};
-	};	// end of class Option
+	}	// end of class Option
 });

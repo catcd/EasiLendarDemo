@@ -616,13 +616,13 @@ describe('EasiLendar Classes Test', function() {
 			it("month1 should be month of Sunday", function() {
 				expect(week.month1).toEqual(week.days[0].month);
 			});
-			it("month2 should be month of Sartuday", function() {
+			it("month2 should be month of Saturday", function() {
 				expect(week.month2).toEqual(week.days[6].month);
 			});
 			it("year1 should be year of Sunday", function() {
 				expect(week.year1).toEqual(week.days[0].year);
 			});
-			it("year2 should be year of Sartuday", function() {
+			it("year2 should be year of Saturday", function() {
 				expect(week.year2).toEqual(week.days[6].year);
 			});
 			it("nextWeek function should return Week object which is the next week of current week", function() {
@@ -732,7 +732,7 @@ describe('EasiLendar Classes Test', function() {
 				expect(week.days[6].year).toBe(2015);
 				expect(week.days[6].month).toBe(4);
 			});
-			it("start day of the week should be Sartuday, 'start' argument should be ignored", function() {
+			it("start day of the week should be Saturday, 'start' argument should be ignored", function() {
 				expect(week.days[0].day).toBe("Sat");
 			});
 			it("days array should contains 7 Day objects", function() {
@@ -759,7 +759,7 @@ describe('EasiLendar Classes Test', function() {
 					week = eEasiLendar.newWeek(days2);
 					next = week.nextWeek();
 				});
-				it("first day should be Sartuday 2015/05/02", function() {
+				it("first day should be Saturday 2015/05/02", function() {
 					expect(next.days[0].date).toBe(2);
 					expect(next.days[0].day).toBe("Sat");
 					expect(next.days[0].month).toBe(4);

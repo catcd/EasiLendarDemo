@@ -5,17 +5,18 @@
  * type: particular controller
  */
 
-var signIn = angular.module('MainApp.controllers.signIn', ['ionic']);
+var signIn = angular.module("MainApp.controllers.signIn", [ "ionic" ]);
 
-signIn.controller('SignInController',
-function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eDatabase, eUser) {
+signIn.controller("SignInController", function($rootScope, $scope, $timeout,
+		$ionicLoading, $ionicPopup, eSettings, eDatabase, eUser) {
+
 	// All constants
 	var MAX_ID_LENGTH = 15;
 	var MIN_ID_LENGTH = 4;
 	var MAX_PASSWORD_LENGTH = 16;
 	var MIN_PASSWORD_LENGTH = 8;
 	var NUM_OF_WARNINGS = 5;
-	
+
 	// link to home's default view
 	var link = eSettings.sDefaultView;
 
@@ -24,16 +25,16 @@ function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eD
 	// warning object contains all warnings
 	$scope.warnings = {
 		// array of messages
-		mes : new Array(NUM_OF_WARNINGS),
+		mes: new Array(NUM_OF_WARNINGS),
 
 		// reset all messages (set to null)
-		reset : function(num) {
+		reset: function(num) {
 			this.mes[num] = null;
 		},
 
 		// check if mes[i] is a warning or NULL
-		check : function(num) {
-			if (this.mes[num] == undefined) {
+		check: function(num) {
+			if (this.mes[num] === undefined) {
 				return true;
 			} else
 				return false;
@@ -42,33 +43,34 @@ function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eD
 
 	// create new user
 	$scope.user = new User();
-	
+
 	// show alert
 	var showAlert = function() {
 		var alertPopup = $ionicPopup.alert({
-		     title: 'Registered!',
-		     template: 'Welcome to EasiLendar!',
+			title: "Registered!",
+			template: "Welcome to EasiLendar!",
 		});
 		$timeout(function() {
-		     alertPopup.close(); //close the popup after 3 seconds for some reason
+			alertPopup.close(); // close the popup after 3 seconds for some
+			// reason
 		}, 3000);
 	};
 
 	// sign in function with firebase
 	$scope.signIn = function() {
 		if (!$scope.user.checkChar()) {
-			$rootScope.goToState('warning');
+			$rootScope.goToState("warning");
 		} else {
 			var id = $scope.user.id;
 			var pass = $scope.user.password;
 			var ref = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
 			// loading
-			eDatabase.databaseLoading(); 
+			eDatabase.databaseLoading();
 			ref.once("value", function(snapshot) {
 				var user = snapshot.val();
-				if (user == null || user.password != pass) {
-					$rootScope.goToState('warning');
+				if (user === null || user.password != pass) {
+					$rootScope.goToState("warning");
 				} else {
 					// copy all user's data to eUser
 					eUser.uID = id;
@@ -84,11 +86,15 @@ function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eD
 					eUser.uRequested = user.requested;
 
 					// convert
-					eUser.uGmailCalendar = eDatabase.convertCal(user.g_calendar);
-					eUser.uLocalCalendar = eDatabase.convertCal(user.local_calendar);
+					eUser.uGmailCalendar = eDatabase
+							.convertCal(user.g_calendar);
+					eUser.uLocalCalendar = eDatabase
+							.convertCal(user.local_calendar);
 
-					eUser.uFRequest = (user.noti == null ? null : user.noti.fRequest);
-					eUser.uFAccepted = (user.noti == null ? null : user.noti.fAccept);
+					eUser.uFRequest = user.noti === null ? null
+							: user.noti.fRequest;
+					eUser.uFAccepted = user.noti === null ? null
+							: user.noti.fAccept;
 					eUser.uFRLength = 0;
 					eUser.uFALength = 0;
 
@@ -100,11 +106,11 @@ function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eD
 					$rootScope.goHome();
 				}
 			}, function(errorObject) {
-				$rootScope.goToState('warning');
+				$rootScope.goToState("warning");
 			});
 		}
 	};
-	
+
 	// register function
 	$scope.register = function() {
 		// reset all warnings
@@ -131,20 +137,19 @@ function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eD
 			}
 		}
 
-		// check inputs are correct (or else all 
-		//users will be licked)
+		// check inputs are correct (or else all users will be licked)
 		if (!check) {
 			// create a reference to Firebase
 			var ref = new Firebase(
-					"https://radiant-inferno-3243.firebaseio.com/Users/"
-							+ $scope.user.id);
+					"https://radiant-inferno-3243.firebaseio.com/Users/" + 
+					$scope.user.id);
 			// loading
 			eDatabase.databaseLoading();
-			
+
 			// get data from that link if exists, null if not
-			ref.once('value', function(snapshot) {
+			ref.once("value", function(snapshot) {
 				// if id existed => change ID message
-				if (snapshot.val() != null) {
+				if (snapshot.val() !== null) {
 					$scope.warnings.mes[0] = "Existed";
 					check = true;
 				}
@@ -164,20 +169,20 @@ function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eD
 					ref.set({
 						name : $scope.user.name,
 						password : $scope.user.password,
-						avatar: 0,
+						avatar : 0,
 						VIP : 0,
 						gmail : mail,
 					});
-					
+
 					// welcome message
 					showAlert();
 					$scope.user.reset();
-					$rootScope.goToState('form');
+					$rootScope.goToState("form");
 				}
 			});
 		}
 	};
-	
+
 	/* class User */
 	function User() {
 		// all informations
@@ -205,16 +210,14 @@ function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eD
 				return false;
 			// check input characters (ASCII)
 			for (var i = 0; i < this.id.length; i++) {
-				if (this.id.charCodeAt(i) < 48)
+				if (this.id.charCodeAt(i) < 48) {
 					return false;
-				else if (this.id.charCodeAt(i) > 57
-						&& this.id.charCodeAt(i) < 65)
+				} else if (this.id.charCodeAt(i) > 57 && this.id.charCodeAt(i) < 65) {
 					return false;
-				else if (this.id.charCodeAt(i) > 90
-						&& this.id.charCodeAt(i) < 97
-						&& this.id.charCodeAt(i) != 95)
+				} else if (this.id.charCodeAt(i) > 90 && this.id.charCodeAt(i) < 97 && 
+						this.id.charCodeAt(i) != 95) {
 					return false;
-				else if (this.id.charCodeAt(i) > 122)
+				} else if (this.id.charCodeAt(i) > 122)
 					return false;
 			}
 			return true;
@@ -227,7 +230,7 @@ function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eD
 		this.checkID = function() {
 			// if valid return true else return fault's
 			// string
-			if (this.id == "") {
+			if (this.id === "") {
 				return "Required";
 			} else if (!this.checkChar()) {
 				if (this.id.length < MIN_ID_LENGTH) {
@@ -248,7 +251,7 @@ function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eD
 		this.checkName = function() {
 			// if valid return true else return fault's
 			// string
-			if (this.name == "") {
+			if (this.name === "") {
 				return "Required";
 			}
 			return true;
@@ -260,7 +263,7 @@ function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eD
 		this.checkEmail = function() {
 			// if valid return true else return fault's
 			// string
-			if (this.email == "") {
+			if (this.email === "") {
 				return "Required";
 			} else if (-1 == this.email.search("@gmail.com")) {
 				return "Unvalid Email";
@@ -274,7 +277,7 @@ function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eD
 		this.checkPass = function() {
 			// if valid return true else return fault's
 			// string
-			if (this.password == "") {
+			if (this.password === "") {
 				return "Required";
 			} else if (this.password.length < MIN_PASSWORD_LENGTH) {
 				return "Too short";
@@ -290,15 +293,15 @@ function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eD
 		this.checkCPass = function() {
 			// if valid return true else return fault's
 			// string
-			if (this.re_password == "") {
+			if (this.re_password === "") {
 				return "Required";
 			} else if (this.re_password != this.password) {
 				return "Not match";
 			}
 			return true;
 		};
-	}; // End of class User
-	
+	} // End of class User
+
 	/*
 	 * // sign in function $scope.signIn = function() { if
 	 * (!$scope.user.checkChar()) { $state.go('warning'); } else { var id =
@@ -306,6 +309,6 @@ function($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, eSettings, eD
 	 * $http.post("php/signIn.php", {"ID": id, "pass": pass})
 	 * .success(function(data,status,headers,config) { if (data == "YES") {
 	 * $state.go(link); } else { $state.go(link); // should be warning } })
-	 * .error(function(data,status) { $state.go(link); // should be warning }); } };
+	 * .error(function(data,status) { $state.go(link);//should be warning});}};
 	 */
 });
