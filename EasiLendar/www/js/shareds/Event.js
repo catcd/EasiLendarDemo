@@ -1,11 +1,15 @@
 /**
  * starter: Can Duy Cat
- * owner: Nguyen Minh Page
+ * owner: Nguyen Minh Trang
  * last update: 28/04/2015
  * type: All services for event
  */
 
-angular.module('MainApp.shareds.event', [])
+var event = angular.module('MainApp.shareds.event', []);
 
-.factory('eEvent', function() {
-})
+event.factory('eEvent', function(eSettings) {
+	return {
+		pointer: null,
+		backState: eSettings.sDefaultView,
+	};
+});
