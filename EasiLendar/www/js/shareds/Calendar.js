@@ -1,20 +1,21 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 20/04/2015
+ * last update: 07/05/2015
  * type: module all shared variables and functions use for calendar
  */
 
 angular.module('MainApp.shareds.calendar', [])
 
-.factory('eCalendar', function(){
+.factory('eCalendar', function() {
 	return {
 		/*
 		 * Calendar variables
 		 */
 		weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+		weekDaysFull: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
 		months: ["January", "February", "March", "April", "May", "June",
-				"July", "August", "September", "October", "November", "December"
+			"July", "August", "September", "October", "November", "December"
 		],
 		shortMonths: ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"],
 		// background name
@@ -26,16 +27,65 @@ angular.module('MainApp.shareds.calendar', [])
 		/*
 		 * Calendar functions
 		 */
+		easiConvertTime: function(date) {
+			var nday = date.getDay(),
+				nmonth = date.getMonth(),
+				ndate = date.getDate(),
+				nyear = date.getFullYear(),
+				nhour = date.getHours(),
+				nmin = date.getMinutes(),
+				nsec = date.getSeconds(),
+				ap;
+
+			if (nhour == 0) {
+				ap = " AM";
+				nhour = 12;
+			} else if (nhour < 12) {
+				ap = " AM";
+			} else if (nhour == 12) {
+				ap = " PM";
+			} else if (nhour > 12) {
+				ap = " PM";
+				nhour -= 12;
+			}
+
+			return {
+				date: "" + this.weekDaysFull[nday - 1] + ", " + this.months[nmonth] + " " + ndate + ", " + nyear + "",
+				time: ""+nhour+":"+nmin+":"+nsec+ap+"",
+			};
+		},
+
+		// parse date
+		// return {date: "Month, day", year: year}
+		parseDate: function(date) {
+			return {
+				date: this.months[date.getMonth()] + ", " + date.getDate(),
+				year: date.getFullYear()
+			};
+		},
+
 		// Find the number of day in a month
 		daysOfMonth: function(month, year) {
 			switch (month) {
-				case 1: case 3: case 5: case 7: case 8: case 10: case 12: return 31;
-				case 4: case 6: case 9: case 11: return 30;
+				case 1:
+				case 3:
+				case 5:
+				case 7:
+				case 8:
+				case 10:
+				case 12:
+					return 31;
+				case 4:
+				case 6:
+				case 9:
+				case 11:
+					return 30;
 				case 2:
 					if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
 						return 29;
 					} else return 28;
-				default: return 0;
+				default:
+					return 0;
 			};
 		},
 
@@ -45,14 +95,14 @@ angular.module('MainApp.shareds.calendar', [])
 		// tomorrow of Date
 		tomorrow: function(today) {
 			var d = today.getTime();
-			var result = new Date (d + 86400000); // 86400000 is number of miliseconds in a day
+			var result = new Date(d + 86400000); // 86400000 is number of miliseconds in a day
 			return result;
 		},
 
 		// yesterday of Date:
 		yesterday: function(today) {
 			var d = today.getTime();
-			var r = new Date (d - 86400000); // 86400000 is number of miliseconds in a day
+			var r = new Date(d - 86400000); // 86400000 is number of miliseconds in a day
 			return r;
 		},
 
@@ -62,39 +112,26 @@ angular.module('MainApp.shareds.calendar', [])
 		// format from hh:mm to hh:mm
 		convertTime: function(event) {
 			// get and convert start time
-			var mStart = (event.start.dateTime.getHours() < 10 ? "0" : "") + event.start.dateTime.getHours()
-						+ ":"
-						+ (event.start.dateTime.getMinutes() < 10 ? "0" : "") + event.start.dateTime.getMinutes();
+			var mStart = (event.start.dateTime.getHours() < 10 ? "0" : "") + event.start.dateTime.getHours() + ":" + (event.start.dateTime.getMinutes() < 10 ? "0" : "") + event.start.dateTime.getMinutes();
 			// get and convert start date
-			var mStartDate = (event.start.dateTime.getDate() < 10 ? "0" : "") + event.start.dateTime.getDate()
-							+ "/"
-							+ (event.start.dateTime.getMonth() < 9 ? "0" : "") + (event.start.dateTime.getMonth() + 1)
-							+ "/"
-							+ event.start.dateTime.getFullYear();
+			var mStartDate = (event.start.dateTime.getDate() < 10 ? "0" : "") + event.start.dateTime.getDate() + "/" + (event.start.dateTime.getMonth() < 9 ? "0" : "") + (event.start.dateTime.getMonth() + 1) + "/" + event.start.dateTime.getFullYear();
 
 			// get and convert end time
-			var mEnd = (event.end.dateTime.getHours() < 10 ? "0" : "") + event.end.dateTime.getHours()
-						+ ":"
-						+ (event.end.dateTime.getMinutes() < 10 ? "0" : "") + event.end.dateTime.getMinutes();
+			var mEnd = (event.end.dateTime.getHours() < 10 ? "0" : "") + event.end.dateTime.getHours() + ":" + (event.end.dateTime.getMinutes() < 10 ? "0" : "") + event.end.dateTime.getMinutes();
 			// get and convert end date
-			var mEndDate = (event.end.dateTime.getDate() < 10 ? "0" : "") + event.end.dateTime.getDate()
-							+ "/"
-							+ (event.end.dateTime.getMonth() < 9 ? "0" : "") + (event.end.dateTime.getMonth() + 1)
-							+ "/"
-							+ event.end.dateTime.getFullYear();
+			var mEndDate = (event.end.dateTime.getDate() < 10 ? "0" : "") + event.end.dateTime.getDate() + "/" + (event.end.dateTime.getMonth() < 9 ? "0" : "") + (event.end.dateTime.getMonth() + 1) + "/" + event.end.dateTime.getFullYear();
 
 			// return data
 			// if start date and end date are equal
 			// return once
 			if (mStartDate == mEndDate) {
-				return "from " + mStart
-						+ " to " + mEnd + " " + mEndDate;
+				return "from " + mStart + " to " + mEnd + " " + mEndDate;
 			}
 			// if they are not equal
 			// return both start date and end date
 			else {
 				return "from " + mStart + " " + mStartDate +
-						" to " + mEnd + " " + mEndDate;
+					" to " + mEnd + " " + mEndDate;
 			}
 		}
 	};

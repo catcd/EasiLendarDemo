@@ -118,9 +118,9 @@ angular.module('MainApp.shareds.data', [])
 		uPassword: '',		/*8-16 characters*/
 
 		uGender: null,		/*male or female*/
-		uBirthday: "",		/*ddmmyyyy*/
-		uPhone: "",
-		uAddress: "",
+		uBirthday: null,		/*ddmmyyyy*/
+		uPhone: null,
+		uAddress: null,
 
 		uRemember: false,	/*remember me*/
 		uFriend: [],		/*array of objects { id, name }*/
@@ -148,9 +148,9 @@ angular.module('MainApp.shareds.data', [])
 			this.uPassword = '';
 
 			this.uGender = null;
-			this.uBirthday = "";
-			this.uPhone = "";
-			this.uAddress = "";
+			this.uBirthday = null;
+			this.uPhone = null;
+			this.uAddress = null;
 
 			this.uRemember = false;
 			this.uFriend = [];
