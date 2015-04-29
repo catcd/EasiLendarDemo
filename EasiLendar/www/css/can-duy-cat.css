@@ -190,6 +190,7 @@ input.coming-soon-input:-ms-input-placeholder { font-size: 12px; }
 .setting-first-item { border-top: 0 !important; }
 .setting-divider-name { border-bottom: 0 !important; height: 30px; min-height: 30px; }
 .setting-easilendar { font-size: 25px !important; }
+.setting-card {max-width: 500px; margin-left: auto; margin-right: auto; }
 .setting-number-view-option-1 { left: 23px; position: absolute; top: 20px; }
 .setting-number-view-option-30 { left: 19px; position: absolute; top: 20px; }
 /* event duration popup */

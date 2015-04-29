@@ -1,13 +1,14 @@
 <!-- starter: Can Duy Cat
 	owner: Can Duy Cat
-	last update: 31/03/2015
-	type: html -->
+	last update: 29/04/2015
+	type: setting html template -->
+
 <ion-view title="Setting">
 	<ion-nav-buttons side="left">
 		<button class="button button-icon button-clear ion-home" ng-click="goHome()"></button>
 	</ion-nav-buttons>
 	<ion-content>
-		<div class="list card">
+		<div class="list card setting-card">
 			<div class="item item-divider easi-back-white easi-no-padding setting-divider">
 				<h2 class="easi-dark-blue setting-divider-title">
 					<b>General</b>
@@ -22,12 +23,12 @@
 
 			<div class="item item-icon-left"
 			ng-click="showAlert('Select calendar', 'templates/calendar-select.html', 'Select calendar application')">
-				<i class="icon ion-calendar easi-dark-blue"></i>
+				<i class="icon ion-android-calendar easi-dark-blue"></i>
 				Select calendar
 			</div>
 		</div>
 
-		<div class="list card">
+		<div class="list card setting-card">
 			<div class="item item-divider easi-back-white easi-no-padding setting-divider">
 				<h2 class="easi-dark-blue setting-divider-title">
 					<b>View</b>
@@ -45,7 +46,7 @@
 
 			<div class="item item-icon-left"
 			ng-click="showAlert('Default view', 'templates/default-view-select.html', 'Select the default calendar in home page')">
-				<i class="icon ion-qr-scanner easi-dark-blue"></i>
+				<i class="icon ion-ios-glasses-outline easi-dark-blue"></i>
 				Default view
 				<span class="item-note">
 					{{eSettings.sDefaultView}} calendar
@@ -84,7 +85,7 @@
 			</div>
 		</div>
 
-		<div class="list card">
+		<div class="list card setting-card">
 			<div class="item item-divider easi-back-white easi-no-padding setting-divider">
 				<h2 class="easi-dark-blue setting-divider-title">
 					<b>Other</b>
@@ -98,7 +99,7 @@
 			</div>
 
 			<div class="item item-toggle item-icon-left">
-				<i class="icon ion-loop easi-dark-blue"></i>
+				<i class="icon ion-android-sync easi-dark-blue"></i>
 				Auto sync
 				<label class="toggle toggle-dark">
 					<input type="checkbox" ng-model="eSettings.sAutoSync">
@@ -112,7 +113,7 @@
 			ng-click="eSettings.sAutoSync ?
 			showAlert('Auto sync option', 'templates/default-sync-option.html', 'Select conection to auto sync')
 			: showAlert('Oop! Auto sync is turned off!', '', 'Turn it on to use this feature')">
-				<i class="icon ion-wrench easi-dark-blue"></i>
+				<i class="icon ion-android-options easi-dark-blue"></i>
 				Auto sync option
 				<span class="item-note">
 					{{eSettings.sSyncWith}}
@@ -120,7 +121,7 @@
 			</div>
 
 			<div class="item item-toggle item-icon-left">
-				<i class="icon ion-clock easi-dark-blue"></i>
+				<i class="icon ion-android-time easi-dark-blue"></i>
 				Use device time zone
 				<label class="toggle toggle-dark">
 					<input type="checkbox" ng-model="eSettings.sDeviceTimeZone">
@@ -134,7 +135,7 @@
 			ng-click="!eSettings.sDeviceTimeZone ?
 			showAlert('Time zone','templates/default-time-option.html', 'Search for your time zone.')
 			: showAlert('Use device time zone', '', 'Turn it off to change time zone yourself')">
-				<i class="icon ion-hammer easi-dark-blue"></i>
+				<i class="icon ion-android-options easi-dark-blue"></i>
 				Time zone
 				<span class="item-note">
 					{{eSettings.sZoneName[eSettings.sTimeZone+11]}}
@@ -142,18 +143,22 @@
 			</div>
 		</div>
 
-		<div class="list card">
+		<div class="list card setting-card">
 			<div class="item item-divider easi-back-white easi-no-padding setting-divider-easilendar">
 				<h2 class="easi-dark-blue setting-divider-title easi-font setting-easilendar">
 					<b>EasiLendar</b>
 				</h2>
 			</div>
 
-			<div class="item setting-first-item" ng-click="goToState('comingSoon')">
+			<div class="item item-icon-left setting-first-item"
+			ng-click="goToState('comingSoon')">
+				<i class="icon ion-android-bulb easi-dark-blue"></i>
 				Suggested apps
 			</div>
 
-			<div class="item" id="setting-last-item" ng-click="goToState('about')">
+			<div class="item item-icon-left"
+			ng-click="goToState('about')">
+				<i class="icon ion-ios-information easi-dark-blue"></i>
 				<b>About</b>
 			</div>
 		</div>
