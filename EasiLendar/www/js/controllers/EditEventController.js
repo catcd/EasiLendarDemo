@@ -1,6 +1,6 @@
 /**
  * starter: Can Duy Cat
- * owner: Nguyen Minh Page
+ * owner: Nguyen Minh Trang
  * last update: 28/04/2015
  * type: EditEventController
  */
