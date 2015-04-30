@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 28/03/2015
+ * last update: 30/03/2015
  * type: main js
  */
 angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds', 'ngCordova', 'toastr'])

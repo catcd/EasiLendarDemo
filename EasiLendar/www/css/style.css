@@ -1,7 +1,7 @@
 /**
 * starter: Nguyen Minh Trang
 * owner: Can Duy Cat
-* last update: 28/04/2015
+* last update: 30/04/2015
 * type: general css
 *
 * My app's style
@@ -122,11 +122,14 @@ html { height: 100%; width: 100%; }
 .easi-right { text-align: right !important; }
 .easi-justify { text-align: justify !important; }
 .easi-space { margin-top: 10px !important; }
+.easi-mini-space { margin-top: 5px !important; }
 .easi-big-space { margin-top: 20px !important; }
 .easi-up { margin-top: -10px !important; }
+.easi-mini-up { margin-top: -5px !important; }
 .easi-big-up { margin-top: -20px !important; }
 .easi-no-shadow { box-shadow: 0 0 0 !important; }
-.easi-no-padding { padding: 0; }
+.easi-no-padding { padding: 0 !important; }
+.easi-no-margin { margin: 0 !important; }
 .easi-no-radius { border-radius: 0 !important; }
 .easi-no-border { border: 0 !important; }
 .easi-fullw { width: 100% !important; }
@@ -159,11 +162,13 @@ html { height: 100%; width: 100%; }
 .easi-blue { color: #33CCCC !important; }
 .easi-dark-blue { color: #416969 !important; }
 .easi-vip-color { color: #FFCC00 !important; }
+.easi-back-red { background-color: #D65930 !important; }
 .easi-back-white { background-color: #FFFFFF !important; }
 .easi-back-gray { background-color: #646464 !important; }
 .easi-back-light-gray { background-color: #E6E6E6 !important; }
 .easi-back-blue { background-color: #33CCCC !important; }
 .easi-back-dark-blue { background-color: #416969 !important; }
+.easi-back-vip-color { background-color: #FFCC00 !important; }
 .easi-full-blue { background-color: #33CCCC !important; height: 100vh !important; width: 100vw !important; }
 
 /* easi icons */
