@@ -419,6 +419,28 @@ angular.module('MainApp.shareds.sync', [])
 		},
 		
 		editEventWithId : function(Id, newEvent){
+			// first, search for id:
+			
+			var found= false;
+			
+			for each (var index in eUser.uGmailCalendar){
+				for (var i=0; i< eUser.uGmailCalendar[index].length; i++){
+					if (eUser.uGmailCalendar[index][i].id == Id){
+						found= true;
+						
+						/* if newEvent.startTime != oldEvent.startTime or newEvent.endTime != oldEvent.endTime, delete it and push it later:
+						if (eUser.uGmailCalendar[index][i].start.dateTime.getFullYear() != eUser.uGmailCalendar[index][i].getFullYear() || eUser.uGmailCalendar[index][i].start.dateTime.getMonth() != eUser.uGmailCalendar[index][i].start.dateTime.getMonth() || eUser.uGmailCalendar[index][i].start.dateTime.getDate() != eUser.uGmailCalendar[index][i].start.dateTime.getDate()){
+							this.deleteEventWithId(Id);
+						}
+						*/
+						
+						eUser.uGmailCalendar[index][i] = JSON.parse(JSON.stringify(newEvent));
+					}
+				}
+			}
+			
+			if (found == false)	return false;
+			
 			var request = gapi.client.calendar.events.update({
 				'calendarId': 'primary',
 				'eventId': Id,
