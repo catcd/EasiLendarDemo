@@ -18,18 +18,6 @@ angular.module('MainApp.shareds.run', [])
 	/**
 	 * All .run functions
 	 */
-	$rootScope.showChoice = function(mtitle, url, msub) {
-		var confirmPopup = $ionicPopup.show({
-			title: mtitle,
-			subTitle: msub,
-			templateUrl: url
-		});
-		$rootScope.closePopup = function() {
-			$timeout(function() {
-				confirmPopup.close();
-			}, 100);
-		};
-	}
 	$rootScope.showAlert = function(mtitle, url, msub) {
 		var confirmPopup = $ionicPopup.alert({
 			title: mtitle,
