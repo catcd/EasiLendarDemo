@@ -383,9 +383,13 @@ angular.module('MainApp.shareds.sync', [])
 			for each (var index in eUser.uGmailCalendar){
 				for (var i=0; i< eUser.uGmailCalendar[index].length; i++){
 					if (eUser.uGmailCalendar[index][i].id == Id){
-						delete eUser.uGmailCalendar[index][i];
+						for (var j=i; j< eUser.uGmailCalendar[index].length-1; j++){
+							eUser.uGmailCalendar[index][j]= JSON.parse(JSON.stringify(eUser.uGmailCalendar[index][j+1]));
+						}
+						
+						delete eUser.uGmailCalendar[index][eUser.uGmailCalendar[index].length-1];
 						found= true;
-						break;
+						i--;
 					}
 				}
 			}
@@ -394,7 +398,7 @@ angular.module('MainApp.shareds.sync', [])
 			
 			// delete in google calendar:
 			
-			var request = gapi.client.calendar.events.insert({
+			var request = gapi.client.calendar.events.delete({
 				'calendarId': 'primary',
 				'eventId': Id
 			});
@@ -415,7 +419,7 @@ angular.module('MainApp.shareds.sync', [])
 		},
 		
 		editEventWithId : function(Id, newEvent){
-			var request = gapi.client.calendar.events.insert({
+			var request = gapi.client.calendar.events.update({
 				'calendarId': 'primary',
 				'eventId': Id,
 				'body': newEvent
