@@ -309,6 +309,7 @@ angular.module('MainApp.shareds.sync', [])
 		
 		logMeOut : function() {
 			this.logIN = 0;
+			this.email = '';
 			
 			// code for local host:
 
@@ -500,7 +501,7 @@ angular.module('MainApp.shareds.sync', [])
 			eUser.uLocalCalendar= new Array();
 			
 			for (var i=0; i<uLC.length; i++){
-				var event= {id:'', start: {dateTime:''}, end: {dateTime:''}, summary: '', location: '', status: false, position: ''};
+				var event= {id:'', start: {dateTime:''}, end: {dateTime:''}, summary: '', location: '', status: true, position: ''};
 				
 				event.id= uLC[i].calendar_id;
 				var dts= new Date(uLC[i].dtstart);
