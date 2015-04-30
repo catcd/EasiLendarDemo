@@ -465,8 +465,11 @@ angular.module('MainApp.shareds.sync', [])
 			
 			var found= false;
 			
-			for each (var index in eUser.uGmailCalendar){
-				for (var i=0; i< eUser.uGmailCalendar[index].length; i++){
+			var index;
+			var i;
+			
+			for (index in eUser.uGmailCalendar){
+				for (i in eUser.uGmailCalendar[index]){
 					if (eUser.uGmailCalendar[index][i].id == Id){
 						found= true;
 						
