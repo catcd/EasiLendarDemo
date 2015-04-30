@@ -237,6 +237,8 @@ angular.module('MainApp.shareds.sync', [])
 			if (this.logIN == -1) {
 				window.setTimeout(this.checkAuth, 1);
 			}
+			
+			return this.logIN;
 		},
 		
 		checkAuth : function() {
@@ -339,6 +341,7 @@ angular.module('MainApp.shareds.sync', [])
 			
 			if (start.getTime() > end.getTime())	return;
 			if (start.getTime() == undefined || end.getTime()== undefined)	return false;
+			
 			
 			// Add to Google Calendar:
 			
