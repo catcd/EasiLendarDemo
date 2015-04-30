@@ -97,18 +97,8 @@ angular.module('MainApp.shareds.sync', [])
 			});
 		},
 		
-		convertMe : function() {
-			if (eUser.uGmailCalendar.length == 0) return;
-
-			// change time:
-
-			var uGC = {};
-			uGC = eUser.uGmailCalendar;
-
-			// array result is a array of array:
-
-			eUser.uGmailCalendar = new Array();
-
+		extraCopy : function(uGC, uGCNew){
+			
 			var listNewEvent = new Array();
 
 			for (var i = 0; i < uGC.length; i++) {
@@ -223,13 +213,28 @@ angular.module('MainApp.shareds.sync', [])
 			for (var i = 0; i < uGC.length; i++) {
 				// make a empty array of each day:
 
-				if (eUser.uGmailCalendar[uGC[i].position] == undefined)
-					eUser.uGmailCalendar[uGC[i].position] = new Array();
+				if (uGCNew[uGC[i].position] == undefined)
+					uGCNew[uGC[i].position] = new Array();
 			}
 
 			for (var i = 0; i < uGC.length; i++) {
-				eUser.uGmailCalendar[uGC[i].position].push(uGC[i]);
+				uGCNew[uGC[i].position].push(uGC[i]);
 			}
+		},
+		
+		convertMe : function() {
+			if (eUser.uGmailCalendar.length == 0) return;
+
+			// change time:
+
+			var uGC = {};
+			uGC = eUser.uGmailCalendar;
+
+			// array result is a array of array:
+
+			eUser.uGmailCalendar = new Array();
+
+			this.extraCopy(uGC, eUser.uGmailCalendar);
 		},
 		
 		
@@ -342,6 +347,14 @@ angular.module('MainApp.shareds.sync', [])
 			if (start.getTime() > end.getTime())	return;
 			if (start.getTime() == undefined || end.getTime()== undefined)	return false;
 			
+			var event = {id:'', start: {dateTime:start}, end: {dateTime:end}, summary: summary, location: location, status: true, position: ''};
+			
+			// Add to eUser.uGmailCalendar:
+			
+			var uGC= new Array();
+			uGC[0]= event;
+			
+			this.extraCopy(uGC, eUser.uGmailCalendar);
 			
 			// Add to Google Calendar:
 			
@@ -364,7 +377,7 @@ angular.module('MainApp.shareds.sync', [])
 			request.execute(function(resp) {
 				//handle result:
 				
-				if (resp && !resp.error){
+				if (resp.status== 'confirmed'){
 					result= true;
 				}
 				
@@ -376,23 +389,49 @@ angular.module('MainApp.shareds.sync', [])
 			return result;
 		},
 	
+		length : function(array){
+			var dem= 0;
+			var i;
+			for (i in array){
+				dem++;
+			}
+		
+			return dem;
+		},
+		
 		deleteEventWithId : function(Id){
 			
 			// delete in eUser.uGmailCalendar:
 			
 			// first, search for id:
-			var found= false;
-			
-			for each (var index in eUser.uGmailCalendar){
-				for (var i=0; i< eUser.uGmailCalendar[index].length; i++){
+			var index;
+			var i;
+			for  (index in eUser.uGmailCalendar){
+				for (i in eUser.uGmailCalendar[index]){
 					if (eUser.uGmailCalendar[index][i].id == Id){
-						for (var j=i; j< eUser.uGmailCalendar[index].length-1; j++){
-							eUser.uGmailCalendar[index][j]= JSON.parse(JSON.stringify(eUser.uGmailCalendar[index][j+1]));
+						
+						var length= this.length(eUser.uGmailCalendar[index]);
+						
+						// if father array has only one child: 
+						
+						if (length == 1){
+							delete eUser.uGmailCalendar[index];
 						}
 						
-						delete eUser.uGmailCalendar[index][eUser.uGmailCalendar[index].length-1];
+						else{
+							var temp = new Array();
+							
+							for (j in eUser.uGmailCalendar[index]){
+								if (j!= i)	temp.push(eUser.uGmailCalendar[index][j]);
+							}
+							
+							eUser.uGmailCalendar[index] = new Array();
+							eUser.uGmailCalendar[index] = JSON.parse(JSON.stringify(temp));
+							
+						}
+		
 						found= true;
-						i--;
+						break;
 					}
 				}
 			}
@@ -431,17 +470,19 @@ angular.module('MainApp.shareds.sync', [])
 					if (eUser.uGmailCalendar[index][i].id == Id){
 						found= true;
 						
-						/* if newEvent.startTime != oldEvent.startTime or newEvent.endTime != oldEvent.endTime, delete it and push it later:
-						if (eUser.uGmailCalendar[index][i].start.dateTime.getFullYear() != eUser.uGmailCalendar[index][i].getFullYear() || eUser.uGmailCalendar[index][i].start.dateTime.getMonth() != eUser.uGmailCalendar[index][i].start.dateTime.getMonth() || eUser.uGmailCalendar[index][i].start.dateTime.getDate() != eUser.uGmailCalendar[index][i].start.dateTime.getDate()){
-							this.deleteEventWithId(Id);
-						}
-						*/
+						var c1= deleteEventWithId(Id);
 						
-						eUser.uGmailCalendar[index][i] = JSON.parse(JSON.stringify(newEvent));
+						var c2= addSingleEvent(newEvent.summary, newEvent.start.dateTime, newEvent.end.dateTime, newEvent.location);
+						
 					}
 				}
 			}
 			
+			if (found== false)	 return false;
+			
+			else return (c1==true && c2== true);
+			
+			/*
 			if (found == false)	return false;
 			
 			var request = gapi.client.calendar.events.update({
@@ -463,6 +504,7 @@ angular.module('MainApp.shareds.sync', [])
 			});
 			
 			return result;
+			*/
 		},
 		
 		
@@ -556,11 +598,11 @@ angular.module('MainApp.shareds.sync', [])
 			
 			for (var i=0; i<newULC.length; i++){
 			
-				if ($rootScope.eUser.uLocalCalendar[newULC[i].position] ==  undefined){
-					$rootScope.eUser.uLocalCalendar[newULC[i].position]= new Array();
+				if (eUser.uLocalCalendar[newULC[i].position] ==  undefined){
+					eUser.uLocalCalendar[newULC[i].position]= new Array();
 				}
 				
-				$rootScope.eUser.uLocalCalendar[newULC[i].position].push(newULC[i]);
+				eUser.uLocalCalendar[newULC[i].position].push(newULC[i]);
 				
 			}
 		},
