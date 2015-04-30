@@ -447,14 +447,33 @@ angular.module('MainApp.shareds.sync', [])
 			if ($window.plugins == undefined) {
 				return false;
 			}
+			
+			var toDay = new Date();
+			var dd = toDay.getDate();
+			var mm = toDay.getMonth() + 1; //January is 0!
+			var yyyy = toDay.getFullYear();
 
-			// Access:
+			if (dd < 10) {
+				dd = '0' + dd;
+			}
 
-			$cordovaCalendar.listCalendars().then(function(result) {
+			if (mm < 10) {
+				mm = '0' + mm;
+			}
+
+			toDay = mm + '/' + dd + '/' + yyyy;
+
+			// form of timeMax: "yyyy-mm-dd T hh:mm:ss - offset
+
+			var oneYearAgo = (yyyy - 1) + '-' + mm + '-' + dd + 'T' + '00:00:00-00:00';
+			var oneYearLater = (yyyy + 1) + '-' + mm + '-' + dd + 'T' + '00:00:00-00:00';
+			
+			$cordovaCalendar.listEventsInRange(new Date(oneYearAgo), new Date(oneYearLater)).then(function (result) {
 				//success:
-
+			
 				eUser.uLocalCalendar = result;
 				this.handleLocalCalendar();
+				
 				return true;
 				
 			}, function(err) {
@@ -464,7 +483,56 @@ angular.module('MainApp.shareds.sync', [])
 		},
 		
 		handleLocalCalendar : function() {
-			// bla bla
+			/* form:
+						- calendar_id
+						- eventLocation
+						- dtstart
+						- dtend
+						- allDay
+						- title
+			*/
+			
+			var uLC= eUser.uLocalCalendar;
+			var newULC= new Array();
+			
+			// var event= {id:'', start: start, end: end, summary: '', location: '', status: false, position: ''};
+			
+			eUser.uLocalCalendar= new Array();
+			
+			for (var i=0; i<uLC.length; i++){
+				var event= {id:'', start: {dateTime:''}, end: {dateTime:''}, summary: '', location: '', status: false, position: ''};
+				
+				event.id= uLC[i].calendar_id;
+				var dts= new Date(uLC[i].dtstart);
+				var dte= new Date(uLC[i].dtend);
+				event.start.dateTime= new Date(dts);
+				event.end.dateTime= new Date(dte);
+				event.summary= uLC[i].title;
+				event.location= uLC[i].eventLocation;
+	
+				// handle all-day event:
+				
+				if (uLC[i].allDay == 1){
+					event.end.dateTime= new Date(Date.UTC(event.end.dateTime.getFullYear(), event.end.dateTime.getMonth(), event.end.dateTime.getDate()-1, 23, 59, 59, 0));
+				}
+		
+				
+				var position = new Date(event.start.dateTime.getFullYear(), event.start.dateTime.getMonth(), event.start.dateTime.getDate(), 0,0,0,0);
+				position.setTime(position.getTime() - position.getTimezoneOffset()*60*1000 );
+				event.position = position;
+				
+				newULC.push(event);
+			}
+			
+			for (var i=0; i<newULC.length; i++){
+			
+				if ($rootScope.eUser.uLocalCalendar[newULC[i].position] ==  undefined){
+					$rootScope.eUser.uLocalCalendar[newULC[i].position]= new Array();
+				}
+				
+				$rootScope.eUser.uLocalCalendar[newULC[i].position].push(newULC[i]);
+				
+			}
 		},
 	};
 })
