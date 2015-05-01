@@ -414,6 +414,8 @@ angular.module('MainApp.shareds.sync', [])
 				for (i in eUser.uGmailCalendar[index]){
 					if (eUser.uGmailCalendar[index][i].id == Id){
 						
+						var temp = JSON.parse(JSON.stringify(eUser.uGmailCalendar[index][i]));
+						
 						var length= this.length(eUser.uGmailCalendar[index]);
 						
 						// if father array has only one child: 
@@ -434,7 +436,7 @@ angular.module('MainApp.shareds.sync', [])
 							
 						}
 						
-						eDatabase.updateEvent(eUser.uGmailCalendar[index][i], 'del');
+						eDatabase.updateEvent(temp, 'del');
 						
 						found= true;
 						break;
