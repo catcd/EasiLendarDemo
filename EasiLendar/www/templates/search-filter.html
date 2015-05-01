@@ -69,7 +69,7 @@
 				<!--End: Commom Filter -->
 				<!-- START: Advance Filter -->
 				<div class="easi-space" data-slide-toggle="mShow">
-					<div class="search-filter-list">
+					<div class="search-filter-advance">
 						<span id="search-filter-span02">Time:</span>
 						<!-- {{timeValues.mToTime | date: "HH:mm:ss"}} -->
 						<hr id="search-filter-hr01"></hr>
@@ -109,9 +109,10 @@
 								</table>
 							</div>
 						</div>
+
+						<span id="search-filter-span02">Avoid and Prioritize</span>
+						<hr id="search-filter-hr01"></hr>
 						<div id="search-filter-inset02">
-							<span id="search-filter-span02">Avoid and Prioritize</span>
-							<hr id="search-filter-hr01"></hr>
 							<table id="search-filter-table03">
 								<tr data-ng-repeat="time in priorityTimes">
 									<td id="search-filter-td03">{{time.name}}:</td>

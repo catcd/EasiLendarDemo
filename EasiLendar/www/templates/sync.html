@@ -1,9 +1,9 @@
 <!-- starter: Can Duy Cat
 	owner: Ngo Duc Dung
-	last update: 28/04/2015
+	last update: 01/05/2015
 	type: html -->
 
-<ion-view title="Sync" data-ng-init= "handleClientLoad()">
+<ion-view title="Sync">
 	<ion-nav-buttons side="left">
 		<button class="button button-icon button-clear ion-home" ng-click="goHome()"> </button>
 	</ion-nav-buttons>
@@ -18,7 +18,7 @@
 					<div class="sync-div-title-{{app.name}}">{{app.name.charAt(0).toUpperCase() + app.name.substr(1,app.name.length-1)}} {{(app.name == 'facebook')?'':'Calendar'}}</div>
 				</div>
 				<div class="sync-div-options" toggle="visible.value">
-					<div id="sync-{{option.id}}" class="sync-{{option.id}}-{{app.name}}" data-ng-click="(option.name=='Update events') ? updateEvents(app.name):logout(app.name)" data-ng-repeat="option in app.options">
+					<div id="sync-{{option.id}}" class="sync-{{option.id}}-{{app.name}}" data-ng-repeat="option in app.options" data-ng-click="handleOptions(app.name,option.id)" >
 					<i class="sync-icon-{{option.id}} {{(option.name == 'Update events') ? 'ion-loop':'ion-reply'}}"></i>
 					{{option.name}}
 					</div>

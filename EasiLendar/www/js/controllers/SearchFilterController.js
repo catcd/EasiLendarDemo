@@ -232,10 +232,10 @@ angular.module('MainApp.controllers.searchFilter', [])
 			isChange: '=changeIcon'
 		},
 		link:function(scope,element,attr){
-			if(scope.isChange == false){
-				element.attr('class','icon ion-arrow-down-b');
-			}
-			else { element.attr('class','icon ion-arrow-up-b'); }
+			scope.$watch('isChange', function(){
+				if(scope.isChange == false){ element.attr('class','icon ion-arrow-down-b'); }
+				else { element.attr('class','icon ion-arrow-up-b'); }
+			});
 		}
 	};
 })

@@ -501,7 +501,7 @@ describe('Month Calendar', function() {
 			var today = new Date();
 			today = new Date(today.setHours(0,0,0,0));
 
-			initializeData(3);
+			initializeData(today.getMonth());
 			eSettings.sFirstDay = 'Sunday';
 			$scope.buildWeeks();
 			expect($scope.position.toString()).toEqual(today.toString());

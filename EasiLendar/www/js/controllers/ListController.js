@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 29/04/2015
+ * last update: 30/04/2015
  * type: list controller
  */
 
@@ -36,13 +36,33 @@ angular.module('MainApp.controllers.list', [])
 		for(var j=1; j<=$scope.allMonths[i].length; j++){
 			$scope.allMonths[i].weeks.push(new Date(d.getFullYear(), d.getMonth(), j));
 
-			if($scope.eUser.uGmailCalendar !== null){
-				if(j > 1 && $scope.eUser.uGmailCalendar[$scope.allMonths[i].weeks[j-1].toString()] !== undefined){
+			if($scope.eUser.uGmailCalendar != null){
+				if(j > 1 && $scope.eUser.uGmailCalendar[$scope.allMonths[i].weeks[j-1].toString()] != undefined){
 					$scope.allMonths[i].events = true;
 				}
 			}
 		}
-		//console.log($scope.allMonths[i]);
+
+		if($scope.allMonths[i].events == false){
+			$scope.allMonths[i].weeks = [];
+			var date = $scope.allMonths[i].first;
+			var number = $scope.allMonths[i].length;
+			var j=0;
+			while( j+8 < number){
+				var lenth = $scope.allMonths[i].weeks.length;
+				var objDay = {days: []};
+				objDay.days[0] = new Date(date.getFullYear(),date.getMonth(),date.getDate()+j);
+				objDay.days[1] = new Date(objDay.days[0].getFullYear(),objDay.days[0].getMonth(),objDay.days[0].getDate()+7);
+
+				$scope.allMonths[i].weeks.push(angular.copy(objDay));
+				j=j+8;
+			}
+
+			var objDay = {days: []};
+			objDay.days[0] = new Date(date.getFullYear(),date.getMonth(),date.getDate()+j);
+			objDay.days[1] = $scope.allMonths[i].last;
+			$scope.allMonths[i].weeks.push(angular.copy(objDay));
+		}
 	};
 
 	//build previous Month
@@ -54,11 +74,32 @@ angular.module('MainApp.controllers.list', [])
 
 		for(var j=1; j<=obj.length; j++){
 			obj.weeks.push(new Date(obj.last.getFullYear(), obj.last.getMonth(), j));
-			if($scope.eUser.uGmailCalendar !== null){
-				if(j>1 && $scope.eUser.uGmailCalendar[obj.weeks[j-1].toString()] !== undefined){
+			if($scope.eUser.uGmailCalendar != null){
+				if(j>1 && $scope.eUser.uGmailCalendar[obj.weeks[j-1].toString()] != undefined){
 					obj.events = true;
 				}
 			}
+		}
+
+		if(obj.events == false){
+			obj.weeks = [];
+			var date = obj.first;
+			var number = obj.length;
+			var j=0;
+			while( j+8 < number){
+				var lenth = obj.weeks.length;
+				var objDay = {days: []};
+				objDay.days[0] = new Date(date.getFullYear(),date.getMonth(),date.getDate()+j);
+				objDay.days[1] = new Date(objDay.days[0].getFullYear(),objDay.days[0].getMonth(),objDay.days[0].getDate()+7);
+
+				obj.weeks.push(angular.copy(objDay));
+				j=j+8;
+			}
+
+			var objDay = {days: []};
+			objDay.days[0] = new Date(date.getFullYear(),date.getMonth(),date.getDate()+j);
+			objDay.days[1] = obj.last;
+			obj.weeks.push(angular.copy(objDay));
 		}
 
 		$scope.allMonths.unshift(obj);
@@ -74,13 +115,10 @@ angular.module('MainApp.controllers.list', [])
 	$scope.buildNextMonth(toDay);
 	$scope.changeMonth(toDay);
 
-
-	/* Set pixel for some positions */
-	var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 25;
-	var winHeight = window.innerHeight;
-
 	//Load next month when scroll UP
 	$scope.scrollUp = function(){
+		var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 25;
+		var winHeight = window.innerHeight;
 		var lastTable = document.getElementById($scope.allMonths[$scope.allMonths.length-1].first.toDateString());
 		var posLast = lastTable.getBoundingClientRect();
 
@@ -91,6 +129,8 @@ angular.module('MainApp.controllers.list', [])
 
 	//Load previous month when scroll DOWN
 	$scope.scrollDown = function(){
+		var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 25;
+		var winHeight = window.innerHeight;
 		var firstTable = document.getElementById($scope.allMonths[0].first.toDateString());
 		var posFirst = firstTable.getBoundingClientRect();
 
@@ -101,22 +141,20 @@ angular.module('MainApp.controllers.list', [])
 	};
 
 	//Scroll to current day in list
+	$scope.currDay = toDay;
 	$rootScope.listToday = function(){
-		var currDay = document.getElementById(toDay.toDateString());
+		var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 25;
+		var winHeight = window.innerHeight;
+		var currDay = document.getElementById('date-' + toDay.toDateString());
 
-		if(currDay == undefined || currDay == null){
-			$rootScope.showAlert('Today has no events');
-		}
+		var currDayElm = angular.element(currDay);
+		var currPos = currDay.getBoundingClientRect();
+
+		if(currPos < 0){
+			$ionicScrollDelegate.scrollBy(0,-(top+currPos.top),false);
+		}	
 		else{
-			var currDayElm = angular.element(currDay);
-			var currPos = currDay.getBoundingClientRect();
-
-			if(currPos < 0){
-				$ionicScrollDelegate.scrollBy(0,-(top+currPos.top),false);
-			}	
-			else{
-				$ionicScrollDelegate.scrollBy(0,currPos.top-top,false);
-			}
+			$ionicScrollDelegate.scrollBy(0,currPos.top-top,false);
 		}
 	};
 

@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 29/04/2015
+	 last update: 01/05/2015
 	 type: calendar template -->
 
 <list-events><ion-view title="EasiLendar" ng-class="background(currMonth)">
@@ -15,25 +15,39 @@
 	<div id="list-calendar-title" class="list-calendar-title">{{eCalendar.months[currMonth]}}, {{currYear}}</div>
 	<ion-content scrollbar-y="false" id="list-content-calendar" on-swipe-up="scrollUp()" on-swipe-down="scrollDown()">
 		<div id="list-div-calendar">
-			<table ng-repeat="month in allMonths" id="{{month.first.toDateString()}}" class="list-calendar">
-				<tr ng-hide="month.events"><td>
-					<div class="list-no-event-calendar">No Events</div>
-				</td></tr>
+			<table ng-repeat="month in allMonths" id="{{month.first.toDateString()}}" class="list-calendar" ng-show="eUser.uGmailCalendar != null">
+				<tr data-ng-hide="month.events" data-ng-repeat="week in month.weeks">
+					<td class="list-td-no-event">
+						<p class="list-p-no-event-{{week.days.indexOf(day)}}" data-ng-repeat="day in week.days">
+							{{eCalendar.weekDays[(day.getDay()-1 < 0) ? 6:day.getDay()-1]}}, {{day.getDate()}} 
+							<span class="list-span-no-event" ng-show="week.days.indexOf(day) == 0"> - </span>
+						</p>
+					</td>
+				</tr>
 
-				<tr class="list-tr-calendar" ng-repeat="date in month.weeks" ng-show="eUser.uGmailCalendar[date] != undefined">
-					<td id="td-{{date.toDateString()}}" class="list-td-calendar-1" ng-repeat="event in eUser.uGmailCalendar[date] | limitTo:1">
-						<div current-time="event.start.dateTime.getDate()" current-month="{{event.start.dateTime.getMonth()}}" current-year="{{event.start.dateTime.getFullYear()}}"
-						id="{{event.start.dateTime.toDateString()}}">
+				<tr class="list-tr-calendar" ng-repeat="date in month.weeks" ng-show="eUser.uGmailCalendar[date] != undefined || date.toString() == currDay.toString()">
+					<td id="date-{{date.toDateString()}}" class="list-td-calendar-1" ng-show="date.toString() == currDay.toString() && eUser.uGmailCalendar[currDay] == undefined">
+						<div class="list-td-div-calendar" current-time="date.getDate()" current-month="{{date.getMonth()}}" current-year="{{date.getFullYear()}}" id="{{date.toDateString()}}">
 							<p class="list-p-calendar-number">{{date.getDate()}}</p>
-							<p class="list-p-calendar-text">{{eCalendar.weekDays[(date.getDate()-1<0)? 6:event.start.dateTime.getDay()-1]}}</p>
+							<p class="list-p-calendar-text">{{eCalendar.weekDays[(date.getDay()-1 < 0) ? 6:date.getDay()-1]}}</p>
+						</div>
+					</td>
+
+					<td class="list-td-calendar-2" ng-show="date.toString() == currDay.toString() && eUser.uGmailCalendar[currDay] == undefined">
+						<div class="list-div-current-day">Today has no events</div>
+					</td>
+					
+					<td id="date-{{date.toDateString()}}" class="list-td-calendar-1" ng-repeat="event in eUser.uGmailCalendar[date] | limitTo:1">
+						<div class="list-td-div-calendar" current-time="date.getDate()" current-month="{{date.getMonth()}}" current-year="{{date.getFullYear()}}" id="{{date.toDateString()}}">
+							<p class="list-p-calendar-number">{{date.getDate()}}</p>
+							<p class="list-p-calendar-text">{{eCalendar.weekDays[(date.getDay()-1 < 0) ? 6:date.getDay()-1]}}</p>
 						</div>
 					</td>
 					<td class="list-td-calendar-2">
 						<div class="list-div-calendar-1" ng-repeat="event in eUser.uGmailCalendar[date]" background-event="bkgE">
 							<span class="list-span-title-event">{{event.summary}}</span><br>
 							<span>Time: {{event.start.dateTime.getHours()}}:{{ (event.start.dateTime.getMinutes()<10)?'0':'' }}{{event.start.dateTime.getMinutes()}}{{ (event.start.dateTime.getHours() >= 12)?' PM':' AM' }} - {{event.end.dateTime.getHours()}}:{{(event.end.dateTime.getMinutes()<10)?'0':''}}{{event.end.dateTime.getMinutes()}}{{( event.end.dateTime.getHours() >= 12)?' PM':' AM' }}
-							</span><br>
-							<span class="list-span-location-event" ng-show="event.location!=undefined">{{event.location}}</span>
+							</span>
 						</div>
 					</td>
 				</tr>

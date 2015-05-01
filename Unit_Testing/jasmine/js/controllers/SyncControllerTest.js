@@ -1,205 +1,140 @@
 /**
  * starter: Can Duy Cat
- * owner: Nguyen Manh Duy
- * last update: 19/04/2015
+ * owner: Ngo Duc Dung
+ * last update: 30/04/2015
  * type: paticular controller
+ * number of tests: 12
  */
 
  
-describe('Sync', function(eUser) {
+describe('Sync Controller', function() {
+	var $controller, $rootScope, $scope, $ionicPopup;
+	var eUser, eFacebook;
+
 	beforeEach(module('MainApp.controllers.sync'));
-	var $controller, $rootScope, $scope;
-	beforeEach(inject(function(_$rootScope_, _$controller_) {
-		// The injector unwraps the underscores (_) from around the parameter names when matching
-		$controller = _$controller_;
-		$rootScope = _$rootScope_;
+
+	eUser = {
+		uGmailCalendar: null
+	};
+
+	eFacebook = {
+		fbSetLoginStatus: function() {},
+		fbLogin: function() {},
+		fbLogout: function() {},
+		fbApiEvent: function() {}
+	};
+
+	beforeEach(inject(function($injector){
+		$rootScope = $injector.get('$rootScope');
+        $controller = $injector.get('$controller');
 		$scope = $rootScope.$new();
-		
-		$rootScope.eSettings = {sDefaultView : ""};
-		$controller('SyncController', {'$rootScope' : $rootScope, '$scope': $scope });
+
+		$scope = {
+			convertMe: function(name) {}
+		}
+
+		$controller('SyncController', {
+			'$rootScope': $rootScope,
+			'$scope': $scope,
+			'eUser': eUser,
+			'eFacebook': eFacebook,
+			'$ionicPopup': $ionicPopup
+		});
 	}));
-	
-	describe('gapi', function() {
-		it('gapi should be defined', function(){
-			expect(gapi).not.toBeUndefined();
+
+	xdescribe('Initialize data', function(){
+		it('should set eUser.uGmailCalendar is null if user does not have any events', function(){
+			expect(eUser.uGmailCalendar).toBeDefined();
+			expect(eUser.uGmailCalendar).toBeNull();
 		});
-		
-		it('gapi.auth should be defined', function(){
-			expect(gapi.auth).not.toBeUndefined();
+
+		it('should create $scope.allApps', function(){
+			expect($scope.allApps).toBeDefined();
+			expect($scope.allApps[0].title).toBe('social');
+			expect($scope.allApps[0].array[0].name).toBe('facebook');
+			expect($scope.allApps[0].array[0].options[0].name).toBe('Log out');
+			expect($scope.allApps[0].array[0].options[1].name).toBe('Update events');
+			expect($scope.allApps[1].title).toBe('calendar');
+			expect($scope.allApps[1].array[0].name).toBe('local');
+			expect($scope.allApps[1].array[0].options[0].name).toBe('Update events');
+			expect($scope.allApps[1].array[0].options[1]).toBeUndefined();
 		});
-		
-		it('gapi.auth.authorize run perfectly', function(){
-			var clientId = '164260242142-4er9a46uufjlu6h6hsbv3s7479mqv6pr.apps.googleusercontent.com';
-			var scopes = 'https://www.googleapis.com/auth/calendar';
-			
-			expect(gapi.auth.authorize).toBeDefined();
+
+		it('should set $scope.fbEvents is []', function(){
+			expect($scope.fbEvents).toBeDefined();
+			expect($scope.fbEvents).toEqual([]);
 		});
 	});
-	
-	describe('request Google permission', function(){
-		var clientId = '164260242142-4er9a46uufjlu6h6hsbv3s7479mqv6pr.apps.googleusercontent.com';
-		var scopes = 'https://www.googleapis.com/auth/calendar';
-		var authResult;
-		
-		beforeEach(function(){
-			gapi.auth.authorize({
-								client_id: clientId,
-								scope: scopes,
-								immediate: true,
-								cookie_policy: 'single_host_origin'
-								}, $scope.handleAuthResult);
-		});
-		
-		it('receive token function be called', function(){
-			expect($scope.handleAuthResult(authResult)).toHaveBeenCalled();
-			$scope.handleAuthResult(authResult);
-			if (authResult && !authResult.error) {
-				expect($scope.logIN).toEqual(1);
-			}
-			else{
-				expect($scope.logIN).toEqual(0);
-			}
-		});
-	});
-	
-	describe('log out', function(){
-		beforeEach(function(){
-			$scope.logMeOut();
-		});
-		
-		it('value logIN should change from 1 to 0', function(){
-			expect($scope.logIN).toEqual(0);
-		});
-	});
-	
-	describe('Google Calendar data', function(){
-		beforeEach(function(){
-			var event= null;
-			var length=0;
-			$scope.logIN= 0;
-			$scope.handleAuthClick(event);
-			
-			// shoule be access to get calendar and calendar should be non-empty array :
-		});
-		
-		it('makeApiCall function should be called', function(){
-			expect($scope.makeApiCall()).toHaveBeenCalled();
-		});
-		
-		it('convertMe function should be called to convert format of array', function(){
-			expect($scope.convertMe()).toHaveBeenCalled();
-		});
-		
-		it('Google Calendar should be gotten from api', function(){
-			for each(var index in eUser.uGmailCalendar){
-				length++;
-			}
-			
-			expect(length).not.toEqual(0);
-		});
-		
-		it('Google Calendar should be an array which longest length is less than 1k01', function(){
-			for each(var index in eUser.uGmailCalendar){
-				length++;
-			}
-			
-			expect(length).toBeLessThan(1001);
-		});
-		
-		it('Google Calendar should be convert to array which index is an Object Date', function(){
-			var length = 0;
-			for each(var index in eUser.uGmailCalendar){
-				expect(index.getTime()).not.toBeUndefined();
-			}
-		});
-		
-		it ('Google Calendar should be gotten from a day which after 1 year ago', function(){
-			var toDay = new Date();
-			var dd = toDay.getDate();
-			var mm = toDay.getMonth() + 1; //January is 0!
-			var yyyy = toDay.getFullYear();
 
-			if (dd < 10) {
-				dd = '0' + dd;
-			}
+	xdescribe('All functions', function(){
+		describe('$scope.checkLoginStatus', function(){
+			it('should call eFacebook.fbSetLoginStatus function when parameter is "facebook"', function(){
+				spyOn(eFacebook, 'fbSetLoginStatus');
+				$scope.checkLoginStatus('facebook');
+				expect(eFacebook.fbSetLoginStatus).toHaveBeenCalled();
+			});
 
-			if (mm < 10) {
-				mm = '0' + mm;
-			}
+			/*it('should call  when parameter is "google"', function(){
+				$scope.checkLoginStatus('google');
+			});*/
+		});
 
-			toDay = mm + '/' + dd + '/' + yyyy;
-
-			// form of timeMax: "yyyy-mm-dd T hh:mm:ss - offset
-
-			var oneYearAgo = (yyyy - 1) + '-' + mm + '-' + dd + 'T' + '00:00:00-00:00';
-
-			for each(var index in eUser.uGmailCalendar){
-				expect(oneYearAgo.getTime()).toBeLessThan(index.getTime());
-				break;
-			}
-		});
-		
-		it('Google Calendar should be sort by time', function(){
-			var next= null;
-			var previous= null;
-			var i=0;
-			for each(var index in eUser.uGmailCalendar){
-				if (i==0)	previous= index;
-				else {
-					next= index;
-					expect(previous.getTime()).toBeLessThan(next.getTime());
-					previous=next;
-				}
-				
-				i++;
-			}
-		});
-		
-		it ('Google Calendar should be an array which all elements are defined', function(){
-			for each(var index in eUser.uGmailCalendar){
-				expect(eUser.uGmailCalendar[index]).toBeDefined();
-			}
-		});
-		
-		it('Google Calendar array should have each element which is a non-empty array', function(){
-			for each(var index in eUser.uGmailCalendar){
-				expect(eUser.uGmailCalendar[index].length).not.toEqual(0);
-			}
-		});
-		
-		it ('Google Calendar should be an array which all elements has position (time of event) equal to index', function(){
-			for each(var index in eUser.uGmailCalendar){
-				var current= eUser.uGmailCalendar[index];
-				
-				for (var i=0; i< current.length; i++){
-					expect(current[i].position).toBeDefined();
-					expect(current[i].position.getTime())= index.getTime();
-				}
-			}
-		});
-		
-	});
-	
-	describe('sync to local calendar', function(){
-		it('if window.plugin is not defined, cordovaCalendar.listCalendars() should not be called', function(){
-			if (window.plugin == undefined){
-				expect(cordovaCalendar.listCalendars()).not.toHaveBeenCalled();
-			}
-			else{
-				expect(cordovaCalendar.listCalendars()).toHaveBeenCalled();
-			}
-		});
-		
-		it ('if window.plugin is defined, function cordovaCalendar.listCalendars() should return response is an array of events', function(){
-			if (window.plugin != undefined){
-				$cordovaCalendar.listCalendars().then(function(result) {
-				//success:
-				expect(result.length).not.toEqual(0);
-			}, function(err) {
-				// error: not handle;
+		describe('$scope.checkFBLoginStatus', function(){
+			it('should call $scope.checkLoginStatus function', function(){
+				spyOn($scope, 'checkLoginStatus');
+				$scope.checkFBLoginStatus();
+				expect($scope.checkLoginStatus).toHaveBeenCalled();
 			});
 		});
-		
-		
+
+		describe('$scope.login', function(){
+			it('should call eFacebook.fbLogin function when parameter is "facebook"', function(){
+				spyOn(eFacebook, 'fbLogin');
+				$scope.login('facebook');
+				expect(eFacebook.fbLogin).toHaveBeenCalled();
+			});
+
+			/*it('should call when parameter is "google"', function(){
+				$scope.login('google');
+			});*/
+		});
+
+		describe('$scope.logout', function(){
+			it('should call eFacebook.fbLogout and eFacebook.fbSetLoginStatus functions when parameter is "facebook"', function(){
+				spyOn(eFacebook, 'fbLogout');
+				spyOn(eFacebook, 'fbSetLoginStatus');
+				$scope.logout('facebook');
+				expect(eFacebook.fbLogout).toHaveBeenCalled();
+				expect(eFacebook.fbSetLoginStatus).toHaveBeenCalled();
+			});
+
+			/*it('should call when parameter is "google"', function(){
+				$scope.logout('google');
+			});*/
+		});
+
+		describe('$scope.updateEvents', function(){
+			it('should call eFacebook.fbApiEvent and $scope.convertMe functions when parameter is "facebook"', function(){
+				spyOn(eFacebook, 'fbApiEvent');
+				$scope.updateEvents('facebook');
+				expect(eFacebook.fbApiEvent).toHaveBeenCalled();
+
+				spyOn($scope, 'convertMe');
+				$scope.updateEvents('facebook');
+				expect($scope.convertMe).toHaveBeenCalled();
+			});
+
+			/*it('should call when parameter is "local"', function(){
+				$scope.login('local');
+			});*/
+
+			/*it('should call when parameter is "google"', function(){
+				$scope.login('google');
+			});*/
+		});
+
+		describe('$scope.convertMe', function(){
+
+		});
 	});
 });
