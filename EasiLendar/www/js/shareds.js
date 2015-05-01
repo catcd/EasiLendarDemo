@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 29/04/2015
+ * last update: 01/05/2015
  * type: all shared module
  */
 
@@ -17,6 +17,6 @@ angular.module('MainApp.shareds', [
 	'MainApp.shareds.facebook',
 	'MainApp.shareds.multiCalendar',
 	'MainApp.shareds.run',
-	// 'MainApp.shareds.sync',
+	'MainApp.shareds.sync',
 	'MainApp.shareds.timeHeap'
 ])
