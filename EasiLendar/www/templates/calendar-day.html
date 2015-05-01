@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Nguyen Thi Luong
-	 last update: 18/03/2015
+	 last update: 30/04/2015
 	 type: calendar template -->
 
 <ion-view title="EasiLendar">
@@ -11,18 +11,51 @@
         <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
      	  <button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
     </ion-nav-buttons>
-		
-    <div  ng-class="backgroundMonth()">
-		<h2 id="day_h2-month"><br>{{navMonthName}}, {{navYear}}</h2>
+	<div class = "DayCalendar" data-ng-class="navigationDay.navBackground" data-ng-show = "viewCalendar(eSettings.sDayView)">
+		<div class = "day">
+			<div class = "header">
+					<button class="icon ion-chevron-left easi-dark-blue "   data-ng-click = "navigationDay.prevDay()"> </button>
+				<div>{{navigationDay.navDay}},{{navigationDay.navMonth}} {{navigationDay.navDate}},{{navigationDay.navYear}}   </div>
+				<button class="icon ion-chevron-right easi-dark-blue " data-ng-click = "navigationDay.nextDay()" > </button>  	
+			</div>
+			<div class="calendar">
+			<div class="row daytag">
+				<div class="empty"></div>
+			</div>
+			<div class="day-content" data-ng-style="navigationDay.contentHeight">
+				<ion-content scrollbar-y=false>
+			<div class="row row-content">
+				<div class="hours">
+					<div class="hour" data-ng-repeat="x in navigationDay.hours">{{x}}</div>
+				</div>
+				<div class="col daycol" >
+					<div class="row nor-event" data-ng-repeat="event in navigationDay.Day.norEvent">
+						data-ng-style="event.style">
+						<div class="summary">{{event.event.origin.summary}}</div>
+					</div>
+					<div class="row hourblock" data-ng-repeat="x in navigationDay.hours"></div>
+				</div>
+			</div>
+			
+			</ion-content>
+			</div>
+		</div>
+			</div>
+    </div>
+
+	<div  ng-class="navigationDay.nav_Background" data-ng-show = "view_Calendar(eSettings.sDayView)" >
+		<h2 id="day_h2-month"><br>{{navigationDay.navMonth}}, {{navigationDay.navYear}}</h2>
 	</div>
 	
-	<div id="day_week"><center> 
-		<table >
+	<div id="day_week" data-ng-show = "view_Calendar(eSettings.sDayView)"><center> 
+	<div class = "day_monthweek"><center>
+		<table ><center>
 		<center>
-			<td id="day_prevDay">	<a class="icon ion-chevron-left easi-dark-blue"   data-ng-click = "previousDay()"> </a>	</td>
-			<td id="day_inweek"><span >This Week ({{navShortMonth}} {{FirstDayWeek}} - {{LastDayWeek}})<br><span></td>
-			<td id="day_nextDay"><a class="icon ion-chevron-right easi-dark-blue" data-ng-click = "NextDay()" > </a>   </td>
+			<td id="day_prevDay">	<a class="icon ion-chevron-left easi-dark-blue"   data-ng-click = "navigationDay.prevDay()"> </a>	</td>
+			<td id="day_inweek"><span >This Week ({{navigationDay.nav_Month}} {{navigationDay.FirstDayInWeek}} - {{navigationDay.LastDayInWeek}})<br><span></td>
+			<td id="day_nextDay"><a class="icon ion-chevron-right easi-dark-blue" data-ng-click = "navigationDay.nextDay()" > </a>   </td>
 		</table>
+	</div>
 		<br>
 		<ion-content class="day_calendar"><center>
 		
@@ -31,13 +64,13 @@
 			<table class="day_table-calendar easi-no-border">
 				<tr class="day_tr-calendar easi-no-border">
 				<!--Day-->
-					<td class="td-list-calendar-3">
-						<p class="day_p-calendar-number">	{{navDate}}	</p>
-						<p class="day_p-calendar-text">	{{navDay}}	</p>
+					<td class="day-date">
+						<p class="day_p-calendar-number">	{{navigationDay.nav_Date}}	</p>
+						<p class="day_p-calendar-text">	{{navigationDay.navDay}}	</p>
 					</td>
 				<!--Calendar-->
 					<td class="day_td-calendar-2">
-						<div class="day_div-calendar easi-no-border " ng-repeat="event in eUser.uGmailCalendar[indexOfNavDay]" background-event="bkgE">
+						<div class="day_div-calendar easi-no-border " ng-repeat="event in eUser.uGmailCalendar[navigationDay.indexOfNavDay]" background-event="bkgE">
 							<span class="span-title-event">	{{event.summary}}	</span><br>
 							<span>	Time:{{event.start.dateTime.getHours()}}:{{ (event.start.dateTime.getMinutes()<10)?'0':'' }}{{event.start.dateTime.getMinutes()}}{{ (event.start.dateTime.getHours() >= 12)?' PM':' AM' }} - {{event.end.dateTime.getHours()}}:{{(event.end.dateTime.getMinutes()<10)?'0':''}}{{event.end.dateTime.getMinutes()}}{{( event.end.dateTime.getHours() >= 12)?' PM':' AM' }}
 							</span><br>
@@ -48,4 +81,7 @@
 			</table>
 		</center>  
 		</ion-content>
+
+
+   
 </ion-view>

@@ -2,7 +2,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Thi Luong
- * last update: 24/04/2015
+ * last update: 30/04/2015
  * type: paticular controller
  */
 /*test for:
@@ -108,48 +108,43 @@ describe('Day',function(){
 	}));
 
 	describe('Check Date ', function(){
-		it('Shoulld be nav Year', function(){
-			expect(	$scope.navYear).toBe('2015');
+	var d, nd;
+			beforeEach(function() {
+				d = $scope.newDayCalendar();
+			});
+		it('navigation year', function(){
+			expect(	d.navYear).toBe('2015');
 		});
-		it('Shoulld be background month', function(){
-			expect($scope.backgroundMonth()).toBe('bkg-05');
+		it('navigation background monht of time grid', function(){
+			expect(d.navBackground).toBe('bkg-style '+"easi-may-bkg");
 		});
-		it('Should be nav Month', function(){
-			expect($scope.navMonthName).toBe("May");
+		it('navigation background monht of event list', function(){
+			expect(d.nav_Background).toBe('bkg '+"easi-may-bkg");
 		});
-		it('Shoulld be month', function(){
-			expect($scope.navMonthNumber).toBe('4');
-		});
-		it('Should be nav date', function(){
-			expect($scope.navDate).toBe('21');
-		});
-		it('Should be nav day', function(){
-			expect($scope.navDay).toBe('Mon');
-		});
-			var x = day2.nextDay();
-		it('Should be next date', function(){
-			expect(x.date).toBe('22');
-		});
-	
-	});
-	describe('test FirstLastDay', function(){
-		beforeEach(function(){
-			var week = new Array(2);
-			week = $scope.FirstLastDay(day2);
-			$scope.FirstDayOfWeek = week[0];
-			$scope.LastDayOfWeek = week[1];
-		});
-		it('Should be first day', function(){
-			expect($scope.FirstDayOfWeek).toBe(day2);
-		});
-		it('Should be last day', function(){
-			expect($scope.LastDayOfWeek.date).toBe('26');
-		});
-		it('Should be nav Month', function(){
-			expect($scope.navShortMonth ).toBe('May');
+		it('navigaition month of timegrid', function(){
+			expect(d.navMonth).toBe("May");
 		});
 		
+		it('navigation date of time grid', function(){
+			expect(d.navDate).toBe('21st');
+		});
+		it('navigation date of event list ', function(){
+			expect(d.nav_Date).toBe('21');
+		});
+		
+		it('navigation day', function(){
+			expect(d.navDay).toBe('Mon');
+		});
+		it('first day in navigation week', function(){
+			expect(d.FirstDayInWeek).toBe('21');
+		});
+		it('last day in navigation  week', function(){
+			expect(d.FirstDayInWeek).toBe('21');
+		});
+		
+
 	});
+	
 	
 });
 
