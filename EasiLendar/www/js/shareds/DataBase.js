@@ -1,15 +1,18 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 26/04/2015
+ * last update: 01/05/2015
  * type: all shared database variables and functions
  */
 
 var database = angular.module( "MainApp.shareds.dataBase", [] );
 
 database.factory( "eDatabase", function( $rootScope, $ionicLoading,
-eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar ) {
-	// check if object is null/undefined/"" or not
+eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo ) {
+	/*
+	* PRIVATE
+	* check if object is null/undefined/"" or not
+	*/
 	var isNull = function( obj ) {
 		if (obj === null || obj === undefined || obj === "") {
 			return true;
@@ -18,8 +21,9 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar ) {
 	};
 	
 	/*
-	 * convert every dateTime object to String
-	 */
+	* PRIVATE
+	* convert every dateTime object to String
+	*/
 	var toString = function() {
 		if (!isNull( eUser.uGmailCalendar )) {
 			var temp = [];
@@ -35,7 +39,10 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar ) {
 		}
 	};
 	
-	// clear all data in application when sign out
+	/*
+	* PRIVATE
+	* clear all data in application when sign out
+	*/
 	var clearData = function() {
 		// Reset all data
 		// Setting
@@ -44,14 +51,20 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar ) {
 		eUser.resetData();
 	};
 
-	// check if user has signed in or not
+	/*
+	* PRIVATE
+	* check if user has signed in or not
+	*/
 	var checkSignIn = function() {
 		if (!isNull( eUser.uID ) && eUser.isLogin === true) {
 			return true;
 		} else return false;
 	};
 	
-	// is used to hide loading when done
+	/*
+	* PRIVATE
+	* is used to hide loading when done
+	*/
 	var onComplete = function( error ) {
 		if ( error ) {
 			console.log( "failed" );
@@ -60,7 +73,9 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar ) {
 		}
 	};
 	
-	// convert string dateTime to object Date
+	/*
+	* convert string dateTime to object Date
+	*/
 	var convertCal = function( calendar ) {
 		if (!isNull( calendar )) {
 			var temp = [];
@@ -75,10 +90,12 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar ) {
 		} else return null;
 	};
 	
-	function Daba() {
+	function DataBase() {
 		this.convertCal = convertCal;
-	
-		// show loading balls
+
+		/*
+		* show loading balls
+		*/
 		this.databaseLoading = function() {
 			$ionicLoading.show( {
 				template: "<div id='followingBallsG'><div id='followingBallsG_1\
@@ -90,7 +107,9 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar ) {
 			} );
 		};
 	
-		// set uFRequest's length to uFRLength
+		/*
+		* set uFRequest's length to uFRLength
+		*/
 		this.setUFRL = function() {
 			if (isNull( eUser.uFRequest )) {
 				eUser.uFRLength = 0;
@@ -99,7 +118,9 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar ) {
 			}
 		};
 	
-		// set uFAccepted's length to uFALength
+		/*
+		* set uFAccepted's length to uFALength
+		*/
 		this.setUFAL = function() {
 			if (isNull( eUser.uFAccepted )) {
 				eUser.uFALength = 0;
@@ -108,8 +129,10 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar ) {
 			}
 		};
 		
-		// sign out function
-		// update data, reset setting, go to form.
+		/*
+		* sign out function
+		* update data, reset setting, go to form.
+		*/
 		this.signOutEasi = function() {
 			// clear data
 			clearData();
@@ -486,8 +509,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar ) {
 			if (checkSignIn()) {
 				toString();	// convert
 				var user = new Firebase(
-						"https://radiant-inferno-3243.firebaseio.com/Users/" +
-						eUser.uID );
+					"https://radiant-inferno-3243.firebaseio.com/Users/" +
+					eUser.uID );
 
 				// loading
 				this.databaseLoading();
@@ -570,42 +593,115 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar ) {
 		};
 		
 		/*
+		* PRIVATE
+		* update new created event
+		*/
+		var updateCreate = function( event ) {
+			var startDate = event.start.dateTime,
+			endDate = event.end.dateTime,
+			etype = eEasiLendar.isType(event.start, event.end);	// normal/all/over
+
+			// date1, date2 are different if etype is over
+			var date1 = new Date(startDate.getFullYear(),
+			startDate.getMonth(), startDate.getDate());
+			
+			var date2 = new Date(endDate.getFullYear(),
+			endDate.getMonth(), endDate.getDate());
+
+			var day = new Firebase(
+					"https://radiant-inferno-3243.firebaseio.com/Users/" +
+					eUser.uID + "/g_calendar");
+			// loading
+			this.databaseLoading();
+			if (etype != "over") {
+				// has only 1 day to update
+				day.child( date1.toString() ).set( eUser.uGmailCalendar[date1], onComplete );
+			} else {
+				// update every from date1 to date2
+				while (date1 <= date2) {
+					day.child( date1.toString() ).set( eUser.uGmailCalendar[date1] );
+					date1 = eCalendar.tomorrow( date1 );
+					// all set is complete
+					if (date1 > date2) {
+						$ionicLoading.hide();
+					}
+				}
+			}		
+		};
+		
+		/*
+		* PRIVATE
+		* update deleted event
+		*/
+		var updateDel = function( event ) {
+			var startDate = event.start.dateTime,
+			endDate = event.end.dateTime,
+			etype = eEasiLendar.isType(event.start, event.end);	// normal/all/over
+
+			// date1, date2 are different if etype is over
+			var date1 = new Date(startDate.getFullYear(),
+			startDate.getMonth(), startDate.getDate());
+			
+			var date2 = new Date(endDate.getFullYear(),
+			endDate.getMonth(), endDate.getDate());
+
+			var day = new Firebase(
+					"https://radiant-inferno-3243.firebaseio.com/Users/" +
+					eUser.uID + "/g_calendar");
+			// loading
+			this.databaseLoading();
+			if (etype != "over") {
+				// has only 1 day to update
+				day.child( date1.toString() ).set( null, onComplete );
+			} else {
+				// update every from date1 to date2
+				while (date1 <= date2) {
+					day.child( date1.toString() ).set( null );
+					date1 = eCalendar.tomorrow( date1 );
+					// all set is complete
+					if (date1 > date2) {
+						$ionicLoading.hide();
+					}
+				}
+			}		
+		};
+		
+		
+		/*
 		* updateEvent function
 		* type is string ['create', 'del', 'edit']
+		* event1 is new created event/delete event/event before edit
+		* event2 is event after edit
 		*/
-		this.updateEvent = function( event, type ) {
-			if (checkSignIn()) {
-				var startDate = event.start.dateTime,
-				endDate = event.end.dateTime,
-				etype = eEasiLendar.isType(event.start, event.end);	// normal/all/over
-
-				// date1, date2 are different if etype is over
-				var date1 = new Date(startDate.getFullYear(),
-				startDate.getMonth(), startDate.getDate());
-				
-				var date2 = new Date(endDate.getFullYear(),
-				endDate.getMonth(), endDate.getDate());
-
-				var day = new Firebase(
-						"https://radiant-inferno-3243.firebaseio.com/Users/" +
-						eUser.uID + "/g_calendar");
-				
-				if (etype != "over") {
-					// has only 1 day to update
-					day.child( date1.toString() ).set( eUser.uGmailCalendar[date1] );
-				} else {
-					// update every from date1 to date2
-					while (date1 <= date2) {
-						day.child( date1.toString() ).set( eUser.uGmailCalendar[date1] );
-						date1 = eCalendar.tomorrow( date1 );
-					}
+		this.updateEvent = function( event1, type , event2 ) {
+			if (checkSignIn() && !isNull( event1 ) && !isNull( type )) {
+				if (type == "create") {
+					updateCreate( event1 );
+				} else if (type == "del") {
+					updateDel( event1 );
+				} else if (type == "edit" && !isNull( event2 )) {
+					updateDel( event1 );
+					updateCreate( event2 );
 				}
 			}
 		};
+		
+		/*
+		* update Todo function
+		* push all eTodo to database
+		*/
+		this.updateTodo = function() {
+			if (checkSignIn()) {
+				var todo = new Firebase(
+					"https://radiant-inferno-3243.firebaseio.com/Users/" +
+					eUser.uID + "/eTodo");
+				// loading
+				this.databaseLoading();
+				todo.set( angular.copy(eTodo.tChecklist), onComplete );
+			}
+		};
 	}
-	
-	var daba = new Daba();
-	return daba;
+	return new DataBase();
 } );
 database.factory( "eventOff", function( eDatabase ) {
 	return {

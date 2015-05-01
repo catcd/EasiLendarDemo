@@ -1,14 +1,14 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 21/04/2015
+ * last update: 01/05/2015
  * type: particular controller
  */
 
 var signIn = angular.module( "MainApp.controllers.signIn", [ "ionic" ] );
 
 signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
-		$ionicLoading, $ionicPopup, eSettings, eDatabase, eUser ) {
+		$ionicLoading, $ionicPopup, eSettings, eDatabase, eUser, eTodo ) {
 
 	// All constants
 	var MAX_ID_LENGTH = 15,
@@ -20,7 +20,10 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 	// link to home's default view
 	link = eSettings.sDefaultView,
 	
-	// show alert
+	/*
+	* PRIVATE
+	* show alert
+	*/
 	showAlert = function() {
 		var alertPopup = $ionicPopup.alert({
 			title: "Registered!",
@@ -30,8 +33,19 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 			alertPopup.close(); // close the popup after 3 seconds for some
 			// reason
 		}, 3000 );
-	};
+	},
 
+	/*
+	* PRIVATE
+	* check if object is null/undefined/"" or not
+	*/
+	isNull = function( obj ) {
+		if (obj === null || obj === undefined || obj === "") {
+			return true;
+		}
+		return false;
+	};
+	
 	$scope.isRemember = false;
 
 	// warning object contains all warnings
@@ -46,7 +60,7 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 
 		// check if mes[i] is a warning or NULL
 		check: function( num ) {
-			if (this.mes[num] === undefined) {
+			if (isNull( this.mes[num] )) {
 				return true;
 			} else
 				return false;
@@ -69,7 +83,7 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 			eDatabase.databaseLoading();
 			ref.once( "value", function( snapshot ) {
 				var user = snapshot.val();
-				if (user === null || user.password != pass) {
+				if (isNull( user ) || user.password != pass) {
 					$rootScope.goToState( "warning" );
 				} else {
 					// copy all user's data to eUser
@@ -86,14 +100,12 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 					eUser.uRequested = user.requested;
 
 					// convert
-					eUser.uGmailCalendar = eDatabase
-							.convertCal(user.g_calendar);
-					eUser.uLocalCalendar = eDatabase
-							.convertCal(user.local_calendar);
+					eUser.uGmailCalendar = eDatabase.convertCal(user.g_calendar);
+					eUser.uLocalCalendar = eDatabase.convertCal(user.local_calendar);
 
-					eUser.uFRequest = user.noti === null ? null
+					eUser.uFRequest = isNull( user.noti ) ? null
 							: user.noti.fRequest;
-					eUser.uFAccepted = user.noti === null ? null
+					eUser.uFAccepted = isNull( user.noti ) ? null
 							: user.noti.fAccept;
 					eUser.uFRLength = 0;
 					eUser.uFALength = 0;
@@ -149,10 +161,10 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 			// get data from that link if exists, null if not
 			ref.once( "value", function( snapshot ) {
 				// if id existed => change ID message
-				if (snapshot.val() !== null) {
+				if (!isNull( snapshot.val() )) {
 					$scope.warnings.mes[0] = "Existed";
 					check = true;
-				}
+				} console.log(snapshot.val());
 				// if there is no warning
 				if (!check) {
 					// cut email string to save (get rid of
@@ -171,13 +183,16 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 						password: $scope.user.password,
 						avatar: 0,
 						VIP: 0,
-						gmail: mail
+						gmail: mail,
+						eTodo: eTodo.tChecklist
 					} );
 
 					// welcome message
 					showAlert();
 					$scope.user.reset();
 					$rootScope.goToState( "form" );
+				} else {
+					$ionicLoading.hide();
 				}
 			});
 		}
