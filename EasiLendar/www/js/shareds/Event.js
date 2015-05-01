@@ -10,6 +10,18 @@ var event = angular.module('MainApp.shareds.event', []);
 event.factory('eEvent', function(eSettings) {
 	return {
 		pointer: null,
-		backState: eSettings.sDefaultView,
+		backState: [eSettings.sDefaultView],
+		type: null,		// "create"/"edit"
+		pushBackState: function( state ) {
+			if (state !== null && state !== undefined) {
+				this.backState[this.backState.length] = state;
+			}
+		},
+		popBackState: function() {
+			var temp = angular.copy( this.backState[
+			this.backState.length - 1] );
+			delete this.backState[this.backState.length--];
+			return temp;
+		}
 	};
 });

@@ -114,6 +114,8 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 					eDatabase.setUFRL();
 					eDatabase.setUFAL();
 
+					eTodo.tChecklist = user.eTodo;
+					
 					$scope.user.reset();
 					$rootScope.goHome();
 				}

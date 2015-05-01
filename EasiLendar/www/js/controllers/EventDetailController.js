@@ -8,7 +8,7 @@
 angular.module('MainApp.controllers.eventEdit', [])
 
 .controller("EventDetailController", function($scope, $rootScope,
-eEvent, eEasiLendar, eCalendar) {
+eEvent, eEasiLendar, eCalendar, eDatabase, eSync) {
 	
 	// check if obj is null/undefined/"" or not
 	$scope.isNull = function( obj ) {
@@ -29,21 +29,23 @@ eEvent, eEasiLendar, eCalendar) {
 	
 	// delete function
 	$scope.del = function() {
-		
+		// call to delete event function in eSync to sync with Google
+		eSync.deleteEventWithId(eEvent.pointer.id);
+		// close event view
+		$scope.close();
 	};
 	
 	// edit function
 	$scope.edit = function() {
-		
+		$rootScope.toEventForm("edit");
 	};
 	
 	// close function
 	$scope.close = function() {
 		// clear data
 		eEvent.pointer = null;
-		$rootScope.goToState(eEvent.backState);
-	};
-	
+		$rootScope.goToState( eEvent.popBackState() );
+	}
 	/*
 	* PRIVATE
 	* Display class
@@ -113,7 +115,7 @@ eEvent, eEasiLendar, eCalendar) {
 	$rootScope.viewEvent = function(event) {
 		if (event === null) return false;
 		eEvent.pointer = event;
-		eEvent.backState = $rootScope.currentState;
-		$rootScope.goToState("eventDetail");
+		eEvent.pushBackState( $rootScope.currentState );
+		$rootScope.goToState( "eventDetail" );
 	};
 })

@@ -5,11 +5,11 @@
 
 <ion-view title="Details">
 	<ion-nav-buttons side="left">
-		<button class="button button-icon button-clear ion-close-round detail-close" data-ng-click=close()></button>
+		<button class="button button-icon button-clear ion-close-round detail-close" data-ng-click="close()"></button>
 	</ion-nav-buttons>
 	<ion-nav-buttons side="right">
-		<button class="button button-icon button-clear ion-edit detail-edit"></button>
-		<button class="button button-icon button-clear ion-trash-b detail-delete"></button>
+		<button class="button button-icon button-clear ion-edit detail-edit" data-ng-click="edit()"></button>
+		<button class="button button-icon button-clear ion-trash-b detail-delete" data-ng-click="del()"></button>
 	</ion-nav-buttons>
 	<div class="eventDetail">
 		<div class="eventColor" data-ng-style="display.color">
@@ -17,7 +17,7 @@
 		</div>
 		<div class="detailList">
 			<div class="row date">
-				<i class="icon ion-calendar"></i>
+				<i class="icon ion-ios-clock-outline"></i>
 				<div class="col">
 					<div class="row" data-ng-repeat="line in display.date" data-ng-show="!isNull(display.date)">
 						{{line}}
@@ -25,7 +25,7 @@
 				</div>
 			</div>
 			<div class="row location">
-				<i class="icon ion-location" data-ng-show="!isNull(display.location)"></i>
+				<i class="icon ion-ios-location-outline" data-ng-show="!isNull(display.location)"></i>
 				<div class="col">{{display.location}}</div>
 			</div>
 		</div>

@@ -594,11 +594,11 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 		
 		/*
 		* PRIVATE
-		* update new created event
+		* help function for updateEvent
 		*/
-		var updateCreate = function( event ) {
-			var startDate = event.start.dateTime,
-			endDate = event.end.dateTime,
+		this.updateEventHelper = function( event ) {
+			var startDate = new Date( event.start.dateTime ),
+			endDate = new Date( event.end.dateTime ),
 			etype = eEasiLendar.isType(event.start, event.end);	// normal/all/over
 
 			// date1, date2 are different if etype is over
@@ -614,58 +614,24 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 			// loading
 			this.databaseLoading();
 			if (etype != "over") {
+				var temp = isNull( eUser.uGmailCalendar[date1] ) ? null :
+					 eUser.uGmailCalendar[date1];
 				// has only 1 day to update
-				day.child( date1.toString() ).set( eUser.uGmailCalendar[date1], onComplete );
+				day.child( date1.toString() ).set( temp, onComplete );
 			} else {
 				// update every from date1 to date2
 				while (date1 <= date2) {
-					day.child( date1.toString() ).set( eUser.uGmailCalendar[date1] );
-					date1 = eCalendar.tomorrow( date1 );
-					// all set is complete
-					if (date1 > date2) {
-						$ionicLoading.hide();
+					var temp = isNull( eUser.uGmailCalendar[date1] ) ? null :
+						eUser.uGmailCalendar[date1];
+					if (date1 < date2) {
+						day.child( date1.toString() ).set( temp );
+					} else {
+						day.child( date1.toString() ).set( temp, onComplete );
 					}
+					date1 = eCalendar.tomorrow( date1 );
 				}
 			}		
 		};
-		
-		/*
-		* PRIVATE
-		* update deleted event
-		*/
-		var updateDel = function( event ) {
-			var startDate = event.start.dateTime,
-			endDate = event.end.dateTime,
-			etype = eEasiLendar.isType(event.start, event.end);	// normal/all/over
-
-			// date1, date2 are different if etype is over
-			var date1 = new Date(startDate.getFullYear(),
-			startDate.getMonth(), startDate.getDate());
-			
-			var date2 = new Date(endDate.getFullYear(),
-			endDate.getMonth(), endDate.getDate());
-
-			var day = new Firebase(
-					"https://radiant-inferno-3243.firebaseio.com/Users/" +
-					eUser.uID + "/g_calendar");
-			// loading
-			this.databaseLoading();
-			if (etype != "over") {
-				// has only 1 day to update
-				day.child( date1.toString() ).set( null, onComplete );
-			} else {
-				// update every from date1 to date2
-				while (date1 <= date2) {
-					day.child( date1.toString() ).set( null );
-					date1 = eCalendar.tomorrow( date1 );
-					// all set is complete
-					if (date1 > date2) {
-						$ionicLoading.hide();
-					}
-				}
-			}		
-		};
-		
 		
 		/*
 		* updateEvent function
@@ -676,12 +642,12 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 		this.updateEvent = function( event1, type , event2 ) {
 			if (checkSignIn() && !isNull( event1 ) && !isNull( type )) {
 				if (type == "create") {
-					updateCreate( event1 );
+					this.updateEventHelper( event1 );
 				} else if (type == "del") {
-					updateDel( event1 );
+					this.updateEventHelper( event1 );
 				} else if (type == "edit" && !isNull( event2 )) {
-					updateDel( event1 );
-					updateCreate( event2 );
+					this.updateEventHelper( event1 );
+					this.updateEventHelper( event2 );
 				}
 			}
 		};
