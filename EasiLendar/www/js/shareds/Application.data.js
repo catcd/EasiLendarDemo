@@ -235,27 +235,27 @@ angular.module('MainApp.shareds.data', [])
 				important: 0,
 				done: true,
 			},{
-				title: "Swipe me left for action",
+				title: "Swipe me left for option",
 				description: null,
 				important: 0,
 				done: false,
 			},{
-				title: "Hold me to delete",
+				title: "Hold me to edit",
 				description: null,
 				important: 0,
 				done: false,
 			},{
-				title: "Touch + to add task",
+				title: "Touch create bar to add task",
 				description: null,
 				important: 0,
 				done: false,
 			},{
-				title: "Touch trash bin to remove task",
+				title: "Swipe up from bottom for action",
 				description: null,
 				important: 0,
 				done: false,
 			},{
-				title: "Touch hand symbol to reorder",
+				title: "Swipe header bar down to close",
 				description: null,
 				important: 0,
 				done: false,

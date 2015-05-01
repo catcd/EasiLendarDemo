@@ -389,7 +389,7 @@ p.side-menu-split {
 .todo-create-animate { height: 200px; overflow: hidden; transition: .3s linear all; }
 .todo-create-animate.ng-hide { height: 0; }
 .todo-create-bar { padding: 0; }
-.todo-create-card { width: auto; margin-right: 50px;}
+.todo-create-card { margin-right: 50px; width: auto; }
 .todo-create-title-input {
 	height: 47px;
 	margin: -6px;
@@ -406,6 +406,12 @@ p.side-menu-split {
 	padding-top: 5px;
 	width: 100%;
 }
-.todo-create-star-div{position: absolute; top: 7px; right: 7px;}
-.todo-button-create-div {}
-.todo-button-create-cancel{height: 50px; min-height: 50px; width:50%; margin-right: -5px;}
+.todo-create-star-div { position: absolute; right: 7px; top: 7px; }
+.todo-button-create-div { }
+.todo-button-create-cancel {
+	border: 0;
+	height: 50px;
+	margin-right: -5px;
+	min-height: 50px;
+	width: 50%;
+}

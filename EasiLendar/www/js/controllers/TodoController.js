@@ -20,7 +20,7 @@ angular.module('MainApp.controllers.todo', [])
 		"true": "ion-android-checkmark-circle"
 	};
 	$scope.orderChecklist = angular.copy(eTodo.tChecklist);
-	$scope.viewList;
+	$scope.viewList = null;
 	$scope.getTaskData = {};
 	$scope.getDoneChecklistData = [];
 	$scope.shouldShowDelete = false;
@@ -286,11 +286,13 @@ angular.module('MainApp.controllers.todo', [])
 				});
 			}
 
-			$scope.semaphore = true;
-			isCreate = false;
-			$scope.data = {};
+			$scope.unreduceUndoneTask(eTodo.tChecklist[$scope.viewList]);
+
+			$scope.resetCreate();
 			$scope.makeChangeTodoList();
 		} else {
+			$scope.resetCreate();
+
 			eToast.toastError("Title is require!", 3000);
 		}
 	};
@@ -339,6 +341,7 @@ angular.module('MainApp.controllers.todo', [])
 			checklist.done = true;
 		}
 	};
+
 	$scope.unreduceUndoneTask = function(checklist) {
 		checklist.undone++;
 		checklist.done = false;
@@ -528,22 +531,55 @@ angular.module('MainApp.controllers.todo', [])
 		}
 	};
 
+	var resetTemp = function() {
+		$scope.isShowDes = {};
+		$scope.semaphore = true;
+		$scope.isCreate = false;
+		$scope.shouldShowReorder = false;
+		$scope.shouldShowDelete = false;
+		$scope.data = {};
+	};
+
+	$scope.deleteClick = function() {
+		$scope.shouldShowReorder = false;
+		$scope.isCreate = false;
+		$scope.shouldShowDelete = !$scope.shouldShowDelete;
+	};
+
+	$scope.reorderClick = function() {
+		$scope.shouldShowDelete = false;
+		$scope.isCreate = false;
+		$scope.shouldShowReorder = !$scope.shouldShowReorder;
+	};
+
+	$scope.createClick = function() {
+		$scope.shouldShowDelete = false;
+		$scope.shouldShowReorder = false;
+		$scope.isCreate = true;
+	};
+
+	$scope.resetCreate = function() {
+		$scope.isCreate = false;
+		$scope.semaphore = true;
+		$scope.data = {};
+	};
+
 	// main action sheet
 	$scope.showMainActionSheet = function() {
 		// Show the action sheet
 		var mainSheet = $ionicActionSheet.show({
 			buttons: [{
-				text: 'Create Checklist'
+				text: '<span class="easi-dark-blue">Create Checklist<span>'
 			}, {
-				text: 'Update Data'
+				text: '<span class="easi-dark-blue">Update Data</span>'
 			}, {
-				text: 'Upload to Server'
+				text: '<span class="easi-dark-blue">Upload to Server</span>'
 			}, {
-				text: 'Delete Tasks'
+				text: '<span class="easi-red">Delete Tasks</span>'
 			}],
-			destructiveText: 'Close',
-			titleText: '<h3>Main Action</h3>',
-			cancelText: 'Cancel',
+			destructiveText: '<span class="easi-red"><b>Close</b><span>',
+			titleText: '<h3 class="easi-gray">Main Action</h3>',
+			cancelText: '<span class="easi-gray">Cancel<span>',
 			cancel: function() {
 				// TODO cancel code here
 			},
@@ -557,11 +593,10 @@ angular.module('MainApp.controllers.todo', [])
 					$scope.createNewChecklist();
 				} else if (index == 1) {
 					$scope.makeChangeTodoList();
-					deactiveShow();
-				} else if (index == 1) {
+				} else if (index == 2) {
 					eDatabase.updateTodo();
 				} else {
-					$scope.shouldShowDelete = $scope.shouldShowDelete == true ? false : true;
+					$scope.deleteClick();
 				}
 
 				return true;
@@ -580,17 +615,12 @@ angular.module('MainApp.controllers.todo', [])
 	});
 	$scope.showImportantModal = function() {
 		$scope.importantModal.show();
-		$scope.shouldShowReorder = false;
 		$scope.makeChangeTodoList();
-		$scope.shouldShowDelete = false;
-		deactiveShow();
+		resetTemp();
 	};
 	$scope.hideImportantModal = function() {
 		$scope.importantModal.hide();
-		$scope.shouldShowReorder = false;
-		$scope.makeChangeTodoList();
-		$scope.shouldShowDelete = false;
-		deactiveShow();
+		resetTemp();
 	};
 	//Cleanup the importantModal when we're done with it!
 	$scope.$on('$destroy', function() {
@@ -598,9 +628,7 @@ angular.module('MainApp.controllers.todo', [])
 	});
 	// Execute action on hide importantModal
 	$scope.$on('importantModal.hidden', function() {
-		$scope.makeChangeTodoList();
-		$scope.shouldShowDelete = false;
-		deactiveShow();
+		resetTemp();
 	});
 	// Execute action on remove importantModal
 	$scope.$on('importantModal.removed', function() {
@@ -612,15 +640,15 @@ angular.module('MainApp.controllers.todo', [])
 		// Show the action sheet
 		var importantSheet = $ionicActionSheet.show({
 			buttons: [{
-				text: 'Update Data'
+				text: '<span class="easi-dark-blue">Update Data</span>'
 			}, {
-				text: 'Upload to Server'
+				text: '<span class="easi-dark-blue">Upload to Server</span>'
 			}, {
-				text: 'Delete Tasks'
+				text: '<span class="easi-red">Delete Tasks</span>'
 			}],
-			destructiveText: 'Close',
-			titleText: '<h3>Important Tasks</h3>',
-			cancelText: 'Cancel',
+			destructiveText: '<span class="easi-red"><b>Close</b><span>',
+			titleText: '<h3 class="easi-gray">Important Tasks</h3>',
+			cancelText: '<span class="easi-gray">Cancel<span>',
 			cancel: function() {
 				// TODO cancel code here
 			},
@@ -632,11 +660,11 @@ angular.module('MainApp.controllers.todo', [])
 			buttonClicked: function(index) {
 				if (index == 0) {
 					$scope.makeChangeTodoList();
-					deactiveShow();
+					resetTemp();
 				} else if (index == 1) {
 					eDatabase.updateTodo();
 				} else {
-					$scope.shouldShowDelete = $scope.shouldShowDelete == true ? false : true;
+					$scope.deleteClick();
 				}
 
 				return true;
@@ -655,17 +683,12 @@ angular.module('MainApp.controllers.todo', [])
 	});
 	$scope.showVeryImportantModal = function() {
 		$scope.veryImportantModal.show();
-		$scope.shouldShowReorder = false;
 		$scope.makeChangeTodoList();
-		$scope.shouldShowDelete = false;
-		deactiveShow();
+		resetTemp();
 	};
 	$scope.hideVeryImportantModal = function() {
 		$scope.veryImportantModal.hide();
-		$scope.shouldShowReorder = false;
-		$scope.makeChangeTodoList();
-		$scope.shouldShowDelete = false;
-		deactiveShow();
+		resetTemp();
 	};
 	//Cleanup the veryImportantModal when we're done with it!
 	$scope.$on('$destroy', function() {
@@ -673,9 +696,7 @@ angular.module('MainApp.controllers.todo', [])
 	});
 	// Execute action on hide veryImportantModal
 	$scope.$on('veryImportantModal.hidden', function() {
-		$scope.makeChangeTodoList();
-		$scope.shouldShowDelete = false;
-		deactiveShow();
+		resetTemp();
 	});
 	// Execute action on remove veryImportantModal
 	$scope.$on('veryImportantModal.removed', function() {
@@ -687,15 +708,15 @@ angular.module('MainApp.controllers.todo', [])
 		// Show the action sheet
 		var veryImportantSheet = $ionicActionSheet.show({
 			buttons: [{
-				text: 'Update Data'
+				text: '<span class="easi-dark-blue">Update Data</span>'
 			}, {
-				text: 'Upload to Server'
+				text: '<span class="easi-dark-blue">Upload to Server</span>'
 			}, {
-				text: 'Delete Tasks'
+				text: '<span class="easi-red">Delete Tasks</span>'
 			}],
-			destructiveText: 'Close',
-			titleText: '<h3>Very Important Tasks</h3>',
-			cancelText: 'Cancel',
+			destructiveText: '<span class="easi-red"><b>Close</b><span>',
+			titleText: '<h3 class="easi-gray">Very Important Tasks</h3>',
+			cancelText: '<span class="easi-gray">Cancel<span>',
 			cancel: function() {
 				// TODO cancel code here
 			},
@@ -707,11 +728,11 @@ angular.module('MainApp.controllers.todo', [])
 			buttonClicked: function(index) {
 				if (index == 0) {
 					$scope.makeChangeTodoList();
-					deactiveShow();
+					resetTemp();
 				} else if (index == 1) {
 					eDatabase.updateTodo();
 				} else {
-					$scope.shouldShowDelete = $scope.shouldShowDelete == true ? false : true;
+					$scope.deleteClick();
 				}
 
 				return true;
@@ -730,17 +751,12 @@ angular.module('MainApp.controllers.todo', [])
 	});
 	$scope.showRecentlyModal = function() {
 		$scope.recentlyModal.show();
-		$scope.shouldShowReorder = false;
 		$scope.makeChangeTodoList();
-		$scope.shouldShowDelete = false;
-		deactiveShow();
+		resetTemp();
 	};
 	$scope.hideRecentlyModal = function() {
 		$scope.recentlyModal.hide();
-		$scope.shouldShowReorder = false;
-		$scope.makeChangeTodoList();
-		$scope.shouldShowDelete = false;
-		deactiveShow();
+		resetTemp();
 	};
 	//Cleanup the recentlyModal when we're done with it!
 	$scope.$on('$destroy', function() {
@@ -748,9 +764,7 @@ angular.module('MainApp.controllers.todo', [])
 	});
 	// Execute action on hide recentlyModal
 	$scope.$on('recentlyModal.hidden', function() {
-		$scope.makeChangeTodoList();
-		$scope.shouldShowDelete = false;
-		deactiveShow();
+		resetTemp();
 	});
 	// Execute action on remove recentlyModal
 	$scope.$on('recentlyModal.removed', function() {
@@ -762,15 +776,15 @@ angular.module('MainApp.controllers.todo', [])
 		// Show the action sheet
 		var recentlySheet = $ionicActionSheet.show({
 			buttons: [{
-				text: 'Update Data'
+				text: '<span class="easi-dark-blue">Update Data</span>'
 			}, {
-				text: 'Upload to Server'
+				text: '<span class="easi-dark-blue">Upload to Server</span>'
 			}, {
-				text: 'Delete Tasks'
+				text: '<span class="easi-red">Delete Tasks</span>'
 			}],
-			destructiveText: 'Close',
-			titleText: '<h3>Recently Tasks</h3>',
-			cancelText: 'Cancel',
+			destructiveText: '<span class="easi-red"><b>Close</b><span>',
+			titleText: '<h3 class="easi-gray">Recently Tasks</h3>',
+			cancelText: '<span class="easi-gray">Cancel<span>',
 			cancel: function() {
 				// TODO cancel code here
 			},
@@ -782,11 +796,11 @@ angular.module('MainApp.controllers.todo', [])
 			buttonClicked: function(index) {
 				if (index == 0) {
 					$scope.makeChangeTodoList();
-					deactiveShow();
+					resetTemp();
 				} else if (index == 1) {
 					eDatabase.updateTodo();
 				} else {
-					$scope.shouldShowDelete = $scope.shouldShowDelete == true ? false : true;
+					$scope.deleteClick();
 				}
 
 				return true;
@@ -805,17 +819,13 @@ angular.module('MainApp.controllers.todo', [])
 	});
 	$scope.showDoneListModal = function() {
 		$scope.doneListModal.show();
-		$scope.shouldShowReorder = false;
 		$scope.makeChangeTodoList();
-		$scope.shouldShowDelete = false;
-		deactiveShow();
+		resetTemp();
 	};
 	$scope.hideDoneListModal = function() {
 		$scope.doneListModal.hide();
-		$scope.shouldShowReorder = false;
 		$scope.makeChangeTodoList();
-		$scope.shouldShowDelete = false;
-		deactiveShow();
+		resetTemp();
 	};
 	//Cleanup the doneListModal when we're done with it!
 	$scope.$on('$destroy', function() {
@@ -824,8 +834,7 @@ angular.module('MainApp.controllers.todo', [])
 	// Execute action on hide doneListModal
 	$scope.$on('doneListModal.hidden', function() {
 		$scope.makeChangeTodoList();
-		$scope.shouldShowDelete = false;
-		deactiveShow();
+		resetTemp();
 	});
 	// Execute action on remove doneListModal
 	$scope.$on('doneListModal.removed', function() {
@@ -837,15 +846,15 @@ angular.module('MainApp.controllers.todo', [])
 		// Show the action sheet
 		var doneListSheet = $ionicActionSheet.show({
 			buttons: [{
-				text: 'Update Data'
+				text: '<span class="easi-dark-blue">Update Data</span>'
 			}, {
-				text: 'Upload to Server'
+				text: '<span class="easi-dark-blue">Upload to Server</span>'
 			}, {
-				text: 'Delete'
+				text: '<span class="easi-red">Delete</span>'
 			}],
-			destructiveText: 'Close',
-			titleText: '<h3>Done List</h3>',
-			cancelText: 'Cancel',
+			destructiveText: '<span class="easi-red"><b>Close</b><span>',
+			titleText: '<h3 class="easi-gray">Done List</h3>',
+			cancelText: '<span class="easi-gray">Cancel<span>',
 			cancel: function() {
 				// TODO cancel code here
 			},
@@ -857,11 +866,11 @@ angular.module('MainApp.controllers.todo', [])
 			buttonClicked: function(index) {
 				if (index == 0) {
 					$scope.makeChangeTodoList();
-					deactiveShow();
+					resetTemp();
 				} else if (index == 1) {
 					eDatabase.updateTodo();
 				} else {
-					$scope.shouldShowDelete = $scope.shouldShowDelete == true ? false : true;
+					$scope.deleteClick();
 				}
 
 				return true;
@@ -879,13 +888,11 @@ angular.module('MainApp.controllers.todo', [])
 		$scope.checklistModal = modal;
 	});
 	$scope.showChecklistModal = function(checklist) {
-		if (checklist != undefined) {
+		if (checklist != undefined && $scope.findIndexOf(checklist) != -1) {
 			$scope.viewList = $scope.findIndexOf(checklist);
 			$scope.checklistModal.show();
-			$scope.shouldShowReorder = false;
 			$scope.makeChangeTodoList();
-			$scope.shouldShowDelete = false;
-			deactiveShow();
+			resetTemp();
 		} else {
 			eToast.toastError("Error! Please try again later!", 3000);
 		}
@@ -894,22 +901,15 @@ angular.module('MainApp.controllers.todo', [])
 		if (index != undefined) {
 			$scope.viewList = index;
 			$scope.checklistModal.show();
-			$scope.shouldShowReorder = false;
 			$scope.makeChangeTodoList();
-			$scope.shouldShowDelete = false;
-			$scope.isCreate = false;
-			deactiveShow();
+			resetTemp();
 		} else {
 			eToast.toastError("Error! Please try again later!", 3000);
 		}
 	};
 	$scope.hideChecklistModal = function() {
 		$scope.checklistModal.hide();
-		$scope.shouldShowReorder = false;
-		$scope.makeChangeTodoList();
-		$scope.shouldShowDelete = false;
-		$scope.isCreate = false;
-		deactiveShow();
+		resetTemp();
 	};
 	//Cleanup the checklistModal when we're done with it!
 	$scope.$on('$destroy', function() {
@@ -931,19 +931,19 @@ angular.module('MainApp.controllers.todo', [])
 		// Show the action sheet
 		var checklistSheet = $ionicActionSheet.show({
 			buttons: [{
-				text: 'Create Task'
+				text: '<span class="easi-dark-blue">Create Task</span>'
 			}, {
-				text: 'Update Data'
+				text: '<span class="easi-dark-blue">Update Data</span>'
 			}, {
-				text: 'Upload to Server'
+				text: '<span class="easi-dark-blue">Upload to Server</span>'
 			}, {
-				text: 'Reorder'
+				text: '<span class="easi-dark-blue">Reorder</span>'
 			}, {
-				text: 'Delete'
+				text: '<span class="easi-red">Delete</span>'
 			}],
-			destructiveText: 'Close',
-			titleText: '<h3>Done List</h3>',
-			cancelText: 'Cancel',
+			destructiveText: '<span class="easi-red"><b>Close</b><span>',
+			titleText: '<h3 class="easi-gray">' + eTodo.tChecklist[$scope.viewList].listName + '</h3>',
+			cancelText: '<span class="easi-gray">Cancel<span>',
 			cancel: function() {
 				// TODO cancel code here
 			},
@@ -954,18 +954,19 @@ angular.module('MainApp.controllers.todo', [])
 			},
 			buttonClicked: function(index) {
 				if (index == 0) {
-					// create
+					$scope.initializeDataCreate();
+					$scope.createClick();
 				} else if (index == 1) {
 					$scope.makeChangeTodoList();
-					deactiveShow();
+					resetTemp();
 				} else if (index == 2) {
 					eDatabase.updateTodo();
 				} else if (index == 3) {
-					$scope.shouldShowDelete = false;
-					$scope.shouldShowReorder = $scope.shouldShowReorder == true ? false : true;
+					$scope.reorderClick();
+					$scope.resetCreate();
 				} else {
-					$scope.shouldShowReorder = false;
-					$scope.shouldShowDelete = $scope.shouldShowDelete == true ? false : true;
+					$scope.deleteClick();
+					$scope.resetCreate();
 				}
 
 				return true;

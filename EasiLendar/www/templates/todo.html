@@ -8,30 +8,31 @@
 		<button class="button button-icon button-clear ion-home" ng-click="goHome()"></button>
 	</ion-nav-buttons>
 
-	<ion-nav-buttons side="right">
-		<button class="button button-icon button-clear ion-android-upload" ng-click="eDatabase.updateTodo()"></button>
-	</ion-nav-buttons>
-
 	<ion-content scroll="false" class="todo-item-content">
 		<div class="list todo-item-list">
 			<a class="item item-icon-left easi-gray todo-item" ng-click="showImportantModal()">
 				<i class="icon ion-ios-star-half easi-dark-blue"></i> Important
 				<span class="badge easi-back-red easi-white">{{countTask().important}}</span>
 			</a>
+
 			<a class="item item-icon-left easi-gray todo-item" ng-click="showVeryImportantModal()">
 				<i class="icon ion-ios-star easi-dark-blue"></i> Very Important
 				<span class="badge easi-back-red easi-white">{{countTask().veryImportant}}</span>
 			</a>
+
 			<a class="item item-icon-left easi-gray todo-item" ng-click="showRecentlyModal()">
 				<i class="icon ion-android-stopwatch easi-dark-blue"></i> Recently
 				<span class="badge easi-back-red easi-white">{{countTask().recently}}</span>
 			</a>
+
 			<a class="item item-icon-left easi-gray todo-item" ng-click="showDoneListModal()">
 				<i class="icon ion-android-checkbox-outline easi-dark-blue"></i> Done List
 			</a>
+
 			<a class="item item-button-right easi-back-light-gray easi-gray todo-main-divider">
 				<h2 class="todo-main-divider-title">My checklists</h2>
-				<button class="button button-icon icon ion-plus-round easi-mini-up" ng-click="createNewChecklist()"></button>
+				<button class="button button-icon icon ion-plus-round easi-mini-up"
+				ng-click="createNewChecklist()"></button>
 			</a>
 		</div>
 	</ion-content>
@@ -41,7 +42,7 @@
 		show-delete="shouldShowDelete">
 			<ion-item ng-repeat="checklist in orderChecklist | orderBy: ['done', '-important']"
 			class="item item-icon-left item-icon-right easi-gray todo-item"
-			on-hold="deleteChecklist(checklist)">
+			on-hold="editChecklist(checklist)">
 				<i class="icon {{todoButton[eTodo.tChecklist[findIndexOf(checklist)].done]}} easi-dark-blue"
 				ng-click="showChecklistModal(checklist)"></i>
 
@@ -77,20 +78,31 @@
 		<div class="todo-modal-content-div"></div>
 	</ion-content>
 
-	<div class="todo-important-modal-last" on-swipe-up="showMainActionSheet()">
-		<p class="easi-center todo-swipe-me-up">Swipe me up for action</p>
+	<div class="todo-important-modal-last"
+	on-swipe-up="showMainActionSheet()">
+		<p class="easi-center todo-swipe-me-up">
+			Swipe me up for action
+		</p>
 	</div>
 </ion-view>
 
 <script id="important-modal.html" type="text/ng-template">
 	<ion-modal-view>
-		<ion-header-bar class="bar-easi-blue bar-button-left" on-swipe-down="hideImportantModal()">
+		<ion-header-bar class="bar-easi-blue item-button-right item-button-left"
+		on-swipe-down="hideImportantModal()">
 			<div class="buttons easi-index-2">
-				<button class="button button-icon icon ion-android-delete"
-				ng-click="shouldShowDelete = !shouldShowDelete"></button>
+				<button class="button button-icon icon ion-android-close"
+				ng-click="hideImportantModal()"></button>
 			</div>
+
 			<p class="easi-title easi-index-1">Important tasks</p>
-			<p class="easi-center easi-light-gray easi-index-1 todo-subtitle">Swipe down to close</p>
+			<p class="easi-center easi-light-gray easi-index-1 todo-subtitle">
+				Swipe down to close
+			</p>
+
+			<button class="button button-icon icon ion-android-done-all easi-index-2"
+			ng-click="deleteClick()"
+			ng-show="shouldShowDelete"></button>
 		</ion-header-bar>
 
 		<ion-content>
@@ -98,9 +110,11 @@
 			show-delete="shouldShowDelete">
 				<div ng-repeat="task in getTaskData.important">
 					<ion-item class="item item-icon-left item-icon-right easi-gray todo-item"
-					on-hold="deleteTaskFromChecklist(task.task, task.checklist)">
-						<i class="icon ion-paperclip easi-index-1 todo-attach" ng-show="isShowAttach(task.task)"></i>
-						<i class="icon ion-android-time easi-index-1 todo-clock" ng-show="isShowClock(task.task)"></i>
+					on-hold="editTaskDetail(task.task, task.checklist)">
+						<i class="icon ion-paperclip easi-index-1 todo-attach"
+						ng-show="isShowAttach(task.task)"></i>
+						<i class="icon ion-android-time easi-index-1 todo-clock"
+						ng-show="isShowClock(task.task)"></i>
 
 						<button class="button button-icon icon {{todoButton[task.task.done]}} easi-dark-blue easi-index-2 todo-up-item-2line"
 						ng-click="checkDoneTask(task.task, task.checklist)"></button>
@@ -147,7 +161,8 @@
 						</ion-option-button>
 					</ion-item>
 
-					<div ng-show="isShowDescription($index)" class="easi-no-padding todo-description todo-animate">
+					<div ng-show="isShowDescription($index)"
+					class="easi-no-padding todo-description todo-animate">
 						<div class="list card easi-no-margin todo-description-card">
 							<p class="item item-icon-left item-text-wrap">
 								<i class="icon ion-android-time easi-gray"></i>
@@ -164,21 +179,32 @@
 
 			<div class="todo-modal-content-div"></div>
 		</ion-content>
-		<div class="todo-important-modal-last" on-swipe-up="showImportantActionSheet()">
-			<p class="easi-center todo-swipe-me-up">Swipe me up for action</p>
+		<div class="todo-important-modal-last"
+		on-swipe-up="showImportantActionSheet()">
+			<p class="easi-center todo-swipe-me-up">
+			Swipe me up for action
+		</p>
 		</div>
 	</ion-modal-view>
 </script>
 
 <script id="very-important-modal.html" type="text/ng-template">
 	<ion-modal-view>
-		<ion-header-bar class="bar-easi-blue bar-button-left" on-swipe-down="hideVeryImportantModal()">
+		<ion-header-bar class="bar-easi-blue item-button-right item-button-left"
+		on-swipe-down="hideVeryImportantModal()">
 			<div class="buttons easi-index-2">
-				<button class="button button-icon icon ion-android-delete"
-				ng-click="shouldShowDelete = !shouldShowDelete"></button>
+				<button class="button button-icon icon ion-android-close"
+				ng-click="hideVeryImportantModal()"></button>
 			</div>
+
 			<p class="easi-title easi-index-1">Very Important tasks</p>
-			<p class="easi-center easi-light-gray easi-index-1 todo-subtitle">Swipe down to close</p>
+			<p class="easi-center easi-light-gray easi-index-1 todo-subtitle">
+				Swipe down to close
+			</p>
+
+			<button class="button button-icon icon ion-android-done-all easi-index-2"
+			ng-click="deleteClick()"
+			ng-show="shouldShowDelete"></button>
 		</ion-header-bar>
 
 		<ion-content>
@@ -186,9 +212,11 @@
 			show-delete="shouldShowDelete">
 				<div ng-repeat="task in getTaskData.veryImportant">
 					<ion-item class="item item-icon-left item-icon-right easi-gray todo-item"
-					on-hold="deleteTaskFromChecklist(task.task, task.checklist)">
-						<i class="icon ion-paperclip easi-index-1 todo-attach" ng-show="isShowAttach(task.task)"></i>
-						<i class="icon ion-android-time easi-index-1 todo-clock" ng-show="isShowClock(task.task)"></i>
+					on-hold="editTaskDetail(task.task, task.checklist)">
+						<i class="icon ion-paperclip easi-index-1 todo-attach"
+						ng-show="isShowAttach(task.task)"></i>
+						<i class="icon ion-android-time easi-index-1 todo-clock"
+						ng-show="isShowClock(task.task)"></i>
 
 						<button class="button button-icon icon {{todoButton[task.task.done]}} easi-dark-blue easi-index-2 todo-up-item-2line"
 						ng-click="checkDoneTask(task.task, task.checklist)"></button>
@@ -235,7 +263,8 @@
 						</ion-option-button>
 					</ion-item>
 
-					<div ng-show="isShowDescription($index)" class="easi-no-padding todo-description todo-animate">
+					<div ng-show="isShowDescription($index)"
+					class="easi-no-padding todo-description todo-animate">
 						<div class="list card easi-no-margin todo-description-card">
 							<p class="item item-icon-left item-text-wrap">
 								<i class="icon ion-android-time easi-gray"></i>
@@ -252,21 +281,33 @@
 
 			<div class="todo-modal-content-div"></div>
 		</ion-content>
-		<div class="todo-important-modal-last" on-swipe-up="showVeryImportantActionSheet()">
-			<p class="easi-center todo-swipe-me-up">Swipe me up for action</p>
+
+		<div class="todo-important-modal-last"
+		on-swipe-up="showVeryImportantActionSheet()">
+			<p class="easi-center todo-swipe-me-up">
+				Swipe me up for action
+			</p>
 		</div>
 	</ion-modal-view>
 </script>
 
 <script id="recently-modal.html" type="text/ng-template">
 	<ion-modal-view>
-		<ion-header-bar class="bar-easi-blue bar-button-left" on-swipe-down="hideRecentlyModal()">
+		<ion-header-bar class="bar-easi-blue item-button-right item-button-left"
+		on-swipe-down="hideRecentlyModal()">
 			<div class="buttons easi-index-2">
-				<button class="button button-icon icon ion-android-delete"
-				ng-click="shouldShowDelete = !shouldShowDelete"></button>
+				<button class="button button-icon icon ion-android-close"
+				ng-click="hideRecentlyModal()"></button>
 			</div>
+
 			<p class="easi-title easi-index-1">Recently tasks</p>
-			<p class="easi-center easi-light-gray easi-index-1 todo-subtitle">Swipe down to close</p>
+			<p class="easi-center easi-light-gray easi-index-1 todo-subtitle">
+				Swipe down to close
+			</p>
+
+			<button class="button button-icon icon ion-android-done-all easi-index-2"
+			ng-click="deleteClick()"
+			ng-show="shouldShowDelete"></button>
 		</ion-header-bar>
 
 		<ion-content>
@@ -274,9 +315,11 @@
 			show-delete="shouldShowDelete">
 				<div ng-repeat="task in getTaskData.recently">
 					<ion-item class="item item-icon-left item-icon-right easi-gray todo-item"
-					on-hold="deleteTaskFromChecklist(task.task, task.checklist)">
-						<i class="icon ion-paperclip easi-index-1 todo-attach" ng-show="isShowAttach(task.task)"></i>
-						<i class="icon ion-android-time easi-index-1 todo-clock" ng-show="isShowClock(task.task)"></i>
+					on-hold="editTaskDetail(task.task, task.checklist)">
+						<i class="icon ion-paperclip easi-index-1 todo-attach"
+						ng-show="isShowAttach(task.task)"></i>
+						<i class="icon ion-android-time easi-index-1 todo-clock"
+						ng-show="isShowClock(task.task)"></i>
 
 						<button class="button button-icon icon {{todoButton[task.task.done]}} easi-dark-blue easi-index-2 todo-up-item-2line"
 						ng-click="checkDoneTask(task.task, task.checklist)"></button>
@@ -340,35 +383,51 @@
 
 			<div class="todo-modal-content-div"></div>
 		</ion-content>
-		<div class="todo-important-modal-last" on-swipe-up="showRecentlyActionSheet()">
-			<p class="easi-center todo-swipe-me-up">Swipe me up for action</p>
+
+		<div class="todo-important-modal-last"
+		on-swipe-up="showRecentlyActionSheet()">
+			<p class="easi-center todo-swipe-me-up">
+				Swipe me up for action
+			</p>
 		</div>
 	</ion-modal-view>
 </script>
 
 <script id="done-list-modal.html" type="text/ng-template">
 	<ion-modal-view>
-		<ion-header-bar class="bar-easi-blue bar-button-left" on-swipe-down="hideDoneListModal()">
+		<ion-header-bar class="bar-easi-blue item-button-right item-button-left"
+		on-swipe-down="hideDoneListModal()">
 			<div class="buttons easi-index-2">
-				<button class="button button-icon icon ion-android-delete"
-				ng-click="shouldShowDelete = !shouldShowDelete"></button>
+				<button class="button button-icon icon ion-android-close"
+				ng-click="hideDoneListModal()"></button>
 			</div>
-			<p class="easi-title easi-index-1">Done list</p>
-			<p class="easi-center easi-light-gray easi-index-1 todo-subtitle">Swipe down to close</p>
+
+			<p class="easi-title easi-index-1">Done List</p>
+			<p class="easi-center easi-light-gray easi-index-1 todo-subtitle">
+				Swipe down to close
+			</p>
+
+			<button class="button button-icon icon ion-android-done-all easi-index-2"
+			ng-click="deleteClick()"
+			ng-show="shouldShowDelete"></button>
 		</ion-header-bar>
 
 		<ion-content>
 			<a class="item easi-back-light-gray easi-gray todo-main-divider">
-				<h2 class="todo-main-divider-title">Done Task in undone Checklist</h2>
+				<h2 class="todo-main-divider-title">
+					Done Task in undone Checklist
+				</h2>
 			</a>
 
 			<ion-list class="todo-task-list"
 			show-delete="shouldShowDelete">
 				<div ng-repeat="task in getTaskData.doneList">
 					<ion-item class="item item-icon-left item-icon-right easi-gray todo-item"
-					on-hold="deleteTaskFromChecklist(task.task, task.checklist)">
-						<i class="icon ion-paperclip easi-index-1 todo-attach" ng-show="isShowAttach(task.task)"></i>
-						<i class="icon ion-android-time easi-index-1 todo-clock" ng-show="isShowClock(task.task)"></i>
+					on-hold="editTaskDetail(task.task, task.checklist)">
+						<i class="icon ion-paperclip easi-index-1 todo-attach"
+						ng-show="isShowAttach(task.task)"></i>
+						<i class="icon ion-android-time easi-index-1 todo-clock"
+						ng-show="isShowClock(task.task)"></i>
 
 						<button class="button button-icon icon {{todoButton[task.task.done]}} easi-dark-blue easi-index-2 todo-up-item-2line"
 						ng-click="checkDoneTask(task.task, task.checklist)"></button>
@@ -431,19 +490,21 @@
 			</ion-list>
 
 			<a class="item easi-back-light-gray easi-gray todo-main-divider">
-				<h2 class="todo-main-divider-title">Done Checklist</h2>
+				<h2 class="todo-main-divider-title">
+					Done Checklist
+				</h2>
 			</a>
 
 			<ion-list class="todo-checklist-list"
 			show-delete="shouldShowDelete">
 				<ion-item ng-repeat="checklist in getDoneChecklistData"
 				class="item item-icon-left item-icon-right easi-gray todo-item"
-				on-hold="deleteChecklistDirectly(undefined, checklist.index)">
+				on-hold="editChecklistDirectly(checklist.index)">
 					<i class="icon {{todoButton[checklist.checklist.done]}} easi-dark-blue"
-					ng-click="showChecklistModalIndex(checklist.index)"></i>
+					ng-click="showChecklistModalIndex(checklist.index); hideDoneListModal();"></i>
 
 					<h2 class="easi-gray"
-					ng-click="showChecklistModalIndex(checklist.index)">
+					ng-click="showChecklistModalIndex(checklist.index); hideDoneListModal();">
 						{{eTodo.tChecklist[checklist.index].listName}}
 					</h2>
 
@@ -473,31 +534,47 @@
 
 			<div class="todo-modal-content-div"></div>
 		</ion-content>
-		<div class="todo-important-modal-last" on-swipe-up="showDoneListActionSheet()">
-			<p class="easi-center todo-swipe-me-up">Swipe me up for action</p>
+
+		<div class="todo-important-modal-last"
+		on-swipe-up="showDoneListActionSheet()">
+			<p class="easi-center todo-swipe-me-up">
+				Swipe me up for action
+			</p>
 		</div>
 	</ion-modal-view>
 </script>
 
 <script id="checklist-modal.html" type="text/ng-template">
 	<ion-modal-view>
-		<ion-header-bar class="bar-easi-blue item-icon-left item-icon-right"
-		on-swipe-down="isCreate = false; hideChecklistModal()">
-			<button class="button button-icon icon ion-android-delete easi-index-2"
-			ng-click="shouldShowReorder = false; isCreate = false; semaphore = true; data={}; shouldShowDelete = !shouldShowDelete"></button>
+		<ion-header-bar class="bar-easi-blue item-button-right item-button-left"
+		on-swipe-down="hideChecklistModal()">
+			<div class="buttons easi-index-2"
+			ng-show="!shouldShowReorder">
+				<button class="button button-icon icon ion-android-close"
+				ng-click="hideChecklistModal()"></button>
+			</div>
+
+			<div class="buttons easi-index-2"
+			ng-show="shouldShowReorder">
+				<button class="button button-icon icon ion-android-done-all easi-index-2"
+				ng-click="reorderClick()"></button>
+			</div>
 
 			<p class="easi-title easi-index-1">{{eTodo.tChecklist[viewList].listName}}</p>
-			<p class="easi-center easi-light-gray easi-index-1 todo-subtitle">Swipe down to close</p>
+			<p class="easi-center easi-light-gray easi-index-1 todo-subtitle">
+				Swipe down to close
+			</p>
 
-			<button class="button button-icon icon ion-android-hand easi-index-2"
-			ng-click="shouldShowDelete = false; isCreate = false; semaphore = true; data={}; shouldShowReorder = !shouldShowReorder"></button>
+			<button class="button button-icon icon ion-android-done-all easi-index-2"
+			ng-click="deleteClick()"
+			ng-show="shouldShowDelete"></button>
 		</ion-header-bar>
 
 		<ion-header-bar class="bar-subheader todo-create-bar"
-		ng-click="initializeDataCreate(); isCreate = true; shouldShowDelete = false; shouldShowReorder = false;">
+		ng-click="initializeDataCreate(); createClick();">
 			<label class="item item-input todo-create-title-input">
 				<span class="input-label">Create new task</span>
-    			<input class="todo-input" type="text" placeholder="Title" ng-model="data.newTitle" require>
+				<input class="todo-input" type="text" placeholder="Title" ng-model="data.newTitle">
 			</label>
 		</ion-header-bar>
 
@@ -505,11 +582,11 @@
 		class="card easi-index-2 easi-back-light-gray todo-create-task todo-create-animate"
 		on-swipe-up="isCreate = false; semaphore = true; data={};">
 			<div class="list card easi-index-1 easi-no-margin todo-create-card">
-				<p class="item item-icon-left item-text-wrap">
+				<p class="item item-icon-left item-text-wrap easi-index-1">
 					<i class="icon ion-android-time easi-gray"></i>
 					Coming soon...
 				</p>
-				<label class="item item-icon-left item-text-wrap easi-justify todo-create-description-text">
+				<label class="item item-icon-left item-text-wrap easi-justify todo-create-description-text easi-index-1">
 					<i class="icon ion-ios-paper easi-gray todo-description-icon"></i>
 					<textarea class="todo-create-input-description"
 					ng-model="data.newDescrip" placeholder="Enter a new description"></textarea>
@@ -522,9 +599,10 @@
 
 			<div class="todo-button-create-div">
 				<button class="button easi-back-red easi-white todo-button-create-cancel"
-				ng-click="isCreate = false; data={};">
+				ng-click="resetCreate()">
 					Cancel
 				</button>
+
 				<button class="button easi-back-dark-blue easi-white todo-button-create-cancel"
 				ng-click="createTask()">
 					Create
@@ -586,7 +664,7 @@
 							<i class="icon ion-android-delete easi-red"></i>
 						</ion-option-button>
 
-						<ion-reorder-button class="ion-navicon easi-dark-blue"
+						<ion-reorder-button class="ion-arrow-move easi-dark-blue"
 						on-reorder="moveItem(task, $fromIndex, $toIndex)">
 						</ion-reorder-button>
 					</ion-item>
