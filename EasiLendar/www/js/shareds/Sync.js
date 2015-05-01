@@ -9,7 +9,7 @@ var gapi=window.gapi=window.gapi||{};gapi._bs=new Date().getTime();(function(){v
 
 angular.module('MainApp.shareds.sync', [])
 
-.factory('eSync', function(eUser, eCalendar){
+.factory('eSync', function(eUser, eCalendar, eDatabase){
 	return {
 		// function should be called in the first Sign-In (for Page):
 		
@@ -347,14 +347,7 @@ angular.module('MainApp.shareds.sync', [])
 			if (start.getTime() > end.getTime())	return;
 			if (start.getTime() == undefined || end.getTime()== undefined)	return false;
 			
-			var event = {id:'', start: {dateTime:start}, end: {dateTime:end}, summary: summary, location: location, status: true, position: ''};
-			
-			// Add to eUser.uGmailCalendar:
-			
-			var uGC= new Array();
-			uGC[0]= event;
-			
-			this.extraCopy(uGC, eUser.uGmailCalendar);
+			//var event = {id:'', start: {dateTime:start}, end: {dateTime:end}, summary: summary, location: location, status: true, position: ''};
 			
 			// Add to Google Calendar:
 			
@@ -378,7 +371,18 @@ angular.module('MainApp.shareds.sync', [])
 				//handle result:
 				
 				if (resp.status== 'confirmed'){
+					// Add to eUser.uGmailCalendar:
+						
+					var uGC= new Array();
+					uGC[0]= resp;
+			
+					this.extraCopy(uGC, eUser.uGmailCalendar);
+					
 					result= true;
+					
+					// Update to Database (Page API):
+					
+					eDatabase.updateEvent(resp,'create');
 				}
 				
 				else{
@@ -429,7 +433,9 @@ angular.module('MainApp.shareds.sync', [])
 							eUser.uGmailCalendar[index] = JSON.parse(JSON.stringify(temp));
 							
 						}
-		
+						
+						eDatabase.updateEvent(eUser.uGmailCalendar[index][i], 'del');
+						
 						found= true;
 						break;
 					}
