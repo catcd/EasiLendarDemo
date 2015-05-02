@@ -1,9 +1,9 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 28/04/2015
+ * last update: 02/05/2015
  * type: month controller
- * number of tests: 41
+ * number of tests: 42
  */
 
 /** Test for:
@@ -23,7 +23,8 @@ describe('Month Calendar', function() {
 	};
 
 	eSettings = {
-		sFirstDay: 'Monday'
+		sFirstDay: 'Monday',
+		sMonthView: 'eventList'
 	};
 
 	eUser = {
@@ -62,6 +63,11 @@ describe('Month Calendar', function() {
 			it('should set default value of eSettings.sFirstDay is Monday', function(){
 				expect(eSettings.sFirstDay).toBeDefined();
 				expect(eSettings.sFirstDay).toBe('Monday');
+			});
+
+			it('should set default value of eSettings.sMonthView is eventList', function(){
+				expect(eSettings.sMonthView).toBeDefined();
+				expect(eSettings.sMonthView).toBe('eventList');
 			});
 
 			it('should set eUser.uGmailCalendar is null if user does not have any events', function(){
@@ -115,13 +121,28 @@ describe('Month Calendar', function() {
 			it('should create $scope.weeks when call buildCurrentMonth function', function(){
 				$scope.buildCurrentMonth();
 				expect($scope.weeks).toBeDefined();
-				expect($scope.weeks.length).toBe(5);
+				expect($scope.weeks.length).toBe(6);
 				for(var i=0; i<5; i++){
 					expect($scope.weeks[i].days).toBeDefined();
 					expect($scope.weeks[i].days.length).toBe(7);
 					for(var j=0; j<7; j++){
 						expect($scope.weeks[i].days[j].hasOwnProperty('numberDate')).toBe(true);
 						expect($scope.weeks[i].days[j].hasOwnProperty('month')).toBe(true);
+					}
+				}
+			});
+
+			it('should create $scope.resetWeeks is pristine value of $scope.weeks', function(){
+				$scope.buildCurrentMonth();
+				expect($scope.resetWeeks).toBeDefined();
+				expect($scope.resetWeeks).toBeDefined();
+				expect($scope.resetWeeks.length).toBe(5);
+				for(var i=0; i<5; i++){
+					expect($scope.resetWeeks[i].days).toBeDefined();
+					expect($scope.resetWeeks[i].days.length).toBe(7);
+					for(var j=0; j<7; j++){
+						expect($scope.resetWeeks[i].days[j].hasOwnProperty('numberDate')).toBe(true);
+						expect($scope.resetWeeks[i].days[j].hasOwnProperty('month')).toBe(true);
 					}
 				}
 			});
@@ -376,7 +397,9 @@ describe('Month Calendar', function() {
 
 	describe('Build Month', function() {
 		var weeks = 
-			[
+			[	{ days: [ 
+					{numberDate: 22, month: 2}, {numberDate: 23, month: 2}, {numberDate: 24, month: 2}, 
+					{numberDate: 25, month: 2}, {numberDate: 26, month: 2}, {numberDate: 27, month: 2}, {numberDate: 28, month: 2}] },
 				{ days: [ 
 					{numberDate: 29, month: 2}, {numberDate: 30, month: 2}, {numberDate: 31, month: 2}, 
 					{numberDate: 1, month: 3}, {numberDate: 2, month: 3}, {numberDate: 3, month: 3}, {numberDate: 4, month: 3}] },
@@ -410,6 +433,7 @@ describe('Month Calendar', function() {
 					}
 				}
 			}
+			$scope.resetWeeks = angular.copy($scope.weeks);
 		};
 
 		it('should create $scope.daysInWeek is [{day: "S"},{day: "M"},{day: "T"},{day: "W"},{day: "T"},{day: "F"},{day: "S"}] when eSettings.sFirstDay is Sunday', function(){
@@ -435,11 +459,15 @@ describe('Month Calendar', function() {
 
 		it('should build all weeks and days in April and week start on Monday', function() {
 			var weeksM = [];
-			weeksM[0] = {days: []};
-			weeksM[0].days = [ {numberDate: 30, month: 2}, {numberDate: 31, month: 2}, {numberDate: 1, month: 3}, 
+			weeksM[0] = {days: []}
+			weeksM[0].days = [ 
+					{numberDate: 23, month: 2}, {numberDate: 24, month: 2}, {numberDate: 25, month: 2}, 
+					{numberDate: 26, month: 2}, {numberDate: 27, month: 2}, {numberDate: 28, month: 2}, {numberDate: 29, month: 2}];
+			weeksM[1] = {days: []};
+			weeksM[1].days = [ {numberDate: 30, month: 2}, {numberDate: 31, month: 2}, {numberDate: 1, month: 3}, 
 							   {numberDate: 2, month: 3}, {numberDate: 3, month: 3}, {numberDate: 4, month: 3}, {numberDate: 5, month: 3} ];
 
-			for(var i=1; i<4; i++){
+			for(var i=2; i<5; i++){
 				weeksM[i] = { days: [] };
 				for(var j=0; j<7; j++){
 					weeksM[i].days[j] = {};
@@ -448,8 +476,8 @@ describe('Month Calendar', function() {
 				}
 			}
 
-			weeksM[4] = {days: []};
-			weeksM[4].days = [ {numberDate: 27, month: 3}, {numberDate: 28, month: 3}, {numberDate: 29, month: 3}, 
+			weeksM[5] = {days: []};
+			weeksM[5].days = [ {numberDate: 27, month: 3}, {numberDate: 28, month: 3}, {numberDate: 29, month: 3}, 
 							   {numberDate: 30, month: 3}, {numberDate: 1, month: 4}, {numberDate: 2, month: 4}, {numberDate: 3, month: 4} ];
 			
 			initializeData(3);
@@ -467,11 +495,15 @@ describe('Month Calendar', function() {
 
 		it('should build all weeks and days in April and week start on Saturday', function() {
 			var weeksS = [];
-			weeksS[0] = {days: []};
-			weeksS[0].days = [ {numberDate: 28, month: 2}, {numberDate: 29, month: 2}, {numberDate: 30, month: 2}, 
+			weeksS[0] = {days: []}
+			weeksS[0].days = [ 
+					{numberDate: 21, month: 2}, {numberDate: 22, month: 2}, {numberDate: 23, month: 2}, 
+					{numberDate: 24, month: 2}, {numberDate: 25, month: 2}, {numberDate: 26, month: 2}, {numberDate: 27, month: 2}];
+			weeksS[1] = {days: []};
+			weeksS[1].days = [ {numberDate: 28, month: 2}, {numberDate: 29, month: 2}, {numberDate: 30, month: 2}, 
 							   {numberDate: 31, month: 2}, {numberDate: 1, month: 3}, {numberDate: 2, month: 3}, {numberDate: 3, month: 3} ];
 
-			for(var i=1; i<4; i++){
+			for(var i=2; i<5; i++){
 				weeksS[i] = { days: [] };
 				for(var j=0; j<7; j++){
 					weeksS[i].days[j] = {};
@@ -480,21 +512,14 @@ describe('Month Calendar', function() {
 				}
 			}
 
-			weeksS[4] = {days: []};
-			weeksS[4].days = [ {numberDate: 25, month: 3}, {numberDate: 26, month: 3}, {numberDate: 27, month: 3}, 
+			weeksS[5] = {days: []};
+			weeksS[5].days = [ {numberDate: 25, month: 3}, {numberDate: 26, month: 3}, {numberDate: 27, month: 3}, 
 							   {numberDate: 28, month: 3}, {numberDate: 29, month: 3}, {numberDate: 30, month: 3}, {numberDate: 1, month: 4} ];
 			
 			initializeData(3);
 			eSettings.sFirstDay = 'Saturday';
 			$scope.buildWeeks();
 			expect($scope.weeks).toEqual(weeksS)
-		});
-
-		it('should create $scope.newWeeks is $scope.weeks and delete $scope.newWeeks when finish buildWeeks function', function(){
-			initializeData(3);
-			eSettings.sFirstDay = 'Saturday';
-			$scope.buildWeeks();
-			expect($scope.newWeeks).toBeUndefined();
 		});
 
 		it('should set $scope.position is today if $scope.currentMonthNumber is current month', function(){

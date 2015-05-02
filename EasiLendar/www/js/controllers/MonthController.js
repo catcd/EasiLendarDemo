@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 28/04/2015
+ * last update: 02/05/2015
  * type: month controller
  */
  
@@ -62,6 +62,9 @@ angular.module('MainApp.controllers.month', [])
 				}
 			}
 		}
+
+		//pristine value of $scope.weeks
+		$scope.resetWeeks = angular.copy($scope.weeks);
 		$scope.buildWeeks();
 	}
 
@@ -102,7 +105,7 @@ angular.module('MainApp.controllers.month', [])
 	}
 
 	$scope.buildWeeks = function() {
-		$scope.newWeeks = $scope.weeks;
+		var newWeeks = angular.copy($scope.resetWeeks);
 		var firstDatePreviousMonth = new Date($scope.currentYear, $scope.currentMonthNumber, 1);
 		var dayOfFirstDate = 0;
 		if ($scope.eSettings.sFirstDay == 'Sunday') {
@@ -134,16 +137,18 @@ angular.module('MainApp.controllers.month', [])
 		$scope.eDate.cDate = angular.copy($scope.position);
 
 		//Build weeks and days in month
-		$scope.newWeeks[0].days[dayOfFirstDate].numberDate = 1;
-		$scope.newWeeks[0].days[dayOfFirstDate].month = $scope.currentMonthNumber;
+		newWeeks[0].days[dayOfFirstDate].numberDate = 1;
+		newWeeks[0].days[dayOfFirstDate].month = $scope.currentMonthNumber;
 		for (j = 0; j < dayOfFirstDate; j++) {
-			$scope.newWeeks[0].days[j].numberDate = numberDaysPreviousMonth - (dayOfFirstDate - 1 - j);
-			$scope.newWeeks[0].days[j].month = ($scope.currentMonthNumber - 1 < 0) ? 11 : ($scope.currentMonthNumber - 1);
+			newWeeks[0].days[j].numberDate = numberDaysPreviousMonth - (dayOfFirstDate - 1 - j);
+			newWeeks[0].days[j].month = ($scope.currentMonthNumber - 1 < 0) ? 11 : ($scope.currentMonthNumber - 1);
 		}
 		for (j = 6; j > dayOfFirstDate; j--) {
-			$scope.newWeeks[0].days[j].numberDate = 1 + (j - dayOfFirstDate);
-			$scope.newWeeks[0].days[j].month = $scope.currentMonthNumber;
+			newWeeks[0].days[j].numberDate = 1 + (j - dayOfFirstDate);
+			newWeeks[0].days[j].month = $scope.currentMonthNumber;
 		}
+
+		//Build row 1 to 4 of $scope.weeks array
 		for (var i = 1; i < 5; i++) {
 			for (j = 0; j < 7; j++) {
 				if (i == 1) {
@@ -151,36 +156,46 @@ angular.module('MainApp.controllers.month', [])
 				} else {
 					numberDaysMonth = numberDaysCurrentMonth;
 				}
-				$scope.newWeeks[i].days[j].numberDate = ($scope.newWeeks[i - 1].days[j].numberDate + 7) - (($scope.newWeeks[i - 1].days[j].numberDate + 7) > numberDaysMonth ? numberDaysMonth : 0);
+				newWeeks[i].days[j].numberDate = (newWeeks[i - 1].days[j].numberDate + 7) - ((newWeeks[i - 1].days[j].numberDate + 7) > numberDaysMonth ? numberDaysMonth : 0);
 
-				$scope.newWeeks[i].days[j].month = $scope.currentMonthNumber;
-				if (i >= 3 && $scope.newWeeks[i - 1].days[j].numberDate + 7 > numberDaysCurrentMonth) {
-					$scope.newWeeks[i].days[j].month = ($scope.currentMonthNumber + 1 > 11) ? 0 : ($scope.currentMonthNumber + 1);
+				newWeeks[i].days[j].month = $scope.currentMonthNumber;
+				if (i >= 3 && newWeeks[i - 1].days[j].numberDate + 7 > numberDaysCurrentMonth) {
+					newWeeks[i].days[j].month = ($scope.currentMonthNumber + 1 > 11) ? 0 : ($scope.currentMonthNumber + 1);
 				}
 			}
 		}
-		if ($scope.newWeeks[4].days[6].numberDate < numberDaysCurrentMonth && $scope.newWeeks[4].days[6].month == $scope.currentMonthNumber) {
-			var days = angular.copy($scope.newWeeks[4].days);
+
+		//Push new weeks has some days of next month
+		if (newWeeks[4].days[6].numberDate < numberDaysCurrentMonth && newWeeks[4].days[6].month == $scope.currentMonthNumber) {
+			var days = angular.copy(newWeeks[4].days);
 			for (j = 0; j < 7; j++) {
 				days[j].numberDate = (days[j].numberDate + 7) - ((days[j].numberDate + 7) > numberDaysCurrentMonth ? numberDaysCurrentMonth : 0);
 				days[j].month = $scope.currentMonthNumber;
-				if ($scope.newWeeks[4].days[j].numberDate + 7 > numberDaysCurrentMonth) {
+				if (newWeeks[4].days[j].numberDate + 7 > numberDaysCurrentMonth) {
 					days[j].month = $scope.currentMonthNumber + 1;
 				}
 			}
 
-			if($scope.newWeeks.length < 6){
-				$scope.newWeeks.push({
-					days: days
-				});
+			if(newWeeks.length < 6){
+				newWeeks.push({ days: days });
 			}
-		} 
+		}
 		else {
-			$scope.newWeeks.splice(5, 1);
+			newWeeks.splice(5, 1);
 		}
 
-		$scope.weeks = angular.copy($scope.newWeeks);
-		delete $scope.newWeeks;
+		//Push new weeks has some days of previous month
+		if(newWeeks.length == 5){
+			var days = angular.copy(newWeeks[0].days);
+			for(j = 0; j < 7; j++){
+				days[j].numberDate = ((days[j].month == $scope.currentMonthNumber) ? days[j].numberDate + numberDaysPreviousMonth : days[j].numberDate) - 7;
+				days[j].month = (days[j].month == $scope.currentMonthNumber) ? days[j].month-1 : days[j].month;
+			}
+
+			newWeeks.unshift({ days: days });
+		}
+
+		$scope.weeks = angular.copy(newWeeks);
 	}
 
 	$scope.backgroundMonth = function(index) {
@@ -280,6 +295,7 @@ angular.module('MainApp.controllers.month', [])
 				element.addClass('month-different-color');
 			}
 			
+			//check on a day when change month
 			element.bind('click', function() {
 				var id = '#m' + scope.isDifferent + scope.isCurrentDay;
 				//Using find() function of JQUERY !
@@ -332,12 +348,15 @@ angular.module('MainApp.controllers.month', [])
 
 				var currentMonth = (new Date()).getMonth();
 				var currentYear = (new Date()).getFullYear();
+
+				//check on first day when change month
 				if ( scope.isFirstDate !== currentMonth){
 					var id = '#m' + scope.isFirstDate + '1';
 					//Using find() function of JQUERY !
 					$document.find(id).prop('checked', true);
 				}
 
+				//check on first day when change to current month but in other year
 				if(scope.isFirstDate == currentMonth && attr.thisYear != currentYear){
 					var id = '#m' + scope.isFirstDate + '1';
 					//Using find() function of JQUERY !
@@ -357,6 +376,7 @@ angular.module('MainApp.controllers.month', [])
 		link: function(scope, element, attr) {
 			var currentMonth = (new Date()).getMonth();
 
+			//check on current day
 			element.bind('click', function() {
 				var id = '#' + scope.isThisMonth;
 				//Using find() function of JQUERY !
@@ -370,6 +390,7 @@ angular.module('MainApp.controllers.month', [])
 	return {
 		restrict: 'A',
 		link: function(scope, element, attr) {
+			//check on first Month in month list
 			element.bind('click',function(){
 				if($document.find('td').children().hasClass('month-current-style') == true){
 					$document.find('td').children().removeClass('month-current-style');
@@ -418,7 +439,7 @@ angular.module('MainApp.controllers.month', [])
 			today = new Date(today.setHours(0,0,0,0));
 			var date = new Date(attr.year, attr.month, scope.day, 0,0,0,0);
 			if(date.toString() == today.toString()){
-				element.addClass('list-current-date');
+				element.addClass('day-list-current-date');
 			}
 			if(attr.month != attr.currentMonth){
 				element.addClass('month-different-opacity');
