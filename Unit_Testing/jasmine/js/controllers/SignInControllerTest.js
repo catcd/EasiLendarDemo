@@ -1,27 +1,28 @@
 /**
  * starter: Can Duy Cat 
  * owner: Nguyen Minh Trang 
- * last update: 21/04/2015 
+ * last update: 02/05/2015 
  * type: unit test
  */
 
 describe('Sign In Controller Test', function() {
 	var $controller, $rootScope, $scope;
-	var eSettings, eUser, eDatabase;
+	var eSettings, eUser, eDatabase, eTodo;
 	
 	beforeEach(module('MainApp.controllers.signIn'));
 	
 	// simulate services
-	var eSettings = {
+	eSettings = {
 		sDefaultView: null,
 	};
-	var eDatabase = {
+	eDatabase = {
 		databaseLoading: function() {},
 		convertCal: function(calendar) {},
 		setUFRL: function() {},
 		setUFAL: function() {},
 	};
-	var eUser = {};
+	eUser = {};
+	eTodo = {tCheckList: null};
 	
 	beforeEach(inject(function(_$rootScope_, _$controller_) {
 		$rootScope = _$rootScope_;
@@ -33,6 +34,7 @@ describe('Sign In Controller Test', function() {
 			'eSettings': eSettings,
 			'eDatabase': eDatabase,
 			'eUser': eUser,
+			'eTodo': eTodo
 		});
 	}));
 	

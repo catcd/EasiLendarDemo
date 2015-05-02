@@ -239,7 +239,7 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 						user.g_calendar = this.convertCal( user.g_calendar );
 						user.local_calendar = this.convertCal( user.local_calendar );
 						var temp = [ user.g_calendar, user.local_calendar ];
-						eFriend.fMultiCal = eMultiCal.newMultiCal( temp );
+						eFriend.fMultiCal = eMultiCalendar.newMultiCal( temp );
 						$ionicLoading.hide();
 					}
 				}, function( errorObject ) {
