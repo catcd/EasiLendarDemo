@@ -6,7 +6,7 @@
  */
 
 describe('Sync service test', function() {
-	var eSync;
+	var eSync, eUser;
 
 	// excuted before each "it" is run.
 	beforeEach(function() {
@@ -57,16 +57,92 @@ describe('Sync service test', function() {
 			expect(eSync.handleAuthResult(authResult)).toHaveBeenCalled();
 			eSync.handleAuthResult(authResult);
 			if (authResult && !authResult.error) {
-				expect(eSync.logInResult).toEqual(true);
+				expect(eSync.logIN).toEqual(1);
 				expect(makeApiCallNoBound).toHaveBeenCalled();
 			}
 			else{
-				expect(eSync.logInResult).toEqual(false);
+				expect(eSync.logIN).toEqual(0);
 			}
 		});
 	});
 	
-	// All test about Google Calendar have been tested in SyncControllerTest
+	describe('log out', function(){
+		beforeEach(function(){
+			eSync.logMeOut();
+		});
+		
+		it('value logIN should change from 1 to 0', function(){
+			expect(eSync.logIN).toEqual(0);
+		});
+
+		it ('value email should change to empty string', function(){
+			expect(eSync.email).toEqual('');
+		});
+	});
+
+	describe('Google Calendar data', function(){
+		beforeEach(function(){
+			var event= null;
+			var length=0;
+			eSync.logIN= 0;
+			eSync.handleAuthClick(event);
+			
+			// shoule be access to get calendar and calendar should be non-empty array :
+		});
+		
+		it('makeApiCallNoBound function should be called', function(){
+			expect(eSync.makeApiCallNoBound).toHaveBeenCalled();
+		});
+		
+		it ('gapi.client.load function should be called', function(){
+			expect(gapi.client.load).toHaveBeenCalled();
+		});
+		
+		it ('convertMe function should be called', function(){
+			expect(eSync.convertMe).toHaveBeenCalled();
+		});
+		
+		it ('extraCopy function should be called', function{
+			expect(eSync.extraCopy).toHaveBeenCalled();
+		});
+		
+		it('Google Calendar should be gotten from api', function(){
+			for (var index in eUser.uGmailCalendar){
+				length++;
+			}
+			
+			expect(length).not.toEqual(0);
+		});
+		
+		it('Google Calendar should be convert to array which index is an Object Date', function(){
+			var length = 0;
+			for (var index in eUser.uGmailCalendar){
+				expect(index.getTime()).not.toBeUndefined();
+			}
+		});
+		
+		it('Google Calendar should be sort by time', function(){
+			var next= null;
+			var previous= null;
+			var i=0;
+			for (var index in eUser.uGmailCalendar){
+				if (i==0)	previous= index;
+				else {
+					next= index;
+					expect(previous.getTime()).toBeLessThan(next.getTime());
+					previous=next;
+				}
+				
+				i++;
+			}
+		});
+		
+		it('Google Calendar array should have each element which is a non-empty array', function(){
+			for (var index in eUser.uGmailCalendar){
+				expect(eUser.uGmailCalendar[index].length).not.toEqual(0);
+			}
+		});
+	});
 	
 	describe('test addSingleEvent', function(){
 	
@@ -90,7 +166,7 @@ describe('Sync service test', function() {
 				}
 			};
 			
-			var addingResult= eSync.addSingleEventWithFriend(summary, start, end, location);
+			var addingResult= eSync.addSingleEvent(summary, start, end, location);
 			
 			eSync.makeApiCallNoBound();
 			
@@ -128,15 +204,21 @@ describe('Sync service test', function() {
 			expect(found).toEqual(true);
 		});
 		
-		it ('new event should be same as input', function(){
+		it ('new event should be same as input about startTime', function(){
 			expect(event.start.dateTime.getTime()).toEqual(start.getTime());
+		});
+		
+		it ('new event should be same as input about endTime', function(){
 			expect(event.end.dateTime.getTime()).toEqual(end.getTime());
+		});
+		
+		it ('new event should be same as input about location', function(){
 			expect(event.location).toEqual(location);
 		});
 		
 		it ('if input of start are not object Date or null, function should return false', function(){
 			var invalidStart= null;
-			var addingResultFalse= eSync.addSingleEventWithFriend(summary, invalidStart, end, location);
+			var addingResultFalse= eSync.addSingleEvent(summary, invalidStart, end, location);
 			
 			expect(addingResultFalse).toEqual(false);
 		});
@@ -148,3 +230,53 @@ describe('Sync service test', function() {
 			expect(addingResultFalse).toEqual(false);
 		});
 	});
+	
+	describe('test deleteEventWithId', function(){
+		beforeEach(function(){
+			eSync.makeApiCallNoBound();
+			var newLength = 0;
+			var oldLength = 0;
+			var ID= '';
+			var found = false;
+			
+			if (eUser.uGmailCalendar.length!= 0){
+				for (var index in eUser.uGmailCalendar){
+					for (var i in eUser.uGmailCalendar[index]){
+						oldLength ++;
+						ID= eUser.uGmailCalendar[index][i].Id;
+					}
+				}
+			}
+			
+			eSync.deleteEventWithId(ID);
+			
+			if (eUser.uGmailCalendar.length!= 0){
+				for (var index in eUser.uGmailCalendar){
+					for (var i in eUser.uGmailCalendar[index]){
+						newLength ++;
+						if (eUser.uGmailCalendar[index][i].Id == ID)
+							found = true;
+					}
+				}
+			}
+		});
+		
+		it ('if ID input is not valid, function should return false', function(){
+			var resultFalse = eSync.deleteEventWithId('');
+			expect(resultFalse).toEqual(false);
+		});
+		
+		it ('new Length should be old Length -1', function(){
+			expect(newLength).toEqual(oldLength-1);
+		});
+		
+		it ('event which was deleted should not be found', function(){
+			expect(found).toEqual(false);
+		});
+		
+		it ('gapi.client.calendar.events.delete should be called', function(){
+			expect(gapi.client.calendar.events.delete).toHaveBeenCalled();
+		});
+	});
+	
+	

@@ -91,7 +91,7 @@ angular.module('MainApp.shareds.sync', [])
 
 					eUser.uGmailCalendar = resp.items;
 
-					convertMe();
+					this.convertMe();
 
 				});
 			});
