@@ -414,7 +414,7 @@ angular.module('MainApp.shareds.sync', [])
 				for (i in eUser.uGmailCalendar[index]){
 					if (eUser.uGmailCalendar[index][i].id == Id){
 						
-						var temp = JSON.parse(JSON.stringify(eUser.uGmailCalendar[index][i]));
+						var t = JSON.parse(JSON.stringify(eUser.uGmailCalendar[index][i]));
 						
 						var length= this.length(eUser.uGmailCalendar[index]);
 						
@@ -436,7 +436,7 @@ angular.module('MainApp.shareds.sync', [])
 							
 						}
 						
-						eDatabase.updateEvent(temp, 'del');
+						eDatabase.updateEvent(t, 'del');
 						
 						found= true;
 						break;
@@ -481,9 +481,9 @@ angular.module('MainApp.shareds.sync', [])
 					if (eUser.uGmailCalendar[index][i].id == Id){
 						found= true;
 						
-						var c1= deleteEventWithId(Id);
+						var c1= this.deleteEventWithId(Id);
 						
-						var c2= addSingleEvent(newEvent.summary, newEvent.start.dateTime, newEvent.end.dateTime, newEvent.location);
+						var c2= this.addSingleEvent(newEvent.summary, newEvent.start.dateTime, newEvent.end.dateTime, newEvent.location);
 						
 					}
 				}
