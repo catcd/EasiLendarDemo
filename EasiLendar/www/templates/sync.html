@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	owner: Ngo Duc Dung
-	last update: 01/05/2015
+	last update: 03/05/2015
 	type: html -->
 
 <ion-view title="Sync">
@@ -14,7 +14,8 @@
 			<hr class="sync-hr-title"></hr>
 			<slide-toggle-sync class="item sync-slide-{{app.name}}" data-ng-repeat="app in apps.array">
 				<div class="sync-div-name" data-ng-click="toggleFunc(app.name)">
-					<img class="sync-img-{{app.name}}" data-ng-src="img/{{app.name}}.png">
+					<i class="sync-icon-{{app.name}} {{(app.name == 'facebook') ? 'ion-social-facebook':'ion-social-twitter'}}" data-ng-show="apps.title == 'social'"></i>
+					<i class="sync-icon-{{app.name}} {{(app.name == 'google') ? 'ion-social-google-outline':'ion-android-phone-portrait'}}" data-ng-show="apps.title == 'calendar'"></i>
 					<div class="sync-div-title-{{app.name}}">{{app.name.charAt(0).toUpperCase() + app.name.substr(1,app.name.length-1)}} {{(app.name == 'facebook')?'':'Calendar'}}</div>
 				</div>
 				<div class="sync-div-options" toggle="visible.value">

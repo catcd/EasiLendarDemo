@@ -1,9 +1,9 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 02/05/2015
+ * last update: 03/05/2015
  * type: month controller
- * number of tests: 42
+ * number of tests: 47
  */
 
 /** Test for:
@@ -14,7 +14,7 @@
 
 describe('Month Calendar', function() {
 	var $controller, $rootScope, $scope;
-	var eDate, eCalendar, eUser, eSettings;
+	var eDate, eCalendar, eUser, eSettings, eEasiLendar;
 
 	beforeEach(module('MainApp.controllers.month'));
 
@@ -38,10 +38,19 @@ describe('Month Calendar', function() {
 		shortMonths: ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"],
 	};
 
+	eEasiLendar = {
+		newEasiEvent: function(){}
+	};
+
 	beforeEach(inject(function($injector){
 		$rootScope = $injector.get('$rootScope');
         $controller = $injector.get('$controller');
 		$scope = $rootScope.$new();
+
+		$rootScope = {
+			viewEvent: function(){},
+			$on: function(){}
+		};
 
 		$controller('MonthController', {
 			'$rootScope': $rootScope,
@@ -49,7 +58,8 @@ describe('Month Calendar', function() {
 			'eDate': eDate,
 			'eCalendar': eCalendar,
 			'eUser': eUser,
-			'eSettings': eSettings
+			'eSettings': eSettings,
+			'eEasiLendar': eEasiLendar
 		});
 	}));
 
@@ -393,14 +403,23 @@ describe('Month Calendar', function() {
 				expect($scope.buildWeeks).toHaveBeenCalled();
 			});
 		});
+
+		describe('$scope.viewE', function(){
+			it('should call eEasiLendar.newEasiEvent and $rootScope.viewEvent', function(){
+				spyOn($rootScope, 'viewEvent');
+				spyOn(eEasiLendar, 'newEasiEvent');
+				var event = { start: new Date(), end: new Date(), summary: 'A', location: 'IPH', id: null, position: new Date(), colorID: 0, src: 'google', status: true };
+				$scope.viewE(event);
+
+				expect($rootScope.viewEvent).toHaveBeenCalled();
+				expect(eEasiLendar.newEasiEvent).toHaveBeenCalled();
+			});
+		});
 	});
 
-	describe('Build Month', function() {
+	describe('Build April, 2015', function() {
 		var weeks = 
 			[	{ days: [ 
-					{numberDate: 22, month: 2}, {numberDate: 23, month: 2}, {numberDate: 24, month: 2}, 
-					{numberDate: 25, month: 2}, {numberDate: 26, month: 2}, {numberDate: 27, month: 2}, {numberDate: 28, month: 2}] },
-				{ days: [ 
 					{numberDate: 29, month: 2}, {numberDate: 30, month: 2}, {numberDate: 31, month: 2}, 
 					{numberDate: 1, month: 3}, {numberDate: 2, month: 3}, {numberDate: 3, month: 3}, {numberDate: 4, month: 3}] },
 				{ days: [ 
@@ -414,7 +433,10 @@ describe('Month Calendar', function() {
 					{numberDate: 22, month: 3}, {numberDate: 23, month: 3}, {numberDate: 24, month: 3}, {numberDate: 25, month: 3}] },
 				{ days: [ 
 					{numberDate: 26, month: 3}, {numberDate: 27, month: 3}, {numberDate: 28, month: 3}, 
-					{numberDate: 29, month: 3}, {numberDate: 30, month: 3}, {numberDate: 1, month: 4}, {numberDate: 2, month: 4}] }	
+					{numberDate: 29, month: 3}, {numberDate: 30, month: 3}, {numberDate: 1, month: 4}, {numberDate: 2, month: 4}] },
+				{ days: [
+					{numberDate: 3, month: 4}, {numberDate: 4, month: 4}, {numberDate: 5, month: 4}, 
+					{numberDate: 6, month: 4}, {numberDate: 7, month: 4}, {numberDate: 8, month: 4}, {numberDate: 9, month: 4}] }
 		];
 
 		var initializeData = function(month){
@@ -459,15 +481,11 @@ describe('Month Calendar', function() {
 
 		it('should build all weeks and days in April and week start on Monday', function() {
 			var weeksM = [];
-			weeksM[0] = {days: []}
-			weeksM[0].days = [ 
-					{numberDate: 23, month: 2}, {numberDate: 24, month: 2}, {numberDate: 25, month: 2}, 
-					{numberDate: 26, month: 2}, {numberDate: 27, month: 2}, {numberDate: 28, month: 2}, {numberDate: 29, month: 2}];
-			weeksM[1] = {days: []};
-			weeksM[1].days = [ {numberDate: 30, month: 2}, {numberDate: 31, month: 2}, {numberDate: 1, month: 3}, 
+			weeksM[0] = {days: []};
+			weeksM[0].days = [ {numberDate: 30, month: 2}, {numberDate: 31, month: 2}, {numberDate: 1, month: 3}, 
 							   {numberDate: 2, month: 3}, {numberDate: 3, month: 3}, {numberDate: 4, month: 3}, {numberDate: 5, month: 3} ];
 
-			for(var i=2; i<5; i++){
+			for(var i=1; i<4; i++){
 				weeksM[i] = { days: [] };
 				for(var j=0; j<7; j++){
 					weeksM[i].days[j] = {};
@@ -476,9 +494,13 @@ describe('Month Calendar', function() {
 				}
 			}
 
-			weeksM[5] = {days: []};
-			weeksM[5].days = [ {numberDate: 27, month: 3}, {numberDate: 28, month: 3}, {numberDate: 29, month: 3}, 
+			weeksM[4] = {days: []};
+			weeksM[4].days = [ {numberDate: 27, month: 3}, {numberDate: 28, month: 3}, {numberDate: 29, month: 3}, 
 							   {numberDate: 30, month: 3}, {numberDate: 1, month: 4}, {numberDate: 2, month: 4}, {numberDate: 3, month: 4} ];
+			weeksM[5] = {days: []}
+			weeksM[5].days = [ 
+					{numberDate: 4, month: 4}, {numberDate: 5, month: 4}, {numberDate: 6, month: 4}, 
+					{numberDate: 7, month: 4}, {numberDate: 8, month: 4}, {numberDate: 9, month: 4}, {numberDate: 10, month: 4}];
 			
 			initializeData(3);
 			eSettings.sFirstDay = 'Monday';
@@ -495,15 +517,11 @@ describe('Month Calendar', function() {
 
 		it('should build all weeks and days in April and week start on Saturday', function() {
 			var weeksS = [];
-			weeksS[0] = {days: []}
-			weeksS[0].days = [ 
-					{numberDate: 21, month: 2}, {numberDate: 22, month: 2}, {numberDate: 23, month: 2}, 
-					{numberDate: 24, month: 2}, {numberDate: 25, month: 2}, {numberDate: 26, month: 2}, {numberDate: 27, month: 2}];
-			weeksS[1] = {days: []};
-			weeksS[1].days = [ {numberDate: 28, month: 2}, {numberDate: 29, month: 2}, {numberDate: 30, month: 2}, 
+			weeksS[0] = {days: []};
+			weeksS[0].days = [ {numberDate: 28, month: 2}, {numberDate: 29, month: 2}, {numberDate: 30, month: 2}, 
 							   {numberDate: 31, month: 2}, {numberDate: 1, month: 3}, {numberDate: 2, month: 3}, {numberDate: 3, month: 3} ];
 
-			for(var i=2; i<5; i++){
+			for(var i=1; i<4; i++){
 				weeksS[i] = { days: [] };
 				for(var j=0; j<7; j++){
 					weeksS[i].days[j] = {};
@@ -512,9 +530,13 @@ describe('Month Calendar', function() {
 				}
 			}
 
-			weeksS[5] = {days: []};
-			weeksS[5].days = [ {numberDate: 25, month: 3}, {numberDate: 26, month: 3}, {numberDate: 27, month: 3}, 
+			weeksS[4] = {days: []};
+			weeksS[4].days = [ {numberDate: 25, month: 3}, {numberDate: 26, month: 3}, {numberDate: 27, month: 3}, 
 							   {numberDate: 28, month: 3}, {numberDate: 29, month: 3}, {numberDate: 30, month: 3}, {numberDate: 1, month: 4} ];
+			weeksS[5] = {days: []}
+			weeksS[5].days = [ 
+					{numberDate: 2, month: 4}, {numberDate: 3, month: 4}, {numberDate: 4, month: 4}, 
+					{numberDate: 5, month: 4}, {numberDate: 6, month: 4}, {numberDate: 7, month: 4}, {numberDate: 8, month: 4}];
 			
 			initializeData(3);
 			eSettings.sFirstDay = 'Saturday';
@@ -542,6 +564,113 @@ describe('Month Calendar', function() {
 			$scope.buildWeeks();
 			expect($scope.position.toString()).toEqual(date.toString());
 			expect(eDate.cDate.toString()).toEqual(date.toString());
+		});
+	});
+
+	describe('Build February, 2015', function() {
+		var weeks = 
+			[	{ days: [ 
+					{numberDate: 25, month: 0}, {numberDate: 26, month: 0}, {numberDate: 27, month: 0}, 
+					{numberDate: 28, month: 0}, {numberDate: 29, month: 0}, {numberDate: 30, month: 0}, {numberDate: 31, month: 0}] },
+				{ days: [ 
+					{numberDate: 1, month: 1}, {numberDate: 2, month: 1 }, {numberDate: 3, month: 1 }, 
+					{numberDate: 4, month: 1}, {numberDate: 5, month: 1}, {numberDate: 6, month: 1}, {numberDate: 7, month: 1}] },
+				{ days: [
+					{numberDate: 8, month: 1}, {numberDate: 9, month: 1}, {numberDate: 10, month: 1}, 
+					{numberDate: 11, month: 1}, {numberDate: 12, month: 1}, {numberDate: 13, month: 1}, {numberDate: 14,month: 1}] },
+				{ days: [ 
+					{numberDate: 15, month: 1}, {numberDate: 16, month: 1}, {numberDate: 17, month: 1}, 
+					{numberDate: 18, month: 1}, {numberDate: 19, month: 1}, {numberDate: 20, month: 1}, {numberDate:21 , month: 1}] },
+				{ days: [ 
+					{numberDate: 22, month: 1}, {numberDate: 23, month: 1}, {numberDate: 24, month: 1}, 
+					{numberDate: 25, month: 1}, {numberDate: 26, month: 1}, {numberDate: 27, month: 1}, {numberDate: 28, month: 1}] },
+				{ days: [
+					{numberDate: 1, month: 2}, {numberDate: 2, month: 2}, {numberDate: 3, month: 2}, 
+					{numberDate: 4, month: 2}, {numberDate: 5, month: 2}, {numberDate: 6, month: 2}, {numberDate: 7, month: 2}] }
+		];
+
+		var initializeData = function(month){
+			$scope.currentMonthNumber = month;
+			$scope.currentYear = 2015;
+			$scope.currentMonthString = $scope.eCalendar.months[month];
+			$scope.weeks = new Array(5);
+			for (var i = 0; i < 5; i++) {
+				$scope.weeks[i] = {
+					days: new Array(7)
+				};
+				for (var j = 0; j < 7; j++) {
+					$scope.weeks[i].days[j] = {
+						numberDate: 0,
+						month: 0
+					}
+				}
+			}
+			$scope.resetWeeks = angular.copy($scope.weeks);
+		};
+
+		it('should build all weeks and days in February with week start on Sunday', function() {
+			initializeData(1);
+			eSettings.sFirstDay = 'Sunday';
+			$scope.buildWeeks();
+			expect($scope.weeks).toEqual(weeks);
+		});
+
+		it('should build all weeks and days in February with week start on Monday', function() {
+			var weeksM = [];
+			weeksM[0] = {days: []};
+			weeksM[0].days = [ {numberDate: 26, month: 0}, {numberDate: 27, month: 0}, {numberDate: 28, month: 0}, 
+							   {numberDate: 29, month: 0}, {numberDate: 30, month: 0}, {numberDate: 31, month: 0}, {numberDate: 1, month: 1} ];
+
+			for(var i=1; i<4; i++){
+				weeksM[i] = { days: [] };
+				for(var j=0; j<7; j++){
+					weeksM[i].days[j] = {};
+					weeksM[i].days[j].numberDate = weeks[i].days[j].numberDate + 1;
+					weeksM[i].days[j].month = 1;
+				}
+			}
+
+			weeksM[4] = {days: []};
+			weeksM[4].days = [ {numberDate: 23, month: 1}, {numberDate: 24, month: 1}, {numberDate: 25, month: 1}, 
+							   {numberDate: 26, month: 1}, {numberDate: 27, month: 1}, {numberDate: 28, month: 1}, {numberDate: 1, month: 2} ];
+			weeksM[5] = {days: []}
+			weeksM[5].days = [ 
+					{numberDate: 2, month: 2}, {numberDate: 3, month: 2}, {numberDate: 4, month: 2}, 
+					{numberDate: 5, month: 2}, {numberDate: 6, month: 2}, {numberDate: 7, month: 2}, {numberDate: 8, month: 2}];
+			
+			initializeData(1);
+			eSettings.sFirstDay = 'Monday';
+			$scope.buildWeeks();
+			expect($scope.weeks).toEqual(weeksM);
+		});
+
+		it('should build all weeks and days in February with week start on Saturday', function() {
+			var weeksS = [];
+			weeksS[0] = {days: []};
+			weeksS[0].days = [ {numberDate: 31, month: 0}, {numberDate: 1, month: 1}, {numberDate: 2, month: 1}, 
+							   {numberDate: 3, month: 1}, {numberDate: 4, month: 1}, {numberDate: 5, month: 1}, {numberDate: 6, month: 1} ];
+
+			for(var i=1; i<4; i++){
+				weeksS[i] = { days: [] };
+				for(var j=0; j<7; j++){
+					weeksS[i].days[j] = {};
+					weeksS[i].days[j].numberDate = weeks[i].days[j].numberDate + 6;
+					weeksS[i].days[j].month = 1;
+				}
+			}
+
+			weeksS[4] = {days: []};
+			weeksS[4].days = [ {numberDate: 28, month: 1}, {numberDate: 1, month: 2}, {numberDate: 2, month: 2}, 
+							   {numberDate: 3, month: 2}, {numberDate: 4, month: 2}, {numberDate: 5, month: 2}, {numberDate: 6, month: 2} ];
+			weeksS[5] = {days: []}
+			weeksS[5].days = [ 
+					{numberDate: 7, month: 2}, {numberDate: 8, month: 2}, {numberDate: 9, month: 2}, 
+					{numberDate: 10, month: 2}, {numberDate: 11, month: 2}, {numberDate: 12, month: 2}, {numberDate: 13, month: 2}];
+			
+			initializeData(1);
+			eSettings.sFirstDay = 'Saturday';
+			$scope.buildWeeks();
+			expect($scope.weeks).toEqual(weeksS)
 		});
 	});
 });

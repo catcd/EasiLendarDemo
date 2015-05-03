@@ -1,14 +1,14 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 02/05/2015
+ * last update: 03/05/2015
  * type: month controller
  */
  
 /*MONTH CONTROLLER*/
 angular.module('MainApp.controllers.month', [])
 
-.controller("MonthController", function($scope, $rootScope, $document, eDate, eCalendar, eUser, eSettings) {
+.controller("MonthController", function($scope, $rootScope, $document, eDate, eCalendar, eUser, eSettings, eEasiLendar) {
 	//Using eUser, eSettings, eDate, eCalendar factory
 	$scope.eCalendar = eCalendar;
 	$scope.eDate = eDate;
@@ -165,27 +165,31 @@ angular.module('MainApp.controllers.month', [])
 			}
 		}
 
+		//If month has only 4 weeks
+		if(newWeeks[0].days[0].numberDate == 1 && newWeeks[3].days[6].numberDate == numberDaysCurrentMonth){
+			newWeeks.splice(4,1);
+		}
+
 		//Push new weeks has some days of next month
-		if (newWeeks[4].days[6].numberDate < numberDaysCurrentMonth && newWeeks[4].days[6].month == $scope.currentMonthNumber) {
-			var days = angular.copy(newWeeks[4].days);
-			for (j = 0; j < 7; j++) {
-				days[j].numberDate = (days[j].numberDate + 7) - ((days[j].numberDate + 7) > numberDaysCurrentMonth ? numberDaysCurrentMonth : 0);
-				days[j].month = $scope.currentMonthNumber;
-				if (newWeeks[4].days[j].numberDate + 7 > numberDaysCurrentMonth) {
-					days[j].month = $scope.currentMonthNumber + 1;
+		if(newWeeks.length == 5){
+			if (newWeeks[4].days[6].numberDate < numberDaysCurrentMonth && newWeeks[4].days[6].month == $scope.currentMonthNumber) {
+				var days = angular.copy(newWeeks[4].days);
+				for (j = 0; j < 7; j++) {
+					days[j].numberDate = (days[j].numberDate + 7) - ((days[j].numberDate + 7) > numberDaysCurrentMonth ? numberDaysCurrentMonth : 0);
+					days[j].month = $scope.currentMonthNumber;
+					if (newWeeks[4].days[j].numberDate + 7 > numberDaysCurrentMonth) {
+						days[j].month = $scope.currentMonthNumber + 1;
+					}
+				}
+
+				if(newWeeks.length < 6){
+					newWeeks.push({ days: days });
 				}
 			}
-
-			if(newWeeks.length < 6){
-				newWeeks.push({ days: days });
-			}
-		}
-		else {
-			newWeeks.splice(5, 1);
 		}
 
 		//Push new weeks has some days of previous month
-		if(newWeeks.length == 5){
+		if(newWeeks.length == 4){
 			var days = angular.copy(newWeeks[0].days);
 			for(j = 0; j < 7; j++){
 				days[j].numberDate = ((days[j].month == $scope.currentMonthNumber) ? days[j].numberDate + numberDaysPreviousMonth : days[j].numberDate) - 7;
@@ -193,6 +197,17 @@ angular.module('MainApp.controllers.month', [])
 			}
 
 			newWeeks.unshift({ days: days });
+		}
+
+		//Push new weeks has some days of next month
+		if(newWeeks.length == 5){
+			var days = angular.copy(newWeeks[4].days);
+			for(j = 0; j < 7; j++){
+				days[j].numberDate = (days[j].numberDate + 7) - ( (days[j].numberDate + 7 > numberDaysCurrentMonth) ? numberDaysCurrentMonth : 0 );
+				days[j].month = (days[j].month == $scope.currentMonthNumber) ? days[j].month+1 : days[j].month;
+			}
+
+			newWeeks.push({ days: days });
 		}
 
 		$scope.weeks = angular.copy(newWeeks);
@@ -273,6 +288,13 @@ angular.module('MainApp.controllers.month', [])
 	}
 
 	$scope.bkgE = 'bkg'; //set background for events
+
+	//view detail of events
+	$scope.viewE = function(event){
+		//create EasiEvent obj
+		var easiE = eEasiLendar.newEasiEvent(event.summary, event.start, event.end, event.location, event.id, event.colorID, event.position, event.src, event.status);
+		$rootScope.viewEvent(easiE);
+	}
 })
 
 .directive('differentMonth', function($document) {

@@ -39,7 +39,7 @@
 						<div class="month-div-calendar-date" current-day-and-different-month="day.numberDate" month="{{day.month}}" year="{{currentYear}}" current-month="{{currentMonthNumber}}" data-ng-click="showListEvent(currentYear,day.month,day.numberDate)">{{day.numberDate}}</div>
 
 						<show-events year="{{currentYear}}" month="{{day.month}}" day="{{day.numberDate}}" data-ng-show="day.month == currentMonthNumber">
-							<div class="month-div-calendar-events" data-ng-repeat="event in eUser.uGmailCalendar[date] | limitTo:2" background-color-event="bkgE"></div>
+							<div class="month-div-calendar-events" data-ng-repeat="event in eUser.uGmailCalendar[date] | limitTo:2" background-color-event="bkgE" data-ng-click="viewE(event)"></div>
 						</show-events>
 					</td>
 				</tr>

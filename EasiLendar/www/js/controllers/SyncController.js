@@ -1,16 +1,17 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 01/05/2015
+ * last update: 03/05/2015
  * type: paticular controller
  */
 
 angular.module('MainApp.controllers.sync', [])
 
-.controller('SyncController', function($scope, $rootScope, $document, eUser, eFacebook, $ionicPopup) {
+.controller('SyncController', function($scope, $rootScope, $document, eUser, eFacebook, eSync, $ionicPopup) {
 	// Using eSync, eUser, eFacebook service
 	//$scope.eSync = eSync;
 	$scope.eUser = eUser;
+	$scope.eSync = eSync;
 
 	//Array of all social nextworks and calendar applications
 	$scope.allApps = [
@@ -31,7 +32,7 @@ angular.module('MainApp.controllers.sync', [])
 		}
 		
 		if(name == 'google'){
-			return true;
+			return eSync.handleClientLoad();
 		}
 	}
 
@@ -51,7 +52,7 @@ angular.module('MainApp.controllers.sync', [])
 		}
 
 		else if(name == 'google'){
-			//console.log('B');
+			eSync.handleAuthClick(null);
 		}
 	};
 
@@ -89,14 +90,14 @@ angular.module('MainApp.controllers.sync', [])
 				for(var j=0; j <= duration; j++){
 					end = (end_time >  new Date(start.getFullYear(),start.getMonth(),start.getDate()+1,0,0,0,0)) ? new Date(start.getFullYear(),start.getMonth(),start.getDate()+1,0,0,0,0) : end_time;
 
-					var obj = { start: null, end: null, timezone: null, summary: null, location: null, position: null, colorID: 0, id: 'facebook', status: true };
+					var obj = { start: null, end: null, summary: null, location: null, id: null, position: null, colorID: 0, src: 'facebook', status: true };
 					
 					obj.start = angular.copy(start);
 					obj.end = angular.copy(end);
 
-					obj.timezone = $scope.fbEvents[i].timezone;
 					obj.summary = $scope.fbEvents[i].name;
 					obj.location = $scope.fbEvents[i].place;
+					obj.id = $scope.fbEvents[i].id;
 					obj.position = obj.start;
 					obj.position = new Date(obj.position.setHours(0,0,0,0));
 						//Create new array if this uFaceCalendar have not has any event obj
@@ -133,6 +134,10 @@ angular.module('MainApp.controllers.sync', [])
 				}
 			);
 		}
+
+		if(name == 'google'){
+			eSync.makeApiCallNoBound();
+		}
 	};
 
 	/* Log out
@@ -147,7 +152,7 @@ angular.module('MainApp.controllers.sync', [])
 		}
 
 		else if(name == 'google'){
-			//console.log('B');
+			eSync.logMeOut();
 		}
 	};
 
@@ -202,7 +207,7 @@ angular.module('MainApp.controllers.sync', [])
 				if(name == 'google'){
 					var loginGC = scope.checkLoginStatus('google');
 
-					if(loginGC == false) { 
+					if(loginGC == 0) { 
 						var confirmPopup = $ionicPopup.confirm({
 							title: 'You need to login'
 						});
@@ -214,7 +219,7 @@ angular.module('MainApp.controllers.sync', [])
 						});
 					}
 
-					else {
+					else if(loginGC == 1){
 						scope.visible.value = !scope.visible.value;
 					}
 				}

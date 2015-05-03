@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
      owner: Ngo Duc Dung
-     last update: 28/04/2015 
+     last update: 03/05/2015 
      type: friend panel template -->
 <form data-ng-controller="friendPanelController">
     <slide-toggle-func>
@@ -8,8 +8,8 @@
             <button class="button button-clear easi-no-border easi-gray">
                 <p class="easi-light-gray">Friends</p>
             </button>
-            <button id="friend-refresh-list" class="button button-icon icon ion-loop easi-no-border easi-light-gray" data-ng-click="refreshList()"></button>
-            <button class="button button-icon icon ion-arrow-down-b easi-no-border easi-light-gray" data-ng-click="toggleFunc(); gotoTop()" sort-option is-visible="visible.value">
+            <button id="friend-refresh-list" class="button button-icon icon ion-android-sync easi-no-border easi-light-gray" data-ng-click="refreshList()"></button>
+            <button class="button button-icon icon  easi-no-border ion-android-funnel easi-light-gray" data-ng-click="toggleFunc(); gotoTop()" sort-option is-visible="visible.value">
             </button>
         </ion-header-bar>
     </slide-toggle-func>
@@ -23,8 +23,8 @@
         <div id='friend-top'></div>
         <div id='friend-top' class="friend-sort-option-div easi-no-border" toggle="visible.value">
             <button class="first easi-no-border" data-ng-click="sort('AZ')">A - Z</button>
-            <button class="easi-no-border">...</button> <!--data-ng-click="sort('FB')"-->
-            <button class="last easi-no-border">...</button>
+            <button class="easi-no-border"><i class="friend-sort-icon ion-android-stopwatch"></i></button>
+            <button class="last easi-no-border"><i class="friend-sort-icon ion-eye"></i></button>
         </div>
         <div class="friend-list easi-no-border">
             <slide-toggle-func data-ng-repeat="person in eUser.uFriend | findingFriend:searchFriend" class="item item-icon-right sideMenu friend-myAvatar01 friend-repeat-animation">
