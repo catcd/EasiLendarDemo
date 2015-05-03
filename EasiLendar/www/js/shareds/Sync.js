@@ -248,8 +248,8 @@ angular.module('MainApp.shareds.sync', [])
 		
 		checkAuth : function() {
 			gapi.auth.authorize({
-				client_id: clientId,
-				scope: scopes,
+				client_id: this.clientId,
+				scope: this.scopes,
 				immediate: true,
 				cookie_policy: 'single_host_origin'
 			}, this.handleAuthResult);
