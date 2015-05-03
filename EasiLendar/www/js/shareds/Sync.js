@@ -31,19 +31,20 @@ angular.module('MainApp.shareds.sync', [])
 				approval_prompt: 'force',
 				include_granted_scopes: false,
 				cookie_policy: 'single_host_origin'
-			}, testLogInResult);
+			}, this.testLogInResult);
 
-			return logInResult;
+			return this.logInResult;
 		},
 
 		testLogInResult : function(authResult) {
 
 			if (authResult && !authResult.error) {
-				logInResult = true;
+				this.logInResult = true;
 
-				makeApiCallNoBound();
-			} else {
-				logInResult = false;
+				this.makeApiCallNoBound();
+			} 
+			else {
+				this.logInResult = false;
 			}
 		},
 		
