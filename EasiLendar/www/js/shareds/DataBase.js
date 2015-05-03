@@ -219,6 +219,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 						console.log( "Failed to access" + ref );
 					} );
 				}
+			} else {
+				return false;
 			}
 		};
 	
@@ -245,6 +247,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 				}, function( errorObject ) {
 					console.log( "Failed to access" + ref );
 				} );
+			} else {
+				return false;
 			}
 		};
 
@@ -299,6 +303,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 				}, function( errorObject ) {
 					console.log( "Failed to access" + ref );
 				} );
+			} else {
+				return false;
 			}
 		};
 		
@@ -317,6 +323,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 				// loading
 				this.databaseLoading();
 				uAccept.set( null, onComplete );
+			} else {
+				return false;
 			}
 		};
 	
@@ -339,6 +347,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 					"https://radiant-inferno-3243.firebaseio.com/Users/" +
 					id + "/friends/" + eUser.uID );
 				fFriend.set( null, onComplete );
+			} else {
+				return false;
 			}
 		};
 	
@@ -361,6 +371,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 				this.databaseLoading();
 				fRequested.set( null );
 				uRequest.set( null, onComplete );
+			} else {
+				return false;
 			}
 		};
 
@@ -398,6 +410,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 					}
 					$ionicLoading.hide();
 				} );
+			} else {
+				return false;
 			}
 		};
 	
@@ -425,6 +439,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 						}
 					}
 				}
+			} else {
+				return false;
 			}
 		};
 	
@@ -454,6 +470,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 				}, function( errorObject ) {
 					console.log( "Failed to access" + ref );
 				} );
+			} else {
+				return false;
 			}
 		};
 	
@@ -499,6 +517,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 				}, function( errorObject ) {
 					$rootScope.goToState( "warning" );
 				} );
+			} else {
+				return false;
 			}
 		};
 	
@@ -527,6 +547,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 				} else {
 					uLocal.set( null, onComplete );
 				}
+			} else {
+				return false;
 			}
 		};
 	
@@ -565,6 +587,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 				}, function( errorObject ) {
 					console.log( "Failed to access" + ref );
 				} );
+			} else {
+				return false;
 			}
 		};
 
@@ -589,6 +613,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 				}, function( errorObject ) {
 					console.log( "Failed to access" + ref );
 				} );
+			} else {
+				return false;
 			}
 		};
 		
@@ -649,6 +675,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 					this.updateEventHelper( event1 );
 					this.updateEventHelper( event2 );
 				}
+			} else {
+				return false;
 			}
 		};
 		
@@ -664,6 +692,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 				// loading
 				this.databaseLoading();
 				todo.set( angular.copy(eTodo.tChecklist), onComplete );
+			} else {
+				return false;
 			}
 		};
 	}
