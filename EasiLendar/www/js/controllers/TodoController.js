@@ -1,15 +1,15 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 01/05/2015
+ * last update: 03/05/2015
  * type: todo controller
  */
 
 angular.module('MainApp.controllers.todo', [])
 
-.controller("TodoController", function($scope, $rootScope, $ionicPopup, $ionicModal, $ionicActionSheet, eTodo, eToast, eDatabase) {
+.controller("TodoController", function($scope, $rootScope, $ionicPopup, $ionicModal, $ionicActionSheet, eUser, eToast, eDatabase) {
 	// inject services
-	$scope.eTodo = eTodo;
+	$scope.eUser = eUser;
 	$scope.eDatabase = eDatabase;
 
 	// initialize variable
@@ -19,7 +19,7 @@ angular.module('MainApp.controllers.todo', [])
 		"false": "ion-android-radio-button-off",
 		"true": "ion-android-checkmark-circle"
 	};
-	$scope.orderChecklist = angular.copy(eTodo.tChecklist);
+	$scope.orderChecklist = angular.copy(eUser.uTodo);
 	$scope.viewList = null;
 	$scope.getTaskData = {};
 	$scope.getDoneChecklistData = [];
@@ -35,7 +35,7 @@ angular.module('MainApp.controllers.todo', [])
 	};
 
 	$scope.updateOrderChecklist = function() {
-		$scope.orderChecklist = angular.copy(eTodo.tChecklist);
+		$scope.orderChecklist = angular.copy(eUser.uTodo);
 	};
 
 	$scope.checkImportantList = function(checklist) {
@@ -47,7 +47,7 @@ angular.module('MainApp.controllers.todo', [])
 		var countImportant = 0;
 		var countVeryImportant = 0;
 
-		eTodo.tChecklist.forEach(function(element, index) {
+		eUser.uTodo.forEach(function(element, index) {
 			if (!element.done) {
 				element.list.forEach(function(elementIn, indexIn) {
 					if (!elementIn.done) {
@@ -88,7 +88,7 @@ angular.module('MainApp.controllers.todo', [])
 		var getVeryImportant = [];
 		var getDoneList = [];
 
-		eTodo.tChecklist.forEach(function(element, index) {
+		eUser.uTodo.forEach(function(element, index) {
 			if (!element.done) {
 				element.list.forEach(function(elementIn, indexIn) {
 					if (!elementIn.done) {
@@ -135,7 +135,7 @@ angular.module('MainApp.controllers.todo', [])
 	$scope.getDoneChecklist = function() {
 		var getChecklist = [];
 
-		eTodo.tChecklist.forEach(function(element, index) {
+		eUser.uTodo.forEach(function(element, index) {
 			if (element.done) {
 				getChecklist.push({
 					checklist: element,
@@ -156,7 +156,7 @@ angular.module('MainApp.controllers.todo', [])
 
 		confirmPopup.then(function(res) {
 			if (res) {
-				eTodo.tChecklist.splice($scope.findIndexOf(checklist), 1);
+				eUser.uTodo.splice($scope.findIndexOf(checklist), 1);
 				$scope.makeChangeTodoList();
 			} else {
 				// cancel
@@ -165,7 +165,7 @@ angular.module('MainApp.controllers.todo', [])
 	};
 
 	$scope.deleteChecklistWithoutConfirm = function(checklist) {
-		eTodo.tChecklist.splice($scope.findIndexOf(checklist), 1);
+		eUser.uTodo.splice($scope.findIndexOf(checklist), 1);
 		$scope.makeChangeTodoList();
 	};
 
@@ -178,7 +178,7 @@ angular.module('MainApp.controllers.todo', [])
 
 		confirmPopup.then(function(res) {
 			if (res) {
-				eTodo.tChecklist.splice(index, 1);
+				eUser.uTodo.splice(index, 1);
 				$scope.makeChangeTodoList();
 			} else {
 				// cancel
@@ -187,7 +187,7 @@ angular.module('MainApp.controllers.todo', [])
 	};
 
 	$scope.deleteChecklistWithoutConfirmDirectly = function(index) {
-		eTodo.tChecklist.splice(index, 1);
+		eUser.uTodo.splice(index, 1);
 		$scope.makeChangeTodoList();
 	};
 
@@ -196,7 +196,7 @@ angular.module('MainApp.controllers.todo', [])
 	};
 
 	$scope.editChecklist = function(checklist) {
-		$scope.data.newName = eTodo.tChecklist[$scope.findIndexOf(checklist)].listName;
+		$scope.data.newName = eUser.uTodo[$scope.findIndexOf(checklist)].listName;
 
 		var editPopup = $ionicPopup.show({
 			template: '<input type="text" style="padding-left: 5px" ng-model="data.newName" placeholder="Enter a new name">',
@@ -216,7 +216,7 @@ angular.module('MainApp.controllers.todo', [])
 					if ($scope.data.newName == "" || $scope.data.newName == undefined) {
 						e.preventDefault();
 					} else {
-						eTodo.tChecklist[$scope.findIndexOf(checklist)].listName = $scope.data.newName;
+						eUser.uTodo[$scope.findIndexOf(checklist)].listName = $scope.data.newName;
 						$scope.makeChangeTodoList();
 						$scope.data = {};
 					}
@@ -226,7 +226,7 @@ angular.module('MainApp.controllers.todo', [])
 	};
 
 	$scope.editChecklistDirectly = function(index) {
-		$scope.data.newName = eTodo.tChecklist[index].listName;
+		$scope.data.newName = eUser.uTodo[index].listName;
 
 		var editPopup = $ionicPopup.show({
 			template: '<input type="text" style="padding-left: 5px" ng-model="data.newName" placeholder="Enter a new name">',
@@ -246,7 +246,7 @@ angular.module('MainApp.controllers.todo', [])
 					if ($scope.data.newName == "" || $scope.data.newName == undefined) {
 						e.preventDefault();
 					} else {
-						eTodo.tChecklist[index].listName = $scope.data.newName;
+						eUser.uTodo[index].listName = $scope.data.newName;
 						$scope.makeChangeTodoList();
 						$scope.data = {};
 					}
@@ -271,14 +271,14 @@ angular.module('MainApp.controllers.todo', [])
 	$scope.createTask = function() {
 		if ($scope.data.newTitle != "" && $scope.data.newTitle != undefined && $scope.data.newTitle != null) {
 			if ($scope.data.newDescrip != "" && $scope.data.newDescrip != undefined && $scope.data.newDescrip != null) {
-				eTodo.tChecklist[$scope.viewList].list.push({
+				eUser.uTodo[$scope.viewList].list.push({
 					title: $scope.data.newTitle,
 					description: $scope.data.newDescrip,
 					important: $scope.data.important,
 					done: false,
 				});
 			} else {
-				eTodo.tChecklist[$scope.viewList].list.push({
+				eUser.uTodo[$scope.viewList].list.push({
 					title: $scope.data.newTitle,
 					description: null,
 					important: $scope.data.important,
@@ -286,7 +286,7 @@ angular.module('MainApp.controllers.todo', [])
 				});
 			}
 
-			$scope.unreduceUndoneTask(eTodo.tChecklist[$scope.viewList]);
+			$scope.unreduceUndoneTask(eUser.uTodo[$scope.viewList]);
 
 			$scope.resetCreate();
 			$scope.makeChangeTodoList();
@@ -327,7 +327,7 @@ angular.module('MainApp.controllers.todo', [])
 					}];
 					$scope.data.done = false;
 
-					eTodo.tChecklist.push($scope.data);
+					eUser.uTodo.push($scope.data);
 					$scope.makeChangeTodoList();
 					$scope.data = {};
 				}
@@ -361,7 +361,7 @@ angular.module('MainApp.controllers.todo', [])
 				if (task.done == false) {
 					$scope.reduceUndoneTask(checklist);
 				}
-				//eTodo.tChecklist[eTodo.tChecklist.indexOf(checklist)].list.splice(eTodo.tChecklist[eTodo.tChecklist.indexOf(checklist)].list.indexOf(item), 1);
+				//eUser.uTodo[eUser.uTodo.indexOf(checklist)].list.splice(eUser.uTodo[eUser.uTodo.indexOf(checklist)].list.indexOf(item), 1);
 				$scope.makeChangeTodoList();
 			} else {
 				// cancel
@@ -375,7 +375,7 @@ angular.module('MainApp.controllers.todo', [])
 		if (task.done == false) {
 			$scope.reduceUndoneTask(checklist);
 		}
-		//eTodo.tChecklist[eTodo.tChecklist.indexOf(checklist)].list.splice(eTodo.tChecklist[eTodo.tChecklist.indexOf(checklist)].list.indexOf(item), 1);
+		//eUser.uTodo[eUser.uTodo.indexOf(checklist)].list.splice(eUser.uTodo[eUser.uTodo.indexOf(checklist)].list.indexOf(item), 1);
 		$scope.makeChangeTodoList();
 	};
 
@@ -412,11 +412,11 @@ angular.module('MainApp.controllers.todo', [])
 			}, {
 				text: 'Save',
 				onTap: function(e) {
-					eTodo.tChecklist[parseInt($scope.data.moveTo)].list.push(task);
+					eUser.uTodo[parseInt($scope.data.moveTo)].list.push(task);
 					$scope.deleteTaskFromChecklistWithoutConfirm(task, checklist);
 					if (task.done == false) {
 						$scope.reduceUndoneTask(checklist);
-						$scope.unreduceUndoneTask(eTodo.tChecklist[parseInt($scope.data.moveTo)]);
+						$scope.unreduceUndoneTask(eUser.uTodo[parseInt($scope.data.moveTo)]);
 					}
 					$scope.makeChangeTodoList();
 					eToast.toastSuccess('Move successfully!', 3000);
@@ -443,9 +443,9 @@ angular.module('MainApp.controllers.todo', [])
 			}, {
 				text: 'Save',
 				onTap: function(e) {
-					eTodo.tChecklist[parseInt($scope.data.moveTo)].list.push(angular.copy(task));
+					eUser.uTodo[parseInt($scope.data.moveTo)].list.push(angular.copy(task));
 					if (task.done == false) {
-						$scope.unreduceUndoneTask(eTodo.tChecklist[parseInt($scope.data.moveTo)]);
+						$scope.unreduceUndoneTask(eUser.uTodo[parseInt($scope.data.moveTo)]);
 					}
 					$scope.makeChangeTodoList();
 					eToast.toastSuccess('Copy successfully!', 3000);
@@ -494,8 +494,8 @@ angular.module('MainApp.controllers.todo', [])
 
 	$scope.moveItem = function(task, fromIndex, toIndex) {
 		console.log(task, fromIndex, toIndex);
-		eTodo.tChecklist[$scope.viewList].list.splice(fromIndex, 1);
-		eTodo.tChecklist[$scope.viewList].list.splice(toIndex, 0, task);
+		eUser.uTodo[$scope.viewList].list.splice(fromIndex, 1);
+		eUser.uTodo[$scope.viewList].list.splice(toIndex, 0, task);
 	};
 
 	$scope.isShowAttach = function(task) {
@@ -942,7 +942,7 @@ angular.module('MainApp.controllers.todo', [])
 				text: '<span class="easi-red">Delete</span>'
 			}],
 			destructiveText: '<span class="easi-red"><b>Close</b><span>',
-			titleText: '<h3 class="easi-gray">' + eTodo.tChecklist[$scope.viewList].listName + '</h3>',
+			titleText: '<h3 class="easi-gray">' + eUser.uTodo[$scope.viewList].listName + '</h3>',
 			cancelText: '<span class="easi-gray">Cancel<span>',
 			cancel: function() {
 				// TODO cancel code here

@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Can Duy Cat
-	 last update: 01/05/2015
+	 last update: 03/05/2015
 	 type: todo state template-->
 
 <ion-view title="Todo">
@@ -43,16 +43,16 @@
 			<ion-item ng-repeat="checklist in orderChecklist | orderBy: ['done', '-important']"
 			class="item item-icon-left item-icon-right easi-gray todo-item"
 			on-hold="editChecklist(checklist)">
-				<i class="icon {{todoButton[eTodo.tChecklist[findIndexOf(checklist)].done]}} easi-dark-blue"
+				<i class="icon {{todoButton[eUser.uTodo[findIndexOf(checklist)].done]}} easi-dark-blue"
 				ng-click="showChecklistModal(checklist)"></i>
 
 				<h2 class="easi-gray"
 				ng-click="showChecklistModal(checklist)">
-					{{eTodo.tChecklist[findIndexOf(checklist)].listName}}
+					{{eUser.uTodo[findIndexOf(checklist)].listName}}
 				</h2>
 
-				<button class="button button-icon icon {{todoIcon[eTodo.tChecklist[findIndexOf(checklist)].important]}} easi-vip-color"
-				ng-click="checkImportantList(eTodo.tChecklist[findIndexOf(checklist)])"></button>
+				<button class="button button-icon icon {{todoIcon[eUser.uTodo[findIndexOf(checklist)].important]}} easi-vip-color"
+				ng-click="checkImportantList(eUser.uTodo[findIndexOf(checklist)])"></button>
 
 				<ion-delete-button class="ion-ios-minus easi-red"
 				ng-click="deleteChecklistWithoutConfirm(checklist)">
@@ -505,11 +505,11 @@
 
 					<h2 class="easi-gray"
 					ng-click="showChecklistModalIndex(checklist.index); hideDoneListModal();">
-						{{eTodo.tChecklist[checklist.index].listName}}
+						{{eUser.uTodo[checklist.index].listName}}
 					</h2>
 
-					<button class="button button-icon icon {{todoIcon[eTodo.tChecklist[checklist.index].important]}} easi-vip-color"
-					ng-click="checkImportantList(eTodo.tChecklist[checklist.index])"></button>
+					<button class="button button-icon icon {{todoIcon[eUser.uTodo[checklist.index].important]}} easi-vip-color"
+					ng-click="checkImportantList(eUser.uTodo[checklist.index])"></button>
 
 					<ion-delete-button class="ion-ios-minus easi-red"
 					ng-click="deleteChecklistWithoutConfirmDirectly(checklist.index)">
@@ -560,7 +560,7 @@
 				ng-click="reorderClick()"></button>
 			</div>
 
-			<p class="easi-title easi-index-1">{{eTodo.tChecklist[viewList].listName}}</p>
+			<p class="easi-title easi-index-1">{{eUser.uTodo[viewList].listName}}</p>
 			<p class="easi-center easi-light-gray easi-index-1 todo-subtitle">
 				Swipe down to close
 			</p>
@@ -614,14 +614,14 @@
 			<ion-list class="todo-task-list"
 			show-delete="shouldShowDelete"
 			show-reorder="shouldShowReorder">
-				<div ng-repeat="task in eTodo.tChecklist[viewList].list">
+				<div ng-repeat="task in eUser.uTodo[viewList].list">
 					<ion-item class="item item-icon-left item-icon-right easi-gray todo-item"
-					on-hold="deleteTaskFromChecklist(task, eTodo.tChecklist[viewList])">
+					on-hold="deleteTaskFromChecklist(task, eUser.uTodo[viewList])">
 						<i class="icon ion-paperclip easi-index-1 todo-attach" ng-show="isShowAttach(task)"></i>
 						<i class="icon ion-android-time easi-index-1 todo-clock" ng-show="isShowClock(task)"></i>
 
 						<button class="button button-icon icon {{todoButton[task.done]}} easi-dark-blue easi-index-2 todo-up-item-2line"
-						ng-click="checkDoneTask(task, eTodo.tChecklist[viewList])"></button>
+						ng-click="checkDoneTask(task, eUser.uTodo[viewList])"></button>
 
 						<h2 class="easi-gray easi-up easi-index-2"
 						ng-click="clickShow($index)">
@@ -629,38 +629,38 @@
 						</h2>
 						<p class="easi-index-2 todo-checklist-name-expand"
 						ng-click="clickShow($index)">
-							{{eTodo.tChecklist[viewList].listName}}
+							{{eUser.uTodo[viewList].listName}}
 						</p>
 
 						<button class="button button-icon icon {{todoIcon[task.important]}} easi-vip-color easi-index-2 todo-up-item-2line"
-						ng-click="checkImportantTask(task, eTodo.tChecklist[viewList])"></button>
+						ng-click="checkImportantTask(task, eUser.uTodo[viewList])"></button>
 
 						<ion-delete-button class="ion-ios-minus easi-red"
-						ng-click="deleteTaskFromChecklistWithoutConfirm(task, eTodo.tChecklist[viewList])">
+						ng-click="deleteTaskFromChecklistWithoutConfirm(task, eUser.uTodo[viewList])">
 						</ion-delete-button>
 
 						<ion-option-button class="button button-icon easi-back-white todo-option-checklist"
-						ng-click="editTaskTime(task, eTodo.tChecklist[viewList])">
+						ng-click="editTaskTime(task, eUser.uTodo[viewList])">
 							<i class="icon ion-android-time easi-dark-blue"></i>
 						</ion-option-button>
 
 						<ion-option-button class="button button-icon easi-back-white todo-option-checklist"
-						ng-click="editTaskCut(task, eTodo.tChecklist[viewList])">
+						ng-click="editTaskCut(task, eUser.uTodo[viewList])">
 							<i class="icon ion-scissors easi-dark-blue"></i>
 						</ion-option-button>
 
 						<ion-option-button class="button button-icon easi-back-white todo-option-checklist"
-						ng-click="editTaskCopy(task, eTodo.tChecklist[viewList])">
+						ng-click="editTaskCopy(task, eUser.uTodo[viewList])">
 							<i class="icon ion-ios-copy easi-dark-blue"></i>
 						</ion-option-button>
 
 						<ion-option-button class="button button-icon easi-back-white todo-option-checklist"
-						ng-click="editTaskDetail(task, eTodo.tChecklist[viewList])">
+						ng-click="editTaskDetail(task, eUser.uTodo[viewList])">
 							<i class="icon ion-ios-compose easi-dark-blue"></i>
 						</ion-option-button>
 
 						<ion-option-button class="button button-icon easi-back-white todo-option-checklist"
-						ng-click="deleteTaskFromChecklist(task, eTodo.tChecklist[viewList])">
+						ng-click="deleteTaskFromChecklist(task, eUser.uTodo[viewList])">
 							<i class="icon ion-android-delete easi-red"></i>
 						</ion-option-button>
 

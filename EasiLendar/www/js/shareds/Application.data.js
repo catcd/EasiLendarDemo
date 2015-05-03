@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 01/05/2015
+ * last update: 03/05/2015
  * type: module all shared variables used for this app
  */
 
@@ -108,7 +108,7 @@ angular.module('MainApp.shareds.data', [])
 
 // User information
 // Nguyen Minh Trang
-.factory('eUser', function(){
+.factory('eUser', function(eTodo){
 	return {
 		uID: '',			/*4-15 characters (A-Z, a-z, 0-9, _), unique*/
 		uName: '',			/*UTF-8*/
@@ -119,6 +119,7 @@ angular.module('MainApp.shareds.data', [])
 		uFriend: [],		/*array of objects { id, name }*/
 		uVIP : false,
 		isLogin: false,
+		uTodo: null,
 
 		uRequested: {},
 
@@ -142,6 +143,7 @@ angular.module('MainApp.shareds.data', [])
 			this.uFriend = [];
 			this.uVIP  = false;
 			this.isLogin = false;
+			this.uTodo= null;
 
 			this.uRequested = {};
 
@@ -332,84 +334,74 @@ angular.module('MainApp.shareds.data', [])
 		}, {
 			listName: "Today Checklist",
 			list: [{
-				title: "Learn Discreted Mathematic",
+				title: "First today task",
 				description: null,
-				important: 2,
+				important: 0,
 				done: false,
 			},{
-				title: "Learn Software Engineering",
+				title: "Fist today done task",
 				description: null,
-				important: 2,
+				important: 0,
 				done: true,
 			},{
-				title: "Learn Computer Networks",
-				description: null,
-				important: 1,
-				done: false,
-			},{
-				title: "Learn Philosophy",
+				title: "Second today task",
 				description: null,
 				important: 0,
 				done: false,
 			},{
-				title: "Learn Operating System Concepts",
+				title: "Today important task",
 				description: null,
 				important: 1,
 				done: false,
 			},{
-				title: "Learn Marketing Concepts",
-				description: "309 GD2",
-				important: 0,
+				title: "A Very important task",
+				description: null,
+				important: 2,
 				done: false,
 			},{
-				title: "Learn Basket Ball",
-				description: null,
+				title: "Task with description",
+				description: "Description here",
 				important: 0,
 				done: false,
 			},],
 			important: 2,
-			undone: 6,
+			undone: 5,
 			done: false,
 		}, {
-			listName: "Tomorow Checklist",
+			listName: "Tomorrow Checklist",
 			list: [{
-				title: "Learn Discreted Mathematic",
-				description: null,
-				important: 2,
-				done: false,
-			},{
-				title: "Learn Software Engineering",
-				description: null,
-				important: 2,
-				done: false,
-			},{
-				title: "Learn Computer Networks",
-				description: null,
-				important: 1,
-				done: false,
-			},{
-				title: "Learn Philosophy",
+				title: "First tomorrow task",
 				description: null,
 				important: 0,
 				done: false,
 			},{
-				title: "Learn Operating System Concepts",
+				title: "Fist tomorrow done task",
+				description: null,
+				important: 0,
+				done: true,
+			},{
+				title: "Second tomorrow task",
+				description: null,
+				important: 0,
+				done: false,
+			},{
+				title: "Tomorrow important task",
 				description: null,
 				important: 1,
 				done: false,
 			},{
-				title: "Learn Marketing Concepts",
-				description: "309 GD2",
-				important: 0,
+				title: "A Very important task",
+				description: null,
+				important: 2,
 				done: false,
 			},{
-				title: "Learn Basket Ball",
-				description: null,
+				title: "Task with description",
+				description: "Description here",
 				important: 0,
 				done: false,
 			},],
 			important: 1,
-			undone: 7,
+			undone: 5,
 			done: false,
 		}, ],
 
