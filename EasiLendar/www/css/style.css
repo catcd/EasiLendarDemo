@@ -1,7 +1,7 @@
 /**
 * starter: Nguyen Minh Trang
 * owner: Can Duy Cat
-* last update: 30/04/2015
+* last update: 04/05/2015
 * type: general css
 *
 * My app's style
@@ -37,6 +37,15 @@ html { height: 100%; width: 100%; }
 	font-size: 18px;
 }
 .popup-buttons .button:hover { background-color: #646464; }
+
+/* easi animate */
+.easi-toggle-normal, .easi-fade-normal { overflow: hidden; transition: .5s linear all; }
+.easi-toggle-fast, .easi-fade-fast { overflow: hidden; transition: .2s linear all; }
+.easi-toggle-slow, .easi-fade-slow { overflow: hidden; transition: 1.0s linear all; }
+
+.easi-toggle-fast.ng-hide, .easi-toggle-normal.ng-hide, .easi-toggle-slow.ng-hide { height: 0; }
+.easi-fade-fast.ng-hide, .easi-fade-normal.ng-hide, .easi-fade-slow.ng-hide { opacity: 0; }
+
 
 /* calendar style */
 .easi-jan-bkg { background: url("../img/bkg_01_jan.jpg"); }
