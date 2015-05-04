@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Can Duy Cat
-	 last update: 03/05/2015
+	 last update: 05/05/2015
 	 type: todo state template-->
 
 <ion-view title="Todo">
@@ -574,7 +574,8 @@
 		ng-click="initializeDataCreate(); createClick();">
 			<label class="item item-input todo-create-title-input">
 				<span class="input-label">Create new task</span>
-				<input class="todo-input" type="text" placeholder="Title" ng-model="data.newTitle">
+				<input class="todo-input" type="text" placeholder="Title"
+				ng-model="data.newTitle">
 			</label>
 		</ion-header-bar>
 
@@ -616,11 +617,14 @@
 			show-reorder="shouldShowReorder">
 				<div ng-repeat="task in eUser.uTodo[viewList].list">
 					<ion-item class="item item-icon-left item-icon-right easi-gray todo-item"
-					on-hold="deleteTaskFromChecklist(task, eUser.uTodo[viewList])">
-						<i class="icon ion-paperclip easi-index-1 todo-attach" ng-show="isShowAttach(task)"></i>
-						<i class="icon ion-android-time easi-index-1 todo-clock" ng-show="isShowClock(task)"></i>
+					on-hold="editTaskDetail(task, eUser.uTodo[viewList])">
+						<i class="icon ion-paperclip easi-index-1 todo-attach"
+						ng-show="isShowAttach(task)"></i>
+						<i class="icon ion-android-time easi-index-1 todo-clock"
+						ng-show="isShowClock(task)"></i>
 
-						<button class="button button-icon icon {{todoButton[task.done]}} easi-dark-blue easi-index-2 todo-up-item-2line"
+						<button class="button button-icon icon {{todoButton[task.done]}}
+						easi-dark-blue easi-index-2 todo-up-item-2line"
 						ng-click="checkDoneTask(task, eUser.uTodo[viewList])"></button>
 
 						<h2 class="easi-gray easi-up easi-index-2"
