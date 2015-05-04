@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 26/04/2015
+ * last update: 04/05/2015
  * type: paticular controller
  */
 
@@ -102,6 +102,8 @@ angular.module('MainApp.controllers.searchFilter', [])
 		}
 
 		$scope.mShow = false;
+		$scope.showDay = true;
+		$scope.showTime = false;
 		$scope.titleOfButton = 'ADVANCE FILTER';
 		$scope.cancelMeeting();
 
@@ -204,25 +206,6 @@ angular.module('MainApp.controllers.searchFilter', [])
 			});
 		}
 	};
-})
-
-.directive('slideToggle', function() {  
-  return {
-	restrict: 'A',      
-	scope:{
-	  isOpen: "=slideToggle"
-	},  
-	link: function(scope, element, attr) {
-		if(element.attr('class') !== 'hide-div'){ 
-			element.hide();
-		}
-		scope.$watch('isOpen', function(newVal,oldVal){
-			if(newVal !== oldVal){ 
-			  element.stop().slideToggle("slow");
-			}
-		});
-	}
-  };  
 })
 
 .directive('changeIcon',function(){

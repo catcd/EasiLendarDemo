@@ -143,24 +143,6 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	};
 })
 
-.directive('toggle', function() {
-	return {
-		restrict: 'A',
-		scope: {
-			isOpen: "=toggle"
-		},
-		link: function(scope, element, attr) {
-			element.hide();
-			var i = 0;
-			scope.$watch('isOpen', function(newVal, oldVal) {
-				if (newVal != oldVal) {
-					element.stop().slideToggle(200);
-				}
-			});
-		}
-	};
-})
-
 .directive('opacitySearchInput', function() {
 	return {
 		restrict: 'A',

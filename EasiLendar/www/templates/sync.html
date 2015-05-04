@@ -18,8 +18,8 @@
 					<i class="sync-icon-{{app.name}} {{(app.name == 'google') ? 'ion-social-google-outline':'ion-android-phone-portrait'}}" data-ng-show="apps.title == 'calendar'"></i>
 					<div class="sync-div-title-{{app.name}}">{{app.name.charAt(0).toUpperCase() + app.name.substr(1,app.name.length-1)}} {{(app.name == 'facebook')?'':'Calendar'}}</div>
 				</div>
-				<div class="sync-div-options" toggle="visible.value">
-					<div id="sync-{{option.id}}" class="sync-{{option.id}}-{{app.name}}" data-ng-repeat="option in app.options" data-ng-click="handleOptions(app.name,option.id)" >
+				<div class="sync-div-options-{{app.name}} easi-toggle-fast" data-ng-show="visible.value">
+					<div id="sync-{{option.id}}" class="sync-{{option.id}}-{{app.name}}" data-ng-repeat="option in app.options" data-ng-click="handleOptions(app.name,option.id)">
 					<i class="sync-icon-{{option.id}} {{(option.name == 'Update events') ? 'ion-loop':'ion-reply'}}"></i>
 					{{option.name}}
 					</div>

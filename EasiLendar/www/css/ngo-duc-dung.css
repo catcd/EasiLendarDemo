@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 03/05/2015
+ * last update: 04/05/2015
  * type: personal css
  */
 
@@ -30,7 +30,7 @@
 }
 .friend-myAvatar01 h2 {
 	margin: 20px auto auto 63px;
-	height: 32px
+	height: 32px;
 	font-size: 15px;
 	font-weight: normal;
 	overflow: hidden;
@@ -43,7 +43,13 @@
 	padding-top: 1px;
 }
 #friend-ribbon-b { height: 50px; margin-top: 5px;}
-.friend-div02 { text-align: right; font-size: 14px; height: 23px; margin-bottom: 2px;}
+.friend-div02 {
+	margin: auto auto 3px auto;
+	padding-top: 7px;
+	height: 30px;
+	text-align: right;
+	font-size: 14px;
+}
 .friend-div02 button { background-color: #646464; color:#E6E6E6; padding-top: 0;}
 .friend-footer-panel {background-color: transparent;} 
 .friend-search-input-focus { opacity: 1;}
@@ -66,23 +72,23 @@
 	margin-left: 1px;
 }
 .friend-sort-icon { font-size: 18px;}
-.friend-sort-option-div .first{ border-right: 1px solid #E6E6E6;}
-.friend-sort-option-div .last{ border-left: 1px solid #E6E6E6; }
+.friend-sort-option-div .first { border-right: 1px solid #E6E6E6;}
+.friend-sort-option-div .last { border-left: 1px solid #E6E6E6; }
 
 /* SEARCHING FILTER */
 
 /* Person name filter */
-.search-filter-content { margin: 70px auto auto auto; z-index: -1;}
-.search-filter-meet-friends{ border-bottom: 1px solid #E6E6E6; margin: 50px 15px auto 15px; height: 25px;}
-.search-filter-name-friends{
+.search-filter-content { margin: 60px auto auto auto; z-index: -1;}
+.search-filter-meet-friends { border-bottom: 1px solid #E6E6E6; margin: 50px 15px auto 15px; height: 25px;}
+.search-filter-name-friends {
 	display: inline-block;
 	font-weight: bolder;
 	font-style: italic;
 	margin-top: -10px auto 5px 5px;
 }
-.search-filter-name-friends{ font-size: 15px; color: #33CCCC;}
+.search-filter-name-friends { font-size: 15px; color: #33CCCC;}
 .search-filter-button-delete { font-size: 12px; color: #33CCCC;}
-.search-filter-div-person { margin: 3px 20px auto 15px;}
+.search-filter-div-person { margin: 3px 15px auto 15px;}
 .search-filter-list-persons {
 	border-left: 1px solid #E6E6E6;
 	border-right: 1px solid #E6E6E6;
@@ -129,8 +135,10 @@
 	font-size: 12.5px;
 	margin-left: -5px;
 }
+.search-filter-duration-hour { height: 67px;}
 .search-filter-duration-day input[type="checkbox"]{ margin: 3px auto 10px auto; width: 18px; height: 18px;}
 .search-filter-duration-day span{ font-size: 12.5px; color: #646464;}
+.search-filter-div-duration {height: 50px;}
 #search-filter-table-time { width: 90%; margin-left: 9px; margin-top: -10px;}
 #search-filter-td-text { width: 30%; color: #646464;}
 #search-filter-td-time { height: 20px;}
@@ -146,6 +154,7 @@
 	width: 100%;
 	height: 25px;
 }
+.search-filter-advance { height: 375px;}
 #search-filter-button-advance {
 	background-color: #416969;
 	border: 0;
@@ -157,6 +166,7 @@
 	height: 25px;
 }
 #search-filter-icon-advance { margin-left: 5px;}
+#search-filter-itemToDay { border-bottom: 0;}
 /*segment button*/
 .search-filter-segmented-button {
 	border: 0;
@@ -177,7 +187,7 @@
 	padding-bottom: 3px;
 	vertical-align: middle;
 }
-.search-filter-segmented-button label.first { 
+.search-filter-segmented-button label.first {
 	border-right: 1px solid #E6E6E6; 
 	text-align: center; 
 	width: 69px; 
@@ -349,12 +359,7 @@
 .month-p-list{ padding-top: 20px;}
 
 /* MONTH CALENDAR VER 2 */
-.month-calendar-2 {
-	z-index: 1;
-	position: relative;
-	max-width: 500px;
-	height: 4.5vh;
-}
+.month-calendar-2 { z-index: 1; position: relative; max-width: 500px; height: 4.5vh;}
 .month-button-previous-2 { padding-right: 0.3vw;}
 .month-button-next-2 { padding-left: 0.3vw;}
 .month-title-calendar-2 { padding-top: 1vh; font-size: 3.8vh;}
@@ -368,7 +373,7 @@
 }
 .month-table-calendar-2, .month-table-days-in-week { max-width: 500px; width: 100%; background-color: #fff;}
 .month-td-calendar-2, .month-td-days-in-week { border: 1px solid #E6E6E6; border-left: 0; width: 14%;}
-.month-td-calendar-2 { border-top: 0; max-width: 20px; height: 13.1vh;}
+.month-td-calendar-2 { border-top: 0; max-width: 20px; height: calc( (91.5vh - 10px - 45px)/6 );}
 .month-td-days-in-week {
 	border-top: 0;
 	border-bottom: 1px solid #E6E6E6;
@@ -423,7 +428,8 @@
 .sync-div-title-facebook, .sync-div-title-local, .sync-div-title-google { margin: -26px auto auto 45px; font-size: 16px; color: #646464;}
 .sync-div-name .sync-div-title-google { margin-top: -26px;}
 .sync-icon-facebook, .sync-icon-local, .sync-icon-google { margin-left: 20px; font-size: 24px;}
-.sync-div-options { margin: auto -12px 5px -12px;}
+.sync-div-options-facebook, .sync-div-options-google, .sync-div-options-local { margin: auto -12px auto -4px; height: 66px;}
+.sync-div-options-local { height: 36px;}
 .sync-logout-facebook, .sync-logout-google, .sync-events-facebook, .sync-events-local, .sync-events-google {
 	margin: 5px 0 auto 0;
 	padding-left: 5px;

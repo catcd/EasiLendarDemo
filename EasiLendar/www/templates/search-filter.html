@@ -1,8 +1,9 @@
 <!-- 
 	starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 26/04/2015
+	 last update: 04/05/2015
 	 type: html -->
+	 
 <ion-view title="Search filter">
 	<ion-nav-buttons side="left">
 		<button class="button button-icon button-clear ion-chevron-left" data-ng-click="deleteValue(filter_form)"></button>
@@ -34,7 +35,7 @@
 					<div class="item item-input search-filter-input" id="search-filter-itemTitle">
 						<input id="search-filter-inputTitle" type="text" data-ng-model="eSearchFilter.mTitle" name="title" placeholder="Title" required>
 					</div>
-					<div class="hide-div" data-slide-toggle="showTime">
+					<div class="search-filter-duration-hour easi-toggle-fast" data-ng-hide="showTime">
 						<table><td>Duration:</td></table>
 						<div class="item item-input search-filter-input" id="search-filter-itemDuration">
 							<table id="search-filter-table-duration">
@@ -54,7 +55,7 @@
 					<div class="search-filter-duration-day">
 						<input type="checkbox" id="checkbox-time" value="true" data-ng-click="showDate()">
 						<label id="search-filter-td-title-searching">All days:</label>
-						<div data-slide-toggle="showDay">
+						<div class="search-filter-div-duration easi-toggle-fast" data-ng-hide="showDay">
 							<div class="item item-input search-filter-input">
 								<input id="search-filter-input01" type="number" name="day(s)" data-ng-model="eSearchFilter.mDuration" min="1" placeholder="1">
 								<span>day(s)</span>
@@ -68,7 +69,7 @@
 				</div>
 				<!--End: Commom Filter -->
 				<!-- START: Advance Filter -->
-				<div class="easi-space" data-slide-toggle="mShow">
+				<div class="search-filter-advance easi-space easi-toggle-fast" data-ng-show="mShow">
 					<div class="search-filter-advance">
 						<span id="search-filter-span02">Time:</span>
 						<!-- {{timeValues.mToTime | date: "HH:mm:ss"}} -->

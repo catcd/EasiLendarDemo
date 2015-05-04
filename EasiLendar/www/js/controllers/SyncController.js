@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 03/05/2015
+ * last update: 04/05/2015
  * type: paticular controller
  */
 
@@ -240,24 +240,6 @@ angular.module('MainApp.controllers.sync', [])
 				}
 
 				scope.$apply();
-			});
-		}
-	};
-})
-
-.directive('toggleSync', function() {
-	return {
-		restrict: 'A',
-		scope: {
-			isOpen: "=toggleSync"
-		},
-		link: function(scope, element, attr) {
-			element.hide();
-			var i = 0;
-			scope.$watch('isOpen', function(newVal, oldVal) {
-				if (newVal != oldVal) {
-					element.stop().slideToggle(200);
-				}
 			});
 		}
 	};
