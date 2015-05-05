@@ -192,7 +192,7 @@ input.coming-soon-input:-ms-input-placeholder { font-size: 12px; }
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 15px;
-	max-width: 500px;
+	max-width: 1440px;
 }
 .setting-divider { border-bottom: 0 !important; height: 25px; min-height: 25px; }
 .setting-divider-title { left: 5px; position: inherit; top: 5px; }
@@ -276,7 +276,7 @@ p.side-menu-split {
 	height: 275px;
 	margin-left: auto;
 	margin-right: auto;
-	max-width: 500px;
+	max-width: 1440px;
 }
 .todo-checklist-content {
 	border-left: 1px solid #E6E6E6;
@@ -284,7 +284,7 @@ p.side-menu-split {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 263px;
-	max-width: 500px;
+	max-width: 1440px;
 }
 .todo-item-list { }
 .todo-checklist-list { }
@@ -427,18 +427,18 @@ p.side-menu-split {
 .my-profile-head-information {
 	background-color: #98D2C3;
 	margin: auto;
-	max-width: 500px;
+	max-width: 1440px;
 	width: 100%;
 }
-.my-prrofile-container {
+.my-profile-container {
 	background-color: inherit;
 	height: 40vw;
 	margin: auto;
 	margin-top: 10px !important;
-	max-height: 200px;
+	max-height: 576px;
 	width: auto;
 }
-.my-prrofile-avatar-container {
+.my-profile-avatar-container {
 	background-color: inherit;
 	height: auto;
 	margin: auto;
@@ -449,12 +449,12 @@ p.side-menu-split {
 	border-radius: 100%;
 	color: #98D2C3;
 	display: block;
-	font-size: 20px;
-	height: 45px;
+	font-size: calc(6vw);
+	height: 30%;
 	opacity: 1;
-	padding-top: 8px;
+	padding-top: 5.5%;
 	position: absolute;
-	width: 45px;
+	width: 30%;
 }
 .my-profile-edit-button { bottom: 2%; right: 2%; }
 .my-profile-picture-button { left: 2%; top: 2%; }
@@ -464,10 +464,10 @@ p.side-menu-split {
 	display: block;
 	width: 100%;
 }
-.my-prifile-navbutton-left, .my-prifile-navbutton-right { position: absolute; top: 35%; }
-.my-prifile-navbutton-left:before, .my-prifile-navbutton-right:before { font-size: 70px !important; }
-.my-prifile-navbutton-left { left: 20%; }
-.my-prifile-navbutton-right { right: 20%; }
+.my-profile-navbutton-left, .my-profile-navbutton-right { position: absolute; top: 35%; }
+.my-profile-navbutton-left:before, .my-profile-navbutton-right:before { font-size: 70px !important; }
+.my-profile-navbutton-left { left: 20%; }
+.my-profile-navbutton-right { right: 20%; }
 .my-profile-name {
 	font-size: 25px !important;
 	height: 35px;
@@ -485,7 +485,7 @@ p.side-menu-split {
 .my-profile-tabs {
 	height: 40px;
 	margin: auto;
-	max-width: 500px;
+	max-width: 1440px;
 	padding: 0;
 	width: 100vw;
 }
@@ -512,13 +512,8 @@ p.side-menu-split {
 .my-profile-tab-4 label:hover { background-color: #F6F6F6; color: #416969; }
 .my-profile-tab [type=radio] { display: none; }
 [type=radio]:checked ~ label { background-color: #98D2C3; color: #416969; }
-.my-profile-overview-box, .my-profile-information-box, .my-profile-friends-box, .my-profile-more-box { margin: auto auto auto auto; max-width: 520px; min-height: calc(100vh - 40vw - 162px); }
-.my-profile-friend-card {
-	background-color: #F6F6F6;
-	margin: 10px;
-	max-width: 500px;
-	padding: 8px;
-}
+.my-profile-overview-box, .my-profile-information-box, .my-profile-friends-box, .my-profile-more-box { margin: auto auto auto auto; max-width: 1440px; min-height: calc(100vh - 40vw - 162px); }
+.my-profile-friend-card { background-color: #F6F6F6; margin: 10px; max-width: 1440px; }
 .my-profile-friend-card-content { background-color: #F6F6F6; }
 .my-profile-friend-avatar { border: 3px solid white; border-radius: 100%; }
 .my-profile-item-avatar, .my-profile-item-avatar .item-content {
@@ -540,3 +535,29 @@ p.side-menu-split {
 .my-profile-item-avatar > div > div > i { color: #D6D6D6; font-size: 25px; }
 .my-profile-item-avatar > button { position: absolute; right: 3px; top: 0; }
 
+/* Profile */
+.profile-content { }
+.profile-head-information {
+	background-color: #98D2C3;
+	height: auto;
+	margin: auto;
+	max-width: 1440px;
+	width: 100%;
+}
+.profile-avatar-container {
+	background-color: transparent;
+	height: auto;
+	margin: 15% 0 15px 5%;
+	width: 30%;
+}
+.profile-name, .profile-account-type, .profile-status { left: 36%; position: absolute; }
+.profile-name { bottom: 45px; font-size: 25px !important; }
+.profile-account-type { bottom: 25px; font-size: 16px !important; opacity: 0.7; }
+.profile-status { bottom: 25px; font-size: 16px !important; opacity: 0.7; }
+.profile-status > i { font-size: 25px !important; }
+.profile-status > p { display: inline-block; font-size: 18px !important; }
+.profile-bar { background-color: inherit !important; }
+.profile-buttons { position: absolute; right: 0; }
+.profile-second-content { margin-top: calc(45% + 55px); }
+.profile-calendar-box, .profile-information-box, .profile-friends-box, .profile-more-box { margin: auto auto auto auto; max-width: 1440px; min-height: calc(100vh - 45vw - 100px); }
+.profile-calendar-box { height: calc(100vh - 45vw - 100px); }
