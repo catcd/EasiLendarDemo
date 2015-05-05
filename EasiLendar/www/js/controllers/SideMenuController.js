@@ -1,14 +1,15 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 28/03/2015
+ * last update: 05/05/2015
  * type: side menu controller
  */
 
 angular.module('MainApp.controllers.sideMenu', ['MainApp.controllers.sideMenu.friendPanel'])
 
-.controller('sideMenuController', function($scope, $ionicSideMenuDelegate, eUser) {
+.controller('sideMenuController', function($scope, $ionicSideMenuDelegate, eUser, eDatabase) {
 	$scope.eUser = eUser;
+	$scope.eDatabase = eDatabase;
 
 	$scope.toggleLeft = function() {
 		$ionicSideMenuDelegate.toggleLeft();

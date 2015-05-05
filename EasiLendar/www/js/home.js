@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 30/03/2015
+ * last update: 04/05/2015
  * type: main js
  */
 angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds', 'ngCordova', 'toastr'])
@@ -77,11 +77,11 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds', 'n
 				templateUrl: 'templates/calendar-month.html',
 				controller: 'MonthController'
 			})
-			.state('week', {
+			.state('list', {
 				parent: 'home',
-				url: '/week',
-				templateUrl: 'templates/calendar-week.html',
-				controller: 'WeekController'
+				url: '/list',
+				templateUrl: 'templates/calendar-list.html',
+				controller: 'ListController'
 			})
 			.state('day', {
 				parent: 'home',
@@ -89,21 +89,15 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds', 'n
 				templateUrl: 'templates/calendar-day.html',
 				controller: 'DayController'
 			})
-			.state('list', {
+			.state('week', {
 				parent: 'home',
-				url: '/list',
-				templateUrl: 'templates/calendar-list.html',
-				controller: 'ListController'
+				url: '/week',
+				templateUrl: 'templates/calendar-week.html',
+				controller: 'WeekController'
 			})
 			/**
 			 * appMenu's children
 			 */
-			.state('myProfile', {
-				parent: 'appMenu',
-				url: '/my-profile',
-				templateUrl: 'templates/my-profile.html',
-				controller: 'MyProfileController'
-			})
 			.state('search', {
 				parent: 'appMenu',
 				url: '/search',
@@ -160,6 +154,12 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds', 'n
 				url: '/loading',
 				templateUrl: 'templates/loading.html',
 				controller: 'LoadingController'
+			})
+			.state('myProfile', {
+				parent: 'appNone',
+				url: '/my-profile',
+				templateUrl: 'templates/my-profile.html',
+				controller: 'MyProfileController'
 			})
 			.state('result', {
 				parent: 'appNone',
