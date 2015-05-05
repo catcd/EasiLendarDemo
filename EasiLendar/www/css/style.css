@@ -46,7 +46,6 @@ html { height: 100%; width: 100%; }
 .easi-toggle-fast.ng-hide, .easi-toggle-normal.ng-hide, .easi-toggle-slow.ng-hide { height: 0; }
 .easi-fade-fast.ng-hide, .easi-fade-normal.ng-hide, .easi-fade-slow.ng-hide { opacity: 0; }
 
-
 /* calendar style */
 .easi-jan-bkg { background: url("../img/bkg_01_jan.jpg"); }
 .easi-feb-bkg { background: url("../img/bkg_02_feb.jpg"); }

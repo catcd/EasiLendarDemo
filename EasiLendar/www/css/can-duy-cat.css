@@ -1,13 +1,14 @@
 /**
 * starter: Can Duy Cat
 * owner: Can Duy Cat
-* last update: 01/05/2015
+* last update: 05/05/2015
 * type: Can Duy Cat css
 */
 
 /**
 * coming soon
 */
+.ccb { border: 1px solid black !important; }
 .coming-soon-content {
 	display: inline-block;
 	font-size: 25px;
@@ -415,3 +416,127 @@ p.side-menu-split {
 	min-height: 50px;
 	width: 50%;
 }
+
+/**
+* My profile
+*/
+.my-profile-header { background-color: #98D2C3; height: 54px; }
+.my-profile-title { font-size: 25px !important; }
+.my-profile-content { }
+.my-profile-header-button:before { font-size: 40px !important; }
+.my-profile-head-information {
+	background-color: #98D2C3;
+	margin: auto;
+	max-width: 500px;
+	width: 100%;
+}
+.my-prrofile-container {
+	background-color: inherit;
+	height: 40vw;
+	margin: auto;
+	margin-top: 10px !important;
+	max-height: 200px;
+	width: auto;
+}
+.my-prrofile-avatar-container {
+	background-color: inherit;
+	height: auto;
+	margin: auto;
+	width: 40%;
+}
+.my-profile-edit-button, .my-profile-picture-button {
+	border: 3px solid #D8FFFF;
+	border-radius: 100%;
+	color: #98D2C3;
+	display: block;
+	font-size: 20px;
+	height: 45px;
+	opacity: 1;
+	padding-top: 8px;
+	position: absolute;
+	width: 45px;
+}
+.my-profile-edit-button { bottom: 2%; right: 2%; }
+.my-profile-picture-button { left: 2%; top: 2%; }
+.my-profile-avatar {
+	border: 6px solid #D8FFFF;
+	border-radius: 100%;
+	display: block;
+	width: 100%;
+}
+.my-prifile-navbutton-left, .my-prifile-navbutton-right { position: absolute; top: 35%; }
+.my-prifile-navbutton-left:before, .my-prifile-navbutton-right:before { font-size: 70px !important; }
+.my-prifile-navbutton-left { left: 20%; }
+.my-prifile-navbutton-right { right: 20%; }
+.my-profile-name {
+	font-size: 25px !important;
+	height: 35px;
+	padding: 3px;
+	width: 100%;
+}
+.my-profile-account-type {
+	font-size: 20px !important;
+	height: 30px;
+	opacity: 0.7;
+	width: 100%;
+}
+.my-profile-vip-icon { font-size: 30px !important; }
+.my-profile-second-content { margin-top: calc(40% + 118px); }
+.my-profile-tabs {
+	height: 40px;
+	margin: auto;
+	max-width: 500px;
+	padding: 0;
+	width: 100vw;
+}
+.my-profile-tab { float: left; width: 25%; }
+.my-profile-tab label {
+	display: block;
+	height: 40px;
+	padding-top: 10px;
+	width: 100%;
+}
+.my-profile-tab label:hover {
+	cursor: pointer;
+	display: block;
+	height: 40px;
+	padding-top: 10px;
+}
+.my-profile-tab-1 label { background-color: #7FBCAC; }
+.my-profile-tab-1 label:hover { background-color: #F6F6F6; color: #416969; }
+.my-profile-tab-2 label { background-color: #77B4A4; }
+.my-profile-tab-2 label:hover { background-color: #F6F6F6; color: #416969; }
+.my-profile-tab-3 label { background-color: #6CA999; }
+.my-profile-tab-3 label:hover { background-color: #F6F6F6; color: #416969; }
+.my-profile-tab-4 label { background-color: #5F9C8C; }
+.my-profile-tab-4 label:hover { background-color: #F6F6F6; color: #416969; }
+.my-profile-tab [type=radio] { display: none; }
+[type=radio]:checked ~ label { background-color: #98D2C3; color: #416969; }
+.my-profile-overview-box, .my-profile-information-box, .my-profile-friends-box, .my-profile-more-box { margin: auto auto auto auto; max-width: 520px; min-height: calc(100vh - 40vw - 162px); }
+.my-profile-friend-card {
+	background-color: #F6F6F6;
+	margin: 10px;
+	max-width: 500px;
+	padding: 8px;
+}
+.my-profile-friend-card-content { background-color: #F6F6F6; }
+.my-profile-friend-avatar { border: 3px solid white; border-radius: 100%; }
+.my-profile-item-avatar, .my-profile-item-avatar .item-content {
+	height: 90px;
+	min-height: 45px;
+	padding-left: 100px;
+	padding-top: 5px;
+}
+.my-profile-item-avatar > img:first-child {
+	height: 80px;
+	left: 5px;
+	min-height: 35px;
+	position: absolute;
+	top: 5px;
+}
+.my-profile-item-avatar > h2 { font-size: 22px; margin: 0px 30px 10px 0px; padding: 1px; }
+.my-profile-item-avatar > div { border-top: 1px solid #D6D6D6; }
+.my-profile-item-avatar > div > div { display: inline-block; padding-top: 10px; width: 30%; }
+.my-profile-item-avatar > div > div > i { color: #D6D6D6; font-size: 25px; }
+.my-profile-item-avatar > button { position: absolute; right: 3px; top: 0; }
+

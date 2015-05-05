@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 03/05/2015
+ * last update: 04/05/2015
  * type: module all shared variables used for this app
  */
 
@@ -111,23 +111,29 @@ angular.module('MainApp.shareds.data', [])
 .factory('eUser', function(eTodo){
 	return {
 		uID: '',			/*4-15 characters (A-Z, a-z, 0-9, _), unique*/
+
 		uName: '',			/*UTF-8*/
 		uAvatar: '0',
 		uEmail: '',			/*gmail*/
 		uPassword: '',		/*8-16 characters*/
+
+		uGender: null,		/*male or female*/
+		uBirthday: "",		/*ddmmyyyy*/
+		uPhone: "",
+		uAddress: "",
+
 		uRemember: false,	/*remember me*/
 		uFriend: [],		/*array of objects { id, name }*/
 		uVIP : false,
 		isLogin: false,
 		uTodo: null,
 
-		uRequested: {},
-
 		uGmailCalendar: null,	/*Google API JSON	Calendar*/
 		uLocalCalendar: null,	/*Google API JSON	Calendar*/
 		uFaceCalendar: null,	/*Google API JSON	Calendar*/
 		uOutlookCalendar: null,	/*Google API JSON	Calendar*/
 
+		uRequested: {},
 		uFRequest: {},	/*List of requests*/
 		uFAccepted: {},	/*List of requests accepted*/
 		uFRLength: 0,
@@ -135,23 +141,29 @@ angular.module('MainApp.shareds.data', [])
 
 		resetData: function(){
 			this.uID = '';
+
 			this.uName = '';
 			this.uAvatar = '0';
 			this.uEmail = '';
 			this.uPassword = '';
+
+			this.uGender = null;
+			this.uBirthday = "";
+			this.uPhone = "";
+			this.uAddress = "";
+
 			this.uRemember = false;
 			this.uFriend = [];
 			this.uVIP  = false;
 			this.isLogin = false;
 			this.uTodo= null;
 
-			this.uRequested = {};
-
 			this.uGmailCalendar = null;
 			this.uLocalCalendar = null;
 			this.uFaceCalendar = null;
 			this.uOutlookCalendar = null;
 
+			this.uRequested = {};
 			this.uFRequest = {};
 			this.uFAccepted = {};
 			this.uFRLength = 0;

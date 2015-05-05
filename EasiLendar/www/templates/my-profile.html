@@ -1,18 +1,143 @@
 <!-- starter: Can Duy Cat
 	 owner: Can Duy Cat
-	 last update: 28/02/2015
+	 last update: 05/05/2015
 	 type: html template-->
 
-<ion-view title="My profile">
-	<ion-nav-buttons side="left">
-		<button class="button button-icon button-clear ion-home" ng-click="goHome()"></button>
-	</ion-nav-buttons>
+<ion-view hide-nav-bar="true">
 
-	<ion-content padding="true"  class="easi-full-blue">
-		<center>
-			<img src="img/logo.png" class="easi-logo">
-			<br>
-			<p class="easi-font easi-big-name">EasiLendar</p>
-		</center>
+	<ion-header-bar class="bar-header easi-no-border my-profile-header"
+	align-title="center">
+		<button class="button button-icon easi-index-2 easi-white icon
+		{{leftButton[isEditing].icon}} my-profile-header-button"
+		ng-click="leftFunction()">
+		</button>
+
+		<p class="title easi-white easi-mini-space my-profile-title">
+			My profile
+		</p>
+
+		<button class="button button-icon easi-index-2 easi-white icon
+		{{rightButton[isEditing].icon}} my-profile-header-button"
+		ng-click="rightFunction()">
+		</button>
+	</ion-header-bar>
+
+	<ion-content scroll="false" class="easi-index-1 my-profile-content">
+		<div class="item easi-no-padding easi-no-border my-profile-head-information">
+			<div class="item easi-no-padding easi-no-border my-prrofile-container">
+				<button class="button button-icon icon ion-ios-arrow-left
+				easi-white easi-fade-fast my-prifile-navbutton-left"
+				ng-click="nextLeftAva()"
+				ng-show="isEditing"></button>
+
+				<div class="item easi-no-padding easi-no-border my-prrofile-avatar-container">
+					<i class="icon ion-android-create easi-back-white easi-center
+					my-profile-edit-button easi-fade-fast"
+					ng-click="edit()"
+					ng-hide="isEditing"></i>
+
+					<img data-ng-src="img/ava{{eUser.uAvatar}}.png"
+					class="my-profile-avatar"
+					on-swipe-left="nextLeftAva()"
+					on-swipe-right="nextRightAva()">
+
+					<i class="icon ion-image easi-back-white easi-center
+					my-profile-picture-button easi-fade-fast"
+					ng-click="capture()"
+					ng-hide="isEditing"></i>
+				</div>
+
+				<button class="button button-icon icon ion-ios-arrow-right
+				easi-white easi-fade-fast my-prifile-navbutton-right"
+				ng-click="nextRightAva()"
+				ng-show="isEditing"></button>
+			</div>
+
+			<h2 class="easi-center easi-white my-profile-name">
+				{{eUser.uName}}
+			</h2>
+			<p class="easi-center easi-dark-blue my-profile-account-type">
+				{{accountType().type}}
+			</p>
+		</div>
+
+		<div class="my-profile-tabs easi-white easi-no-border">
+			<div class="easi-center my-profile-tab my-profile-tab-1"
+			ng-click="activeTab(0)">
+				<input type="radio" id="tab-0" name="tab-group-1" checked>
+				<label for="tab-0">Overview</label>
+			</div>
+			<div class="easi-center my-profile-tab my-profile-tab-2"
+			ng-click="activeTab(1)">
+				<input type="radio" id="tab-1" name="tab-group-1">
+				<label for="tab-1">Information</label>
+			</div>
+			<div class="easi-center my-profile-tab my-profile-tab-3"
+			ng-click="activeTab(2)">
+				<input type="radio" id="tab-2" name="tab-group-1">
+				<label for="tab-2">Friends</label>
+			</div>
+			<div class="easi-center my-profile-tab my-profile-tab-4"
+			ng-click="activeTab(3)">
+				<input type="radio" id="tab-3" name="tab-group-1">
+				<label for="tab-3">More</label>
+			</div>
+		</div>
+
+		<ion-content scroll="true" class="easi-index-2 my-profile-second-content">
+			<ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" show-pager="false" slide-interval="0">
+				<ion-slide>
+					<div class="my-profile-overview-box">
+						<h1>Overview</h1>
+					</div>
+				</ion-slide>
+				<ion-slide>
+					<div class="my-profile-information-box">
+						<h1>Information</h1>
+					</div>
+				</ion-slide>
+
+				<ion-slide>
+					<div class="my-profile-friends-box">
+						<div class="card my-profile-friend-card" ng-repeat="friend in eUser.uFriend">
+							<div class="item my-profile-item-avatar my-profile-friend-card-content">
+								<img data-ng-src="img/ava{{friend.ava}}.png"
+								class="my-profile-friend-avatar"
+								ng-click="eDatabase.viewProfile(friend.id)">
+								<h2 class="easi-gray"
+								ng-click="eDatabase.viewProfile(friend.id)">
+									{{friend.name}}
+								</h2>
+
+								<div ng-click="eDatabase.viewProfile(friend.id)">
+									<div>
+										<i class="icon ion-ribbon-b"> {{friend.VIP}}</i>
+									</div>
+
+									<div>
+										<i class="icon ion-coffee"> 14</i>
+									</div>
+
+									<div>
+										<i class="icon ion-android-chat"> 9</i>
+									</div>
+								</div>
+
+								<button class="button button-icon icon ion-android-delete easi-red my-profile-trash-icon"
+								ng-click="delFriend(friend.id, friend.name)"></button>
+							</div>
+						</div>
+					</div>
+				</ion-slide>
+
+				<ion-slide>
+					<div class="my-profile-more-box">
+						<h2>Coming soon...</h2>
+					</div>
+				</ion-slide>
+			</ion-slide-box>
+		</ion-content>
 	</ion-content>
+
+
 </ion-view>
