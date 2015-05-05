@@ -205,6 +205,8 @@ angular.module('MainApp.shareds.data', [])
 		fInfor: null,
 		fFriend: {},
 
+		fBusy: true,
+
 		fMultiCal: null,	/*MultiCalendar object	Calendar*/
 
 		resetData: function(){
@@ -214,6 +216,8 @@ angular.module('MainApp.shareds.data', [])
 			this.fID = '';
 			this.fInfor = null;
 			this.fFriend = {};
+
+			this.fBusy = true;
 
 			this.fMultiCal = null;
 		}

@@ -1,70 +1,120 @@
 /**
  * starter: Can Duy Cat
- * owner: Nguyen Thi Luong
- * last update: 04/04/2015
- * type: paticular controller
+ * owner: Can Duy Cat
+ * last update: 05/05/2015
+ * type: profile controller
  */
 
-var profile = angular.module('MainApp.controllers.profile', [])
+angular.module('MainApp.controllers.profile', [])
 
-profile.controller("ProfileController", function($scope, $ionicPopup, $rootScope,eFriend,eEasiLendar,eCheckFriend,eDatabase,eToast) {
-
-
-	$scope.eEasiLendar=eEasiLendar;
-	$scope.eFriend=eFriend;
-	$scope.eCheckFriend=eCheckFriend;
-	$scope.eDatabase=eDatabase;
+.controller("ProfileController", function($scope, $rootScope, $ionicPopup, $ionicSlideBoxDelegate, eUser, eFriend, eEasiLendar, eCheckFriend, eDatabase, eToast) {
+	// inject services
+	$scope.eUser = eUser;
+	$scope.eEasiLendar = eEasiLendar;
+	$scope.eFriend = eFriend;
+	$scope.eCheckFriend = eCheckFriend;
+	$scope.eDatabase = eDatabase;
 	$scope.eToast = eToast;
-	this.tab = 1;
 
-    this.setTab = function(newValue){
-      this.tab = newValue;
-    };
+	// initialize var
+	$scope.data = {};
+	$scope.active = 0;
 
-    this.isSet = function(tabName){
-      return this.tab === tabName;
-    };
+	$scope.isEditing = false;
 	$scope.weekCalendar = eEasiLendar.newWeekCalendar();
-	//$scope.weekCalendar.setNavDays();
-	$scope.$watch('eFriend.fMultiCal', function() {
-		$scope.weekCalendar = eEasiLendar.newWeekCalendar();
-		$scope.weekCalendar.setNavDays();
-	});
-	$scope.friends=[
-	{image: 1, name:'Ngo Duc Dung', status: 1, vip: 0},
-	{image: 8, name:'Nguyen Thi Luong', status: 0, vip: 0},
-    {image: 1, name:'Can Duy Cat', status: 1, vip: 1},
-    {image: 1, name:'Nguyen Manh Duy', status: 0, vip: 0}
-	];
-	$scope.notCalendar='This calendar is private. Please, add friend to view.';
-	$scope.calendarOfFriend = function(){
-		if(eFriend.fMultiCal==null)
-			return true;
-		else return false;
-		};
-	$scope.notFriend = function(id){
-	if(eCheckFriend.isFriend(id)==false){return true;}
-	}
-	$scope.deleteFriend = function(id) {
+	$scope.weekCalendar.setNavDays();
+
+	// function
+	$scope.accountType = function() {
+		if (eFriend.fVIP) {
+			return {
+				type: "VIP",
+				show: true,
+			};
+		} else {
+			return {
+				type: "Standard",
+				show: false,
+			};
+		}
+	};
+
+	$scope.status = function() {
+		if (eFriend.fBusy) {
+			return {status: "Busy", icon: "ion-android-time"};
+		} else {
+			return {status: "Free", icon: "ion-android-time"};
+		}
+	};
+
+	$scope.changeIcon = function (id) {
+		if (id == eUser.uID) {
+			return "ion-android-home";
+		} else if (eCheckFriend.isFriend(id)) {
+			return "ion-android-delete";
+		} else if (eCheckFriend.isRequestedMe(id)) {
+			return "ion-android-checkbox";
+		}  else if (eCheckFriend.isRequested(id)) {
+			return "ion-android-search";
+		} else {
+			return "ion-person-add";
+		}
+	};
+
+	$scope.changeFunction = function(id, name) {
+		if (id == eUser.uID) {
+			$rootScope.goToState("myProfile");
+		} else if (eCheckFriend.isFriend(id)) {
+			$scope.delFriend(id, name);
+		} else if (eCheckFriend.isRequestedMe(id)) {
+			$scope.acceptFriend(id, name);
+		}  else if (eCheckFriend.isRequested(id)) {
+			eDatabase.viewProfile(id);
+		} else {
+			eDatabase.request(id);
+		}
+	};
+
+	$scope.acceptFriend = function(id, name) {
 		var confirmPopup = $ionicPopup.confirm({
-			title: 'Are you sure ?'
+			title: 'Are you sure?',
+			subTitle: 'You want to be friend with ' + name
 		});
 		confirmPopup.then(function(res) {
-			if(res) {
-				eDatabase.deleteF(id);
-				eToast.toastSuccess(' Deleting.', 2000);
+			if (res) {
+				eDatabase.addFriend(id);
+			} else {
+				console.log('You are not sure');
 			}
 		});
-	}
-	$scope.addNewFriend = function(id){
+	};
+
+	$scope.delFriend = function() {
 		var confirmPopup = $ionicPopup.confirm({
-			title: 'Add friend!'
+			title: 'Are you sure?',
+			subTitle: 'Are you sure to unfriend ' + eFriend.fName + '?'
 		});
 		confirmPopup.then(function(res) {
-			if(res) {
-				eDatabase.request(id);
-				eToast.toastSuccess('Sending request.', 2000);
+			if (res) {
+				eDatabase.deleteF(eFriend.fID);
+			} else {
+				console.log('You are not sure');
 			}
 		});
-	}
+	};
+
+	$scope.message = function() {
+		eToast.toastInfoOne("Coming soon...", 3000);
+	};
+
+	$scope.activeTab = function(index) {
+		$ionicSlideBoxDelegate.slide(index, 500);
+	};
+
+	$scope.slideHasChanged = function(index) {
+		$scope.active = index;
+		var elem = document.getElementById("tab-" + index);
+		var element = angular.element(elem);
+		element.prop('checked', true);
+	};
 })

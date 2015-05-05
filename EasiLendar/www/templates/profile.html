@@ -1,96 +1,119 @@
 <!-- starter: Can Duy Cat
-	 owner: Nguyen Thi Luong
-	 last update: 04/04/2015
-	 type: html -->
-	 
-	 
-	 <ion-view title={{eFriend.fName}}>
-		<!-- User name This line can be change-->
-		<!-- Button fixed -->
-		<ion-nav-buttons side="left"><!--goToState("month")-->
-			<button class="button button-icon button-clear ion-home" ng-click="goHome()" menu-close></button>
-		</ion-nav-buttons>
-		
-		<ion-nav-buttons side="right">
-			<button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
-			<button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
-		</ion-nav-buttons>
-		<!-- -->
-		<div id="profile_cover">
-		<div id= "profile_end-cover">
-			<div id="profile_inform">view:525</div>
-				<div id="profile_list-icon">
-					<button class="button profile_button1 button-icon icon ion-email easi-light-gray"></button>
-					<button class="button profile_button2 button-icon icon ion-coffee easi-light-gray" ui-sref="searchFilter" menu-close></button>
-					<button data-ng-click ="deleteFriend(eFriend.fID)" data-ng-show="isFriend(eFriend.fID)" class="button profile_button2 button-icon icon ion-person easi-light-gray"></button>
-					<button data-ng-click="addNewFriend(eFriend.fID)" data-ng-show="notFriend(eFriend.fID)"class="button profile_button2 button-icon icon ion-person-add easi-light-gray"></button>
+	 owner: Can Duy Cat
+	 last update: 05/05/2015
+	 type: profile state template -->
+
+<ion-view title="{{eFriend.fName}}">
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-home" ng-click="goHome()"></button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
+		<button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
+	</ion-nav-buttons>
+
+	<ion-content scroll="false" class="profile-content">
+		<div class="item easi-no-padding easi-no-border profile-head-information">
+			<div class="item easi-no-padding easi-no-border profile-avatar-container">
+				<img data-ng-src="img/ava{{eUser.uAvatar}}.png"
+				class="my-profile-avatar">
+			</div>
+
+			<h2 class="easi-index-2 easi-white profile-name">
+				{{eFriend.fName}}
+			</h2>
+			<p class="easi-index-2 easi-dark-blue profile-status">
+				({{status().status}})
+			</p>
+
+			<div class="bar bar-footer easi-index-1 easi-back-light-gray profile-bar">
+				<div class="profile-buttons">
+					<button class="button button-icon icon ion-coffee easi-dark-blue profile-button-change"
+					ng-click="goToState('searchFilter')"
+					ng-show="{{eCheckFriend.isFriend(id)}}"></button>
+					<button class="button button-icon icon ion-ios-chatbubble easi-dark-blue profile-button-change"
+					ng-click="message()"></button>
+					<button class="button button-icon icon {{changeIcon(eFriend.fID)}} easi-red profile-button-change"
+					ng-click="changeFunction(eFriend.fID, eFriend.fName)"></button>
 				</div>
 			</div>
-				<div style="margin-top: 30px" id="div-log-in">
-			<center>
-				<a id="authorize-button" visibility= "hidden"></a>
-			</center>
-        </div>
-			<div id="profile_avatar-vip">
-				<div id="profile_avatar">
-					<div id="profile_vipx"><h2 class="customer">
-						<i  data-ng-show="eFriend.fVIP" class="icon ion-ribbon-b"></i></h2>
+		</div>
+
+		<div class="my-profile-tabs easi-white easi-no-border">
+			<div class="easi-center my-profile-tab my-profile-tab-1"
+			ng-click="activeTab(0)">
+				<input type="radio" id="tab-0" name="tab-group-1" checked>
+				<label for="tab-0">Calendar</label>
+			</div>
+			<div class="easi-center my-profile-tab my-profile-tab-2"
+			ng-click="activeTab(1)">
+				<input type="radio" id="tab-1" name="tab-group-1">
+				<label for="tab-1">Information</label>
+			</div>
+			<div class="easi-center my-profile-tab my-profile-tab-3"
+			ng-click="activeTab(2)">
+				<input type="radio" id="tab-2" name="tab-group-1">
+				<label for="tab-2">Friends</label>
+			</div>
+			<div class="easi-center my-profile-tab my-profile-tab-4"
+			ng-click="activeTab(3)">
+				<input type="radio" id="tab-3" name="tab-group-1">
+				<label for="tab-3">More</label>
+			</div>
+		</div>
+
+		<ion-content scroll="true" class="easi-index-2 profile-second-content">
+			<ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" show-pager="false" slide-interval="0">
+				<ion-slide>
+					<div class="profile-calendar-box">
+						<easi-week></easi-week>
 					</div>
-					<img id="profile_item-imagex" src="img/ava{{eFriend.fAvatar}}.png" >
-				</div>
-				<p id= "profile_username">{{eFriend.fName}}</p>
-			</div>
-		</div>
-		<section ng-controller="ProfileController as tab">
-		<div class="tabs-striped tab-fix tabs-color-blue">
-			<div class="tabs">
-				<a class="tab-item active" nav-direction="forward"  href="" ng-class="{ active:tab.isSet(1) }" ng-click="tab.setTab(1)"><p class="profile_fontOfTab">	Calendar	</p></a>
-				<a class="tab-item" href="" ng-class="{ active:tab.isSet(2) }" ng-click="tab.setTab(2)"><p class="profile_fontOfTab">	Information	</p></a>
-				<a class="tab-item" href="" ng-class="{ active:tab.isSet(3) }" ng-click="tab.setTab(3)"><p class="profile_fontOfTab">	Friends		</p></a>
-				<a class="tab-item" href="" ng-class="{ active:tab.isSet(4) }" ng-click="tab.setTab(4)"><p class="profile_fontOfTab">	Attention	</p></a>		 	
-			</div>
-		</div>
-		 <div class ="profile_showtab" ng-show="tab.isSet(1)">         
-		 <div class = "profile_notEasiWeek" data-ng-show="calendarOfFriend()">
-		 <div class =	"profile_suggest">
-		 {{notCalendar}}</div> </div>
-        <div class ="profile_easiweek" data-ng-class="weekCalendar.navBackground">
-			<easi-week></easi-week>
-		</div>
-          </div>
-		<div class ="profile_showtab" ng-show="tab.isSet(2)">
-            <div id="profile_information">
-				<div id="profile_information-tab">
-					<ul class="nav nav-pills">
-						<p ng-class="">
-						<blockquote>  <submit href="" ng-click="">Survey</submit></blockquote>
-						</p>
-						<p class="" ng-class="">
-						  <p href="" ng-click="">Basic information</a>
-						</p>
-						<p ng-class="">
-						  <p href="" ng-click="">Contact</p>
-						</p>
-					</ul>
-				</div>
-				<div id="profile_information-in-tab">
-					<button class="button button-icon  ion-medkit"  menu-close> Ask him information</button><br>
-			`		<button class="button button-icon  ion-university"  menu-close>University of Engineering and Technology</button>	<br>
-					<button class="button button-icon  ion-nuclear"  menu-close> From: Cau Giay, Hanoi</button>
-				</div>
-			</div>
-		</div>
-		<div class ="profile_showtab" ng-show="tab.isSet(3)">
-			<a  class="item friends" data-ng-repeat="friend in friends" >	
-				<img id="profile_friend-avatar" data-ng-src="img/ava{{friend.image}}.png">
-				<div id="profile_friend-name">{{friend.name}}</div> 
-		
-			</a>
-          </div>
-		  <div class ="profile_showtab" ng-show="tab.isSet(4)">
-           <button class="button button-icon icon ion-coffee " menu-close></button>
-		   <p> He has 5 appointments with you </p>	  
-          </div>
-		</section>
+				</ion-slide>
+				<ion-slide>
+					<div class="profile-information-box">
+						<h1>Information</h1>
+					</div>
+				</ion-slide>
+
+				<ion-slide>
+					<div class="profile-friends-box">
+						<div class="card my-profile-friend-card" ng-repeat="friend in eFriend.fFriend">
+							<div class="item my-profile-item-avatar my-profile-friend-card-content">
+								<img data-ng-src="img/ava{{friend.ava}}.png"
+								class="my-profile-friend-avatar"
+								ng-click="eDatabase.viewProfile(friend.id)">
+								<h2 class="easi-gray"
+								ng-click="eDatabase.viewProfile(friend.id)">
+									{{friend.name}}
+								</h2>
+
+								<div ng-click="eDatabase.viewProfile(friend.id)">
+									<div>
+										<i class="icon ion-ribbon-b"> {{friend.VIP}}</i>
+									</div>
+
+									<div>
+										<i class="icon ion-coffee"> 14</i>
+									</div>
+
+									<div>
+										<i class="icon ion-android-chat"> 9</i>
+									</div>
+								</div>
+
+								<button class="button button-icon icon {{changeIcon(friend.id)}} easi-red my-profile-trash-icon"
+								ng-click="changeFunction(friend.id, friend.name)"></button>
+							</div>
+						</div>
+					</div>
+				</ion-slide>
+
+				<ion-slide>
+					<div class="profile-more-box">
+						<h2>Coming soon...</h2>
+					</div>
+				</ion-slide>
+			</ion-slide-box>
 		</ion-content>
+	</ion-content>
 </ion-view>
