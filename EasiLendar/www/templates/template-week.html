@@ -29,21 +29,21 @@
 			</div>
 		</div>
 		<div class="week-content" data-ng-style="weekCalendar.contentHeight">
-		<ion-content scrollbar-y=false>
-		<div class="row row-content">
-			<div class="hours">
-				<div class="hour" data-ng-repeat="x in weekCalendar.hours">{{x}}</div>
-			</div>
-			<div class="col daycol" data-ng-repeat="day in weekCalendar.navDays">
-				<div class="row nor-event" data-ng-repeat="event in day.norEvent"
-					data-ng-style="event.style" data-ng-click="view(event)">
-					<div class="summary">{{event.event.origin.summary}}</div>
+			<ion-content scrollbar-y=false>
+				<div class="row row-content">
+					<div class="hours">
+						<div class="hour" data-ng-repeat="x in weekCalendar.hours">{{x}}</div>
+					</div>
+					<div class="col daycol" data-ng-repeat="day in weekCalendar.navDays">
+						<div class="row nor-event" data-ng-repeat="event in day.norEvent"
+							data-ng-style="event.style" data-ng-click="view(event)">
+							<div class="summary">{{event.event.origin.summary}}</div>
+						</div>
+						<div class="row hourblock" data-ng-repeat="x in weekCalendar.hours">
+						</div>
+					</div>
 				</div>
-				<div class="row hourblock" data-ng-repeat="x in weekCalendar.hours">
-				</div>
-			</div>
-		</div>
-		</ion-content>
+			</ion-content>
 		</div>
 	</div>
 </div>

@@ -173,13 +173,18 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 		var setEvents = function() {
 			var calendar;
 			switch ($rootScope.currentState) {
-				case 'week': calendar = eUser.uGmailCalendar; break;
+				case 'week': 
+				case 'day':
+					calendar = eUser.uGmailCalendar;
+					break;
 				case 'profile': 
 					if (!isNull( eFriend.fMultiCal )) {
 						calendar = eFriend.fMultiCal.calendar;
 					} else calendar = null;
 					break;
-				case 'result': calendar = $rootScope.resultMultiCalendar.calendar; break;
+				case 'result': 
+					calendar = $rootScope.resultMultiCalendar.calendar;
+					break;
 			}
 			if (isNull( calendar )) return null;
 			// if there is no event 

@@ -5,6 +5,10 @@
 * type: personal css
 */
 
+html .week-content ion-content {
+	margin-top: 0px;
+}
+
 /* sign in */
 .item-input.signin-form-input {
 	font-size: 20px;
@@ -197,6 +201,9 @@
 	padding-top: 30px;
 	padding-bottom: 50px;
 }
+.week-calendar .week-content ion-content {
+	margin-top: -45px;
+}
 /* template week */
 .week {
 	width: 100%;
@@ -274,9 +281,6 @@
 	border: 1px solid #e6e6e6;
 	background-color: white;
 	position: relative;
-}
-.week-content ion-content {
-	margin-top: -45px;
 }
 .row-content {
 	border-bottom: 1px solid #e6e6e6;
