@@ -1,9 +1,9 @@
 <!-- starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 02/05/2015
+	 last update: 06/05/2015
 	 type: calendar template -->
 <!--<img class="easi-space">-->
-<div class="month-title-calendar" data-ng-init="buildCurrentMonth()" data-ng-show="showMonthCalendar">
+<div class="month-title-calendar" data-ng-init="buildCurrentMonth()" data-ng-show="showMonthCalendar && eSettings.sMonthView == 'eventList'">
 	<a class="month-button-calendar month-button-previous icon ion-chevron-left easi-gray" data-ng-click="previousMonth()" check-first-day="currentMonthNumber" this-year="{{currentYear}}"></a>
 	<span class="month-span-calendar" check-this-month="currentMonthNumber"
 	data-ng-click="changeState()">{{currentMonthString}}, {{currentYear}}</span>
@@ -45,7 +45,7 @@
 	</center>
 
 	<center>
-		<table class="month-table-calendar" data-ng-show="showMonthCalendar">
+		<table class="month-table-calendar" data-ng-show="showMonthCalendar && eSettings.sMonthView == 'eventList'">
 			<tr class="month-tr-calendar">
 				<td data-ng-repeat="day in daysInWeek" class="month-td-header-calendar">{{day.day}}</td>
 			</tr>
@@ -53,7 +53,7 @@
 				<td data-ng-repeat="day in week.days" class="month-td-calendar">
 					<div data-different-month="day.month" data-current-day="day.numberDate" current-month="{{currentMonthNumber}}" current-year="{{currentYear}}" ng-click="showListEvent(day.numberDate,day.month,currentYear)">
 						<input type="radio" value="true" id="m{{day.month.toString()+day.numberDate.toString()}}" name="{{currentMonthNumber}}">
-						<label for="m{{day.month.toString()+day.numberDate.toString()}}" day-has-event="eUser.uGmailCalendar" current-month="{{currentMonthNumber}}" date="{{day.numberDate}}" month="{{day.month}}" year="{{currentYear}}" current-month="currentMonthNumber">
+						<label class="month-td-calendar-label" for="m{{day.month.toString()+day.numberDate.toString()}}" day-has-event="eUser.uGmailCalendar" current-month="{{currentMonthNumber}}" date="{{day.numberDate}}" month="{{day.month}}" year="{{currentYear}}" current-month="currentMonthNumber">
 							{{day.numberDate}}</label>
 					</div>
 				</td>

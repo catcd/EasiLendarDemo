@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 04/05/2015
+ * last update: 06/05/2015
  * type: personal css
  */
 
@@ -13,11 +13,9 @@
 	margin: auto auto auto auto;
 	padding: 4px;
 	width: 90%;
-	max-height: 86px;
-	min-height: 65px;
 }
 .friend-myAvatar01 > img:first-child, .friend-myAvatar01 .item-image, .friend-myAvatar01 .item-content > img:first-child, .friend-myAvatar01 .item-content .item-image {
-	margin: -17px auto auto auto;
+	margin: -20px auto auto auto;
 	height: 50px;
 	width: 52px;
 	position: absolute;
@@ -68,8 +66,7 @@
 	color: #E6E6E6;
 	background-color: #646464;
 	width: 32%;
-	margin-top: 5px;
-	margin-left: 1px;
+	margin-top: 5px auto auto 1px;
 }
 .friend-sort-icon { font-size: 18px;}
 .friend-sort-option-div .first { border-right: 1px solid #E6E6E6;}
@@ -212,7 +209,7 @@
 	color: #416969;
 }
 #list-content-calendar { margin: 40px auto auto auto; width: 90%;}
-.list-calendar { margin: auto auto 70px auto; max-width: 500px; width: 100%;}
+.list-calendar { margin: auto auto 70px auto; max-width: 1440px; width: 100%;}
 .list-td-no-event{ margin: auto auto auto auto; height: 10px; color: #646464;}
 .list-p-no-event-0, .list-p-no-event-1 {
 	display: inline-block;
@@ -266,20 +263,18 @@
 
 /* MONTH CALENDAR VER 1 */
 .list-bkg-style { transition: all linear 0.8s; background-size: cover; background-position: center center;}
-#month-div-calendar { margin-top: 23px; min-height: 100%;}
+#month-div-calendar { margin: 23px -1px -1px -1px; height: 100%; border: 1px solid #fff;}
 .month-calendar{
-	max-width: 500px;
+	max-width: 1440px;
 	margin: -60px auto 0 auto;
-	min-height: 225px;
 	max-height: 225px;
 	text-align: center;
-	max-height: 1000px;
 }
 .month-title-calendar {
 	width: 100%;
-	max-width: 500px;
+	max-width: 1440px;
 	height: 80px;
-	margin: 22px auto 0 auto;
+	margin: 1px auto 0 auto;
 	text-align: center;
 	font-size: 20px;
 	color: #416969;
@@ -296,7 +291,7 @@
 	font-weight: bold;
 	cursor:pointer;
 }
-.month-table-calendar{ width: 60%; max-width: 500px; margin-top: -16px;}
+.month-table-calendar{ width: 60%; max-width: 1440px; margin-top: -16px;}
 .month-td-header-calendar {
 	color: black; 
 	font-weight: bold;
@@ -315,35 +310,34 @@
 	border-radius: 100px;
 }
 .month-td-calendar input[type="radio"] { display: none; width: 0px; height: 0px;}
-.month-td-calendar label{ 
+.month-td-calendar-label{
 	font-weight: bolder; 
 	font-size: 13px; 
 	width: 19px;
 	height: 25px;
 	border-radius: 100px; 
 	padding-top: 5.5px; 
-	margin-right: 4.5px;
-	margin-left: 3px;
+	margin-right: auto 4.5px auto 3px;
 	display: inline-block;
 } 
 .month-different-color {color: #E6E6E6;}
 .month-current-date-style { color: #ffffff; background-color: #33CCCC}
 .month-radio-selected { background-color: #416969; color: #ffffff;}
 /*day list events*/
-#month-content-calendar { max-width: 500px; width: 90%; margin: 270px auto 0 auto;}
+#month-content-calendar { max-width: 1440px; width: 90%; margin: 270px auto 0 auto;}
 .month-day-calendar { max-width: 390px; width: 90%; margin: 0 auto auto auto;}
 .month-td-list-calendar-3 { width: 10%;}
 .month-td-list-calendar-4 { width: 90%;}
 .month-list-div-calendar {
 	margin: auto auto 10px 10px;
 	min-width: 250px;
-	max-width: 285px;
-	width: 90%;
+	max-width: 300px;
+	width: 100%;
 }
 .month-day-has-event{ border: 1px solid #416969;}
 
 /*months list*/
-.month-table-list{ margin-top: 20px; max-width: 500px; cursor: pointer;}
+.month-table-list{ margin-top: 20px; max-width: 1440px; cursor: pointer;}
 .month-td-list {
 	min-width: 80px;
 	color: #646464;
@@ -359,19 +353,20 @@
 .month-p-list{ padding-top: 20px;}
 
 /* MONTH CALENDAR VER 2 */
-.month-calendar-2 { z-index: 1; position: relative; max-width: 500px; height: 4.5vh;}
+.month-calendar-2 { position: relative; margin-top: 54px; max-width: 1440px; height: 4.5vh;}
 .month-button-previous-2 { padding-right: 0.3vw;}
+.month-calendar-2-div-title { display: inline-block; width: 30vh;}
 .month-button-next-2 { padding-left: 0.3vw;}
 .month-title-calendar-2 { padding-top: 1vh; font-size: 3.8vh;}
 .month-content-calendar-2 {
 	position: relative;
 	margin: 0 auto auto auto;
 	top: 2vh;
-	max-width: 500px;
+	max-width: 1440px;
 	width: 100%;
 	background-color: #fff;
 }
-.month-table-calendar-2, .month-table-days-in-week { max-width: 500px; width: 100%; background-color: #fff;}
+.month-table-calendar-2, .month-table-days-in-week { max-width: 1440px; width: 100%; background-color: #fff;}
 .month-td-calendar-2, .month-td-days-in-week { border: 1px solid #E6E6E6; border-left: 0; width: 14%;}
 .month-td-calendar-2 { border-top: 0; max-width: 20px; height: calc( (91.5vh - 10px - 45px)/6 );}
 .month-td-days-in-week {
@@ -445,7 +440,7 @@
 .share-div-facebook, .share-div-twitter, .share-div-sms {
 	margin: 100px auto auto auto;
 	text-align: center;
-	max-width: 500px;
+	max-width: 1440px;
 }
 .share-img-facebook, .share-img-twitter, .share-img-sms { width: 70px; height: 70px; transition: width 1s, height 1s;}
 .share-img-clicked { width: 90px; height: 90px;}

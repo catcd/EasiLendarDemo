@@ -27,7 +27,7 @@
 			<button class="last easi-no-border"><i class="friend-sort-icon ion-eye"></i></button>
 		</div>
 		<div class="friend-list easi-no-border">
-			<slide-toggle-func data-ng-repeat="person in eUser.uFriend | findingFriend:searchFriend" class="item item-icon-right sideMenu friend-myAvatar01 friend-repeat-animation">
+			<slide-toggle-func data-ng-repeat="person in eUser.uFriend | findingFriend:searchFriend" class="item friend-myAvatar01 item-icon-right sideMenu friend-repeat-animation">
 
 				<div class="easi-no-border" data-ng-click="toggleFunc()">
 					<img data-ng-src="img/ava{{person.ava}}.png" class="item-image easi-no-border">

@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 02/05/2015
+	 last update: 04/05/2015
 	 type: calendar template -->
 <ion-view title="EasiLendar">
 	<ion-nav-buttons side="left">
@@ -12,22 +12,22 @@
 	</ion-nav-buttons>
 	<div id="month-div-calendar" data-ng-class="backgroundMonth(currentMonthNumber)">
 		<!-- Month calendar ver 1 -->
-		<easi-month data-ng-show="eSettings.sMonthView == 'eventList'"></easi-month>
+		<easi-month></easi-month>
 		
 		<easi-day data-ng-show="eSettings.sMonthView == 'eventList'"></easi-day>
 
 		<!-- Month calendar ver 2 -->
 
-		<center data-ng-show="eSettings.sMonthView == 'timeGrid'">
+		<center data-ng-show="showMonthVer2Cal && eSettings.sMonthView == 'timeGrid'">
 		<div class="month-calendar-2">
 			<div class="month-title-calendar-2">
 				<a class="month-button-previous-2 icon ion-chevron-left easi-gray" data-ng-click="previousMonth()" check-first-day="currentMonthNumber" this-year="{{currentYear}}"></a>
-					{{currentMonthString}}, {{currentYear}}
+				<div class="month-calendar-2-div-title" data-ng-click="changeState()">{{currentMonthString}}, {{currentYear}}</div>
 				<a class="month-button-next-2 icon ion-chevron-right easi-gray" data-ng-click="nextMonth()" check-first-day="currentMonthNumber" this-year="{{currentYear}}"></a>
 			</div>
 		</div>
 		</center>
-		<div class="month-content-calendar-2" data-ng-show="eSettings.sMonthView == 'timeGrid'">
+		<div class="month-content-calendar-2" data-ng-show="showMonthVer2Cal && eSettings.sMonthView == 'timeGrid'">
 			<table class="month-table-calendar-2">
 				<tr>
 					<td class="month-td-days-in-week" data-ng-repeat="day in daysInWeek">

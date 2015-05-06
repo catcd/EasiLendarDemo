@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 03/05/2015
+ * last update: 04/05/2015
  * type: month controller
  * number of tests: 47
  */
@@ -99,11 +99,13 @@ describe('Month Calendar', function() {
 				expect($scope.allMonths[2].fourth).toBe(11);
 			});
 
-			it('should create showMonthsList is false and showMonthCalendar is true', function(){
+			it('should create showMonthsList is false, showMonthCalendar is true, showMonthVer2Cal is true', function(){
 				expect($scope.showMonthsList).toBeDefined();
 				expect($scope.showMonthCalendar).toBeDefined();
+				expect($scope.showMonthVer2Cal).toBeDefined();
 				expect($scope.showMonthsList).toBe(false);
 				expect($scope.showMonthCalendar).toBe(true);
+				expect($scope.showMonthVer2Cal).toBe(true);
 			});
 
 			it('should set $scope.bkgE is bkg', function(){
@@ -286,22 +288,26 @@ describe('Month Calendar', function() {
 		});
 
 		describe('$scope.changeState', function(){
-			it('should change showMonthsList is false when it is true and showMonthCalendar is true when it is false', function(){
+			it('should change showMonthsList is false when it is true, showMonthCalendar and showMonthVer2Cal are true when they are false', function(){
 				$scope.showMonthsList = true;
 				$scope.showMonthCalendar = false;
+				$scope.showMonthVer2Cal = false;
 				$scope.changeState();
 
 				expect($scope.showMonthsList).toBe(false);
 				expect($scope.showMonthCalendar).toBe(true);
+				expect($scope.showMonthVer2Cal).toBe(true);
 			});
 
-			it('should change showMonthsList is true when it is false and showMonthCalendar is false when it is true', function(){
+			it('should change showMonthsList is true when it is false, showMonthCalendar and showMonthVer2Cal are false when they are true', function(){
 				$scope.showMonthsList = false;
 				$scope.showMonthCalendar = true;
+				$scope.showMonthVer2Cal = true;
 				$scope.changeState();
 
 				expect($scope.showMonthsList).toBe(true);
 				expect($scope.showMonthCalendar).toBe(false);
+				expect($scope.showMonthVer2Cal).toBe(false);
 			});
 		});
 

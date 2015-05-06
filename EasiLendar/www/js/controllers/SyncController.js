@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 04/05/2015
+ * last update: 06/05/2015
  * type: paticular controller
  */
 
@@ -20,6 +20,8 @@ angular.module('MainApp.controllers.sync', [])
 			window.setTimeout($scope.checkAuth, 1);
 			//this.checkAuth();
 		}
+
+		return $scope.logIN;
 	}
 	
 	$scope.checkAuth = function() {
@@ -122,7 +124,7 @@ angular.module('MainApp.controllers.sync', [])
 
 				eSync.convertMe();
 				
-				console.log(eUser.uGmailCalendar);
+				//console.log(eUser.uGmailCalendar);
 			});
 		});
 	}
@@ -130,7 +132,7 @@ angular.module('MainApp.controllers.sync', [])
 	$scope.logMeOut = function() {
 		$scope.logIN = 0;
 		$scope.email = '';
-			
+		$rootScope.showAlert('SUCCESS');
 		// code for local host:
 
 		// code can not be used for local host:
@@ -172,10 +174,7 @@ angular.module('MainApp.controllers.sync', [])
 		}
 		
 		if(name == 'google'){
-			if ($scope.logIN==-1)
-				$scope.handleClientLoad();
-			
-			return $scope.logIN;
+			return $scope.handleClientLoad();
 		}
 	}
 
@@ -280,6 +279,7 @@ angular.module('MainApp.controllers.sync', [])
 
 		if(name == 'google'){
 			$scope.makeApiCallNoBound();
+			$scope.showAlert('SUCCESS');
 		}
 	};
 
@@ -350,8 +350,7 @@ angular.module('MainApp.controllers.sync', [])
 				if(name == 'google'){
 					scope.checkLoginStatus('google');
 					var loginGC= scope.logIN;
-					
-					if(loginGC == 0) { 
+					if(loginGC != 1) { 
 						var confirmPopup = $ionicPopup.confirm({
 							title: 'You need to login'
 						});
@@ -363,7 +362,7 @@ angular.module('MainApp.controllers.sync', [])
 						});
 					}
 
-					else if(loginGC == 1){
+					else{
 						scope.visible.value = !scope.visible.value;
 					}
 				}

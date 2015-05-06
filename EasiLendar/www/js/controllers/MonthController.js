@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 03/05/2015
+ * last update: 04/05/2015
  * type: month controller
  */
  
@@ -24,13 +24,17 @@ angular.module('MainApp.controllers.month', [])
 	$rootScope.$on('$stateChangeStart',
 		function(event, toState, toParams, fromState, fromParams) {
 			if (toState.name == 'month') {
-				//months list in year
-				$scope.showMonthsList = false;
-				$scope.showMonthCalendar = true;
-				if($document.find('td').children().hasClass('month-current-style') == true){
-					$document.find('td').children().removeClass('month-current-style');
+				//only change when go to 'month' from state differ 'week', 'list', 'day'
+				if(fromState.name != 'week' && fromState.name != 'list' && fromState.name != 'day'){
+					//months list in year
+					$scope.showMonthsList = false;
+					$scope.showMonthCalendar = true;
+					$scope.showMonthVer2Cal = true;
+					if($document.find('td').children().hasClass('month-current-style') == true){
+						$document.find('td').children().removeClass('month-current-style');
+					}
+					$scope.buildCurrentMonth();
 				}
-				$scope.buildCurrentMonth();
 			}
 		});
 
@@ -250,11 +254,13 @@ angular.module('MainApp.controllers.month', [])
 	//months list in year
 	$scope.showMonthsList = false;
 	$scope.showMonthCalendar = true;
+	$scope.showMonthVer2Cal = true;
 
 	//change from month calendar to months list
 	$scope.changeState = function(){
 		$scope.showMonthsList = !$scope.showMonthsList;
 		$scope.showMonthCalendar = !$scope.showMonthCalendar;
+		$scope.showMonthVer2Cal = !$scope.showMonthVer2Cal;
 	}
 
 	/** Change month calendar when week calendar changes
