@@ -10,9 +10,6 @@ angular.module('MainApp.controllers.editEvent', [])
 .controller("EditEventController", function( $scope, $rootScope, eEvent,
 	eEasiLendar, eSync, eCalendar ) {
 	
-	eSync.logIN = 0;
-	eSync.handleAuthClick();
-	
 	// check if obj is null/undefined/"" or not
 	var isNull = function( obj ) {
 		if (obj === null || obj === undefined || obj === "") {
