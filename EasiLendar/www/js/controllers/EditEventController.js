@@ -10,6 +10,9 @@ angular.module('MainApp.controllers.editEvent', [])
 .controller("EditEventController", function( $scope, $rootScope, eEvent,
 	eEasiLendar, eSync, eCalendar ) {
 	
+	eSync.logIN = 0;
+	eSync.handleAuthClick();
+	
 	// check if obj is null/undefined/"" or not
 	var isNull = function( obj ) {
 		if (obj === null || obj === undefined || obj === "") {
@@ -145,11 +148,11 @@ angular.module('MainApp.controllers.editEvent', [])
 						date2 = eCalendar.tomorrow(date2);
 					}
 					if (eEvent.type == "create") {
-						eSync.addSingleEvent(this.event.summary, date1,
+						eSync.addSingleEvent(this.event.title, date1,
 							date2, this.event.location);
 					} else if (eEvent.type == "edit") {
 						if (!isNull( this.event.id )) {
-							var e = eEasiLendar.newEasiEvent(this.event.summary, date1,
+							var e = eEasiLendar.newEasiEvent(this.event.title, date1,
 								date2, this.event.location);
 							eSync.editEventWithId(this.event.id, e);
 						} else {
