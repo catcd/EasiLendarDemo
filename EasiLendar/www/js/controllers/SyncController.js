@@ -20,8 +20,6 @@ angular.module('MainApp.controllers.sync', [])
 			window.setTimeout($scope.checkAuth, 1);
 			//this.checkAuth();
 		}
-
-		return $scope.logIN;
 	}
 	
 	$scope.checkAuth = function() {
@@ -61,12 +59,12 @@ angular.module('MainApp.controllers.sync', [])
 	
 	$scope.handleAuthClick = function(event) {
 		gapi.auth.authorize({
-		client_id: eSync.clientId,
-		scope: 	eSync.scopes,
-		approval_prompt: 'force',
-		include_granted_scopes: false,
-		immediate: false,
-		cookie_policy: 'single_host_origin'
+			client_id: eSync.clientId,
+			scope: 	eSync.scopes,
+			approval_prompt: 'force',
+			include_granted_scopes: false,
+			immediate: false,
+			cookie_policy: 'single_host_origin'
 		}, $scope.handleResult);
 	}
 	
@@ -117,14 +115,16 @@ angular.module('MainApp.controllers.sync', [])
 
 				'timeMin': oneYearAgo
 			});
-
 			request.execute(function(resp) {
-
+				
+				console.log(resp);
 				eUser.uGmailCalendar = resp.items;
 
 				eSync.convertMe();
 				
-				//console.log(eUser.uGmailCalendar);
+				$scope.showAlert('SUCCESS');
+				
+				console.log(eUser.uGmailCalendar);
 			});
 		});
 	}
@@ -174,7 +174,7 @@ angular.module('MainApp.controllers.sync', [])
 		}
 		
 		if(name == 'google'){
-			return $scope.handleClientLoad();
+			$scope.handleClientLoad();
 		}
 	}
 
@@ -279,7 +279,6 @@ angular.module('MainApp.controllers.sync', [])
 
 		if(name == 'google'){
 			$scope.makeApiCallNoBound();
-			$scope.showAlert('SUCCESS');
 		}
 	};
 
@@ -350,7 +349,8 @@ angular.module('MainApp.controllers.sync', [])
 				if(name == 'google'){
 					scope.checkLoginStatus('google');
 					var loginGC= scope.logIN;
-					if(loginGC != 1) { 
+					
+					if(loginGC == 0) { 
 						var confirmPopup = $ionicPopup.confirm({
 							title: 'You need to login'
 						});
@@ -362,7 +362,7 @@ angular.module('MainApp.controllers.sync', [])
 						});
 					}
 
-					else{
+					else if (loginGC==1){
 						scope.visible.value = !scope.visible.value;
 					}
 				}
@@ -371,6 +371,7 @@ angular.module('MainApp.controllers.sync', [])
 					scope.visible.value = !scope.visible.value;
 				}
 			};
+
 
 			$document.bind('click', function(event) {
 				if(scope.visible.index == true){
