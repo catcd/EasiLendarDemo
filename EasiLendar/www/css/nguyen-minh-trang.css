@@ -162,7 +162,9 @@ html .week-content ion-content {
 	margin: 0 auto 0 auto;
 	height: 60%;
 }
-
+.result .result-calendar .week-content ion-content {
+	margin-top: -45px;
+}
 .result .options {
 	width: 100%;
 	max-width: 500px;

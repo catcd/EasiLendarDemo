@@ -5,7 +5,7 @@
 
 <ion-view>
 	<ion-nav-buttons side="left">
-		<button class="button button-icon button-clear ion-close-round detail-close" data-ng-click="close()"></button>
+		<button class="button button-icon button-clear ion-ios-arrow-back" data-ng-click="form.close()"></button>
 	</ion-nav-buttons>
 	<ion-nav-buttons side="right">
 		<button class="button button-clear save" ng-click="form.save()">Save</button>
@@ -16,7 +16,7 @@
 				<input type="text" placeholder="Enter titles" ng-model="form.event.title">
 			</div>
 			<div class="row datetime">
-				<i class="icon ion-ios-clock-outline"></i>
+				<i class="icon ion-android-time"></i>
 				<div>
 					<div class="row all-day">
 						<label>All-day</label>
@@ -47,7 +47,7 @@
 				</div>
 			</div>
 			<div class="row location">
-				<i class="icon ion-ios-location-outline"></i>
+				<i class="icon ion-android-pin"></i>
 				<div class="col">
 					<input type="text" placeholder="Add location" ng-model="form.event.location">
 				</div>
