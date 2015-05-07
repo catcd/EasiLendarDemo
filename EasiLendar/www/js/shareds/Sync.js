@@ -9,50 +9,9 @@ var gapi=window.gapi=window.gapi||{};gapi._bs=new Date().getTime();(function(){v
 
 angular.module('MainApp.shareds.sync', [])
 
-.factory('eSync', function(eUser, eCalendar, eDatabase){
+.factory('eCopyData', function(eUser, eCalendar){
 	return {
-		// function should be called in the first Sign-In (for Page):
-		
-		logInResult: false,
-		logIN: -1,
-		email: '',
-		apiKey: 'AIzaSyAmBIdo6sEPU5QK3lqVrflqNNyoRhCBF7I',
-		clientId: '164260242142-4er9a46uufjlu6h6hsbv3s7479mqv6pr.apps.googleusercontent.com',
-		scopes: 'https://www.googleapis.com/auth/calendar',
-		
-		logInToGmailCalendar : function() {
-
-			// Log in to google account:
-
-			gapi.auth.authorize({
-				client_id: this.clientId,
-				scope: this.scopes,
-				immediate: true,
-				approval_prompt: 'force',
-				include_granted_scopes: false,
-				cookie_policy: 'single_host_origin'
-			}, this.testLogInResult);
-
-			return this.logInResult;
-		},
-
-		testLogInResult : function(authResult) {
-
-			if (authResult && !authResult.error) {
-				this.logInResult = true;
-
-				this.makeApiCallNoBound();
-			} 
-			else {
-				this.logInResult = false;
-			}
-		},
-		
-		doNoThing : function(authResult) {
-
-		},
-		
-		extraCopy : function(uGC, uGCNew){
+				extraCopy : function(uGC, uGCNew){
 			
 			var listNewEvent = new Array();
 
@@ -176,6 +135,51 @@ angular.module('MainApp.shareds.sync', [])
 				uGCNew[uGC[i].position].push(uGC[i]);
 			}
 		},
+	}
+})
+
+.factory('eSync', function(eUser, eCalendar, eDatabase, eCopyData){
+	return {
+		// function should be called in the first Sign-In (for Page):
+		
+		logInResult: false,
+		logIN: -1,
+		email: '',
+		apiKey: 'AIzaSyAmBIdo6sEPU5QK3lqVrflqNNyoRhCBF7I',
+		clientId: '164260242142-4er9a46uufjlu6h6hsbv3s7479mqv6pr.apps.googleusercontent.com',
+		scopes: 'https://www.googleapis.com/auth/calendar',
+		
+		logInToGmailCalendar : function() {
+
+			// Log in to google account:
+
+			gapi.auth.authorize({
+				client_id: this.clientId,
+				scope: this.scopes,
+				immediate: true,
+				approval_prompt: 'force',
+				include_granted_scopes: false,
+				cookie_policy: 'single_host_origin'
+			}, this.testLogInResult);
+
+			return this.logInResult;
+		},
+
+		testLogInResult : function(authResult) {
+
+			if (authResult && !authResult.error) {
+				this.logInResult = true;
+
+				this.makeApiCallNoBound();
+			} 
+			else {
+				this.logInResult = false;
+			}
+		},
+		
+		doNoThing : function(authResult) {
+
+		},
 		
 		convertMe : function() {
 			if (eUser.uGmailCalendar.length == 0) return;
@@ -189,20 +193,61 @@ angular.module('MainApp.shareds.sync', [])
 
 			eUser.uGmailCalendar = new Array();
 
-			this.extraCopy(uGC, eUser.uGmailCalendar);
+			eCopyData.extraCopy(uGC, eUser.uGmailCalendar);
+		},
+		
+		// Change form of date to GG's valid form:
+		
+		makeValidDate: function(objectDate){
+		
+			objectDate = new Date(objectDate);
+			
+			var dd = objectDate.getDate();
+			var mm = objectDate.getMonth(); //January is 0!
+			var yyyy = objectDate.getFullYear();
+			var hh = objectDate.getHours();
+			var mn = objectDate.getMinutes();
+			
+			if (dd < 10) {
+				dd = '0' + dd;
+			}
+
+			if (mm < 10) {
+				mm = '0' + mm;
+			}
+			
+			if (hh<10) {
+				hh = '0' + hh;
+			}
+			
+			if (mn<10) {
+				mn = '0' + mn;
+			}
+			
+			// form of timeMax: "yyyy-mm-dd T hh:mm:ss - offset
+
+			var result = yyyy + '-' + mm + '-' + dd + 'T' + hh + ':' + mn + ':00-00:00';
+			
+			return result;
+
 		},
 		
 		/*  All function add- del- edit 
 			event Of Google calendar   */
 		
-		addSingleEvent : function(summary, start, end, location){
+		addSingleEvent : function(summary, s, e, location){
 			
 			var result;
+			var start= s;
+			var end= e;
 			
-			if (start.getTime() > end.getTime())	return;
-			if (start.getTime() == undefined || end.getTime()== undefined)	return false;
+			//if (start.getTime() > end.getTime())	return false;
+			//if (start.getTime() == undefined || end.getTime()== undefined)	return false;
 			
-			//var event = {id:'', start: {dateTime:start}, end: {dateTime:end}, summary: summary, location: location, status: true, position: ''};
+			start= this.makeValidDate(start);
+			end= this.makeValidDate(end);
+			
+			// var event = {id:'', start: {dateTime:start}, end: {dateTime:end}, summary: summary, location: location, status: true, position: ''};
 			
 			// Add to Google Calendar:
 			
@@ -227,11 +272,11 @@ angular.module('MainApp.shareds.sync', [])
 				
 				if (resp.status== 'confirmed'){
 					// Add to eUser.uGmailCalendar:
-						
+					
 					var uGC= new Array();
 					uGC[0]= resp;
 			
-					this.extraCopy(uGC, eUser.uGmailCalendar);
+					eCopyData.extraCopy(uGC, eUser.uGmailCalendar);
 					
 					result= true;
 					
@@ -338,7 +383,7 @@ angular.module('MainApp.shareds.sync', [])
 						
 						var c1= this.deleteEventWithId(Id);
 						
-						var c2= this.addSingleEvent(newEvent.summary, newEvent.start.dateTime, newEvent.end.dateTime, newEvent.location);
+						var c2= this.addSingleEvent(newEvent.summary, newEvent.start, newEvent.end, newEvent.location);
 						
 					}
 				}
