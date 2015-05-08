@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 12/04/2015
+ * last update: 08/05/2015
  * type: all common directive
  */
 
@@ -14,15 +14,25 @@ angular.module('MainApp.shareds.directive', [])
 .directive('numbersOnly', function() {
 	return {
 		require: 'ngModel',
+		scope: {
+			max: '='
+		},
 		link: function(scope, element, attrs, modelCtrl) {
 			modelCtrl.$parsers.push(function(inputValue) {
-				if (inputValue == undefined) return ''
+				inputValue = inputValue.replace(/[^0-9]/g, '');
+				if (Number(inputValue) > scope.max) {
+					inputValue = scope.max.toString();
+				}
+				modelCtrl.$setViewValue(inputValue);
+				modelCtrl.$render();
+				return Number(inputValue);
+				/*if (inputValue == undefined) return ''
 				var transformedInput = inputValue.replace(/[^0-9]/g, '');
 				if (transformedInput != inputValue) {
 					modelCtrl.$setViewValue(transformedInput);
 					modelCtrl.$render();
 				}
-				return transformedInput;
+				return transformedInput;*/
 			});
 		}
 	};
