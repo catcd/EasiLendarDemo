@@ -3,7 +3,7 @@
  * owner: Ngo Duc Dung
  * last update: 26/04/2015
  * type: paticular controller
- * number of tests: 72
+ * number of tests: 70
  */
 
 /** Test for:
@@ -184,10 +184,6 @@ describe('Search Filter', function(){
 
 			it('should create personName is ""', function(){
 				expect($scope.personName).toBe('');
-			});
-
-			it('should create showButtonDelete is false', function(){
-				expect($scope.showButtonDelete).toBe(false);
 			});
 
 			it('should create showListPersons is false', function(){
@@ -548,27 +544,15 @@ describe('Search Filter', function(){
 		});
 
 		describe('wantToMeet function', function(){
-			it('should set value to eFriend.fName, personName, showButtonDelete and call getCalendar function', function(){
+			it('should set value to personName and call getCalendar function', function(){
 				spyOn(eDatabase, 'getCalendar');
 				var person = {
 					id: '001',
 					name: 'Dung'
 				};
 				$scope.wantToMeet(person);
-				expect(eFriend.fName).toBe(person.name);
 				expect($scope.personName).toBe(person.name);
-				expect($scope.showButtonDelete).toBe(true);
 				expect(eDatabase.getCalendar).toHaveBeenCalled();
-			});
-		});
-
-		describe('cancelMeeting function', function(){
-			it('should set eFriend.fName, eFriend.fMultiCal, personName, showButtonDelete to pristine value', function(){
-				$scope.cancelMeeting();
-				expect(eFriend.fName).toBe(null);
-				expect($scope.personName).toBe('');
-				expect($scope.showButtonDelete).toBe(false);
-				expect(eFriend.fMultiCal).toBe(null);
 			});
 		});
 	});

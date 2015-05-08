@@ -1,7 +1,7 @@
 <!-- 
 	starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 04/05/2015
+	 last update: 08/05/2015
 	 type: html -->
 	 
 <ion-view title="Search filter">
@@ -13,17 +13,18 @@
 	</ion-nav-buttons>
 
 	<form name="filter_form" id="filter_form" class="search-filter-form" novalidate>
-		<div class="search-filter-meet-friends">You want to meet:
-			<div class="search-filter-name-friends">{{eFriend.fName}}</div>
-			<i class="search-filter-button-delete icon ion-close easi-no-border" data-ng-show="showButtonDelete" data-ng-click="cancelMeeting()"></i>
-		</div>
 		<div class="search-filter-div-person">
 			<input id="search-filter-input-person" type="text" data-ng-model="personName" placeholder="Do you want to meet ?" required>
 		</div>
+
 		<div class="search-filter-list-persons" data-ng-show="showListPersons">
+			<div class="search-filter-person no-results" data-ng-show="noFound">
+				<i class="icon ion-ios-search placeholder-icon"></i> No found
+			</div>
+
 			<div class="search-filter-person" data-ng-repeat="person in eUser.uFriend | filterFriend:personName" data-ng-click="wantToMeet(person)">
-			<img data-ng-src="img/ava{{person.ava}}.png" class="search-filter-image-person">
-			<span class="search-filter-span-person">{{person.name}}</span>
+				<img data-ng-src="img/ava{{person.ava}}.png" class="search-filter-image-person">
+				<span class="search-filter-span-person">{{person.name}}</span>
 			</div>
 		</div>
 

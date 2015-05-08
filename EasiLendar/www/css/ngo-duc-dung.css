@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 06/05/2015
+ * last update: 08/05/2015
  * type: personal css
  */
 
@@ -75,31 +75,29 @@
 /* SEARCHING FILTER */
 
 /* Person name filter */
-.search-filter-content { margin: 60px auto auto auto; z-index: -1;}
-.search-filter-meet-friends { border-bottom: 1px solid #E6E6E6; margin: 50px 15px auto 15px; height: 25px;}
-.search-filter-name-friends {
-	display: inline-block;
-	font-weight: bolder;
-	font-style: italic;
-	margin-top: -10px auto 5px 5px;
+.search-filter-content {
+	border-top: 1px solid #E6E6E6;
+	margin: 50px auto auto auto;
+	z-index: -1;
+	width: 100%;
 }
-.search-filter-name-friends { font-size: 15px; color: #33CCCC;}
-.search-filter-button-delete { font-size: 12px; color: #33CCCC;}
-.search-filter-div-person { margin: 3px 15px auto 15px;}
+.search-filter-div-person { margin: 55px auto auto 13px;}
+#search-filter-input-person { width: 98.5%;}
 .search-filter-list-persons {
-	border-left: 1px solid #E6E6E6;
-	border-right: 1px solid #E6E6E6;
-	margin: auto 15px auto 15px;
+	border: 1px solid #E6E6E6;
+	border-top: 0;
+	border-radius: 2px;
+	margin: auto 9px auto 9px;
 	background-color: #fff;
 }
 .search-filter-person {
-	margin: 7px 15px auto 15px;
-	padding-top: 4px;
-	padding-left: 5px;
+	margin: 7px auto 2px auto;
+	padding: 5px 0 0 5px;
 	height: 32px;
 	font-size: 16px;
 }
-.search-filter-person:active { background-color: #416969; color: #fff;}
+.search-filter-person.no-results { text-align: center; color: #646464;}
+.search-filter-person:active, .search-filter-person:active i { background-color: #416969; color: #fff;}
 .search-filter-image-person { width: 25px; height: 24px; }
 .search-filter-span-person { display: block; margin: -26px auto auto 35px;}
 /*Common and advance filter*/
@@ -135,7 +133,7 @@
 .search-filter-duration-hour { height: 67px;}
 .search-filter-duration-day input[type="checkbox"]{ margin: 3px auto 10px auto; width: 18px; height: 18px;}
 .search-filter-duration-day span{ font-size: 12.5px; color: #646464;}
-.search-filter-div-duration {height: 50px;}
+.search-filter-div-duration { border-bottom: 1px solid #E6E6E6; height: 50px;}
 #search-filter-table-time { width: 90%; margin-left: 9px; margin-top: -10px;}
 #search-filter-td-text { width: 30%; color: #646464;}
 #search-filter-td-time { height: 20px;}
@@ -180,8 +178,7 @@
 	display: inline-block;
 	font-size: 10px;
 	margin-right: -4.5px;
-	padding: 5px 15px;
-	padding-bottom: 3px;
+	padding: 5px 15px 3px;
 	vertical-align: middle;
 }
 .search-filter-segmented-button label.first {
@@ -296,9 +293,8 @@
 	color: black; 
 	font-weight: bold;
 	text-align: center; 
-	font-size: 2vh; 
-	padding-bottom: 10px; 
-	padding-top: 15px;
+	font-size: 2vh;
+	padding: 15px 0 10px;
 }
 .month-td-calendar { width: 30px; color: black; padding: 6px;}
 .month-td-calendar div, .month-different-color {
@@ -317,7 +313,7 @@
 	height: 25px;
 	border-radius: 100px; 
 	padding-top: 5.5px; 
-	margin-right: auto 4.5px auto 3px;
+	margin: auto 4.5px auto 3px;
 	display: inline-block;
 } 
 .month-different-color {color: #E6E6E6;}
