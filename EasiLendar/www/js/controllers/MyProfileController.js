@@ -261,25 +261,55 @@ angular.module('MainApp.controllers.myProfile', [])
 	};
 
 	$scope.edit = function() {
+		if (eUser.uBirthday) {
+			$scope.data.date = eUser.uBirthday.getDate();
+			$scope.data.month = eUser.uBirthday.getMonth() + 1;
+			$scope.data.year = eUser.uBirthday.getFullYear();
+		} else {
+			$scope.data.date = null;
+			$scope.data.month = null;
+			$scope.data.year = null;
+		}
+
+		if (eUser.uGender) {
+			$scope.data.gender = (eUser.uGender == "Male" ? true : false);
+		} else {
+			$scope.data.gender = null;
+		}
+
+		$scope.activeTab(1);
 		$scope.tempUserData = angular.copy(eUser);
 		$scope.isEditing = true;
+		$ionicSlideBoxDelegate.enableSlide(false);
 	};
 
 	$scope.done = function() {
+		if ($scope.data.year || $scope.data.month || $scope.data.date) {
+			$scope.data.year = ($scope.data.year == null ? "1900" : $scope.data.year);
+			$scope.data.month = ($scope.data.month == null ? "1" : $scope.data.month);
+			$scope.data.date = ($scope.data.date == null ? "1" : $scope.data.date);
+
+			eUser.uBirthday = new Date(parseInt($scope.data.year), parseInt($scope.data.month) - 1, parseInt($scope.data.date));
+		}
+		eUser.uGender = ($scope.data.gender ? "Male" : "Female");
+
+		$scope.data = {};
 		$scope.isEditing = false;
+		$ionicSlideBoxDelegate.enableSlide(true);
 		eDatabase.updateProfile();
 	};
 
 	$scope.cancel = function() {
+		$scope.data = {};
 		eUser.uName = $scope.tempUserData.uName;
 		eUser.uAvatar = $scope.tempUserData.uAvatar;
 		eUser.uEmail = $scope.tempUserData.uEmail;
 		eUser.uGender = $scope.tempUserData.uGender;
-		eUser.uBirthday = $scope.tempUserData.uBirthday;
 		eUser.uPhone = $scope.tempUserData.uPhone;
 		eUser.uAddress = $scope.tempUserData.uAddress;
 
 		$scope.isEditing = false;
+		$ionicSlideBoxDelegate.enableSlide(true);
 	};
 
 	$scope.nextLeftAva = function() {
@@ -323,7 +353,13 @@ angular.module('MainApp.controllers.myProfile', [])
 	};
 
 	$scope.activeTab = function(index) {
-		$ionicSlideBoxDelegate.slide(index, 500);
+		if (!$scope.isEditing) {
+			$ionicSlideBoxDelegate.slide(index, 500);
+		} else {
+			var elem = document.getElementById("tab-1");
+			var element = angular.element(elem);
+			element.prop('checked', true);
+		}
 	};
 
 	$scope.slideHasChanged = function(index) {

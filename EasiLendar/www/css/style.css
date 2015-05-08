@@ -1,7 +1,7 @@
 /**
 * starter: Nguyen Minh Trang
 * owner: Can Duy Cat
-* last update: 04/05/2015
+* last update: 08/05/2015
 * type: general css
 *
 * My app's style
@@ -329,4 +329,75 @@ html { height: 100%; width: 100%; }
 	0% { background-color: #fff; left: 0px; }
 	50% { background-color: #fff; left: 185px; }
 	100% { background-color: #fff; left: 0px; }
+}
+
+/* toggle switch */
+.easi-toggle { position: absolute; visibility: hidden; }
+.easi-toggle + label {
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	cursor: pointer;
+	display: block;
+	outline: none;
+	position: relative;
+	user-select: none;
+}
+input.easi-toggle-yes-no + label { height: 100%; width: 100%; }
+input.easi-toggle-yes-no + label:before, input.easi-toggle-yes-no + label:after {
+	bottom: 0;
+	color: #fff;
+	display: block;
+	font-size: 18px;
+	left: 0;
+	line-height: 47px;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	top: 0;
+}
+input.easi-toggle-yes-no + label:before {
+	-webkit-transition: -webkit-transform 0.5s;
+	-webkit-backface-visibility: hidden;
+	-o-transition: -o-transform 0.5s;
+	-o-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	-moz-transition: -moz-transform 0.5s;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+	background-color: #aaa;
+	content: attr(data-off);
+	transition: transform 0.5s;
+}
+input.easi-toggle-yes-no + label:after {
+	-webkit-transition: -webkit-transform 0.5s;
+	-webkit-transform: rotateY(180deg);
+	-webkit-backface-visibility: hidden;
+	-o-transition: -o-transform 0.5s;
+	-o-transform: rotateY(180deg);
+	-o-backface-visibility: hidden;
+	-ms-transform: rotateY(180deg);
+	-ms-backface-visibility: hidden;
+	-moz-transition: -moz-transform 0.5s;
+	-moz-transform: rotateY(180deg);
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+	background-color: #416969;
+	content: attr(data-on);
+	transform: rotateY(180deg);
+	transition: transform 0.5s;
+}
+input.easi-toggle-yes-no:checked + label:before {
+	-webkit-transform: rotateY(180deg);
+	-o-transform: rotateY(180deg);
+	-ms-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+	transform: rotateY(180deg);
+}
+input.easi-toggle-yes-no:checked + label:after {
+	-webkit-transform: rotateY(0);
+	-o-transform: rotateY(0);
+	-ms-transform: rotateY(0);
+	-moz-transform: rotateY(0);
+	transform: rotateY(0);
 }

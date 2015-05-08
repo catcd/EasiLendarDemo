@@ -126,54 +126,112 @@
 
 				<ion-slide>
 					<div class="my-profile-information-box">
-						<div class="list card my-profile-info-card">
-							<div class="item item-divider easi-back-white easi-no-padding setting-divider">
-								<h2 class="easi-dark-blue setting-divider-title">
-									<b>Basic information</b>
-								</h2>
+						<div class="easi-fade-normal my-profile-information-detail"
+						ng-hide="isEditing">
+							<div class="list card my-profile-info-card">
+								<div class="item item-divider easi-back-white easi-no-padding setting-divider">
+									<h2 class="easi-dark-blue setting-divider-title">
+										<b>Basic information</b>
+									</h2>
+								</div>
+
+								<div class="item item-icon-left setting-first-item">
+									<i class="icon ion-android-person easi-dark-blue"></i>
+									Name: {{eUser.uName}}
+								</div>
+
+								<div class="item item-icon-left">
+									<i class="icon ion-icecream easi-dark-blue"></i>
+									Birth date: {{info().birth.date}}
+								</div>
+
+								<div class="item item-icon-left">
+									<i class="icon ion-calendar easi-dark-blue"></i>
+									Birth year: {{info().birth.year}}
+								</div>
+
+								<div class="item item-icon-left">
+									<i class="icon ion-transgender easi-dark-blue"></i>
+									Gender: {{info().gender}}
+								</div>
 							</div>
 
-							<div class="item item-icon-left setting-first-item">
-								<i class="icon ion-android-person easi-dark-blue"></i>
-								Name: {{eUser.uName}}
-							</div>
+							<div class="list card my-profile-info-card">
+								<div class="item item-divider easi-back-white easi-no-padding setting-divider">
+									<h2 class="easi-dark-blue setting-divider-title">
+										<b>Contact information</b>
+									</h2>
+								</div>
 
-							<div class="item item-icon-left">
-								<i class="icon ion-icecream easi-dark-blue"></i>
-								Birth date: {{info().birth.date}}
-							</div>
+								<div class="item item-icon-left setting-first-item">
+									<i class="icon ion-android-mail easi-dark-blue"></i>
+									Email: {{eUser.uEmail}}@gmail.com
+								</div>
 
-							<div class="item item-icon-left">
-								<i class="icon ion-calendar easi-dark-blue"></i>
-								Birth year: {{info().birth.year}}
-							</div>
+								<div class="item item-icon-left">
+									<i class="icon ion-android-phone-portrait easi-dark-blue"></i>
+									Phone: {{info().phone}}
+								</div>
 
-							<div class="item item-icon-left">
-								<i class="icon ion-transgender easi-dark-blue"></i>
-								Gender: {{info().gender}}
+								<div class="item item-icon-left">
+									<i class="icon ion-android-pin easi-dark-blue"></i>
+									Address: {{info().address}}
+								</div>
 							</div>
 						</div>
 
-						<div class="list card my-profile-info-card">
-							<div class="item item-divider easi-back-white easi-no-padding setting-divider">
-								<h2 class="easi-dark-blue setting-divider-title">
-									<b>Contact information</b>
-								</h2>
-							</div>
+						<div class="easi-fade-fast my-profile-information-edit"
+						ng-show="isEditing">
+							<div class="list list-inset">
+								<img data-ng-src="img/ava{{eUser.uAvatar}}.png"
+								class="my-profile-avatar-edit">
 
-							<div class="item item-icon-left setting-first-item">
-								<i class="icon ion-android-mail easi-dark-blue"></i>
-								Email: {{eUser.uEmail}}@gmail.com
-							</div>
+								<label class="item item-input my-profile-item-input-top">
+									<input type="text" placeholder="Full Name"
+									ng-model="eUser.uName">
+								</label>
 
-							<div class="item item-icon-left">
-								<i class="icon ion-android-phone-portrait easi-dark-blue"></i>
-								Phone: {{info().phone}}
-							</div>
+								<label id="my-profile-email"
+								class="item item-input my-profile-item-input-top">
+									<input type="text" placeholder="{{eUser.uEmail+'@gmail.com'}}">
+									<i class="icon ion-android-cloud-done easi-dark-blue my-profile-icon-sync"></i>
+								</label>
 
-							<div class="item item-icon-left">
-								<i class="icon ion-android-pin easi-dark-blue"></i>
-								Address: {{info().address}}
+								<label class="item item-input my-profile-item-input-date">
+									<input type="text" placeholder="Date"
+									ng-model="data.date"
+									numbers-only max="31"
+									id="my-profile-input-date">
+								</label>
+
+								<label class="item item-input my-profile-item-input-month">
+									<input type="text" placeholder="Month"
+									ng-model="data.month"
+									numbers-only max="12"
+									id="my-profile-input-month">
+								</label>
+
+								<label class="item item-input my-profile-item-input-year">
+									<input type="text" placeholder="Year"
+									ng-model="data.year"
+									numbers-only max="2100"
+									id="my-profile-input-year">
+								</label>
+
+								<div class="my-profile-switch">
+									<input id="easi-toggle-9" class="easi-toggle easi-toggle-yes-no" type="checkbox" ng-model="data.gender">
+									<label for="easi-toggle-9" data-on="Male" data-off="Female"></label>
+								</div>
+
+								<label class="item item-input my-profile-item-input">
+									<input type="text" placeholder="Phone No"
+									ng-model="eUser.uPhone" numbers-only>
+								</label>
+
+								<label class="item item-input my-profile-item-input">
+									<input type="text" placeholder="Address"
+									ng-model="eUser.uAddress">
+								</label>
 							</div>
 						</div>
 					</div>

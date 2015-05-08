@@ -573,6 +573,40 @@ p.side-menu-split {
 	width: 80%;
 }
 .my-profile-friends-info-item > div > p { font-size: 7vw; line-height: 16vw; width: 100%; }
+.my-profile-information-detail { opacity: 1; }
+.my-profile-information-edit {
+	opacity: 1;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+.my-profile-item-input { margin-bottom: 15px; }
+.my-profile-item-input-date, .my-profile-item-input-month { display: inline-block; margin-bottom: 15px; width: 20%; }
+.my-profile-item-input-year { display: inline-block; margin-bottom: 15px; width: 30%; }
+.list-inset .item.my-profile-item-input input, .list-inset .item.my-profile-item-input-top input, .list-inset .item.my-profile-item-input-date input, .list-inset .item.my-profile-item-input-month input, .list-inset .item.my-profile-item-input-year input { padding-right: 15px; }
+.my-profile-item-input-top {
+	left: 115px;
+	margin-bottom: 15px;
+	padding-right: 10px;
+	position: inherit;
+	width: calc(100vw - 140px);
+}
+.my-profile-item-input-top input[type="text"]:disabled, #my-profile-email { background-color: #F6F6F6; }
+.my-profile-avatar-edit {
+	border: 4px solid #aaa;
+	border-radius: 100%;
+	position: absolute;
+	width: 105px;
+}
+.my-profile-icon-sync { font-size: 25px; margin-left: -35px; }
+.my-profile-switch {
+	display: inline-block;
+	margin-left: 5px;
+	margin-top: -1px;
+	position: absolute;
+	width: calc(100vw - 70vw - 22px);
+	height: 47px;
+}
 
 /* Profile */
 .profile-content { }
