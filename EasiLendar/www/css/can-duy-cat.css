@@ -1,7 +1,7 @@
 /**
 * starter: Can Duy Cat
 * owner: Can Duy Cat
-* last update: 05/05/2015
+* last update: 09/05/2015
 * type: Can Duy Cat css
 */
 
@@ -601,11 +601,11 @@ p.side-menu-split {
 .my-profile-icon-sync { font-size: 25px; margin-left: -35px; }
 .my-profile-switch {
 	display: inline-block;
+	height: 47px;
 	margin-left: 5px;
 	margin-top: -1px;
 	position: absolute;
 	width: calc(100vw - 70vw - 22px);
-	height: 47px;
 }
 
 /* Profile */
@@ -632,10 +632,5 @@ p.side-menu-split {
 .profile-bar { background-color: inherit !important; }
 .profile-buttons { position: absolute; right: 0; }
 .profile-second-content { margin-top: calc(40% + 55px); }
-.profile-calendar-box, .profile-information-box, .profile-friends-box, .profile-more-box {
-	border: 1px solid black;
-	margin: auto auto auto auto;
-	max-width: 1440px;
-	min-height: calc(100vh - 40vw - 100px);
-}
+.profile-calendar-box, .profile-information-box, .profile-friends-box, .profile-more-box { margin: auto auto auto auto; max-width: 1440px; min-height: calc(100vh - 40vw - 100px); }
 .profile-calendar-box { height: calc(100vh - 40vw - 100px); }

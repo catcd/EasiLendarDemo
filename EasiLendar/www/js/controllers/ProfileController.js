@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 05/05/2015
+ * last update: 09/05/2015
  * type: profile controller
  */
 
@@ -101,6 +101,54 @@ angular.module('MainApp.controllers.profile', [])
 				console.log('You are not sure');
 			}
 		});
+	};
+
+	$scope.info = function() {
+		var data = {};
+		if (eFriend.fInfor) {
+			if (eFriend.fInfor.birthday) {
+				data.birth = eCalendar.parseDate(eFriend.fInfor.birthday);
+			} else {
+				data.birth = {
+					date: "Ask for birthday!",
+					year: "Ask for birthday!"
+				};
+			}
+
+			if (eFriend.fInfor.gender) {
+				data.gender = eFriend.fInfor.gender;
+			} else {
+				data.gender = "Ask for gender!";
+			}
+
+			if (eFriend.fInfor.phone) {
+				data.phone = eFriend.fInfor.phone;
+			} else {
+				data.phone = "Ask for phone number!";
+			}
+
+			if (eFriend.fInfor.email) {
+				data.email = eFriend.fInfor.email + "@gmail.com";
+			} else {
+				data.email = "Ask for email!";
+			}
+
+			if (eFriend.fInfor.address) {
+				data.address = eFriend.fInfor.address;
+			} else {
+				data.address = "Ask for address!";
+			}
+		} else {
+			data.birth = {
+				date: "Ask for birthday!",
+				year: "Ask for birthday!"
+			};
+			data.gender = "Ask for gender!";
+			data.phone = "Ask for phone number!";
+			data.email = "Ask for email!";
+			data.address = "Ask for address!";
+		}
+		return data;
 	};
 
 	$scope.message = function() {
