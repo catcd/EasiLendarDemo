@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 08/05/2015
+ * last update: 09/05/2015
  * type: my profile controller
  */
 
@@ -364,7 +364,7 @@ angular.module('MainApp.controllers.myProfile', [])
 
 	$scope.slideHasChanged = function(index) {
 		$scope.active = index;
-		var elem = document.getElementById("tab-" + index);
+		var elem = document.getElementById("my-profile-tab-" + index);
 		var element = angular.element(elem);
 		element.prop('checked', true);
 	};

@@ -18,7 +18,7 @@ angular.module('MainApp.controllers.profile', [])
 
 	// initialize var
 	$scope.data = {};
-	$scope.active = 0;
+	$scope.activeProfile = 0;
 
 	$scope.isEditing = false;
 	$scope.weekCalendar = eEasiLendar.newWeekCalendar();
@@ -63,7 +63,7 @@ angular.module('MainApp.controllers.profile', [])
 
 	$scope.changeFunction = function(id, name) {
 		if (id == eUser.uID) {
-			$rootScope.goToState("myProfile");
+			$rootScope.goHome();
 		} else if (eCheckFriend.isFriend(id)) {
 			$scope.delFriend(id, name);
 		} else if (eCheckFriend.isRequestedMe(id)) {
@@ -160,8 +160,8 @@ angular.module('MainApp.controllers.profile', [])
 	};
 
 	$scope.slideHasChanged = function(index) {
-		$scope.active = index;
-		var elem = document.getElementById("tab-" + index);
+		$scope.activeProfile = index;
+		var elem = document.getElementById("profile-tab-" + index);
 		var element = angular.element(elem);
 		element.prop('checked', true);
 	};
