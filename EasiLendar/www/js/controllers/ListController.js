@@ -1,13 +1,13 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 30/04/2015
+ * last update: 08/05/2015
  * type: list controller
  */
 
 angular.module('MainApp.controllers.list', [])
 
-.controller("ListController", function($scope, $rootScope, $ionicScrollDelegate, $location, eUser, eCalendar) {
+.controller("ListController", function($scope, $rootScope, $ionicScrollDelegate, $location, eUser, eCalendar, eEasiLendar) {
 	//Using eUser, eCalendar factory
 	$scope.eUser = eUser;
 	$scope.eCalendar = eCalendar;
@@ -167,6 +167,13 @@ angular.module('MainApp.controllers.list', [])
 	$scope.background = function(index) {
 		var className = 'list-bkg-style ' + 'easi-' + $scope.eCalendar.shortMonths[index] + '-bkg';
 		return className;
+	}
+
+	//view detail of events
+	$scope.viewE = function(event){
+		//create EasiEvent obj
+		var easiE = eEasiLendar.newEasiEvent(event.summary, event.start, event.end, event.location, event.id, event.colorID, event.position, event.src, event.status);
+		$rootScope.viewEvent(easiE);
 	}
 })
 

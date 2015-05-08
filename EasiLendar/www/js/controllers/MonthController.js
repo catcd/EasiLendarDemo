@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 04/05/2015
+ * last update: 08/05/2015
  * type: month controller
  */
  
@@ -409,6 +409,7 @@ angular.module('MainApp.controllers.month', [])
 				var id = '#' + scope.isThisMonth;
 				//Using find() function of JQUERY !
 				$document.find(id).children().addClass('month-current-style');
+				$document.find('#0').children().removeClass('month-current-style');
 			});
 		}
 	};

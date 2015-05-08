@@ -9,7 +9,7 @@ var gapi=window.gapi=window.gapi||{};gapi._bs=new Date().getTime();(function(){v
 
 angular.module('MainApp.controllers.sync', [])
 
-.controller('SyncController', function($scope, $rootScope, $document, eUser, eFacebook, eSync, $ionicPopup) {
+.controller('SyncController', function($scope, $rootScope, $document, eUser, eFacebook, eSync, eToast, $ionicPopup) {
 	
 	$scope.logIN = -1;
 	$scope.email = '';
@@ -20,6 +20,8 @@ angular.module('MainApp.controllers.sync', [])
 			window.setTimeout($scope.checkAuth, 1);
 			//this.checkAuth();
 		}
+
+		return $scope.logIN;
 	}
 	
 	$scope.checkAuth = function() {
@@ -122,9 +124,9 @@ angular.module('MainApp.controllers.sync', [])
 
 				eSync.convertMe();
 				
-				$scope.showAlert('SUCCESS');
+				eToast.toastSuccessOne('Update successfully', 2000);
 				
-				console.log(eUser.uGmailCalendar);
+				//console.log(eUser.uGmailCalendar);
 			});
 		});
 	}
@@ -132,7 +134,7 @@ angular.module('MainApp.controllers.sync', [])
 	$scope.logMeOut = function() {
 		$scope.logIN = 0;
 		$scope.email = '';
-		$rootScope.showAlert('SUCCESS');
+		eToast.toastSuccessOne('Log out successfully', 2000);
 		// code for local host:
 
 		// code can not be used for local host:
@@ -174,7 +176,7 @@ angular.module('MainApp.controllers.sync', [])
 		}
 		
 		if(name == 'google'){
-			$scope.handleClientLoad();
+			return $scope.handleClientLoad();
 		}
 	}
 
@@ -195,6 +197,7 @@ angular.module('MainApp.controllers.sync', [])
 
 		else if(name == 'google'){
 			$scope.handleAuthClick(null);
+			eToast.toastSuccessOne('Log in successfully', 2000);
 		}
 	};
 
@@ -269,16 +272,20 @@ angular.module('MainApp.controllers.sync', [])
 				function (events) {
 					$scope.fbEvents = angular.copy(events.data);
 					$scope.convertMe('facebook');
-					$rootScope.showAlert('SUCCESS');
+					eToast.toastSuccessOne('Update successfully', 2000);
 				},
 				function (error) {
-					$rootScope.showAlert("Failed: " + error);
+					eToast.toastSuccessOne('Failed to update', 2000);
 				}
 			);
 		}
 
 		if(name == 'google'){
 			$scope.makeApiCallNoBound();
+		}
+
+		if(name == 'local'){
+			eToast.toastSuccessOne('Coming soon...', 2000);
 		}
 	};
 
@@ -347,12 +354,11 @@ angular.module('MainApp.controllers.sync', [])
 				}
 				
 				if(name == 'google'){
-					scope.checkLoginStatus('google');
-					var loginGC= scope.logIN;
+					var loginGC = scope.checkLoginStatus('google');
 					
-					if(loginGC == 0) { 
+					if(loginGC != 1) { 
 						var confirmPopup = $ionicPopup.confirm({
-							title: 'You need to login'
+							title: 'You need to login first'
 						});
 
 						confirmPopup.then(function(res) {
@@ -362,7 +368,7 @@ angular.module('MainApp.controllers.sync', [])
 						});
 					}
 
-					else if (loginGC==1){
+					else if (loginGC == 1){
 						scope.visible.value = !scope.visible.value;
 					}
 				}

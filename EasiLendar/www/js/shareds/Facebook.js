@@ -1,13 +1,13 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 01/05/2015
+ * last update: 08/05/2015
  * type: facebook service
  */
 
 angular.module('MainApp.shareds.facebook', [])
 
-.factory('eFacebook', function($rootScope){
+.factory('eFacebook', function(eToast){
 	return {
 		/** Login Facebook
 		  * Publick profile
@@ -22,9 +22,9 @@ angular.module('MainApp.shareds.facebook', [])
 				["public_profile"],
 				function (success){
 					loginStatus = angular.copy(success.status);
-					$rootScope.showAlert('SUCCESS');
+					eToast.toastSuccessOne('Login successfully', 2000);
 				}, function (error) {
-					$rootScope.showAlert('ERROR');
+					eToast.toastSuccessOne('Failed to log in', 2000);
 				}
 			);
 		},
@@ -39,7 +39,7 @@ angular.module('MainApp.shareds.facebook', [])
 					loginStatus = angular.copy(success.status);
 				},
 				function (error){
-					$rootScope.showAlert('Failed: ' + JSON.stringify(error));
+					eToast.toastSuccessOne('Failed to get login status', 2000);
 				}
 			);
 
@@ -50,9 +50,9 @@ angular.module('MainApp.shareds.facebook', [])
 		fbLogout : function(){
 			facebookConnectPlugin.logout(
 				function (success) {
-					$rootScope.showAlert('SUCCESS');
+					eToast.toastSuccessOne('Log out successfully', 2000);
 				}, function (error) {
-					$rootScope.showAlert("Failed");
+					eToast.toastSuccessOne('Failed to log out', 2000);
 				}
 			);
 		},
@@ -71,7 +71,7 @@ angular.module('MainApp.shareds.facebook', [])
 			facebookConnectPlugin.api("me/events", ['user_events'],
 				function (events) {},
 				function (error) {
-					$rootScope.showAlert("Failed");
+					eToast.toastSuccessOne('Failed to update', 2000);
 				});
 		},
 
@@ -98,10 +98,10 @@ angular.module('MainApp.shareds.facebook', [])
 
 			facebookConnectPlugin.showDialog(options,
 				function (success){
-					$rootScope.showAlert('SUCCESS');
+					eToast.toastSuccessOne('Share successfully', 2000);
 				},
 				function (error){
-					$rootScope.showAlert("Failed to share");
+					eToast.toastSuccessOne('Failed to share', 2000);
 				}
 			);
 		},
@@ -130,10 +130,10 @@ angular.module('MainApp.shareds.facebook', [])
 
 			facebookConnectPlugin.showDialog(options,
 				function (success){
-					$rootScope.showAlert('SUCCESS');
+					eToast.toastSuccessOne('Share successfully', 2000);
 				},
 				function (error){
-					$rootScope.showAlert("Failed to share");
+					eToast.toastSuccessOne('Failed to share', 2000);
 				}
 			);
 		},
@@ -151,12 +151,27 @@ angular.module('MainApp.shareds.facebook', [])
 
 			facebookConnectPlugin.showDialog(options, 
 				function (success){
-					$rootScope.showAlert('SUCCESS');
+					eToast.toastSuccessOne('Send message successfully', 2000);
 				},
 				function (error){
-					$rootScope.showAlert("Failed to send");
+					eToast.toastSuccessOne('Failed to send', 2000);
 				}
 			);
-		}
+		},
+
+		/*fbLikeEasiLendar : function(access_token){
+			var fanpage = 'https://www.facebook.com/EasiLendar';
+			var url = '/me/og.likes?access_token=' + access_token + '&method=POST' + '&object=' + fanpage;
+			 
+			facebookConnectPlugin.api(
+				url, ['publish_actions'],
+				function (success){
+					eToast.toastSuccessOne('Thanks for supporting us', 2000);
+				},
+				function (error){
+					eToast.toastSuccessOne('Oops, please try again', 2000);
+				}
+			);
+		}*/
 	};
 })

@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 27/04/2015
+	 last update: 08/05/2015
 	 type: calendar even list template -->
 
 <ion-content id="month-content-calendar" data-ng-show="showMonthCalendar">
@@ -13,7 +13,7 @@
 					<0)? 6:position.getDay()-1]}}</p>
 			</td>
 			<td class="month-td-list-calendar-4">
-				<div class="month-list-div-calendar" ng-repeat="event in eUser.uGmailCalendar[position]" background-event="bkgE">
+				<div class="month-list-div-calendar" ng-repeat="event in eUser.uGmailCalendar[position]" background-event="bkgE" data-ng-click="viewE(event)">
 					<span class="list-span-title-event">{{event.summary}}</span>
 					<br>
 					<span>Time: {{event.start.dateTime.getHours()}}:{{ (event.start.dateTime.getMinutes()<10)?'0':'' }}{{event.start.dateTime.getMinutes()}}{{ (event.start.dateTime.getHours() >= 12)?' PM':' AM' }} - {{event.end.dateTime.getHours()}}:{{(event.end.dateTime.getMinutes()<10)?'0':''}}{{event.end.dateTime.getMinutes()}}{{( event.end.dateTime.getHours() >= 12)?' PM':' AM' }}

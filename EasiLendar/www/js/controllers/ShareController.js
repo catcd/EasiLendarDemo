@@ -1,18 +1,18 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 01/05/2015
+ * last update: 08/05/2015
  * type: Share state controller
  */
 
 angular.module('MainApp.controllers.share', [])
 
-.controller('ShareController', function($scope, $rootScope, eUser, eFacebook, $ionicPopup) {
+.controller('ShareController', function($scope, $rootScope, eUser, eFacebook, eToast, $ionicPopup) {
 	$scope.eUser = eUser;
 
 	$scope.allSites = [
 		{ name: 'facebook' , options: [{id: 'share', name: 'Share'}, {id: 'send', name: 'Send message'},
-									   {id: 'like', name: 'Like our fanpage'}, {id: 'logout', name: 'Logout'}] }
+									  /* {id: 'like', name: 'Like our fanpage'},*/ {id: 'logout', name: 'Logout'}] }
 	];
 
 	/* Check login status
@@ -40,27 +40,24 @@ angular.module('MainApp.controllers.share', [])
 								//Log in
 								eFacebook.fbLogin();
 
-								var continueOption = $ionicPopup.confirm({
-									title: 'Do you want to continue ?'
-								});
+								if(option != 'like'  && option != 'logout'){
+									var continueOption = $ionicPopup.confirm({
+										title: 'Do you want to continue ?'
+									});
 
-								continueOption.then(function(res) {
-									if(res) {
-										//Share
-										if(option == 'share'){
-											eFacebook.fbFeed();
+									continueOption.then(function(res) {
+										if(res) {
+											//Share
+											if(option == 'share'){
+												eFacebook.fbFeed();
+											}
+											//Send message to your friends on facebook
+											if(option == 'send'){
+												eFacebook.fbSend();
+											}
 										}
-										//Send message to your friends on facebook
-										if(option == 'send'){
-											eFacebook.fbSend();
-										}
-
-										//Like EasiLendar fanpage
-										if(option == 'like'){
-											$rootScope.showAlert('Comming soon..');
-										}
-									}
-								});
+									});
+								}
 							}
 						});
 					}
@@ -76,11 +73,6 @@ angular.module('MainApp.controllers.share', [])
 							eFacebook.fbSend();
 						}
 
-						//Like EasiLendar fanpage
-						if(option == 'like'){
-							$rootScope.showAlert('Comming soon..');
-						}
-
 						//Logout
 						if (option == 'logout'){
 							eFacebook.fbLogout();
@@ -89,7 +81,7 @@ angular.module('MainApp.controllers.share', [])
 					}
 				},
 				function (error){
-					$rootScope.showAlert('Failed: ' + JSON.stringify(error));
+					eToast.toastSuccessOne('Failed to get login status', 2000);
 				}
 			);
 		}
