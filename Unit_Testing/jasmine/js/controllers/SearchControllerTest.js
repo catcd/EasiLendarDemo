@@ -559,7 +559,8 @@ describe('Search', function() {
 		it('should go to my profile if id == eUser.uID', function() {
 			spyOn($rootScope, 'goToState');
 			eUser.uID = "easilendar";
-			var person.id = "easilendar";
+			var person = {};
+			person.id = "easilendar";
 
 			$scope.clickPeople(person);
 
@@ -570,7 +571,8 @@ describe('Search', function() {
 		it('should go to profile if id != eUser.uID', function() {
 			spyOn(eDatabase, 'viewProfile');
 			eUser.uID = "easilendar";
-			var person.id = "easilendarother";
+			var person = {};
+			person.id = "easilendarother";
 
 			$scope.clickPeople(person);
 
