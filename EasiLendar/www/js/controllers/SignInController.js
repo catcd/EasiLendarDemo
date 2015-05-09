@@ -89,14 +89,14 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 					// copy all user's data to eUser
 					eUser.uID = id;
 					eUser.uName = user.name;
-					eUser.uAvata = user.avatar;
+					eUser.uAvatar = user.avatar;
 					eUser.uEmail = user.gmail;
 					eUser.uPassword = pass;
 
-					eUser.uGender: user.gender;
-					eUser.uBirthday: user.birthday;
-					eUser.uPhone: user.phone;
-					eUser.uAddress: user.address;
+					eUser.uGender = user.gender;
+					eUser.uBirthday = user.birthday;
+					eUser.uPhone = user.phone;
+					eUser.uAddress = user.address;
 
 					eUser.uRemember = $scope.isRemember;
 					eUser.uFriend = user.friends;
