@@ -1,21 +1,21 @@
 <!-- starter: Can Duy Cat
 	 owner: Nguyen Minh Trang
-	 last update: 28/04/2015
+	 last update: 09/05/2015
 	 type: ebent detail template -->
 
 <ion-view title="Details">
 	<ion-nav-buttons side="left">
-		<button class="button button-icon button-clear ion-close-round detail-close" data-ng-click="close()"></button>
+		<button class="button button-icon button-clear ion-close-round" data-ng-click="close()"></button>
 	</ion-nav-buttons>
 	<ion-nav-buttons side="right">
-		<button class="button button-icon button-clear ion-edit detail-edit" data-ng-click="edit()"></button>
-		<button class="button button-icon button-clear ion-trash-b detail-delete" data-ng-click="del()"></button>
+		<button class="button button-icon button-clear ion-edit" data-ng-click="edit()"></button>
+		<button class="button button-icon button-clear ion-trash-b" data-ng-click="del()"></button>
 	</ion-nav-buttons>
-	<div class="eventDetail">
-		<div class="eventColor" data-ng-style="display.color">
-			<div class="eventSum">{{display.summary}}</div>
+	<div class="event-detail">
+		<div class="event-color" data-ng-style="display.color">
+			<div class="event-sum">{{display.summary}}</div>
 		</div>
-		<div class="detailList">
+		<div class="detail-list">
 			<div class="row date">
 				<i class="icon ion-android-time"></i>
 				<div class="col">
