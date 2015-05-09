@@ -121,6 +121,12 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 					eDatabase.setUFRL();
 					eDatabase.setUFAL();
 					
+					// load uRequested, uFRequest, uFAccepted, uFriend info
+					eDatabase.loadFriendInfo(eUser.uRequested);
+					eDatabase.loadFriendInfo(eUser.uFriend, "friend");
+					eDatabase.loadFriendInfo(eUser.uFRequest);
+					eDatabase.loadFriendInfo(eUser.uFAccepted, "noti");
+					
 					$scope.user.reset();
 					$rootScope.goHome();
 				}

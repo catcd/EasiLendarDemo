@@ -49,6 +49,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 		eSettings.resetData();
 		// User information
 		eUser.resetData();
+		// eFriend 
+		eFriend.resetData();
 	};
 
 	/*
@@ -59,6 +61,20 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 		if (!isNull( eUser.uID ) && eUser.isLogin === true) {
 			return true;
 		} else return false;
+	};
+	
+	/*
+	* show loading balls
+	*/
+	var databaseLoading = function() {
+		$ionicLoading.show( {
+			template: "<div id='followingBallsG'><div id='followingBallsG_1\
+			' class='followingBallsG'></div><div id='followingBallsG_2' \
+			class='followingBallsG'></div><div id='followingBallsG_3' \
+			class='followingBallsG'></div><div id='followingBallsG_4'\
+			class='followingBallsG'></div></div>",
+			hideOnStateChange: true
+		} );
 	};
 	
 	/*
@@ -112,25 +128,61 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 		}
 	};
 	
+	/*
+	* loadFriendInfo function
+	* fArray is array of id: id
+	* type is "friend" or "noti"
+	* get "id" info and push to this array
+	*/
+	var loadFriendInfo = function(fArray, type) {
+		eUser.uIsDoneFriend = false;
+		eUser.uIsDoneNoti = false;
+		if (checkSignIn() && !isNull(fArray)) {
+			var ref = new Firebase(
+			"https://radiant-inferno-3243.firebaseio.com/Users" );
+			
+			// find the last friend
+			var array = Object.keys( fArray );
+			var length = array.length;
+			var lastFriend = array[length-1];	// id of the last friend in the list
+			ref.once( "value", function( snapshot ) {
+				for (var x in fArray) {
+					var friend = snapshot.child(x).val();
+					fArray[x] = {
+						id: x,
+						name: friend.name,
+						ava: friend.avatar
+					};
+					if (fArray[x].id == lastFriend) {
+						// load uFriend array
+						if (type == "friend") {
+							eUser.uIsDoneFriend = true;
+						} 
+						// load noti. Only the last type of noti has type
+						else if (type == "noti") {
+							eUser.uIsDoneNoti = true;
+						}
+					}
+				}
+			});
+		} else {
+			if (type == "friend") {
+				eUser.uIsDoneFriend = true;
+			} 
+			// load noti. Only the last type of noti has type
+			else if (type == "noti") {
+				eUser.uIsDoneNoti = true;
+			}
+			return false;
+		}
+	};
+	
 	function DataBase() {
 		this.convertCal = convertCal;
 		this.setUFRL = setUFRL;
 		this.setUFAL = setUFAL;
-		
-		/*
-		* show loading balls
-		*/
-		this.databaseLoading = function() {
-			$ionicLoading.show( {
-				template: "<div id='followingBallsG'><div id='followingBallsG_1\
-				' class='followingBallsG'></div><div id='followingBallsG_2' \
-				class='followingBallsG'></div><div id='followingBallsG_3' \
-				class='followingBallsG'></div><div id='followingBallsG_4'\
-				class='followingBallsG'></div></div>",
-				hideOnStateChange: true
-			} );
-		};
-		
+		this.loadFriendInfo = loadFriendInfo;
+		this.databaseLoading = databaseLoading;
 		/*
 		* sign out function
 		* update data, reset setting, go to form.
@@ -169,25 +221,12 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 						if (isNull( user )) {
 							alert( id + "does not exist" );
 						} else {
-							// get basic info
-							var name = user.name;
-							var ava = user.avatar;
-							var vip = user.VIP;
 							// add this user to "id"'s friends list
 							var fFriend = idRef.child( "friends/" + eUser.uID );
-							fFriend.set({
-								id: eUser.uID,
-								name: eUser.uName,
-								ava: eUser.uAvatar,
-								VIP: vip
-							});
+							fFriend.set(eUser.uID);
 							// add this user to accepted list of "id"
 							var fAccept = idRef.child( "noti/fAccept/" + eUser.uID );
-							fAccept.set({
-								id: eUser.uID,
-								name: eUser.uName,
-								ava: eUser.uAvatar
-							});
+							fAccept.set(eUser.uID);
 							// delete this user from requested list of id
 							var fRequested = idRef.child( "requested/" + eUser.uID );
 							fRequested.set( null );
@@ -200,20 +239,16 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 							if (isNull( eUser.uFriend )) {
 								eUser.uFriend = [];
 							}
+							// local
 							eUser.uFriend[id] = {
 								id: id,
-								name: name,
-								ava: ava,
-								VIP: vip
+								name: user.name,
+								ava: user.avatar,
+								VIP: user.VIP
 							};
 							// update on this account (not 'id')
 							var uFriend = ref.child( eUser.uID + "/friends/" + id );
-							uFriend.set({
-								id: id,
-								name: name,
-								ava: ava,
-								VIP: vip
-							});
+							uFriend.set(id);
 							var uFRequest = ref.child( eUser.uID + "/noti/fRequest/" + id );
 							uFRequest.set( null, onComplete );
 						}
@@ -261,7 +296,7 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 			if (checkSignIn() && !isNull( id )) {
 				// request myself
 				if (id == eUser.uID) {
-					return null;
+					return false;
 				}
 				var ref = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users" );
@@ -282,25 +317,19 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 					} else {
 						// add this user to "id"'s friend request list
 						var fRequest = friend.child( "noti/fRequest/" + eUser.uID );
-						fRequest.set({
-							id: eUser.uID,
-							name: eUser.uName,
-							ava: eUser.uAvatar
-						});
+						fRequest.set(eUser.uID);
 						// add id to this user's requested list
 						if (isNull( eUser.uRequested )) {
 							eUser.uRequested = [];
 						}
+						// local
 						eUser.uRequested[id] = {
 							id: id,
 							name: user.name,
 							ava: user.avatar
 						};
-						uRequest.set( {
-							id: id,
-							name: user.name,
-							ava: user.avatar
-						}, onComplete );
+						// database
+						uRequest.set( id, onComplete );
 					}
 				}, function( errorObject ) {
 					console.log( "Failed to access" + ref );
@@ -335,20 +364,28 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 	 	*/
 		this.deleteF = function( id ) {
 			if (checkSignIn() && !isNull( id )) {
-				// delete 'id' in user's friend list
-				delete eUser.uFriend[id];
-
-				var uFriend = new Firebase(
-					"https://radiant-inferno-3243.firebaseio.com/Users/" +
-					eUser.uID + "/friends/" + id );
+				/* local */
+				delete eUser.uFriend[id]; // delete 'id' in user's friend list
+				// if accepted noti has not been seen => delete it
+				if (!isNull(eUser.uFAccepted)) {
+					delete eUser.uFAccepted[id];
+				}
+				
 				// loading
-				this.databaseLoading();
-				uFriend.set( null );
-
-				var fFriend = new Firebase(
+				databaseLoading();
+				
+				/* database */
+				var user = new Firebase(
 					"https://radiant-inferno-3243.firebaseio.com/Users/" +
-					id + "/friends/" + eUser.uID );
-				fFriend.set( null, onComplete );
+					eUser.uID );
+				user.child("friends/" + id).set( null );
+				user.child("noti/fAccept/" + id).set( null );
+				
+				var friend = new Firebase(
+					"https://radiant-inferno-3243.firebaseio.com/Users/" +
+					id );
+				friend.child("friends/" + eUser.uID).set( null );
+				friend.child("noti/fAccept/" + eUser.uID).set(null, onComplete);
 			} else {
 				return false;
 			}
@@ -390,26 +427,23 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 				// loading
 				this.databaseLoading();
 				ref.once( "value", function( snapshot ) {
-					var ids = [];
-					var names = [];
-					var avas = [];
-					var users = snapshot.forEach( function( child ) {
-						ids.push( child.key() );
-						names.push( child.val().name );
-						avas.push( child.val().avatar );
-					});
-					var length = 0;		// length of searchFriends
-					for (var i = 0; i < ids.length; i++) {
-						var found1 = ids[i].search( str );
-						var found2 = names[i].search( str );
+					var length = 0;
+					snapshot.forEach( function( child ) {
+						var id, name, found1, found2, user;
+						user = child.val();
+						id = child.key();
+						name = user.name;
+						
+						found1 = id.search( str );
+						found2 = name.search( str );
 						if (found1 != -1 || found2 != -1) {
 							$rootScope.searchFriends[length++] = {
-								id: ids[i],
-								name: names[i],
-								ava: avas[i]
+								id: id,
+								name: name,
+								ava: user.avatar
 							};
 						}
-					}
+					});
 					$ionicLoading.hide();
 				} );
 			} else {
@@ -432,7 +466,7 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 					for (var y in eUser.uGmailCalendar[x]) {
 						var found1 = eUser.uGmailCalendar[x][y].summary.search( str );
 						var found2 = -1;
-						if (eUser.uGmailCalendar[x][y].location !== null) {
+						if (!isNull(eUser.uGmailCalendar[x][y].location)) {
 							found2 = eUser.uGmailCalendar[x][y].location.search( str );
 						}
 						// if event summary or location contains 'str'
@@ -483,7 +517,7 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 				return false;
 			}
 		};
-	
+
 		/*
 	 	* refresh function update everything from server
 	 	*/
@@ -496,35 +530,46 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 				ref.once( "value", function( snapshot ) {
 					var user = snapshot.val();
 					// copy all user's data to eUser
-					eUser.uID = id;
 					eUser.uName = user.name;
-					eUser.uAvata = user.avatar;
+					eUser.uAvatar = user.avatar;
 					eUser.uEmail = user.gmail;
-					eUser.uPassword = pass;
-					eUser.uRemember = $scope.isRemember;
+					eUser.uPassword = user.password;
+
+					eUser.uGender = user.gender;
+					eUser.uBirthday = user.birthday;
+					eUser.uPhone = user.phone;
+					eUser.uAddress = user.address;
+
 					eUser.uFriend = user.friends;
 					eUser.uVIP = user.VIP;
-					eUser.isLogin = true;
-
-					eUser.uRequested = user.requested;
+					eUser.uTodo = user.eTodo;
 
 					// convert
-					eUser.uGmailCalendar = convertCal( user.g_calendar );
-					eUser.uLocalCalendar = convertCal( user.local_calendar );
-
-					eUser.uFRequest = isNull( user.noti ) ? null : user.noti.fRequest;
-					eUser.uFAccepted = isNull( user.noti ) ? null : user.noti.fAccept;
+					eUser.uGmailCalendar = convertCal(user.g_calendar);
+					eUser.uLocalCalendar = convertCal(user.local_calendar);
+					eUser.uFaceCalendar = convertCal(user.face_calendar);
+			
+					eUser.uRequested = user.requested;
+					eUser.uFRequest = isNull( user.noti ) ? null
+							: user.noti.fRequest;
+					eUser.uFAccepted = isNull( user.noti ) ? null
+							: user.noti.fAccept;
 					eUser.uFRLength = 0;
 					eUser.uFALength = 0;
 
 					// set uFRLength and uFALength
 					setUFRL();
 					setUFAL();
-				
+					
+					// load uRequested, uFRequest, uFAccepted, uFriend info
+					loadFriendInfo(eUser.uRequested);
+					loadFriendInfo(eUser.uFriend, "friend");
+					loadFriendInfo(eUser.uFRequest);
+					loadFriendInfo(eUser.uFAccepted, "noti");
+					
 					$ionicLoading.hide();
-				
 				}, function( errorObject ) {
-					$rootScope.goToState( "warning" );
+					console.log("Can not refresh");
 				} );
 			} else {
 				return false;
