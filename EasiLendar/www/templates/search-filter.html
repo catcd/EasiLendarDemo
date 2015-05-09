@@ -13,9 +13,12 @@
 	</ion-nav-buttons>
 
 	<form name="filter_form" id="filter_form" class="search-filter-form" novalidate>
-		<div class="search-filter-div-person">
-			<input id="search-filter-input-person" type="text" data-ng-model="personName" placeholder="Do you want to meet ?" required>
-		</div>
+		<table class="search-filter-table-person">
+			<tr>
+				<td class="search-filter-meet-title">You want to meet:</td>
+				<td class="search-filter-input-person"><input type="text" data-ng-model="personName" placeholder="Name" required></td>
+			</tr>
+		</table>
 
 		<div class="search-filter-list-persons" data-ng-show="showListPersons">
 			<div class="search-filter-person no-results" data-ng-show="noFound">

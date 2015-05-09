@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 26/04/2015
+ * last update: 09/05/2015
  * type: paticular controller
  * number of tests: 70
  */
@@ -14,7 +14,7 @@
 
 describe('Search Filter', function(){
 	var $controller, $rootScope, $scope, $filter;
-	var eSearchFilter, eSettings, eFriend, eDatabase;
+	var eSearchFilter, eSettings, eFriend, eDatabase, eToast;
 
 	beforeEach(module('MainApp.controllers.searchFilter'));
 
@@ -72,6 +72,10 @@ describe('Search Filter', function(){
 		getCalendar: function(id){}
 	};
 
+	eToast = {
+		toastErrorOne: function(message, delay){}
+	};
+
 	beforeEach(inject(function(_$rootScope_, _$controller_,_$filter_){
 		$rootScope = _$rootScope_;
 		$controller = _$controller_;
@@ -91,7 +95,8 @@ describe('Search Filter', function(){
 			'eSettings': eSettings,
 			'eFriend': eFriend,
 			'eUser': eUser,
-			'eDatabase': eDatabase
+			'eDatabase': eDatabase,
+			'eToast': eToast
 			}
 		);
 	}));

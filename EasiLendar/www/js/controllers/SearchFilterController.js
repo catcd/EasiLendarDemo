@@ -8,7 +8,7 @@
 /*SEARCH-FILTER CONTROLLER*/
 angular.module('MainApp.controllers.searchFilter', [])
 
-.controller("SearchFilterController", function($rootScope, $scope, $filter, $document, eSearchFilter, eSettings, eFriend, eUser, eDatabase) {
+.controller("SearchFilterController", function($rootScope, $scope, $filter, $document, eSearchFilter, eSettings, eFriend, eUser, eDatabase, eToast) {
 	//Using eSearchFilter, eSettings, eFriend factory
 	$scope.eSearchFilter = eSearchFilter;
 	$scope.eSettings = eSettings;
@@ -82,7 +82,13 @@ angular.module('MainApp.controllers.searchFilter', [])
 
 	$scope.submit = function(form) {
 		if (form.$valid) {
-		   $rootScope.goToState('result');
+			$rootScope.goToState('result');
+		}
+
+		else {
+			if($scope.personName == '' || $scope.eFriend.fMultiCal == null){
+				eToast.toastErrorOne('Please choose whom you want to meet', 2000);
+			}
 		}
 	};
 

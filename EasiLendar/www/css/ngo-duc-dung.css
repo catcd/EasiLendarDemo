@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 08/05/2015
+ * last update: 09/05/2015
  * type: personal css
  */
 
@@ -81,8 +81,10 @@
 	z-index: -1;
 	width: 100%;
 }
-.search-filter-div-person { margin: 55px auto auto 13px;}
-#search-filter-input-person { width: 98.5%;}
+.search-filter-table-person { margin: 53px auto auto 3px; width: 100%;}
+.search-filter-meet-title { width: 20%; min-width: 120px;}
+.search-filter-input-person { width: 70%;}
+.search-filter-input-person input { width: 100%;}
 .search-filter-list-persons {
 	border: 1px solid #E6E6E6;
 	border-top: 0;
@@ -193,8 +195,8 @@
 }
 
 /*validation*/
-.search-filter-form.ng-submitted #search-filter-inputTitle.ng-invalid, .search-filter-form.ng-submitted #search-filter-input-person{ background-color: #D65930; }
-.search-filter-form.ng-submitted #search-filter-input01.ng-invalid{ color: #D65930; }
+.search-filter-form.ng-submitted #search-filter-inputTitle.ng-invalid { background-color: #D65930; }
+.search-filter-form.ng-submitted #search-filter-input01.ng-invalid { color: #D65930; }
 
 /* LIST CALENDAR */
 .list-current-date { color: #33CCCC;}

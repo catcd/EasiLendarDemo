@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 03/05/2015 
+	 last update: 09/05/2015 
 	 type: friend panel template -->
 <form data-ng-controller="friendPanelController">
 	<slide-toggle-func>
@@ -19,6 +19,7 @@
 			<input id="friend-search-input" type="search" data-ng-model="searchFriend" placeholder="Search" opacity-search-input>
 		</label>
 	</ion-footer-bar>
+
 	<ion-content id="friend-panel-content">
 		<div id='friend-top'></div>
 		<div id='friend-top' class="friend-sort-option-div easi-no-border easi-toggle-fast" ng-show="visible.value">
@@ -26,7 +27,12 @@
 			<button class="easi-no-border"><i class="friend-sort-icon ion-android-stopwatch"></i></button>
 			<button class="last easi-no-border"><i class="friend-sort-icon ion-eye"></i></button>
 		</div>
-		<div class="friend-list easi-no-border">
+
+		<!-- Show spinner when loading friend list -->
+		<ion-spinner icon="dots" data-ng-hide="eUser.uIsDoneFriend"></ion-spinner>
+
+		<!-- Show friend list when load database completely -->
+		<div class="friend-list easi-no-border" data-ng-show="eUser.uIsDoneFriend">
 			<slide-toggle-func data-ng-repeat="person in eUser.uFriend | findingFriend:searchFriend" class="item friend-myAvatar01 item-icon-right sideMenu friend-repeat-animation">
 
 				<div class="easi-no-border" data-ng-click="toggleFunc()">
