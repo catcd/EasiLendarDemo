@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 01/05/2015
+ * last update: 09/05/2015
  * type: all shared database variables and functions
  */
 
@@ -467,6 +467,13 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 						eFriend.fName = user.name;
 						eFriend.fAvatar = user.avatar;
 						eFriend.fVIP = user.VIP;
+						eFriend.fInfor = {
+							gender: user.gender,
+							birthday: user.birthday,
+							phone: user.phone,
+							address: user.address,
+							email: user.gmail
+						};
 						$ionicLoading.hide();
 					}
 				}, function( errorObject ) {
@@ -555,7 +562,8 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 		};
 	
 		/*
-	 	* viewProfile function id is id of a person this user wants to view profile
+	 	* viewProfile function 
+		* id is id of a person this user wants to view profile
 	 	* set name, id, ava, calendar to eFriend
 	 	*/
 		this.viewProfile = function( id ) {
@@ -576,6 +584,13 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 						eFriend.fAvatar = user.avatar;
 						eFriend.fVIP = user.VIP;
 						eFriend.fFriend = user.friends;
+						eFriend.fInfor = {
+							gender: user.gender,
+							birthday: user.birthday,
+							phone: user.phone,
+							address: user.address,
+							email: user.gmail
+						};
 						if (!isNull(eUser.uFriend) && !isNull(eUser.uFriend[id]) &&
 							!isNull( eFriend.fFriend[eUser.uID] )) {
 							// set fMultiCal
@@ -695,6 +710,61 @@ eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo
 				// loading
 				this.databaseLoading();
 				todo.set( angular.copy(eTodo.tChecklist), onComplete );
+			} else {
+				return false;
+			}
+		};
+	
+		/*
+		* checkBusy function
+		* true if "id" is busy today, false otherwise
+		*/
+		this.checkBusy = function(id) {
+			if (checkSignIn() && !isNull( id )) {
+				var ref = new Firebase(
+					"https://radiant-inferno-3243.firebaseio.com/Users/" + id );
+				// loading
+				this.databaseLoading();
+				ref.once( "value", function( snapshot ) {
+					var user = snapshot.val();
+					// there is no user with that "id"
+					if (isNull( user )) {
+						alert( id + "does not exist" );
+					} else {
+						var time = new Date();
+						var today = new Date(time.getFullYear(), time.getMonth(),
+							time.getDate());
+						if (isNull(user.g_calendar) || isNull(user.g_calendar[today])) {
+							return false;
+						} else {
+							return true;
+						}
+					}
+				}, function( errorObject ) {
+					console.log( "Failed to access" + ref );
+				} );
+			} else {
+				return false;
+			}
+		};
+		
+		/*
+		* updateProfile function
+		* update: ava, name, birthday, gender, phone, address
+		*/
+		this.updateProfile = function() {
+			if (checkSignIn()) {
+				var user = new Firebase(
+					"https://radiant-inferno-3243.firebaseio.com/Users/" +
+					eUser.uID );
+				// loading
+				this.databaseLoading();
+				user.child("name").set(eUser.uName);
+				user.child("avatar").set(eUser.uAvata);
+				user.child("birthday").set(eUser.uBirthday);
+				user.child("gender").set(eUser.uGender);
+				user.child("phone").set(eUser.uPhone);
+				user.child("address").set(eUser.uAddress, onComplete);
 			} else {
 				return false;
 			}

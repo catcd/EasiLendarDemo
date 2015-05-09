@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 01/05/2015
+ * last update: 09/05/2015
  * type: particular controller
  */
 
@@ -92,17 +92,24 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 					eUser.uAvata = user.avatar;
 					eUser.uEmail = user.gmail;
 					eUser.uPassword = pass;
+
+					eUser.uGender: user.gender;
+					eUser.uBirthday: user.birthday;
+					eUser.uPhone: user.phone;
+					eUser.uAddress: user.address;
+
 					eUser.uRemember = $scope.isRemember;
 					eUser.uFriend = user.friends;
 					eUser.uVIP = user.VIP;
 					eUser.isLogin = true;
-
-					eUser.uRequested = user.requested;
+					eUser.uTodo = user.eTodo;
 
 					// convert
 					eUser.uGmailCalendar = eDatabase.convertCal(user.g_calendar);
 					eUser.uLocalCalendar = eDatabase.convertCal(user.local_calendar);
-
+					eUser.uFaceCalendar = eDatabase.convertCal(user.face_calendar);
+			
+					eUser.uRequested = user.requested;
 					eUser.uFRequest = isNull( user.noti ) ? null
 							: user.noti.fRequest;
 					eUser.uFAccepted = isNull( user.noti ) ? null
@@ -113,8 +120,6 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 					// set uFRLength and uFALength
 					eDatabase.setUFRL();
 					eDatabase.setUFAL();
-
-					eUser.uTodo = user.eTodo;
 					
 					$scope.user.reset();
 					$rootScope.goHome();
