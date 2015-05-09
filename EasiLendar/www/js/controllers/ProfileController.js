@@ -7,7 +7,7 @@
 
 angular.module('MainApp.controllers.profile', [])
 
-.controller("ProfileController", function($scope, $rootScope, $ionicPopup, $ionicSlideBoxDelegate, eUser, eFriend, eEasiLendar, eCheckFriend, eDatabase, eToast) {
+.controller("ProfileController", function($scope, $rootScope, $ionicPopup, $ionicSlideBoxDelegate, eUser, eFriend, eEasiLendar, eCalendar, eCheckFriend, eDatabase, eToast) {
 	// inject services
 	$scope.eUser = eUser;
 	$scope.eEasiLendar = eEasiLendar;
@@ -25,20 +25,6 @@ angular.module('MainApp.controllers.profile', [])
 	$scope.weekCalendar.setNavDays();
 
 	// function
-	$scope.accountType = function() {
-		if (eFriend.fVIP) {
-			return {
-				type: "VIP",
-				show: true,
-			};
-		} else {
-			return {
-				type: "Standard",
-				show: false,
-			};
-		}
-	};
-
 	$scope.status = function() {
 		if (eFriend.fBusy) {
 			return {status: "Busy", icon: "ion-android-time"};
@@ -156,10 +142,21 @@ angular.module('MainApp.controllers.profile', [])
 	};
 
 	$scope.activeTab = function(index) {
+		if (index > 3) {
+			index = 3;
+		} else if (index < 0) {
+			index = 0;
+		}
+
 		$ionicSlideBoxDelegate.slide(index, 500);
 	};
 
 	$scope.slideHasChanged = function(index) {
+		if (index > 3) {
+			index = 3;
+		} else if (index < 0) {
+			index = 0;
+		}
 		$scope.activeProfile = index;
 		var elem = document.getElementById("profile-tab-" + index);
 		var element = angular.element(elem);

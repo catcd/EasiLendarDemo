@@ -149,7 +149,6 @@ angular.module('MainApp.controllers.myProfile', [])
 	$scope.countFriend = function() {
 		var count = 0;
 		if (eUser.uFriend && typeof(eUser.uFriend) == "object") {
-			console.log(eUser.uFriend);
 			for(var key in eUser.uFriend) {
 				if (eUser.uFriend[key].id != undefined
 					&& eUser.uFriend[key].name != undefined
