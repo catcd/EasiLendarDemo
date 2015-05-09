@@ -1,18 +1,19 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 25/04/2015
+ * last update: 09/05/2015
  * type: Search controller unit test
- * test: 36
+ * test: 40 specs
  */
 
 describe('Search', function() {
-	var $controller, $rootScope, $scope;
-	var eToast, eDatabase, eUser, eCheckFriend;
+	var $controller, $rootScope, $scope,
+		eToast, eDatabase, eUser, eCheckFriend, eCalendar;
 
 	// fake data
 	var isFriendFake; // Boolean
 	var isRequestedFake; // Boolean
+	var isRequestedMeFake; // Boolean
 
 	// inject module
 	beforeEach(module('MainApp.controllers.search'));
@@ -20,6 +21,7 @@ describe('Search', function() {
 	// fake services
 	var eToast = {
 		toastSuccess: function(msg, time) {},
+		toastInfo: function(msg, time) {},
 	};
 
 	var eDatabase = {
@@ -40,6 +42,15 @@ describe('Search', function() {
 		isRequested: function(id) {
 			return isRequestedFake;
 		},
+		isRequestedMe: function(id) {
+			return isRequestedMeFake;
+		},
+	};
+
+	var eCalendar = {
+		convertTime: function(event) {
+			return "convertTime";
+		},
 	};
 
 	// execuse before each it
@@ -48,6 +59,8 @@ describe('Search', function() {
 		$controller = _$controller_;
 		$scope = $rootScope.$new();
 
+		$rootScope.goToState = function(state) {};
+
 		$controller('SearchController', {
 			'$rootScope': $rootScope,
 			'$scope': $scope,
@@ -55,6 +68,7 @@ describe('Search', function() {
 			'eDatabase': eDatabase,
 			'eUser': eUser,
 			'eCheckFriend': eCheckFriend,
+			'eCalendar': eCalendar,
 		});
 	}));
 
@@ -64,6 +78,7 @@ describe('Search', function() {
 
 			expect(searchInput).toBeDefined();
 		});
+
 		it('should create search OUTPUT', function() {
 			var friendOutput = $rootScope.searchFriends;
 			var eventsOutput = $rootScope.searchEvents;
@@ -71,6 +86,7 @@ describe('Search', function() {
 			expect(friendOutput).toBeDefined();
 			expect(eventsOutput).toBeDefined();
 		});
+
 		it('should create default searchType is "All"', function() {
 			var searchType = $rootScope.searchType.type;
 
@@ -264,51 +280,71 @@ describe('Search', function() {
 	});
 
 	describe('$scope.isHide', function() {
-		it('Should be true if ID === eUser.uID', function() {
+		beforeEach(function() {
+			var id = "easilendar";
+		});
+
+		afterEach(function() {
+			eUser.uID = "";
+			isFriendFake = false;
+			isRequestedFake = false;
+			isRequestedMeFake = false;
+		});
+
+		it('Should be true if id === eUser.uID', function() {
 			// construct data
-			var ID = "easilendar1";
-			eUser.uID = "easilendar1";
+			eUser.uID = "easilendar";
+			id = "easilendar";
 
 			// check
-			var check = $scope.isHide(ID);
+			var check = $scope.isHide(id);
 
 			//test
 			expect(check).toBe(true);
 		});
 
-		it('Should be true if isFriend(ID) is true', function() {
+		it('Should be true if isFriend(id) is true', function() {
 			// construct data
-			var ID = "easilendar1";
 			isFriendFake = true;
 
 			// check
-			var check = $scope.isHide(ID);
+			var check = $scope.isHide(id);
 
 			//test
 			expect(check).toBe(true);
 		});
 
-		it('Should be true if isRequested(ID) is true', function() {
+		it('Should be true if isRequested(id) is true', function() {
 			// construct data
-			var ID = "easilendar1";
 			isRequestedFake = true;
 
 			// check
-			var check = $scope.isHide(ID);
+			var check = $scope.isHide(id);
 
 			//test
 			expect(check).toBe(true);
 		});
 
-		it('Should be false if ID != eUser.uID and isFriend(ID) is false and isRequested(ID) is false', function() {
+		it('Should be true if isRequestedMe(id) is true', function() {
 			// construct data
-			var ID = "easilendar1";
-			eUser.uID = "easilendar2";
-			isFriendFake = false;
-			isRequestedFake = false;
+			isRequestedMeFake = true;
 
 			// check
-			var check = $scope.isHide(ID);
+			var check = $scope.isHide(id);
+
+			//test
+			expect(check).toBe(true);
+		});
+
+		it('Should be false if id != eUser.uID, isFriend(id) false, isRequested(id) false, isRequestedMe(id) false', function() {
+			// construct data
+			eUser.uID = "easilendarother";
+			isFriendFake = false;
+			isRequestedFake = false;
+			isRequestedMeFake = false;
+
+			// check
+			var check = $scope.isHide(id);
 
 			//test
 			expect(check).toBe(false);
@@ -501,6 +537,45 @@ describe('Search', function() {
 			afterEach(function() {
 				$scope.resetData();
 			});
+		});
+	});
+
+	describe('$scope.changeCall', function() {
+		it('should call toastInfo', function() {
+			spyOn(eToast, 'toastInfo');
+
+			$scope.changeCall();
+
+			expect(eToast.toastInfo).toHaveBeenCalled();
+			expect(eToast.toastInfo).toHaveBeenCalledWith('Coming soon...', 2000);
+		});
+	});
+
+	describe('clickPeople test', function() {
+		afterEach(function() {
+			eUser.uID = "";
+		});
+
+		it('should go to my profile if id == eUser.uID', function() {
+			spyOn($rootScope, 'goToState');
+			eUser.uID = "easilendar";
+			var person.id = "easilendar";
+
+			$scope.clickPeople(person);
+
+			expect($rootScope.goToState).toHaveBeenCalled();
+			expect($rootScope.goToState).toHaveBeenCalledWith('myProfile');
+		});
+
+		it('should go to profile if id != eUser.uID', function() {
+			spyOn(eDatabase, 'viewProfile');
+			eUser.uID = "easilendar";
+			var person.id = "easilendarother";
+
+			$scope.clickPeople(person);
+
+			expect(eDatabase.viewProfile).toHaveBeenCalled();
+			expect(eDatabase.viewProfile).toHaveBeenCalledWith(person.id);
 		});
 	});
 });

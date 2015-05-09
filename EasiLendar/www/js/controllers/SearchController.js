@@ -71,27 +71,17 @@ angular.module('MainApp.controllers.search', [])
 
 	// is hide button or not
 	$scope.isHide = function(ID) {
-		// my account
-		if (ID == eUser.uID) {
+		if (ID == eUser.uID) { // my account
 			return true;
-		}
-
-		// friend
-		if (eCheckFriend.isFriend(ID)) {
+		} else if (eCheckFriend.isFriend(ID)) { // friend
 			return true;
-		}
-
-		// requested
-		if (eCheckFriend.isRequested(ID)) {
+		} else if (eCheckFriend.isRequested(ID)) { // requested
 			return true;
-		}
-
-		// requested
-		if (eCheckFriend.isRequestedMe(ID)) {
+		} else if (eCheckFriend.isRequestedMe(ID)) { // requested me
 			return true;
+		} else {
+			return false;
 		}
-
-		return false;
 	}
 
 	// change event call
@@ -99,7 +89,7 @@ angular.module('MainApp.controllers.search', [])
 		// do something here
 
 		// toast
-		eToast.toastSuccess('Coming soon...', 2000);
+		eToast.toastInfo('Coming soon...', 2000);
 	}
 
 	// click people

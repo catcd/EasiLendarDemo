@@ -1,9 +1,9 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 25/04/2015
+ * last update: 09/05/2015
  * type: test for functions use for calendar
- * test: 49
+ * test: 65 specs
  */
 
 describe('Calendar service test', function() {
@@ -36,6 +36,16 @@ describe('Calendar service test', function() {
 			expect(weekDays[3]).toEqual("Thu");
 		});
 
+		it('should create weekDaysFull: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]', function() {
+			var weekDaysFull = eCalendar.weekDaysFull;
+
+			expect(weekDaysFull).toBeDefined();
+			expect(weekDaysFull.length).toEqual(7);
+			expect(weekDaysFull[0]).toEqual("Monday");
+			expect(weekDaysFull[6]).toEqual("Sunday");
+			expect(weekDaysFull[3]).toEqual("Thursday");
+		});
+
 		it('should create months: ["January", "February", "March", "April", "May", "June", etc.', function() {
 			var months = eCalendar.months;
 
@@ -64,6 +74,134 @@ describe('Calendar service test', function() {
 			expect(bkgs[0]).toEqual("bkg_01_jan.jpg");
 			expect(bkgs[11]).toEqual("bkg_12_dec.jpg");
 			expect(bkgs[8]).toEqual("bkg_09_sep.jpg");
+		});
+	});
+
+	describe('Test easiConvertTime', function() {
+		describe('Test time', function() {
+			// 12:0 AM
+			it('Start of day with 12:00:00 AM not 0:00:00 AM', function() {
+				var day = new Date(2015, 0, 1, 0, 0, 0);
+				var result = eCalendar.easiConvertTime(day);
+
+				expect(result.time).toEqual("12:00:00 AM");
+			});
+
+			// time with 1 char number of hour (<10)
+			it('time with 1 char number of hour (<10) should normal', function() {
+				var day = new Date(2015, 0, 1, 3, 0, 0);
+				var result = eCalendar.easiConvertTime(day);
+
+				expect(result.time).toEqual("3:00:00 AM");
+			});
+
+			// time with 1 char number of minute (<10)
+			it('time with 1 char number of minute (<10) should add 0', function() {
+				var day = new Date(2015, 0, 1, 3, 4, 0);
+				var result = eCalendar.easiConvertTime(day);
+
+				expect(result.time).toEqual("3:04:00 AM");
+			});
+
+			// time with 1 char number of second (<10)
+			it('time with 1 char number of second (<10) should add 0', function() {
+				var day = new Date(2015, 0, 1, 3, 4, 5);
+				var result = eCalendar.easiConvertTime(day);
+
+				expect(result.time).toEqual("3:04:05 AM");
+			});
+
+			// time == 12PM
+			it('time with 1 char number of second (<10) should add 0', function() {
+				var day = new Date(2015, 0, 1, 12, 4, 5);
+				var result = eCalendar.easiConvertTime(day);
+
+				expect(result.time).toEqual("12:04:05 PM");
+			});
+
+			// time > 12PM
+			it('time with 1 char number of second (<10) should add 0', function() {
+				var day = new Date(2015, 0, 1, 14, 4, 5);
+				var result = eCalendar.easiConvertTime(day);
+
+				expect(result.time).toEqual("2:04:05 PM");
+			});
+		});
+
+		describe('Test date', function() {
+			// start of week
+			it('start of week 03/05/2015', function() {
+				var day = new Date(2015, 4, 3);
+				var result = eCalendar.easiConvertTime(day);
+
+				expect(result.date).toEqual("Sunday, May 3, 2015");
+			});
+
+			// end of week
+			it('end of week 02/05/2015', function() {
+				var day = new Date(2015, 4, 2);
+				var result = eCalendar.easiConvertTime(day);
+
+				expect(result.date).toEqual("Saturday, May 2, 2015");
+			});
+
+			// middle of week
+			it('middle of week 05/05/2015', function() {
+				var day = new Date(2015, 4, 5);
+				var result = eCalendar.easiConvertTime(day);
+
+				expect(result.date).toEqual("Tuesday, May 5, 2015");
+			});
+
+			// year before 2000
+			it('year before 2000 14/09/1995', function() {
+				var day = new Date(1995, 8, 14);
+				var result = eCalendar.easiConvertTime(day);
+
+				expect(result.date).toEqual("Thursday, September 14, 1995");
+			});
+		});
+	});
+
+	describe('Test parseDate', function() {
+		// start of week
+		it('start of week', function() {
+			var day = new Date(2015, 4, 3);
+			var result = eCalendar.parseDate(day);
+
+			expect(result.date).toEqual("May, 3");
+		});
+
+		// start of month
+		it('start of month', function() {
+			var day = new Date(2015, 10, 1);
+			var result = eCalendar.parseDate(day);
+
+			expect(result.date).toEqual("November, 1");
+		});
+
+		// year before 2000
+		it('year before 2000', function() {
+			var day = new Date(1995, 8, 14);
+			var result = eCalendar.parseDate(day);
+
+			expect(result.year).toEqual(1995);
+		});
+
+		// three number digits year
+		it('three number digits year', function() {
+			var day = new Date(195, 8, 14);
+			var result = eCalendar.parseDate(day);
+
+			expect(result.year).toEqual(195);
+		});
+
+		// year after 2000
+		it('year after 2000', function() {
+			var day = new Date(2995, 8, 14);
+			var result = eCalendar.parseDate(day);
+
+			expect(result.year).toEqual(2995);
 		});
 	});
 

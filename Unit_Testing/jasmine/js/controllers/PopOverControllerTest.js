@@ -1,9 +1,9 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 25/04/2015
+ * last update: 09/05/2015
  * type: popover controller unit test
- * test: 28
+ * test: 28 specs
  */
 
 describe('Popover controller for notification test', function() {
@@ -37,6 +37,8 @@ describe('Popover controller for notification test', function() {
 		addFriend: function (id) {},
 	};
 
+	var eUser = {};
+
 	// execuse before each it
 	beforeEach(inject(function(_$rootScope_, _$controller_) {
 		$rootScope = _$rootScope_;
@@ -49,6 +51,7 @@ describe('Popover controller for notification test', function() {
 			'$ionicPopover': $ionicPopover,
 			'$ionicActionSheet': $ionicActionSheet,
 			'eDatabase': eDatabase,
+			'eUser': eUser,
 		});
 	}));
 
@@ -127,8 +130,8 @@ describe('Popover controller for notification test', function() {
 		it('ftclass[true] and ftclass[false] must be correct', function() {
 			var ftclass = $scope.friendTabClass;
 
-			expect(ftclass[true]).toEqual("margin-top-69");
-			expect(ftclass[false]).toEqual("margin-top-0");
+			expect(ftclass[true]).toEqual("noti-margin-down");
+			expect(ftclass[false]).toEqual("noti-margin-top");
 		});
 
 		it('should define popover active as defalt equal to ""', function() {

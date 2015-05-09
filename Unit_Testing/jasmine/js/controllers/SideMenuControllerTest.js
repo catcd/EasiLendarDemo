@@ -7,8 +7,9 @@
  */
 
 describe('Side menu Controller test', function() {
-	var $controller, $rootScope, $scope;
-	var $ionicSideMenuDelegate;
+	var $controller, $rootScope, $scope,
+		$ionicSideMenuDelegate,
+		eUser, eDatabase;
 
 	// inject module
 	beforeEach(module('MainApp.controllers.sideMenu'));
@@ -28,6 +29,8 @@ describe('Side menu Controller test', function() {
 			'$rootScope': $rootScope,
 			'$scope': $scope,
 			'$ionicSideMenuDelegate': $ionicSideMenuDelegate,
+			'eUser': eUser,
+			'eDatabase': eDatabase,
 		});
 	}));
 
