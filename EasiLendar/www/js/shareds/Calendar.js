@@ -1,13 +1,20 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 07/05/2015
+ * last update: 09/05/2015
  * type: module all shared variables and functions use for calendar
  */
 
 angular.module('MainApp.shareds.calendar', [])
 
 .factory('eCalendar', function() {
+	var doubleChar = function (num) {
+		if (num < 10) {
+			return "0" + num;
+		} else {
+			return "" + num;
+		}
+	};
 	return {
 		/*
 		 * Calendar variables
@@ -50,8 +57,8 @@ angular.module('MainApp.shareds.calendar', [])
 			}
 
 			return {
-				date: "" + this.weekDaysFull[nday - 1] + ", " + this.months[nmonth] + " " + ndate + ", " + nyear + "",
-				time: ""+nhour+":"+nmin+":"+nsec+ap+"",
+				date: "" + this.weekDaysFull[(nday + 6) % 7] + ", " + this.months[nmonth] + " " + ndate + ", " + nyear + "",
+				time: "" + nhour + ":" + doubleChar(nmin) + ":" + doubleChar(nsec) + ap + "",
 			};
 		},
 

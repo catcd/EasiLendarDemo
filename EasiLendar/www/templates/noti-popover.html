@@ -1,74 +1,77 @@
 <!-- starter: Can Duy Cat
    owner: Can Duy Cat
-   last update: 28/04/2015
+   last update: 09/05/2015
    type: noti popover template -->
 
 <ion-popover-view id="noti-popover-view">
-	<!-- tabs -->
-	<div class="tabs-striped tabs-color-dark">
-		<div class="tabs noti-tabs">
-			<a class="tab-item {{mPopoverStatus[mPopoverActive == 'friend']}}" ng-click="tabActive('friend')">
-				<p class="easi-up">Friends</p>
-			</a>
+	<div ng-show="eUser.uIsDoneNoti">
+		<!-- tabs -->
+		<div class="tabs-striped tabs-color-dark">
+			<div class="tabs noti-tabs">
+				<a class="tab-item {{mPopoverStatus[mPopoverActive == 'friend']}}" ng-click="tabActive('friend')">
+					<p class="easi-up">Friends</p>
+				</a>
 
-			<a class="tab-item {{mPopoverStatus[mPopoverActive == 'request']}}" ng-click="tabActive('request')">
-				<p class="easi-up">Request</p>
-			</a>
+				<a class="tab-item {{mPopoverStatus[mPopoverActive == 'request']}}" ng-click="tabActive('request')">
+					<p class="easi-up">Request</p>
+				</a>
 
-			<a class="tab-item {{mPopoverStatus[mPopoverActive == 'respond']}}" ng-click="tabActive('respond')">
-				<p class="easi-up">Respond</p>
-			</a>
+				<a class="tab-item {{mPopoverStatus[mPopoverActive == 'respond']}}" ng-click="tabActive('respond')">
+					<p class="easi-up">Respond</p>
+				</a>
+			</div>
+		</div>
+
+		<!-- friend accepted -->
+		<a id="noti-friend-accepted"
+		class="item easi-item-avatar"
+		ng-click="showAlert('Friend accepted', 'templates/noti-friend-accepted.html', 'Click to see profile'); closePopover()"
+		ng-hide="eUser.uFALength == 0 || mPopoverActive != 'friend'"
+		ng-repeat="friend in eUser.uFAccepted"
+		ng-if="$first">
+			<img data-ng-src="img/ava{{friend.ava}}.png">
+
+			<!-- one and some have diffirent noti -->
+			<p class="easi-space" ng-show="eUser.uFALength > 1">
+				{{friend.name}} and {{eUser.uFALength - 1}} other now are your friends
+			</p>
+			<p class="easi-space" ng-show="eUser.uFALength == 1">
+				{{friend.name}} now is your friends
+			</p>
+
+			<!-- badge number of accepted request -->
+			<span class="badge badge-assertive" id="noti-friend-accepted-badge" ng-show="eUser.uFALength > 1">
+				{{eUser.uFALength}}
+			</span>
+		</a>
+
+		<!-- devider show when friends accepted shown -->
+		<div class="item item-divider easi-left" id="noti-friend-tab-divider" ng-hide="eUser.uFALength == 0 || mPopoverActive!='friend'">
+			<p id="noti-friend-tab-divider-title">Friend requests</p>
+		</div>
+
+		<!-- content -->
+		<ion-content id="noti-popover-content">
+			<noti-content type="friend" ng-show="mPopoverActive == 'friend'"></noti-content>
+			<noti-content type="request" ng-show="mPopoverActive == 'request'"></noti-content>
+			<noti-content type="respond" ng-show="mPopoverActive == 'respond'"></noti-content>
+		</ion-content>
+
+		<!-- footer bar -->
+		<div class="bar bar-stable bar-footer" id="noti-popover-footer-bar">
+			<button id="noti-popover-footer-left"
+			class="button button-clear"
+			ng-click="closePopover(); goToState('comingSoon')">
+				See All
+			</button>
+
+			<button id="noti-popover-footer-right"
+			class="button button-clear"
+			ng-click="closePopover(); goToState('comingSoon')"
+			ng-show="mPopoverActive == 'respond'">
+				Mark as Read
+			</button>
 		</div>
 	</div>
-
-	<!-- friend accepted -->
-	<a id="noti-friend-accepted"
-	class="item easi-item-avatar"
-	ng-click="showAlert('Friend accepted', 'templates/noti-friend-accepted.html', 'Click to see profile'); closePopover()"
-	ng-hide="eUser.uFALength == 0 || mPopoverActive != 'friend'"
-	ng-repeat="friend in eUser.uFAccepted"
-	ng-if="$first">
-		<img data-ng-src="img/ava{{friend.ava}}.png">
-
-		<!-- one and some have diffirent noti -->
-		<p class="easi-space" ng-show="eUser.uFALength > 1">
-			{{friend.name}} and {{eUser.uFALength - 1}} other now are your friends
-		</p>
-		<p class="easi-space" ng-show="eUser.uFALength == 1">
-			{{friend.name}} now is your friends
-		</p>
-
-		<!-- badge number of accepted request -->
-		<span class="badge badge-assertive" id="noti-friend-accepted-badge" ng-show="eUser.uFALength > 1">
-			{{eUser.uFALength}}
-		</span>
-	</a>
-
-	<!-- devider show when friends accepted shown -->
-	<div class="item item-divider easi-left" id="noti-friend-tab-divider" ng-hide="eUser.uFALength == 0 || mPopoverActive!='friend'">
-		<p id="noti-friend-tab-divider-title">Friend requests</p>
-	</div>
-
-	<!-- content -->
-	<ion-content id="noti-popover-content">
-		<noti-content type="friend" ng-show="mPopoverActive == 'friend'"></noti-content>
-		<noti-content type="request" ng-show="mPopoverActive == 'request'"></noti-content>
-		<noti-content type="respond" ng-show="mPopoverActive == 'respond'"></noti-content>
-	</ion-content>
-
-	<!-- footer bar -->
-	<div class="bar bar-stable bar-footer" id="noti-popover-footer-bar">
-		<button id="noti-popover-footer-left"
-		class="button button-clear"
-		ng-click="closePopover(); goToState('comingSoon')">
-			See All
-		</button>
-
-		<button id="noti-popover-footer-right"
-		class="button button-clear"
-		ng-click="closePopover(); goToState('comingSoon')"
-		ng-show="mPopoverActive == 'respond'">
-			Mark as Read
-		</button>
-	</div>
+	<ion-spinner icon="dots" ng-hide="eUser.uIsDoneNoti"></ion-spinner>
 </ion-popover-view>

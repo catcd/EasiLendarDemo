@@ -277,6 +277,12 @@ angular.module('MainApp.controllers.myProfile', [])
 			$scope.data.gender = null;
 		}
 
+		if (eUser.uPhone) {
+			$scope.data.phone = eUser.uPhone;
+		} else {
+			$scope.data.phone = null;
+		}
+
 		$scope.activeTab(1);
 		$scope.tempUserData = angular.copy(eUser);
 		$scope.isEditing = true;
@@ -291,7 +297,16 @@ angular.module('MainApp.controllers.myProfile', [])
 
 			eUser.uBirthday = new Date(parseInt($scope.data.year), parseInt($scope.data.month) - 1, parseInt($scope.data.date));
 		}
+
 		eUser.uGender = ($scope.data.gender ? "Male" : "Female");
+
+		$scope.data.phone = $scope.data.phone.toString();
+
+		if ($scope.data.phone.charAt(0) == '0') {
+			eUser.uPhone = $scope.data.phone;
+		} else {
+			eUser.uPhone = "0" + $scope.data.phone;
+		}
 
 		$scope.data = {};
 		$scope.isEditing = false;
