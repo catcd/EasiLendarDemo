@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 04/05/2015
+ * last update: 09/05/2015
  * type: module all shared variables used for this app
  */
 
@@ -86,6 +86,7 @@ angular.module('MainApp.shareds.data', [])
 			this.sLocalCalendar = true;
 			this.sGmailCalendar = true;
 			this.sFaceCalendar = true;
+			this.sOutlookCalendar = true;
 
 			this.sDefaultView = 'month';
 			this.sDayView = 'eventList';
@@ -121,6 +122,9 @@ angular.module('MainApp.shareds.data', [])
 		uBirthday: null,		/*ddmmyyyy*/
 		uPhone: null,
 		uAddress: null,
+
+		uIsDoneFriend: false,
+		uIsDoneNoti: false,
 
 		uRemember: false,	/*remember me*/
 		uFriend: [],		/*array of objects { id, name }*/
