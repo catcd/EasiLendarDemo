@@ -146,16 +146,21 @@ angular.module('MainApp.controllers.myProfile', [])
 		}
 	});
 
-	$scope.isShowFriendMore = function() {
+	$scope.countFriend = function() {
 		var count = 0;
-		eUser.uFriend.forEach(function(element, index) {
-			count++;
-		});
+		if (eUser.uFriend && typeof(eUser.uFriend) == "object") {
+			console.log(eUser.uFriend);
+			for(var key in eUser.uFriend) {
+				if (eUser.uFriend[key].id != undefined
+					&& eUser.uFriend[key].name != undefined
+					&& eUser.uFriend[key].VIP != undefined
+					&& eUser.uFriend[key].ava != undefined) {
+					count++;
+				}
+			};
+		}
 
-		return {
-			count: count,
-			show: (count > 4)
-		};
+		return count;
 	};
 
 	$scope.generateRand = function() {
@@ -291,7 +296,7 @@ angular.module('MainApp.controllers.myProfile', [])
 
 	$scope.done = function() {
 		if ($scope.data.year || $scope.data.month || $scope.data.date) {
-			$scope.data.year = ($scope.data.year == null ? "1900" : $scope.data.year);
+			$scope.data.year = ($scope.data.year == null ? "1990" : $scope.data.year);
 			$scope.data.month = ($scope.data.month == null ? "1" : $scope.data.month);
 			$scope.data.date = ($scope.data.date == null ? "1" : $scope.data.date);
 
@@ -300,12 +305,14 @@ angular.module('MainApp.controllers.myProfile', [])
 
 		eUser.uGender = ($scope.data.gender ? "Male" : "Female");
 
-		$scope.data.phone = $scope.data.phone.toString();
+		if ($scope.data.phone) {
+			$scope.data.phone = $scope.data.phone.toString();
 
-		if ($scope.data.phone.charAt(0) == '0') {
-			eUser.uPhone = $scope.data.phone;
-		} else {
-			eUser.uPhone = "0" + $scope.data.phone;
+			if ($scope.data.phone.charAt(0) == '0') {
+				eUser.uPhone = $scope.data.phone;
+			} else {
+				eUser.uPhone = "0" + $scope.data.phone;
+			}
 		}
 
 		$scope.data = {};
@@ -369,15 +376,26 @@ angular.module('MainApp.controllers.myProfile', [])
 
 	$scope.activeTab = function(index) {
 		if (!$scope.isEditing) {
+			if (index > 3) {
+				index = 3;
+			} else if (index < 0) {
+				index = 0;
+			}
+
 			$ionicSlideBoxDelegate.slide(index, 500);
 		} else {
-			var elem = document.getElementById("tab-1");
+			var elem = document.getElementById("my-profile-tab-1");
 			var element = angular.element(elem);
 			element.prop('checked', true);
 		}
 	};
 
 	$scope.slideHasChanged = function(index) {
+		if (index > 3) {
+			index = 3;
+		} else if (index < 0) {
+			index = 0;
+		}
 		$scope.active = index;
 		var elem = document.getElementById("my-profile-tab-" + index);
 		var element = angular.element(elem);

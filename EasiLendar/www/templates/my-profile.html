@@ -110,11 +110,10 @@
 							</div>
 
 							<div class="my-profile-friends-info-item"
-							ng-show="isShowFriendMore().show"
 							ng-click="activeTab(2)">
 								<div class="easi-back-gray">
 									<p class="easi-white easi-center">
-										+{{isShowFriendMore().count - 4}}
+										+{{(countFriend() - 4) > 0 ? countFriend() - 4 : ""}}
 									</p>
 								</div>
 
