@@ -22,7 +22,7 @@ eEvent, eEasiLendar, eCalendar, eDatabase, eSync) {
 	$scope.weekDays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 	
 	// display object
-	$rootScope.display = $scope.isNull( eEvent.pointer ) ? null : new Display();
+	$scope.display = $scope.isNull( eEvent.pointer ) ? null : new Display();
 	$scope.$watch("currentState", function() {
 		$scope.display = $scope.isNull( eEvent.pointer ) ? null : new Display();
 	});

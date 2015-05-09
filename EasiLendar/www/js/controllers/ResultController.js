@@ -8,7 +8,8 @@
 var result = angular.module('MainApp.controllers.result', []);
 
 result.controller("ResultController",
-	function($rootScope, $scope, eSettings, eFriend, eMultiCalendar, eEasiLendar, eSAlgorithm, eSearchFilter, eUser) {
+	function($rootScope, $scope, eSettings, eFriend, eMultiCalendar, eEasiLendar,
+		eSAlgorithm, eSearchFilter, eUser) {
 
 	// Constants
 	var NUM_OF_OPTIONS = 5;
