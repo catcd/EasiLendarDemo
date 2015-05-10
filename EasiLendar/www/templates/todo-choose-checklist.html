@@ -1,11 +1,11 @@
 <!-- starter: Can Duy Cat
 	 owner: Can Duy Cat
-	 last update: 30/04/2015
+	 last update: 10/05/2015
 	 type: default view selector popup template -->
 
 <div class="list todo-move-task">
-	<label ng-repeat="checklist in eTodo.tChecklist" class="item item-radio">
-		<input type="radio" ng-model="data.moveTo" value={{eTodo.tChecklist.indexOf(checklist)}}>
+	<label ng-repeat="checklist in eUser.uTodo" class="item item-radio">
+		<input type="radio" ng-model="data.moveTo" value={{eUser.uTodo.indexOf(checklist)}}>
 		<div class="item-content">
 			{{checklist.listName}}
 		</div>
