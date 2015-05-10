@@ -15,7 +15,6 @@ angular.module('MainApp.controllers.list', [])
 	var toDay = new Date();
 	toDay = new Date(toDay.setHours(0,0,0,0));
 
-
 	/* Build next weeks has date
 	 allWeeks include many arrays; each array is a week in year.
 	 week: is a week; array of dates in week
@@ -25,77 +24,66 @@ angular.module('MainApp.controllers.list', [])
 	$scope.buildNextWeek = function(date){
 		var day;
 		var i = $scope.allWeeks.length;
-		$scope.allWeeks[i] = { week: [], first: null, last: null};
+		$scope.allWeeks[i] = { date: null, first: null, last: null};
+
+		$scope.allWeeks[i].date = angular.copy(date);
+
 		//Week start from Sunday - Monday - Saturday
 		if(eSettings.sFirstDay == 'Sunday'){
-			day = date.getDay();
+			var firstDate = date.getDate() - date.getDay();
+			$scope.allWeeks[i].first = new Date (date.getFullYear(), date.getMonth(), firstDate);
+			var lastDate = date.getDate() + 6 - date.getDay();
+			$scope.allWeeks[i].last = new Date (date.getFullYear(), date.getMonth(), lastDate);
 		}
 
 		if(eSettings.sFirstDay == 'Monday'){
 			day = date.getDay();
-			day += (day == 0) ? (6):(-1);
+			var firstDate = date.getDate() - ( (day == 0) ? 6 : (day-1) );
+			$scope.allWeeks[i].first = new Date (date.getFullYear(), date.getMonth(), firstDate);
+			var lastDate = date.getDate() + ( (day==0) ? day : (7-day) );
+			$scope.allWeeks[i].last = new Date (date.getFullYear(), date.getMonth(), lastDate);
 		}
 
 		if(eSettings.sFirstDay == 'Saturday'){
 			day = date.getDay();
-			day += (day == 6) ? (-6):(1);
+			var firstDate = date.getDate() - ( (day == 6) ? 0 : (day+1) );
+			$scope.allWeeks[i].first = new Date (date.getFullYear(), date.getMonth(), firstDate);
+			var lastDate = date.getDate() + ( (day == 6) ? 6 : (5-day) );
+			$scope.allWeeks[i].last = new Date (date.getFullYear(), date.getMonth(), lastDate);
 		}
-
-		$scope.allWeeks[i].week[day] = angular.copy(date);
-		var j;
-
-		//build previous days of date in week
-		for(j=day-1; j>=0; j--){
-			var d = $scope.allWeeks[i].week[j+1];
-			$scope.allWeeks[i].week[j] = new Date( d.getFullYear(), d.getMonth(), d.getDate() - 1 );
-		}
-		$scope.allWeeks[i].first = angular.copy($scope.allWeeks[i].week[0]);
-
-		//build next days of date in week
-		for(j=day+1; j<=6; j++){
-			var d = $scope.allWeeks[i].week[j-1];
-			$scope.allWeeks[i].week[j] = new Date( d.getFullYear(), d.getMonth(), d.getDate() + 1 );
-		}
-		$scope.allWeeks[i].last = angular.copy($scope.allWeeks[i].week[6]);
-		//console.log($scope.allWeeks);
 	};
 
 	$scope.buildPrevWeek = function(date){
 		var day;
-		var objWeek = { week: [], first: null, last: null};
+		var objWeek = { date: null, first: null, last: null};
+
+		objWeek.date = angular.copy(date);
+
 		//Week start from Sunday - Monday - Saturday
 		if(eSettings.sFirstDay == 'Sunday'){
-			day = date.getDay();
+			var firstDate = date.getDate() - date.getDay();
+			objWeek.first = new Date(date.getFullYear(), date.getMonth(), firstDate);
+			var lastDate = date.getDate() + 6 - date.getDay();
+			objWeek.last = new Date(date.getFullYear(), date.getMonth(), lastDate);
 		}
 
 		if(eSettings.sFirstDay == 'Monday'){
 			day = date.getDay();
-			day += (day == 0) ? (6):(-1);
+			var firstDate = date.getDate() - ( (day == 0) ? 6 : (day-1) );
+			objWeek.first = new Date (date.getFullYear(), date.getMonth(), firstDate);
+			var lastDate = date.getDate() + ( (day==0) ? day : (7-day) );
+			objWeek.last = new Date (date.getFullYear(), date.getMonth(), lastDate);
 		}
 
 		if(eSettings.sFirstDay == 'Saturday'){
 			day = date.getDay();
-			day += (day == 6) ? (-6):(1);
+			var firstDate = date.getDate() - ( (day == 6) ? 0 : (day+1) );
+			objWeek.first = new Date (date.getFullYear(), date.getMonth(), firstDate);
+			var lastDate = date.getDate() + ( (day == 6) ? 6 : (5-day) );
+			objWeek.last = new Date (date.getFullYear(), date.getMonth(), lastDate);
 		}
-
-		objWeek.week[day] = angular.copy(date);
-		var j;
-
-		//build next days of date in week
-		for(j=day+1; j<=6; j++){
-			var d = objWeek.week[j-1];
-			objWeek.week[j] = new Date( d.getFullYear(), d.getMonth(), d.getDate() + 1 );
-		}
-		//build previous days of date in week
-		for(j=day-1; j>=0; j--){
-			var d = objWeek.week[j+1];
-			objWeek.week[j] = new Date( d.getFullYear(), d.getMonth(), d.getDate() - 1 );
-		}
-		objWeek.first = angular.copy(objWeek.week[0]);
-		objWeek.last = angular.copy(objWeek.week[6]);
 
 		$scope.allWeeks.unshift(objWeek);
-		//console.log($scope.allWeeks);
 	}
 
 	//Change month and year
@@ -120,29 +108,15 @@ angular.module('MainApp.controllers.list', [])
 		});
 
 	//Load NEXT week when scroll UP
-	$scope.scrollUp = function(){
-		/*var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 25;
-		var winHeight = window.innerHeight;
-		var lastTable = document.getElementById($scope.allWeeks[$scope.allWeeks.length-1].first.toDateString());
-		var posLast = lastTable.getBoundingClientRect();*/
-
-		//if(posLast.bottom <= winHeight - 30){
-		var date = angular.copy($scope.allWeeks[$scope.allWeeks.length-1].last);
+	$scope.scrollNext = function(){
+		var date = angular.copy($scope.allWeeks[$scope.allWeeks.length-1].date);
 		$scope.buildNextWeek( new Date( date.getFullYear(), date.getMonth(), date.getDate()+1 ) );
-		//}
 	};
 
 	//Load PREVIOUS week when scroll DOWN
-	$scope.scrollDown = function(){
-		/*var top = document.getElementById('list-calendar-title').getBoundingClientRect().height - 50;
-		var winHeight = window.innerHeight;
-		var firstTable = document.getElementById($scope.allWeeks[0].first.toDateString());
-		var posFirst = firstTable.getBoundingClientRect();*/
-
-		//if(posFirst.top - 120 >= top){
-		var date = angular.copy($scope.allWeeks[0].first);
+	$scope.scrollPrev = function(){
+		var date = angular.copy($scope.allWeeks[0].date);
 		$scope.buildPrevWeek( new Date( date.getFullYear(), date.getMonth(), date.getDate()-1 ) );
-		//}
 	};
 
 	$scope.lastPosContent = 0;				//The position of ion-content after each scrolling.
@@ -152,20 +126,32 @@ angular.module('MainApp.controllers.list', [])
 		var content = document.getElementById('list-div-calendar');
 		var posContent = content.getBoundingClientRect();
 
-		//Scroll Up when posContent.top increase
+		//Scroll previous date when posContent.top increase
 		if(posContent.top > $scope.lastPosContent){
-			while($scope.setTimeOut < 1){
-				$scope.scrollDown();
-				$scope.setTimeOut++;
-				$scope.$apply();
+			var top = document.getElementById('list-calendar-title').getBoundingClientRect().height - 50;
+			var firstTable = document.getElementById($scope.allWeeks[0].first.toDateString());
+			var posFirst = firstTable.getBoundingClientRect();
+
+			if(posFirst.top - 100 >= top){
+				while($scope.setTimeOut < 6){
+					$scope.scrollPrev();
+					$scope.setTimeOut++;
+					$scope.$apply();
+				}
 			}
 		}
-		//Scroll Down when posContent.top reduce
+		//Scroll next date when posContent.top reduce
 		else if(posContent.top < $scope.lastPosContent){
-			while($scope.setTimeOut < 1){
-				$scope.scrollUp();
-				$scope.setTimeOut++;
-				$scope.$apply();
+			var winHeight = window.innerHeight;
+			var lastTable = document.getElementById($scope.allWeeks[$scope.allWeeks.length-1].first.toDateString());
+			var posLast = lastTable.getBoundingClientRect();
+
+			if(posLast.bottom <= winHeight + 50){
+				while($scope.setTimeOut < 6){
+					$scope.scrollNext();
+					$scope.setTimeOut++;
+					$scope.$apply();
+				}
 			}
 		}
 		else {}
@@ -177,7 +163,6 @@ angular.module('MainApp.controllers.list', [])
 		var posContent = content.getBoundingClientRect();
 		$scope.lastPosContent = angular.copy(posContent.top);
 		$scope.setTimeOut = 0;
-		console.log('Stop');
 	}
 
 	//Scroll to current day in list

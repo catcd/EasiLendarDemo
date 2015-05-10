@@ -73,9 +73,9 @@ describe('Friend Panel', function() {
 			expect($scope.searchFriend).toBe("");
 		});
 
-		xit('should create a cache to save last list of friends', function(){
+		/*xit('should create a cache to save last list of friends', function(){
 			expect($scope.cacheFriend).toEqual(eUser.uFriend);
-		});
+		});*/
 
 		it('should create a eFriend.fName is ""', function(){
 			expect(eFriend.fName).toBe("");
@@ -87,7 +87,7 @@ describe('Friend Panel', function() {
 	});
 
 	describe('Some basic functions', function(){
-		xdescribe('Refresh List', function(){
+		/*xdescribe('Refresh List', function(){
 			it('should return list of friends like before using sort function', function(){
 				var sortedList = [
 					{name: '#dung@'}, {name: 'Barack Obama'},
@@ -104,7 +104,7 @@ describe('Friend Panel', function() {
 				$scope.refreshList();
 				expect(eUser.uFriend).toEqual(prevList);
 			});
-		});
+		});*/
 
 		describe('viewProfile', function(){
 			it('should call viewProfile function in DataBase.js', function(){

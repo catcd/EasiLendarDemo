@@ -3,7 +3,7 @@
  * owner: Nguo Duc Dung
  * last uptoDay: 30/04/2015
  * type: list controller
- * number of tests: 17
+ * number of tests: 19
  */
 
 /** Test for:
@@ -93,8 +93,7 @@ describe('List Calendar', function() {
 
 			expect($scope.allWeeks[0].first.toString()).toEqual(first.toString());
 			expect($scope.allWeeks[0].last.toString()).toEqual(last.toString());
-			expect($scope.allWeeks[0].week[0].toString()).toEqual(first.toString());
-			expect($scope.allWeeks[0].week[6].toString()).toEqual(last.toString());
+			expect($scope.allWeeks[0].date.toString()).toEqual(today.toString());
 		});
 
 		it('should set $scope.bkgE is bkg', function(){
@@ -112,6 +111,16 @@ describe('List Calendar', function() {
 			today = new Date(today.setHours(0,0,0,0));
 			expect($scope.currDay).toBeDefined();
 			expect($scope.currDay.toString()).toBe(today.toString());
+		})
+
+		it('should create $scope.lastPosContent is 0', function(){
+			expect($scope.lastPosContent).toBeDefined();
+			expect($scope.lastPosContent).toBe(0);
+		})
+
+		it('should create $scope.setTimeOut is 0', function(){
+			expect($scope.setTimeOut).toBeDefined();
+			expect($scope.setTimeOut).toBe(0);
 		})
 	});
 
@@ -137,7 +146,7 @@ describe('List Calendar', function() {
 	});
 
 	describe('Build next week', function(){
-		it('should build next week of current week, week starts from Monday', function(){
+		it('should build next date of current date, week starts from Monday', function(){
 			$scope.allWeeks = [];
 			var today = new Date();
 			today = new Date(today.setHours(0,0,0,0));
@@ -152,11 +161,10 @@ describe('List Calendar', function() {
 
 			expect($scope.allWeeks[0].first.toString()).toEqual(first.toString());
 			expect($scope.allWeeks[0].last.toString()).toEqual(last.toString());
-			expect($scope.allWeeks[0].week[0].toString()).toEqual(first.toString());
-			expect($scope.allWeeks[0].week[6].toString()).toEqual(last.toString());
+			expect($scope.allWeeks[0].date.toString()).toEqual(next.toString());
 		});
 
-		it('should build next week of current week, week starts from Sunday', function(){
+		it('should build next date of current date, week starts from Sunday', function(){
 			$scope.allWeeks = [];
 			var today = new Date();
 			today = new Date(today.setHours(0,0,0,0));
@@ -171,11 +179,10 @@ describe('List Calendar', function() {
 
 			expect($scope.allWeeks[0].first.toString()).toEqual(first.toString());
 			expect($scope.allWeeks[0].last.toString()).toEqual(last.toString());
-			expect($scope.allWeeks[0].week[0].toString()).toEqual(first.toString());
-			expect($scope.allWeeks[0].week[6].toString()).toEqual(last.toString());
+			expect($scope.allWeeks[0].date.toString()).toEqual(next.toString());
 		});
 
-		it('should build next week of current week, week starts from Saturday', function(){
+		it('should build next date of current date, week starts from Saturday', function(){
 			$scope.allWeeks = new Array();
 			var today = new Date();
 			today = new Date(today.setHours(0,0,0,0));
@@ -184,8 +191,6 @@ describe('List Calendar', function() {
 			eSettings.sFirstDay = 'Saturday';
 			$scope.buildNextWeek(next);
 
-			console.log($scope.allWeeks);
-
 			var firstDate = next.getDate() - ( (day == 6) ? 0 : (day+1) );
 			var first = new Date(next.getFullYear(), next.getMonth(), firstDate);
 			var lastDate = next.getDate() + ( (day == 6) ? 6 : (5-day) );
@@ -193,13 +198,12 @@ describe('List Calendar', function() {
 
 			expect($scope.allWeeks[0].first.toString()).toEqual(first.toString());
 			expect($scope.allWeeks[0].last.toString()).toEqual(last.toString());
-			expect($scope.allWeeks[0].week[0].toString()).toEqual(first.toString());
-			expect($scope.allWeeks[0].week[6].toString()).toEqual(last.toString());
+			expect($scope.allWeeks[0].date.toString()).toEqual(next.toString());
 		});
 	});
 
-	describe('Build previous week', function(){
-		it('should build previous week of current week, week starts from Monday', function(){
+	describe('Build previous date', function(){
+		it('should build previous date of current date, week starts from Monday', function(){
 			$scope.allWeeks = [];
 			var today = new Date();
 			today = new Date(today.setHours(0,0,0,0));
@@ -214,11 +218,10 @@ describe('List Calendar', function() {
 
 			expect($scope.allWeeks[0].first.toString()).toEqual(first.toString());
 			expect($scope.allWeeks[0].last.toString()).toEqual(last.toString());
-			expect($scope.allWeeks[0].week[0].toString()).toEqual(first.toString());
-			expect($scope.allWeeks[0].week[6].toString()).toEqual(last.toString());
+			expect($scope.allWeeks[0].date.toString()).toEqual(prev.toString());
 		});
 
-		it('should build previous week of current week, week starts from Sunday', function(){
+		it('should build previous date of current date, week starts from Sunday', function(){
 			$scope.allWeeks = [];
 			var today = new Date();
 			today = new Date(today.setHours(0,0,0,0));
@@ -234,11 +237,10 @@ describe('List Calendar', function() {
 
 			expect($scope.allWeeks[0].first.toString()).toEqual(first.toString());
 			expect($scope.allWeeks[0].last.toString()).toEqual(last.toString());
-			expect($scope.allWeeks[0].week[0].toString()).toEqual(first.toString());
-			expect($scope.allWeeks[0].week[6].toString()).toEqual(last.toString());
+			expect($scope.allWeeks[0].date.toString()).toEqual(prev.toString());
 		});
 
-		it('should build previous week of current week, week starts from Saturday', function(){
+		it('should build previous date of current date, week starts from Saturday', function(){
 			$scope.allWeeks = new Array();
 			var today = new Date();
 			today = new Date(today.setHours(0,0,0,0));
@@ -256,23 +258,22 @@ describe('List Calendar', function() {
 
 			expect($scope.allWeeks[0].first.toString()).toEqual(first.toString());
 			expect($scope.allWeeks[0].last.toString()).toEqual(last.toString());
-			expect($scope.allWeeks[0].week[0].toString()).toEqual(first.toString());
-			expect($scope.allWeeks[0].week[6].toString()).toEqual(last.toString());
+			expect($scope.allWeeks[0].date.toString()).toEqual(prev.toString());
 		});
 	});
 	
-	describe('$scope.scrollUp', function(){
+	describe('$scope.scrollNext', function(){
 		it('should call $scope.buildNextWeek function', function(){
 			spyOn($scope,'buildNextWeek');
-			$scope.scrollUp();
+			$scope.scrollNext();
 			expect($scope.buildNextWeek).toHaveBeenCalled();
 		});
 	});
 
-	describe('$scope.scrollDown', function(){
+	describe('$scope.scrollPrev', function(){
 		it('should call $scope.buildPrevWeek function', function(){
 			spyOn($scope,'buildPrevWeek');
-			$scope.scrollDown();
+			$scope.scrollPrev();
 			expect($scope.buildPrevWeek).toHaveBeenCalled();
 		});
 	});

@@ -14,7 +14,7 @@
 
 describe('Search Filter', function(){
 	var $controller, $rootScope, $scope, $filter;
-	var eSearchFilter, eSettings, eFriend, eDatabase, eToast;
+	var eSearchFilter, eSettings, eFriend, eDatabase, eToast, eUser;
 
 	beforeEach(module('MainApp.controllers.searchFilter'));
 
