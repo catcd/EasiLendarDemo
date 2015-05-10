@@ -7,7 +7,7 @@
 
 describe("MultiCalendar Test", function() {
 	var eEasiLendar;
-	angular.module("eEasiLendarMock", [])
+	angular.module("MultiCalendarMock", [])
 	.factory("eEasiLendar", function() {
 		return {
 			newBusyEvent: function(start, end) {
@@ -21,7 +21,7 @@ describe("MultiCalendar Test", function() {
 		};
 	});
 	beforeEach(function() {
-		module('eEasiLendarMock');
+		module('MultiCalendarMock');
 		module('MainApp.shareds.multiCalendar');
 		inject(function(_eMultiCalendar_,_eEasiLendar_, _$rootScope_) {
 			eMultiCalendar = _eMultiCalendar_;

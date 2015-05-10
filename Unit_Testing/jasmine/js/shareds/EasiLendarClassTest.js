@@ -7,38 +7,22 @@
  */
  
 describe('EasiLendar Classes Test', function() {
-	var eEasiLendar, eCalendar, eUser, eSettings, eFriend;
-	angular.module("applicationMock", [])
-	.factory("eUser", function() {
-		return {
-			uGmailCalendar: null,
-		};
-	})
-	.factory("eFriend", function() {
-		return {
-			fMultiCal: null,
-		}
-	})
-	.factory("eSettings", function() {
-		return {
-			sFirstDay: "Mon",
-		}
-	})
+	angular.module("EasiLendarClassMock", [])
 	.factory("$rootScope", function() {
 		return {
-			currentState: "week",
+			currentState: "week"
 		};
 	});
 	beforeEach(function() {
+		module('MainApp.shareds.data');
+		module('EasiLendarClassMock');
 		module('MainApp.shareds.calendar');
-		module('applicationMock');
 		module('MainApp.shareds.easiLendarClass');
-		var $rootScope = {currentState: "week"};
-		inject(function(_eEasiLendar_, _eCalendar_, _eUser_, _eFriend_, _eSettings_, _$rootScope_) {
+		inject(function(_$rootScope_, _eEasiLendar_, _eCalendar_, _eUser_, _eFriend_, _eSettings_) {
 			$rootScope = _$rootScope_;
 			eEasiLendar = _eEasiLendar_;
 			eCalendar = _eCalendar_;
-			eUser = _eUser_;
+			eUser = _eUser_,
 			eFriend = _eFriend_;
 			eSettings = _eSettings_;
 		});
@@ -347,7 +331,6 @@ describe('EasiLendar Classes Test', function() {
 			date2 = new Date(2015,2,23);
 			date3 = new Date(2015,3,22);
 			date4 = new Date(2015,5,22);
-			
 			eUser.uGmailCalendar = [];
 			eUser.uGmailCalendar[date1] = [event2];
 			eUser.uGmailCalendar[date2] = [event2];
