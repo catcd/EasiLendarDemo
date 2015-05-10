@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 08/05/2015
+	 last update: 09/05/2015
 	 type: calendar template -->
 
 <list-events><ion-view title="EasiLendar" ng-class="background(currMonth)">
@@ -13,19 +13,23 @@
 	</ion-nav-buttons>
 	
 	<div id="list-calendar-title" class="list-calendar-title">{{eCalendar.months[currMonth]}}, {{currYear}}</div>
-	<ion-content scrollbar-y="false" id="list-content-calendar" on-swipe-up="scrollUp()" on-swipe-down="scrollDown()">
+	<ion-content scrollbar-y="false" id="list-content-calendar" on-scroll="handleScrolling()" on-scroll-complete="whenStopScrolling()">
 		<div id="list-div-calendar">
-			<table ng-repeat="month in allMonths" id="{{month.first.toDateString()}}" class="list-calendar" ng-show="eUser.uGmailCalendar != null">
-				<tr data-ng-hide="month.events" data-ng-repeat="week in month.weeks">
-					<td class="list-td-no-event">
-						<p class="list-p-no-event-{{week.days.indexOf(day)}}" data-ng-repeat="day in week.days">
-							{{eCalendar.weekDays[(day.getDay()-1 < 0) ? 6:day.getDay()-1]}}, {{day.getDate()}} 
-							<span class="list-span-no-event" ng-show="week.days.indexOf(day) == 0"> - </span>
-						</p>
-					</td>
+			<table data-ng-repeat="week in allWeeks" id="{{week.first.toDateString()}}" class="list-calendar" data-ng-show="eUser.uGmailCalendar != null">
+
+				<!-- Week title -->
+				<tr>
+					<td class="list-td-calendar-1"></td>
+					<td class="list-td-calendar-2">
+						<div class="list-div-calendar-1 list-div-week-title">{{week.first.getDate()}}, {{eCalendar.shortMonths[week.first.getMonth()].charAt(0).toUpperCase() + eCalendar.shortMonths[week.first.getMonth()].substr(1,3)}} 
+						- {{week.last.getDate()}}, {{eCalendar.shortMonths[week.last.getMonth()].charAt(0).toUpperCase() + eCalendar.shortMonths[week.last.getMonth()].substr(1,3)}}</div>
+					<td>
 				</tr>
 
-				<tr class="list-tr-calendar" ng-repeat="date in month.weeks" ng-show="eUser.uGmailCalendar[date] != undefined || date.toString() == currDay.toString()">
+				<!-- Event list -->
+				<tr class="list-tr-calendar" data-ng-repeat="date in week.week">
+					
+					<!-- Today does not have event -->
 					<td id="date-{{date.toDateString()}}" class="list-td-calendar-1" ng-show="date.toString() == currDay.toString() && eUser.uGmailCalendar[currDay] == undefined">
 						<div class="list-td-div-calendar" current-time="date.getDate()" current-month="{{date.getMonth()}}" current-year="{{date.getFullYear()}}" id="{{date.toDateString()}}">
 							<p class="list-p-calendar-number">{{date.getDate()}}</p>
@@ -34,22 +38,24 @@
 					</td>
 
 					<td class="list-td-calendar-2" ng-show="date.toString() == currDay.toString() && eUser.uGmailCalendar[currDay] == undefined">
-						<div class="list-div-current-day">Today has no events</div>
+						<div class="list-div-current-day">Today has no events. Press to create</div>
 					</td>
-					
-					<td id="date-{{date.toDateString()}}" class="list-td-calendar-1" ng-repeat="event in eUser.uGmailCalendar[date] | limitTo:1">
+
+					<!-- Day has events -->
+					<td id="date-{{date.toDateString()}}" class="list-td-calendar-1" data-ng-show="eUser.uGmailCalendar[date] != undefined" data-ng-repeat="event in eUser.uGmailCalendar[date] | limitTo:1">
 						<div class="list-td-div-calendar" current-time="date.getDate()" current-month="{{date.getMonth()}}" current-year="{{date.getFullYear()}}" id="{{date.toDateString()}}">
 							<p class="list-p-calendar-number">{{date.getDate()}}</p>
 							<p class="list-p-calendar-text">{{eCalendar.weekDays[(date.getDay()-1 < 0) ? 6:date.getDay()-1]}}</p>
 						</div>
 					</td>
-					<td class="list-td-calendar-2">
-						<div class="list-div-calendar-1" ng-repeat="event in eUser.uGmailCalendar[date]" background-event="bkgE" data-ng-click="viewE(event)">
+					<td class="list-td-calendar-2" data-ng-show="eUser.uGmailCalendar[date] != undefined">
+						<div class="list-div-calendar-1" data-ng-repeat="event in eUser.uGmailCalendar[date]" background-event="bkgE" data-ng-click="viewE(event)">
 							<span class="list-span-title-event">{{event.summary}}</span><br>
 							<span>Time: {{event.start.dateTime.getHours()}}:{{ (event.start.dateTime.getMinutes()<10)?'0':'' }}{{event.start.dateTime.getMinutes()}}{{ (event.start.dateTime.getHours() >= 12)?' PM':' AM' }} - {{event.end.dateTime.getHours()}}:{{(event.end.dateTime.getMinutes()<10)?'0':''}}{{event.end.dateTime.getMinutes()}}{{( event.end.dateTime.getHours() >= 12)?' PM':' AM' }}
 							</span>
 						</div>
 					</td>
+
 				</tr>
 			</table>
 		</div>

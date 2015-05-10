@@ -16,12 +16,12 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	$scope.searchFriend = '';
 	$scope.mShow = false;
 
-	$scope.cacheFriend = angular.copy($scope.eUser.uFriend);
+	//$scope.cacheFriend = angular.copy($scope.eUser.uFriend);
 
 	//refresh list as before sorting
-	$scope.refreshList = function() {
+	/*$scope.refreshList = function() {
 		$scope.eUser.uFriend = angular.copy($scope.cacheFriend);
-	}
+	}*/
 
 	$scope.deleteFriend = function(friend) {
 		var confirmPopup = $ionicPopup.confirm({

@@ -73,7 +73,7 @@ describe('Friend Panel', function() {
 			expect($scope.searchFriend).toBe("");
 		});
 
-		it('should create a cache to save last list of friends', function(){
+		xit('should create a cache to save last list of friends', function(){
 			expect($scope.cacheFriend).toEqual(eUser.uFriend);
 		});
 
@@ -87,7 +87,7 @@ describe('Friend Panel', function() {
 	});
 
 	describe('Some basic functions', function(){
-		describe('Refresh List', function(){
+		xdescribe('Refresh List', function(){
 			it('should return list of friends like before using sort function', function(){
 				var sortedList = [
 					{name: '#dung@'}, {name: 'Barack Obama'},

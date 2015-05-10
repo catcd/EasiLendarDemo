@@ -1,13 +1,13 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 08/05/2015
+ * last update: 09/05/2015
  * type: list controller
  */
 
 angular.module('MainApp.controllers.list', [])
 
-.controller("ListController", function($scope, $rootScope, $ionicScrollDelegate, $location, eUser, eCalendar, eEasiLendar) {
+.controller("ListController", function($scope, $rootScope, $ionicScrollDelegate, $location, eUser, eCalendar, eEasiLendar, eSettings) {
 	//Using eUser, eCalendar factory
 	$scope.eUser = eUser;
 	$scope.eCalendar = eCalendar;
@@ -15,94 +15,87 @@ angular.module('MainApp.controllers.list', [])
 	var toDay = new Date();
 	toDay = new Date(toDay.setHours(0,0,0,0));
 
-	/** Contructor current month list
-	* weeks: array of all days in month
-	* length: number of days in month
-	* first: first day of month
-	* last: last day of month
-	* events: false if month doen not have any events
+
+	/* Build next weeks has date
+	 allWeeks include many arrays; each array is a week in year.
+	 week: is a week; array of dates in week
+	 last: last date of week
+	 first: frist date of week
 	*/
-		
-	//build next Month
-	$scope.buildNextMonth = function(date){
-		var i = $scope.allMonths.length;
-		$scope.allMonths[i] = {weeks: [], length: 0, first: null, last: null, events: false};
-
-		$scope.allMonths[i].first = new Date(date.getFullYear(), date.getMonth() + i, 1);
-		$scope.allMonths[i].last = new Date(date.getFullYear(), date.getMonth() + i + 1, 0);
-		var d = $scope.allMonths[i].last;
-		$scope.allMonths[i].length = d.getDate();
-
-		for(var j=1; j<=$scope.allMonths[i].length; j++){
-			$scope.allMonths[i].weeks.push(new Date(d.getFullYear(), d.getMonth(), j));
-
-			if($scope.eUser.uGmailCalendar != null){
-				if(j > 1 && $scope.eUser.uGmailCalendar[$scope.allMonths[i].weeks[j-1].toString()] != undefined){
-					$scope.allMonths[i].events = true;
-				}
-			}
+	$scope.buildNextWeek = function(date){
+		var day;
+		var i = $scope.allWeeks.length;
+		$scope.allWeeks[i] = { week: [], first: null, last: null};
+		//Week start from Sunday - Monday - Saturday
+		if(eSettings.sFirstDay == 'Sunday'){
+			day = date.getDay();
 		}
 
-		if($scope.allMonths[i].events == false){
-			$scope.allMonths[i].weeks = [];
-			var date = $scope.allMonths[i].first;
-			var number = $scope.allMonths[i].length;
-			var j=0;
-			while( j+8 < number){
-				var lenth = $scope.allMonths[i].weeks.length;
-				var objDay = {days: []};
-				objDay.days[0] = new Date(date.getFullYear(),date.getMonth(),date.getDate()+j);
-				objDay.days[1] = new Date(objDay.days[0].getFullYear(),objDay.days[0].getMonth(),objDay.days[0].getDate()+7);
-
-				$scope.allMonths[i].weeks.push(angular.copy(objDay));
-				j=j+8;
-			}
-
-			var objDay = {days: []};
-			objDay.days[0] = new Date(date.getFullYear(),date.getMonth(),date.getDate()+j);
-			objDay.days[1] = $scope.allMonths[i].last;
-			$scope.allMonths[i].weeks.push(angular.copy(objDay));
+		if(eSettings.sFirstDay == 'Monday'){
+			day = date.getDay();
+			day += (day == 0) ? (6):(-1);
 		}
+
+		if(eSettings.sFirstDay == 'Saturday'){
+			day = date.getDay();
+			day += (day == 6) ? (-6):(1);
+		}
+
+		$scope.allWeeks[i].week[day] = angular.copy(date);
+		var j;
+
+		//build previous days of date in week
+		for(j=day-1; j>=0; j--){
+			var d = $scope.allWeeks[i].week[j+1];
+			$scope.allWeeks[i].week[j] = new Date( d.getFullYear(), d.getMonth(), d.getDate() - 1 );
+		}
+		$scope.allWeeks[i].first = angular.copy($scope.allWeeks[i].week[0]);
+
+		//build next days of date in week
+		for(j=day+1; j<=6; j++){
+			var d = $scope.allWeeks[i].week[j-1];
+			$scope.allWeeks[i].week[j] = new Date( d.getFullYear(), d.getMonth(), d.getDate() + 1 );
+		}
+		$scope.allWeeks[i].last = angular.copy($scope.allWeeks[i].week[6]);
+		//console.log($scope.allWeeks);
 	};
 
-	//build previous Month
-	$scope.buildPrevMonth = function(date){
-		var obj = { weeks: [], length: 0, first: null, last: null, events: false };
-		obj.first = new Date(date.getFullYear(), date.getMonth() - 1, 1);
-		obj.last = new Date(date.getFullYear(), date.getMonth(),0);
-		obj.length =  obj.last.getDate();
-
-		for(var j=1; j<=obj.length; j++){
-			obj.weeks.push(new Date(obj.last.getFullYear(), obj.last.getMonth(), j));
-			if($scope.eUser.uGmailCalendar != null){
-				if(j>1 && $scope.eUser.uGmailCalendar[obj.weeks[j-1].toString()] != undefined){
-					obj.events = true;
-				}
-			}
+	$scope.buildPrevWeek = function(date){
+		var day;
+		var objWeek = { week: [], first: null, last: null};
+		//Week start from Sunday - Monday - Saturday
+		if(eSettings.sFirstDay == 'Sunday'){
+			day = date.getDay();
 		}
 
-		if(obj.events == false){
-			obj.weeks = [];
-			var date = obj.first;
-			var number = obj.length;
-			var j=0;
-			while( j+8 < number){
-				var lenth = obj.weeks.length;
-				var objDay = {days: []};
-				objDay.days[0] = new Date(date.getFullYear(),date.getMonth(),date.getDate()+j);
-				objDay.days[1] = new Date(objDay.days[0].getFullYear(),objDay.days[0].getMonth(),objDay.days[0].getDate()+7);
-
-				obj.weeks.push(angular.copy(objDay));
-				j=j+8;
-			}
-
-			var objDay = {days: []};
-			objDay.days[0] = new Date(date.getFullYear(),date.getMonth(),date.getDate()+j);
-			objDay.days[1] = obj.last;
-			obj.weeks.push(angular.copy(objDay));
+		if(eSettings.sFirstDay == 'Monday'){
+			day = date.getDay();
+			day += (day == 0) ? (6):(-1);
 		}
 
-		$scope.allMonths.unshift(obj);
+		if(eSettings.sFirstDay == 'Saturday'){
+			day = date.getDay();
+			day += (day == 6) ? (-6):(1);
+		}
+
+		objWeek.week[day] = angular.copy(date);
+		var j;
+
+		//build next days of date in week
+		for(j=day+1; j<=6; j++){
+			var d = objWeek.week[j-1];
+			objWeek.week[j] = new Date( d.getFullYear(), d.getMonth(), d.getDate() + 1 );
+		}
+		//build previous days of date in week
+		for(j=day-1; j>=0; j--){
+			var d = objWeek.week[j+1];
+			objWeek.week[j] = new Date( d.getFullYear(), d.getMonth(), d.getDate() - 1 );
+		}
+		objWeek.first = angular.copy(objWeek.week[0]);
+		objWeek.last = angular.copy(objWeek.week[6]);
+
+		$scope.allWeeks.unshift(objWeek);
+		//console.log($scope.allWeeks);
 	}
 
 	//Change month and year
@@ -111,34 +104,81 @@ angular.module('MainApp.controllers.list', [])
 		$scope.currentYear = date.getFullYear();
 	};
 
-	$scope.allMonths = [];
-	$scope.buildNextMonth(toDay);
+	$scope.allWeeks = [];
+	$scope.buildNextWeek(toDay);
 	$scope.changeMonth(toDay);
 
-	//Load next month when scroll UP
+	//Reset data
+	$rootScope.$on('$stateChangeStart',
+		function(event, toState, toParams, fromState, fromParams) {
+			if (toState.name == 'list') {
+				$scope.allWeeks = [];
+				$scope.buildNextWeek(toDay);
+				$scope.changeMonth(toDay);
+				$rootScope.listToday();
+			}
+		});
+
+	//Load NEXT week when scroll UP
 	$scope.scrollUp = function(){
-		var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 25;
+		/*var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 25;
 		var winHeight = window.innerHeight;
-		var lastTable = document.getElementById($scope.allMonths[$scope.allMonths.length-1].first.toDateString());
-		var posLast = lastTable.getBoundingClientRect();
+		var lastTable = document.getElementById($scope.allWeeks[$scope.allWeeks.length-1].first.toDateString());
+		var posLast = lastTable.getBoundingClientRect();*/
 
-		if(posLast.bottom <= winHeight - 30){
-			$scope.buildNextMonth(toDay);
-		}
+		//if(posLast.bottom <= winHeight - 30){
+		var date = angular.copy($scope.allWeeks[$scope.allWeeks.length-1].last);
+		$scope.buildNextWeek( new Date( date.getFullYear(), date.getMonth(), date.getDate()+1 ) );
+		//}
 	};
 
-	//Load previous month when scroll DOWN
+	//Load PREVIOUS week when scroll DOWN
 	$scope.scrollDown = function(){
-		var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 25;
+		/*var top = document.getElementById('list-calendar-title').getBoundingClientRect().height - 50;
 		var winHeight = window.innerHeight;
-		var firstTable = document.getElementById($scope.allMonths[0].first.toDateString());
-		var posFirst = firstTable.getBoundingClientRect();
+		var firstTable = document.getElementById($scope.allWeeks[0].first.toDateString());
+		var posFirst = firstTable.getBoundingClientRect();*/
 
-		if(posFirst.top >= top){
-			var date = $scope.allMonths[0].first;
-			$scope.buildPrevMonth(date);
-		}
+		//if(posFirst.top - 120 >= top){
+		var date = angular.copy($scope.allWeeks[0].first);
+		$scope.buildPrevWeek( new Date( date.getFullYear(), date.getMonth(), date.getDate()-1 ) );
+		//}
 	};
+
+	$scope.lastPosContent = 0;				//The position of ion-content after each scrolling.
+	$scope.setTimeOut = 0;					//time to call scrollUp and scrollDown function
+	//Called when scroll is activing
+	$scope.handleScrolling = function(){
+		var content = document.getElementById('list-div-calendar');
+		var posContent = content.getBoundingClientRect();
+
+		//Scroll Up when posContent.top increase
+		if(posContent.top > $scope.lastPosContent){
+			while($scope.setTimeOut < 1){
+				$scope.scrollDown();
+				$scope.setTimeOut++;
+				$scope.$apply();
+			}
+		}
+		//Scroll Down when posContent.top reduce
+		else if(posContent.top < $scope.lastPosContent){
+			while($scope.setTimeOut < 1){
+				$scope.scrollUp();
+				$scope.setTimeOut++;
+				$scope.$apply();
+			}
+		}
+		else {}
+	}
+
+	//Called when scroll stops
+	$scope.whenStopScrolling = function(){
+		var content = document.getElementById('list-div-calendar');
+		var posContent = content.getBoundingClientRect();
+		$scope.lastPosContent = angular.copy(posContent.top);
+		$scope.setTimeOut = 0;
+		console.log('Stop');
+	}
 
 	//Scroll to current day in list
 	$scope.currDay = toDay;
@@ -157,8 +197,6 @@ angular.module('MainApp.controllers.list', [])
 			$ionicScrollDelegate.scrollBy(0,currPos.top-top,false);
 		}
 	};
-
-	//console.log($scope.allMonths);
 
 	//set random background event
 	$scope.bkgE = 'bkg';
@@ -207,6 +245,7 @@ angular.module('MainApp.controllers.list', [])
 				if(date != undefined && date != null){
 					scope.currMonth = date.getMonth();
 					scope.currYear = date.getFullYear();
+					scope.$apply();
 				}
 			});
 		}

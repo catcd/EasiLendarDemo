@@ -243,7 +243,7 @@ angular.module('MainApp.controllers.sync', [])
 					obj.summary = $scope.fbEvents[i].name;
 					obj.location = $scope.fbEvents[i].place;
 					obj.id = $scope.fbEvents[i].id;
-					obj.position = obj.start;
+					obj.position = angular.copy(obj.start);
 					obj.position = new Date(obj.position.setHours(0,0,0,0));
 						//Create new array if this uFaceCalendar have not has any event obj
 					if(eUser.uFacebook[obj.position] == undefined || eUser.uFacebook[obj.position] == null) {

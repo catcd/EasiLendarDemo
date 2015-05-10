@@ -208,17 +208,8 @@
 	color: #416969;
 }
 #list-content-calendar { margin: 40px auto auto auto; width: 90%;}
-.list-calendar { margin: auto auto 70px auto; max-width: 1440px; width: 100%;}
-.list-td-no-event{ margin: auto auto auto auto; height: 10px; color: #646464;}
-.list-p-no-event-0, .list-p-no-event-1 {
-	display: inline-block;
-	width: 50%;
-	text-align: center;
-	font-size: 2vh;
-}
-.list-p-no-event-0 { text-align: right;}
-.list-p-no-event-1 { text-align: left; padding-left: 13px;}
-.list-span-no-event { margin-left: 10px; font-size: 5vmin;}
+.list-calendar { margin: auto auto 30px auto; max-width: 1440px; width: 100%;}
+.list-div-week-title { color: #416969 !important;}
 .list-td-calendar-1, .month-td-list-calendar-3{
 	width: 10%;
 	font-size: 4vh;
@@ -235,7 +226,6 @@
 	font-size: 2.45vh;
 	color: #fff;
 }
-.list-div-current-day { text-align: center;}
 .list-p-calendar-number, .list-p-calendar-text{ padding-top: 15px;}
 .list-p-calendar-text { font-size: 2vh; margin-top: -15px;}
 .list-p-calendar-number { margin: -15px auto auto auto}
