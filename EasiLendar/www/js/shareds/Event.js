@@ -18,10 +18,14 @@ event.factory('eEvent', function(eSettings) {
 			}
 		},
 		popBackState: function() {
-			var temp = angular.copy( this.backState[
-			this.backState.length - 1] );
-			delete this.backState[this.backState.length--];
-			return temp;
+			if (this.backState.length > 1) {
+				var temp = angular.copy( this.backState[
+				this.backState.length - 1] );
+				delete this.backState[this.backState.length--];
+				return temp;
+			} else {
+				return false;
+			}
 		}
 	};
 });
