@@ -17,6 +17,7 @@ angular.module('MainApp.controllers.editEvent', [])
 		}
 		return false;
 	};
+	
 	/*
 	* PRIVATE
 	* convert date to string
@@ -53,6 +54,13 @@ angular.module('MainApp.controllers.editEvent', [])
 	$scope.$watch("currentState", function() {
 		$scope.form = new Form();
 	});
+	
+	$scope.newEventForm = function( event ) {
+		return new EventForm( event );
+	};
+	$scope.newForm = function() {
+		return new Form();
+	};
 	
 	/* 
 	* class EventForm
