@@ -8,7 +8,7 @@
 angular.module('MainApp.controllers.eventEdit', [])
 
 .controller("EventDetailController", function($scope, $rootScope,
-eEvent, eEasiLendar, eCalendar, eDatabase, eSync) {
+	eEvent, eEasiLendar, eCalendar, eSync) {
 	
 	// check if obj is null/undefined/"" or not
 	$scope.isNull = function( obj ) {
@@ -46,6 +46,11 @@ eEvent, eEasiLendar, eCalendar, eDatabase, eSync) {
 		eEvent.pointer = null;
 		$rootScope.goToState( eEvent.popBackState() );
 	}
+	
+	$scope.newDisplay = function() {
+		return new Display();
+	};
+	
 	/*
 	* PRIVATE
 	* Display class
@@ -53,6 +58,11 @@ eEvent, eEasiLendar, eCalendar, eDatabase, eSync) {
 	function Display() {
 		// private functions
 		var displayDate = function() {
+			if ($scope.isNull(eEvent.pointer.start) || $scope.isNull(eEvent.pointer.end) ||
+				$scope.isNull(eEvent.pointer.start.dateTime) ||
+				$scope.isNull(eEvent.pointer.end.dateTime)) {
+				return null;
+			}
 			var start = eEvent.pointer.start.dateTime;
 			var end = eEvent.pointer.end.dateTime;
 			var type = eEasiLendar.isType(eEvent.pointer.start, eEvent.pointer.end);
@@ -89,7 +99,7 @@ eEvent, eEasiLendar, eCalendar, eDatabase, eSync) {
 					var year2 = end.getFullYear();
 					// line1 to display
 					line1 = day1 + ", " + month1 + " " + date1 + ", " +
-					year1 + ", " + hour1 + ":" + min1 + " - ";
+					year1 + ", " + hour1 + ":" + min1 + " -";
 					// line2 to display
 					line2 = day2 + ", " + month2 + " " + date2 + ", " +
 					year2 + ", " + hour2 + ":" + min2;
@@ -108,14 +118,4 @@ eEvent, eEasiLendar, eCalendar, eDatabase, eSync) {
 		};
 		this.location = eEvent.pointer.location;
 	} // end of display class
-})
-
-.run(function($rootScope, eEvent) {
-	// event must be EasiEvent object
-	$rootScope.viewEvent = function(event) {
-		if (event === null) return false;
-		eEvent.pointer = event;
-		eEvent.pushBackState( $rootScope.currentState );
-		$rootScope.goToState( "eventDetail" );
-	};
-})
+});

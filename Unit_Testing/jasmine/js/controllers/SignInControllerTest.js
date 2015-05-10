@@ -5,7 +5,7 @@
  * type: unit test
  */
 
-xdescribe('Sign In Controller Test', function() {
+describe('Sign In Controller Test', function() {
 	var $controller, $rootScope, $scope;
 	var eSettings, eUser, eDatabase, eTodo;
 	

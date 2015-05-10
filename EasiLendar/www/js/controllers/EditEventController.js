@@ -166,17 +166,4 @@ angular.module('MainApp.controllers.editEvent', [])
 			this.close();
 		};
 	}	// end of class Form
-})
-
-.run(function( $rootScope, eEvent ) {
-	// type is "create" or "edit"
-	$rootScope.toEventForm = function( type ) {
-		if (type === null) return false;
-		if (type == "create") {
-			eEvent.pointer = null;
-		}
-		eEvent.type = type;
-		eEvent.pushBackState( $rootScope.currentState );
-		$rootScope.goToState( "editEvent" );
-	};
-})
+});

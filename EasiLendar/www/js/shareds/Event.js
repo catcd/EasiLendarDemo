@@ -28,4 +28,24 @@ event.factory('eEvent', function(eSettings) {
 			}
 		}
 	};
+})
+.run(function($rootScope, eEvent) {
+	// event must be EasiEvent object
+	$rootScope.viewEvent = function(event) {
+		if (event === null) return false;
+		eEvent.pointer = event;
+		eEvent.pushBackState( $rootScope.currentState );
+		$rootScope.goToState( "eventDetail" );
+	};
+	
+	// type is "create" or "edit"
+	$rootScope.toEventForm = function( type ) {
+		if (type === null) return false;
+		if (type == "create") {
+			eEvent.pointer = null;
+		}
+		eEvent.type = type;
+		eEvent.pushBackState( $rootScope.currentState );
+		$rootScope.goToState( "editEvent" );
+	};
 });
