@@ -16,7 +16,6 @@
 	<ion-content scrollbar-y="false" id="list-content-calendar" on-scroll="handleScrolling()" on-scroll-complete="whenStopScrolling()">
 		<div id="list-div-calendar" data-ng-show="eUser.uGmailCalendar != null">
 			<table data-ng-repeat="week in allWeeks" id="{{week.first.toDateString()}}" class="list-calendar">
-
 				<!-- Week title -->
 				<tr data-ng-show="week.date.toString() == week.first.toString()">
 					<td class="list-td-calendar-1"></td>

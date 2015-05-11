@@ -17,7 +17,9 @@
 </div>
 
 <div scrollbar-y="false" class="month-calendar">
-	<center>
+
+	<!-- Month List -->
+	<center on-swipe-left="nextYear()" on-swipe-right="previousYear()">
 		<table class="month-table-list" data-ng-show="showMonthsList">
 			<tr class="month-tr-list" data-ng-repeat="month in allMonths">
 				<td id="{{month.first}}" class="month-td-list" data-ng-click="thisMonth(currentYear,month.first)" check-first-day="month.first" this-year="{{currentYear}}">
@@ -44,7 +46,9 @@
 		</table>
 	</center>
 
-	<center>
+
+	<!-- Month Calendar -->
+	<center on-swipe-left="nextMonth()" on-swipe-right="previousMonth()">
 		<table class="month-table-calendar" data-ng-show="showMonthCalendar && eSettings.sMonthView == 'eventList'">
 			<tr class="month-tr-calendar">
 				<td data-ng-repeat="day in daysInWeek" class="month-td-header-calendar">{{day.day}}</td>

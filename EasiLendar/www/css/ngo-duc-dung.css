@@ -1,11 +1,15 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 09/05/2015
+ * last update: 11/05/2015
  * type: personal css
  */
 
 /* FRIEND PANEL */
+.friend-panel.spinner svg{
+	fill: ;
+	stroke:;
+}
 .friend-myAvatar01 {
 	border: 0;
 	border-bottom: 1px solid #707070;
@@ -412,8 +416,7 @@
 { background-color: #416969; color: #fff;}
 .sync-div-name:active .sync-div-title-facebook, .sync-div-name:active .sync-div-title-local,
 .sync-div-name:active .sync-div-title-google { color: #fff;}
-.sync-div-title-facebook, .sync-div-title-local, .sync-div-title-google { margin: -26px auto auto 45px; font-size: 16px; color: #646464;}
-.sync-div-name .sync-div-title-google { margin-top: -26px;}
+.sync-div-title-facebook, .sync-div-title-local, .sync-div-title-google { margin: -23px auto auto 45px; font-size: 16px; color: #646464;}
 .sync-icon-facebook, .sync-icon-local, .sync-icon-google { margin-left: 20px; font-size: 24px;}
 .sync-div-options-facebook, .sync-div-options-google, .sync-div-options-local { margin: auto -12px auto -4px; height: 66px;}
 .sync-div-options-local { height: 36px;}

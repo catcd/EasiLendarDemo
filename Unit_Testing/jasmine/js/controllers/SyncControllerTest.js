@@ -105,22 +105,18 @@ describe('Sync Controller', function() {
 				expect(eFacebook.fbLogin).toHaveBeenCalled();
 			});
 
-			it('should call $scope.handleAuthClick and eToast.toastSuccessOne functions when parameter is "google"', function(){
-				spyOn(eToast, 'toastSuccessOne');
+			it('should call $scope.handleAuthClick function when parameter is "google"', function(){
 				spyOn($scope, 'handleAuthClick');
 				$scope.login('google');
 				expect($scope.handleAuthClick).toHaveBeenCalled();
-				expect(eToast.toastSuccessOne).toHaveBeenCalled();
 			});
 		});
 
 		describe('$scope.logout', function(){
 			it('should call eFacebook.fbLogout and eFacebook.fbSetLoginStatus functions when parameter is "facebook"', function(){
 				spyOn(eFacebook, 'fbLogout');
-				spyOn(eFacebook, 'fbSetLoginStatus');
 				$scope.logout('facebook');
 				expect(eFacebook.fbLogout).toHaveBeenCalled();
-				expect(eFacebook.fbSetLoginStatus).toHaveBeenCalled();
 			});
 
 			it('should call $scope.logMeOut function when parameter is "google"', function(){
