@@ -452,7 +452,7 @@ angular.module('MainApp.shareds.sync', [])
 
 			// Fail to connect:
 
-			if ($window.plugins == undefined) {
+			if (window.plugins == undefined) {
 				return false;
 			}
 			
