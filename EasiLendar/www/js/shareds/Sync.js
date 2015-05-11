@@ -9,9 +9,23 @@ var gapi=window.gapi=window.gapi||{};gapi._bs=new Date().getTime();(function(){v
 
 angular.module('MainApp.shareds.sync', [])
 
-.factory('eCopyData', function(eUser, eCalendar){
+.factory('eCopyData', function(){
+	
+	var tomorrow= function(today) {
+		var d = today.getTime();
+		var result = new Date(d + 86400000); // 86400000 is number of miliseconds in a day
+		return result;
+	};
+
+	// yesterday of Date:
+	var yesterday= function(today) {
+		var d = today.getTime();
+		var r = new Date(d - 86400000); // 86400000 is number of miliseconds in a day
+		return r;
+	};
+		
 	return {
-				extraCopy : function(uGC, uGCNew){
+		extraCopy : function(uGC, uGCNew){
 			
 			var listNewEvent = new Array();
 
@@ -43,7 +57,7 @@ angular.module('MainApp.shareds.sync', [])
 					end.setHours(23);
 					end.setMinutes(59);
 					end.setSeconds(59);
-					end = eCalendar.yesterday(end);
+					end = yesterday(end);
 				}
 
 				// separate each long-time event to list of event:
@@ -67,13 +81,13 @@ angular.module('MainApp.shareds.sync', [])
 							uGC[i].start.dateTime = new Date(uGC[i].start.dateTime);
 							uGC[i].position = new Date(uGC[i].start.dateTime.getFullYear(), uGC[i].start.dateTime.getMonth(), uGC[i].start.dateTime.getDate());
 
-							tempStart = eCalendar.tomorrow(tempStart);
+							tempStart = tomorrow(tempStart);
 
 							tempStart.setHours(0);
 							tempStart.setMinutes(0);
 							tempStart.setSeconds(0);
 
-							tempEnd = eCalendar.tomorrow(tempEnd);
+							tempEnd = tomorrow(tempEnd);
 
 							uGC[i].mStatus = false;
 						}
@@ -89,15 +103,15 @@ angular.module('MainApp.shareds.sync', [])
 
 							if (tempEnd.getTime() < end.getTime()) {
 
-								tempStart = eCalendar.tomorrow(tempStart);
-								tempEnd = eCalendar.tomorrow(tempEnd);
+								tempStart = tomorrow(tempStart);
+								tempEnd = tomorrow(tempEnd);
 							}
 
 							// non all-day event:
 							else {
 
-								tempStart = eCalendar.tomorrow(tempStart);
-								tempEnd = eCalendar.tomorrow(tempEnd);
+								tempStart = tomorrow(tempStart);
+								tempEnd = tomorrow(tempEnd);
 							}
 
 							newEvent.mStatus = false;
@@ -138,7 +152,11 @@ angular.module('MainApp.shareds.sync', [])
 	}
 })
 
-.factory('eSync', function(eUser, eCalendar, eDatabase, eCopyData){
+.factory('eSync', function(eUser, eDatabase, eCopyData){
+	var eUser= eUser;
+	var eDataBase= eDataBase;
+	var eCopyData= eCopyData;
+	
 	return {
 		// function should be called in the first Sign-In (for Page):
 		
@@ -169,8 +187,6 @@ angular.module('MainApp.shareds.sync', [])
 
 			if (authResult && !authResult.error) {
 				this.logInResult = true;
-
-				this.makeApiCallNoBound();
 			} 
 			else {
 				this.logInResult = false;
@@ -242,7 +258,7 @@ angular.module('MainApp.shareds.sync', [])
 			var end= e;
 			
 			//if (start.getTime() > end.getTime())	return false;
-			//if (start.getTime() == undefined || end.getTime()== undefined)	return false;
+			if (start== null || end== null)	return false;
 			
 			start= this.makeValidDate(start);
 			end= this.makeValidDate(end);
@@ -262,6 +278,10 @@ angular.module('MainApp.shareds.sync', [])
 				}
 			};
 			
+			this.addEventToGoogle(resource);
+		},
+	
+		addEventToGoogle: function(resource){
 			var request = gapi.client.calendar.events.insert({
 				'calendarId': 'primary',
 				'resource': resource
@@ -292,7 +312,7 @@ angular.module('MainApp.shareds.sync', [])
 			
 			return result;
 		},
-	
+		
 		length : function(array){
 			var dem= 0;
 			var i;
@@ -310,6 +330,7 @@ angular.module('MainApp.shareds.sync', [])
 			// first, search for id:
 			var index;
 			var i;
+			var found= false;
 			for  (index in eUser.uGmailCalendar){
 				for (i in eUser.uGmailCalendar[index]){
 					if (eUser.uGmailCalendar[index][i].id == Id){
@@ -348,6 +369,10 @@ angular.module('MainApp.shareds.sync', [])
 			
 			// delete in google calendar:
 			
+			this.deleteEventOnGoogle(Id);
+		},
+		
+		deleteEventOnGoogle : function(Id){
 			var request = gapi.client.calendar.events.delete({
 				'calendarId': 'primary',
 				'eventId': Id
