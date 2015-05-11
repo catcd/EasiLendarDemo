@@ -12,19 +12,19 @@
 		<div data-ng-repeat="apps in allApps">
 			<p class="sync-p-title-{{apps.title}}">{{apps.title.toUpperCase()}} {{(apps.title == 'social') ? 'NETWORK':'APPS'}}</p>
 			<hr class="sync-hr-title"></hr>
-			<slide-toggle-sync class="item sync-slide-{{app.name}}" data-ng-repeat="app in apps.array">
+			<div class="item sync-slide-{{app.name}}" data-ng-repeat="app in apps.array">
 				<div class="sync-div-name" data-ng-click="toggleFunc(app.name)">
 					<i class="sync-icon-{{app.name}} {{(app.name == 'facebook') ? 'ion-social-facebook':'ion-social-twitter'}}" data-ng-show="apps.title == 'social'"></i>
 					<i class="sync-icon-{{app.name}} {{(app.name == 'google') ? 'ion-social-google-outline':'ion-android-phone-portrait'}}" data-ng-show="apps.title == 'calendar'"></i>
 					<div class="sync-div-title-{{app.name}}">{{app.name.charAt(0).toUpperCase() + app.name.substr(1,app.name.length-1)}} {{(app.name == 'facebook')?'':'Calendar'}}</div>
 				</div>
-				<div class="sync-div-options-{{app.name}} easi-toggle-fast" data-ng-show="visible.value">
+				<div class="sync-div-options-{{app.name}} easi-toggle-fast" data-ng-show="isShow(app.name)">
 					<div id="sync-{{option.id}}" class="sync-{{option.id}}-{{app.name}}" data-ng-repeat="option in app.options" data-ng-click="handleOptions(app.name,option.id)">
 					<i class="sync-icon-{{option.id}} {{(option.name == 'Update events') ? 'ion-loop':'ion-reply'}}"></i>
 					{{option.name}}
 					</div>
 				</div>
-			</slide-toggle-sync>
+			</div>
 		</div>
 	</ion-content>
 </ion-view>

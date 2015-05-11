@@ -165,43 +165,6 @@ angular.module('MainApp.controllers.sync', [])
 		]},
 	];
 
-	//array of all user's events on facebook
-	$scope.fbEvents = [];
-
-	/* Check login status
-	 */
-	$scope.checkLoginStatus = function(name){
-		if(name == 'facebook'){
-			return eFacebook.fbSetLoginStatus();
-		}
-		
-		if(name == 'google'){
-			return $scope.handleClientLoad();
-		}
-	}
-
-	/*$scope.checkFBLoginStatus = function(){
-		//check login
-		var status = $scope.checkLoginStatus('facebook');
-	}*/
-
-	/* Log in
-	 * name = facebook: from facebook
-	 * name = google: from google calendar
-	 */
-
-	$scope.login = function(name){
-		if(name == 'facebook'){
-			eFacebook.fbLogin();
-		}
-
-		else if(name == 'google'){
-			$scope.handleAuthClick(null);
-			eToast.toastSuccessOne('Log in successfully', 2000);
-		}
-	};
-
-
 	/** Convert to arrays in eUser service
 	  * eUser.uFaceCalendar
 	*/
@@ -264,6 +227,8 @@ angular.module('MainApp.controllers.sync', [])
 	 * name = local: from local calendar
 	 * name = google: from google calendar
 	 */
+	//array of all user's events on facebook
+	$scope.fbEvents = [];
 
 	$scope.updateEvents = function(name){
 		if(name == 'facebook'){
@@ -289,6 +254,32 @@ angular.module('MainApp.controllers.sync', [])
 		}
 	};
 
+	/* Check login status
+	 */
+	$scope.checkLoginStatus = function(name){
+		if(name == 'facebook'){
+			return eFacebook.fbSetLoginStatus();
+		}
+		
+		if(name == 'google'){
+			return $scope.handleClientLoad();
+		}
+	}
+
+	/* Log in
+	 * name = facebook: from facebook
+	 * name = google: from google calendar
+	 */
+	$scope.login = function(name){
+		if(name == 'facebook'){
+			eFacebook.fbLogin();
+		}
+
+		if(name == 'google'){
+			$scope.handleAuthClick(null);
+		}
+	};
+
 	/* Log out
 	 * name = facebook: from facebook
 	 * name = google: from google calendar
@@ -297,11 +288,13 @@ angular.module('MainApp.controllers.sync', [])
 	$scope.logout = function(name){
 		if(name == 'facebook'){
 			eFacebook.fbLogout();
-			eFacebook.fbSetLoginStatus();
+			$scope.isShowDes = {};
+			setTimeOut = 0;
 		}
 
-		else if(name == 'google'){
+		if(name == 'google'){
 			$scope.logMeOut();
+			$scope.isShowDes = {};
 		}
 	};
 
@@ -318,79 +311,92 @@ angular.module('MainApp.controllers.sync', [])
 			else if(app == 'google') { $scope.updateEvents('google'); }
 		}
 	}
-})
 
-.directive('slideToggleSync', function($document, $ionicPopup, $rootScope) {
-	return {
-		restrict: 'E',
-		controller: 'SyncController',
-		link: function(scope, element, attr, $index) {
-			scope.visible = { index: false, value: false};
 
-			/* status of log in 
-			 * loginFB: status in facebook; false = not log in
-			 * loginGC: status in google	false = not log in
-			 */
+	/* Show & Hide slide toggle
+	Based on login status
+	*/
+	var setTimeOut = 0;
+	$scope.toggleFunc = function(name) {
+		if(name == 'facebook'){
+			facebookConnectPlugin.getLoginStatus(
+				function (success){
+					var loginFB = angular.copy(success.status);
 
-			/* Set slide toggle and call login function */
-			scope.toggleFunc = function(name) {
-				if(name == 'facebook'){
-					var loginFB = scope.checkLoginStatus('facebook');
-
-					if( loginFB != 'connected') {
+					if(loginFB != 'connected'){
 						var confirmPopup = $ionicPopup.confirm({
 							title: 'You need to login first'
 						});
 
 						confirmPopup.then(function(res) {
 							if(res) {
-								scope.login('facebook');
-								scope.checkLoginStatus('facebook');
+								$scope.login('facebook');
 							}
 						});
 					}
 
-					else { scope.visible.value = !scope.visible.value; }
-				}
-				
-				if(name == 'google'){
-					var loginGC = scope.checkLoginStatus('google');
-					
-					if(loginGC != 1) { 
-						var confirmPopup = $ionicPopup.confirm({
-							title: 'You need to login first'
-						});
+					else if (loginFB == 'connected') {
+						while(setTimeOut < 1) {
+							eToast.toastSuccessOne('Connected', 200);
+							setTimeOut = 1;
+						}
 
-						confirmPopup.then(function(res) {
-							if(res) {
-								scope.login('google');
-							}
-						});
+						clickShow(name);
 					}
+				},
+				function (error){
+					eToast.toastSuccessOne('Failed to get login status', 2000);
+				}
+			);
+		}
+		
+		if(name == 'google'){
+			var loginGC = $scope.checkLoginStatus('google');
 
-					else if (loginGC == 1){
-						scope.visible.value = !scope.visible.value;
+			if(loginGC != 1) { 
+				var confirmPopup = $ionicPopup.confirm({
+					title: 'You need to login first'
+				});
+
+				confirmPopup.then(function(res) {
+					if(res) {
+						$scope.login('google');
 					}
-				}
+				});
+			}
 
-				if(name == 'local') {
-					scope.visible.value = !scope.visible.value;
-				}
-			};
+			else if (loginGC == 1){ clickShow(name); }
+		}
 
+		if(name == 'local') {
+			clickShow(name);
+		}
+	};
 
-			$document.bind('click', function(event) {
-				if(scope.visible.index == true){
-					scope.visible.index = false;
-					scope.visible.value = false;
-				};
+	$scope.isShowDes = {};
 
-				if(scope.visible.value == true){
-					scope.visible.index = true;
-				}
+	$scope.isShow = function(name) {
+		if ($scope.isShowDes[name] == true) {
+			return true;
+		} else {
+			return false;
+		}
+	};
 
-				scope.$apply();
-			});
+	var activeShow = function(name) {
+		$scope.isShowDes = {};
+		$scope.isShowDes[name] = true;
+	};
+
+	var deactiveShow = function() {
+		$scope.isShowDes = {};
+	};
+
+	var clickShow = function(name) {
+		if ($scope.isShow(name) == true) {
+			deactiveShow();
+		} else {
+			activeShow(name);
 		}
 	};
 })
