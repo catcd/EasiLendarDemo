@@ -26,6 +26,10 @@ describe('Share Controller', function() {
 		fbSetLoginStatus: function() {}
 	};
 
+	facebookConnectPlugin = {
+		getLoginStatus: function(){},
+	};
+
 	beforeEach(inject(function($injector){
 		$rootScope = $injector.get('$rootScope');
         $controller = $injector.get('$controller');
@@ -37,7 +41,8 @@ describe('Share Controller', function() {
 			'eUser': eUser,
 			'eFacebook': eFacebook,
 			'$ionicPopup': $ionicPopup,
-			'eToast': eToast
+			'eToast': eToast/*,
+			'facebookConnectPlugin': facebookConnectPlugin*/
 		});
 	}));
 
@@ -62,5 +67,13 @@ describe('Share Controller', function() {
 				expect(eFacebook.fbSetLoginStatus).toBeDefined();
 			});
 		});
+
+		/*describe('$scope.handleOptions', function(){
+			it("should call facebookConnectPlugin.getLoginStatus function when site's name is facebook", function(){
+				spyOn(facebookConnectPlugin,'getLoginStatus');
+				$scope.handleOptions('facebook','share')
+				expect(facebookConnectPlugin.getLoginStatus).toHaveBeenCalled();
+			});
+		});*/
 	});
 });

@@ -151,9 +151,9 @@ angular.module('MainApp.controllers.searchFilter', [])
 	}
 
 	/* Chose person who you want to meet */
-	$scope.personName = ''; 				//search person input to find who you want to meet
-	$scope.showListPersons = false;			//hide list of persons
-	$scope.noFound = true;					//true when no friend is found
+	$scope.personName = $scope.eFriend.fName; 	//search person input to find who you want to meet
+	$scope.showListPersons = false;				//hide list of persons
+	$scope.noFound = true;						//true when no friend is found
 
 	//show-hide list friend when enter a friend's name
 	$scope.$watch('personName', function(){

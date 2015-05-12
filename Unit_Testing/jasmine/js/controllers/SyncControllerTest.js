@@ -3,7 +3,7 @@
  * owner: Ngo Duc Dung
  * last update: 30/04/2015
  * type: paticular controller
- * number of tests: 20
+ * number of tests: 26
  */
 
  
@@ -34,7 +34,8 @@ describe('Sync Controller', function() {
 	};
 
 	facebookConnectPlugin = {
-		api: function(){}
+		api: function(){},
+		getLoginStatus: function(){}
 	}
 
 	beforeEach(inject(function($injector){
@@ -49,8 +50,8 @@ describe('Sync Controller', function() {
 			'eFacebook': eFacebook,
 			'$ionicPopup': $ionicPopup,
 			'eSync': eSync,
-			'eToast': eToast,
-			'facebookConnectPlugin': facebookConnectPlugin
+			'eToast': eToast
+			//'facebookConnectPlugin': facebookConnectPlugin
 		});
 	}));
 
@@ -80,6 +81,11 @@ describe('Sync Controller', function() {
 		it('should set $scope.fbEvents is []', function(){
 			expect($scope.fbEvents).toBeDefined();
 			expect($scope.fbEvents).toEqual([]);
+		});
+
+		it('should create $scope.isShowDes is {}', function(){
+			expect($scope.isShowDes).toBeDefined();
+			expect($scope.isShowDes).toEqual({});
 		});
 	});
 
@@ -159,14 +165,12 @@ describe('Sync Controller', function() {
 		});
 
 		describe('$scope.updateEvents', function(){
-			/*xit('should call $scope.convertMe and eToast.toastSuccessOne functions when parameter is "facebook"', function(){
-				spyOn(eToast, 'toastSuccessOne');
-				spyOn($scope, 'convertMe');
+			/*it('should call $scope.convertMe and facebookConnectPlugin.api functions when parameter is "facebook"', function(){
+				spyOn(facebookConnectPlugin,'api');
 				$scope.updateEvents('facebook');
-				//expect(eToast.toastSuccessOne).toHaveBeenCalled();
-				//expect($scope.convertMe).toHaveBeenCalled();
-			});
-*/
+				expect(facebookConnectPlugin.api).toHaveBeenCalled();
+			});*/
+
 			it('should call eToast.toastSuccessOne function when parameter is "local"', function(){
 				spyOn(eToast, 'toastSuccessOne');
 				$scope.updateEvents('local');
@@ -268,6 +272,40 @@ describe('Sync Controller', function() {
 					i++;
 				}
 			})
+		});
+
+		describe('$scope.toggleFunc', function(){
+			/*it('should call facebookConnectPlugin.getLoginStatus function when parameter is "facebook"', function(){
+				spyOn(facebookConnectPlugin,'getLoginStatus');
+				$scope.toggleFunc('facebook');
+				expect(facebookConnectPlugin.getLoginStatus).toHaveBeenCalled();
+			});*/
+
+			/*it('should call $scope.checkLoginStatus function when parameter is "google"', function(){
+				spyOn($scope, 'checkLoginStatus');
+				$scope.toggleFunc('google');
+				expect($scope.checkLoginStatus).toHaveBeenCalled();
+			});*/
+		});
+
+		describe('$scope.isShow', function(){
+			it('should call return false if $scope.isShowDes[name] is false', function(){
+				var name = 'facebook';
+				$scope.isShowDes['facebook'] = false;
+				expect($scope.isShow(name)).toBe(false);
+			});
+
+			it('should call return false if $scope.isShowDes[name] is {}', function(){
+				var name = 'facebook';
+				$scope.isShowDes = {};
+				expect($scope.isShow(name)).toBe(false);
+			});
+
+			it('should call return false if $scope.isShowDes[name] is true', function(){
+				var name = 'facebook';
+				$scope.isShowDes['facebook'] = true;
+				expect($scope.isShow(name)).toBe(true);
+			});
 		});
 	});
 });

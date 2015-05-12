@@ -9,7 +9,7 @@ var gapi=window.gapi=window.gapi||{};gapi._bs=new Date().getTime();(function(){v
 
 angular.module('MainApp.controllers.sync', [])
 
-.controller('SyncController', function($scope, $rootScope, $document, eUser, eFacebook, eSync, eToast, $ionicPopup) {
+.controller('SyncController', function($scope, $rootScope, $document, eUser, eFacebook, eSync, eToast, $ionicPopup/*, facebookConnectPlugin*/) {
 	
 	$scope.logIN = -1;
 	$scope.email = '';
@@ -353,7 +353,7 @@ angular.module('MainApp.controllers.sync', [])
 		if(name == 'google'){
 			var loginGC = $scope.checkLoginStatus('google');
 
-			if(loginGC ==0) { 
+			if(loginGC != 1) { 
 				var confirmPopup = $ionicPopup.confirm({
 					title: 'You need to login first'
 				});

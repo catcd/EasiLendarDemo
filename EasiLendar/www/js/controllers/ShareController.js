@@ -7,7 +7,7 @@
 
 angular.module('MainApp.controllers.share', [])
 
-.controller('ShareController', function($scope, $rootScope, eUser, eFacebook, eToast, $ionicPopup) {
+.controller('ShareController', function($scope, $rootScope, eUser, eFacebook, eToast, $ionicPopup/*, facebookConnectPlugin*/) {
 	$scope.eUser = eUser;
 
 	$scope.allSites = [
