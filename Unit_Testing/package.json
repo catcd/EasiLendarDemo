@@ -1,0 +1,31 @@
+{
+  "name": "EasiLendar_Karma_Jasmine_Testing",
+  "version": "1.3.62",
+  "description": "The Very Best Meeting Planer",
+  "main": "karma.conf.js",
+  "scripts": {
+    "test": "karma start karma.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/catcd/EasiLendar"
+  },
+  "author": {
+    "name": "TEXAS GROUP",
+    "projectManager": "Cat Can"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/catcd/EasiLendar/issues"
+  },
+  "homepage": "https://github.com/catcd/EasiLendar",
+  "devDependencies": {
+    "jasmine-core": "^2.3.3",
+    "karma": "^0.12.31",
+    "karma-coverage": "^0.3.1",
+    "karma-jasmine": "^0.2.2",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-requirejs": "^0.2.2",
+    "requirejs": "^2.1.17"
+  }
+}
