@@ -12,11 +12,11 @@ angular.module('MainApp.controllers.loading', [])
 		template: '<ion-content class="easi-full-blue"><center><img src="img/logo.png" class="easi-logo"><br><p class="easi-font easi-big-name">EasiLendar</p><br><div id="followingBallsG"><div id="followingBallsG_1" class="followingBallsG"></div><div id="followingBallsG_2" class="followingBallsG"></div><div id="followingBallsG_3" class="followingBallsG"></div><div id="followingBallsG_4" class="followingBallsG"></div></div></center></ion-content>'
 	});
 
-	//window.onload = $scope.loadingFunction;
+	window.onload = $scope.loadingFunction;
 	$scope.loadingFunction = function() {
-		if (navigator.connection != undefined) { // if not working, skip it
-			$scope.checkConnection();
-		};
+		// if (navigator.connection != undefined) { // if not working, skip it
+		// 	$scope.checkConnection();
+		// };
 
 		$scope.getTimezone();
 		$rootScope.goToState("form");

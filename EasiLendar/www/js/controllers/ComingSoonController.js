@@ -16,18 +16,12 @@ angular.module('MainApp.controllers.comingSoon', [])
 				title: 'Thanks for your observation!',
 				template: "We are sending information to " + mail + " as soon as possible!"
 			});
-			setTimeout(function() {
-				confirm.close();
-			}, 5000);
 		} else {
 			// do sth when email is uncorrect here
 			var confirm = $ionicPopup.alert({
 				title: 'Oop! Something is wrong!',
 				template: "Your input email is uncorrect. Please try again!"
 			});
-			setTimeout(function() {
-				confirm.close();
-			}, 5000);
 		}
 	}
 })
