@@ -7,6 +7,8 @@
 
 beforeEach(module('MainApp.shareds.sync'));
 
+// Test eCopyData factory:
+
 describe('test eCopyData factory', function(){
 	var eCopyData;
 	
@@ -21,6 +23,8 @@ describe('test eCopyData factory', function(){
 			eCopyData = _eCopyData_;
 		});
 	});
+	
+	// Test function extraCopy:
 	
 	describe('test function extraCopy', function(){
 		
@@ -110,8 +114,10 @@ describe('test eCopyData factory', function(){
 	});
 });
 
-describe('Sync service test', function() {
+// Test eSync factory:
 
+describe('Sync service test', function() {
+	
 	var eSync;
 	var eCopyData;
 	
@@ -140,6 +146,8 @@ describe('Sync service test', function() {
 		});
 	});
 	
+	// Test logInToGmailCalendar function:
+	
 	describe('test logInToGmailCalendar function', function(){
 		it ('gapi should be defined', function(){
 			expect(gapi).toBeDefined();
@@ -149,6 +157,8 @@ describe('Sync service test', function() {
 			expect(gapi.auth.authorize).toBeDefined();
 		});
 	});
+	
+	// Test testLogInResult function:
 	
 	describe('test testLogInResult function', function(){
 		
@@ -168,6 +178,8 @@ describe('Sync service test', function() {
 			expect(eSync.logInResult).toEqual(false);
 		});
 	});
+	
+	// Test convertMe function:
 	
 	describe('test convertMe function', function(){
 		beforeEach(function(){
@@ -194,6 +206,8 @@ describe('Sync service test', function() {
 		});
 	});
 	
+	// Test makeValidDate function:
+	
 	describe('test makeValidDate', function(){
 		var date, epsilon;
 		beforeEach(function(){
@@ -206,6 +220,8 @@ describe('Sync service test', function() {
 			expect(result).toEqual(epsilon);
 		})
 	});
+	
+	// test addSingleEvent function:
 	
 	describe('test addSingleEvent', function(){
 	
@@ -243,6 +259,8 @@ describe('Sync service test', function() {
 		});
 	});
 	
+	// Test length function:
+	
 	describe('test length function', function(){
 		it('length function should return length of array', function(){
 			var x= [1,2,2];
@@ -250,6 +268,8 @@ describe('Sync service test', function() {
 			expect(y).toEqual(3);
 		});
 	});
+	
+	// test deleteEventWithId function:
 	
 	describe('test deleteEventWithId', function(){
 		var startFirst, endFirst, eventOfGoogleFirst;
@@ -269,6 +289,8 @@ describe('Sync service test', function() {
 			expect(resultFalse).toEqual(false);
 		});
 	});
+	
+	// Test editEventWithId function:
 	
 	describe('test editEventWithId', function(){
 		var startFirst, endFirst, eventOfGoogleFirst;
@@ -298,8 +320,10 @@ describe('Sync service test', function() {
 		});
 	});
 	
+	// Test syncToLocal function:
+	
 	describe('test syncToLocal', function(){
-		it ('because only run on real device, function should return false first', function(){
+		it ('because testing to Local Calendar only run on real device, function should return false first', function(){
 			var re= eSync.syncToLocal();
 			expect(re).toEqual(false);
 		});
