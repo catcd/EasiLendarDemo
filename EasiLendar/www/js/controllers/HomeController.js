@@ -1,32 +1,28 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 29/04/2015
+ * last update: 13/05/2015
  * type: home controller
  */
 
 angular.module('MainApp.controllers.home', [])
 
-.controller("HomeController", function($scope, $rootScope, $ionicPopover) {
+.controller('HomeController', function($scope, $rootScope, $ionicPopover) {
 	// today function
 	// must call the corresponding today function
 	$scope.today = function() {
-		if ($rootScope.currentState == "month") {
+		if ($rootScope.currentState == 'month') {
 			$rootScope.monthToday();
-		}
-		else if ($rootScope.currentState == "day") {
+		} else if ($rootScope.currentState == 'day') {
 			$rootScope.dayToday();
-		}
-		else if ($rootScope.currentState == "list") {
+		} else if ($rootScope.currentState == 'list') {
 			$rootScope.listToday();
-		}
-		else if ($rootScope.currentState == "week") {
+		} else if ($rootScope.currentState == 'week') {
 			$rootScope.weekToday();
 		}
-		else {};
 	};
 
-	var template = "";
+	var template = '';
 
 	/**
 	 * calendar select popover
@@ -52,5 +48,4 @@ angular.module('MainApp.controllers.home', [])
 	$scope.$on('$destroy', function() {
 		$scope.calendarPopover.remove();
 	});
-})
-
+});
