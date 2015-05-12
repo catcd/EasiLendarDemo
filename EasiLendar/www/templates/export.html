@@ -7,12 +7,31 @@
 	<ion-nav-buttons side="left">
 		<button class="button button-icon button-clear ion-home" ng-click="goHome()"></button>
 	</ion-nav-buttons>
-
-	<ion-content padding="true"  class="easi-full-blue">
-		<center>
-			<img src="img/logo.png" class="easi-logo">
-			<br>
-			<p class="easi-font easi-big-name">EasiLendar</p>
-		</center>
-	</ion-content>
+<ion-content class="easi-full-blue easi-center" scroll="false">
+	<div class= "Export"><br>
+	<img src="img/ava0.png">
+	 <br>
+		<form method="POST" name="Export" data-ng-submit="export()">
+			<div>
+				<label class="font20 export-form  export-padding"><strong>File name:</strong></label>
+				<input class=" export-form-height item-input   signin-form-input" ng-model="file.name"  on-touch="warnings.reset(0)" type="text" name="userid"/>
+			</div>
+		</form>
+		<div class="list">
+			<label class="font20 export-form  export-padding"><strong>File type:</strong></label>
+			<label class="item item-input item-select ">
+				<div class="input-label" >
+				Select
+				</div>
+				<select ng-model ="file.type">
+				  <option>.docx</option>
+				  <option selected>.txt</option>
+				  <option>.pdf</option>
+				</select>
+			</label>
+		<br>
+		</div>
+		<input class="button button-easi-blue font20 export-button" type="submit" value="Export" ng-click = "Export()"/>
+	</div>
+</ion-content>
 </ion-view>
