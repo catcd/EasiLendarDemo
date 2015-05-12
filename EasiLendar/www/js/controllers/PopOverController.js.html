@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for C:/CNPM/EasiLendar/EasiLendar/www/js/controllers/PopOverController.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../../../../../prettify.css">
+    <link rel="stylesheet" href="../../../../../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header medium">
+    <h1>Code coverage report for <span class="entity">C:/CNPM/EasiLendar/EasiLendar/www/js/controllers/PopOverController.js</span></h1>
+    <h2>
+        Statements: <span class="metric">67.86% <small>(38 / 56)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">76.47% <small>(13 / 17)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">44.44% <small>(8 / 18)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">67.86% <small>(38 / 56)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../../../../index.html">All files</a> &#187; <a href="index.html">C:/CNPM/EasiLendar/EasiLendar/www/js/controllers/</a> &#187; PopOverController.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * starter: Can Duy Cat
+ * owner: Can Duy Cat
+ * last update: 13/05/2015
+ * type: popover controller
+ */
+&nbsp;
+angular.module('MainApp.controllers.popover', [])
+&nbsp;
+.controller('PopOverController',
+	function($rootScope, $scope, $ionicPopover, $ionicActionSheet,
+		eDatabase, eUser) {
+&nbsp;
+		// inject services
+		$scope.eUser = eUser;
+		$scope.eDatabase = eDatabase;
+&nbsp;
+		/**
+		 * popover variable
+		 */
+		// class
+		$scope.mPopoverStatus = {};
+		$scope.mPopoverStatus[true] = 'active';
+		$scope.mPopoverStatus[false] = '';
+&nbsp;
+		$scope.mPopoverActive = '';
+&nbsp;
+		/**
+		 * popover function
+		 */
+		$scope.tabActive = function(tabName) {
+			if (tabName == 'friend' ||
+				tabName == 'request' ||
+				tabName == 'respond') {
+				$scope.mPopoverActive = tabName;
+			}
+		};
+&nbsp;
+		// function for gesture
+		$scope.nextRightNoti = function() {
+			if ($scope.mPopoverActive == 'friend') {
+				$scope.tabActive('request');
+			} else if ($scope.mPopoverActive == 'request') {
+				$scope.tabActive('respond');
+			} else {
+				$scope.tabActive('friend');
+			}
+		};
+		$scope.nextLeftNoti = function() {
+			if ($scope.mPopoverActive == 'friend') {
+				$scope.tabActive('respond');
+			} else if ($scope.mPopoverActive == 'respond') {
+				$scope.tabActive('request');
+			} else {
+				$scope.tabActive('friend');
+			}
+		};
+&nbsp;
+		/**
+		 * friend popover
+		 */
+		var template = '';
+&nbsp;
+		$scope.friendPopover = $ionicPopover.fromTemplate(template, {
+			scope: $scope,
+		});
+&nbsp;
+		// .fromTemplateUrl() method
+		$ionicPopover.fromTemplateUrl('templates/noti-popover.html', {
+			scope: $scope,
+		}).then(<span class="fstat-no" title="function not covered" >function(popover) {</span>
+<span class="cstat-no" title="statement not covered" >			$scope.friendPopover = popover;</span>
+		});
+&nbsp;
+		$scope.openPopover = function($event) {
+			$scope.tabActive('friend');
+			$scope.friendPopover.show($event);
+		};
+		$scope.closePopover = function() {
+			$scope.friendPopover.hide();
+		};
+		// Cleanup the popover when we're done with it!
+		$scope.$on('$destroy', <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >			$scope.friendPopover.remove();</span>
+		});
+&nbsp;
+		/**
+		 * action sheet
+		 */
+		// friend action sheet
+		$scope.friendAction = function(friend) {
+			// Show the action sheet
+			$ionicActionSheet.show({
+				buttons: [{
+					text: 'View'
+				}, {
+					text: 'Comfirm request'
+				}],
+				destructiveText: 'Delete request',
+				titleText: friend.name + ' request',
+				cancelText: 'Cancel',
+				cancel: <span class="fstat-no" title="function not covered" >function() {</span>
+					// TODO cancel code here
+				},
+				destructiveButtonClicked: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >					eDatabase.rejectF(friend.id);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >					return true;</span>
+				},
+				buttonClicked: <span class="fstat-no" title="function not covered" >function(index) {</span>
+<span class="cstat-no" title="statement not covered" >					if (index === 0) {</span>
+						// TODO view code here
+<span class="cstat-no" title="statement not covered" >						eDatabase.viewProfile(friend.id);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >						$scope.closePopover();</span>
+					} else {
+						// TODO confirm code here
+<span class="cstat-no" title="statement not covered" >						eDatabase.addFriend(friend.id);</span>
+					}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >					return true;</span>
+				}
+			});
+		};
+&nbsp;
+		// Request action sheet
+		$scope.requestAction = function(name) {
+			// Show the action sheet
+			$ionicActionSheet.show({
+				buttons: [{
+					text: 'View detail'
+				}, {
+					text: 'Accept'
+				}],
+				destructiveText: 'Reject',
+				titleText: name + ' appointment',
+				cancelText: 'Cancel',
+				cancel: <span class="fstat-no" title="function not covered" >function() {</span>
+					// TODO cancel code here
+				},
+				destructiveButtonClicked: <span class="fstat-no" title="function not covered" >function() {</span>
+					// TODO delete code here
+<span class="cstat-no" title="statement not covered" >					$rootScope.showAlert('Deleted');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >					return true;</span>
+				},
+				buttonClicked: <span class="fstat-no" title="function not covered" >function(index) {</span>
+<span class="cstat-no" title="statement not covered" >					if (index === 0) {</span>
+						// TODO view code here
+<span class="cstat-no" title="statement not covered" >						$rootScope.showAlert('Viewing');</span>
+<span class="cstat-no" title="statement not covered" >						$scope.closePopover();</span>
+					} else {
+						// TODO confirm code here
+<span class="cstat-no" title="statement not covered" >						$rootScope.showAlert('Accepted appointment');</span>
+					}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >					return true;</span>
+				}
+			});
+		};
+&nbsp;
+		/**
+		 * class variable
+		 */
+		// style for friend tab
+		$scope.friendTabClass = {};
+		$scope.friendTabClass[true] = 'noti-margin-down';
+		$scope.friendTabClass[false] = 'noti-margin-top';
+	})
+&nbsp;
+.directive('notiContent', <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >	return {</span>
+		restrict: 'E',
+		templateUrl: <span class="fstat-no" title="function not covered" >function(elem, attr) {</span>
+<span class="cstat-no" title="statement not covered" >			return 'templates/noti-' + attr.type + '-tab.html';</span>
+		}
+	};
+});
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed May 13 2015 04:05:11 GMT+0700 (SE Asia Standard Time)</div>
+</div>
+<script src="../../../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for C:/CNPM/EasiLendar/EasiLendar/www/js/controllers/EditEventController.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../../../../../prettify.css">
+    <link rel="stylesheet" href="../../../../../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">C:/CNPM/EasiLendar/EasiLendar/www/js/controllers/EditEventController.js</span></h1>
+    <h2>
+        Statements: <span class="metric">4.76% <small>(4 / 84)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 66)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 13)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">4.76% <small>(4 / 84)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../../../../index.html">All files</a> &#187; <a href="index.html">C:/CNPM/EasiLendar/EasiLendar/www/js/controllers/</a> &#187; EditEventController.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * starter: Can Duy Cat
+ * owner: Nguyen Minh Trang
+ * last update: 12/05/2015
+ * type: EditEventController
+ */
+&nbsp;
+var editEvent = angular.module('MainApp.controllers.editEvent', []);
+&nbsp;
+editEvent.controller('EditEventController', <span class="fstat-no" title="function not covered" >function ($scope, $rootScope,</span>
+	eEvent, eEasiLendar, eSync, eCalendar) {
+&nbsp;
+	// check if obj is null/undefined/"" or not
+<span class="cstat-no" title="statement not covered" >	var isNull = <span class="fstat-no" title="function not covered" >function (obj) {</span></span>
+<span class="cstat-no" title="statement not covered" >		if (obj === null || obj === undefined || obj === '') {</span>
+<span class="cstat-no" title="statement not covered" >			return true;</span>
+		}
+<span class="cstat-no" title="statement not covered" >		return false;</span>
+	};
+&nbsp;
+	/*
+	 * PRIVATE
+	 * convert date to string
+	 * date is Date object
+	 */
+<span class="cstat-no" title="statement not covered" >	var dateToStr = <span class="fstat-no" title="function not covered" >function (date) {</span></span>
+<span class="cstat-no" title="statement not covered" >		if (isNull(date)) {</span>
+<span class="cstat-no" title="statement not covered" >			return null;</span>
+		}
+<span class="cstat-no" title="statement not covered" >		var year, month, d;</span>
+<span class="cstat-no" title="statement not covered" >		year = date.getFullYear();</span>
+<span class="cstat-no" title="statement not covered" >		month = date.getMonth() + 1; </span>// 1 - 12
+<span class="cstat-no" title="statement not covered" >		d = date.getDate();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		if (d &lt; 10) {</span>
+<span class="cstat-no" title="statement not covered" >			d = '0' + d;</span>
+		}
+<span class="cstat-no" title="statement not covered" >		if (month &lt; 10) {</span>
+<span class="cstat-no" title="statement not covered" >			month = '0' + month;</span>
+		}
+<span class="cstat-no" title="statement not covered" >		return d + '/' + month + '/' + year;</span>
+	};
+&nbsp;
+	/*
+	 * PRIVATE
+	 * convert time to string
+	 * time is Date object
+	 */
+<span class="cstat-no" title="statement not covered" >	var timeToStr = <span class="fstat-no" title="function not covered" >function(time) {</span></span>
+<span class="cstat-no" title="statement not covered" >		if (isNull(time)) {</span>
+<span class="cstat-no" title="statement not covered" >			return null;</span>
+		}
+<span class="cstat-no" title="statement not covered" >		var h = time.getHours();</span>
+<span class="cstat-no" title="statement not covered" >		var m = time.getMinutes();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		if (h &lt; 10) {</span>
+<span class="cstat-no" title="statement not covered" >			h = '0' + h;</span>
+		}
+<span class="cstat-no" title="statement not covered" >		if (m &lt; 10) {</span>
+<span class="cstat-no" title="statement not covered" >			m = '0' + m;</span>
+		}
+<span class="cstat-no" title="statement not covered" >		return h + ':' + m;</span>
+	};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >	$scope.form = new Form();</span>
+<span class="cstat-no" title="statement not covered" >	$scope.$watch('currentState', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >		$scope.form = new Form();</span>
+	});
+&nbsp;
+<span class="cstat-no" title="statement not covered" >	$scope.newEventForm = <span class="fstat-no" title="function not covered" >function(event) {</span></span>
+<span class="cstat-no" title="statement not covered" >		return new EventForm(event);</span>
+	};
+<span class="cstat-no" title="statement not covered" >	$scope.newForm = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >		return new Form();</span>
+	};
+&nbsp;
+	/* 
+	 * class EventForm
+	 * event is EasiEvent
+	 */
+<span class="fstat-no" title="function not covered" >	function EventForm( event ) {</span>
+<span class="cstat-no" title="statement not covered" >		this.location = isNull( event ) ? null : event.location;</span>
+<span class="cstat-no" title="statement not covered" >		this.title = isNull( event ) ? null : event.summary;</span>
+<span class="cstat-no" title="statement not covered" >		this.date1 = isNull( event ) ? null : dateToStr(event.start.dateTime);</span>
+<span class="cstat-no" title="statement not covered" >		this.date2 = isNull( event ) ? null : dateToStr(event.end.dateTime);</span>
+<span class="cstat-no" title="statement not covered" >		this.time1 = isNull( event ) ? null : timeToStr(event.start.dateTime);</span>
+<span class="cstat-no" title="statement not covered" >		this.time2 = isNull( event ) ? null : timeToStr(event.end.dateTime); </span>
+<span class="cstat-no" title="statement not covered" >		this.id = isNull( event ) ? null : event.id;</span>
+	} // end of EventForm
+&nbsp;
+	/*
+	 * class Form
+	 */
+<span class="fstat-no" title="function not covered" >	function Form() {</span>
+		/*
+		 * PRIVATE
+		 * set event depends on type of eEvent
+		 */
+<span class="cstat-no" title="statement not covered" >		var setEvent = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >			if (eEvent.type == 'create') {</span>
+<span class="cstat-no" title="statement not covered" >				return new EventForm();</span>
+			} else {
+<span class="cstat-no" title="statement not covered" >				return new EventForm( eEvent.pointer );</span>
+			}
+		};
+&nbsp;
+		/*
+		 * PRIVATE
+		 * convert string to date
+		 * str1 is dd/mm/yyyy
+		 * str2 is hh:mm
+		 */
+<span class="cstat-no" title="statement not covered" >		var strToDate = <span class="fstat-no" title="function not covered" >function(str1, str2) {</span></span>
+			// form is not dd/mm/yyyy or hh:mm
+<span class="cstat-no" title="statement not covered" >			if (isNull( str1 ) || str1.length != 10 || isNull( str2 ) ||</span>
+				str2.length != 5) {	
+<span class="cstat-no" title="statement not covered" >				return null;</span>
+			}
+<span class="cstat-no" title="statement not covered" >			var d, m, y, hour, min;</span>
+<span class="cstat-no" title="statement not covered" >			d = parseInt( str1.slice( 0, 2 ) );</span>
+<span class="cstat-no" title="statement not covered" >			m = parseInt( str1.slice( 3, 5 ) );</span>
+<span class="cstat-no" title="statement not covered" >			y = parseInt( str1.slice( 6, 10 ) );</span>
+<span class="cstat-no" title="statement not covered" >			hour = parseInt( str2.slice( 0, 2 ) );</span>
+<span class="cstat-no" title="statement not covered" >			min = parseInt( str2.slice( 3, 5 ) );</span>
+&nbsp;
+			// if they are not numbers
+<span class="cstat-no" title="statement not covered" >			if (isNaN(d) || isNaN( m ) || isNaN( y ) || isNaN( hour ) ||</span>
+				isNaN( min )) {
+<span class="cstat-no" title="statement not covered" >				return null;</span>
+			} else {
+<span class="cstat-no" title="statement not covered" >				return new Date( y, m-1, d, hour, min, 0 );</span>
+			}
+		};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		this.allday = false;</span>
+		
+<span class="cstat-no" title="statement not covered" >		this.event = setEvent();</span>
+&nbsp;
+		/*
+		 * close function
+		 */
+<span class="cstat-no" title="statement not covered" >		this.close = <span class="fstat-no" title="function not covered" >function() {</span></span>
+			// clear data
+<span class="cstat-no" title="statement not covered" >			eEvent.type = null;</span>
+<span class="cstat-no" title="statement not covered" >			$rootScope.goToState( eEvent.popBackState() );</span>
+		};
+&nbsp;
+		/*
+		 * save function
+		 */
+<span class="cstat-no" title="statement not covered" >		this.save = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >			var date1, date2;</span>
+			// user chose all-day
+<span class="cstat-no" title="statement not covered" >			if (this.allday) {</span>
+<span class="cstat-no" title="statement not covered" >				date1 = strToDate(this.event.date1, '00:00');</span>
+<span class="cstat-no" title="statement not covered" >				date2 = strToDate(this.event.date2, '00:00');</span>
+			} else {
+<span class="cstat-no" title="statement not covered" >				date1 = strToDate(this.event.date1, this.event.time1);</span>
+<span class="cstat-no" title="statement not covered" >				date2 = strToDate(this.event.date2, this.event.time2);</span>
+			}
+			// user change something
+<span class="cstat-no" title="statement not covered" >			if (this.event.title != eEvent.pointer.summary ||</span>
+				this.event.location != eEvent.pointer.location ||
+				!eEasiLendar.areSameDate(date1,
+					eEvent.pointer.start.dateTime) ||
+				!eEasiLendar.areSameDate(date2, eEvent.pointer.end.dateTime)) {
+				// input is valid
+<span class="cstat-no" title="statement not covered" >				if (!isNull( date1 ) &amp;&amp; !isNull( date2 )) {</span>
+<span class="cstat-no" title="statement not covered" >					if (this.allday) {</span>
+<span class="cstat-no" title="statement not covered" >						date2 = eCalendar.tomorrow(date2);</span>
+					}
+<span class="cstat-no" title="statement not covered" >					if (eEvent.type == 'create') {</span>
+<span class="cstat-no" title="statement not covered" >						eSync.addSingleEvent(this.event.title, date1,</span>
+							date2, this.event.location);
+					} else <span class="cstat-no" title="statement not covered" >if (eEvent.type == 'edit') {</span>
+<span class="cstat-no" title="statement not covered" >						if (!isNull( this.event.id )) {</span>
+<span class="cstat-no" title="statement not covered" >							var e = eEasiLendar.newEasiEvent(this.event.title,</span>
+								date1, date2, this.event.location);
+<span class="cstat-no" title="statement not covered" >							eSync.editEventWithId(this.event.id, e);</span>
+						} else {
+<span class="cstat-no" title="statement not covered" >							console.log('event doesn\'t have id, something is \</span>
+								wrong');
+						}
+					}
+				}
+			}
+			// close form
+<span class="cstat-no" title="statement not covered" >			this.close();</span>
+		};
+	}	// end of class Form
+});</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed May 13 2015 03:45:55 GMT+0700 (SE Asia Standard Time)</div>
+</div>
+<script src="../../../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../../../sorter.js"></script>
+</body>
+</html>

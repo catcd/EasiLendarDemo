@@ -1,0 +1,1479 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for C:/CNPM/EasiLendar/EasiLendar/www/js/controllers/MonthController.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../../../../../prettify.css">
+    <link rel="stylesheet" href="../../../../../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header medium">
+    <h1>Code coverage report for <span class="entity">C:/CNPM/EasiLendar/EasiLendar/www/js/controllers/MonthController.js</span></h1>
+    <h2>
+        Statements: <span class="metric">70.69% <small>(164 / 232)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">60.47% <small>(78 / 129)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">42.11% <small>(16 / 38)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">70.69% <small>(164 / 232)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../../../../index.html">All files</a> &#187; <a href="index.html">C:/CNPM/EasiLendar/EasiLendar/www/js/controllers/</a> &#187; MonthController.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">40</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">40</span>
+<span class="cline-any cline-yes">280</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">10</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">68</span>
+<span class="cline-any cline-yes">68</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">58</span>
+<span class="cline-any cline-yes">58</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">84</span>
+<span class="cline-any cline-yes">588</span>
+<span class="cline-any cline-yes">147</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">441</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">588</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">588</span>
+<span class="cline-any cline-yes">588</span>
+<span class="cline-any cline-yes">33</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">20</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">20</span>
+<span class="cline-any cline-yes">20</span>
+<span class="cline-any cline-yes">140</span>
+<span class="cline-any cline-yes">140</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * starter: Can Duy Cat
+ * owner: Ngo Duc Dung
+ * last update: 12/05/2015
+ * type: month controller
+ */
+ 
+/*MONTH CONTROLLER*/
+angular.module('MainApp.controllers.month', [])
+&nbsp;
+.controller('MonthController',
+	function($scope, $rootScope, $document, eDate, eCalendar, eUser, eSettings, eEasiLendar) {
+	//Using eUser, eSettings, eDate, eCalendar factory
+	$scope.eCalendar = eCalendar;
+	$scope.eDate = eDate;
+	$scope.eUser = eUser;
+	$scope.eSettings = eSettings;
+&nbsp;
+	$scope.allMonths = [
+					{first: 0, second: 1, third: 2, fourth: 3},
+					{first: 4, second: 5, third: 6, fourth: 7},
+					{first: 8, second: 9, third: 10, fourth: 11}
+					];
+	//refresh calendar when return from other states
+	$rootScope.$on('$stateChangeStart',
+<span class="fstat-no" title="function not covered" >		function(event, toState, toParams, fromState) {</span>
+<span class="cstat-no" title="statement not covered" >			if (toState.name == 'month') {</span>
+				//only change when go to 'month' from state differ 'week', 'list', 'day'
+<span class="cstat-no" title="statement not covered" >				if(fromState.name != 'week' &amp;&amp; fromState.name != 'list' &amp;&amp; fromState.name != 'day'){</span>
+					//months list in year
+<span class="cstat-no" title="statement not covered" >					$scope.showMonthsList = false;</span>
+<span class="cstat-no" title="statement not covered" >					$scope.showMonthCalendar = true;</span>
+<span class="cstat-no" title="statement not covered" >					$scope.showMonthVer2Cal = true;</span>
+<span class="cstat-no" title="statement not covered" >					if($document.find('td').children().hasClass('month-current-style') === true){</span>
+<span class="cstat-no" title="statement not covered" >						$document.find('td').children().removeClass('month-current-style');</span>
+					}
+<span class="cstat-no" title="statement not covered" >					$scope.buildCurrentMonth();</span>
+				}
+			}
+		});
+&nbsp;
+	$scope.buildCurrentMonth = function() {
+		$scope.currentDate = new Date();
+		$scope.currentDate = new Date($scope.currentDate.setHours(0,0,0,0));
+		$scope.currentDateNumber = $scope.currentDate.getDate();
+		$scope.currentMonthNumber = $scope.currentDate.getMonth();
+		$scope.currentYear = $scope.currentDate.getFullYear();
+		$scope.currentMonthString = $scope.eCalendar.months[$scope.currentMonthNumber];
+		$scope.position = angular.copy($scope.currentDate);
+		$scope.eDate.cDate = angular.copy($scope.position);
+		
+		/** All weeks of a month
+		  * week: array of days in month
+		  * days: array of 7 days in month
+		  * numberDate: date
+		  * month: month of date
+		  */
+		$scope.weeks = new Array(5);
+		for (var i = 0; i &lt; 5; i++) {
+			$scope.weeks[i] = {
+				days: new Array(7)
+			};
+			for (var j = 0; j &lt; 7; j++) {
+				$scope.weeks[i].days[j] = {
+					numberDate: 0,
+					month: 0
+				};
+			}
+		}
+&nbsp;
+		//pristine value of $scope.weeks
+		$scope.resetWeeks = angular.copy($scope.weeks);
+		$scope.buildWeeks();
+	};
+&nbsp;
+	$scope.previousMonth = function() {
+		$scope.currentMonthNumber = ($scope.currentMonthNumber - 1 &gt;= 0 ? 0 : 12) + ($scope.currentMonthNumber - 1);
+		$scope.currentMonthString = $scope.eCalendar.months[$scope.currentMonthNumber];
+		if ($scope.currentMonthNumber == 11) {
+			$scope.currentYear--;
+		}
+		$scope.buildWeeks();
+	};
+&nbsp;
+	$scope.nextMonth = function() {
+		$scope.currentMonthNumber = ($scope.currentMonthNumber + 1) - ($scope.currentMonthNumber + 1 &gt; 11 ? 12 : 0);
+		$scope.currentMonthString = $scope.eCalendar.months[$scope.currentMonthNumber];
+		if ($scope.currentMonthNumber === 0) {
+			$scope.currentYear++;
+		}
+		$scope.buildWeeks();
+	};
+&nbsp;
+	$scope.thisMonth = function(year,month){
+		if(year &gt;= 0 &amp;&amp; month &gt;= 0 &amp;&amp; month &lt;= 11){
+			$scope.currentMonthNumber = month;
+			$scope.currentMonthString = $scope.eCalendar.months[$scope.currentMonthNumber];
+			$scope.currentYear = year;
+			$scope.buildWeeks();
+			$scope.changeState();
+		}
+	};
+&nbsp;
+	$scope.previousYear = function(){
+		$scope.currentYear--;
+	};
+&nbsp;
+	$scope.nextYear = function(){
+		$scope.currentYear++;
+	};
+&nbsp;
+	$scope.buildWeeks = function() {
+		var newWeeks = angular.copy($scope.resetWeeks);
+		var firstDatePreviousMonth = new Date($scope.currentYear, $scope.currentMonthNumber, 1);
+		var dayOfFirstDate = 0;
+		if ($scope.eSettings.sFirstDay == 'Sunday') {
+			dayOfFirstDate = firstDatePreviousMonth.getDay();
+			$scope.daysInWeek = [{day: 'S'},{day: 'M'},{day: 'T'},{day: 'W'},{day: 'T'},{day: 'F'},{day: 'S'}];
+		}
+		if ($scope.eSettings.sFirstDay == 'Monday') {
+			dayOfFirstDate = firstDatePreviousMonth.getDay();
+			dayOfFirstDate += (dayOfFirstDate &gt; 0 ? -1 : 6);
+			$scope.daysInWeek = [{day: 'M'},{day: 'T'},{day: 'W'},{day: 'T'},{day: 'F'},{day: 'S'},{day: 'S'}];
+		}
+		if ($scope.eSettings.sFirstDay == 'Saturday') {
+			dayOfFirstDate = firstDatePreviousMonth.getDay();
+			dayOfFirstDate += (dayOfFirstDate &lt; 6 ? 1 : <span class="branch-1 cbranch-no" title="branch not covered" >-6)</span>;
+			$scope.daysInWeek = [{day: 'S'},{day: 'S'},{day: 'M'},{day: 'T'},{day: 'W'},{day: 'T'},{day: 'F'}];
+		}
+		var numberDaysPreviousMonth = (new Date($scope.currentYear, $scope.currentMonthNumber, 0)).getDate();
+		var numberDaysCurrentMonth = (new Date($scope.currentYear, $scope.currentMonthNumber + 1, 0)).getDate();
+		var j = 0;
+&nbsp;
+		//Show event of the first day in month
+		var toDay = new Date();
+		toDay = new Date(toDay.getFullYear(), toDay.getMonth(), toDay.getDate(), 0, 0, 0, 0);
+		if ($scope.currentMonthNumber == toDay.getMonth() &amp;&amp; $scope.currentYear == toDay.getFullYear()) {
+			$scope.position = toDay;
+		} else {
+			$scope.position = firstDatePreviousMonth;
+		}
+		$scope.eDate.cDate = angular.copy($scope.position);
+&nbsp;
+		//Build weeks and days in month
+		newWeeks[0].days[dayOfFirstDate].numberDate = 1;
+		newWeeks[0].days[dayOfFirstDate].month = $scope.currentMonthNumber;
+		for (j = 0; j &lt; dayOfFirstDate; j++) {
+			newWeeks[0].days[j].numberDate = numberDaysPreviousMonth - (dayOfFirstDate - 1 - j);
+			newWeeks[0].days[j].month = ($scope.currentMonthNumber - 1 &lt; 0) ? <span class="branch-0 cbranch-no" title="branch not covered" >11 </span>: ($scope.currentMonthNumber - 1);
+		}
+		for (j = 6; j &gt; dayOfFirstDate; j--) {
+			newWeeks[0].days[j].numberDate = 1 + (j - dayOfFirstDate);
+			newWeeks[0].days[j].month = $scope.currentMonthNumber;
+		}
+&nbsp;
+		var numberDaysMonth;
+		//Build row 1 to 4 of $scope.weeks array
+		for (var i = 1; i &lt; 5; i++) {
+			for (j = 0; j &lt; 7; j++) {
+				if (i == 1) {
+					numberDaysMonth = numberDaysPreviousMonth;
+				} else {
+					numberDaysMonth = numberDaysCurrentMonth;
+				}
+				newWeeks[i].days[j].numberDate = (newWeeks[i - 1].days[j].numberDate + 7) - ((newWeeks[i - 1].days[j].numberDate + 7) &gt; numberDaysMonth ? numberDaysMonth : 0);
+&nbsp;
+				newWeeks[i].days[j].month = $scope.currentMonthNumber;
+				if (i &gt;= 3 &amp;&amp; newWeeks[i - 1].days[j].numberDate + 7 &gt; numberDaysCurrentMonth) {
+					newWeeks[i].days[j].month = ($scope.currentMonthNumber + 1 &gt; 11) ? <span class="branch-0 cbranch-no" title="branch not covered" >0 </span>: ($scope.currentMonthNumber + 1);
+				}
+			}
+		}
+&nbsp;
+		//If month has only 4 weeks
+		if(newWeeks[0].days[0].numberDate == 1 &amp;&amp; newWeeks[3].days[6].numberDate == numberDaysCurrentMonth){
+			newWeeks.splice(4,1);
+		}
+&nbsp;
+		var days;
+		//Push new weeks has some days of next month
+		if(newWeeks.length == 5){
+			if (newWeeks[4].days[6].numberDate &lt; numberDaysCurrentMonth &amp;&amp; newWeeks[4].days[6].month == $scope.currentMonthNumber) {
+				days = angular.copy(newWeeks[4].days);
+				for (j = 0; j &lt; 7; j++) {
+					days[j].numberDate = (days[j].numberDate + 7) - ((days[j].numberDate + 7) &gt; numberDaysCurrentMonth ? numberDaysCurrentMonth : 0);
+					days[j].month = $scope.currentMonthNumber;
+					if (newWeeks[4].days[j].numberDate + 7 &gt; numberDaysCurrentMonth) {
+						days[j].month = $scope.currentMonthNumber + 1;
+					}
+				}
+&nbsp;
+				<span class="missing-if-branch" title="else path not taken" >E</span>if(newWeeks.length &lt; 6){
+					newWeeks.push({ days: days });
+				}
+			}
+		}
+&nbsp;
+		//Push new weeks has some days of previous month
+		if(newWeeks.length == 4){
+			days = angular.copy(newWeeks[0].days);
+			for(j = 0; j &lt; 7; j++){
+				days[j].numberDate = ((days[j].month == $scope.currentMonthNumber) ? days[j].numberDate + numberDaysPreviousMonth : <span class="branch-1 cbranch-no" title="branch not covered" >days[j].numberDate)</span> - 7;
+				days[j].month = (days[j].month == $scope.currentMonthNumber) ? days[j].month-1 : <span class="branch-1 cbranch-no" title="branch not covered" >days[j].month;</span>
+			}
+&nbsp;
+			newWeeks.unshift({ days: days });
+		}
+&nbsp;
+		//Push new weeks has some days of next month
+		if(newWeeks.length == 5){
+			days = angular.copy(newWeeks[4].days);
+			for(j = 0; j &lt; 7; j++){
+				days[j].numberDate = (days[j].numberDate + 7) - ( (days[j].numberDate + 7 &gt; numberDaysCurrentMonth) ? numberDaysCurrentMonth : 0 );
+				days[j].month = (days[j].month == $scope.currentMonthNumber) ? days[j].month+1 : days[j].month;
+			}
+&nbsp;
+			newWeeks.push({ days: days });
+		}
+&nbsp;
+		$scope.weeks = angular.copy(newWeeks);
+	};
+&nbsp;
+	$scope.backgroundMonth = function(index) {
+		var className = 'list-bkg-style ' + 'easi-' + $scope.eCalendar.shortMonths[index] + '-bkg';
+		return className;
+	};
+&nbsp;
+	$scope.showListEvent = function(day, month, year) {
+		if(day &gt;= 0 &amp;&amp; month &gt;= 0 &amp;&amp; year &gt;= 0){
+			if (month &gt; $scope.currentMonthNumber) {
+				if (month == 11 &amp;&amp; $scope.currentMonthNumber === 0) {
+					$scope.previousMonth();
+				} else {
+					$scope.nextMonth();
+				}
+			} else if (month &lt; $scope.currentMonthNumber) {
+				if (month === 0 &amp;&amp; $scope.currentMonthNumber == 11) {
+					$scope.nextMonth();
+				} else {
+					$scope.previousMonth();
+				}
+			}
+			$scope.position = new Date(year, month, day, 0, 0, 0, 0);
+			$scope.eDate.cDate = angular.copy($scope.position);
+		}
+	};
+&nbsp;
+	// Increment carousel thing
+	$scope.next = function() {
+		$scope.nextMonth();
+	};
+	// Decrement carousel thing
+	$scope.prev = function() {
+		$scope.previousMonth();
+	};
+&nbsp;
+	//months list in year
+	$scope.showMonthsList = false;
+	$scope.showMonthCalendar = true;
+	$scope.showMonthVer2Cal = true;
+&nbsp;
+	//change from month calendar to months list
+	$scope.changeState = function(){
+		$scope.showMonthsList = !$scope.showMonthsList;
+		$scope.showMonthCalendar = !$scope.showMonthCalendar;
+		$scope.showMonthVer2Cal = !$scope.showMonthVer2Cal;
+	};
+&nbsp;
+	/** Change month calendar when week calendar changes
+	  * date: a date in month or weeks that is used to build calendar
+	  */
+	$rootScope.changeMonth = function(date){
+		$scope.currentDate = date;
+		$scope.currentDateNumber = date.getDate();
+		$scope.currentMonthNumber = date.getMonth();
+		$scope.currentYear = date.getFullYear();
+		$scope.currentMonthString = $scope.eCalendar.months[$scope.currentMonthNumber];
+		$scope.position = angular.copy(date);
+		$scope.eDate.cDate = angular.copy($scope.position);
+&nbsp;
+		$scope.buildWeeks();
+	};
+&nbsp;
+	/* Return today */
+	$rootScope.monthToday = function(){
+		var date = new Date();
+		date = new Date(date.setHours(0,0,0,0));
+		$scope.currentDate = date;
+		$scope.currentDateNumber = date.getDate();
+		$scope.currentMonthNumber = date.getMonth();
+		$scope.currentYear = date.getFullYear();
+		$scope.currentMonthString = $scope.eCalendar.months[$scope.currentMonthNumber];
+		$scope.position = angular.copy(date);
+		$scope.eDate.cDate = angular.copy($scope.position);
+&nbsp;
+		$scope.buildWeeks();
+	};
+&nbsp;
+	$scope.bkgE = 'bkg'; //set background for events
+&nbsp;
+	//view detail of events
+	$scope.viewE = function(event){
+		//create EasiEvent obj
+		var easiE = eEasiLendar.newEasiEvent(event.summary, event.start, event.end, event.location, event.id, event.colorID, event.position, event.src, event.status);
+		$rootScope.viewEvent(easiE);
+	};
+})
+&nbsp;
+.directive('differentMonth', <span class="fstat-no" title="function not covered" >function($document) {</span>
+<span class="cstat-no" title="statement not covered" >	return {</span>
+		restrict: 'A',
+		scope: {
+			isDifferent: '=differentMonth',
+			isCurrentDay: '=currentDay'
+		},
+		link: <span class="fstat-no" title="function not covered" >function(scope, element, attr) {</span>
+<span class="cstat-no" title="statement not covered" >			var month = attr.currentMonth;</span>
+<span class="cstat-no" title="statement not covered" >			var year = attr.currentYear;</span>
+<span class="cstat-no" title="statement not covered" >			var toDay = new Date();</span>
+<span class="cstat-no" title="statement not covered" >			if (scope.isCurrentDay == toDay.getDate() &amp;&amp; scope.isDifferent == toDay.getMonth() &amp;&amp; year == toDay.getFullYear()) {</span>
+<span class="cstat-no" title="statement not covered" >				element.children().prop('checked',true);</span>
+<span class="cstat-no" title="statement not covered" >				element.addClass('month-current-date-style');</span>
+			}
+		
+<span class="cstat-no" title="statement not covered" >			if (scope.isDifferent != month) {</span>
+<span class="cstat-no" title="statement not covered" >				element.addClass('month-different-color');</span>
+			}
+			
+			//check on a day when change month
+<span class="cstat-no" title="statement not covered" >			element.bind('click', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >				var id = '#m' + scope.isDifferent + scope.isCurrentDay;</span>
+				//Using find() function of JQUERY !
+<span class="cstat-no" title="statement not covered" >				$document.find(id).prop('checked', true);</span>
+			});
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			$document.bind('click', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >				if (element.children().prop('checked') === false) {</span>
+<span class="cstat-no" title="statement not covered" >					element.removeClass('month-radio-selected');</span>
+				} else {
+<span class="cstat-no" title="statement not covered" >					if (scope.isCurrentDay == toDay.getDate() &amp;&amp; scope.isDifferent == toDay.getMonth() &amp;&amp; year == toDay.getFullYear()) {</span>
+<span class="cstat-no" title="statement not covered" >						element.addClass('month-current-date-style');</span>
+					} else {
+<span class="cstat-no" title="statement not covered" >						element.addClass('month-radio-selected');</span>
+					}
+				}
+			});
+		}
+	};
+})
+&nbsp;
+.directive('dayHasEvent', <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >	return {</span>
+		restrict: 'A',
+		scope: {
+			haveEvent: '=dayHasEvent'
+		},
+		link: <span class="fstat-no" title="function not covered" >function(scope, element, attr) {</span>
+<span class="cstat-no" title="statement not covered" >			if (scope.haveEvent !== null) {</span>
+<span class="cstat-no" title="statement not covered" >				var index = new Date(attr.year, attr.month, attr.date, 0, 0, 0, 0);</span>
+<span class="cstat-no" title="statement not covered" >				if (scope.haveEvent[index] !== null &amp;&amp; attr.month == attr.currentMonth) {</span>
+<span class="cstat-no" title="statement not covered" >					element.parent().addClass('month-day-has-event');</span>
+				}
+			}
+		}
+	};
+})
+&nbsp;
+.directive('checkFirstDay', <span class="fstat-no" title="function not covered" >function($document) {</span>
+<span class="cstat-no" title="statement not covered" >	return {</span>
+		restrict: 'A',
+		scope: {
+			isFirstDate: '=checkFirstDay'
+		},
+		link: <span class="fstat-no" title="function not covered" >function(scope, element, attr) {</span>
+<span class="cstat-no" title="statement not covered" >			element.bind('click', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >				if($document.find('td').children().hasClass('month-current-style') === true){</span>
+<span class="cstat-no" title="statement not covered" >					$document.find('td').children().removeClass('month-current-style');</span>
+				}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >				var currentMonth = (new Date()).getMonth();</span>
+<span class="cstat-no" title="statement not covered" >				var currentYear = (new Date()).getFullYear();</span>
+<span class="cstat-no" title="statement not covered" >				var id;</span>
+				//check on first day when change month
+<span class="cstat-no" title="statement not covered" >				if ( scope.isFirstDate !== currentMonth){</span>
+<span class="cstat-no" title="statement not covered" >					id = '#m' + scope.isFirstDate + '1';</span>
+					//Using find() function of JQUERY !
+<span class="cstat-no" title="statement not covered" >					$document.find(id).prop('checked', true);</span>
+				}
+&nbsp;
+				//check on first day when change to current month but in other year
+<span class="cstat-no" title="statement not covered" >				if(scope.isFirstDate == currentMonth &amp;&amp; attr.thisYear != currentYear){</span>
+<span class="cstat-no" title="statement not covered" >					id = '#m' + scope.isFirstDate + '1';</span>
+					//Using find() function of JQUERY !
+<span class="cstat-no" title="statement not covered" >					$document.find(id).prop('checked', true);</span>
+				}
+			});
+		}
+	};
+})
+&nbsp;
+.directive('checkThisMonth', <span class="fstat-no" title="function not covered" >function($document){</span>
+<span class="cstat-no" title="statement not covered" >	return {</span>
+		restrict: 'A',
+		scope: {
+			isThisMonth: '=checkThisMonth'
+		},
+		link: <span class="fstat-no" title="function not covered" >function(scope, element) {</span>
+			//check on current day
+<span class="cstat-no" title="statement not covered" >			element.bind('click', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >				var id = '#' + scope.isThisMonth;</span>
+				//Using find() function of JQUERY !
+<span class="cstat-no" title="statement not covered" >				$document.find(id).children().addClass('month-current-style');</span>
+<span class="cstat-no" title="statement not covered" >				$document.find('#0').children().removeClass('month-current-style');</span>
+			});
+		}
+	};
+})
+&nbsp;
+.directive('checkFirstMonth',<span class="fstat-no" title="function not covered" >function($document){</span>
+<span class="cstat-no" title="statement not covered" >	return {</span>
+		restrict: 'A',
+		link: <span class="fstat-no" title="function not covered" >function(scope, element) {</span>
+			//check on first Month in month list
+<span class="cstat-no" title="statement not covered" >			element.bind('click',<span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >				if($document.find('td').children().hasClass('month-current-style') === true){</span>
+<span class="cstat-no" title="statement not covered" >					$document.find('td').children().removeClass('month-current-style');</span>
+				}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >				$document.find('#0').children().addClass('month-current-style');</span>
+			});
+		}
+	};
+})
+&nbsp;
+.directive('showEvents', <span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >	return{</span>
+		restrict: 'E',
+		link: <span class="fstat-no" title="function not covered" >function(scope, element, attr){</span>
+<span class="cstat-no" title="statement not covered" >			scope.date = new Date(attr.year, attr.month, attr.day);</span>
+		}
+	};
+})
+&nbsp;
+.directive('backgroundColorEvent', <span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >	return {</span>
+		restrict: 'A',
+		scope: {
+			isType: '=backgroundColorEvent'
+		},
+		link: <span class="fstat-no" title="function not covered" >function(scope, element) {</span>
+<span class="cstat-no" title="statement not covered" >			var allBkgClass = ['event-color-1', 'event-color-2',</span>
+				'event-color-3', 'event-color-4', 'event-color-5'
+			];
+<span class="cstat-no" title="statement not covered" >			if (scope.isType == 'bkg') {</span>
+<span class="cstat-no" title="statement not covered" >				element.addClass(allBkgClass[Math.floor((Math.random() * 5))]);</span>
+			}
+		}
+	};
+})
+&nbsp;
+.directive('currentDayAndDifferentMonth', <span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >	return {</span>
+		restrict: 'A',
+		scope: {
+			day: '=currentDayAndDifferentMonth'
+		},
+		link: <span class="fstat-no" title="function not covered" >function(scope, element, attr){</span>
+<span class="cstat-no" title="statement not covered" >			var today = new Date();</span>
+<span class="cstat-no" title="statement not covered" >			today = new Date(today.setHours(0,0,0,0));</span>
+<span class="cstat-no" title="statement not covered" >			var date = new Date(attr.year, attr.month, scope.day, 0,0,0,0);</span>
+<span class="cstat-no" title="statement not covered" >			if(date.toString() == today.toString()){</span>
+<span class="cstat-no" title="statement not covered" >				element.addClass('day-list-current-date');</span>
+			}
+<span class="cstat-no" title="statement not covered" >			if(attr.month != attr.currentMonth){</span>
+<span class="cstat-no" title="statement not covered" >				element.addClass('month-different-opacity');</span>
+			}
+		}
+	};
+});</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed May 13 2015 04:05:11 GMT+0700 (SE Asia Standard Time)</div>
+</div>
+<script src="../../../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../../../sorter.js"></script>
+</body>
+</html>

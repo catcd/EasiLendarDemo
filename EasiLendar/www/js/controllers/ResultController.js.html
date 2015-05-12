@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for C:/CNPM/EasiLendar/EasiLendar/www/js/controllers/ResultController.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../../../../../prettify.css">
+    <link rel="stylesheet" href="../../../../../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">C:/CNPM/EasiLendar/EasiLendar/www/js/controllers/ResultController.js</span></h1>
+    <h2>
+        Statements: <span class="metric">3% <small>(3 / 100)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 30)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">3% <small>(3 / 100)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../../../../index.html">All files</a> &#187; <a href="index.html">C:/CNPM/EasiLendar/EasiLendar/www/js/controllers/</a> &#187; ResultController.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * starter: Can Duy Cat
+ * owner: Nguyen Minh Trang
+ * last update: 12/05/2015
+ * type: paticular controller
+ */
+&nbsp;
+var result = angular.module('MainApp.controllers.result', []);
+&nbsp;
+result.controller('ResultController', <span class="fstat-no" title="function not covered" >function($rootScope, $scope, eSettings,</span>
+	eFriend, eMultiCalendar, eEasiLendar, eSAlgorithm, eSearchFilter, eUser) {
+&nbsp;
+	// Constants
+<span class="cstat-no" title="statement not covered" >	var NUM_OF_OPTIONS = 5;</span>
+&nbsp;
+	// link to home's default view
+<span class="cstat-no" title="statement not covered" >	var link = eSettings.sDefaultView;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >	$scope.done = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >		eFriend.fMultiCal = null;</span>
+<span class="cstat-no" title="statement not covered" >		$rootScope.goToState(link);</span>
+	};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >	if (eFriend.fMultiCal !== null) {</span>
+		// the multiCalendar combine this user calendar
+		// with user's friend's calendar
+<span class="cstat-no" title="statement not covered" >		$rootScope.resultMultiCalendar = eMultiCalendar.newMultiCal([</span>
+			eUser.uGmailCalendar, eFriend.fMultiCal.calendar]);
+	} else {
+<span class="cstat-no" title="statement not covered" >		$rootScope.resultMultiCalendar = eMultiCalendar.newMultiCal([</span>
+														eUser.uGmailCalendar]);
+	}
+	// this scope's week calendar
+<span class="cstat-no" title="statement not covered" >	$scope.weekCalendar = eEasiLendar.newWeekCalendar();</span>
+<span class="cstat-no" title="statement not covered" >	$scope.weekCalendar.setNavDays();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >	var date = new Date();	</span>// today
+<span class="cstat-no" title="statement not covered" >	$scope.navStart = new Date(date.getFullYear(), date.getMonth(),</span>
+															date.getDate());
+	// end of the week
+<span class="cstat-no" title="statement not covered" >	$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();</span>
+&nbsp;
+	// the options heap
+<span class="cstat-no" title="statement not covered" >	$scope.mHeap = eSAlgorithm.evaluateTime($rootScope.resultMultiCalendar,</span>
+					$scope.navStart, $scope.navEnd, eSearchFilter.mDuration);
+&nbsp;
+	// options object
+<span class="cstat-no" title="statement not covered" >	$scope.options = {</span>
+		list : [],
+		add : <span class="fstat-no" title="function not covered" >function(mHeap) {</span>
+<span class="cstat-no" title="statement not covered" >			this.list = [];</span>
+<span class="cstat-no" title="statement not covered" >			if (mHeap !== null) {</span>
+<span class="cstat-no" title="statement not covered" >				var num = mHeap.timeList.length;</span>
+<span class="cstat-no" title="statement not covered" >				if (num &gt; NUM_OF_OPTIONS) {</span>
+<span class="cstat-no" title="statement not covered" >					num = NUM_OF_OPTIONS;</span>
+				}
+<span class="cstat-no" title="statement not covered" >				for (var i=0; i &lt; num; i++) {</span>
+<span class="cstat-no" title="statement not covered" >					var max = mHeap.pop(); </span>// Time Node 
+<span class="cstat-no" title="statement not covered" >					var option = new Option(max.start, max.end);</span>
+<span class="cstat-no" title="statement not covered" >					this.list.push(option);</span>
+				}
+			}
+		},
+		selectOption : <span class="fstat-no" title="function not covered" >function(option) {</span>
+<span class="cstat-no" title="statement not covered" >			$scope.showAlert('Your meeting time: ' + option.display());</span>
+		},
+		next : <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >			$scope.weekCalendar.nextWeek();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			if ($scope.weekCalendar.navDays[0].origin.toDate() &gt;= new Date()) {</span>
+<span class="cstat-no" title="statement not covered" >				$scope.navStart = $scope.weekCalendar.navDays[0].origin.</span>
+																	toDate();
+<span class="cstat-no" title="statement not covered" >				$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();</span>
+<span class="cstat-no" title="statement not covered" >				$scope.mHeap = eSAlgorithm.evaluateTime(</span>
+								$rootScope.resultMultiCalendar, $scope.navStart,
+								$scope.navEnd, eSearchFilter.mDuration);
+			} else <span class="cstat-no" title="statement not covered" >if ($scope.weekCalendar.navDays[6].origin.toDate() &gt;</span>
+																new Date()) {
+<span class="cstat-no" title="statement not covered" >				var date = new Date();	</span>// today
+<span class="cstat-no" title="statement not covered" >				$scope.navStart = new Date(date.getFullYear(), date.getMonth(),</span>
+											date.getDate());
+<span class="cstat-no" title="statement not covered" >				$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();</span>
+<span class="cstat-no" title="statement not covered" >				$scope.mHeap = eSAlgorithm.evaluateTime(</span>
+					$scope.resultMultiCalendar, $scope.navStart, $scope.navEnd,
+					eSearchFilter.mDuration);
+			} else {
+<span class="cstat-no" title="statement not covered" >				$scope.mHeap = null;</span>
+			}
+<span class="cstat-no" title="statement not covered" >			this.add($scope.mHeap);</span>
+		},
+		prev : <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >			$scope.weekCalendar.prevWeek();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			if ($scope.weekCalendar.navDays[0].origin.toDate() &gt;= new Date()) {</span>
+<span class="cstat-no" title="statement not covered" >				$scope.navStart = $scope.weekCalendar.navDays[0].origin.</span>
+																	toDate();
+<span class="cstat-no" title="statement not covered" >				$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();</span>
+<span class="cstat-no" title="statement not covered" >				$scope.mHeap = eSAlgorithm.evaluateTime(</span>
+					$rootScope.resultMultiCalendar, $scope.navStart,
+					$scope.navEnd, eSearchFilter.mDuration);
+			} else <span class="cstat-no" title="statement not covered" >if ($scope.weekCalendar.navDays[6].origin.toDate() &gt;</span>
+						new Date()) {
+<span class="cstat-no" title="statement not covered" >				var date = new Date();	</span>// today
+<span class="cstat-no" title="statement not covered" >				$scope.navStart = new Date(date.getFullYear(), date.getMonth(),</span>
+											date.getDate());
+<span class="cstat-no" title="statement not covered" >				$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();</span>
+<span class="cstat-no" title="statement not covered" >				$scope.mHeap = eSAlgorithm.evaluateTime(</span>
+					$rootScope.resultMultiCalendar, $scope.navStart,
+					$scope.navEnd, eSearchFilter.mDuration);
+			} else {
+<span class="cstat-no" title="statement not covered" >				$scope.mHeap = null;</span>
+			}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			this.add($scope.mHeap);</span>
+		},
+	};
+&nbsp;
+	// add options heap to options' list to display
+<span class="cstat-no" title="statement not covered" >	$scope.options.add($scope.mHeap);</span>
+	
+	// watch for changes in eFriend.fMultiCal
+<span class="cstat-no" title="statement not covered" >	$scope.$watch('eFriend.fMultiCal', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >		if (eFriend.fMultiCal !== null) {</span>
+			// the multiCalendar combine this user calendar 
+			// with user's friend's calendar
+<span class="cstat-no" title="statement not covered" >			$rootScope.resultMultiCalendar = eMultiCalendar.newMultiCal([</span>
+							eUser.uGmailCalendar, eFriend.fMultiCal.calendar]);
+		} else {
+<span class="cstat-no" title="statement not covered" >			$rootScope.resultMultiCalendar = eMultiCalendar.newMultiCal([</span>
+												eUser.uGmailCalendar]);
+		}
+		// this scope's week calendar
+<span class="cstat-no" title="statement not covered" >		$scope.weekCalendar = eEasiLendar.newWeekCalendar();</span>
+<span class="cstat-no" title="statement not covered" >		$scope.weekCalendar.setNavDays();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		var date = new Date();	</span>// today
+<span class="cstat-no" title="statement not covered" >		$scope.navStart = new Date(date.getFullYear(), date.getMonth(),</span>
+									date.getDate());
+<span class="cstat-no" title="statement not covered" >		$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();</span>
+<span class="cstat-no" title="statement not covered" >		$scope.mHeap = eSAlgorithm.evaluateTime($rootScope.resultMultiCalendar,</span>
+			$scope.navStart, $scope.navEnd, eSearchFilter.mDuration);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		$scope.options.add($scope.mHeap);</span>
+	});
+	// watch for changes in eSearchFilter.mDuration
+<span class="cstat-no" title="statement not covered" >	$scope.$watch('eSearchFilter.mDuration', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >		if (eFriend.fMultiCal !== null) {</span>
+			// the multiCalendar combine this user calendar 
+			// with user's friend's calendar
+<span class="cstat-no" title="statement not covered" >			$rootScope.resultMultiCalendar = eMultiCalendar.newMultiCal([</span>
+							eUser.uGmailCalendar, eFriend.fMultiCal.calendar]);
+		} else {
+<span class="cstat-no" title="statement not covered" >			$rootScope.resultMultiCalendar = eMultiCalendar.newMultiCal([</span>
+												eUser.uGmailCalendar]);
+		}
+<span class="cstat-no" title="statement not covered" >		var date = new Date();	</span>// today
+<span class="cstat-no" title="statement not covered" >		$scope.navStart = new Date(date.getFullYear(), date.getMonth(),</span>
+									date.getDate());
+<span class="cstat-no" title="statement not covered" >		$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();</span>
+<span class="cstat-no" title="statement not covered" >		$scope.mHeap = eSAlgorithm.evaluateTime($rootScope.resultMultiCalendar,</span>
+					$scope.navStart, $scope.navEnd, eSearchFilter.mDuration);
+<span class="cstat-no" title="statement not covered" >		$scope.options.add($scope.mHeap);</span>
+	});
+&nbsp;
+	/* Class option */
+<span class="fstat-no" title="function not covered" >	function Option(start, end) {</span>
+		/* Convert functions */
+		// Convert Object Date to dd/mm/yyyy format
+<span class="cstat-no" title="statement not covered" >		var convertDate = <span class="fstat-no" title="function not covered" >function (date) {</span></span>
+<span class="cstat-no" title="statement not covered" >			var year = date.getFullYear();</span>
+<span class="cstat-no" title="statement not covered" >			var month = date.getMonth(); </span>	// 0 - 11
+<span class="cstat-no" title="statement not covered" >			var day = date.getDate();</span>
+<span class="cstat-no" title="statement not covered" >			if (day &lt; 10) {</span>
+<span class="cstat-no" title="statement not covered" >				day = '0' + day;</span>
+			}
+<span class="cstat-no" title="statement not covered" >			if (month + 1 &lt; 10) {</span>
+<span class="cstat-no" title="statement not covered" >				month = '0' + (month + 1);</span>
+			}
+<span class="cstat-no" title="statement not covered" >			return day + '/' + month + '/' + year;</span>
+		};
+&nbsp;
+		// Convert time to hh:mm format
+		// time is Object date
+<span class="cstat-no" title="statement not covered" >		var convertTime = <span class="fstat-no" title="function not covered" >function(time) {</span></span>
+<span class="cstat-no" title="statement not covered" >			var hour = time.getHours(); </span>	// 0 - 23
+<span class="cstat-no" title="statement not covered" >			var min = time.getMinutes(); </span> // 0 - 59
+<span class="cstat-no" title="statement not covered" >			if (hour &lt; 10) {</span>
+<span class="cstat-no" title="statement not covered" >				hour = '0' + hour;</span>
+			}
+<span class="cstat-no" title="statement not covered" >			if (min &lt; 10) {</span>
+<span class="cstat-no" title="statement not covered" >				min = '0' + min;</span>
+			}
+<span class="cstat-no" title="statement not covered" >			return hour + ':' + min;</span>
+		};
+&nbsp;
+		/* initiate attributes */
+<span class="cstat-no" title="statement not covered" >		this.date1 = convertDate(start);</span>
+<span class="cstat-no" title="statement not covered" >		this.date2 = convertDate(end);</span>
+<span class="cstat-no" title="statement not covered" >		this.from = convertTime(start);</span>
+<span class="cstat-no" title="statement not covered" >		this.to = convertTime(end);</span>
+&nbsp;
+		/* Display option */
+<span class="cstat-no" title="statement not covered" >		this.display = <span class="fstat-no" title="function not covered" >function() {</span></span>
+			// not all day 
+<span class="cstat-no" title="statement not covered" >			if (this.date1 == this.date2) {</span>
+<span class="cstat-no" title="statement not covered" >				return this.date1 + ': from ' + this.from + ' - to ' + this.to;</span>
+			} else <span class="cstat-no" title="statement not covered" >if (this.from != '00:00') {</span>
+<span class="cstat-no" title="statement not covered" >				return this.date1 + ': from ' + this.from + ' - to Midnight';</span>
+			} else {
+<span class="cstat-no" title="statement not covered" >				return this.date1 + ': Any time';</span>
+			}
+		};
+	} // end of class Option
+});
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed May 13 2015 03:45:55 GMT+0700 (SE Asia Standard Time)</div>
+</div>
+<script src="../../../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../../../sorter.js"></script>
+</body>
+</html>

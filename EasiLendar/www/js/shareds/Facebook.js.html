@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for C:/CNPM/EasiLendar/EasiLendar/www/js/shareds/Facebook.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../../../../../prettify.css">
+    <link rel="stylesheet" href="../../../../../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">C:/CNPM/EasiLendar/EasiLendar/www/js/shareds/Facebook.js</span></h1>
+    <h2>
+        Statements: <span class="metric">3.7% <small>(1 / 27)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 22)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">3.7% <small>(1 / 27)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../../../../index.html">All files</a> &#187; <a href="index.html">C:/CNPM/EasiLendar/EasiLendar/www/js/shareds/</a> &#187; Facebook.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * starter: Can Duy Cat
+ * owner: Ngo Duc Dung
+ * last update: 08/05/2015
+ * type: facebook service
+ */
+&nbsp;
+angular.module('MainApp.shareds.facebook', [])
+&nbsp;
+.factory('eFacebook', <span class="fstat-no" title="function not covered" >function(eToast){</span>
+<span class="cstat-no" title="statement not covered" >	return {</span>
+		/** Login Facebook
+		  * Publick profile
+		  * User events
+		  * User friends: list of friends that also use this app
+		  * Rsvp_event: provides the ability to set a person's attendee status on Facebook Events
+		  */
+		loginStatus: null,
+&nbsp;
+		fbLogin : <span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >			facebookConnectPlugin.login(</span>
+				['public_profile'],
+<span class="fstat-no" title="function not covered" >				function (success){</span>
+<span class="cstat-no" title="statement not covered" >					loginStatus = angular.copy(success.status);</span>
+<span class="cstat-no" title="statement not covered" >					eToast.toastSuccessOne('Login successfully', 2000);</span>
+				}, <span class="fstat-no" title="function not covered" >function (error) {</span>
+<span class="cstat-no" title="statement not covered" >					eToast.toastError('Failed to log in', 2000);</span>
+				}
+			);
+		},
+&nbsp;
+		/** Get login status
+		  * if log in successfully, login.status = 'connected'
+		  */
+&nbsp;
+		fbSetLoginStatus: <span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >			facebookConnectPlugin.getLoginStatus(</span>
+<span class="fstat-no" title="function not covered" >				function (success){</span>
+<span class="cstat-no" title="statement not covered" >					loginStatus = angular.copy(success.status);</span>
+				},
+<span class="fstat-no" title="function not covered" >				function (error){</span>
+<span class="cstat-no" title="statement not covered" >					eToast.toastError('Failed to get login status', 2000);</span>
+				}
+			);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			return loginStatus;</span>
+		},
+&nbsp;
+		/** Logout Facebook */
+		fbLogout : <span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >			facebookConnectPlugin.logout(</span>
+<span class="fstat-no" title="function not covered" >				function (success) {</span>
+<span class="cstat-no" title="statement not covered" >					eToast.toastSuccessOne('Log out successfully', 2000);</span>
+				}, <span class="fstat-no" title="function not covered" >function (error) {</span>
+<span class="cstat-no" title="statement not covered" >					eToast.toastError('Failed to log out', 2000);</span>
+				}
+			);
+		},
+&nbsp;
+		/** Facebook get list of events
+		  * You hosted
+		  * You joined
+		  */
+		/** An event include
+		  * start_time &amp; end_time
+		  * location
+		  * rsvp_status: status of the user's reply to the event inivitation
+		  * name: name of event
+		  */
+		fbApiEvent : <span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >			facebookConnectPlugin.api('me/events', ['user_events'],</span>
+<span class="fstat-no" title="function not covered" >				function (events) {</span>},
+<span class="fstat-no" title="function not covered" >				function (error) {</span>
+<span class="cstat-no" title="statement not covered" >					eToast.toastError('Failed to update', 2000);</span>
+				});
+		},
+&nbsp;
+		/** Facebook feed dialog
+		  * This includes captions that your app manages 
+		    and a personal comment from the person sharing the content
+		  */
+		fbFeed : <span class="fstat-no" title="function not covered" >function(){</span>
+			/** Options
+			  * method: feed or share
+			  * app_id: of app
+			  * display: page or popup
+			  * link: the link attached to this post
+			  * picture: the URL of a picture attached to this post
+			  * caption: the caption of the link. If not specifed, this field
+			  			 is automatically populated with the URL of the link
+			  */
+<span class="cstat-no" title="statement not covered" >			var options = {</span>
+					method: 'feed',
+					display:'popup',
+					link: 'https://www.youtube.com/channel/UC3tYd_GAkPAAp_QXKOTdsxw',
+					caption: 'From EasiLendar'
+				};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			facebookConnectPlugin.showDialog(options,</span>
+<span class="fstat-no" title="function not covered" >				function (success) {</span>
+<span class="cstat-no" title="statement not covered" >					eToast.toastSuccessOne('Share successfully', 2000);</span>
+				},
+<span class="fstat-no" title="function not covered" >				function (error) {</span>
+<span class="cstat-no" title="statement not covered" >					eToast.toastError('Failed to share', 2000);</span>
+				}
+			);
+		},
+&nbsp;
+		/** Facebook share
+		  * does not require Facebook Login or any extended permissions
+		  */
+		fbShare : <span class="fstat-no" title="function not covered" >function(){</span>
+			/** Options
+			  * method: feed or share
+			  * app_id: of app
+			  * display: page or popup
+			  (use for share)
+			  * href: the link attached to this post.
+			  		  Include open graph meta tags in the page at this URL to customize the story that is shared
+			  (use for share_open_graph)
+			  * action_type: a string specifying which Open Graph action type to publish
+			  				 e.g., og.likes for built in like type
+			  */
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			var options = {</span>
+				method: 'share',
+				display: 'popup',
+				href: 'https://www.youtube.com/channel/UC3tYd_GAkPAAp_QXKOTdsxw'
+			};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			facebookConnectPlugin.showDialog(options,</span>
+<span class="fstat-no" title="function not covered" >				function (success) {</span>
+<span class="cstat-no" title="statement not covered" >					eToast.toastSuccessOne('Share successfully', 2000);</span>
+				},
+<span class="fstat-no" title="function not covered" >				function (error) {</span>
+<span class="cstat-no" title="statement not covered" >					eToast.toastError('Failed to share', 2000);</span>
+				}
+			);
+		},
+&nbsp;
+		fbSend : <span class="fstat-no" title="function not covered" >function(){</span>
+			/** Options
+			  * method: feed or share
+			  * app_id: of app
+			  * display: page or popup
+			  */
+<span class="cstat-no" title="statement not covered" >			var options = {</span>
+				method: 'send',
+				link: 'https://www.youtube.com/channel/UC3tYd_GAkPAAp_QXKOTdsxw'
+			};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			facebookConnectPlugin.showDialog(options, </span>
+<span class="fstat-no" title="function not covered" >				function (success) {</span>
+<span class="cstat-no" title="statement not covered" >					eToast.toastSuccessOne('Send message successfully', 2000);</span>
+				},
+<span class="fstat-no" title="function not covered" >				function (error) {</span>
+<span class="cstat-no" title="statement not covered" >					eToast.toastError('Failed to send', 2000);</span>
+				}
+			);
+		}
+&nbsp;
+		/*fbLikeEasiLendar : function(access_token){
+			var fanpage = 'https://www.facebook.com/EasiLendar';
+			var url = '/me/og.likes?access_token=' + access_token + '&amp;method=POST' + '&amp;object=' + fanpage;
+			 
+			facebookConnectPlugin.api(
+				url, ['publish_actions'],
+				function (success){
+					eToast.toastSuccessOne('Thanks for supporting us', 2000);
+				},
+				function (error){
+					eToast.toastSuccessOne('Oops, please try again', 2000);
+				}
+			);
+		}*/
+	};
+});
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed May 13 2015 03:45:55 GMT+0700 (SE Asia Standard Time)</div>
+</div>
+<script src="../../../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../../../sorter.js"></script>
+</body>
+</html>
