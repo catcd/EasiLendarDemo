@@ -1,14 +1,14 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 09/05/2015
+ * last update: 12/05/2015
  * type: particular controller
  */
 
-var signIn = angular.module( "MainApp.controllers.signIn", [ "ionic" ] );
+var signIn = angular.module('MainApp.controllers.signIn', ['ionic']);
 
-signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
-		$ionicLoading, $ionicPopup, eSettings, eDatabase, eUser, eTodo ) {
+signIn.controller('SignInController', function($rootScope, $scope, $timeout,
+	$ionicLoading, $ionicPopup, eSettings, eDatabase, eUser, eTodo) {
 
 	// All constants
 	var MAX_ID_LENGTH = 15,
@@ -16,9 +16,6 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 	MAX_PASSWORD_LENGTH = 16,
 	MIN_PASSWORD_LENGTH = 8,
 	NUM_OF_WARNINGS = 5,
-
-	// link to home's default view
-	link = eSettings.sDefaultView,
 	
 	/*
 	* PRIVATE
@@ -26,8 +23,8 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 	*/
 	showAlert = function() {
 		var alertPopup = $ionicPopup.alert({
-			title: "Registered!",
-			template: "Welcome to EasiLendar!"
+			title: 'Registered!',
+			template: 'Welcome to EasiLendar!'
 		});
 		$timeout( function() {
 			alertPopup.close(); // close the popup after 3 seconds for some
@@ -40,7 +37,7 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 	* check if object is null/undefined/"" or not
 	*/
 	isNull = function( obj ) {
-		if (obj === null || obj === undefined || obj === "") {
+		if (obj === null || obj === undefined || obj === '') {
 			return true;
 		}
 		return false;
@@ -54,16 +51,17 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 		mes: new Array(NUM_OF_WARNINGS),
 
 		// reset all messages (set to null)
-		reset: function( num ) {
+		reset: function(num) {
 			this.mes[num] = null;
 		},
 
 		// check if mes[i] is a warning or NULL
-		check: function( num ) {
-			if (isNull( this.mes[num] )) {
+		check: function(num) {
+			if (isNull(this.mes[num])) {
 				return true;
-			} else
+			} else {
 				return false;
+			}
 		}
 	};
 
@@ -73,18 +71,18 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 	// sign in function with firebase
 	$scope.signIn = function() {
 		if (!$scope.user.checkChar()) {
-			$rootScope.goToState( "warning" );
+			$rootScope.goToState('warning');
 		} else {
 			var id = $scope.user.id;
 			var pass = $scope.user.password;
 			var ref = new Firebase(
-					"https://radiant-inferno-3243.firebaseio.com/Users/" + id);
+				'https://radiant-inferno-3243.firebaseio.com/Users/' + id);
 			// loading
 			eDatabase.databaseLoading();
-			ref.once( "value", function( snapshot ) {
+			ref.once('value', function(snapshot) {
 				var user = snapshot.val();
 				if (isNull( user ) || user.password != pass) {
-					$rootScope.goToState( "warning" );
+					$rootScope.goToState('warning');
 				} else {
 					// copy all user's data to eUser
 					eUser.uID = id;
@@ -105,9 +103,12 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 					eUser.uTodo = user.eTodo;
 
 					// convert
-					eUser.uGmailCalendar = eDatabase.convertCal(user.g_calendar);
-					eUser.uLocalCalendar = eDatabase.convertCal(user.local_calendar);
-					eUser.uFaceCalendar = eDatabase.convertCal(user.face_calendar);
+					eUser.uGmailCalendar = eDatabase.convertCal(
+						user.g_calendar);
+					eUser.uLocalCalendar = eDatabase.convertCal(
+						user.local_calendar);
+					eUser.uFaceCalendar = eDatabase.convertCal(
+						user.face_calendar);
 			
 					eUser.uRequested = user.requested;
 					eUser.uFRequest = isNull( user.noti ) ? null
@@ -123,15 +124,16 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 					
 					// load uRequested, uFRequest, uFAccepted, uFriend info
 					eDatabase.loadFriendInfo(eUser.uRequested);
-					eDatabase.loadFriendInfo(eUser.uFriend, "friend");
+					eDatabase.loadFriendInfo(eUser.uFriend, 'friend');
 					eDatabase.loadFriendInfo(eUser.uFRequest);
-					eDatabase.loadFriendInfo(eUser.uFAccepted, "noti");
+					eDatabase.loadFriendInfo(eUser.uFAccepted, 'noti');
 					
 					$scope.user.reset();
 					$rootScope.goHome();
 				}
-			}, function( errorObject ) {
-				$rootScope.goToState( "warning" );
+			}, function(errorObject) {
+				console.log(errorObject);
+				$rootScope.goToState('warning');
 			});
 		}
 	};
@@ -156,7 +158,7 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 
 		// if flag[i] is a string => it's a warning
 		for (var i = 0; i < NUM_OF_WARNINGS; i++) {
-			if (typeof (flag[i]) == "string") {
+			if (typeof (flag[i]) == 'string') {
 				$scope.warnings.mes[i] = flag[i];
 				check = true;
 			}
@@ -166,28 +168,28 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 		if (!check) {
 			// create a reference to Firebase
 			var ref = new Firebase(
-					"https://radiant-inferno-3243.firebaseio.com/Users/" +
-					$scope.user.id);
+				'https://radiant-inferno-3243.firebaseio.com/Users/' +
+				$scope.user.id);
 			// loading
 			eDatabase.databaseLoading();
 
 			// get data from that link if exists, null if not
-			ref.once( "value", function( snapshot ) {
+			ref.once('value', function(snapshot) {
 				// if id existed => change ID message
 				if (!isNull( snapshot.val() )) {
-					$scope.warnings.mes[0] = "Existed";
+					$scope.warnings.mes[0] = 'Existed';
 					check = true;
 				}
 				// if there is no warning
 				if (!check) {
 					// cut email string to save (get rid of
 					// '@gmail.com')
-					var pos = $scope.user.email.search( "@" );
+					var pos = $scope.user.email.search('@');
 					var mail;
 					if (pos == -1) {
 						mail = $scope.user.email;
 					} else {
-						mail = $scope.user.email.slice( 0, pos );
+						mail = $scope.user.email.slice(0, pos);
 					}
 
 					// create new user
@@ -203,7 +205,7 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 					// welcome message
 					showAlert();
 					$scope.user.reset();
-					$rootScope.goToState( "form" );
+					$rootScope.goToState('form');
 				} else {
 					$ionicLoading.hide();
 				}
@@ -214,19 +216,19 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 	/* class User */
 	function User() {
 		// all informations
-		this.id = "";
-		this.name = "";
-		this.email = "";
-		this.password = "";
-		this.re_password = "";
+		this.id = '';
+		this.name = '';
+		this.email = '';
+		this.password = '';
+		this.re_password = '';
 
 		// reset all data
 		this.reset = function() {
-			this.id = "";
-			this.name = "";
-			this.email = "";
-			this.password = "";
-			this.re_password = "";
+			this.id = '';
+			this.name = '';
+			this.email = '';
+			this.password = '';
+			this.re_password = '';
 		};
 
 		/*
@@ -242,9 +244,11 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 			for (var i = 0; i < this.id.length; i++) {
 				if (this.id.charCodeAt( i ) < 48) {
 					return false;
-				} else if (this.id.charCodeAt( i ) > 57 && this.id.charCodeAt( i ) < 65) {
+				} else if (this.id.charCodeAt( i ) > 57 &&
+					this.id.charCodeAt( i ) < 65) {
 					return false;
-				} else if (this.id.charCodeAt( i ) > 90 && this.id.charCodeAt( i ) < 97 &&
+				} else if (this.id.charCodeAt( i ) > 90 &&
+					this.id.charCodeAt( i ) < 97 &&
 						this.id.charCodeAt( i ) != 95) {
 					return false;
 				} else if (this.id.charCodeAt( i ) > 122) {
@@ -261,15 +265,15 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 		this.checkID = function() {
 			// if valid return true else return fault's
 			// string
-			if (this.id === "") {
-				return "Required";
+			if (isNull(this.id)) {
+				return 'Required';
 			} else if (!this.checkChar()) {
 				if (this.id.length < MIN_ID_LENGTH) {
-					return "ID is too short";
+					return 'ID is too short';
 				} else if (this.id.length > MAX_ID_LENGTH) {
-					return "ID is too long";
+					return 'ID is too long';
 				} else {
-					return "Unexpected";
+					return 'Unexpected';
 				}
 			} else {
 				return true;
@@ -282,8 +286,8 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 		this.checkName = function() {
 			// if valid return true else return fault's
 			// string
-			if (this.name === "") {
-				return "Required";
+			if (isNull(this.name)) {
+				return 'Required';
 			}
 			return true;
 		};
@@ -294,10 +298,10 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 		this.checkEmail = function() {
 			// if valid return true else return fault's
 			// string
-			if (this.email === "") {
-				return "Required";
-			} else if (-1 == this.email.search( "@gmail.com" )) {
-				return "Unvalid Email";
+			if (isNull(this.email)) {
+				return 'Required';
+			} else if (-1 == this.email.search('@gmail.com')) {
+				return 'Unvalid Email';
 			}
 			return true;
 		};
@@ -308,12 +312,12 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 		this.checkPass = function() {
 			// if valid return true else return fault's
 			// string
-			if (this.password === "") {
-				return "Required";
+			if (isNull(this.password)) {
+				return 'Required';
 			} else if (this.password.length < MIN_PASSWORD_LENGTH) {
-				return "Too short";
+				return 'Too short';
 			} else if (this.password.length > MAX_PASSWORD_LENGTH) {
-				return "Too long";
+				return 'Too long';
 			}
 			return true;
 		};
@@ -324,10 +328,10 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 		this.checkCPass = function() {
 			// if valid return true else return fault's
 			// string
-			if (this.re_password === "") {
-				return "Required";
+			if (isNull(this.re_password)) {
+				return 'Required';
 			} else if (this.re_password != this.password) {
-				return "Not match";
+				return 'Not match';
 			}
 			return true;
 		};

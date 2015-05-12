@@ -1,13 +1,12 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 28/04/2015
+ * last update: 12/05/2015
  * type: All services for event
  */
 
-var event = angular.module('MainApp.shareds.event', []);
-
-event.factory('eEvent', function(eSettings) {
+angular.module('MainApp.shareds.event', [])
+.factory('eEvent', function(eSettings) {
 	return {
 		pointer: null,
 		backState: [eSettings.sDefaultView],
@@ -32,20 +31,24 @@ event.factory('eEvent', function(eSettings) {
 .run(function($rootScope, eEvent) {
 	// event must be EasiEvent object
 	$rootScope.viewEvent = function(event) {
-		if (event === null) return false;
+		if (event === null) {
+			return false;
+		}
 		eEvent.pointer = event;
-		eEvent.pushBackState( $rootScope.currentState );
-		$rootScope.goToState( "eventDetail" );
+		eEvent.pushBackState($rootScope.currentState);
+		$rootScope.goToState('eventDetail');
 	};
 	
-	// type is "create" or "edit"
+	// type is 'create' or 'edit'
 	$rootScope.toEventForm = function( type ) {
-		if (type === null) return false;
-		if (type == "create") {
+		if (type === null) {
+			return false;
+		}
+		if (type == 'create') {
 			eEvent.pointer = null;
 		}
 		eEvent.type = type;
 		eEvent.pushBackState( $rootScope.currentState );
-		$rootScope.goToState( "editEvent" );
+		$rootScope.goToState('editEvent');
 	};
 });

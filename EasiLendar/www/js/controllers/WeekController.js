@@ -1,13 +1,14 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 26/04/2015
+ * last update: 12/05/2015
  * type: home controller
  */
 
 var week = angular.module('MainApp.controllers.week', []);
 
-week.controller("WeekController", function($rootScope, $scope, eEasiLendar, eUser, eSettings) {
+week.controller('WeekController', function($rootScope, $scope, eEasiLendar,
+	eUser, eSettings) {
 	/*
 	* View Event function of week calendar
 	* event is NorEvent/ AllEvent/ OverEvent
