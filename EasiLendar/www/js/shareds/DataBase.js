@@ -235,7 +235,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 				// check if id has sent a request
 				if (!isNull(eUser.uFRequest) && !isNull(eUser.uFRequest[id])) {
 					idRef.once('value', function(snapshot) {
-						var user = snapshot.val();			
+						var user = snapshot.val();
 						// there is no user with that "id"
 						if (isNull( user )) {
 							alert(id + 'does not exist');
@@ -371,7 +371,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		this.deleteFN = function(id) {
 			if (checkSignIn() && !isNull(id)) {
 				delete eUser.uFAccepted[id];
-				setUFAL();	// set uFALength
+				setUFAL(); // set uFALength
 			
 				var uAccept = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' +
@@ -484,7 +484,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		this.searchEvent = function(str) {
 			$rootScope.searchEvents = [];
 			if (checkSignIn() && !isNull(str)) {
-				var length = 0;	// length of searchEvents
+				var length = 0; // length of searchEvents
 				// go through all days
 				for (var x in eUser.uGmailCalendar) {
 					if (eUser.uGmailCalendar.hasOwnProperty(x)) {
@@ -583,7 +583,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					eUser.uGmailCalendar = convertCal(user.g_calendar);
 					eUser.uLocalCalendar = convertCal(user.local_calendar);
 					eUser.uFaceCalendar = convertCal(user.face_calendar);
-			
+
 					eUser.uRequested = user.requested;
 					eUser.uFRequest = isNull( user.noti ) ? null
 							: user.noti.fRequest;

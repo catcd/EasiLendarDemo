@@ -16,13 +16,13 @@ week.controller('WeekController', function($rootScope, $scope, eEasiLendar,
 	$scope.view = function(event) {
 		$rootScope.viewEvent(event.event.origin);
 	};
-	
+
 	// today function
 	$rootScope.weekToday = function() {
 		$scope.weekCalendar = eEasiLendar.newWeekCalendar();
 		$scope.weekCalendar.setNavDays();
 	};
-	
+
 	$scope.weekCalendar = eEasiLendar.newWeekCalendar();
 	$scope.weekCalendar.setNavDays();
 	

@@ -12,10 +12,10 @@ result.controller('ResultController', function($rootScope, $scope, eSettings,
 
 	// Constants
 	var NUM_OF_OPTIONS = 5;
-	
+
 	// link to home's default view
 	var link = eSettings.sDefaultView;
-	
+
 	$scope.done = function() {
 		eFriend.fMultiCal = null;
 		$rootScope.goToState(link);
@@ -33,17 +33,17 @@ result.controller('ResultController', function($rootScope, $scope, eSettings,
 	// this scope's week calendar
 	$scope.weekCalendar = eEasiLendar.newWeekCalendar();
 	$scope.weekCalendar.setNavDays();
-	
+
 	var date = new Date();	// today
 	$scope.navStart = new Date(date.getFullYear(), date.getMonth(),
 															date.getDate());
 	// end of the week
 	$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
-	
+
 	// the options heap
 	$scope.mHeap = eSAlgorithm.evaluateTime($rootScope.resultMultiCalendar,
 					$scope.navStart, $scope.navEnd, eSearchFilter.mDuration);
-	
+
 	// options object
 	$scope.options = {
 		list : [],
@@ -66,7 +66,7 @@ result.controller('ResultController', function($rootScope, $scope, eSettings,
 		},
 		next : function() {
 			$scope.weekCalendar.nextWeek();
-			
+
 			if ($scope.weekCalendar.navDays[0].origin.toDate() >= new Date()) {
 				$scope.navStart = $scope.weekCalendar.navDays[0].origin.
 																	toDate();
@@ -90,7 +90,7 @@ result.controller('ResultController', function($rootScope, $scope, eSettings,
 		},
 		prev : function() {
 			$scope.weekCalendar.prevWeek();
-			
+
 			if ($scope.weekCalendar.navDays[0].origin.toDate() >= new Date()) {
 				$scope.navStart = $scope.weekCalendar.navDays[0].origin.
 																	toDate();
@@ -110,11 +110,11 @@ result.controller('ResultController', function($rootScope, $scope, eSettings,
 			} else {
 				$scope.mHeap = null;
 			}
-			
+
 			this.add($scope.mHeap);
 		},
 	};
-	
+
 	// add options heap to options' list to display
 	$scope.options.add($scope.mHeap);
 	
@@ -128,18 +128,18 @@ result.controller('ResultController', function($rootScope, $scope, eSettings,
 		} else {
 			$rootScope.resultMultiCalendar = eMultiCalendar.newMultiCal([
 												eUser.uGmailCalendar]);
-		}		
+		}
 		// this scope's week calendar
 		$scope.weekCalendar = eEasiLendar.newWeekCalendar();
 		$scope.weekCalendar.setNavDays();
-		
+
 		var date = new Date();	// today
 		$scope.navStart = new Date(date.getFullYear(), date.getMonth(),
 									date.getDate());
 		$scope.navEnd = $scope.weekCalendar.navDays[6].origin.toDate();
 		$scope.mHeap = eSAlgorithm.evaluateTime($rootScope.resultMultiCalendar,
 			$scope.navStart, $scope.navEnd, eSearchFilter.mDuration);
-		
+
 		$scope.options.add($scope.mHeap);
 	});
 	// watch for changes in eSearchFilter.mDuration
@@ -161,7 +161,7 @@ result.controller('ResultController', function($rootScope, $scope, eSettings,
 					$scope.navStart, $scope.navEnd, eSearchFilter.mDuration);
 		$scope.options.add($scope.mHeap);
 	});
-	
+
 	/* Class option */
 	function Option(start, end) {
 		/* Convert functions */
@@ -178,7 +178,7 @@ result.controller('ResultController', function($rootScope, $scope, eSettings,
 			}
 			return day + '/' + month + '/' + year;
 		};
-		
+
 		// Convert time to hh:mm format
 		// time is Object date
 		var convertTime = function(time) {
@@ -192,13 +192,13 @@ result.controller('ResultController', function($rootScope, $scope, eSettings,
 			}
 			return hour + ':' + min;
 		};
-		
+
 		/* initiate attributes */
 		this.date1 = convertDate(start);
 		this.date2 = convertDate(end);
 		this.from = convertTime(start);
 		this.to = convertTime(end);
-		
+
 		/* Display option */
 		this.display = function() {
 			// not all day 
@@ -210,5 +210,5 @@ result.controller('ResultController', function($rootScope, $scope, eSettings,
 				return this.date1 + ': Any time';
 			}
 		};
-	}	// end of class Option
+	} // end of class Option
 });

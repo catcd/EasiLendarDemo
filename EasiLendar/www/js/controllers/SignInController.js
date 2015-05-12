@@ -16,7 +16,7 @@ signIn.controller('SignInController', function($rootScope, $scope, $timeout,
 	MAX_PASSWORD_LENGTH = 16,
 	MIN_PASSWORD_LENGTH = 8,
 	NUM_OF_WARNINGS = 5,
-	
+
 	/*
 	* PRIVATE
 	* show alert
@@ -42,7 +42,7 @@ signIn.controller('SignInController', function($rootScope, $scope, $timeout,
 		}
 		return false;
 	};
-	
+
 	$scope.isRemember = false;
 
 	// warning object contains all warnings
