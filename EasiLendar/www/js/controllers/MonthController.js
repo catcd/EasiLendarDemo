@@ -8,7 +8,8 @@
 /*MONTH CONTROLLER*/
 angular.module('MainApp.controllers.month', [])
 
-.controller("MonthController", function($scope, $rootScope, $document, eDate, eCalendar, eUser, eSettings, eEasiLendar) {
+.controller('MonthController',
+	function($scope, $rootScope, $document, eDate, eCalendar, eUser, eSettings, eEasiLendar) {
 	//Using eUser, eSettings, eDate, eCalendar factory
 	$scope.eCalendar = eCalendar;
 	$scope.eDate = eDate;
@@ -22,7 +23,7 @@ angular.module('MainApp.controllers.month', [])
 					];
 	//refresh calendar when return from other states
 	$rootScope.$on('$stateChangeStart',
-		function(event, toState, toParams, fromState, fromParams) {
+		function(event, toState, toParams, fromState) {
 			if (toState.name == 'month') {
 				//only change when go to 'month' from state differ 'week', 'list', 'day'
 				if(fromState.name != 'week' && fromState.name != 'list' && fromState.name != 'day'){
@@ -283,7 +284,7 @@ angular.module('MainApp.controllers.month', [])
 	/* Return today */
 	$rootScope.monthToday = function(){
 		var date = new Date();
-		data = new Date(date.setHours(0,0,0,0));
+		date = new Date(date.setHours(0,0,0,0));
 		$scope.currentDate = date;
 		$scope.currentDateNumber = date.getDate();
 		$scope.currentMonthNumber = date.getMonth();
@@ -309,8 +310,8 @@ angular.module('MainApp.controllers.month', [])
 	return {
 		restrict: 'A',
 		scope: {
-			isDifferent: "=differentMonth",
-			isCurrentDay: "=currentDay"
+			isDifferent: '=differentMonth',
+			isCurrentDay: '=currentDay'
 		},
 		link: function(scope, element, attr) {
 			var month = attr.currentMonth;
@@ -403,9 +404,7 @@ angular.module('MainApp.controllers.month', [])
 		scope: {
 			isThisMonth: '=checkThisMonth'
 		},
-		link: function(scope, element, attr) {
-			var currentMonth = (new Date()).getMonth();
-
+		link: function(scope, element) {
 			//check on current day
 			element.bind('click', function() {
 				var id = '#' + scope.isThisMonth;
@@ -420,7 +419,7 @@ angular.module('MainApp.controllers.month', [])
 .directive('checkFirstMonth',function($document){
 	return {
 		restrict: 'A',
-		link: function(scope, element, attr) {
+		link: function(scope, element) {
 			//check on first Month in month list
 			element.bind('click',function(){
 				if($document.find('td').children().hasClass('month-current-style') === true){
@@ -448,7 +447,7 @@ angular.module('MainApp.controllers.month', [])
 		scope: {
 			isType: '=backgroundColorEvent'
 		},
-		link: function(scope, element, attr) {
+		link: function(scope, element) {
 			var allBkgClass = ['event-color-1', 'event-color-2',
 				'event-color-3', 'event-color-4', 'event-color-5'
 			];

@@ -19,7 +19,7 @@ angular.module('MainApp.shareds.facebook', [])
 
 		fbLogin : function(){
 			facebookConnectPlugin.login(
-				["public_profile"],
+				['public_profile'],
 				function (success){
 					loginStatus = angular.copy(success.status);
 					eToast.toastSuccessOne('Login successfully', 2000);
@@ -68,7 +68,7 @@ angular.module('MainApp.shareds.facebook', [])
 		  * name: name of event
 		  */
 		fbApiEvent : function(){
-			facebookConnectPlugin.api("me/events", ['user_events'],
+			facebookConnectPlugin.api('me/events', ['user_events'],
 				function (events) {},
 				function (error) {
 					eToast.toastError('Failed to update', 2000);
@@ -90,10 +90,10 @@ angular.module('MainApp.shareds.facebook', [])
 			  			 is automatically populated with the URL of the link
 			  */
 			var options = {
-					method: "feed",
-					display:"popup",
-					link: "https://www.youtube.com/channel/UC3tYd_GAkPAAp_QXKOTdsxw",
-					caption: "From EasiLendar"
+					method: 'feed',
+					display:'popup',
+					link: 'https://www.youtube.com/channel/UC3tYd_GAkPAAp_QXKOTdsxw',
+					caption: 'From EasiLendar'
 				};
 
 			facebookConnectPlugin.showDialog(options,
@@ -123,9 +123,9 @@ angular.module('MainApp.shareds.facebook', [])
 			  */
 
 			var options = {
-				method: "share",
-				display: "popup",
-				href: "https://www.youtube.com/channel/UC3tYd_GAkPAAp_QXKOTdsxw"
+				method: 'share',
+				display: 'popup',
+				href: 'https://www.youtube.com/channel/UC3tYd_GAkPAAp_QXKOTdsxw'
 			};
 
 			facebookConnectPlugin.showDialog(options,
@@ -145,8 +145,8 @@ angular.module('MainApp.shareds.facebook', [])
 			  * display: page or popup
 			  */
 			var options = {
-				method: "send",
-				link: "https://www.youtube.com/channel/UC3tYd_GAkPAAp_QXKOTdsxw"
+				method: 'send',
+				link: 'https://www.youtube.com/channel/UC3tYd_GAkPAAp_QXKOTdsxw'
 			};
 
 			facebookConnectPlugin.showDialog(options, 

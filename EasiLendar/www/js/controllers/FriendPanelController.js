@@ -70,7 +70,9 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	
 	var sortViewTime = function(array){
 		array.sort(function(obj1,obj2){
-			return ( $scope.eUser.uFriend[obj2].viewTime - $scope.eUser.uFriend[obj1].viewTime );
+			return (
+				$scope.eUser.uFriend[obj2].viewTime - $scope.eUser.uFriend[obj1].viewTime
+			);
 		});
 
 		var sortedArray = [];
@@ -83,7 +85,9 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 
 	var sortDateTime = function(array){
 		array.sort(function(obj1,obj2){
-			return ( $scope.eUser.uFriend[obj2].dateTime - $scope.eUser.uFriend[obj1].dateTime );
+			return (
+				$scope.eUser.uFriend[obj2].dateTime - $scope.eUser.uFriend[obj1].dateTime
+			);
 		});
 
 		var sortedArray = [];
@@ -120,14 +124,12 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 .directive('slideToggleFunc', function($document) {
 	return {
 		restrict: 'E',
-		link: function(scope, element, attr, $index) {
+		link: function(scope) {
 			scope.visible = { index: false, value: false};
 			scope.toggleFunc = function() {
 				scope.visible.value = !scope.visible.value;
 			};
-			$document.bind('click', function(event) {
-				/*var isClickedElement = element.find(event.target).length > 0;
-				if (isClickedElement) return;*/
+			$document.bind('click', function() {
 				if(scope.visible.index === true){
 					scope.visible.index = false;
 					scope.visible.value = false;
@@ -146,14 +148,15 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 .directive('opacitySearchInput', function() {
 	return {
 		restrict: 'A',
-		link: function(scope, element, attrs) {
-			element.parent().parent().addClass('friend-search-input-blur');
+		link: function(scope, element) {
+			var parent = element.parent().parent();
+			parent.addClass('friend-search-input-blur');
 			element.bind('focus', function() {
-				element.parent().parent().removeClass('friend-search-input-blur');
-				element.parent().parent().addClass('friend-search-input-focus');
+				parent.removeClass('friend-search-input-blur');
+				parent.addClass('friend-search-input-focus');
 			});
 			element.bind('blur', function() {
-				element.parent().parent().addClass('friend-search-input-blur');
+				parent.addClass('friend-search-input-blur');
 			});
 		}
 	};
@@ -165,9 +168,10 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 		scope: {
 			isVisible: '='
 		},
-		link: function(scope, element, attr) {
+		link: function(scope, element) {
 			scope.$watch('isVisible', function() {
-				var listFriend = element.parent().parent().next().next().children().children().next().next();
+				var parent = element.parent().parent();
+				var listFriend = parent.next().next().children().children().next().next();
 				if (scope.isVisible === true) {
 					listFriend.addClass('friend-blur-list');
 				} else {

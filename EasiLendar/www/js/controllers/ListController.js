@@ -7,7 +7,9 @@
 
 angular.module('MainApp.controllers.list', [])
 
-.controller("ListController", function($scope, $rootScope, $ionicScrollDelegate, $location, eUser, eCalendar, eEasiLendar, eSettings) {
+.controller("ListController",
+	function($scope, $rootScope, $ionicScrollDelegate,
+	$location, eUser, eCalendar, eEasiLendar, eSettings) {
 	//Using eUser, eCalendar factory
 	$scope.eUser = eUser;
 	$scope.eCalendar = eCalendar;
@@ -98,7 +100,7 @@ angular.module('MainApp.controllers.list', [])
 
 	//Reset data
 	$rootScope.$on('$stateChangeStart',
-		function(event, toState, toParams, fromState, fromParams) {
+		function(event, toState, fromState) {
 			if (toState.name == 'list') {
 				$scope.allWeeks = [];
 				$scope.buildNextWeek(toDay);
@@ -155,7 +157,6 @@ angular.module('MainApp.controllers.list', [])
 				$scope.$apply();
 			}
 		}
-		else {}
 	};
 
 	//Called when scroll stops
@@ -170,10 +171,7 @@ angular.module('MainApp.controllers.list', [])
 	$scope.currDay = toDay;
 	$rootScope.listToday = function(){
 		var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 25;
-		var winHeight = window.innerHeight;
 		var currDay = document.getElementById('date-' + toDay.toDateString());
-
-		var currDayElm = angular.element(currDay);
 		var currPos = currDay.getBoundingClientRect();
 
 		if(currPos.top < 0){
@@ -196,7 +194,8 @@ angular.module('MainApp.controllers.list', [])
 	//view detail of events
 	$scope.viewE = function(event){
 		//create EasiEvent obj
-		var easiE = eEasiLendar.newEasiEvent(event.summary, event.start, event.end, event.location, event.id, event.colorID, event.position, event.src, event.status);
+		var easiE = eEasiLendar.newEasiEvent(event.summary, event.start, event.end, event.location,
+								event.id, event.colorID, event.position, event.src, event.status);
 		$rootScope.viewEvent(easiE);
 	};
 })
@@ -205,9 +204,8 @@ angular.module('MainApp.controllers.list', [])
 	return{
 		restrict: 'E',
 		controller: 'ListController',
-		link: function(scope, element, attr){
+		link: function(scope){
 			var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 60;
-			var winHeight = window.innerHeight;
 
 			var today = new Date();
 			scope.currMonth = today.getMonth();
@@ -244,7 +242,7 @@ angular.module('MainApp.controllers.list', [])
 		scope: {
 			isType: '=backgroundEvent'
 		},
-		link: function(scope, element, attr) {
+		link: function(scope, element) {
 			var allBkgClass = ['birthday-background', 'holiday-background', 'hotel-background',
 				'restaurant-background', 'ticket-background', 'event-color-1', 'event-color-2',
 				'event-color-3', 'event-color-4', 'event-color-5'
