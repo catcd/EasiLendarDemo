@@ -119,7 +119,7 @@ angular.module('MainApp.controllers.sync', [])
 			});
 			request.execute(function(resp) {
 				
-				console.log(resp);
+				//console.log(resp);
 				eUser.uGmailCalendar = resp.items;
 
 				eSync.convertMe();

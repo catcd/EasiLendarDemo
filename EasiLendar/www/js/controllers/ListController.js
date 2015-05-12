@@ -121,6 +121,7 @@ angular.module('MainApp.controllers.list', [])
 
 	$scope.lastPosContent = 0;				//The position of ion-content after each scrolling.
 	$scope.setTimeOut = 0;					//time to call scrollUp and scrollDown function
+
 	//Called when scroll is activing
 	$scope.handleScrolling = function(){
 		var content = document.getElementById('list-div-calendar');
@@ -133,11 +134,11 @@ angular.module('MainApp.controllers.list', [])
 			var posFirst = firstTable.getBoundingClientRect();
 
 			if(posFirst.top - 100 >= top){
-				while($scope.setTimeOut < 6){
+				//while($scope.setTimeOut < 14){
 					$scope.scrollPrev();
-					$scope.setTimeOut++;
-					$scope.$apply();
-				}
+					//$scope.setTimeOut++;
+				//}
+				$scope.$apply();
 			}
 		}
 		//Scroll next date when posContent.top reduce
@@ -146,12 +147,12 @@ angular.module('MainApp.controllers.list', [])
 			var lastTable = document.getElementById($scope.allWeeks[$scope.allWeeks.length-1].first.toDateString());
 			var posLast = lastTable.getBoundingClientRect();
 
-			if(posLast.bottom <= winHeight + 50){
-				while($scope.setTimeOut < 6){
+			if(posLast.bottom <= winHeight + 200){
+				//while($scope.setTimeOut < 14){
 					$scope.scrollNext();
-					$scope.setTimeOut++;
-					$scope.$apply();
-				}
+					//$scope.setTimeOut++;
+				//}
+				$scope.$apply();
 			}
 		}
 		else {}
@@ -175,10 +176,10 @@ angular.module('MainApp.controllers.list', [])
 		var currDayElm = angular.element(currDay);
 		var currPos = currDay.getBoundingClientRect();
 
-		if(currPos < 0){
+		if(currPos.top < 0){
 			$ionicScrollDelegate.scrollBy(0,-(top+currPos.top),false);
 		}	
-		else{
+		else if(currPos.top > 0){
 			$ionicScrollDelegate.scrollBy(0,currPos.top-top,false);
 		}
 	};
