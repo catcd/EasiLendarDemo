@@ -3,7 +3,7 @@
  * owner: Ngo Duc Dung
  * last update: 10/05/2015
  * type: paticular controller
- * number of tests: 2
+ * number of tests: 6
  */
 
 describe('Share Controller', function() {
@@ -56,6 +56,29 @@ describe('Share Controller', function() {
 			expect($scope.allSites[0].options[0].name).toBe('Share');
 			expect($scope.allSites[0].options[1].name).toBe('Send message');
 			expect($scope.allSites[0].options[2].name).toBe('Logout');
+
+			expect($scope.allSites[1].name).toBe('twitter');
+			expect($scope.allSites[1].options[0].id).toBe('share');
+			expect($scope.allSites[1].options[1].id).toBe('send');
+			expect($scope.allSites[1].options[2].id).toBe('logout');
+			expect($scope.allSites[1].options[0].name).toBe('Share');
+			expect($scope.allSites[1].options[1].name).toBe('Send message');
+			expect($scope.allSites[1].options[2].name).toBe('Logout');
+
+			expect($scope.allSites[2].name).toBe('gmail');
+			expect($scope.allSites[2].options[0].id).toBe('send');
+			expect($scope.allSites[2].options[1].id).toBe('logout');
+			expect($scope.allSites[2].options[0].name).toBe('Send mail');
+			expect($scope.allSites[2].options[1].name).toBe('Logout');
+
+			expect($scope.allSites[3].name).toBe('sms');
+			expect($scope.allSites[3].options[0].id).toBe('send');
+			expect($scope.allSites[3].options[0].name).toBe('Send sms');
+		});
+
+		it('should create $scope.isShowDes is {}', function(){
+			expect($scope.isShowDes).toBeDefined();
+			expect($scope.isShowDes).toEqual({});
 		});
 	});
 
@@ -75,5 +98,25 @@ describe('Share Controller', function() {
 				expect(facebookConnectPlugin.getLoginStatus).toHaveBeenCalled();
 			});
 		});*/
+
+		describe('$scope.isShow', function(){
+			it('should call return false if $scope.isShowDes[name] is false', function(){
+				var name = 'facebook';
+				$scope.isShowDes['facebook'] = false;
+				expect($scope.isShow(name)).toBe(false);
+			});
+
+			it('should call return false if $scope.isShowDes[name] is {}', function(){
+				var name = 'facebook';
+				$scope.isShowDes = {};
+				expect($scope.isShow(name)).toBe(false);
+			});
+
+			it('should call return false if $scope.isShowDes[name] is true', function(){
+				var name = 'facebook';
+				$scope.isShowDes['facebook'] = true;
+				expect($scope.isShow(name)).toBe(true);
+			});
+		});
 	});
 });

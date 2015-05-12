@@ -1,36 +1,67 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 08/05/2015
+ * last update: 12/05/2015
  * type: Share state controller
  */
 
 angular.module('MainApp.controllers.share', [])
 
-.controller('ShareController', function($scope, $rootScope, eUser, eFacebook, eToast, $ionicPopup/*, facebookConnectPlugin*/) {
+.controller('ShareController', function($scope, $rootScope, eUser, eFacebook, eToast, $ionicPopup) {
 	$scope.eUser = eUser;
 
 	$scope.allSites = [
-		{ name: 'facebook' , options: [{id: 'share', name: 'Share'}, {id: 'send', name: 'Send message'},
-									  /* {id: 'like', name: 'Like our fanpage'},*/ {id: 'logout', name: 'Logout'}] }
+		{name: 'facebook', options: [{id: 'share', name: 'Share'}, {id: 'send', name: 'Send message'},
+									  {id: 'logout', name: 'Logout'}]},
+		{name: 'twitter', options: [{id: 'share', name: 'Share'}, {id: 'send', name: 'Send message'},
+									  {id: 'logout', name: 'Logout'}]},
+		{name: 'gmail', options: [{id: 'send', name: 'Send mail'}, {id: 'logout', name: 'Logout'}]},
+		{name: 'sms', options: [{id: 'send', name: 'Send sms'}]}							  
 	];
+
+	$scope.isShowDes = {};
+
+	$scope.isShow = function (name) {
+		if($scope.isShowDes[name] === true) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	var activeShow = function (name) {
+		$scope.isShowDes = {};
+		$scope.isShowDes[name] = true;
+	};
+
+	var deactiveShow = function () {
+		$scope.isShowDes = {};
+	};
+
+	$scope.showOptions = function (name) {
+		if($scope.isShow(name) === true) {
+			deactiveShow();
+		} else {
+			activeShow(name);
+		}
+	};
 
 	/* Check login status
 	 */
-	$scope.checkLoginStatus = function(name){
-		if(name == 'facebook'){
+	$scope.checkLoginStatus = function (name){
+		if(name == 'facebook') {
 			return eFacebook.fbSetLoginStatus();
 		}
-	}
+	};
 
-	$scope.handleOptions = function(site, option){
-		if(site == 'facebook'){
+	$scope.handleOptions = function (site, option){
+		if(site == 'facebook') {
 			//check login status
 			facebookConnectPlugin.getLoginStatus(
-				function (success){
+				function (success) {
 					var loginFB = angular.copy(success.status);
 
-					if(loginFB != 'connected'){
+					if(loginFB != 'connected') {
 						var confirmPopup = $ionicPopup.confirm({
 							title: 'You need to login first'
 						});
@@ -40,19 +71,19 @@ angular.module('MainApp.controllers.share', [])
 								//Log in
 								eFacebook.fbLogin();
 
-								if(option != 'like'  && option != 'logout'){
+								if(option != 'like'  && option != 'logout') {
 									var continueOption = $ionicPopup.confirm({
 										title: 'Do you want to continue ?'
 									});
 
-									continueOption.then(function(res) {
+									continueOption.then( function(res) {
 										if(res) {
 											//Share
-											if(option == 'share'){
+											if(option == 'share') {
 												eFacebook.fbFeed();
 											}
 											//Send message to your friends on facebook
-											if(option == 'send'){
+											if(option == 'send') {
 												eFacebook.fbSend();
 											}
 										}
@@ -64,58 +95,30 @@ angular.module('MainApp.controllers.share', [])
 
 					else{
 						//Share to facebook
-						if(option == 'share'){
+						if(option == 'share') {
 							eFacebook.fbFeed();
 						}
 
 						//Send message to your friends on facebook
-						if(option == 'send'){
+						if(option == 'send') {
 							eFacebook.fbSend();
 						}
 
 						//Logout
-						if (option == 'logout'){
+						if (option == 'logout') {
 							eFacebook.fbLogout();
 							$scope.checkLoginStatus('facebook');
 						}
 					}
 				},
-				function (error){
+				function (error) {
 					eToast.toastSuccessOne('Failed to get login status', 2000);
 				}
 			);
 		}
-	};
-})
 
-.directive('showHideOptions', function(){
-	return {
-		restrict: 'E',
-		link: function(scope, element, attr){
-			scope.show = false;
-			scope.showHideOptions = function(){
-				scope.show = !scope.show;
-			};
+		if(site != 'facebook'){
+			eToast.toastInfoOne('Comming soon', 1000);
 		}
 	};
-})
-
-.directive('animation', function(){
-	return {
-		restrict: 'A',
-		link: function(scope, element, attr){
-			element.bind('click', function(){
-				if(scope.show == true){
-					element.find('img').addClass('share-img-clicked');
-					element.next().addClass('share-options-show');
-				}
-
-				else{
-					element.find('img').removeClass('share-img-clicked');
-					element.next().removeClass('share-options-show');
-				}
-			});
-		}
-	};
-})
-
+});

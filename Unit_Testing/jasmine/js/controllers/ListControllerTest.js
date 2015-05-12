@@ -228,7 +228,7 @@ describe('List Calendar', function() {
 			var prev = new Date(today.getFullYear(), today.getMonth(), today.getDate()-6);
 			eSettings.sFirstDay = 'Sunday';
 			$scope.buildPrevWeek(prev);
-			console.log($scope.allWeeks);
+			//console.log($scope.allWeeks);
 
 			var firstDate = prev.getDate() - prev.getDay();
 			var first = new Date(prev.getFullYear(), prev.getMonth(), firstDate);
@@ -249,7 +249,7 @@ describe('List Calendar', function() {
 			eSettings.sFirstDay = 'Saturday';
 			$scope.buildPrevWeek(prev);
 
-			console.log($scope.allWeeks);
+			//console.log($scope.allWeeks);
 
 			var firstDate = prev.getDate() - ( (day == 6) ? 0 : (day+1) );
 			var first = new Date(prev.getFullYear(), prev.getMonth(), firstDate);

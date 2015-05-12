@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 09/05/2015
+ * last update: 12/05/2015
  * type: friend panel controller
  */
 
@@ -34,17 +34,17 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 				$scope.cacheFriend = angular.copy($scope.eUser.uFriend);
 			}
 		});
-	}
+	};
 
 	$scope.appointMeeting = function(friend) {
 		$scope.eFriend.fName = friend.name;
 		$scope.eDatabase.getCalendar(friend.id);
 		$rootScope.goToState('searchFilter');
-	}
+	};
 
 	$scope.viewProfile = function(friend) {
 		$scope.eDatabase.viewProfile(friend.id);
-	}
+	};
 
 	//auto scroll to top of panel
 	$rootScope.gotoTop = function() {
@@ -58,12 +58,12 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	var sortAZ = function(array) {
 		array.sort(function(obj1,obj2){
 			return $scope.eUser.uFriend[obj1].name.localeCompare($scope.eUser.uFriend[obj2].name);
-		})
+		});
 
 		var sortedArray = [];
 		angular.forEach(array, function(id){
 			sortedArray.push($scope.eUser.uFriend[id]);
-		})
+		});
 
 		$scope.eUser.uFriend = angular.copy(sortedArray);
 	};
@@ -114,7 +114,7 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 			//sort by the most recently date
 			sortDateTime(arrF);
 		}
-	}
+	};
 })
 
 .directive('slideToggleFunc', function($document) {
@@ -128,12 +128,12 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 			$document.bind('click', function(event) {
 				/*var isClickedElement = element.find(event.target).length > 0;
 				if (isClickedElement) return;*/
-				if(scope.visible.index == true){
+				if(scope.visible.index === true){
 					scope.visible.index = false;
 					scope.visible.value = false;
-				};
+				}
 
-				if(scope.visible.value == true){
+				if(scope.visible.value === true){
 					scope.visible.index = true;
 				}
 
@@ -168,7 +168,7 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 		link: function(scope, element, attr) {
 			scope.$watch('isVisible', function() {
 				var listFriend = element.parent().parent().next().next().children().children().next().next();
-				if (scope.isVisible == true) {
+				if (scope.isVisible === true) {
 					listFriend.addClass('friend-blur-list');
 				} else {
 					listFriend.removeClass('friend-blur-list');
@@ -194,4 +194,4 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 
 		return results;
 	};
-})
+});

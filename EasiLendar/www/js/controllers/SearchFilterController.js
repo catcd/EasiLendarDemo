@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 08/05/2015
+ * last update: 12/05/2015
  * type: paticular controller
  */
 
@@ -65,8 +65,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 	$scope.$watch('priorityTimes[4].values',function(){$scope.eSearchFilter.mHoliday = $scope.priorityTimes[4].values; });
 
 	$scope.convertToMinute = function(){
-		if($scope.timeValues.mDurationHour >= 0 && $scope.timeValues.mDurationHour < 24 
-		   && $scope.timeValues.mDurationMinute >= 0 && $scope.timeValues.mDurationMinute < 60){
+		if($scope.timeValues.mDurationHour >= 0 && $scope.timeValues.mDurationHour < 24 && $scope.timeValues.mDurationMinute >= 0 && $scope.timeValues.mDurationMinute < 60){
 			$scope.eSearchFilter.mDuration = $scope.timeValues.mDurationHour*60 + $scope.timeValues.mDurationMinute;
 		}
 	};
@@ -78,7 +77,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 			if (toState.name == 'searchFilter') {
 				$scope.preState = fromState.name;
 			}
-		})
+		});
 
 	$scope.submit = function(form) {
 		if (form.$valid) {
@@ -86,7 +85,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 		}
 
 		else {
-			if($scope.personName == '' || $scope.eFriend.fMultiCal == null){
+			if($scope.personName === '' || $scope.eFriend.fMultiCal === null){
 				eToast.toastErrorOne('Please choose whom you want to meet', 2000);
 			}
 		}
@@ -132,7 +131,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 	$scope.toggleFunc = function(){
 		if($scope.eUser.uVIP == 1){
 			$scope.mShow = !$scope.mShow;
-			if($scope.mShow == true) {$scope.titleOfButton = 'End';}
+			if($scope.mShow === true) {$scope.titleOfButton = 'End';}
 			else {$scope.titleOfButton = 'ADVANCE FILTER';}
 		}
 	};
@@ -140,7 +139,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 	$scope.showDate = function(){
 		$scope.showDay = !$scope.showDay;
 		$scope.showTime = !$scope.showTime;
-		if($scope.showTime == true){
+		if($scope.showTime === true){
 			$scope.timeValues.mDurationHour = 0;
 			$scope.timeValues.mDurationMinute = 1;
 		}
@@ -148,7 +147,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 			$scope.timeValues.mDurationHour = $scope.eSettings.sDefaultDuration / 60;
 			$scope.timeValues.mDurationMinute = $scope.eSettings.sDefaultDuration % 60;
 		}
-	}
+	};
 
 	/* Chose person who you want to meet */
 	$scope.personName = $scope.eFriend.fName; 	//search person input to find who you want to meet
@@ -157,10 +156,10 @@ angular.module('MainApp.controllers.searchFilter', [])
 
 	//show-hide list friend when enter a friend's name
 	$scope.$watch('personName', function(){
-		if($scope.personName != '') {
+		if($scope.personName !== '') {
 			$scope.showListPersons = true;
 			var array = $filter('filterFriend');
-			if( array($scope.eUser.uFriend,$scope.personName).length != 0){
+			if( array($scope.eUser.uFriend,$scope.personName).length !== 0){
 				$scope.noFound = false;
 			}
 			else { $scope.noFound = true; }
@@ -194,7 +193,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 		link: function(scope,element,attr){
 			var labelRadio = element.next();
 			labelRadio.bind('mousedown',function(){
-				if(element.prop("checked") == true){
+				if(element.prop("checked") === true){
 					labelRadio.bind('mouseup',function(){
 						setTimeout(function(){
 							element.prop('checked',false);
@@ -222,7 +221,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 		},
 		link:function(scope,element,attr){
 			scope.$watch('isChange', function(){
-				if(scope.isChange == false){ element.attr('class','icon ion-arrow-down-b'); }
+				if(scope.isChange === false){ element.attr('class','icon ion-arrow-down-b'); }
 				else { element.attr('class','icon ion-arrow-up-b'); }
 			});
 		}
@@ -262,4 +261,4 @@ angular.module('MainApp.controllers.searchFilter', [])
 
 		return results;
 	};
-})
+});

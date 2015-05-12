@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 09/05/2015
+ * last update: 12/05/2015
  * type: list controller
  */
 
@@ -22,7 +22,7 @@ angular.module('MainApp.controllers.list', [])
 	 first: frist date of week
 	*/
 	$scope.buildNextWeek = function(date){
-		var day;
+		var day, firstDate, lastDate;
 		var i = $scope.allWeeks.length;
 		$scope.allWeeks[i] = { date: null, first: null, last: null};
 
@@ -30,61 +30,61 @@ angular.module('MainApp.controllers.list', [])
 
 		//Week start from Sunday - Monday - Saturday
 		if(eSettings.sFirstDay == 'Sunday'){
-			var firstDate = date.getDate() - date.getDay();
+			firstDate = date.getDate() - date.getDay();
 			$scope.allWeeks[i].first = new Date (date.getFullYear(), date.getMonth(), firstDate);
-			var lastDate = date.getDate() + 6 - date.getDay();
+			lastDate = date.getDate() + 6 - date.getDay();
 			$scope.allWeeks[i].last = new Date (date.getFullYear(), date.getMonth(), lastDate);
 		}
 
 		if(eSettings.sFirstDay == 'Monday'){
 			day = date.getDay();
-			var firstDate = date.getDate() - ( (day == 0) ? 6 : (day-1) );
+			firstDate = date.getDate() - ( (day === 0) ? 6 : (day-1) );
 			$scope.allWeeks[i].first = new Date (date.getFullYear(), date.getMonth(), firstDate);
-			var lastDate = date.getDate() + ( (day==0) ? day : (7-day) );
+			lastDate = date.getDate() + ( (day === 0) ? day : (7-day) );
 			$scope.allWeeks[i].last = new Date (date.getFullYear(), date.getMonth(), lastDate);
 		}
 
 		if(eSettings.sFirstDay == 'Saturday'){
 			day = date.getDay();
-			var firstDate = date.getDate() - ( (day == 6) ? 0 : (day+1) );
+			firstDate = date.getDate() - ( (day == 6) ? 0 : (day+1) );
 			$scope.allWeeks[i].first = new Date (date.getFullYear(), date.getMonth(), firstDate);
-			var lastDate = date.getDate() + ( (day == 6) ? 6 : (5-day) );
+			lastDate = date.getDate() + ( (day == 6) ? 6 : (5-day) );
 			$scope.allWeeks[i].last = new Date (date.getFullYear(), date.getMonth(), lastDate);
 		}
 	};
 
 	$scope.buildPrevWeek = function(date){
-		var day;
+		var day, firstDate, lastDate;
 		var objWeek = { date: null, first: null, last: null};
 
 		objWeek.date = angular.copy(date);
 
 		//Week start from Sunday - Monday - Saturday
 		if(eSettings.sFirstDay == 'Sunday'){
-			var firstDate = date.getDate() - date.getDay();
+			firstDate = date.getDate() - date.getDay();
 			objWeek.first = new Date(date.getFullYear(), date.getMonth(), firstDate);
-			var lastDate = date.getDate() + 6 - date.getDay();
+			lastDate = date.getDate() + 6 - date.getDay();
 			objWeek.last = new Date(date.getFullYear(), date.getMonth(), lastDate);
 		}
 
 		if(eSettings.sFirstDay == 'Monday'){
 			day = date.getDay();
-			var firstDate = date.getDate() - ( (day == 0) ? 6 : (day-1) );
+			firstDate = date.getDate() - ( (day === 0) ? 6 : (day-1) );
 			objWeek.first = new Date (date.getFullYear(), date.getMonth(), firstDate);
-			var lastDate = date.getDate() + ( (day==0) ? day : (7-day) );
+			lastDate = date.getDate() + ( (day === 0) ? day : (7-day) );
 			objWeek.last = new Date (date.getFullYear(), date.getMonth(), lastDate);
 		}
 
 		if(eSettings.sFirstDay == 'Saturday'){
 			day = date.getDay();
-			var firstDate = date.getDate() - ( (day == 6) ? 0 : (day+1) );
+			firstDate = date.getDate() - ( (day == 6) ? 0 : (day+1) );
 			objWeek.first = new Date (date.getFullYear(), date.getMonth(), firstDate);
-			var lastDate = date.getDate() + ( (day == 6) ? 6 : (5-day) );
+			lastDate = date.getDate() + ( (day == 6) ? 6 : (5-day) );
 			objWeek.last = new Date (date.getFullYear(), date.getMonth(), lastDate);
 		}
 
 		$scope.allWeeks.unshift(objWeek);
-	}
+	};
 
 	//Change month and year
 	$scope.changeMonth = function(date){
@@ -156,7 +156,7 @@ angular.module('MainApp.controllers.list', [])
 			}
 		}
 		else {}
-	}
+	};
 
 	//Called when scroll stops
 	$scope.whenStopScrolling = function(){
@@ -164,7 +164,7 @@ angular.module('MainApp.controllers.list', [])
 		var posContent = content.getBoundingClientRect();
 		$scope.lastPosContent = angular.copy(posContent.top);
 		$scope.setTimeOut = 0;
-	}
+	};
 
 	//Scroll to current day in list
 	$scope.currDay = toDay;
@@ -191,14 +191,14 @@ angular.module('MainApp.controllers.list', [])
 	$scope.background = function(index) {
 		var className = 'list-bkg-style ' + 'easi-' + $scope.eCalendar.shortMonths[index] + '-bkg';
 		return className;
-	}
+	};
 
 	//view detail of events
 	$scope.viewE = function(event){
 		//create EasiEvent obj
 		var easiE = eEasiLendar.newEasiEvent(event.summary, event.start, event.end, event.location, event.id, event.colorID, event.position, event.src, event.status);
 		$rootScope.viewEvent(easiE);
-	}
+	};
 })
 
 .directive('listEvents', function(){
@@ -222,13 +222,13 @@ angular.module('MainApp.controllers.list', [])
 				for(var i=0; i<tables.length; i++){
 					var tableElm = angular.element(tables[i]);
 					var tablePos = tables[i].getBoundingClientRect();
-					if(tableElm != undefined){
+					if(tableElm !== undefined){
 						if(tablePos.top <= top){
 							date = new Date( tableElm.attr('id') );
 						}
 					}
 				}
-				if(date != undefined && date != null){
+				if(date !== undefined && date !== null){
 					scope.currMonth = date.getMonth();
 					scope.currYear = date.getFullYear();
 					scope.$apply();
@@ -256,7 +256,6 @@ angular.module('MainApp.controllers.list', [])
 	};
 })
 
-
 .directive('currentTime', function() {
 	return {
 		restrict: 'A',
@@ -272,5 +271,5 @@ angular.module('MainApp.controllers.list', [])
 			}
 		}
 	};
-})
+});
 

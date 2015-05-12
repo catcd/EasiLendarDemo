@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 06/05/2015
+ * last update: 12/05/2015
  * type: paticular controller
  */
 
@@ -14,7 +14,7 @@ angular.module('MainApp.controllers.sync', [])
 	$scope.logIN = -1;
 	$scope.email = '';
 	
-	$scope.handleClientLoad = function() {
+	$scope.handleClientLoad = function () {
 	
 		if ($scope.logIN == -1) {
 			window.setTimeout($scope.checkAuth, 1);
@@ -22,9 +22,9 @@ angular.module('MainApp.controllers.sync', [])
 		}
 
 		return $scope.logIN;
-	}
+	};
 	
-	$scope.checkAuth = function() {
+	$scope.checkAuth = function () {
 	
 		gapi.auth.authorize({
 			client_id: eSync.clientId,
@@ -32,9 +32,9 @@ angular.module('MainApp.controllers.sync', [])
 			immediate: true,
 		
 		}, $scope.handleAuthResult);
-	}
+	};
 	
-	$scope.handleAuthResult = function(authResult) {
+	$scope.handleAuthResult = function (authResult) {
 			
 		if (authResult && !authResult.error) {
 			$scope.logIN = 1;
@@ -42,7 +42,7 @@ angular.module('MainApp.controllers.sync', [])
 			//result= authResult.access_token;
 			var temp;
 
-			gapi.client.load('calendar', 'v3', function() {
+			gapi.client.load('calendar', 'v3', function () {
 				var request = gapi.client.calendar.events.list({
 					'calendarId': 'primary',
 					"singleEvents": "true",
@@ -57,9 +57,9 @@ angular.module('MainApp.controllers.sync', [])
 		} else {
 			$scope.logIN = 0;
 		}
-	}
+	};
 	
-	$scope.handleAuthClick = function(event) {
+	$scope.handleAuthClick = function (event) {
 		gapi.auth.authorize({
 			client_id: eSync.clientId,
 			scope: 	eSync.scopes,
@@ -68,9 +68,9 @@ angular.module('MainApp.controllers.sync', [])
 			immediate: false,
 			cookie_policy: 'single_host_origin'
 		}, $scope.handleResult);
-	}
+	};
 	
-	$scope.handleResult = function(authResult) {
+	$scope.handleResult = function (authResult) {
 	
 		if (authResult && !authResult.error) {
 			 $scope.logIN = 1;
@@ -80,9 +80,9 @@ angular.module('MainApp.controllers.sync', [])
 			// Load calendar:
 			$scope.makeApiCallNoBound();
 		}
-	}
+	};
 	
-	$scope.makeApiCallNoBound = function() {
+	$scope.makeApiCallNoBound = function () {
 			
 		// default max result = 250
 		// default farthest day is one year ago
@@ -108,7 +108,7 @@ angular.module('MainApp.controllers.sync', [])
 
 		// Load calendar from one year ago:
 
-		gapi.client.load('calendar', 'v3', function() {
+		gapi.client.load('calendar', 'v3', function () {
 			var request = gapi.client.calendar.events.list({
 				'calendarId': 'primary',
 				"singleEvents": "true",
@@ -129,9 +129,9 @@ angular.module('MainApp.controllers.sync', [])
 				//console.log(eUser.uGmailCalendar);
 			});
 		});
-	}
+	};
 	
-	$scope.logMeOut = function() {
+	$scope.logMeOut = function () {
 		$scope.logIN = 0;
 		$scope.email = '';
 		eToast.toastSuccessOne('Log out successfully', 2000);
@@ -150,7 +150,7 @@ angular.module('MainApp.controllers.sync', [])
 		xmlHttp = new XMLHttpRequest();
 		xmlHttp.open( "GET", theUrl, false );
 		xmlHttp.send( null ); */
-	},
+	};
 		
 	// Using eSync, eUser, eFacebook service
 	//$scope.eSync = eSync;
@@ -168,7 +168,7 @@ angular.module('MainApp.controllers.sync', [])
 	/** Convert to arrays in eUser service
 	  * eUser.uFaceCalendar
 	*/
-	$scope.convertMe = function(name){
+	$scope.convertMe = function (name){
 		if(name == 'facebook'){
 			if($scope.fbEvents.length == 0) return;
 
@@ -220,7 +220,7 @@ angular.module('MainApp.controllers.sync', [])
 				}
 			}
 		}
-	}
+	};
 
 	/* Update events
 	 * name = facebook: from facebook
@@ -230,7 +230,7 @@ angular.module('MainApp.controllers.sync', [])
 	//array of all user's events on facebook
 	$scope.fbEvents = [];
 
-	$scope.updateEvents = function(name){
+	$scope.updateEvents = function (name){
 		if(name == 'facebook'){
 			//execute secondly
 			facebookConnectPlugin.api("me/events", ['user_events'], 
@@ -240,7 +240,7 @@ angular.module('MainApp.controllers.sync', [])
 					eToast.toastSuccessOne('Update successfully', 2000);
 				},
 				function (error) {
-					eToast.toastSuccessOne('Failed to update', 2000);
+					eToast.toastError('Failed to update', 2000);
 				}
 			);
 		}
@@ -250,13 +250,13 @@ angular.module('MainApp.controllers.sync', [])
 		}
 
 		if(name == 'local'){
-			eToast.toastSuccessOne('Coming soon...', 2000);
+			eToast.toastInfo('Coming soon...', 2000);
 		}
 	};
 
 	/* Check login status
 	 */
-	$scope.checkLoginStatus = function(name){
+	$scope.checkLoginStatus = function (name){
 		if(name == 'facebook'){
 			return eFacebook.fbSetLoginStatus();
 		}
@@ -316,8 +316,36 @@ angular.module('MainApp.controllers.sync', [])
 	/* Show & Hide slide toggle
 	Based on login status
 	*/
+
+	$scope.isShowDes = {};
+
+	$scope.isShow = function (name) {
+		if ($scope.isShowDes[name] == true) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	var activeShow = function (name) {
+		$scope.isShowDes = {};
+		$scope.isShowDes[name] = true;
+	};
+
+	var deactiveShow = function () {
+		$scope.isShowDes = {};
+	};
+
+	var clickShow = function (name) {
+		if ($scope.isShow(name) == true) {
+			deactiveShow();
+		} else {
+			activeShow(name);
+		}
+	};
+
 	var setTimeOut = 0;
-	$scope.toggleFunc = function(name) {
+	$scope.toggleFunc = function (name) {
 		if(name == 'facebook'){
 			facebookConnectPlugin.getLoginStatus(
 				function (success){
@@ -345,7 +373,7 @@ angular.module('MainApp.controllers.sync', [])
 					}
 				},
 				function (error){
-					eToast.toastSuccessOne('Failed to get login status', 2000);
+					eToast.toastError('Failed to get login status', 2000);
 				}
 			);
 		}
@@ -372,31 +400,4 @@ angular.module('MainApp.controllers.sync', [])
 			clickShow(name);
 		}
 	};
-
-	$scope.isShowDes = {};
-
-	$scope.isShow = function(name) {
-		if ($scope.isShowDes[name] == true) {
-			return true;
-		} else {
-			return false;
-		}
-	};
-
-	var activeShow = function(name) {
-		$scope.isShowDes = {};
-		$scope.isShowDes[name] = true;
-	};
-
-	var deactiveShow = function() {
-		$scope.isShowDes = {};
-	};
-
-	var clickShow = function(name) {
-		if ($scope.isShow(name) == true) {
-			deactiveShow();
-		} else {
-			activeShow(name);
-		}
-	};
-})
+});

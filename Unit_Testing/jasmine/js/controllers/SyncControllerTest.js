@@ -25,18 +25,12 @@ describe('Sync Controller', function() {
 		fbLogout: function() {},
 	};
 
-	eSync = {
-
-	};
+	eSync = {};
 
 	eToast = {
-		toastSuccessOne: function(message, delay){}
+		toastSuccessOne: function(message, delay){},
+		toastInfo: function(message, delay){}
 	};
-
-	facebookConnectPlugin = {
-		api: function(){},
-		getLoginStatus: function(){}
-	}
 
 	beforeEach(inject(function($injector){
 		$rootScope = $injector.get('$rootScope');
@@ -51,7 +45,6 @@ describe('Sync Controller', function() {
 			'$ionicPopup': $ionicPopup,
 			'eSync': eSync,
 			'eToast': eToast
-			//'facebookConnectPlugin': facebookConnectPlugin
 		});
 	}));
 
@@ -172,9 +165,9 @@ describe('Sync Controller', function() {
 			});*/
 
 			it('should call eToast.toastSuccessOne function when parameter is "local"', function(){
-				spyOn(eToast, 'toastSuccessOne');
+				spyOn(eToast, 'toastInfo');
 				$scope.updateEvents('local');
-				expect(eToast.toastSuccessOne).toHaveBeenCalled();
+				expect(eToast.toastInfo).toHaveBeenCalled();
 			});
 
 			it('should call $scope.makeApiCallNoBound function when parameter is "google"', function(){
