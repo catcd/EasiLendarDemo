@@ -762,13 +762,13 @@ describe('eFriend service test', function() {
 
     it('resetData Should work even if data type went wrong', function() {
         // change data
-        eFriend.fName = new Text();
-        eFriend.fAvatar = new Text();
-        eFriend.fVIP = new Text();
-        eFriend.fID = new Text();
-        eFriend.fInfor = new Text();
-        eFriend.fFriend = new Text();
-        eFriend.fMultiCal = new Text();
+        eFriend.fName = new Array();
+        eFriend.fAvatar = new Array();
+        eFriend.fVIP = new Array();
+        eFriend.fID = new Array();
+        eFriend.fInfor = new Array();
+        eFriend.fFriend = new Array();
+        eFriend.fMultiCal = new Array();
 
         // resetData
         eFriend.resetData();
