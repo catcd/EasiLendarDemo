@@ -1,16 +1,24 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 04/05/2015
+ * last update: 12/05/2015
  * type: main js
  */
-angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds', 'ngCordova', 'toastr'])
+
+angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds',
+						'ngCordova', 'toastr'])
 	.config(function($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise("/loading");
+		/**
+		 * open when nothing have been called
+		 */
+		$urlRouterProvider.otherwise('/loading');
+		/**
+		 * Provide all state router
+		 */
 		$stateProvider
-			/**
-			 * abstract state
-			 */
+		/**
+		 * abstract state
+		 */
 			.state('signIn', {
 				url: '',
 				abstract: true,
@@ -184,5 +192,5 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds', 'n
 				url: '/todo',
 				templateUrl: 'templates/todo.html',
 				controller: 'TodoController'
-			})
-	})
+			});
+	});

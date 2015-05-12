@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 29/04/2015
+ * last update: 12/05/2015
  * type: module all shared functions used for this app
  */
 
@@ -14,6 +14,7 @@ angular.module('MainApp.shareds.application', [])
  * Toast service
  */
 .factory('eToast', function(toastr, toastrConfig){
+	'use strict';
 	return {
 		// toast success
 		// lots of toast show a time
@@ -202,11 +203,12 @@ angular.module('MainApp.shareds.application', [])
  * Local functions
  */
 .factory('eCheckFriend', function(eUser){
+	'use strict';
 	return {
 		// is friend function
 		// return true if ID is my friend
 		isFriend: function(ID) {
-			if (eUser.uFriend == null) {
+			if (eUser.uFriend === null) {
 				return false;
 			}
 
@@ -216,7 +218,7 @@ angular.module('MainApp.shareds.application', [])
 		// is requested function
 		// return true if ID is my friend
 		isRequested: function(ID) {
-			if (eUser.uRequested == null) {
+			if (eUser.uRequested === null) {
 				return false;
 			}
 
@@ -226,11 +228,11 @@ angular.module('MainApp.shareds.application', [])
 		// is requested me function
 		// return true if ID is my friend
 		isRequestedMe: function(ID) {
-			if (eUser.uFRequest == null) {
+			if (eUser.uFRequest === null) {
 				return false;
 			}
 
 			return (eUser.uFRequest[ID] !== undefined);
 		}
 	};
-})
+});

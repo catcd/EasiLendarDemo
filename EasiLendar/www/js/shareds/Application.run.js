@@ -1,19 +1,21 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 25/04/2015
+ * last update: 12/05/2015
  * type: all function initialize from start of program
  */
 
 angular.module('MainApp.shareds.run', [])
 
 // some functions that are initialized from start
-.run(function($rootScope, $ionicPopup, $timeout, $state, $ionicPlatform, $ionicHistory, toastr, toastrConfig, eSettings) {
+.run(function($rootScope, $ionicPopup, $timeout,
+	$state, $ionicPlatform, $ionicHistory,
+	toastr, toastrConfig, eSettings) {
 	// inject services
 	var eSettings = eSettings;
 
 	// Variable for save current state
-	$rootScope.currentState = "loading";
+	$rootScope.currentState = 'loading';
 
 	/**
 	 * All .run functions
@@ -29,15 +31,15 @@ angular.module('MainApp.shareds.run', [])
 				confirmPopup.close();
 			}, 100);
 		};
-	}
+	};
 
 	// press again to exit
 	$ionicPlatform.registerBackButtonAction(function(e) {
-		if ($rootScope.currentState == 'form'
-		|| $rootScope.currentState == 'month'
-		|| $rootScope.currentState == 'week'
-		|| $rootScope.currentState == 'day'
-		|| $rootScope.currentState == 'list') {
+		if ($rootScope.currentState == 'form' ||
+			$rootScope.currentState == 'month' ||
+			$rootScope.currentState == 'week' ||
+			$rootScope.currentState == 'day' ||
+			$rootScope.currentState == 'list') {
 			if ($rootScope.backButtonPressedOnceToExit) {
 				navigator.app.exitApp();
 			} else {
@@ -60,22 +62,20 @@ angular.module('MainApp.shareds.run', [])
 	// only on the mobile or tablet device
 	$rootScope.exitEasi = function() {
 		var confirmPopup = $ionicPopup.confirm({
-			title: "Exit confirm",
-			subTitle: "Are you sure?"
+			title: 'Exit confirm',
+			subTitle: 'Are you sure?'
 		});
 		confirmPopup.then(function(res) {
 			if (res) {
 				navigator.app.exitApp();
-			} else {
-				// TODO cancel
 			}
 		});
-	}
+	};
 
 	// go home function
 	$rootScope.goHome = function() {
 		$rootScope.goToState(eSettings.sDefaultView);
-	}
+	};
 
 	// go to any state
 	$rootScope.goToState = function(state) {
@@ -89,5 +89,5 @@ angular.module('MainApp.shareds.run', [])
 		});
 		$state.go(state);
 		$rootScope.currentState = state;
-	}
-})
+	};
+});

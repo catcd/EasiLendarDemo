@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 08/05/2015
+ * last update: 12/05/2015
  * type: all common directive
  */
 
@@ -12,6 +12,7 @@ angular.module('MainApp.shareds.directive', [])
  */
 // Directive input number only (A)
 .directive('numbersOnly', function() {
+	'use strict';
 	return {
 		require: 'ngModel',
 		scope: {
@@ -37,9 +38,10 @@ angular.module('MainApp.shareds.directive', [])
 		}
 	};
 })
-// Directive input number only smaller than max="int"
+// Directive input number only smaller than max='int'
 // 0x convert to x, empty char convert to 0
 .directive('validInput', function() {
+	'use strict';
 	return {
 		require: 'ngModel',
 		scope: {
@@ -48,7 +50,7 @@ angular.module('MainApp.shareds.directive', [])
 		link: function(scope, element, attrs, modelCtrl) {
 			modelCtrl.$parsers.push(function(inputValue) {
 				inputValue = inputValue.replace(/[^0-9]/g, '');
-				if (inputValue == '') {
+				if (inputValue === '') {
 					inputValue = '0';
 				}
 				if (Number(inputValue) > scope.max) {
@@ -67,6 +69,7 @@ angular.module('MainApp.shareds.directive', [])
 // Directive month
 // Draw the month have eDate
 .directive('easiMonth', function() {
+	'use strict';
 	return {
 		controller: 'MonthController',
 		restrict: 'E',
@@ -76,6 +79,7 @@ angular.module('MainApp.shareds.directive', [])
 // Directive draw week
 // Draw the week have eDate
 .directive('easiWeek', function() {
+	'use strict';
 	return {
 		controller: 'WeekController',
 		restrict: 'E',
@@ -85,9 +89,10 @@ angular.module('MainApp.shareds.directive', [])
 // Directive draw day event list
 // Draw the list event of eDate
 .directive('easiDay', function() {
+	'use strict';
 	return {
 		controller: 'MonthController',
 		restrict: 'E',
 		templateUrl: 'templates/template-day-event-list.html'
 	};
-})
+});
