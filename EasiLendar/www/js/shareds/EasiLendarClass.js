@@ -214,6 +214,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser, eFriend
 			switch ($rootScope.currentState) {
 				case 'week': 
 				case 'day':
+				case 'export':
 					calendar = eUser.uGmailCalendar;
 					break;
 				case 'profile': 

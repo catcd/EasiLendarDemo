@@ -177,7 +177,7 @@ signIn.controller( "SignInController", function( $rootScope, $scope, $timeout,
 				if (!isNull( snapshot.val() )) {
 					$scope.warnings.mes[0] = "Existed";
 					check = true;
-				} console.log(snapshot.val());
+				}
 				// if there is no warning
 				if (!check) {
 					// cut email string to save (get rid of
