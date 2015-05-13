@@ -12,14 +12,14 @@
 		<button type="submit" class="button button-easi-blue easi-no-border" form="filter_form" data-ng-click="submit(filter_form)">Done</button>
 	</ion-nav-buttons>
 
-	<form name="filter_form" id="filter_form" class="search-filter-form" novalidate>
-		<table class="search-filter-table-person">
-			<tr>
-				<td class="search-filter-meet-title">You want to meet:</td>
-				<td class="search-filter-input-person"><input type="text" data-ng-model="personName" placeholder="Name" required></td>
-			</tr>
-		</table>
+	<table class="search-filter-table-person">
+		<tr>
+			<td class="search-filter-meet-title">You want to meet:</td>
+			<td class="search-filter-input-person"><input type="text" data-ng-model="personName" placeholder="Name"></td>
+		</tr>
+	</table>
 
+	<form name="filter_form" id="filter_form" class="search-filter-form" novalidate>
 		<div class="search-filter-list-persons" data-ng-show="showListPersons">
 			<div class="search-filter-person no-results" data-ng-show="noFound">
 				<i class="icon ion-ios-search placeholder-icon"></i> No found
@@ -37,7 +37,7 @@
 				<div class="search-filter-list">
 					Title:
 					<div class="item item-input search-filter-input" id="search-filter-itemTitle">
-						<input id="search-filter-inputTitle" type="text" data-ng-model="eSearchFilter.mTitle" name="title" placeholder="Title" required>
+						<input id="search-filter-inputTitle" type="text" data-ng-model="eSearchFilter.mTitle" name="title" placeholder="Title">
 					</div>
 					<div class="search-filter-duration-hour easi-toggle-fast" data-ng-hide="showTime">
 						<table><td>Duration:</td></table>

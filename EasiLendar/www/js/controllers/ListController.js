@@ -7,7 +7,7 @@
 
 angular.module('MainApp.controllers.list', [])
 
-.controller("ListController",
+.controller('ListController',
 	function($scope, $rootScope, $ionicScrollDelegate,
 	$location, eUser, eCalendar, eEasiLendar, eSettings) {
 	//Using eUser, eCalendar factory
@@ -30,28 +30,31 @@ angular.module('MainApp.controllers.list', [])
 
 		$scope.allWeeks[i].date = angular.copy(date);
 
+		var month = date.getMonth();
+		var year = date.getFullYear();
+
 		//Week start from Sunday - Monday - Saturday
 		if(eSettings.sFirstDay == 'Sunday'){
 			firstDate = date.getDate() - date.getDay();
-			$scope.allWeeks[i].first = new Date (date.getFullYear(), date.getMonth(), firstDate);
+			$scope.allWeeks[i].first = new Date (year, month, firstDate);
 			lastDate = date.getDate() + 6 - date.getDay();
-			$scope.allWeeks[i].last = new Date (date.getFullYear(), date.getMonth(), lastDate);
+			$scope.allWeeks[i].last = new Date (year, month, lastDate);
 		}
 
 		if(eSettings.sFirstDay == 'Monday'){
 			day = date.getDay();
 			firstDate = date.getDate() - ( (day === 0) ? 6 : (day-1) );
-			$scope.allWeeks[i].first = new Date (date.getFullYear(), date.getMonth(), firstDate);
+			$scope.allWeeks[i].first = new Date (year, month, firstDate);
 			lastDate = date.getDate() + ( (day === 0) ? day : (7-day) );
-			$scope.allWeeks[i].last = new Date (date.getFullYear(), date.getMonth(), lastDate);
+			$scope.allWeeks[i].last = new Date (year, month, lastDate);
 		}
 
 		if(eSettings.sFirstDay == 'Saturday'){
 			day = date.getDay();
 			firstDate = date.getDate() - ( (day == 6) ? 0 : (day+1) );
-			$scope.allWeeks[i].first = new Date (date.getFullYear(), date.getMonth(), firstDate);
+			$scope.allWeeks[i].first = new Date (year, month, firstDate);
 			lastDate = date.getDate() + ( (day == 6) ? 6 : (5-day) );
-			$scope.allWeeks[i].last = new Date (date.getFullYear(), date.getMonth(), lastDate);
+			$scope.allWeeks[i].last = new Date (year, month, lastDate);
 		}
 	};
 
@@ -61,28 +64,31 @@ angular.module('MainApp.controllers.list', [])
 
 		objWeek.date = angular.copy(date);
 
+		var month = date.getMonth();
+		var year = date.getFullYear();
+
 		//Week start from Sunday - Monday - Saturday
 		if(eSettings.sFirstDay == 'Sunday'){
 			firstDate = date.getDate() - date.getDay();
-			objWeek.first = new Date(date.getFullYear(), date.getMonth(), firstDate);
+			objWeek.first = new Date(year, month, firstDate);
 			lastDate = date.getDate() + 6 - date.getDay();
-			objWeek.last = new Date(date.getFullYear(), date.getMonth(), lastDate);
+			objWeek.last = new Date(year, month, lastDate);
 		}
 
 		if(eSettings.sFirstDay == 'Monday'){
 			day = date.getDay();
 			firstDate = date.getDate() - ( (day === 0) ? 6 : (day-1) );
-			objWeek.first = new Date (date.getFullYear(), date.getMonth(), firstDate);
+			objWeek.first = new Date (year, month, firstDate);
 			lastDate = date.getDate() + ( (day === 0) ? day : (7-day) );
-			objWeek.last = new Date (date.getFullYear(), date.getMonth(), lastDate);
+			objWeek.last = new Date (year, month, lastDate);
 		}
 
 		if(eSettings.sFirstDay == 'Saturday'){
 			day = date.getDay();
 			firstDate = date.getDate() - ( (day == 6) ? 0 : (day+1) );
-			objWeek.first = new Date (date.getFullYear(), date.getMonth(), firstDate);
+			objWeek.first = new Date (year, month, firstDate);
 			lastDate = date.getDate() + ( (day == 6) ? 6 : (5-day) );
-			objWeek.last = new Date (date.getFullYear(), date.getMonth(), lastDate);
+			objWeek.last = new Date (year, month, lastDate);
 		}
 
 		$scope.allWeeks.unshift(objWeek);
@@ -100,7 +106,7 @@ angular.module('MainApp.controllers.list', [])
 
 	//Reset data
 	$rootScope.$on('$stateChangeStart',
-		function(event, toState, fromState) {
+		function(event, toState) {
 			if (toState.name == 'list') {
 				$scope.allWeeks = [];
 				$scope.buildNextWeek(toDay);
@@ -112,17 +118,23 @@ angular.module('MainApp.controllers.list', [])
 	//Load NEXT week when scroll UP
 	$scope.scrollNext = function(){
 		var date = angular.copy($scope.allWeeks[$scope.allWeeks.length-1].date);
-		$scope.buildNextWeek( new Date( date.getFullYear(), date.getMonth(), date.getDate()+1 ) );
+		var year = date.getFullYear();
+		var month = date.getMonth();
+		$scope.buildNextWeek( new Date(year, month, date.getDate()+1 ) );
 	};
 
 	//Load PREVIOUS week when scroll DOWN
 	$scope.scrollPrev = function(){
 		var date = angular.copy($scope.allWeeks[0].date);
-		$scope.buildPrevWeek( new Date( date.getFullYear(), date.getMonth(), date.getDate()-1 ) );
+		var year = date.getFullYear();
+		var month = date.getMonth();
+		$scope.buildPrevWeek( new Date(year, month, date.getDate()-1 ) );
 	};
 
-	$scope.lastPosContent = 0;				//The position of ion-content after each scrolling.
-	$scope.setTimeOut = 0;					//time to call scrollUp and scrollDown function
+	//The position of ion-content after each scrolling.
+	$scope.lastPosContent = 0;
+	//time to call scrollUp and scrollDown function
+	$scope.setTimeOut = 0;
 
 	//Called when scroll is activing
 	$scope.handleScrolling = function(){
@@ -131,8 +143,10 @@ angular.module('MainApp.controllers.list', [])
 
 		//Scroll previous date when posContent.top increase
 		if(posContent.top > $scope.lastPosContent){
-			var top = document.getElementById('list-calendar-title').getBoundingClientRect().height - 50;
-			var firstTable = document.getElementById($scope.allWeeks[0].first.toDateString());
+			var topElm = document.getElementById('list-calendar-title');
+			var top = topElm.getBoundingClientRect().height - 50;
+			var idOfFirst = $scope.allWeeks[0].first.toDateString();
+			var firstTable = document.getElementById(idOfFirst);
 			var posFirst = firstTable.getBoundingClientRect();
 
 			if(posFirst.top - 100 >= top){
@@ -146,7 +160,9 @@ angular.module('MainApp.controllers.list', [])
 		//Scroll next date when posContent.top reduce
 		else if(posContent.top < $scope.lastPosContent){
 			var winHeight = window.innerHeight;
-			var lastTable = document.getElementById($scope.allWeeks[$scope.allWeeks.length-1].first.toDateString());
+			var length = $scope.allWeeks.length;
+			var idOfLast = $scope.allWeeks[length-1].first.toDateString();
+			var lastTable = document.getElementById(idOfLast);
 			var posLast = lastTable.getBoundingClientRect();
 
 			if(posLast.bottom <= winHeight + 200){
@@ -170,7 +186,8 @@ angular.module('MainApp.controllers.list', [])
 	//Scroll to current day in list
 	$scope.currDay = toDay;
 	$rootScope.listToday = function(){
-		var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 25;
+		var topElm = document.getElementById('list-calendar-title');
+		var top = topElm.getBoundingClientRect().height + 25;
 		var currDay = document.getElementById('date-' + toDay.toDateString());
 		var currPos = currDay.getBoundingClientRect();
 
@@ -187,15 +204,19 @@ angular.module('MainApp.controllers.list', [])
 
 	//set month background
 	$scope.background = function(index) {
-		var className = 'list-bkg-style ' + 'easi-' + $scope.eCalendar.shortMonths[index] + '-bkg';
+		var listStyle = 'list-bkg-style ' + 'easi-';
+		var className = listStyle + eCalendar.shortMonths[index] + '-bkg';
 		return className;
 	};
 
 	//view detail of events
 	$scope.viewE = function(event){
 		//create EasiEvent obj
-		var easiE = eEasiLendar.newEasiEvent(event.summary, event.start, event.end, event.location,
-								event.id, event.colorID, event.position, event.src, event.status);
+		var easiE = eEasiLendar.newEasiEvent(
+			event.summary, event.start, event.end,
+			event.location, event.id, event.colorID,
+			event.position, event.src, event.status
+		);
 		$rootScope.viewEvent(easiE);
 	};
 })
@@ -205,8 +226,8 @@ angular.module('MainApp.controllers.list', [])
 		restrict: 'E',
 		controller: 'ListController',
 		link: function(scope){
-			var top = document.getElementById('list-calendar-title').getBoundingClientRect().height + 60;
-
+			var topElm = document.getElementById('list-calendar-title');
+			var top = topElm.getBoundingClientRect().height + 60;
 			var today = new Date();
 			scope.currMonth = today.getMonth();
 			scope.currYear = today.getFullYear();
@@ -243,10 +264,11 @@ angular.module('MainApp.controllers.list', [])
 			isType: '=backgroundEvent'
 		},
 		link: function(scope, element) {
-			var allBkgClass = ['birthday-background', 'holiday-background', 'hotel-background',
-				'restaurant-background', 'ticket-background', 'event-color-1', 'event-color-2',
-				'event-color-3', 'event-color-4', 'event-color-5'
-			];
+			var allBkgClass = ['birthday-background', 'holiday-background',
+				'hotel-background', 'restaurant-background',
+				'ticket-background','event-color-1',
+				'event-color-2', 'event-color-3',
+				'event-color-4', 'event-color-5'];
 			if (scope.isType == 'bkg') {
 				element.addClass(allBkgClass[Math.floor((Math.random() * 10))]);
 			}
@@ -262,10 +284,16 @@ angular.module('MainApp.controllers.list', [])
 		},
 		link: function(scope, element, attr) {
 			var toDay = new Date();
+			var numberDate = toDay.getDate();
 			var month = toDay.getMonth();
 			var year = toDay.getFullYear();
-			if (scope.isToDay == toDay.getDate() && attr.currentMonth == month && attr.currentYear == year) {
-				element.addClass('list-current-date');
+
+			var attrMonth = attr.currentMonth;
+			var attrYear = attr.currentYear;
+			if (scope.isToDay == numberDate && attrMonth == month) {
+				if(attrYear == year){
+					element.addClass('list-current-date');
+				}
 			}
 		}
 	};

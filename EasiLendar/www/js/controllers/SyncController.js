@@ -143,7 +143,7 @@ angular.module('MainApp.controllers.sync', [])
 
 		// code can not be used for local host:
 
-		/*var theUrl= 'https://accounts.google.com/o/oauth2/revoke?token='+result;
+		/*var theUrl = 'https://accounts.google.com/o/oauth2/revoke?token='+result;
 
 		var li = document.createElement('li');
 
@@ -155,7 +155,7 @@ angular.module('MainApp.controllers.sync', [])
 		xmlHttp.open( "GET", theUrl, false );
 		xmlHttp.send( null ); */
 	};
-	/* jshint ignore:start */
+	/* jshint ignore:end */
 
 	// Using eSync, eUser, eFacebook service
 	//$scope.eSync = eSync;
@@ -164,7 +164,7 @@ angular.module('MainApp.controllers.sync', [])
 
 	//Array of all social nextworks and calendar applications
 	$scope.allApps = [
-		{ title: 'social', array: [ {name: 'facebook', options: [ { name: 'Log out', id: 'logout'}, {name: 'Update events', id: 'events'}]} ]},
+		{ title: 'social', array: [{name: 'facebook', options: [ { name: 'Log out', id: 'logout'}, {name: 'Update events', id: 'events'}]}]},
 		{ title: 'calendar', array: [ {name: 'local', options: [ {name: 'Update events', id: 'events'} ]},
 									  {name: 'google', options: [ { name: 'Log out', id: 'logout'}, {name: 'Update events', id: 'events'}]}
 		]},
@@ -175,7 +175,7 @@ angular.module('MainApp.controllers.sync', [])
 	*/
 	$scope.convertMe = function (name){
 		if(name == 'facebook'){
-			if($scope.fbEvents.length == 0) return;
+			if($scope.fbEvents.length === 0) { return; }
 
 			eUser.uFacebook = [];
 
@@ -187,23 +187,28 @@ angular.module('MainApp.controllers.sync', [])
 				  * timezone: 
 				  * summary: name of event
 				  * location: where to organize event
-				  * position: position of event in parent array of eUser.uFaceCalendar
+				  * position: position of event in parent
+				  	array of eUser.uFaceCalendar
 				  * colorID: color of events, default is 0
 				  * id: default is 'facebook'
 				  * status: default is true
 				  */
+				var start, end, end_time, duration;
 
 				if($scope.fbEvents[i].end_time != undefined){
-					var start = new Date($scope.fbEvents[i].start_time);
-					var end_time = new Date($scope.fbEvents[i].end_time);
-					var duration = end_time.getDate() - start.getDate();
+					start = new Date($scope.fbEvents[i].start_time);
+					end_time = new Date($scope.fbEvents[i].end_time);
+					duration = end_time.getDate() - start.getDate();
 				}
 				else { duration = 0; }
 
 				for(var j=0; j <= duration; j++){
-					end = (end_time >  new Date(start.getFullYear(),start.getMonth(),start.getDate()+1,0,0,0,0)) ? new Date(start.getFullYear(),start.getMonth(),start.getDate()+1,0,0,0,0) : end_time;
+					var year = start.getFullYear();
+					var month = start.getMonth();
+					end = (end_time >  new Date(year,month,start.getDate()+1)) ? new Date(year,month,start.getDate()+1) : end_time;
 
-					var obj = { start: null, end: null, summary: null, location: null, id: null, position: null, colorID: 0, src: 'facebook', status: true };
+					var obj = { start: null, end: null, summary: null, location: null,
+					id: null, position: null, colorID: 0, src: 'facebook', status: true };
 					
 					obj.start = angular.copy(start);
 					obj.end = angular.copy(end);
@@ -216,7 +221,7 @@ angular.module('MainApp.controllers.sync', [])
 						//Create new array if this uFaceCalendar have not has any event obj
 					if(eUser.uFacebook[obj.position] == undefined || eUser.uFacebook[obj.position] == null) {
 						eUser.uFacebook[obj.position] = [];
-					};
+					}
 
 					//Update a new event obj
 					eUser.uFacebook[obj.position].push(obj);
@@ -255,7 +260,7 @@ angular.module('MainApp.controllers.sync', [])
 		}
 
 		if(name == 'local'){
-			eToast.toastInfo('Coming soon...', 2000);
+			eSync.syncToLocal();
 		}
 	};
 
@@ -386,7 +391,7 @@ angular.module('MainApp.controllers.sync', [])
 		if(name == 'google'){
 			var loginGC = $scope.checkLoginStatus('google');
 
-			if(loginGC == 0) { 
+			if(loginGC != 1) { 
 				var confirmPopup = $ionicPopup.confirm({
 					title: 'You need to login first'
 				});

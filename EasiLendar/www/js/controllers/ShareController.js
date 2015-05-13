@@ -7,16 +7,21 @@
 
 angular.module('MainApp.controllers.share', [])
 
-.controller('ShareController', function($scope, $rootScope, eUser, eFacebook, eToast, $ionicPopup) {
+.controller('ShareController',
+	function($scope, $rootScope, eUser,
+	eFacebook, eToast, $ionicPopup) {
 	$scope.eUser = eUser;
 
 	$scope.allSites = [
-		{name: 'facebook', options: [{id: 'share', name: 'Share'}, {id: 'send', name: 'Send message'},
-									  {id: 'logout', name: 'Logout'}]},
-		{name: 'twitter', options: [{id: 'share', name: 'Share'}, {id: 'send', name: 'Send message'},
-									  {id: 'logout', name: 'Logout'}]},
-		{name: 'gmail', options: [{id: 'send', name: 'Send mail'}, {id: 'logout', name: 'Logout'}]},
-		{name: 'sms', options: [{id: 'send', name: 'Send sms'}]}							  
+		{name: 'facebook',options: [{id: 'share', name: 'Share'},
+									{id: 'send', name: 'Send message'},
+									{id: 'logout', name: 'Logout'}]},
+		{name: 'twitter', options: [{id: 'share', name: 'Share'},
+									{id: 'send', name: 'Send message'},
+									{id: 'logout', name: 'Logout'}]},
+		{name: 'gmail', options: [{id: 'send', name: 'Send mail'},
+								  {id: 'logout', name: 'Logout'}]},
+		{name: 'sms', options: [{id: 'send', name: 'Send sms'}]}
 	];
 
 	$scope.isShowDes = {};
@@ -82,7 +87,7 @@ angular.module('MainApp.controllers.share', [])
 											if(option == 'share') {
 												eFacebook.fbFeed();
 											}
-											//Send message to your friends on facebook
+											//Send message
 											if(option == 'send') {
 												eFacebook.fbSend();
 											}

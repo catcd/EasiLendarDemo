@@ -59,16 +59,18 @@ angular.module('MainApp.controllers.searchFilter', [])
 		$scope.convertToMinute();
 	});
 	$scope.$watch('timeValues.mFromTime', function() {
-		$scope.eSearchFilter.mFrom = new Date($scope.timeValues.mFromTime);
+		eSearchFilter.mFrom = new Date($scope.timeValues.mFromTime);
 		$scope.minTime = $scope.timeValues.mFromTime;
 	});
 	$scope.$watch('timeValues.mToTime', function() {
-		$scope.eSearchFilter.mTo = new Date($scope.timeValues.mToTime);
+		eSearchFilter.mTo = new Date($scope.timeValues.mToTime);
 	});
 	$scope.$watch('timeValues.mFromDay', function() {
 		if ($scope.timeValues.mFromDay !== null) {
 			var date = $scope.timeValues.mFromDay;
-			var d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+			var month = date.getMonth();
+			var year = date.getFullYear();
+			var d = new Date(year, month, date.getDate());
 			$scope.eSearchFilter.mFromDay = d;
 			$scope.minDate = $scope.timeValues.mFromDay;
 		}
@@ -76,52 +78,54 @@ angular.module('MainApp.controllers.searchFilter', [])
 	$scope.$watch('timeValues.mToDay', function() {
 		if ($scope.timeValues.mToDay !== undefined) {
 			var date = $scope.timeValues.mToDay;
-			var d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+			var month = date.getMonth();
+			var year = date.getFullYear();
+			var d = new Date(year, month, date.getDate());
 			$scope.eSearchFilter.mToDay = d;
 		}
 	});
 	$scope.$watch('priorityTimes[0].values', function() {
-		$scope.eSearchFilter.mBreakfast = $scope.priorityTimes[0].values;
+		eSearchFilter.mBreakfast = $scope.priorityTimes[0].values;
 	});
 	$scope.$watch('priorityTimes[1].values', function() {
-		$scope.eSearchFilter.mLunch = $scope.priorityTimes[1].values;
+		eSearchFilter.mLunch = $scope.priorityTimes[1].values;
 	});
 	$scope.$watch('priorityTimes[2].values', function() {
-		$scope.eSearchFilter.mDinner = $scope.priorityTimes[2].values;
+		eSearchFilter.mDinner = $scope.priorityTimes[2].values;
 	});
 	$scope.$watch('priorityTimes[3].values', function() {
-		$scope.eSearchFilter.mOffice = $scope.priorityTimes[3].values;
+		eSearchFilter.mOffice = $scope.priorityTimes[3].values;
 	});
 	$scope.$watch('priorityTimes[4].values', function() {
-		$scope.eSearchFilter.mHoliday = $scope.priorityTimes[4].values;
+		eSearchFilter.mHoliday = $scope.priorityTimes[4].values;
 	});
 
 	$scope.convertToMinute = function() {
-		if ($scope.timeValues.mDurationHour >= 0 && $scope.timeValues.mDurationHour < 24) {
-			if($scope.timeValues.mDurationMinute >= 0 && $scope.timeValues.mDurationMinute < 60) {
-				$scope.eSearchFilter.mDuration = $scope.timeValues.mDurationHour * 60 + $scope.timeValues.mDurationMinute;
+		var hour = $scope.timeValues.mDurationHour;
+		var minutes = $scope.timeValues.mDurationMinute;
+		if (hour >= 0 && hour < 24) {
+			if(minutes >= 0 && minutes < 60) {
+				eSearchFilter.mDuration = hour * 60 + minutes;
 			}
 		}
 	};
 
 	//previous state of search-filter state
 	$scope.preState = '';
+	$scope.personName = angular.copy(eFriend.fName);
+
 	$rootScope.$on('$stateChangeStart',
 		function(event, toState, toParams, fromState) {
 			if (toState.name == 'searchFilter') {
 				$scope.preState = fromState.name;
+				$scope.personName = angular.copy(eFriend.fName);
 			}
 		});
 
 	$scope.submit = function(form) {
-		if (form.$valid) {
-			$rootScope.goToState('result');
-		} else {
-			if ($scope.personName === '' || $scope.eFriend.fMultiCal === null) {
-				var message = 'Please choose whom you want to meet';
-				eToast.toastErrorOne(message, 2000);
-			}
-		}
+		//if (form.$valid) {
+		$rootScope.goToState('result');
+		//}
 	};
 
 	//reset all datas when out of Search Filter page.
@@ -149,9 +153,9 @@ angular.module('MainApp.controllers.searchFilter', [])
 		if ($scope.preState == 'profile') {
 			$rootScope.goToState('profile');
 		} else {
-			$scope.eFriend.fMultiCal = null;
-			$scope.eFriend.fName = null;
 			$scope.personName = '';
+			eFriend.fName = '';
+			eFriend.fMultiCal = null;
 			$rootScope.goHome();
 		}
 	};
@@ -186,7 +190,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 
 	/* Chose person who you want to meet */
 	//search person input to find who you want to meet
-	$scope.personName = $scope.eFriend.fName;
+
 	$scope.showListPersons = false; //hide list of persons
 	$scope.noFound = true; //true when no friend is found
 
@@ -214,7 +218,6 @@ angular.module('MainApp.controllers.searchFilter', [])
 		$scope.showListPersons = false;
 	};
 
-	$scope.personName = angular.copy($scope.eFriend.fName);
 	$scope.wantToMeet = function(person) {
 		$scope.personName = person.name;
 		$scope.eDatabase.getCalendar(person.id);
@@ -294,8 +297,10 @@ angular.module('MainApp.controllers.searchFilter', [])
 		}
 		var results = [];
 		angular.forEach(items, function(item) {
-			if (item.name.toLowerCase().indexOf(person.toLowerCase()) > -1) {
-				results.push(item);
+			if(item !== undefined){
+				if (item.name.toLowerCase().indexOf(person.toLowerCase()) > -1) {
+					results.push(item);
+				}
 			}
 		});
 

@@ -7,7 +7,9 @@
 
 angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 
-.controller('friendPanelController', function($scope, $rootScope, $location, $ionicScrollDelegate, $ionicPopup, eUser, eFriend, eDatabase) {
+.controller('friendPanelController',
+	function($scope, $rootScope, $location, $ionicScrollDelegate,
+	$ionicPopup, eUser, eFriend, eDatabase) {
 	//Using eUser, eFriend, eDatebase factory
 	$scope.eUser = eUser;
 	$scope.eFriend = eFriend;
@@ -16,11 +18,12 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	$scope.searchFriend = '';
 	$scope.mShow = false;
 
-	//$scope.cacheFriend = angular.copy($scope.eUser.uFriend);
+	//console.log(eUser.uFriend);
+	//$scope.cacheFriend = angular.copy(eUser.uFriend);
 
 	//refresh list as before sorting
 	/*$scope.refreshList = function() {
-		$scope.eUser.uFriend = angular.copy($scope.cacheFriend);
+		eUser.uFriend = angular.copy($scope.cacheFriend);
 	}*/
 
 	$scope.deleteFriend = function(friend) {
@@ -31,7 +34,7 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 		confirmPopup.then(function(res) {
 			if(res) {
 				$scope.eDatabase.deleteF(friend.id);
-				$scope.cacheFriend = angular.copy($scope.eUser.uFriend);
+				//$scope.cacheFriend = angular.copy(eUser.uFriend);
 			}
 		});
 	};
@@ -57,50 +60,52 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	//sorting is based on name
 	var sortAZ = function(array) {
 		array.sort(function(obj1,obj2){
-			return $scope.eUser.uFriend[obj1].name.localeCompare($scope.eUser.uFriend[obj2].name);
+			return (
+				eUser.uFriend[obj1].name.localeCompare(eUser.uFriend[obj2].name)
+			);
 		});
 
 		var sortedArray = [];
 		angular.forEach(array, function(id){
-			sortedArray.push($scope.eUser.uFriend[id]);
+			sortedArray.push(eUser.uFriend[id]);
 		});
 
-		$scope.eUser.uFriend = angular.copy(sortedArray);
+		eUser.uFriend = angular.copy(sortedArray);
 	};
 	
 	var sortViewTime = function(array){
 		array.sort(function(obj1,obj2){
 			return (
-				$scope.eUser.uFriend[obj2].viewTime - $scope.eUser.uFriend[obj1].viewTime
+				eUser.uFriend[obj2].viewTime - eUser.uFriend[obj1].viewTime
 			);
 		});
 
 		var sortedArray = [];
 		angular.forEach(array, function(id){
-			sortedArray.push($scope.eUser.uFriend[id]);
+			sortedArray.push(eUser.uFriend[id]);
 		});
 
-		$scope.eUser.uFriend = angular.copy(sortedArray);
+		eUser.uFriend = angular.copy(sortedArray);
 	};
 
 	var sortDateTime = function(array){
 		array.sort(function(obj1,obj2){
 			return (
-				$scope.eUser.uFriend[obj2].dateTime - $scope.eUser.uFriend[obj1].dateTime
+				eUser.uFriend[obj2].dateTime - eUser.uFriend[obj1].dateTime
 			);
 		});
 
 		var sortedArray = [];
 		angular.forEach(array, function(id){
-			sortedArray.push($scope.eUser.uFriend[id]);
+			sortedArray.push(eUser.uFriend[id]);
 		});
 
-		$scope.eUser.uFriend = angular.copy(sortedArray);
+		eUser.uFriend = angular.copy(sortedArray);
 	};
 
 	$scope.sort = function(typeSort) {
 		var arrF = [];
-		for(var x in $scope.eUser.uFriend){
+		for(var x in eUser.uFriend){
 			arrF.push(x);
 		}
 
@@ -171,7 +176,8 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 		link: function(scope, element) {
 			scope.$watch('isVisible', function() {
 				var parent = element.parent().parent();
-				var listFriend = parent.next().next().children().children().next().next();
+				var children = parent.next().next().children().children();
+				var listFriend = children.next().next();
 				if (scope.isVisible === true) {
 					listFriend.addClass('friend-blur-list');
 				} else {
@@ -190,8 +196,9 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 			return items;
 		}
 		var results = [];
+		searchFriend = searchFriend.toLowerCase();
 		angular.forEach(items, function(item){
-			if(item.name.toLowerCase().indexOf(searchFriend.toLowerCase()) > -1){
+			if (item.name.toLowerCase().indexOf(searchFriend) > -1){
 				results.push(item);
 			}
 		});
