@@ -90,7 +90,7 @@ describe('Test Loading controller', function() {
 			navigator.connection = undefined;
 		});
 
-		xit('should call $scope.checkConnection() if navigator.connection != undefined', function() {
+		it('should call $scope.checkConnection() if navigator.connection != undefined', function() {
 			spyOn($scope, 'checkConnection');
 			navigator.connection = !undefined;
 
