@@ -848,7 +848,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 				// loading
 				this.databaseLoading();
 				user.child('name').set(eUser.uName);
-				user.child('avatar').set(eUser.uAvata);
+				user.child('avatar').set(eUser.uAvatar);
 				user.child('birthday').set(eUser.uBirthday);
 				user.child('gender').set(eUser.uGender);
 				user.child('phone').set(eUser.uPhone);
