@@ -386,7 +386,7 @@ angular.module('MainApp.controllers.sync', [])
 		if(name == 'google'){
 			var loginGC = $scope.checkLoginStatus('google');
 
-			if(loginGC != 1) { 
+			if(loginGC == 0) { 
 				var confirmPopup = $ionicPopup.confirm({
 					title: 'You need to login first'
 				});
