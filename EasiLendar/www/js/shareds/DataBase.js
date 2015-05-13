@@ -847,6 +847,18 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					eUser.uID);
 				// loading
 				this.databaseLoading();
+				if (isNull(eUser.uBirthday)) {
+					eUser.uBirthday = null;
+				}
+				if (isNull(eUser.uGender)) {
+					eUser.uGender = null;
+				}
+				if (isNull(eUser.uPhone)) {
+					eUser.uPhone = null;
+				}
+				if (isNull(eUser.uAddress)) {
+					eUser.uAddress = null;
+				}
 				user.child('name').set(eUser.uName);
 				user.child('avatar').set(eUser.uAvatar);
 				user.child('birthday').set(eUser.uBirthday);
