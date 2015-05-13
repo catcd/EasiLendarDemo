@@ -83,9 +83,9 @@ describe('test eCopyData factory', function(){
 		});
 		
 		it ('extraCopy should convert to Array which each element is an array which index is time of all event belong to it', function(){
-			expect(uGCNewFirst[epsilon]).toBeDefined();
-			expect(uGCNewFirst[epsilon][0]).toBeDefined();
-			var eventConfess = uGCNewFirst[epsilon][0];
+			expect(uGCNewFirst[new Date(epsilon)]).toBeDefined();
+			expect(uGCNewFirst[new Date(epsilon)][0]).toBeDefined();
+			var eventConfess = uGCNewFirst[new Date(epsilon)][0];
 			
 			expect(eventConfess.position).toEqual(new Date(epsilon));
 			expect(eventConfess.summary).toEqual("Test");
@@ -94,22 +94,22 @@ describe('test eCopyData factory', function(){
 		});
 		
 		it ('extraCopy should handle long-time event', function(){
-			expect(uGCNewSecond[epsilon]).toBeDefined();
+			expect(uGCNewSecond[new Date(epsilon)]).toBeDefined();
 		});
 		
 		it ('extraCopy should devise long-time event to array of all-day events', function(){
-			expect(uGCNewSecond[t1]).toBeDefined();
-			expect(uGCNewSecond[t2]).toBeDefined();
+			expect(uGCNewSecond[new Date(t1)]).toBeDefined();
+			expect(uGCNewSecond[new Date(t2)]).toBeDefined();
 		});
 		
 		it ('extraCopy should devise long-time event to array of events', function(){
-			expect(uGCNewSecond[t1][0]).toBeDefined();
-			expect(uGCNewSecond[t2][0]).toBeDefined();
+			expect(uGCNewSecond[new Date(t1)][0]).toBeDefined();
+			expect(uGCNewSecond[new Date(t2)][0]).toBeDefined();
 		});
 		
 		it ('extraCopy should devise long-time event to array of similar events', function(){
-			expect(uGCNewSecond[t1][0].summary).toEqual("Test");
-			expect(uGCNewSecond[t2][0].summary).toEqual("Test");
+			expect(uGCNewSecond[new Date(t1)][0].summary).toEqual("Test");
+			expect(uGCNewSecond[new Date(t2)][0].summary).toEqual("Test");
 		});
 	});
 });
@@ -153,8 +153,8 @@ describe('Sync service test', function() {
 			expect(gapi).toBeDefined();
 		});
 		
-		it ('gapi.auth.authorize should be defined', function(){
-			expect(gapi.auth.authorize).toBeDefined();
+		it ('gapi.auth should be defined', function(){
+			expect(gapi.auth).toBeDefined();
 		});
 	});
 	
