@@ -1,82 +1,66 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 12/05/2015
+ * last update: 28/06/2015
  * type: module all shared variables used for this app
  */
 
 angular.module('MainApp.shareds.data', [])
-/**
- * All shared variables
- * Each group (object) is one services
- */
-
 // Search filter variables
 // Ngo Duc Dung
-.factory('eSearchFilter', function(){
-	'use strict';
-	return {
-		mTitle: '',		// Name of meeting
-		mDuration: 0,	// Duration of meeting
-		mLocation: '',	// Location of meeting
+.factory('eSearchFilter', function() {
+    return {
+        mTitle: '',		// Name of meeting
+        mDuration: 0,	// Duration of meeting
+        mLocation: '',	// Location of meeting
 
-		mFrom: 0,		// Time to start searching: Minute(s) from 24:00am
-		mTo: 0,			// Time to end searching: Minute(s) from 24:00am
-		mFromDay: null,	// Day to start searching: format: ddmmyy
-		mToDay: null,	// Day to end searching: format: ddmmyy
+        mFrom: 0,		// Time to start searching: Minute(s) from 24:00am
+        mTo: 0,			// Time to end searching: Minute(s) from 24:00am
+        mFromDay: null,	// Day to start searching: format: ddmmyy
+        mToDay: null,	// Day to end searching: format: ddmmyy
 
-		mBreakfast: null,	// Avoid/Prioritize
-		mLunch: null,		// avoid = true;
-		mDinner: null,		// prioritize = false ;
-		mOffice: null,		// none(default) = null;
-		mHoliday: null,
+        mBreakfast: null,	// Avoid/Prioritize
+        mLunch: null,		// avoid = true;
+        mDinner: null,		// prioritize = false ;
+        mOffice: null,		// none(default) = null;
+        mHoliday: null,
 
-		resetData: function(){
-			this.mTitle = '';
-			this.mDuration = 0;
-			this.mLocation = '';
+        resetData: function() {
+            this.mTitle = '';
+            this.mDuration = 0;
+            this.mLocation = '';
 
-			this.mFrom = 0;
-			this.mTo = 0;
-			this.mFromDay = null;
-			this.mToDay = null;
+            this.mFrom = 0;
+            this.mTo = 0;
+            this.mFromDay = null;
+            this.mToDay = null;
 
-			this.mBreakfast = null;
-			this.mLunch = null;
-			this.mDinner = null;
-			this.mOffice = null;
-			this.mHoliday = null;
-		}
-	};
+            this.mBreakfast = null;
+            this.mLunch = null;
+            this.mDinner = null;
+            this.mOffice = null;
+            this.mHoliday = null;
+        }
+    };
 })
 
 // Setting variables
 // Can Duy Cat
 .factory('eSettings', function(){
-	'use strict';
 	return {
 		sEvent: true,			// Show/hide event
 		sHoliday: true,			// Show/hide holiday
 		sBirthday: true,		// Show/hide friend's birthday
 		sLocalCalendar: true,	// Use (or not) local calendar
 		sGmailCalendar: true,	// Use (or not) Gmail calendar
-		sFaceCalendar: true,	// Use (or not) Facebook calendar
 		sOutlookCalendar: true,	// Use (or not) Facebook calendar
 
 		sDefaultView: 'month',		// enum{'day', 'week', 'month', 'list'}
-									//calendar on home page
-		sDayView: 'eventList',		// enum{'timeGrid', 'eventList'}
-									//day calendar
 		sMonthView: 'eventList',	// enum{'timeGrid', 'eventList'}
-									//day calendar
 		sFirstDay: 'Monday',		// enum{'Saturday', 'Sunday', 'Monday'}
-									//first day of week
 		sShowWeekNumber: true,		// Show week number option
 
-		sAutoSync: null,				// Auto sync (not supported now)
-		sSyncWith: 'both 3G and wifi',	// 'wifi only','both 3G and wifi'
-										//  Sync with (not supported now)
-
+		sAutoSync: true,			// Auto sync (not supported now)
 		sDefaultDuration: 60,	// new event take place in x minute(s)
 
 		sDeviceTimeZone: true,	// Use the time zone of device or not
@@ -89,8 +73,7 @@ angular.module('MainApp.shareds.data', [])
 		// Code here will be ignored by JSHint.
 		/* jshint ignore:end */
 
-		sInternet: 'wifi',	// enum{'wifi', '3G', 'none'}
-							//Check device conection
+		sInternet: false,	// true/false
 
 		resetData: function(){
 			this.sEvent = true;
@@ -98,24 +81,20 @@ angular.module('MainApp.shareds.data', [])
 			this.sBirthday = true;
 			this.sLocalCalendar = true;
 			this.sGmailCalendar = true;
-			this.sFaceCalendar = true;
 			this.sOutlookCalendar = true;
 
 			this.sDefaultView = 'month';
-			this.sDayView = 'eventList';
 			this.sMonthView = 'eventList';
 			this.sFirstDay = 'Monday';
 			this.sShowWeekNumber = true;
 
-			this.sAutoSync = null;
-			this.sSyncWith = 'both 3G and wifi';
-
+			this.sAutoSync = true;
 			this.sDefaultDuration = 60;
 
 			this.sDeviceTimeZone = true;
 			this.sTimeZone = 0;
 
-			this.sInternet = 'wifi';
+			this.sInternet = true;
 		}
 	};
 })
@@ -123,7 +102,6 @@ angular.module('MainApp.shareds.data', [])
 // User information
 // Nguyen Minh Trang
 .factory('eUser', function(){
-	'use strict';
 	return {
 		uID: '',			// 4-15 characters (A-Z, a-z, 0-9, _), unique
 
@@ -190,108 +168,13 @@ angular.module('MainApp.shareds.data', [])
 	};
 })
 
-// $rootScope.eUser.uFRequest['huongdung1'] = {
-//     id: 'huongdung1',
-//     name: 'Ngo Duc Huong',
-//     ava: 1
-// };
-// $rootScope.eUser.uFRequest['ttdungsexy'] = {
-//     id: 'ttdungsexy',
-//     name: 'Tran Thu Dung',
-//     ava: 3
-// };
-// $rootScope.eUser.uFRequest['minhchui02'] = {
-//     id: 'minhchui02',
-//     name: 'Nguyen Minh Chui',
-//     ava: 5
-// };
-// $rootScope.eUser.uFRequest['manhvan003'] = {
-//     id: 'manhvan003',
-//     name: 'Nguyen Manh Van',
-//     ava: 8
-// };
-// $rootScope.eUser.uFRequest['boykorea58'] = {
-//     id: 'boykorea58',
-//     name: 'Kim Seung Trang',
-//     ava: 7
-// };
-// $rootScope.eUser.uFRequest['hotgirlno1'] = {
-//     id: 'hotgirlno1',
-//     name: 'Nguyen Thi Cam Duy',
-//     ava: 4
-// };
-// $rootScope.eUser.uFRequest['justinbb02'] = {
-//     id: 'justinbb02',
-//     name: 'Justin Bieber',
-//     ava: 4
-// };
-// $rootScope.eUser.uFRequest['kimkashi07'] = {
-//     id: 'kimkashi07',
-//     name: 'Kim Kadashian',
-//     ava: 8
-// };
-// $rootScope.eUser.uFRequest['gotgon1158'] = {
-//     id: 'gotgon1158',
-//     name: 'Yoona',
-//     ava: 7
-// };
-// $rootScope.eUser.uFRequest['badboyking'] = {
-//     id: 'badboyking',
-//     name: 'Son Tung MTP',
-//     ava: 0
-// };
-// $rootScope.eUser.uFRLength = 10;
-
-// $rootScope.eUser.uFAccepted['huongnd95'] = {
-//     id: 'huongnd95',
-//     name: 'Ngo Duc Huong',
-//     ava: 1
-// };
-// $rootScope.eUser.uFAccepted['dungttd96'] = {
-//     id: 'dungttd96',
-//     name: 'Tran Thu Dung',
-//     ava: 3
-// };
-// $rootScope.eUser.uFAccepted['vannm9896'] = {
-//     id: 'vannm9896',
-//     name: 'Nguyen Manh Van',
-//     ava: 8
-// };
-// $rootScope.eUser.uFAccepted['trangks99'] = {
-//     id: 'trangks99',
-//     name: 'Kim Seung Trang',
-//     ava: 7
-// };
-// $rootScope.eUser.uFAccepted['duyntc00a'] = {
-//     id: 'duyntc00a',
-//     name: 'Nguyen Thi Cam Duy',
-//     ava: 4
-// };
-// $rootScope.eUser.uFAccepted['luongnt58'] = {
-//     id: 'luongnt58',
-//     name: 'Nguyen Thi Luong',
-//     ava: 8
-// };
-// $rootScope.eUser.uFAccepted['taylor989'] = {
-//     id: 'taylor989',
-//     name: 'Taylor Swift',
-//     ava: 6
-// };
-// $rootScope.eUser.uFAccepted['obamano01'] = {
-//     id: 'obamano01',
-//     name: 'Barack Obama',
-//     ava: 0
-// };
-// $rootScope.eUser.uFALength = 8;
-
 // Friend's information
 // Nguyen Minh Trang
 .factory('eFriend', function(){
-	'use strict';
 	return {
 		fName: '',		/*UTF-8*/
 		fAvatar: 0,		/*avatar index from 0 to 8*/
-		fVIP: false,		/*VIP or not*/
+		fVIP: false,	/*VIP or not*/
 		fID: '',
 		fInfor: null,
 		fFriend: {},
@@ -315,23 +198,9 @@ angular.module('MainApp.shareds.data', [])
 	};
 })
 
-// Calendar's information
-// Ngo Duc Dung
-.factory('eDate', function(){
-	'use strict';
-	return {
-		cDate: null, 	//Object Date that user click on month calendar
-
-		resetData: function(){
-			this.cDate = null;
-		}
-	};
-})
-
 // Todo list service
 // Can Duy Cat
 .factory('eTodo', function() {
-	'use strict';
 	return {
 		tChecklist: [{
 			listName: 'Getting Started Checklist',
@@ -520,6 +389,19 @@ angular.module('MainApp.shareds.data', [])
 
 		resetData: function() {
 			this.tChecklist = [];
+		}
+	};
+})
+
+// Calendar's information
+// Ngo Duc Dung
+.factory('eDate', function(){
+	'use strict';
+	return {
+		cDate: null, 	//Object Date that user click on month calendar
+
+		resetData: function(){
+			this.cDate = null;
 		}
 	};
 });

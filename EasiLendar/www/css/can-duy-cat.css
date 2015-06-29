@@ -1,9 +1,15 @@
 /**
 * starter: Can Duy Cat
 * owner: Can Duy Cat
-* last update: 09/05/2015
+* last update: 28/06/2015
 * type: Can Duy Cat css
 */
+
+.loading-spinner svg {
+	width: 50px;
+	height: 75px;
+	stroke: #E6DEDB;
+}
 
 /**
 * coming soon
@@ -212,209 +218,68 @@ input.coming-soon-input:-ms-input-placeholder { font-size: 12px; }
 * side menu
 */
 a.side-menu-item {
-	background-color: #646464;
+	background-color: #63666F;
 	border: 0;
-	color: #E6E6E6;
-	height: 50px;
-}
-a.side-menu-item:hover {
-	background-color: #33CCCC;
-	border: 0;
-	color: #E6E6E6;
+	color: #8B8E95;
 	height: 50px;
 }
 a.side-menu-item:active {
-	background-color: #419696;
-	border: 0;
-	color: #E6E6E6;
-	height: 50px;
+	background-color: #4A4F55;
 }
 a.side-menu-item-user {
-	background-color: #646464;
+	background-color: #7CABBD;
 	border: 0;
-	color: #E6E6E6;
-	height: 70px;
+	height: 100px;
 }
-a.side-menu-item-user:hover {
-	background-color: #33CCCC;
-	border: 0;
-	color: #E6E6E6;
-	height: 70px;
+a.side-menu-item-user > img:first-child {
+	height: 75px;
+	left: 12.5px;
+	position: absolute;
+	top: 12.5px;
+	border: 3px solid #E6DEDB;
+	border-radius: 100%;
+}
+a.side-menu-item-user > h2, a.side-menu-item-user > p, a.side-menu-item-user > h4 {
+	position: absolute;
+	left: 92.5px;
+	color: #E6DEDB;
+}
+a.side-menu-item-user > h2 {
+	top: 20px;
+	font-size: 22px;
+}
+a.side-menu-item-user > p {
+	top: 42px;
+	font-size: 12px;
+}
+a.side-menu-item-user > h4 {
+	top: 60px;
+	font-size: 14px;
+	color: #5C8B9D;
+}
+a.side-menu-item-user > i {
+	position: absolute;
+	top: 12.5px;
+	left: 67.5px;
+	font-size: 26px;
 }
 a.side-menu-item-user:active {
-	background-color: #419696;
-	border: 0;
-	color: #E6E6E6;
-	height: 70px;
+	background-color: #4A4F55;
 }
 hr.side-menu-hr {
-	border: 1px solid #707070;
-	margin-bottom: 1px;
-	margin-top: 1px;
+	border: 1px solid #8B8E95;
+	margin: 0 auto 1px auto;
 	width: 92%;
 }
 /* for TOOLS menu devider */
 hr.side-menu-split {
-	border: 2px solid #707070;
-	margin-bottom: 1px;
-	margin-top: 1px;
+	border: 1px solid #8B8E95;
+	margin: 1px auto 1px auto;
 	width: 95%;
 }
 p.side-menu-split {
 	font-size: 17px;
-	margin-bottom: 0px;
-	margin-left: 10px;
-	margin-top: 5px;
-}
-
-/**
-* Todo
-**/
-.todo-item-content {
-	border-left: 1px solid #E6E6E6;
-	border-right: 1px solid #E6E6E6;
-	height: 275px;
-	margin-left: auto;
-	margin-right: auto;
-	max-width: 1440px;
-}
-.todo-checklist-content {
-	border-left: 1px solid #E6E6E6;
-	border-right: 1px solid #E6E6E6;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 263px;
-	max-width: 1440px;
-}
-.todo-item-list { }
-.todo-checklist-list { }
-.todo-item { border: 1px solid #E6E6E6; height: 55px; }
-/* main divider */
-.todo-main-divider { height: 50px; padding-left: 12px; padding-top: 0; }
-.todo-main-divider-title { font-size: 20px !important; margin-top: 12px !important; }
-/* option button in checklist */
-.todo-option-checklist {
-	height: 550px;
-	min-height: 0;
-	min-width: 0;
-	width: 52px;
-}
-/* popup style */
-.todo-create-popup-star {
-	position: absolute;
-	right: 10px;
-	top: 115px;
-	width: 130px;
-}
-.todo-create-popup-important { position: absolute; top: 130px; }
-.todo-create-star-icon { font-size: 45px; margin-left: 3px; }
-/* modal */
-.todo-modal-content-div { height: 20px !important; width: 100%; }
-.bar .todo-subtitle {
-	font-size: 10px;
-	font-weight: 500;
-	height: 43px;
-	left: 0;
-	line-height: 44px;
-	margin: 0 10px;
-	min-width: 30px;
-	overflow: hidden;
-	position: absolute;
-	right: 0;
-	text-align: center;
-	text-overflow: ellipsis;
-	top: 16px;
-	white-space: nowrap;
-	z-index: 0;
-}
-/* for item 2 lines */
-.todo-checklist-name-expand { font-size: 12px !important; }
-.todo-up-item-2line { margin-top: -8px; }
-/* last to swipe up gesture */
-.todo-important-modal-last {
-	bottom: 0;
-	height: 30px;
-	position: absolute;
-	width: 100%;
-}
-.todo-move-task { height: auto; max-height: 40vh; }
-.todo-attach {
-	display: inline-block !important;
-	font-size: 17px !important;
-	left: 0 !important;
-	position: absolute !important;
-	top: 10px !important;
-	width: 10px;
-}
-.todo-clock {
-	display: inline-block !important;
-	font-size: 15px !important;
-	left: -10px !important;
-	position: absolute !important;
-	top: 12px !important;
-	width: 10px;
-}
-.todo-description { margin-bottom: 1px; margin-left: 50px; width: auto; }
-.todo-description-card {
-	margin-left: 1px !important;
-	margin-right: 1px !important;
-	margin-top: 1px !important;
-	width: auto;
-}
-.todo-description-text { height: 85px; padding-right: 5px; padding-top: 5px; }
-.todo-description-icon { margin-top: 0px; }
-.todo-swipe-me-up {
-	bottom: -14px;
-	color: #BBB;
-	font-size: 10px;
-	position: absolute;
-	width: 100%;
-}
-/* animate */
-.todo-animate { height: 150px; overflow: hidden; transition: .3s linear all; }
-.todo-animate.ng-hide { height: 0; }
-/* Checklist view */
-.todo-item-ion-item { height: 55px; }
-.todo-item-in-div {
-	margin-left: -17px;
-	margin-righ: -32px;
-	margin-top: -17px;
-	width: auto;
-}
-.todo-create-task {
-	left: -10px;
-	margin-top: 88px;
-	position: fixed;
-	width: 100%;
-}
-.todo-create-animate { height: 200px; overflow: hidden; transition: .3s linear all; }
-.todo-create-animate.ng-hide { height: 0; }
-.todo-create-bar { padding: 0; }
-.todo-create-card { margin-right: 50px; width: auto; }
-.todo-create-title-input {
-	height: 47px;
-	margin: -6px;
-	margin-top: 0px;
-	padding: 3px;
-	padding-left: 10px;
-	width: auto;
-}
-.todo-input { margin-top: 0; }
-.todo-create-description-text { height: 97px; padding-right: 0; }
-.todo-create-input-description {
-	height: 95px;
-	margin-top: -15px;
-	padding-top: 5px;
-	width: 100%;
-}
-.todo-create-star-div { position: absolute; right: 7px; top: 7px; }
-.todo-button-create-div { }
-.todo-button-create-cancel {
-	border: 0;
-	height: 50px;
-	margin-right: -5px;
-	min-height: 50px;
-	width: 50%;
+	margin: 5px 0 0 10px;
 }
 
 /**
@@ -503,13 +368,9 @@ p.side-menu-split {
 	padding-top: 10px;
 }
 .my-profile-tab-1 label { background-color: #7FBCAC; }
-.my-profile-tab-1 label:hover { background-color: #F6F6F6; color: #416969; }
 .my-profile-tab-2 label { background-color: #77B4A4; }
-.my-profile-tab-2 label:hover { background-color: #F6F6F6; color: #416969; }
 .my-profile-tab-3 label { background-color: #6CA999; }
-.my-profile-tab-3 label:hover { background-color: #F6F6F6; color: #416969; }
 .my-profile-tab-4 label { background-color: #5F9C8C; }
-.my-profile-tab-4 label:hover { background-color: #F6F6F6; color: #416969; }
 .my-profile-tab [type=radio] { display: none; }
 .my-profile-tab [type=radio]:checked ~ label { background-color: #98D2C3; color: #416969; }
 .my-profile-overview-box, .my-profile-information-box, .my-profile-friends-box, .my-profile-more-box { margin: auto auto auto auto; max-width: 1440px; min-height: calc(100vh - 40vw - 162px); }

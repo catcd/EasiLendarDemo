@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Can Duy Cat
-	 last update: 09/05/2015
+	 last update: 29/06/2015
 	 type: calendar select popover -->
 
 <ion-popover-view id="home-calendar-select-popover">
@@ -31,9 +31,9 @@
 			<h2 class="easi-gray">List</h2>
 		</a>
 
-		<a class="item item-icon-left home-popover-item" ng-click="closeSelect(); goToState('search')">
-			<i class="icon ion-android-search easi-gray"></i>
-			<h2 class="easi-gray">Search</h2>
+		<a class="item item-icon-left home-popover-item" ng-click="closeSelect(); eDatabase.refresh()">
+			<i class="icon ion-android-refresh easi-gray"></i>
+			<h2 class="easi-gray">Refresh</h2>
 		</a>
 	</div>
 </ion-popover-view>

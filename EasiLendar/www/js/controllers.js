@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 12/05/2015
+ * last update: 27/06/2015
  * type: module (controller list)
  */
 
@@ -27,6 +27,5 @@ angular.module('MainApp.controllers', [
 	'MainApp.controllers.sideMenu',
 	'MainApp.controllers.signIn',
 	'MainApp.controllers.sync',
-	'MainApp.controllers.todo',
 	'MainApp.controllers.week'
 ]);

@@ -187,10 +187,4 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds',
 				templateUrl: 'templates/share.html',
 				controller: 'ShareController'
 			})
-			.state('todo', {
-				parent: 'appNone',
-				url: '/todo',
-				templateUrl: 'templates/todo.html',
-				controller: 'TodoController'
-			});
 	});
