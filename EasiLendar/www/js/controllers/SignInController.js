@@ -1,14 +1,14 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 12/05/2015
+ * last update: 02/07/2015
  * type: particular controller
  */
 
 var signIn = angular.module('MainApp.controllers.signIn', ['ionic']);
 
 signIn.controller('SignInController', function($rootScope, $scope, $timeout,
-	$ionicLoading, $ionicPopup, eSettings, eDatabase, eUser, eTodo) {
+	$ionicLoading, $ionicPopup, eSettings, eDatabase, eUser) {
 
 	// All constants
 	var MAX_ID_LENGTH = 15,
@@ -100,8 +100,7 @@ signIn.controller('SignInController', function($rootScope, $scope, $timeout,
 					eUser.uFriend = user.friends;
 					eUser.uVIP = user.VIP;
 					eUser.isLogin = true;
-					eUser.uTodo = user.eTodo;
-
+					
 					// convert
 					eUser.uGmailCalendar = eDatabase.convertCal(
 						user.g_calendar);
@@ -198,8 +197,7 @@ signIn.controller('SignInController', function($rootScope, $scope, $timeout,
 						password: $scope.user.password,
 						avatar: 0,
 						VIP: 0,
-						gmail: mail,
-						eTodo: eTodo.tChecklist
+						gmail: mail
 					} );
 
 					// welcome message

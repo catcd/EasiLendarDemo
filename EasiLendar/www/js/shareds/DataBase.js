@@ -1,14 +1,14 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 12/05/2015
+ * last update: 02/07/2015
  * type: all shared database variables and functions
  */
 
 var database = angular.module('MainApp.shareds.dataBase', [] );
 
 database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
-	eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, eTodo) {
+	eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar) {
 	/*
 	 * PRIVATE
 	 * check if object is null/undefined/'' or not
@@ -19,6 +19,14 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		}
 		return false;
 	};
+	
+	/*
+	 * PRIVATE
+	 * check if there is internet
+	 */
+	var isConnected = function() {
+		return eSettings.sInternet;
+	}
 
 	/*
 	 * PRIVATE
@@ -64,7 +72,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 	 * check if user has signed in or not
 	 */
 	var checkSignIn = function() {
-		if (!isNull( eUser.uID ) && eUser.isLogin === true) {
+		if (!isNull( eUser.uID ) && eUser.isLogin && isConnected()) {
 			return true;
 		} else {
 			return false;
@@ -577,7 +585,6 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 
 					eUser.uFriend = user.friends;
 					eUser.uVIP = user.VIP;
-					eUser.uTodo = user.eTodo;
 
 					// convert
 					eUser.uGmailCalendar = convertCal(user.g_calendar);
@@ -779,23 +786,6 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					this.updateEventHelper(event1);
 					this.updateEventHelper(event2);
 				}
-			} else {
-				return false;
-			}
-		};
-
-		/*
-		 * update Todo function
-		 * push all eTodo to database
-		 */
-		this.updateTodo = function() {
-			if (checkSignIn()) {
-				var todo = new Firebase(
-					'https://radiant-inferno-3243.firebaseio.com/Users/' +
-					eUser.uID + '/eTodo');
-				// loading
-				this.databaseLoading();
-				todo.set(angular.copy(eTodo.tChecklist), onComplete);
 			} else {
 				return false;
 			}
