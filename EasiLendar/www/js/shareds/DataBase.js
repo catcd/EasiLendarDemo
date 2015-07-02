@@ -84,11 +84,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 	 */
 	var databaseLoading = function() {
 		$ionicLoading.show( {
-			template: '<div id=\'followingBallsG\'><div id=\'followingBallsG_1\
-			\' class=\'followingBallsG\'></div><div id=\'followingBallsG_2\' \
-			class=\'followingBallsG\'></div><div id=\'followingBallsG_3\' \
-			class=\'followingBallsG\'></div><div id=\'followingBallsG_4\'\
-			class=\'followingBallsG\'></div></div>',
+			template: '<ion-spinner icon="android" class="loading-spinner"></ion-spinner>',
 			hideOnStateChange: true
 		} );
 	};
