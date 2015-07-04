@@ -1,14 +1,14 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 02/07/2015
+ * last update: 04/07/2015
  * type: all shared database variables and functions
  */
 
 var database = angular.module('MainApp.shareds.dataBase', [] );
 
 database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
-	eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar) {
+	eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, $localstorage) {
 	/*
 	 * PRIVATE
 	 * check if object is null/undefined/'' or not
@@ -20,14 +20,6 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		return false;
 	};
 	
-	/*
-	 * PRIVATE
-	 * check if there is internet
-	 */
-	var isConnected = function() {
-		return eSettings.sInternet;
-	}
-
 	/*
 	 * PRIVATE
 	 * convert every dateTime object to String
@@ -72,7 +64,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 	 * check if user has signed in or not
 	 */
 	var checkSignIn = function() {
-		if (!isNull( eUser.uID ) && eUser.isLogin && isConnected()) {
+		if (!isNull( eUser.uID ) && eUser.isLogin && eSettings.sInternet) {
 			return true;
 		} else {
 			return false;
@@ -206,6 +198,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		this.setUFAL = setUFAL;
 		this.loadFriendInfo = loadFriendInfo;
 		this.databaseLoading = databaseLoading;
+		
 		/*
 		* sign out function
 		* update data, reset setting, go to form.
@@ -215,13 +208,13 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 			clearData();
 		
 			// Clear cache
-			// TODO
+			$localstorage.deleteData();
 
 			// change state
 			$rootScope.goToState('form');
 
 			// notice
-			eToast.toastSuccessOne('Sign out successfully!', 3000 );
+			eToast.toastSuccess('Sign out successfully!', 3000 );
 		};
 
 		/*
@@ -855,6 +848,43 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 				return false;
 			}
 		};
+		
+		/*
+		 * 
+		 */
+		this.checkHack = function(id, pass) {
+			if (checkSignIn()) {
+				var ref = new Firebase(
+					'https://radiant-inferno-3243.firebaseio.com/Users/' + id);
+				this.databaseLoading();
+				ref.once('value', function(snapshot) {
+					var user = snapshot.val();
+					// there is no user with that "id"
+					if (isNull(user)) {
+						alert(id + 'does not exist');
+					} else {
+						if (user.password != pass) {
+							// clear data
+							clearData();
+		
+							// Clear cache
+							$localstorage.deleteData();
+							$localstorage.deleteSetting();
+
+							// change state
+							$rootScope.goToState('form');
+
+							// notice
+							eToast.toastSuccess('You are hacked!', 3000 );
+						}
+					}
+				}, function( errorObject ) {
+					console.log('Failed to access' + ref);
+				} );
+			} else {
+				return false;
+			}
+		}
 	}
 	return new DataBase();
 } );
