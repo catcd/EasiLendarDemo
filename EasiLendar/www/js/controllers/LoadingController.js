@@ -32,16 +32,16 @@ angular.module('MainApp.controllers.loading', [])
 				}, 3000);
 
 				if (eSettings.sInternet === true) {
-					eDatabase.checkSync(eUser.uID, eUser.uPassword);
+					eDatabase.checkHack(eUser.uID, eUser.uPassword);
 				} else {
 					eToast.toastWarning('You are current offline!', 2000);
 				}
 			} else {
 				if (eSettings.sInternet === false) {
-					eToast.toastError('Please connect to Internet!', 2000);
+					eToast.toastError('Please connect to Internet!', 3000);
 					setTimeout(function() {
 						navigator.app.exitApp();
-					}, 2000);
+					}, 4000);
 				} else {
 					setTimeout(function() {
 						$rootScope.goToState('form');

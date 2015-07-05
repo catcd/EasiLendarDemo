@@ -1,7 +1,7 @@
 /**
 * starter: Nguyen Minh Trang
 * owner: Can Duy Cat
-* last update: 08/05/2015
+* last update: 05/07/2015
 * type: general css
 *
 * My app's style
@@ -82,7 +82,7 @@ p.easi-big-name {
 	width: 100%;
 }
 #toast-container.easi-toast-success > div {
-	background-color: #419696;
+	background-color: #5C8B9D;
 	box-shadow: 0 0 0;
 	margin: auto;
 	max-width: 400px;
@@ -198,7 +198,7 @@ p.easi-big-name {
 	color: #63666F !important;
 }
 .easi-light-gray {
-	color: #E6DEDB !important;
+	color: #E6E6E6 !important;
 }
 .easi-blue {
 	color: #8EB4C1 !important;
@@ -237,11 +237,16 @@ p.easi-big-name {
 }
 
 /* easi bars */
-.bar.bar-easi-blue {
-	background-color: #5C8B9D;
+.bar.bar-easi-blue, .bar.bar-easi-lblue {
 	background-image: linear-gradient(0deg, #315050, #315050 50%, transparent 50%);
 	border: 0;
 	color: #fff;
+}
+.bar.bar-easi-blue {
+	background-color: #5C8B9D;
+}
+.bar.bar-easi-lblue {
+	background-color: #8EB4C1;
 }
 .bar.bar-easi-blue .title, .bar.bar-easi-lblue .title {
 	color: #fff;

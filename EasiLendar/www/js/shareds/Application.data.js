@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 28/06/2015
+ * last update: 05/07/2015
  * type: module all shared variables used for this app
  */
 
@@ -9,39 +9,39 @@ angular.module('MainApp.shareds.data', [])
 // Search filter variables
 // Ngo Duc Dung
 .factory('eSearchFilter', function() {
-    return {
-        mTitle: '',		// Name of meeting
-        mDuration: 0,	// Duration of meeting
-        mLocation: '',	// Location of meeting
+	return {
+		mTitle: '',		// Name of meeting
+		mDuration: 0,	// Duration of meeting
+		mLocation: '',	// Location of meeting
 
-        mFrom: 0,		// Time to start searching: Minute(s) from 24:00am
-        mTo: 0,			// Time to end searching: Minute(s) from 24:00am
-        mFromDay: null,	// Day to start searching: format: ddmmyy
-        mToDay: null,	// Day to end searching: format: ddmmyy
+		mFrom: 0,		// Time to start searching: Minute(s) from 24:00am
+		mTo: 0,			// Time to end searching: Minute(s) from 24:00am
+		mFromDay: null,	// Day to start searching: format: ddmmyy
+		mToDay: null,	// Day to end searching: format: ddmmyy
 
-        mBreakfast: null,	// Avoid/Prioritize
-        mLunch: null,		// avoid = true;
-        mDinner: null,		// prioritize = false ;
-        mOffice: null,		// none(default) = null;
-        mHoliday: null,
+		mBreakfast: null,	// Avoid/Prioritize
+		mLunch: null,		// avoid = true;
+		mDinner: null,		// prioritize = false ;
+		mOffice: null,		// none(default) = null;
+		mHoliday: null,
 
-        resetData: function() {
-            this.mTitle = '';
-            this.mDuration = 0;
-            this.mLocation = '';
+		resetData: function() {
+			this.mTitle = '';
+			this.mDuration = 0;
+			this.mLocation = '';
 
-            this.mFrom = 0;
-            this.mTo = 0;
-            this.mFromDay = null;
-            this.mToDay = null;
+			this.mFrom = 0;
+			this.mTo = 0;
+			this.mFromDay = null;
+			this.mToDay = null;
 
-            this.mBreakfast = null;
-            this.mLunch = null;
-            this.mDinner = null;
-            this.mOffice = null;
-            this.mHoliday = null;
-        }
-    };
+			this.mBreakfast = null;
+			this.mLunch = null;
+			this.mDinner = null;
+			this.mOffice = null;
+			this.mHoliday = null;
+		}
+	};
 })
 
 // Setting variables
@@ -104,16 +104,17 @@ angular.module('MainApp.shareds.data', [])
 .factory('eUser', function(){
 	return {
 		uID: '',			// 4-15 characters (A-Z, a-z, 0-9, _), unique
+		uConfirm: true,
 
 		uName: '',			// UTF-8
 		uAvatar: '0',
 		uEmail: '',			// gmail
 		uPassword: '',		// 8-16 characters
 
-		uGender: null,		// male or female
+		uGender: '',		// male or female
 		uBirthday: null,	// obj Date
-		uPhone: null,
-		uAddress: null,
+		uPhone: '',
+		uAddress: '',
 
 		uIsDoneFriend: false,
 		uIsDoneNoti: false,
@@ -122,11 +123,9 @@ angular.module('MainApp.shareds.data', [])
 		uFriend: [],		// array of objects { id, name }
 		uVIP : false,
 		isLogin: false,
-		uTodo: null,
 
 		uGmailCalendar: null,	// Google API JSON	Calendar
 		uLocalCalendar: null,	// Google API JSON	Calendar
-		uFaceCalendar: null,	// Google API JSON	Calendar
 		uOutlookCalendar: null,	// Google API JSON	Calendar
 
 		uRequested: {},
@@ -137,26 +136,28 @@ angular.module('MainApp.shareds.data', [])
 
 		resetData: function(){
 			this.uID = '';
+			this.uConfirm = true;
 
 			this.uName = '';
 			this.uAvatar = '0';
 			this.uEmail = '';
 			this.uPassword = '';
 
-			this.uGender = null;
+			this.uGender = '';
 			this.uBirthday = null;
-			this.uPhone = null;
-			this.uAddress = null;
+			this.uPhone = '';
+			this.uAddress = '';
+
+			this.uIsDoneFriend = false;
+			this.uIsDoneNoti = false;
 
 			this.uRemember = false;
 			this.uFriend = [];
 			this.uVIP  = false;
 			this.isLogin = false;
-			this.uTodo= null;
 
 			this.uGmailCalendar = null;
 			this.uLocalCalendar = null;
-			this.uFaceCalendar = null;
 			this.uOutlookCalendar = null;
 
 			this.uRequested = {};

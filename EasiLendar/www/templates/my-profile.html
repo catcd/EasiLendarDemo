@@ -1,281 +1,215 @@
 <!-- starter: Can Duy Cat
 	 owner: Can Duy Cat
-	 last update: 09/05/2015
+	 last update: 05/07/2015
 	 type: html template-->
+<link rel="stylesheet" type="text/css" href="../css/my-profile.css">
 
-<ion-view hide-nav-bar="true">
-	<ion-header-bar class="bar-header easi-no-border my-profile-header"
-	align-title="center">
-		<button class="button button-icon easi-index-2 easi-white icon
-		{{leftButton[isEditing].icon}} my-profile-header-button"
+<ion-view title="My profile">
+<!-- 	<ion-nav-bar class="bar-easi-lblue">
+	</ion-nav-bar> -->
+
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear
+		{{leftButton[isEditing].icon}}"
 		ng-click="leftFunction()">
 		</button>
-
-		<p class="title easi-white easi-mini-space my-profile-title">
-			My profile
-		</p>
-
-		<button class="button button-icon easi-index-2 easi-white icon
-		{{rightButton[isEditing].icon}} my-profile-header-button"
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-icon button-clear
+		{{rightButton[isEditing].icon}}"
 		ng-click="rightFunction()">
 		</button>
-	</ion-header-bar>
+	</ion-nav-buttons>
 
-	<ion-content scroll="false" class="easi-index-1 my-profile-content">
-		<div class="item easi-no-padding easi-no-border my-profile-head-information">
-			<div class="item easi-no-padding easi-no-border my-profile-container">
-				<button class="button button-icon icon ion-ios-arrow-left
-				easi-white easi-fade-fast my-profile-navbutton-left"
-				ng-click="nextLeftAva()"
-				ng-show="isEditing"></button>
+	<ion-content scroll="false">
+		<div class="item easi-no-padding easi-no-border easi-back-blue">
+			<div class="item easi-no-padding easi-no-border mp-avatar-container">
+				<i class="icon ion-android-create easi-back-white easi-center
+				mp-edit-button easi-fade-fast easi-blue"
+				ng-click="edit()"
+				ng-hide="isEditing"></i>
 
-				<div class="item easi-no-padding easi-no-border my-profile-avatar-container">
-					<i class="icon ion-android-create easi-back-white easi-center
-					my-profile-edit-button easi-fade-fast"
-					ng-click="edit()"
-					ng-hide="isEditing"></i>
+				<img data-ng-src="{{eUser.uAvatar == '0' ? 'img/ava0.png' : eUser.uAvatar}}"
+				class="mp-avatar">
 
-					<img data-ng-src="img/ava{{eUser.uAvatar}}.png"
-					class="my-profile-avatar"
-					on-swipe-left="nextLeftAva()"
-					on-swipe-right="nextRightAva()">
-
-					<i class="icon ion-image easi-back-white easi-center
-					my-profile-picture-button easi-fade-fast"
-					ng-click="capture()"
-					ng-hide="isEditing"></i>
-				</div>
-
-				<button class="button button-icon icon ion-ios-arrow-right
-				easi-white easi-fade-fast my-profile-navbutton-right"
-				ng-click="nextRightAva()"
-				ng-show="isEditing"></button>
+				<i class="icon ion-image easi-back-white easi-center
+				mp-picture-button easi-fade-fast easi-blue"
+				ng-click="capture()" ng-hide="isEditing"></i>
 			</div>
 
-			<h2 class="easi-center easi-white my-profile-name">
+			<h2 class="easi-center easi-white mp-name">
 				{{eUser.uName}}
 			</h2>
-			<p class="easi-center easi-dark-blue my-profile-account-type">
-				{{accountType().type}}
+			<p class="easi-center easi-dark-blue mp-account-type">
+				{{eUser.uVIP == true ? "VIP" : "Standard"}}
 			</p>
 		</div>
 
-		<div class="my-profile-tabs easi-white easi-no-border">
-			<div class="easi-center my-profile-tab my-profile-tab-1"
-			ng-click="activeTab(0)">
-				<input type="radio" id="my-profile-tab-0" name="tab-group-1" checked>
+		<div class="mp-tabs easi-white easi-no-border">
+			<div class="easi-center mp-tab mp-tab-1" ng-click="activeTab(0)">
+				<input type="radio" id="mp-tab-0" name="tab-group-1" checked>
 				<label for="tab-0">Overview</label>
 			</div>
-			<div class="easi-center my-profile-tab my-profile-tab-2"
-			ng-click="activeTab(1)">
-				<input type="radio" id="my-profile-tab-1" name="tab-group-1">
+			<div class="easi-center mp-tab mp-tab-2" ng-click="activeTab(1)">
+				<input type="radio" id="mp-tab-1" name="tab-group-1">
 				<label for="tab-1">Information</label>
 			</div>
-			<div class="easi-center my-profile-tab my-profile-tab-3"
-			ng-click="activeTab(2)">
-				<input type="radio" id="my-profile-tab-2" name="tab-group-1">
+			<div class="easi-center mp-tab mp-tab-3" ng-click="activeTab(2)">
+				<input type="radio" id="mp-tab-2" name="tab-group-1">
 				<label for="tab-2">Friends</label>
 			</div>
-			<div class="easi-center my-profile-tab my-profile-tab-4"
-			ng-click="activeTab(3)">
-				<input type="radio" id="my-profile-tab-3" name="tab-group-1">
+			<div class="easi-center mp-tab mp-tab-4" ng-click="activeTab(3)">
+				<input type="radio" id="mp-tab-3" name="tab-group-1">
 				<label for="tab-3">Password</label>
 			</div>
 		</div>
 
-		<ion-content scroll="true" class="easi-index-2 my-profile-second-content">
-			<ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" show-pager="false" slide-interval="0">
-				<ion-slide>
-					<div class="my-profile-overview-box">
-						<div class="item item-text-wrap easi-center my-profile-time-item">
-							<h2 class="easi-dark-blue" id="my-profile-date">{{timeInfo.date}}</h2>
-							<h2 class="easi-dark-blue" id="my-profile-time">{{timeInfo.time}}</h2>
-							<h2 class="easi-dark-blue" id="my-profile-status"></h2>
-						</div>
+		<ion-content scroll="true" class="easi-index-2 mp-second-content">
 
-						<div class="item item-text-wrap easi-center easi-gray easi-fade-fast
-						easi-no-border easi-no-margin my-profile-quote-item"
-						ng-click="generateRand()">
-							{{quote[rand].quote}}
-							<br>{{quote[rand].author}}
-						</div>
+		<!-- overview -->
+			<div class="mp-overview-box easi-fade-fast" ng-show="active == 0">
+				<div class="item item-text-wrap easi-center easi-dark-blue mp-time-item"
+				data-ng-init="onLoadMyProfile()">
+					<h2 id="mp-date"></h2>
+					<h2 id="mp-time"></h2>
+					<h2 id="mp-status"></h2>
+				</div>
 
-						<div class="my-profile-friends-info">
-							<div ng-repeat="friend in eUser.uFriend"
-							class="my-profile-friends-info-item"
-							ng-show="{{$index < 4}}"
-							ng-click="activeTab(2)">
-								<img data-ng-src="img/ava{{friend.ava}}.png" alt="avatar">
-								<p class="easi-center easi-gray">{{friend.name}}</p>
-							</div>
+				<br><br><br><br><br>
 
-							<div class="my-profile-friends-info-item"
-							ng-click="activeTab(2)">
-								<div class="easi-back-gray">
-									<p class="easi-white easi-center">
-										+{{(countFriend() - 4) > 0 ? countFriend() - 4 : ""}}
-									</p>
-								</div>
-
-								<p class="easi-center easi-gray">More</p>
-							</div>
-						</div>
+				<div class="mp-friends-info">
+					<div ng-repeat="friend in eUser.uFriend"
+					class="mp-friends-info-item"
+					ng-show="{{$index < 4}}" ng-click="activeTab(2)">
+						<img data-ng-src="{{friend.ava == '0' ? 'img/ava0.png' : friend.ava}}" alt="avatar">
+						<p class="easi-center easi-gray">{{friend.name}}</p>
 					</div>
-				</ion-slide>
 
-				<ion-slide>
-					<div class="my-profile-information-box">
-						<div class="easi-fade-normal my-profile-information-detail"
-						ng-hide="isEditing">
-							<div class="list card my-profile-info-card">
-								<div class="item item-divider easi-back-white easi-no-padding setting-divider">
-									<h2 class="easi-dark-blue setting-divider-title">
-										<b>Basic information</b>
-									</h2>
-								</div>
+					<div class="mp-friends-more-item" ng-click="activeTab(2)">
+						<h3 class="easi-white easi-center easi-back-gray">
+							+{{(countFriend() - 4) > 0 ? countFriend() - 4 : ""}}
+						</h3>
+						<p class="easi-center easi-gray">More</p>
+					</div>
+				</div>
+			</div>
 
-								<div class="item item-icon-left setting-first-item">
-									<i class="icon ion-android-person easi-dark-blue"></i>
-									Name: {{eUser.uName}}
-								</div>
+		<!-- information -->
+			<div class="mp-information-box easi-fade-fast" ng-show="active == 1 && isEditing == false">
+				<div class="list card mp-info-card">
+					<div class="item item-divider easi-back-white easi-no-padding mp-card-divider">
+						<h2 class="easi-dark-blue">
+							<b>Basic information</b>
+						</h2>
+					</div>
 
-								<div class="item item-icon-left">
-									<i class="icon ion-icecream easi-dark-blue"></i>
-									Birth date: {{info().birth.date}}
-								</div>
+					<div class="item item-icon-left mp-card-first-item">
+						<i class="icon ion-android-person easi-dark-blue"></i>
+						Name: {{eUser.uName}}
+					</div>
 
-								<div class="item item-icon-left">
-									<i class="icon ion-calendar easi-dark-blue"></i>
-									Birth year: {{info().birth.year}}
-								</div>
+					<div class="item item-icon-left">
+						<i class="icon ion-icecream easi-dark-blue"></i>
+						Birth date: {{eUser.uBirthday != null ? eCalendar.parseDate(eUser.uBirthday).date : '###'}}
+					</div>
 
-								<div class="item item-icon-left">
-									<i class="icon ion-transgender easi-dark-blue"></i>
-									Gender: {{info().gender}}
-								</div>
-							</div>
+					<div class="item item-icon-left">
+						<i class="icon ion-calendar easi-dark-blue"></i>
+						Birth year: {{eUser.uBirthday != null ? eCalendar.parseDate(eUser.uBirthday).year : '###'}}
+					</div>
 
-							<div class="list card my-profile-info-card">
-								<div class="item item-divider easi-back-white easi-no-padding setting-divider">
-									<h2 class="easi-dark-blue setting-divider-title">
-										<b>Contact information</b>
-									</h2>
-								</div>
+					<div class="item item-icon-left">
+						<i class="icon ion-transgender easi-dark-blue"></i>
+						Gender: {{eUser.uGender != '' ? eUser.uGender : '###'}}
+					</div>
+				</div>
 
-								<div class="item item-icon-left setting-first-item">
-									<i class="icon ion-android-mail easi-dark-blue"></i>
-									Email: {{eUser.uEmail}}@gmail.com
-								</div>
+				<div class="list card mp-info-card">
+					<div class="item item-divider easi-back-white easi-no-padding mp-card-divider">
+						<h2 class="easi-dark-blue mp-card-divider-title">
+							<b>Contact information</b>
+						</h2>
+					</div>
 
-								<div class="item item-icon-left">
-									<i class="icon ion-android-phone-portrait easi-dark-blue"></i>
-									Phone: {{info().phone}}
-								</div>
+					<div class="item item-icon-left mp-card-first-item">
+						<i class="icon ion-android-mail easi-dark-blue"></i>
+						Email: {{eUser.uEmail}}@gmail.com
+					</div>
 
-								<div class="item item-icon-left">
-									<i class="icon ion-android-pin easi-dark-blue"></i>
-									Address: {{info().address}}
-								</div>
-							</div>
+					<div class="item item-icon-left">
+						<i class="icon ion-android-phone-portrait easi-dark-blue"></i>
+						Phone: {{eUser.uPhone != '' ? eUser.uPhone : '###'}}
+					</div>
+
+					<div class="item item-icon-left">
+						<i class="icon ion-android-pin easi-dark-blue"></i>
+						Address: {{eUser.uAddress != '' ? eUser.uAddress : '###'}}
+					</div>
+				</div>
+			</div>
+
+		<!-- edit -->
+			<div class="easi-fade-fast mp-edit-box" ng-show="isEditing">
+				<div class="list list-inset">
+					<img data-ng-src="{{eUser.uAvatar == '0' ? 'img/ava0.png' : eUser.uAvatar}}"
+					class="mp-avatar-edit">
+
+					<label class="item item-input mp-input-top">
+						<input type="text" placeholder="Full Name" ng-model="data.name">
+					</label>
+
+					<label id="mp-email" class="item item-input mp-input-top">
+						<input type="text" placeholder="{{eUser.uEmail+'@gmail.com'}}" disabled="true">
+						<i class="icon ion-android-cloud-done easi-dark-blue mp-icon-sync"
+						ng-show="eUser.uConfirm"></i>
+					</label>
+
+					<label class="item item-input mp-input-birthday">
+						<input type="text" placeholder="Date of Birth" ng-model="data.date" disabled="true">
+					</label>
+
+					<div class="mp-switch">
+						<input id="easi-toggle-9" class="easi-toggle easi-toggle-yes-no"
+						type="checkbox" ng-model="data.gender">
+						<label for="easi-toggle-9" data-on="Male" data-off="Female"></label>
+					</div>
+
+					<label class="item item-input mp-input">
+						<input type="text" placeholder="Phone No" ng-model="data.phone" numbers-only>
+					</label>
+
+					<label class="item item-input mp-input">
+						<input type="text" placeholder="Address" ng-model="data.address">
+					</label>
+				</div>
+			</div>
+
+		<!-- friends -->
+			<div class="mp-friends-box easi-fade-fast" ng-show="active == 2">
+				<div class="card mp-friend-card" ng-repeat="friend in eUser.uFriend">
+					<div class="item mp-friend-avatar">
+						<img data-ng-src="{{friend.ava == '0' ? 'img/ava0.png' : friend.ava}}"
+						ng-click="eDatabase.viewProfile(friend.id)">
+						<h2 class="easi-gray" ng-click="eDatabase.viewProfile(friend.id)">
+							{{friend.name}}
+						</h2>
+
+						<div ng-click="eDatabase.viewProfile(friend.id)">
+							<i class="icon ion-coffee"> 14</i>
+							<i class="icon ion-android-chat"> 9</i>
 						</div>
 
-						<div class="easi-fade-fast my-profile-information-edit"
-						ng-show="isEditing">
-							<div class="list list-inset">
-								<img data-ng-src="img/ava{{eUser.uAvatar}}.png"
-								class="my-profile-avatar-edit">
-
-								<label class="item item-input my-profile-item-input-top">
-									<input type="text" placeholder="Full Name"
-									ng-model="eUser.uName">
-								</label>
-
-								<label id="my-profile-email"
-								class="item item-input my-profile-item-input-top">
-									<input type="text" placeholder="{{eUser.uEmail+'@gmail.com'}}" disabled="true">
-									<i class="icon ion-android-cloud-done easi-dark-blue my-profile-icon-sync"></i>
-								</label>
-
-								<label class="item item-input my-profile-item-input-date">
-									<input type="text" placeholder="Date"
-									ng-model="data.date"
-									numbers-only max="31"
-									id="my-profile-input-date">
-								</label>
-
-								<label class="item item-input my-profile-item-input-month">
-									<input type="text" placeholder="Month"
-									ng-model="data.month"
-									numbers-only max="12"
-									id="my-profile-input-month">
-								</label>
-
-								<label class="item item-input my-profile-item-input-year">
-									<input type="text" placeholder="Year"
-									ng-model="data.year"
-									numbers-only max="2100"
-									id="my-profile-input-year">
-								</label>
-
-								<div class="my-profile-switch">
-									<input id="easi-toggle-9" class="easi-toggle easi-toggle-yes-no" type="checkbox" ng-model="data.gender">
-									<label for="easi-toggle-9" data-on="Male" data-off="Female"></label>
-								</div>
-
-								<label class="item item-input my-profile-item-input">
-									<input type="text" placeholder="Phone No"
-									ng-model="data.phone" numbers-only>
-								</label>
-
-								<label class="item item-input my-profile-item-input">
-									<input type="text" placeholder="Address"
-									ng-model="eUser.uAddress">
-								</label>
-							</div>
-						</div>
+						<button class="button button-icon icon ion-android-delete easi-red mp-trash-icon"
+						ng-click="delFriend(friend.id, friend.name)"></button>
 					</div>
-				</ion-slide>
+				</div>
+			</div>
 
-				<ion-slide>
-					<div class="my-profile-friends-box">
-						<div class="card my-profile-friend-card" ng-repeat="friend in eUser.uFriend">
-							<div class="item my-profile-item-avatar my-profile-friend-card-content">
-								<img data-ng-src="img/ava{{friend.ava}}.png"
-								class="my-profile-friend-avatar"
-								ng-click="eDatabase.viewProfile(friend.id)">
-								<h2 class="easi-gray"
-								ng-click="eDatabase.viewProfile(friend.id)">
-									{{friend.name}}
-								</h2>
-
-								<div ng-click="eDatabase.viewProfile(friend.id)">
-									<div>
-										<i class="icon ion-ribbon-b"> {{friend.VIP}}</i>
-									</div>
-
-									<div>
-										<i class="icon ion-coffee"> 14</i>
-									</div>
-
-									<div>
-										<i class="icon ion-android-chat"> 9</i>
-									</div>
-								</div>
-
-								<button class="button button-icon icon ion-android-delete easi-red my-profile-trash-icon"
-								ng-click="delFriend(friend.id, friend.name)"></button>
-							</div>
-						</div>
-					</div>
-				</ion-slide>
-
-				<ion-slide>
-					<div class="my-profile-more-box">
-						<br>
-						<h2><pre>  we are coming soon...</pre></h2>
-					</div>
-				</ion-slide>
-			</ion-slide-box>
+		<!-- password -->
+			<div class="mp-password-box easi-fade-fast" ng-show="active == 3">
+				<br>
+				<h2><pre>  we are coming soon...</pre></h2>
+			</div>
 		</ion-content>
 	</ion-content>
 </ion-view>
