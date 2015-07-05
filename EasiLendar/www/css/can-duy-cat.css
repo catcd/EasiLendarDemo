@@ -64,12 +64,16 @@ input.coming-soon-input:-ms-input-placeholder { font-size: 12px; }
 */
 /* red plus button to add event */
 .home-create-event {
-	bottom: 0px;
-	max-width: 100px;
-	min-width: 80px;
 	position: absolute;
-	right: 0px;
-	width: 30%;
+	right: 10px;
+	bottom: 0px;
+	width: 18vw;
+	height: 18vw;
+	line-height: 18vw;
+	border-radius: 100%;
+	background: #DB4437;
+	font-size: 8vw;
+	box-shadow: 3px 3px 8px #888888;
 }
 .home-button-top {
 	height: 40px;
