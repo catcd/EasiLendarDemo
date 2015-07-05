@@ -219,6 +219,9 @@
 	margin: 0 0 15px 0;
 	width: 60%;
 }
+.mp-input-birthday input[type="text"]:disabled {
+	background-color: #fff;
+}
 .mp-switch {
 	display: inline-block;
 	height: 47px;

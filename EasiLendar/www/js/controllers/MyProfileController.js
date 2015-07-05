@@ -101,7 +101,7 @@ angular.module('MainApp.controllers.myProfile', [])
 	// function to active tab
 	$scope.activeTab = function(index) {
 		if (enableSlide) {
-			$scope.active = index <=3 && index >= 0 ? index : 0;
+			$scope.active = index <= 3 && index >= 0 ? index : 0;
 
 			var elem = document.getElementById('mp-tab-' + index);
 			var element = angular.element(elem);
@@ -129,14 +129,7 @@ angular.module('MainApp.controllers.myProfile', [])
 	$scope.done = function() {
 		eUser.uName = $scope.data.name;
 
-		$scope.data.date = eUser.uBirthday;
-		/*if ($scope.data.year || $scope.data.month || $scope.data.date) {
-			$scope.data.year = ($scope.data.year === null ? '1990' : $scope.data.year);
-			$scope.data.month = ($scope.data.month === null ? '1' : $scope.data.month);
-			$scope.data.date =($scope.data.date === null ? '1' : $scope.data.date);
-
-			eUser.uBirthday = new Date(parseInt($scope.data.year), parseInt($scope.data.month) - 1,	parseInt($scope.data.date));
-		}*/
+		eUser.uBirthday = $scope.data.date;
 
 		eUser.uGender = ($scope.data.gender ? 'Male' : 'Female');
 
@@ -179,4 +172,19 @@ angular.module('MainApp.controllers.myProfile', [])
 			}
 		});
 	};
+
+	// select birthday
+	$scope.currentDate = new Date();
+
+	$scope.datePickerCallback = function(val) {
+		if (typeof(val) === 'undefined') {
+			console.log('Date not selected');
+		} else {
+			$scope.data.date = new Date(val);
+			$scope.mBirthday = eCalendar.parseDate($scope.data.date).date +
+							' ' + eCalendar.parseDate($scope.data.date).year;
+		}
+	};
+
+	$scope.mBirthday = '';
 });

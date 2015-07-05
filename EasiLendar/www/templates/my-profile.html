@@ -164,9 +164,12 @@
 						ng-show="eUser.uConfirm"></i>
 					</label>
 
-					<label class="item item-input mp-input-birthday">
-						<input type="text" placeholder="Date of Birth" ng-model="data.date" disabled="true">
-					</label>
+					<ionic-datepicker idate="currentDate" disablepreviousdates="false"
+					disablefuturedates="false" callback="datePickerCallback">
+						<label class="item item-input mp-input-birthday">
+							<input type="text" placeholder="Date of Birth" value={{mBirthday}} disabled="true">
+						</label>
+					</ionic-datepicker>
 
 					<div class="mp-switch">
 						<input id="easi-toggle-9" class="easi-toggle easi-toggle-yes-no"

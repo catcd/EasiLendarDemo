@@ -1,12 +1,13 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 12/05/2015
+ * last update: 05/07/2015
  * type: main js
  */
 
 angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds',
-						'ngCordova', 'toastr'])
+		'ngCordova', 'toastr', 'ionic-timepicker', 'ionic-datepicker'
+	])
 	.config(function($stateProvider, $urlRouterProvider) {
 		/**
 		 * open when nothing have been called
