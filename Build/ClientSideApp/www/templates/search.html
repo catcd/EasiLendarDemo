@@ -1,0 +1,65 @@
+<!-- starter: Can Duy Cat
+	 owner: Can Duy Cat
+	 last update: 08/04/2015
+	 type: html template-->
+
+<ion-view title="Search">
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-home" ng-click="goHome()"></button>
+	</ion-nav-buttons>
+
+	<!-- search bar -->
+	<div class="bar bar-subheader item-input-inset">
+	    <label class="item-input-wrapper">
+	        <i class="icon ion-ios-search placeholder-icon"></i>
+	        <input type="search" placeholder="Search" ng-model="searchInput">
+	    </label>
+
+	    <!-- submit button -->
+	    <button class="button button-clear" ng-click="search()">
+	        Go
+	    </button>
+	</div>
+
+	<!-- select tab -->
+	<div class="bar bar-subheader item item-select easi-back-light-gray"
+	id="search-subheader"
+	ng-click="showAlert('Search Filter', 'templates/search-option.html', 'Select one')">
+	    <div class="input-label">
+	        <h2 id="search-option-label">{{searchType.type}}</h2>
+	    </div>
+	</div>
+
+	<!-- noti if no result found -->
+	<h3 class="easi-gray easi-center search-empty-result" ng-show=isEmptyResult()>
+		No Results Found.
+	</h3>
+
+	<!-- main content here -->
+	<ion-content class="search-margin-content">
+		<!-- Search people div -->
+		<div id="search-people-result" class="list" ng-show=isShowPeople()>
+			<div ng-repeat="person in searchFriends">
+				<a class="item easi-item-avatar easi-index-1" ng-click="clickPeople(person)">
+					<img data-ng-src="img/ava{{person.ava}}.png">
+					<h2 class="easi-space search-person-result-name">{{person.name}}</h2>
+					<button class="button button-easi-blue easi-index-2 search-person-button"
+					ng-click="addPerson(person.id)"
+					ng-hide=isHide(person.id)>
+						<i class="icon ion-person-add"></i>
+					</button>
+				</a>
+			</div>
+		</div>
+
+		<!-- Search events div -->
+		<div id="search-events-result" class="list" ng-show=isShowEvents()>
+			<a ng-repeat="event in searchEvents"
+			class="item search-item-event-result"
+			ng-click="changeCall(event)">
+				<h2 class="search-event-sum">{{event.summary}}</h2>
+				<p>{{eventDetail(event)}}</p>
+			</a>
+		</div>
+	</ion-content>
+</ion-view>

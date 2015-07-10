@@ -1,0 +1,314 @@
+/**
+* starter: Can Duy Cat
+* owner: Can Duy Cat
+* last update: 05/07/2015
+* type: Can Duy Cat css
+*/
+
+.loading-spinner svg {
+	width: 50px;
+	height: 75px;
+	stroke: #E6DEDB;
+}
+
+/**
+* coming soon
+*/
+.ccb { border: 1px solid black !important; }
+.coming-soon-content {
+	display: inline-block;
+	font-size: 25px;
+	margin-top: 25vh;
+	width: 300px;
+}
+div.coming-soon-input { display: inline-block; margin-top: 30px; width: 300px; }
+input.coming-soon-input {
+	color: #416969;
+	display: inline-block;
+	font-size: 11px;
+	height: 30px;
+	padding-left: 10px;
+	width: 155px;
+}
+p.coming-soon-slogan { font-family: Giddy; font-size: 22px; margin-top: 10px; }
+/* coming-soon-button */
+button.coming-soon-button {
+	border: 1px solid black;
+	display: inline-block;
+	height: 30px;
+	min-height: 30px;
+	min-width: 40px;
+	width: 47px;
+}
+.coming-soon-button.icon:before {
+	display: inline-block;
+	font-size: 24px;
+	line-height: 30px;
+	padding: 0 0 1px 0;
+	pointer-events: none;
+	vertical-align: inherit;
+}
+/* placeholder css in coming-soon */
+/* Must use all these 4 css */
+/* WebKit browsers */
+input.coming-soon-input::-webkit-input-placeholder { font-size: 12px; }
+/* Mozilla Firefox 4 to 18 */
+input.coming-soon-input:-moz-placeholder { font-size: 12px; }
+/* Mozilla Firefox 19+ */
+input.coming-soon-input::-moz-placeholder { font-size: 12px; }
+/* Internet Explorer 10+ */
+input.coming-soon-input:-ms-input-placeholder { font-size: 12px; }
+
+/**
+* home
+*/
+/* red plus button to add event */
+.home-create-event {
+	position: absolute;
+	right: 10px;
+	bottom: 0px;
+	width: 18vw;
+	height: 18vw;
+	line-height: 18vw;
+	border-radius: 100%;
+	background: #DB4437;
+	font-size: 8vw;
+	box-shadow: 3px 3px 8px #888888;
+}
+.home-button-top {
+	height: 40px;
+	position: absolute;
+	right: 0;
+	top: 40px;
+	width: 80px;
+}
+/* calendar select popover */
+.home-popover-item { height: 47px; }
+#home-calendar-select-popover {
+	border: 0;
+	border-radius: 0;
+	height: 230px;
+	top: 0;
+	width: 169px;
+}
+.home-num-30-position {
+	font-size: 15px;
+	left: 18px;
+	position: absolute;
+	top: 17px;
+}
+.home-num-7-position {
+	font-size: 15px;
+	left: 22px;
+	position: absolute;
+	top: 63px;
+}
+.home-num-1-position {
+	font-size: 15px;
+	left: 22px;
+	position: absolute;
+	top: 109px;
+}
+
+/**
+* notification popover
+*/
+#noti-popover-view {
+	border: 0;
+	border-radius: 0;
+	height: 65vh;
+	max-height: 500px;
+}
+.noti-tabs { height: 30px !important; min-height: 30px !important; top: 0; }
+#noti-popover-content { margin-bottom: 30px; margin-top: 30px; }
+/* footer bar in popover */
+#noti-popover-footer-bar {
+	border: 0;
+	border-radius: 0;
+	height: 30px;
+	padding-left: 10px;
+}
+#noti-popover-footer-left {
+	color: #646464 !important;
+	font-size: 15px;
+	margin-left: -5px;
+	margin-top: -5px;
+	text-align: left;
+	text-decoration: underline;
+	width: 30% !important;
+}
+#noti-popover-footer-right {
+	color: #646464 !important;
+	font-size: 15px;
+	margin-top: -5px;
+	text-align: right;
+	text-decoration: underline;
+	width: 50% !important;
+}
+/* friend accepted */
+#noti-friend-accepted-badge { position: absolute; right: 3px; top: 3px; }
+#noti-friend-tab-divider {
+	border: 0;
+	height: 25px;
+	left: 1px;
+	min-height: 25px;
+	position: absolute;
+	top: 81px;
+	width: 100%;
+}
+#noti-friend-tab-divider-title { margin-left: -10px; margin-top: -5px; width: 100%; }
+#noti-friend-accepted {
+	border: 0;
+	left: 1px;
+	position: absolute;
+	top: 31px;
+	width: 100%;
+}
+.noti-button-no-request { margin-top: -5px; }
+.noti-friend-accepted-list { height: 200px !important; }
+/* css for friends tab */
+#noti-friend-request-list { }
+.noti-margin-top { margin-top: 0px !important; }
+.noti-margin-down { margin-top: 73px !important; }
+
+/**
+* search
+*/
+#search-subheader { height: 35px; }
+#search-option-label { left: 10px; position: absolute; top: 8px; }
+.search-margin-content { margin-top: 76px; }
+/* 2 div of result */
+.search-empty-result { position: absolute; top: 110px; width: 100%; }
+#search-people-result { margin-bottom: -1px; }
+#search-events-result { }
+/* search people */
+.search-person-result-name { }
+.search-person-button {
+	height: 38px !important;
+	min-height: 38px;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+/* search events */
+.search-item-event-result { height: 50px; padding: 5px; }
+
+/**
+* setting
+*/
+.setting-content { padding-left: 10px; padding-right: 10px; }
+.setting-card {
+	margin-bottom: 0;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 15px;
+	max-width: 1440px;
+}
+.setting-divider { border-bottom: 0 !important; height: 25px; min-height: 25px; }
+.setting-divider-title { left: 5px; position: inherit; top: 5px; }
+.setting-first-item { border-top: 0 !important; }
+.setting-divider-name { border-bottom: 0 !important; height: 30px; min-height: 30px; }
+.setting-easilendar { font-size: 25px !important; }
+.setting-number-view-option-1 { left: 23px; position: absolute; top: 20px; }
+.setting-number-view-option-30 { left: 19px; position: absolute; top: 20px; }
+/* event duration popup */
+.setting-input-event-duration { padding-left: 40px; width: 200px; }
+/* default-time-option.html */
+#setting-search-time-zone { position: absolute; top: 65px; }
+.setting-show-time-zone { font-size: 12px !important; height: 50px !important; padding: 5px !important; }
+#setting-time-zone-list { height: 150px; margin-top: 42px; }
+
+/**
+* side menu
+*/
+a.side-menu-item {
+	background-color: #63666F;
+	border: 0;
+	color: #8B8E95;
+	height: 50px;
+}
+a.side-menu-item:active {
+	background-color: #4A4F55;
+}
+a.side-menu-item-user {
+	background-color: #8EB4C1;
+	border: 0;
+	height: 100px;
+}
+a.side-menu-item-user > img:first-child {
+	height: 75px;
+	left: 12.5px;
+	position: absolute;
+	top: 12.5px;
+	border: 3px solid #E6DEDB;
+	border-radius: 100%;
+}
+a.side-menu-item-user > h2, a.side-menu-item-user > p, a.side-menu-item-user > h4 {
+	position: absolute;
+	left: 92.5px;
+	color: #E6DEDB;
+}
+a.side-menu-item-user > h2 {
+	top: 20px;
+	font-size: 22px;
+}
+a.side-menu-item-user > p {
+	top: 42px;
+	font-size: 12px;
+}
+a.side-menu-item-user > h4 {
+	top: 60px;
+	font-size: 14px;
+	color: #5C8B9D;
+}
+a.side-menu-item-user > i {
+	position: absolute;
+	top: 12.5px;
+	left: 67.5px;
+	font-size: 26px;
+}
+a.side-menu-item-user:active {
+	background-color: #4A4F55;
+}
+hr.side-menu-hr {
+	border: 1px solid #8B8E95;
+	margin: 0 auto 1px auto;
+	width: 92%;
+}
+/* for TOOLS menu devider */
+hr.side-menu-split {
+	border: 1px solid #8B8E95;
+	margin: 1px auto 1px auto;
+	width: 95%;
+}
+p.side-menu-split {
+	font-size: 17px;
+	margin: 5px 0 0 10px;
+}
+
+/* Profile */
+.profile-content { }
+.profile-head-information {
+	background-color: #8EB4C1;
+	height: auto;
+	margin: auto;
+	max-width: 1440px;
+	width: 100%;
+}
+.profile-avatar-container {
+	background-color: transparent;
+	height: auto;
+	margin: 10% 0 15px 5%;
+	width: 30%;
+}
+.profile-name, .profile-account-type, .profile-status { left: 36%; position: absolute; }
+.profile-name { bottom: 45px; font-size: 25px !important; }
+.profile-account-type { bottom: 25px; font-size: 16px !important; opacity: 0.7; }
+.profile-status { bottom: 25px; font-size: 16px !important; opacity: 0.7; }
+.profile-status > i { font-size: 25px !important; }
+.profile-status > p { display: inline-block; font-size: 18px !important; }
+.profile-bar { background-color: inherit !important; }
+.profile-buttons { position: absolute; right: 0; }
+.profile-second-content { margin-top: calc(40% + 55px); }
+.profile-calendar-box, .profile-information-box, .profile-friends-box, .profile-more-box { margin: auto auto auto auto; max-width: 1440px; min-height: calc(100vh - 40vw - 100px); }
+.profile-calendar-box { height: calc(100vh - 40vw - 100px); }

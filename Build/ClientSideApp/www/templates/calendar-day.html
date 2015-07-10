@@ -1,0 +1,77 @@
+<!-- starter: Can Duy Cat
+	 owner: Nguyen Thi Luong
+	 last update: 30/04/2015
+	 type: calendar template -->
+
+<ion-view title="EasiLendar">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
+     	<button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
+    </ion-nav-buttons>
+	<div class = "DayCalendar" data-ng-class="navigationDay.navBackground" data-ng-show = "viewCalendar(eSettings.sDayView)">
+		<div class = "day">
+			<div class = "header">
+				<button class="icon ion-chevron-left easi-dark-blue "   data-ng-click = "navigationDay.prevDay()"> </button>
+				<div>{{navigationDay.navDay}},{{navigationDay.navMonth}} {{navigationDay.navDate}},{{navigationDay.navYear}}   </div>
+				<button class="icon ion-chevron-right easi-dark-blue " data-ng-click = "navigationDay.nextDay()" > </button>  	
+			</div>
+			<div class="calendar">
+				<div class="row daytag">
+					<div class="empty"></div>
+				</div>
+				<div class="day-content" data-ng-style="navigationDay.contentHeight">
+					<ion-content scrollbar-y=false>
+						<div class="row row-content">
+							<div class="hours">
+								<div class="hour" data-ng-repeat="x in navigationDay.hours">{{x}}</div>
+							</div>
+							<div class="col daycol" >
+								<div class="row nor-event" data-ng-repeat="event in navigationDay.DAY.norEvent"
+								data-ng-style="event.style" data-ng-click="view(event)">
+								<div class="summary">
+									{{event.event.origin.summary}}<br>
+									{{event.event.origin.location}}</div>
+								</div>
+								<div class="row hourblock" data-ng-repeat="x in navigationDay.hours"></div>
+							</div>
+						</div>
+					
+					</ion-content>
+				</div>
+			</div>
+		</div>
+    </div>
+	
+	<div class = "day-eventlist"  ng-class="navigationDay.nav_Background" data-ng-show = "view_Calendar(eSettings.sDayView)" >
+		<h2 id="day_h2-month"><br>{{navigationDay.navMonth}}, {{navigationDay.navYear}}</h2>
+	</div>
+	<div class = "day-week">
+		<div class = "header">
+			<button class="icon ion-chevron-left easi-dark-blue "   data-ng-click = "navigationDay.prevDay()"> </button>
+			<div>This Week ({{navigationDay.nav_Month}} {{navigationDay.FirstDayInWeek}} - {{navigationDay.LastDayInWeek}})  </div>
+			<button class="icon ion-chevron-right easi-dark-blue " data-ng-click = "navigationDay.nextDay()" > </button>  	
+		</div>
+		<ion-content class="day-calendar" ><center>
+			<table class="day-table-calendar easi-no-border" data-ng-show = "view_Calendar(eSettings.sDayView)">
+				<tr class="day-tr-calendar easi-no-border">
+				<!--Day-->
+					<td class="day-date">
+						<p class="day-p-calendar-number">	{{navigationDay.nav_Date}}	</p>
+						<p class="day-p-calendar-text">	{{navigationDay.navDay}}	</p>
+					</td>
+				<!--Calendar-->
+					<td class="day-td-calendar-2">
+						<div class="day-div-calendar easi-no-border " ng-repeat="event in eUser.uGmailCalendar[navigationDay.indexOfNavDay]" background-event="bkgE">
+							<span class="span-title-event">	{{event.summary}}	</span><br>
+							<span class="span-title-event">	Time:{{event.start.dateTime.getHours()}}:{{ (event.start.dateTime.getMinutes()<10)?'0':'' }}{{event.start.dateTime.getMinutes()}}{{ (event.start.dateTime.getHours() >= 12)?' PM':' AM' }} - {{event.end.dateTime.getHours()}}:{{(event.end.dateTime.getMinutes()<10)?'0':''}}{{event.end.dateTime.getMinutes()}}{{( event.end.dateTime.getHours() >= 12)?' PM':' AM' }}</span></br>
+							<span class="span-title-event">{{event.location}}</span>
+						</div>			
+					</td> 
+				</tr>
+			</table>
+		</center>  </ion-content>
+	</div>	
+</ion-view>

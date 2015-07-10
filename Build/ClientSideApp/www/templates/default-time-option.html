@@ -1,0 +1,24 @@
+<!-- starter: Can Duy Cat
+	 owner: Can Duy Cat
+	 last update: 28/04/2015
+	 type: timezone select popup template -->
+
+<div ng-init="zone=''">
+	<div class="bar bar-header item-input-inset" id="setting-search-time-zone">
+		<label class="item-input-wrapper">
+			<i class="icon ion-ios7-search placeholder-icon"></i>
+			<input type="search" placeholder="Search" ng-model="zone">
+		</label>
+	</div>
+
+	<ul class="list" id="setting-time-zone-list">
+		<li class="item item-text-wrap setting-show-time-zone"
+		ng-repeat="time in eSettings.sZoneList | filter: zone | limitTo: 10"
+		ng-click="eSettings.sTimeZone=time.zone; closePopup();">
+			{{eSettings.sZoneName[time.zone+11]}}
+			<br>
+			{{time.location}}
+		</li>
+	</ul>
+</div>
+

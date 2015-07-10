@@ -1,0 +1,57 @@
+<!-- starter: Can Duy Cat
+	 owner: Nguyen Minh Trang
+	 last update: 09/05/2015
+	 type: event editor template -->
+
+<ion-view>
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-ios-arrow-back" data-ng-click="form.close()"></button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-clear save" ng-click="form.save()">Save</button>
+	</ion-nav-buttons>
+	<div class="event-form ">
+		<div class="form">
+			<div class="title">
+				<input type="text" placeholder="Enter titles" ng-model="form.event.title">
+			</div>
+			<div class="row datetime">
+				<i class="icon ion-android-time"></i>
+				<div>
+					<div class="row all-day">
+						<label>All-day</label>
+						<div class="checkbox checkbox-easi-blue">
+							<input ng-model="form.allday" type="checkbox" />
+						</div>
+					</div>
+					<div class="fromto">
+						<div class="row">
+							<div class="label">From</div>
+							<div class="col date">
+								<input type="text" placeholder="dd/mm/yyyy" ng-model="form.event.date1">
+							</div>
+							<div class="col time" ng-hide="form.allday">
+								<input type="text" placeholder="hh:mm" ng-model="form.event.time1">
+							</div>
+						</div>
+						<div class="row">
+							<div class="label">To</div>
+							<div class="col date">
+								<input type="text" placeholder="dd/mm/yyyy" ng-model="form.event.date2">
+							</div>
+							<div class="col time" ng-hide="form.allday">
+								<input type="text" placeholder="hh:mm" ng-model="form.event.time2">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row location">
+				<i class="icon ion-android-pin"></i>
+				<div class="col">
+					<input type="text" placeholder="Add location" ng-model="form.event.location">
+				</div>
+			</div>
+		</div>
+	</div>
+</ion-view>

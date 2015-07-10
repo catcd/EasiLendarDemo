@@ -1,0 +1,36 @@
+<!-- starter: Can Duy Cat
+	 owner: Ngo Duc Dung
+	 last update: 12/05/2015
+	 type: share state template-->
+
+<ion-view title="Share">
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-home" ng-click="goHome()"></button>
+	</ion-nav-buttons>
+
+	<ion-content scrollbar-y="false" scroll="false" class="share-content">
+		<div class="share-div-all-sites">
+
+			<div class="share-div-{{site.name}}" data-ng-repeat="site in allSites">
+
+				<!-- All Site -->
+				<div class="share-titles" data-ng-click="showOptions(site.name)" on-touch>
+					<div data-ng-show="site.name == 'facebook' || site.name == 'twitter'" class="share-icon-{{site.name}} {{ (site.name == 'facebook') ? 'ion-social-facebook-outline':'ion-social-twitter-outline'}}"></div>
+					<div data-ng-show="site.name == 'sms' || site.name == 'gmail'" class="share-icon-{{site.name}} {{ (site.name == 'gmail') ? 'ion-social-google-outline':'ion-ios-email-outline'}}"></div>
+					<div class="share-site-name-{{site.name}}">{{(site.name == 'sms') ? site.name.toUpperCase():site.name.charAt(0).toUpperCase() + site.name.substr(1,site.name.length-1)}}</div>
+				</div>
+
+
+				<!-- All Options -->
+				<div class="share-options-{{site.name}} easi-toggle-fast" data-ng-show="isShow(site.name)">
+					<div class="share-option-{{option.id}}" data-ng-repeat="option in site.options" data-ng-click="handleOptions(site.name,option.id)">
+						<div class="share-option-name">{{option.name}}</div>
+						<i ng-show="option.id == 'share' || option.id == 'send'" class="share-option-icon {{(option.id == 'share') ? 'ion-android-share-alt':'ion-chatboxes'}}"></i>
+						<i ng-show="option.id == 'like' || option.id == 'logout'" class="share-option-icon {{(option.id == 'like') ? 'ion-heart':'ion-reply'}}"></i>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

@@ -1,0 +1,217 @@
+<!-- starter: Can Duy Cat
+	 owner: Can Duy Cat
+	 last update: 10/07/2015
+	 type: html template-->
+
+<ion-view title="My profile">
+<!-- 	<ion-nav-bar class="bar-easi-lblue">
+	</ion-nav-bar> -->
+
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear
+		{{leftButton[isEditing].icon}}"
+		ng-click="leftFunction()">
+		</button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-icon button-clear
+		{{rightButton[isEditing].icon}}"
+		ng-click="rightFunction()">
+		</button>
+	</ion-nav-buttons>
+
+	<ion-content scroll="false">
+		<div class="item easi-no-padding easi-no-border easi-back-blue">
+			<div class="item easi-no-padding easi-no-border mp-avatar-container">
+				<i class="icon ion-android-create easi-back-white easi-center
+				mp-edit-button easi-fade-fast easi-blue"
+				ng-click="edit()"
+				ng-hide="isEditing"></i>
+
+				<img data-ng-src="{{eUser.uAvatar == '0' ? 'img/ava0.png' : eUser.uAvatar}}"
+				class="mp-avatar">
+
+				<i class="icon ion-image easi-back-white easi-center
+				mp-picture-button easi-fade-fast easi-blue"
+				ng-click="capture()" ng-hide="isEditing"></i>
+			</div>
+
+			<h2 class="easi-center easi-white mp-name">
+				{{eUser.uName}}
+			</h2>
+			<p class="easi-center easi-dark-blue mp-account-type">
+				{{eUser.uVIP == true ? "VIP" : "Standard"}}
+			</p>
+		</div>
+
+		<div class="mp-tabs easi-white easi-no-border">
+			<div class="easi-center mp-tab mp-tab-1" ng-click="activeTab(0)">
+				<input type="radio" id="mp-tab-0" name="tab-group-1" checked>
+				<label for="tab-0">Overview</label>
+			</div>
+			<div class="easi-center mp-tab mp-tab-2" ng-click="activeTab(1)">
+				<input type="radio" id="mp-tab-1" name="tab-group-1">
+				<label for="tab-1">Information</label>
+			</div>
+			<div class="easi-center mp-tab mp-tab-3" ng-click="activeTab(2)">
+				<input type="radio" id="mp-tab-2" name="tab-group-1">
+				<label for="tab-2">Friends</label>
+			</div>
+			<div class="easi-center mp-tab mp-tab-4" ng-click="activeTab(3)">
+				<input type="radio" id="mp-tab-3" name="tab-group-1">
+				<label for="tab-3">Password</label>
+			</div>
+		</div>
+
+		<ion-content scroll="true" class="easi-index-2 mp-second-content">
+
+		<!-- overview -->
+			<div class="mp-overview-box easi-fade-fast" ng-show="active == 0">
+				<div class="item item-text-wrap easi-center easi-dark-blue mp-time-item"
+				data-ng-init="onLoadMyProfile()">
+					<h2 id="mp-date"></h2>
+					<h2 id="mp-time"></h2>
+					<h2 id="mp-status"></h2>
+				</div>
+
+				<br><br><br><br><br>
+
+				<div class="mp-friends-info">
+					<div ng-repeat="friend in eUser.uFriend"
+					class="mp-friends-info-item"
+					ng-show="{{$index < 4}}" ng-click="activeTab(2)">
+						<img data-ng-src="{{friend.ava == '0' ? 'img/ava0.png' : friend.ava}}" alt="avatar">
+						<p class="easi-center easi-gray">{{friend.name}}</p>
+					</div>
+
+					<div class="mp-friends-more-item" ng-click="activeTab(2)">
+						<h3 class="easi-white easi-center easi-back-gray">
+							+{{(countFriend() - 4) > 0 ? countFriend() - 4 : ""}}
+						</h3>
+						<p class="easi-center easi-gray">More</p>
+					</div>
+				</div>
+			</div>
+
+		<!-- information -->
+			<div class="mp-information-box easi-fade-fast" ng-show="active == 1 && isEditing == false">
+				<div class="list card mp-info-card">
+					<div class="item item-divider easi-back-white easi-no-padding mp-card-divider">
+						<h2 class="easi-dark-blue">
+							<b>Basic information</b>
+						</h2>
+					</div>
+
+					<div class="item item-icon-left mp-card-first-item">
+						<i class="icon ion-android-person easi-dark-blue"></i>
+						Name: {{eUser.uName}}
+					</div>
+
+					<div class="item item-icon-left">
+						<i class="icon ion-icecream easi-dark-blue"></i>
+						Birth date: {{eUser.uBirthday != null ? eCalendar.parseDate(eUser.uBirthday).date : '###'}}
+					</div>
+
+					<div class="item item-icon-left">
+						<i class="icon ion-calendar easi-dark-blue"></i>
+						Birth year: {{eUser.uBirthday != null ? eCalendar.parseDate(eUser.uBirthday).year : '###'}}
+					</div>
+
+					<div class="item item-icon-left">
+						<i class="icon ion-transgender easi-dark-blue"></i>
+						Gender: {{eUser.uGender != '' ? eUser.uGender : '###'}}
+					</div>
+				</div>
+
+				<div class="list card mp-info-card">
+					<div class="item item-divider easi-back-white easi-no-padding mp-card-divider">
+						<h2 class="easi-dark-blue mp-card-divider-title">
+							<b>Contact information</b>
+						</h2>
+					</div>
+
+					<div class="item item-icon-left mp-card-first-item">
+						<i class="icon ion-android-mail easi-dark-blue"></i>
+						Email: {{eUser.uEmail}}@gmail.com
+					</div>
+
+					<div class="item item-icon-left">
+						<i class="icon ion-android-phone-portrait easi-dark-blue"></i>
+						Phone: {{eUser.uPhone != '' ? eUser.uPhone : '###'}}
+					</div>
+
+					<div class="item item-icon-left">
+						<i class="icon ion-android-pin easi-dark-blue"></i>
+						Address: {{eUser.uAddress != '' ? eUser.uAddress : '###'}}
+					</div>
+				</div>
+			</div>
+
+		<!-- edit -->
+			<div class="easi-fade-fast mp-edit-box" ng-show="isEditing">
+				<div class="list list-inset">
+					<img data-ng-src="{{eUser.uAvatar == '0' ? 'img/ava0.png' : eUser.uAvatar}}"
+					class="mp-avatar-edit">
+
+					<label class="item item-input mp-input-top">
+						<input type="text" placeholder="Full Name" ng-model="data.name">
+					</label>
+
+					<label id="mp-email" class="item item-input mp-input-top">
+						<input type="text" placeholder="{{eUser.uEmail+'@gmail.com'}}" disabled="true">
+						<i class="icon ion-android-cloud-done easi-dark-blue mp-icon-sync"
+						ng-show="eUser.uConfirm"></i>
+					</label>
+
+					<ionic-datepicker idate="currentDate" disablepreviousdates="false"
+					disablefuturedates="false" callback="datePickerCallback">
+						<label class="item item-input mp-input-birthday">
+							<input type="text" placeholder="Date of Birth" value={{mBirthday}} disabled="true">
+						</label>
+					</ionic-datepicker>
+
+					<div class="mp-switch">
+						<input id="easi-toggle-9" class="easi-toggle easi-toggle-yes-no"
+						type="checkbox" ng-model="data.gender">
+						<label for="easi-toggle-9" data-on="Male" data-off="Female"></label>
+					</div>
+
+					<label class="item item-input mp-input">
+						<input type="text" placeholder="Phone No" ng-model="data.phone" numbers-only>
+					</label>
+
+					<label class="item item-input mp-input">
+						<input type="text" placeholder="Address" ng-model="data.address">
+					</label>
+				</div>
+			</div>
+
+		<!-- friends -->
+			<div class="mp-friends-box easi-fade-fast" ng-show="active == 2">
+				<div class="card mp-friend-card" ng-repeat="friend in eUser.uFriend">
+					<div class="item mp-friend-avatar">
+						<img data-ng-src="{{friend.ava == '0' ? 'img/ava0.png' : friend.ava}}"
+						ng-click="eDatabase.viewProfile(friend.id)">
+						<h2 class="easi-gray" ng-click="eDatabase.viewProfile(friend.id)">
+							{{friend.name}}
+						</h2>
+
+						<div ng-click="eDatabase.viewProfile(friend.id)">
+							<i class="icon ion-coffee"> 14</i>
+							<i class="icon ion-android-chat"> 9</i>
+						</div>
+
+						<button class="button button-icon icon ion-android-delete easi-red mp-trash-icon"
+						ng-click="delFriend(friend.id, friend.name)"></button>
+					</div>
+				</div>
+			</div>
+
+		<!-- password -->
+			<div class="mp-password-box easi-fade-fast" ng-show="active == 3">
+				<br>
+				<h2><pre>  we are coming soon...</pre></h2>
+			</div>
+		</ion-content>
+	</ion-content>
+</ion-view>
