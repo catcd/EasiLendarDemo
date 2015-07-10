@@ -100,7 +100,7 @@ signIn.controller('SignInController', function($rootScope, $scope, $timeout,
 					eUser.uFriend = user.friends;
 					eUser.uVIP = user.VIP;
 					eUser.isLogin = true;
-					
+
 					// convert
 					eUser.uGmailCalendar = eDatabase.convertCal(
 						user.g_calendar);
@@ -108,7 +108,7 @@ signIn.controller('SignInController', function($rootScope, $scope, $timeout,
 						user.local_calendar);
 					eUser.uFaceCalendar = eDatabase.convertCal(
 						user.face_calendar);
-			
+
 					eUser.uRequested = user.requested;
 					eUser.uFRequest = isNull( user.noti ) ? null
 							: user.noti.fRequest;
@@ -120,13 +120,13 @@ signIn.controller('SignInController', function($rootScope, $scope, $timeout,
 					// set uFRLength and uFALength
 					eDatabase.setUFRL();
 					eDatabase.setUFAL();
-					
+
 					// load uRequested, uFRequest, uFAccepted, uFriend info
 					eDatabase.loadFriendInfo(eUser.uRequested);
 					eDatabase.loadFriendInfo(eUser.uFriend, 'friend');
 					eDatabase.loadFriendInfo(eUser.uFRequest);
 					eDatabase.loadFriendInfo(eUser.uFAccepted, 'noti');
-					
+
 					$scope.user.reset();
 					$rootScope.goHome();
 				}
@@ -251,7 +251,7 @@ signIn.controller('SignInController', function($rootScope, $scope, $timeout,
 					return false;
 				} else if (this.id.charCodeAt( i ) > 122) {
 					return false;
-				}			
+				}
 			}
 			return true;
 		};

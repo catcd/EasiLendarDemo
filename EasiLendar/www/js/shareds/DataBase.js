@@ -5,7 +5,7 @@
  * type: all shared database variables and functions
  */
 
-var database = angular.module('MainApp.shareds.dataBase', [] );
+var database = angular.module('MainApp.shareds.dataBase', []);
 
 database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 	eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, $localstorage) {
@@ -19,7 +19,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		}
 		return false;
 	};
-	
+
 	/*
 	 * PRIVATE
 	 * convert every dateTime object to String
@@ -33,9 +33,9 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					for (var y in temp[x]) {
 						if (temp[x].hasOwnProperty(y)) {
 							temp[x][y].start.dateTime = temp[x][y].start.
-															dateTime.toString();
+							dateTime.toString();
 							temp[x][y].end.dateTime = temp[x][y].end.dateTime.
-																	toString();
+							toString();
 						}
 					}
 					temp[x] = angular.copy(temp[x]); // remove the $$hashKey
@@ -55,7 +55,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		eSettings.resetData();
 		// User information
 		eUser.resetData();
-		// eFriend 
+		// eFriend
 		eFriend.resetData();
 	};
 
@@ -64,7 +64,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 	 * check if user has signed in or not
 	 */
 	var checkSignIn = function() {
-		if (!isNull( eUser.uID ) && eUser.isLogin && eSettings.sInternet) {
+		if (!isNull(eUser.uID) && eUser.isLogin && eSettings.sInternet) {
 			return true;
 		} else {
 			return false;
@@ -75,18 +75,18 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 	 * show loading balls
 	 */
 	var databaseLoading = function() {
-		$ionicLoading.show( {
+		$ionicLoading.show({
 			template: '<ion-spinner icon="android" class="loading-spinner"></ion-spinner>',
 			hideOnStateChange: true
-		} );
+		});
 	};
 
 	/*
 	 * PRIVATE
 	 * is used to hide loading when done
 	 */
-	var onComplete = function( error ) {
-		if ( error ) {
+	var onComplete = function(error) {
+		if (error) {
 			console.log('failed');
 		} else {
 			$ionicLoading.hide();
@@ -94,20 +94,18 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 	};
 
 	/*
-	* convert string dateTime to object Date
-	*/
-	var convertCal = function( calendar ) {
-		if (!isNull( calendar )) {
+	 * convert string dateTime to object Date
+	 */
+	var convertCal = function(calendar) {
+		if (!isNull(calendar)) {
 			var temp = [];
 			for (var x in calendar) {
 				if (calendar.hasOwnProperty(x)) {
 					temp[x] = calendar[x];
 					for (var y in temp[x]) {
 						if (temp[x].hasOwnProperty(y)) {
-							temp[x][y].start.dateTime = new Date(temp[x][y].
-																start.dateTime);
-							temp[x][y].end.dateTime = new Date(temp[x][y].end.
-																	dateTime);
+							temp[x][y].start.dateTime = new Date(temp[x][y].start.dateTime);
+							temp[x][y].end.dateTime = new Date(temp[x][y].end.dateTime);
 						}
 					}
 				}
@@ -133,12 +131,21 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 	 * set uFAccepted's length to uFALength
 	 */
 	var setUFAL = function() {
-		if (isNull( eUser.uFAccepted )) {
+		if (isNull(eUser.uFAccepted)) {
 			eUser.uFALength = 0;
 		} else {
 			eUser.uFALength = Object.keys(eUser.uFAccepted).length;
 		}
 	};
+
+	/*
+	 * saveData function
+	 */
+	var saveData = function() {
+		if (eUser.uRemember) {
+			$localstorage.saveData();
+		}
+	}
 
 	/*
 	 * loadFriendInfo function
@@ -151,14 +158,14 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		eUser.uIsDoneNoti = false;
 		if (checkSignIn() && !isNull(fArray)) {
 			var ref = new Firebase(
-				'https://radiant-inferno-3243.firebaseio.com/Users' );
-			
+				'https://radiant-inferno-3243.firebaseio.com/Users');
+
 			// find the last friend
-			var array = Object.keys( fArray );
+			var array = Object.keys(fArray);
 			var length = array.length;
 			// id of the last friend in the list
-			var lastFriend = array[length-1];
-			ref.once('value', function( snapshot ) {
+			var lastFriend = array[length - 1];
+			ref.once('value', function(snapshot) {
 				for (var x in fArray) {
 					if (fArray.hasOwnProperty(x)) {
 						var friend = snapshot.child(x).val();
@@ -171,19 +178,20 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 							// load uFriend array
 							if (type == 'friend') {
 								eUser.uIsDoneFriend = true;
-							} 
+							}
 							// load noti. Only the last type of noti has type
 							else if (type == 'noti') {
 								eUser.uIsDoneNoti = true;
 							}
 						}
 					}
+					saveData();
 				}
 			});
 		} else {
 			if (type == 'friend') {
 				eUser.uIsDoneFriend = true;
-			} 
+			}
 			// load noti. Only the last type of noti has type
 			else if (type == 'noti') {
 				eUser.uIsDoneNoti = true;
@@ -198,15 +206,15 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		this.setUFAL = setUFAL;
 		this.loadFriendInfo = loadFriendInfo;
 		this.databaseLoading = databaseLoading;
-		
+
 		/*
-		* sign out function
-		* update data, reset setting, go to form.
-		*/
+		 * sign out function
+		 * update data, reset setting, go to form.
+		 */
 		this.signOutEasi = function() {
 			// clear data
 			clearData();
-		
+
 			// Clear cache
 			$localstorage.deleteData();
 
@@ -214,7 +222,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 			$rootScope.goToState('form');
 
 			// notice
-			eToast.toastSuccess('Sign out successfully!', 3000 );
+			eToast.toastSuccess('Sign out successfully!', 3000);
 		};
 
 		/*
@@ -224,7 +232,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 			if (checkSignIn() && !isNull(id)) {
 				var ref = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users');
-				var idRef = ref.child( id );
+				var idRef = ref.child(id);
 
 				// loading
 				this.databaseLoading();
@@ -234,7 +242,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					idRef.once('value', function(snapshot) {
 						var user = snapshot.val();
 						// there is no user with that "id"
-						if (isNull( user )) {
+						if (isNull(user)) {
 							alert(id + 'does not exist');
 						} else {
 							// add this user to "id"'s friends list
@@ -242,16 +250,16 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 							fFriend.set(eUser.uID);
 							// add this user to accepted list of "id"
 							var fAccept = idRef.child('noti/fAccept/' +
-																	eUser.uID);
+								eUser.uID);
 							fAccept.set(eUser.uID);
 							// delete this user from requested list of id
 							var fRequested = idRef.child('requested/' +
-																	eUser.uID);
+								eUser.uID);
 							fRequested.set(null);
 
 							// delete the request of 'id'
 							delete eUser.uFRequest[id];
-							setUFRL(); 	// set uFRLength
+							setUFRL(); // set uFRLength
 
 							// add "id" to friends list
 							if (isNull(eUser.uFriend)) {
@@ -266,11 +274,13 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 							};
 							// update on this account (not 'id')
 							var uFriend = ref.child(eUser.uID + '/friends/' +
-																			id);
+								id);
 							uFriend.set(id);
 							var uFRequest = ref.child(eUser.uID +
-														'/noti/fRequest/' + id);
+								'/noti/fRequest/' + id);
 							uFRequest.set(null, onComplete);
+
+							saveData();
 						}
 					}, function(errorObject) {
 						console.log('Failed to access' + ref);
@@ -284,7 +294,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		/*
 		 * get friend's calendar function return object multiCalendar of "id"
 		 */
-		this.getCalendar = function( id ) {
+		this.getCalendar = function(id) {
 			if (checkSignIn() && !isNull(id)) {
 				var ref = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' + id);
@@ -292,7 +302,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 				this.databaseLoading();
 				ref.once('value', function(snapshot) {
 					var user = snapshot.val();
-					if (isNull( user )) {
+					if (isNull(user)) {
 						alert(id + 'does not exist');
 					} else {
 						user.g_calendar = convertCal(user.g_calendar);
@@ -300,10 +310,11 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 						var temp = [user.g_calendar, user.local_calendar];
 						eFriend.fMultiCal = eMultiCalendar.newMultiCal(temp);
 						$ionicLoading.hide();
+						saveData();
 					}
 				}, function(errorObject) {
 					console.log('Failed to access' + ref);
-				} );
+				});
 			} else {
 				return false;
 			}
@@ -332,12 +343,12 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 				friend.once('value', function(snapshot) {
 					var user = snapshot.val();
 					// there is no user with that "id"
-					if (isNull( user )) {
+					if (isNull(user)) {
 						alert(id + 'does not exist');
 					} else {
 						// add this user to "id"'s friend request list
 						var fRequest = friend.child('noti/fRequest/' +
-																	eUser.uID);
+							eUser.uID);
 						fRequest.set(eUser.uID);
 						// add id to this user's requested list
 						if (isNull(eUser.uRequested)) {
@@ -351,8 +362,9 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 						};
 						// database
 						uRequest.set(id, onComplete);
+						saveData();
 					}
-				}, function( errorObject ) {
+				}, function(errorObject) {
 					console.log('Failed to access' + ref);
 				});
 			} else {
@@ -369,13 +381,14 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 			if (checkSignIn() && !isNull(id)) {
 				delete eUser.uFAccepted[id];
 				setUFAL(); // set uFALength
-			
+
 				var uAccept = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' +
 					eUser.uID + '/noti/fAccept/' + id);
 				// loading
 				this.databaseLoading();
 				uAccept.set(null, onComplete);
+				saveData();
 			} else {
 				return false;
 			}
@@ -399,15 +412,16 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 				/* database */
 				var user = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' +
-					eUser.uID );
+					eUser.uID);
 				user.child('friends/' + id).set(null);
 				user.child('noti/fAccept/' + id).set(null);
 
 				var friend = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' +
-					id );
+					id);
 				friend.child('friends/' + eUser.uID).set(null);
 				friend.child('noti/fAccept/' + eUser.uID).set(null, onComplete);
+				saveData();
 			} else {
 				return false;
 			}
@@ -416,22 +430,23 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		/*
 		 * rejectF function reject friend request sent by 'id'
 		 */
-		this.rejectF = function( id ) {
-			if (checkSignIn() && !isNull( id )) {
+		this.rejectF = function(id) {
+			if (checkSignIn() && !isNull(id)) {
 				delete eUser.uFRequest[id];
-				setUFRL();	// set uFRLength
+				setUFRL(); // set uFRLength
 
 				var uRequest = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' +
-					eUser.uID + '/noti/fRequest/' + id );
+					eUser.uID + '/noti/fRequest/' + id);
 				var fRequested = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' +
-					id + '/requested/' + eUser.uID );
+					id + '/requested/' + eUser.uID);
 
 				// loading
 				this.databaseLoading();
 				fRequested.set(null);
 				uRequest.set(null, onComplete);
+				saveData();
 			} else {
 				return false;
 			}
@@ -445,7 +460,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 			$rootScope.searchFriends = [];
 			if (checkSignIn() && !isNull(str)) {
 				var ref = new Firebase(
-				'https://radiant-inferno-3243.firebaseio.com/Users');
+					'https://radiant-inferno-3243.firebaseio.com/Users');
 				// loading
 				this.databaseLoading();
 				ref.once('value', function(snapshot) {
@@ -475,7 +490,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 
 		/*
 		 * searchEvent function str is str to search for (search in
-		 * eUser.uGmailCalendar) add to $rootScope.searchEvents 
+		 * eUser.uGmailCalendar) add to $rootScope.searchEvents
 		 * any id or name that contains 'str' do not interact with database
 		 */
 		this.searchEvent = function(str) {
@@ -489,17 +504,16 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 						for (var y in eUser.uGmailCalendar[x]) {
 							if (eUser.uGmailCalendar[x].hasOwnProperty(y)) {
 								var found1 = eUser.uGmailCalendar[x][y].summary.
-																	search(str);
+								search(str);
 								var found2 = -1;
-								if (!isNull(eUser.uGmailCalendar[x][y].
-																	location)) {
+								if (!isNull(eUser.uGmailCalendar[x][y].location)) {
 									found2 = eUser.uGmailCalendar[x][y].
-														location.search(str);
+									location.search(str);
 								}
 								// if event summary or location contains 'str'
 								if (found1 != -1 || found2 != -1) {
 									$rootScope.searchEvents[length++] = eUser.
-														uGmailCalendar[x][y];
+									uGmailCalendar[x][y];
 								}
 							}
 						}
@@ -515,8 +529,8 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		 * want to get info set
 		 * info in eFriend
 		 */
-		this.getInformation = function( id ) {
-			if (checkSignIn() && !isNull( id )) {
+		this.getInformation = function(id) {
+			if (checkSignIn() && !isNull(id)) {
 				var ref = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' + id);
 				// loading
@@ -543,7 +557,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					}
 				}, function(errorObject) {
 					console.log('Failed to access' + ref);
-				} );
+				});
 			} else {
 				return false;
 			}
@@ -556,7 +570,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 			if (checkSignIn()) {
 				var ref = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' +
-																	eUser.uID);
+					eUser.uID);
 				// loading
 				this.databaseLoading();
 				ref.once('value', function(snapshot) {
@@ -581,10 +595,8 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					eUser.uFaceCalendar = convertCal(user.face_calendar);
 
 					eUser.uRequested = user.requested;
-					eUser.uFRequest = isNull( user.noti ) ? null
-							: user.noti.fRequest;
-					eUser.uFAccepted = isNull( user.noti ) ? null
-							: user.noti.fAccept;
+					eUser.uFRequest = isNull(user.noti) ? null : user.noti.fRequest;
+					eUser.uFAccepted = isNull(user.noti) ? null : user.noti.fAccept;
 					eUser.uFRLength = 0;
 					eUser.uFALength = 0;
 
@@ -599,9 +611,10 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					loadFriendInfo(eUser.uFAccepted, 'noti');
 
 					$ionicLoading.hide();
+					saveData();
 				}, function(errorObject) {
 					console.log('Can not refresh');
-				} );
+				});
 			} else {
 				return false;
 			}
@@ -612,7 +625,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		 */
 		this.updateCalendar = function() {
 			if (checkSignIn()) {
-				toString();	// convert
+				toString(); // convert
 				var user = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' +
 					eUser.uID);
@@ -624,7 +637,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 				if (!isNull(eUser.uGmailCalendar)) {
 					uGC.set(eUser.uGmailCalendar);
 				} else {
-					uGC.set( null );
+					uGC.set(null);
 				}
 				var uLocal = user.child('local_calendar');
 				if (!isNull(eUser.uLocalCalendar)) {
@@ -632,15 +645,16 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 				} else {
 					uLocal.set(null, onComplete);
 				}
+				saveData();
 			} else {
 				return false;
 			}
 		};
 
 		/*
-		 * viewProfile function 
+		 * viewProfile function
 		 * id is id of a person this user wants to view profile
-	 	 * set name, id, ava, calendar to eFriend
+		 * set name, id, ava, calendar to eFriend
 		 */
 		this.viewProfile = function(id) {
 			if (checkSignIn() && !isNull(id)) {
@@ -669,14 +683,13 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 						};
 						if (!isNull(eUser.uFriend) &&
 							!isNull(eUser.uFriend[id]) &&
-							!isNull( eFriend.fFriend[eUser.uID])) {
+							!isNull(eFriend.fFriend[eUser.uID])) {
 							// set fMultiCal
 							var g_calendar = convertCal(user.g_calendar);
-							var local_calendar = convertCal(user.
-																local_calendar);
-							var temp = [ g_calendar, local_calendar ];
+							var local_calendar = convertCal(user.local_calendar);
+							var temp = [g_calendar, local_calendar];
 							eFriend.fMultiCal = eMultiCalendar.
-															newMultiCal(temp);
+							newMultiCal(temp);
 						} else {
 							eFriend.fMultiCal = null;
 						}
@@ -685,7 +698,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					}
 				}, function(errorObject) {
 					console.log('Failed to access' + ref);
-				} );
+				});
 			} else {
 				return false;
 			}
@@ -693,7 +706,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 
 		/*
 		 * getFriend function get friend list of id
-	 	 */
+		 */
 		this.getFriend = function(id) {
 			if (checkSignIn() && !isNull(id)) {
 				var ref = new Firebase(
@@ -709,9 +722,9 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 						eFriend.fFriend = user.friends;
 						$ionicLoading.hide();
 					}
-				}, function( errorObject ) {
+				}, function(errorObject) {
 					console.log('Failed to access' + ref);
-				} );
+				});
 			} else {
 				return false;
 			}
@@ -722,26 +735,26 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		 * help function for updateEvent
 		 */
 		this.updateEventHelper = function(event) {
-			var startDate = new Date( event.start.dateTime ),
-			endDate = new Date( event.end.dateTime ),
-			// normal/all/over
-			etype = eEasiLendar.isType(event.start, event.end);	
+			var startDate = new Date(event.start.dateTime),
+				endDate = new Date(event.end.dateTime),
+				// normal/all/over
+				etype = eEasiLendar.isType(event.start, event.end);
 
 			// date1, date2 are different if etype is over
 			var date1 = new Date(startDate.getFullYear(),
-			startDate.getMonth(), startDate.getDate());
-			
+				startDate.getMonth(), startDate.getDate());
+
 			var date2 = new Date(endDate.getFullYear(),
-			endDate.getMonth(), endDate.getDate());
+				endDate.getMonth(), endDate.getDate());
 
 			var day = new Firebase(
-					'https://radiant-inferno-3243.firebaseio.com/Users/' +
-					eUser.uID + '/g_calendar');
+				'https://radiant-inferno-3243.firebaseio.com/Users/' +
+				eUser.uID + '/g_calendar');
 			// loading
 			this.databaseLoading();
 			if (etype != 'over') {
 				var temp = isNull(eUser.uGmailCalendar[date1]) ? null :
-					 angular.copy(eUser.uGmailCalendar[date1]);
+					angular.copy(eUser.uGmailCalendar[date1]);
 				// has only 1 day to update
 				day.child(date1.toString()).set(temp, onComplete);
 			} else {
@@ -765,7 +778,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		 * event1 is new created event/delete event/event before edit
 		 * event2 is event after edit
 		 */
-		this.updateEvent = function(event1, type , event2) {
+		this.updateEvent = function(event1, type, event2) {
 			if (checkSignIn() && !isNull(event1) && !isNull(type)) {
 				if (type == 'create') {
 					this.updateEventHelper(event1);
@@ -775,6 +788,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					this.updateEventHelper(event1);
 					this.updateEventHelper(event2);
 				}
+				saveData();
 			} else {
 				return false;
 			}
@@ -798,7 +812,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 					} else {
 						var time = new Date();
 						var today = new Date(time.getFullYear(),
-											time.getMonth(),
+							time.getMonth(),
 							time.getDate());
 						if (isNull(user.g_calendar) ||
 							isNull(user.g_calendar[today])) {
@@ -808,7 +822,7 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 						}
 					}
 				}, function(errorObject) {
-					console.log('Failed to access' + ref );
+					console.log('Failed to access' + ref);
 				});
 			} else {
 				return false;
@@ -844,13 +858,14 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 				user.child('gender').set(eUser.uGender);
 				user.child('phone').set(eUser.uPhone);
 				user.child('address').set(eUser.uAddress, onComplete);
+				saveData();
 			} else {
 				return false;
 			}
 		};
-		
+
 		/*
-		 * 
+		 * checkHack function
 		 */
 		this.checkHack = function(id, pass) {
 			if (checkSignIn()) {
@@ -866,28 +881,27 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 						if (user.password != pass) {
 							// clear data
 							clearData();
-		
+
 							// Clear cache
 							$localstorage.deleteData();
-							$localstorage.deleteSetting();
 
 							// change state
 							$rootScope.goToState('form');
 
 							// notice
-							eToast.toastSuccess('You are hacked!', 3000 );
+							eToast.toastSuccess('You are hacked!', 3000);
 						}
 					}
-				}, function( errorObject ) {
+				}, function(errorObject) {
 					console.log('Failed to access' + ref);
-				} );
+				});
 			} else {
 				return false;
 			}
 		}
 	}
 	return new DataBase();
-} );
+});
 database.factory('eventOff', function(eDatabase) {
 	return {
 		events: [], // array of events that have not been updated
@@ -900,12 +914,10 @@ database.factory('eventOff', function(eDatabase) {
 		// update all event in events array
 		update: function() {
 			for (var i = 0; i < this.events.length; i++) {
-				eDatabase.updateEvent(this.events[i].event, this.events[i].
-																		type);
+				eDatabase.updateEvent(this.events[i].event, this.events[i].type);
 			}
 		},
 		// delete all events when update is complete
-		del: function() {
-		}
+		del: function() {}
 	};
-} );
+});
