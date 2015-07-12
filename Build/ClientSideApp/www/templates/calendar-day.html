@@ -30,7 +30,7 @@
 							</div> 
 							<div class="col daycol">
 								<div class="row nor-event" data-ng-repeat="event in navigationDay.DAY.norEvent"
-								data-ng-style="event.style" data-ng-click="viewE(event)">
+								data-ng-style="event.style" data-ng-click="view(event)">
 									<div class="summary"  >
 										{{calculatorTime(event.start.minutes)}} - {{calculatorTime(event.end.minutes)}}<br>
 										{{event.event.origin.summary}}

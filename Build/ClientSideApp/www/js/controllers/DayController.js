@@ -40,14 +40,8 @@ angular.module('MainApp.controllers.day', [])
 	$rootScope.dayToday = function(){
 		$scope.navigationDay = $scope.newDayCalendar();
 	};
-	$scope.viewE = function(event){
-		//create EasiEvent obj
-		var easiE = eEasiLendar.newEasiEvent(
-			event.summary, event.start, event.end,
-			event.location, event.id, event.colorID,
-			event.position, event.src, event.status
-		);
-		$rootScope.viewEvent(easiE);
+	$scope.view = function(event) {
+		$rootScope.viewEvent(event.event.origin);
 	};
 	function DayCalendar(){
 		var curDate = new Date();
