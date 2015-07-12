@@ -5,141 +5,10 @@
 * type: personal css
 */
 /*DAY CALENDAR */
-/* Day-eventlist*/
-#day_h2-month{margin-left:15wh ;margin-top:10px; color: #002900;font-size: 15wh;}
-#day_week{max-width:800px;width:100%;margin-bottom:20px; padding-bottom:5px;margin-left:5%;margin-top:10px; }
-.day-date{padding-left:0px;padding-right:10px;max-width: 50px;text-align:center;font-size:18.5px;}
-.day-table-calendar {max-width:650px;width:100%;position:relative;margin:0 auto 0;}
-.day-tr-calendar {position:absolute;}
-.day-td-calendar-2 { width: 80%; color: #ffffff;}
-.day-date:hover{ color: #33CCCC; }
-.day-div-calendar{
-	margin-left: -4px; 
-	margin-top:px;
-	padding:10px;
-    margin-bottom: 10px; 
-    font-size: 16px; 
-    text-overflow: ellipsis; 
-    overflow: hidden; 
-    white-space: nowrap;
-    width: 300px;
-    max-width: 800px;}
-.day-p-calendar-number, .day-p-calendar-text { width: 100%; padding-top: 2px;}
-.day_p-calendar-text { font-size: 15px; margin-top: -20px;}
-.event-color-1 { background-color: #32CD32;}
-.event-color-2 { background-color: #33CCCC;}
-.event-color-3 { background-color: #315050;}
-.event-color-4 { background-color: #191970;}
-.event-color-5 { background-color: #FF0000;}
-.bkg{ 
-	background-repeat: no-repeat;
-	background-size:100% 90%;
-	background-position:center center;
-	margin: 0 auto 0 auto;
-	height:35%;
-	width: 100%;
-	max-width:960px;
-	padding-left: 25%;
-	padding-bottom:10px;
-}
-.day-calendar {
-	padding-top: 5px;
-	position:absolute;
-	margin: 320px auto 0 auto ;
-}
-.day-eventlist{
-	max-height:300px;
-	max-width:960px;
-	width: 100%;
-	height: 40%;
-	background-size: cover ;
-    background-position: center center ;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-	margin-top:20px
-}
-/*day calendar*/
-.day{
-	width:100%;
-	max-width: 500px;
-	height:100%;
-	margin: 0 auto;
-}
-.day.header{
-	width: 100%;
-	max-width: 500px;
-	height: 45px;	
-	text-align: center;
-	color: #416969;
-	padding-top: 5px;
-}
-.day .header div {
-	font-size: 15px;
-	display: inline-block;
-	width: 60%;
-	max-width: 350px;
-}
-.day .header button {
-	background: 0;
-	border: 0;
-	width: 8%;
-	font-size: 20px;
-}
+
 	/* content */
-.day .calendar {	width: 100%;	height: 94%;	color: #416969;}
-.day .row, .week .col {
-	border: 0;
-	padding: 0;
-	margin: 0;
-	border-collapse: collapse;
-}
-.dat .row {	width: 100%;	max-width: 500px;}
-.daytag  .col {border-left: 1px solid #e6e6e6;}
-.row.daytag {
-	border-collapse: collapse;
-	width: 100%;
-	max-width: 500px;
-	background-color: white;
-	border: 1px solid #e6e6e6;
-	border-bottom: 0;
-}
-.daytag .empty {	width: 8%;}
-.row.day {
-	height: 25px;
-	width: 100%;
-	padding-left: 20%;
-	float: right;
-}
-/* calendar content */
-.day .calendar .day-content {
-	width: 100%;
-	border: 1px solid #e6e6e6;
-	background-color: white;
-	position: relative;
-}
-.day-content ion-content {margin-top: -45px;}
-.row-content {	border-bottom: 1px solid #e6e6e6;}
-.hours {width: 8%;	font-size: 10px;
-}
-.hour {height: 40px;	text-align: right;	border-bottom: 1px solid #e6e6e6;
-}
-.col.daycol {	height: inherit;	text-align: center;	border-left: 1px solid #e6e6e6;
-}
-.row.hourblock {	height: 40px;	border-bottom: 1px solid #e6e6e6;
-}
-/* events' CSS */
-.row.nor-event {
-	width: 12.5%;
-	padding-top: 2px;
-	padding-left: 5px;
-	margin-left: 0.5%;
-	text-align: left;
-	font-size: 15px;
-	color: white;
-	overflow: hidden;
-	position: absolute;
-	z-index: 1;
-}
+
+
 .DayCalendar{
 	width: 100%;
 	height: 100%;
@@ -147,14 +16,13 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-	margin-top: 20px;
+	margin-top: 28.5px;
 	padding-top: 30px;
-	padding-bottom: 50px;;
+	padding-bottom:-5px;
 }
 .day{
 	width: 100%;
-	max-width: 800px;
-	max-height: 1000px;
+	max-width: 450px;
 	height: 100%;
 	margin: 0 auto;
 }
@@ -165,10 +33,9 @@
 	text-align: center;
 	color: #416969;
 	padding-top: 5px;
-	
 }
 .day .header div{
-	font-size: 15px;
+	font-size: 12pt;
 	display: inline-block;
 	width: 60%;
 	max-width: 450px;
@@ -256,22 +123,6 @@
 	width: 8%;
 	font-size: 25px;
 }
-/* Export*/
-.Export{
-	width: 75%;
-	max-width: 400px;
-	margin: 0 auto 0 auto;
-	color: #416969;
-	font-size: 15px;
-	
-}
-.export-form{
-float: left;
-height:48px;}
-.export-form-height{
-height:48px;}
-.export-button{
-margin: 0 auto 0 auto;}
-.export-padding{
-padding-top:12px;
+.summary{
+	margin-left: 5px;
 }
