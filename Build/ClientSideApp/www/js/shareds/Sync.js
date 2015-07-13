@@ -28,15 +28,15 @@ angular.module('MainApp.shareds.sync', [])
 		var r = new Date(d - 86400000);
 		return r;
 	};
-
+		
 	return {
 		extraCopy : function(uGC, uGCNew){
-
+			
 			var listNewEvent = [];
 
 			for (var i = 0; i < uGC.length; i++) {
 
-				// Handle all-day events
+				// Handle all-day events 
 				// start and end has value "date" instead of "dateTime":
 
 				// Convert to form 00h00 dd/mm/yyyy -> 00h00 dd/mm/yyyy:
@@ -46,15 +46,15 @@ angular.module('MainApp.shareds.sync', [])
 						uGC[i].start.dateTime = new Date(uGC[i].start.date);
 						uGC[i].end.dateTime = new Date(uGC[i].end.date);
 
-						uGC[i].start.dateTime.setHours(0);
+						uGC[i].start.dateTime.setHours(0);	
 						uGC[i].start.dateTime.setMinutes(0);
 						uGC[i].end.dateTime.setHours(0);
 						uGC[i].end.dateTime.setMinutes(0);
 					}
 				}
 
-				// Handle long-time events
-				// start.dateTime and end.dateTime have different dates
+				// Handle long-time events 
+				// start.dateTime and end.dateTime have different dates 
 				// and save to array newHandleCalendar:
 
 				var end = new Date(uGC[i].end.dateTime);
@@ -74,9 +74,9 @@ angular.module('MainApp.shareds.sync', [])
 				var b1= end.getFullYear() != start.getFullYear();
 				var b2= end.getDate() != start.getDate();
 				var b3= end.getMonth() != start.getMonth();
-
+				
 				if (b1 || b2 || b3) {
-
+					
 					var x = 0;
 
 					var tempEnd = start;
@@ -96,7 +96,7 @@ angular.module('MainApp.shareds.sync', [])
 							var fy= uGC[i].start.dateTime.getFullYear();
 							var mth= uGC[i].start.dateTime.getMonth();
 							var dt= uGC[i].start.dateTime.getDate();
-
+							
 							uGC[i].position = new Date(fy, mth, dt);
 
 							tempStart = tomorrow(tempStart);
@@ -107,7 +107,6 @@ angular.module('MainApp.shareds.sync', [])
 
 							tempEnd = tomorrow(tempEnd);
 
-							uGC[i].mStatus = false;
 						}
 
 						// all next day from start day:
@@ -137,7 +136,6 @@ angular.module('MainApp.shareds.sync', [])
 								tempEnd = tomorrow(tempEnd);
 							}
 
-							newEvent.mStatus = false;
 							listNewEvent.push(newEvent);
 						}
 
@@ -151,8 +149,6 @@ angular.module('MainApp.shareds.sync', [])
 
 					uGC[i].position = position;
 
-					uGC[i].mStatus = false;
-
 					uGC[i].start.dateTime = start;
 					uGC[i].end.dateTime = end;
 				}
@@ -163,17 +159,38 @@ angular.module('MainApp.shareds.sync', [])
 					uGC.push(listNewEvent[i]);
 				}
 			}
+			
+			var arrayOfEasiEvent= [];
+			
+			for (var i=0; i<uGC.length; i++) {
+				var EasiEvent = {summary:'', start:'', end:'', location:'', id:'', colorId:'', position:'', src:'', status:''};
+				
+				EasiEvent.summary= uGC[i].summary;
+				EasiEvent.start= uGC[i].start.dateTime;
+				EasiEvent.end= uGC[i].end.dateTime;
+				EasiEvent.location= uGC[i].location;
+				EasiEvent.id= uGC[i].id;
+				
+				if (uGC[i].colorId === undefined) 	EasiEvent.colorId = '#09c';
+				else EasiEvent.colorId = uGC[i].colorId;
+				
+				EasiEvent.position= uGC[i].position;
+				EasiEvent.src= uGC[i].src;
+				EasiEvent.status= false;
+				
+				arrayOfEasiEvent.push(EasiEvent);
+			}
 
-			for (var i = 0; i < uGC.length; i++) {
+			for (var i = 0; i < arrayOfEasiEvent.length; i++) {
 				// make a empty array of each day:
 
-				if (uGCNew[uGC[i].position] === undefined) {
-					uGCNew[uGC[i].position] = [];
+				if (uGCNew[arrayOfEasiEvent[i].position] === undefined) {
+					uGCNew[arrayOfEasiEvent[i].position] = [];
 				}
 			}
 
-			for (var i = 0; i < uGC.length; i++) {
-				uGCNew[uGC[i].position].push(uGC[i]);
+			for (var i = 0; i < arrayOfEasiEvent.length; i++) {
+				uGCNew[arrayOfEasiEvent[i].position].push(arrayOfEasiEvent[i]);
 			}
 		},
 	};
@@ -183,17 +200,17 @@ angular.module('MainApp.shareds.sync', [])
 	var eUser= eUser;
 	var eDataBase= eDataBase;
 	var eCopyData= eCopyData;
-
+	
 	return {
 		// function should be called in the first Sign-In (for Page):
-
+		
 		logInResult: false,
 		logIN: -1,
 		email: '',
-		apiKey: 'AIzaSyAmBIdo6sEPU5QK3lqVrflqNNyoRhCBF7I',
-		clientId: '164260242142-4er9a46uufjlu6h6hsbv3s7479mqv6pr.apps.googleusercontent.com',
+		apiKey: 'AIzaSyBWQIbzQB36KWBJRGPFF5ufVn0aG4Sg394',
+		clientId: '614849996530-2d2v5hrjv4dgl4it9jeadji6mlp30q8r.apps.googleusercontent.com',
 		scopes: 'https://www.googleapis.com/auth/calendar',
-
+		
 		logInToGmailCalendar : function() {
 
 			// Log in to google account:
@@ -214,45 +231,49 @@ angular.module('MainApp.shareds.sync', [])
 
 			if (authResult && !authResult.error) {
 				this.logInResult = true;
-			}
+			} 
 			else {
 				this.logInResult = false;
 			}
 		},
-
+		
 		doNoThing : function() {
 
 		},
-
+		
 		convertMe : function() {
 			if (eUser.uGmailCalendar.length === 0) {
 				return;
 			}
-
+			
 			// change time:
 
 			var uGC = {};
 			uGC = eUser.uGmailCalendar;
-
+			
+			for (var i=0; i<uGC.length; i++){
+				uGC[i].src= "google";
+			}
+			
 			// array result is a array of array:
 
 			eUser.uGmailCalendar = [];
 
 			eCopyData.extraCopy(uGC, eUser.uGmailCalendar);
 		},
-
+		
 		// Change form of date to GG's valid form:
-
+		
 		makeValidDate: function(objectDate){
-
+		
 			objectDate = new Date(objectDate);
-
+			
 			var dd = objectDate.getDate();
 			var mm = objectDate.getMonth(); //January is 0!
 			var yyyy = objectDate.getFullYear();
 			var hh = objectDate.getHours();
 			var mn = objectDate.getMinutes();
-
+			
 			if (dd < 10) {
 				dd = '0' + dd;
 			}
@@ -260,52 +281,52 @@ angular.module('MainApp.shareds.sync', [])
 			if (mm < 10) {
 				mm = '0' + mm;
 			}
-
+			
 			if (hh<10) {
 				hh = '0' + hh;
 			}
-
+			
 			if (mn<10) {
 				mn = '0' + mn;
 			}
-
+			
 			// form of timeMax: "yyyy-mm-dd T hh:mm:ss - offset
 
 			var result = yyyy + '-' + mm + '-' + dd;
 			result+= ('T' + hh + ':' + mn + ':00-00:00');
-
+			
 			return result;
 
 		},
-
-		/*  All function add- del- edit
+		
+		/*  All function add- del- edit 
 			event Of Google calendar   */
-
+		
 		addSingleEvent : function(summary, s, e, location){
-
+			
 			var start= s;
 			var end= e;
-
+			
 			//if (start.getTime() > end.getTime())	return false;
 			if (start=== null || end=== null) {
 				return false;
 			}
-
+			
 			start= this.makeValidDate(start);
 			end= this.makeValidDate(end);
-
-			/* var event = {id:'',
-							start: {dateTime:start},
-							end: {dateTime:end},
-							summary: summary,
-							location: location,
-							status: true,
+			
+			/* var event = {id:'', 
+							start: {dateTime:start}, 
+							end: {dateTime:end}, 
+							summary: summary, 
+							location: location, 
+							status: true, 
 							position: ''
 						   };
 			*/
-
+			
 			// Add to Google Calendar:
-
+			
 			var resource = {
 				'summary': summary,
 				'location': location,
@@ -316,44 +337,44 @@ angular.module('MainApp.shareds.sync', [])
 					'dateTime': end
 				}
 			};
-
+			
 			this.addEventToGoogle(resource);
 		},
-
+	
 		addEventToGoogle: function(resource){
 			var result;
-
+			
 			var request = gapi.client.calendar.events.insert({
 				'calendarId': 'primary',
 				'resource': resource
 			});
-
+			
 			request.execute(function(resp) {
 				//handle result:
-
+				
 				if (resp.status== 'confirmed'){
 					// Add to eUser.uGmailCalendar:
-
+					
 					var uGC= [];
 					uGC[0]= resp;
-
+			
 					eCopyData.extraCopy(uGC, eUser.uGmailCalendar);
-
+					
 					result= true;
-
+					
 					// Update to Database (Page API):
-
+					
 					eDatabase.updateEvent(resp,'create');
 				}
-
+				
 				else{
 					result= false;
 				}
 			});
-
+			
 			return result;
 		},
-
+		
 		length : function(array){
 			var dem= 0;
 			for (var i in array){
@@ -361,38 +382,38 @@ angular.module('MainApp.shareds.sync', [])
 					dem++;
 				}
 			}
-
+		
 			return dem;
 		},
-
+		
 		deleteEventWithId : function(Id){
-
+			
 			// delete in eUser.uGmailCalendar:
-
+			
 			// first, search for id:
-
+			
 			var found= false;
 			for  (var index in eUser.uGmailCalendar){
 				if (eUser.uGmailCalendar.hasOwnProperty(index)){
 					for (var i in eUser.uGmailCalendar[index]){
 						if (eUser.uGmailCalendar[index].hasOwnProperty(i)){
 							if (eUser.uGmailCalendar[index][i].id === Id){
-
+						
 								var x= eUser.uGmailCalendar[index][i];
 								var y= eUser.uGmailCalendar[index];
 								var t = JSON.parse(JSON.stringify(x));
-
+						
 								var length= this.length(y);
-
-								// if father array has only one child:
-
+						
+								// if father array has only one child: 
+						
 								if (length === 1){
 									delete eUser.uGmailCalendar[index];
 								}
-
+						
 								else{
 									var temp =[];
-
+							
 									for (var j in eUser.uGmailCalendar[index]){
 										if (j!= i) {
 											var c;
@@ -400,14 +421,14 @@ angular.module('MainApp.shareds.sync', [])
 											temp.push(c);
 										}
 									}
-
+							
 									eUser.uGmailCalendar[index] = [];
 									eUser.uGmailCalendar[index] = temp;
-
+							
 								}
-
+						
 								eDatabase.updateEvent(t, 'del');
-
+						
 								found= true;
 								break;
 							}
@@ -415,106 +436,106 @@ angular.module('MainApp.shareds.sync', [])
 					}
 				}
 			}
-
+			
 			if (found=== false)	{
 				return false;
 			}
-
+			
 			// delete in google calendar:
-
+			
 			this.deleteEventOnGoogle(Id);
 		},
-
+		
 		deleteEventOnGoogle : function(Id){
 			var result;
-
+			
 			var request = gapi.client.calendar.events.delete({
 				'calendarId': 'primary',
 				'eventId': Id
 			});
-
+			
 			request.execute(function(resp) {
 				//handle result:
-
+				
 				if (resp && !resp.error){
 					result= true;
 				}
-
+				
 				else{
 					result= false;
 				}
 			});
-
+			
 			return result;
 		},
-
+		
 		editEventWithId : function(Id, newEvent){
 			// first, search for id:
-
+			
 			var found= false;
-
+			
 			var index;
 			var i;
 			var c1, c2;
-
+			
 			for (index in eUser.uGmailCalendar){
 				if (eUser.uGmailCalendar.hasOwnProperty(index)){
 					for (i in eUser.uGmailCalendar[index]){
 						if (eUser.uGmailCalendar[index].hasOwnProperty(i)) {
 							if (eUser.uGmailCalendar[index][i].id == Id){
 								found= true;
-
+						
 								c1= this.deleteEventWithId(Id);
 								var s= newEvent.summary;
 								var st= newEvent.start;
 								var en= newEvent.end;
 								var lc= newEvent.location;
-
+								
 								c2= this.addSingleEvent(s,st,en,lc);
-
+						
 							}
 						}
 					}
 				}
 			}
-
+			
 			if (found=== false) {
 				return false;
 			}
-
+			
 			else {
 				return (c1=== true && c2=== true);
 			}
 			/*
 			if (found == false)	return false;
-
+			
 			var request = gapi.client.calendar.events.update({
 				'calendarId': 'primary',
 				'eventId': Id,
 				'body': newEvent
 			});
-
+			
 			request.execute(function(resp) {
 				//handle result:
-
+				
 				if (resp && !resp.error){
 					result= true;
 				}
-
+				
 				else{
 					result= false;
 				}
 			});
-
+			
 			return result;
 			*/
 		},
-
-
+		
+		
 		/*  Sync to local calendar
 			Use Cordova.calendar  */
 
-
+			
 		syncToLocal : function() {
 
 			// Fail to connect:
@@ -522,7 +543,7 @@ angular.module('MainApp.shareds.sync', [])
 			if (window.plugins === undefined) {
 				return false;
 			}
-
+			
 			var toDay = new Date();
 			var dd = toDay.getDate();
 			var mm = toDay.getMonth() + 1; //January is 0!
@@ -545,27 +566,27 @@ angular.module('MainApp.shareds.sync', [])
 
 			var oneYearAgo = (yyyy - 1) + '-' + mm + '-' + dd + 'T' + '00:00:00-00:00';
 			var oneYearLater = (yyyy + 1) + '-' + mm + '-' + dd + 'T' + '00:00:00-00:00';
-
-			$cordovaCalendar.listEventsInRange(new Date(oneYearAgo),
+			
+			$cordovaCalendar.listEventsInRange(new Date(oneYearAgo), 
 											   new Date(oneYearLater))
 			.then(function (result) {
 				//success:
-
+			
 				eUser.uLocalCalendar = result;
 				this.handleLocalCalendar();
-
+				
 				return true;
-
+				
 			}, function(err) {
 				err=null;
 				// error:
 				return false;
 			});
-
+			
 			// Code here will be ignored by JSHint.
 			/* jshint ignore:end */
 		},
-
+		
 		handleLocalCalendar : function() {
 			/* form:
 						- calendar_id
@@ -575,70 +596,53 @@ angular.module('MainApp.shareds.sync', [])
 						- allDay
 						- title
 			*/
-
-			var uLC= eUser.uLocalCalendar;
+			
+			var uLC= JSON.parse(JSON.stringify(eUser.uLocalCalendar));
+			
+			for (var i=0; i<uLC.length; i++){
+				uLC[i].src= "local";
+			}
+			
 			var newULC= [];
-
-			/* var event= {id:'', start: start,
+			
+			/* var event= {id:'', start: start, 
 						   end: end,
-						   summary: '',
-						   location: '',
-						   status: false,
+						   summary: '', 
+						   location: '', 
+						   status: false, 
 						   position: ''
 						  };
 			*/
-
-			eUser.uLocalCalendar= [];
-
+			
 			for (var i=0; i<uLC.length; i++){
-				var event= {id:'',
-							start: {dateTime:''},
-							end: {dateTime:''},
-							summary: '',
-							location: '',
-							status: true,
-							position: ''
+				if (uLC[i].calendar_id == "3" || uLC[i].calendar_id == "6")
+					continue;
+				
+				var event= {id:'', 
+							start: {dateTime:''}, 
+							end: {dateTime:''}, 
+							summary: '', 
+							location: '', 
+							status: true, 
 						   };
-
+				
 				event.id= uLC[i].calendar_id;
 				var dts= new Date(uLC[i].dtstart);
 				var dte= new Date(uLC[i].dtend);
-				event.start.dateTime= new Date(dts);
-				event.end.dateTime= new Date(dte);
+				event.start.dateTime= dts;
+				event.end.dateTime= dte;
 				event.summary= uLC[i].title;
 				event.location= uLC[i].eventLocation;
-
-				// handle all-day event:
-
-				if (uLC[i].allDay == 1){
-					var fy= event.end.dateTime.getFullYear();
-					var mt= event.end.dateTime.getMonth();
-					var dt= event.end.dateTime.getDate()-1;
-					var temp = Date.UTC(fy,mt,dt,23,59,59,0);
-					event.end.dateTime= new Date(temp);
-				}
-
-				var y= event.start.dateTime.getFullYear();
-				var m= event.start.dateTime.getMonth();
-				var d= event.start.dateTime.getDate();
-
-				var p = new Date(y, m, d, 0,0,0,0);
-
-				p.setTime(p.getTime()-p.getTimezoneOffset()*60000);
-				event.position = p;
-
+				
 				newULC.push(event);
 			}
-
-			for (var i=0; i<newULC.length; i++){
-
-				if (eUser.uLocalCalendar[newULC[i].position] ===  undefined){
-					eUser.uLocalCalendar[newULC[i].position]= [];
-				}
-
-				eUser.uLocalCalendar[newULC[i].position].push(newULC[i]);
-
-			}
+			
+			eUser.uLocalCalendar= [];
+			
+			eCopyData.extraCopy(newULC, eUser.uLocalCalendar);
 		},
 	};
 })
+		
+		
+		
