@@ -18,7 +18,7 @@
 .si-input:-ms-input-placeholder { padding-top: 2px; }
 
 /* css for form */
-.fo-form { margin: calc(5vh - 10px) auto; }
+.fo-form { margin:auto auto; margin-top: calc(5vh - 25px); }
 .fo-up { padding-top: 10px; }
 .fo-remember { font-size: 18px; background: inherit; }
 .fo-submit { height: 45px; font-size: 20px; }
@@ -26,9 +26,9 @@
 .fo-links a { text-decoration: none; color: inherit; cursor: pointer; }
 
 /* register css */
-.rg-form { margin: calc(5vh - 25px) auto; }
+.rg-form { margin:auto auto; margin-top: calc(5vh - 25px); }
 .rg-warning { position: absolute; color: #D65930; top: 5px; right: 0; }
-.rg-terms { text-align: justify; font-size: 15px; }
+.rg-terms { text-align: justify; font-size: 15px; margin-top: 10px;}
 .rg-submit, .rg-btn { height: 47px; font-size: 18px; margin-top: 7px; display: inline-block; }
 .rg-btn { width: 52px; }
 .rg-submit { width: calc(100% - 57px); }
