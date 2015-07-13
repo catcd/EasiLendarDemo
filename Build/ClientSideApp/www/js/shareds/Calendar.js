@@ -29,12 +29,6 @@ angular.module('MainApp.shareds.calendar', [])
         shortMonths: ['jan', 'feb', 'mar', 'apr', 'may', 'jun',
             'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
         ],
-        // background name
-        bkgs: ['bkg_01_jan.jpg', 'bkg_02_feb.jpg', 'bkg_03_mar.jpg',
-            'bkg_04_apr.jpg', 'bkg_05_may.jpg', 'bkg_06_jun.jpg',
-            'bkg_07_jul.jpg', 'bkg_08_aug.jpg', 'bkg_09_sep.jpg',
-            'bkg_10_oct.jpg', 'bkg_11_nov.jpg', 'bkg_12_dec.jpg'
-        ],
 
         /*
          * Calendar functions

@@ -61,12 +61,6 @@ angular.module('mainAPP', ['ionic', 'MainApp.controllers', 'MainApp.shareds',
 				templateUrl: 'templates/register.html',
 				controller: 'SignInController'
 			})
-			.state('warning', {
-				parent: 'signIn',
-				url: '/warning',
-				templateUrl: 'templates/warning.html',
-				controller: 'SignInController'
-			})
 			/**
 			 * appFull's children
 			 */

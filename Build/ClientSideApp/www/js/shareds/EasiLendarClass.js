@@ -13,7 +13,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 	// 12 colors for user's choices;
 	var eventColor = ['#09c', '#0cf', '#36f', '#93f', '#ff9999', '#fc0',
 	                  '#f60', '#0c6', '#666', '#99f', '#393', '#c30'];
-	
+
 	// Constants
 	var HEIGHT_OF_DAYTAG = 25 + 30;	// day + date
 	var HEIGHT_OF_OVERDAY = 22;	// px
@@ -21,7 +21,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 	var STANDARD_HEIGHT = 20; // px
 	var MINUTE_STEP = 12; // px
 	var HEIGHT_OF_MINUTE_STEP = HEIGHT_OF_HOUR * MINUTE_STEP / 60;
-	
+
 	// check if obj is null/undefined/'' or not
 	var isNull = function(obj) {
 		if (obj === null || obj === undefined || obj === '') {
@@ -29,14 +29,14 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 		}
 		return false;
 	};
-	
+
 	/*
-	 * class Time 
+	 * class Time
 	 * argument time is object Date
 	 * (Event's start/end .dateTime)
 	 */
 	function Time(time) {
-		/* 
+		/*
 		 * PRIVATE
 		 * time is object Date
 		 * return time in minutes (from 00:00:00)
@@ -50,12 +50,12 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 				return null;
 			}
 		};
-		
+
 		// minutes from 00:00:00
 		this.minutes = toMinute();
 	}	// end of class Time
-	
-	/* 
+
+	/*
 	 * PRIVATE
 	 * check the type of event
 	 */
@@ -90,8 +90,8 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 			return 'over';
 		}
 	};
-	
-	/* 
+
+	/*
 	 * check if date1, date2 are same date
 	 * date1, date2 are Date
 	 */
@@ -105,14 +105,14 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 				date1.getHours() == date2.getHours() &&
 				date1.getMinutes() == date2.getMinutes() &&
 				date1.getSeconds() == date2.getSeconds()) {
-				
+
 				return true;
 			}
 			return false;
 		}
 	};
-	
-	/* 
+
+	/*
 	 * check if date1, date2 are same date
 	 * date1, date2 are Date
 	 */
@@ -123,14 +123,14 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 			if (date1.getFullYear() == date2.getFullYear() &&
 				date1.getMonth() == date2.getMonth() &&
 				date1.getDate() == date2.getDate()) {
-				
+
 				return true;
 			}
 			return false;
 		}
 	};
-	
-	/* 
+
+	/*
 	 * Class BusyEvent
 	 * start, end is Object {dateTime: ..., timeZone: ...}
 	 */
@@ -141,7 +141,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 		var setStart = function() {
 			if (!isNull(start) && isType(start, end) == 'normal') {
 				return start;
-			}	
+			}
 			return null;
 		};
 
@@ -160,7 +160,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 		this.summary = 'Busy';
 		this.colorId = 8;
 	} // end of class BusyEvent
-	
+
 	/*
 	 * Class Event
 	 * event is the original object of Google
@@ -176,14 +176,14 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 		 * return 'normal'/'all'/'over'
 		 */
 		var setType = function() {
-			if (!isNull(event)) {	
+			if (!isNull(event)) {
 				return isType(event.start, event.end);
 			} else {
 				return null;
 			}
 		};
-		
-		/* 
+
+		/*
 		 * PRIVATE
 		 * set color
 		 */
@@ -194,14 +194,14 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 				return eventColor[event.colorId];
 			}
 		};
-		
+
 		// type of this event
 		// "normal" / "all"/ "over"
 		this.type = setType();
-		
+
 		this.color = setColor();
 	}	// end of class Event
-	
+
 	/*
 	 * class Day
 	 * date is object Date
@@ -221,26 +221,26 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 		var setEvents = function() {
 			var calendar;
 			switch ($rootScope.currentState) {
-				case 'week': 
+				case 'week':
 				case 'day':
 				case 'export':
 					calendar = eUser.uGmailCalendar;
 					break;
-				case 'profile': 
+				case 'profile':
 					if (!isNull(eFriend.fMultiCal)) {
 						calendar = eFriend.fMultiCal.calendar;
 					} else {
 						calendar = null;
 					}
 					break;
-				case 'result': 
+				case 'result':
 					calendar = $rootScope.resultMultiCalendar.calendar;
 					break;
 			}
 			if (isNull(calendar)) {
 				return null;
 			}
-			// if there is no event 
+			// if there is no event
 			if (isNull(calendar[date])) {
 				return null;
 			}
@@ -251,7 +251,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 			}
 			return events;
 		};
-		
+
 		// array of Object Event in this day
 		this.events = !isNull( date ) ? setEvents() : null;
 
@@ -267,7 +267,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 				return null;
 			}
 		};
-		
+
 		/* return the previous day of this day */
 		this.prevDay = function() {
 			if (!isNull( this.date )) {
@@ -280,17 +280,17 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 				return null;
 			}
 		};
-		
+
 		/* convert to object Date */
 		this.toDate = function() {
 			return new Date(this.year, this.month, this.date);
 		};
 	}	// end of class Day
-		
+
 	/*
 	 * class Week
 	 * days is array of 7 days (Object Day) in this week
-	 * start is string "Mon", "Sat" or "Sun" 
+	 * start is string "Mon", "Sat" or "Sun"
 	 * default is "Mon"
 	 */
 	function Week(days, start) {
@@ -319,14 +319,14 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 				var curdays = [];	// array of current days
 				var pos;
 				switch (start) {
-					case 'Sat': 
+					case 'Sat':
 						pos = (date.getDay() + 1) % 7; break; // 0(Sat) - 6(Fri)
-					case 'Sun': 
+					case 'Sun':
 						pos = date.getDay(); break; // 0(Sun) - 6(Sat)
-					default: 
+					default:
 						pos = (date.getDay() + 6) % 7; break; // 0(Mon) - 6(Sun)
 				}
-	
+
 				curdays[pos] = new Day(new Date(date.getFullYear(),
 										date.getMonth(), date.getDate()));
 
@@ -341,21 +341,21 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 				return days;
 			}
 		};
-		
+
 		// start day of this week (setting)
 		this.start = setStart();
 		this.days = setDays();
-	
+
 		this.month1 = this.days[0].month;
 		// month2 is '' if it's month1
 		this.month2 = this.days[6].month;
-		
+
 		this.year1 = this.days[0].year;
 		// year2 is '' if it's year1
 		this.year2 = this.days[6].year;
-		
-		/* 
-		 * find next week 
+
+		/*
+		 * find next week
 		 * return Week Object
 		 */
 		this.nextWeek = function () {
@@ -366,9 +366,9 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 			}
 			return new Week(tdays);
 		};
-		
-		/* find previous week 
-		 * return Week Object 
+
+		/* find previous week
+		 * return Week Object
 		 */
 		this.prevWeek = function() {
 			var tdays = [];
@@ -379,14 +379,14 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 			return new Week(tdays);
 		};
 	} // end of class Week
-	
+
 	/*
 	 * class Calendar
 	 */
 	function WeekCalendar() {
-		/* 
+		/*
 		 * PRIVATE
-		 * set hours to display in calendar 
+		 * set hours to display in calendar
 		 */
 	    var setHours = function () {
 			var hours = [];
@@ -395,16 +395,16 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 					hours[i] = '12AM';
 				} else if (i < 12) {
 					hours[i] = i + 'AM';
-				} else if (i == 12) { 
+				} else if (i == 12) {
 					hours[i] = i + 'PM';
 				} else {
 					hours[i] = (i - 12) + 'PM';
-				} 
+				}
 			}
 			return hours;
 		};
-		
-		/* 
+
+		/*
 		 * PRIVATE
 		 * set navigate month
 		 */
@@ -415,8 +415,8 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 				return eCalendar.months[month1] + '-' +eCalendar.months[month2];
 			}
 		};
-		
-		/* 
+
+		/*
 		 * PRIVATE
 		 * set navigate year
 		 */
@@ -427,8 +427,8 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 				return year1 + '-' + year2;
 			}
 		};
-		
-		/* 
+
+		/*
 		 * convert navDays from array of Object Day
 		 * to array of Object WeekDay
 	     * most important function
@@ -449,7 +449,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 						if (this.navDays[i].events[j].event.type == 'over') {
 							var dur = this.navDays[i].events[j].duration;
 							for (var k=i+1; k < i + dur; k++) {
-								if (!isNull( this.navDays[k].events ) && 
+								if (!isNull( this.navDays[k].events ) &&
 									!isNull( this.navDays[k].events[j] )) {
 									for (var t=length; t > j; t--) {
 										this.navDays[k].events[t] = this.
@@ -460,14 +460,14 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 								} else if (!isNull( this.navDays[k].events )) {
 									var kLength = this.navDays[k].events.length;
 									for (var t=kLength; t <= j; t++) {
-										this.navDays[k].events[t] = 
+										this.navDays[k].events[t] =
 											new EmptyEvent(this.navDays[i].
 																	events[j]);
 									}
 								} else {
 									this.navDays[k].events = [];
 									for (var t=0; t <= j; t++) {
-										this.navDays[k].events[t] = 
+										this.navDays[k].events[t] =
 											new EmptyEvent(this.navDays[i].
 																	events[j]);
 									}
@@ -477,11 +477,11 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 					}
 				}
 			}
-			
+
 			// set height for the week content
 			this.setContentHeight();
 	    };
-		
+
 		/*
 		 * PRIVATE
 		 * Set Navigation Time function
@@ -493,37 +493,37 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 			this.setNavDays();
 			this.navMonth = setNavMonth(week.month1, week.month2);	// 0 - 11
 			this.navYear = setNavYear(week.year1, week.year2);
-			
+
 			this.navBackground = 'easi-' + eCalendar.shortMonths[week.month2] +
 								'-bkg';
 		};
-		
+
 		/* hours to display in calendar
 		 * 0 - 23
 		 */
 		this.hours = setHours();
-		
-		// current week
-		this.curWeek = new Week(null, eSettings.sFirstDay.slice(0,3)); 
 
-		// current month 
+		// current week
+		this.curWeek = new Week(null, eSettings.sFirstDay.slice(0,3));
+
+		// current month
 		this.curMonth1 = this.curWeek.month1; // 0 - 11
 		this.curMonth2 = this.curWeek.month2; // 0 - 11
-		
+
 		// current year
 		this.curYear1 = this.curWeek.year1;
 		this.curYear2 = this.curWeek.year2;
-		
+
 		// Navigation time
 		this.navDays = angular.copy(this.curWeek.days);	// object Day
 		this.navWeek = this.curWeek;
 		// 0 - 11
 		this.navMonth = setNavMonth(this.curWeek.month1, this.curWeek.month2);
 		this.navYear = setNavYear(this.curWeek.year1, this.curWeek.year2);
-			
+
 		this.navBackground = 'easi-' + eCalendar.shortMonths[this.curWeek.
 															month2] + '-bkg';
-		
+
 		// week-content height
 		this.contentHeight = {
 			'height': '80%',
@@ -543,26 +543,26 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 				'height': 'calc(100% - ' + height + 'px)',
 			};
 		};
-		
+
 		/* go to next week */
 		this.nextWeek = function() {
 			this.setNavTime(this.navWeek.nextWeek());
 		};
-		
+
 		/* go to previous week */
 		this.prevWeek = function() {
 			this.setNavTime(this.navWeek.prevWeek());
 		};
 	}	// end of class Calendar
-	
-	/* 
+
+	/*
 	 * class WeekDay
 	 * day is Object Day of rootScope
 	 */
 	function WeekDay(day) {
 		// the original day
 		this.origin = day;
-		
+
 		/*
 		 * PRIVATE
 		 * set events to match type, null if don't have
@@ -575,13 +575,13 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 				if (isNull( type )) {
 					for (var i=0; i < this.origin.events.length; i++) {
 						switch (this.origin.events[i].type) {
-							case 'all': 
+							case 'all':
 								event[j++] = new AllEvent(
 								this.origin.events[i]); break;
-							case 'over': 
+							case 'over':
 								var start = this.origin.events[i].origin.start.
 																	dateTime;
-								// the first day OR first day of the week 
+								// the first day OR first day of the week
 								// (the event across week)
 								var date = this.origin.date;
 								var year = this.origin.year;
@@ -590,20 +590,20 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 									start.getMonth() == month &&
 									start.getDate() == date ||
 									this.origin.day == eSettings.sFirstDay.
-																	slice(0,3)) 
+																	slice(0,3))
 								{
 									event[j++] = new OverEvent(this.origin.
 														events[i], this.origin);
 								}
 						}
-					} 
+					}
 				} else {
 					for (var i=0; i < this.origin.events.length; i++) {
 						if (this.origin.events[i].type == type) {
 							event[j++] = new NorEvent(this.origin.events[i]);
 						}
 					}
-				} 
+				}
 				if (j === 0) {
 					return null;
 				}
@@ -612,7 +612,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 				return null;
 			}
 		};
-		
+
 		// array of allday, overday and empty events
 		this.events = this.setEvent();
 		// array of normal event
@@ -629,10 +629,10 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 
 		// re-construct dateTime to calculate (mins)
 		this.start = new Time(event.origin.start.dateTime);
-		
+
 		// re-construct dateTime to calculate (mins)
 		this.end = new Time(event.origin.end.dateTime);
-		
+
 		/*
 		 * PRIVATE
 		 * this function find height (in px)
@@ -643,7 +643,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 		this.durationToPx = function() {
 			// assume that it's in one day
 			var dur = this.end.minutes - this.start.minutes;
-			if (parseInt(dur / MINUTE_STEP * HEIGHT_OF_MINUTE_STEP) > 
+			if (parseInt(dur / MINUTE_STEP * HEIGHT_OF_MINUTE_STEP) >
 															STANDARD_HEIGHT) {
 				return parseInt(dur / MINUTE_STEP * HEIGHT_OF_MINUTE_STEP) +
 																		'px';
@@ -651,8 +651,8 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 				return STANDARD_HEIGHT + 'px';
 			}
 		};
-		
-		/* 
+
+		/*
 		 * PRIVATE
 		 * this function set margin (in px)
 		 * from 00:00
@@ -666,7 +666,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 			var min = this.start.minutes;
 			return parseInt(min / MINUTE_STEP * HEIGHT_OF_MINUTE_STEP) + 'px';
 		};
-		
+
 		// all display variable
 		this.height = this.durationToPx();
 		this.margin = this.startToPx();
@@ -676,7 +676,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 			'background-color': this.event.color,
 		};
 	} // end of class NorEvent
-	
+
 	/*
 	 * class AllEvent
 	 * event is the Object Event of rootScope
@@ -684,7 +684,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 	function AllEvent(event) {
 		// copy the original event
 		this.event = event;
-		
+
 		this.style = {
 			'background-color': this.event.color,
 			'width': '100%',
@@ -697,7 +697,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 			'position': 'relative',
 			'z-index': '1',
 		};
-		
+
 	} // end of class AllEvent
 
 	/*
@@ -708,7 +708,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 	function OverEvent(event, date) {
 		// copy the original event
 		this.event = event;
-		
+
 		/*
 		 * PRIVATE
 		 * set the width of this event (in %)
@@ -718,7 +718,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 			var startDate = date.toDate();
 			var endDate = event.origin.end.dateTime;
 			// the remain duration of event since "date"
-			var duration = endDate.getDate() - startDate.getDate() + 1;	
+			var duration = endDate.getDate() - startDate.getDate() + 1;
 			var startDay = (startDate.getDay() + 6) % 7;	// 0(Mon) - 6(Sun)
 			var startOfWeek = eSettings.sFirstDay.slice(0, 3);	// Mon - Sun
 
@@ -731,8 +731,8 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 				case 'Sun': startDay = (startDay + 1) % 7; break;
 			}
 			// the duration within this week
-			var tempDuration = endOfWeek - startDay + 1; 
-			
+			var tempDuration = endOfWeek - startDay + 1;
+
 			// if this event cross over the next week
 			if (duration >= tempDuration) {
 				return tempDuration * 100;
@@ -755,7 +755,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 			'z-index': '1',
 		};
 	} // end of class OverEvent
-	
+
 	/*
 	 * class EmptyEven
 	 * for display over-day event
@@ -767,9 +767,9 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 			temp.origin.summary = null;
 			return temp;
 		};
-		
+
 		this.event = set();
-		
+
 		this.style = {
 			'height' : '20px',
 			'width': '90%',
@@ -779,12 +779,12 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 		};
 	} // end of class EmptyEvent
 
-	/* 
+	/*
 	 * class EasiEvent
 	 */
 	function EasiEvent(summary, start, end, location, id, colorId, position,
 						src, status) {
-		/* 
+		/*
 		 * PRIVATE
 		 * set Summary
 		 */
@@ -796,7 +796,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 				return summary;
 			}
 		};
-		
+
 		this.summary = setSummary();
 		this.start = start;
 		this.end = end;
@@ -807,20 +807,20 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 		this.src = src;
 		this.status = status;
 	}	// end of EasiEvent
-	
+
 	return {
 		// colors
 		eventColor: eventColor,
-		
+
 		// check type of event
 		isType: isType,
-		
+
 		// check if 2 Date are same day
 		areSameDay: areSameDay,
-		
+
 		// check if 2 Date are same date
 		areSameDate: areSameDate,
-		
+
 		/*
 		 * Time constructor function
 		 * time is object Date (Event's start/end .dateTime)
@@ -828,15 +828,15 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 		newTime : function(time) {
 			return new Time(time);
 		},
-		
-		/* 
+
+		/*
 		 * BusyEvent constructor function
 		 * start, end is Object {dateTime: ..., timeZone: ...}
 		 */
 		newBusyEvent : function(start, end) {
 			return new BusyEvent(start, end);
 		},
-		
+
 		/*
 		 * Event constructor function
 		 * event is the original object of Google
@@ -844,31 +844,31 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 		newEvent : function(event) {
 			return new Event(event);
 		},
-		
+
 		/* Day constructor function
 		 * date is Date object
 		 */
 		newDay : function(date) {
 			return new Day(date);
 		},
-		
+
 		/*
 		* Week constructor function
 		* days is array of 7 days (Object Day) in this week
-		* start is string "Mon", "Sat" or "Sun" 
+		* start is string "Mon", "Sat" or "Sun"
 		* default is "Mon"
 		*/
 		newWeek : function(days, start) {
 			return new Week(days, start);
 		},
-		
+
 		/*
 		* WeekCalendar constructor
 		*/
 		newWeekCalendar : function() {
 			return new WeekCalendar();
 		},
-		
+
 		/*
 		* EasiEvent constructor
 		*/

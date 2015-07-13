@@ -109,17 +109,17 @@
 
 					<div class="item item-icon-left">
 						<i class="icon ion-icecream easi-dark-blue"></i>
-						Birth date: {{eUser.uBirthday != null ? eCalendar.parseDate(eUser.uBirthday).date : '###'}}
+						Birth date: {{eUser.uBirthday != null ? eCalendar.parseDate(eUser.uBirthday).date : 'none'}}
 					</div>
 
 					<div class="item item-icon-left">
 						<i class="icon ion-calendar easi-dark-blue"></i>
-						Birth year: {{eUser.uBirthday != null ? eCalendar.parseDate(eUser.uBirthday).year : '###'}}
+						Birth year: {{eUser.uBirthday != null ? eCalendar.parseDate(eUser.uBirthday).year : 'none'}}
 					</div>
 
 					<div class="item item-icon-left">
 						<i class="icon ion-transgender easi-dark-blue"></i>
-						Gender: {{eUser.uGender != '' ? eUser.uGender : '###'}}
+						Gender: {{eUser.uGender != '' ? eUser.uGender : 'none'}}
 					</div>
 				</div>
 
@@ -137,12 +137,12 @@
 
 					<div class="item item-icon-left">
 						<i class="icon ion-android-phone-portrait easi-dark-blue"></i>
-						Phone: {{eUser.uPhone != '' ? eUser.uPhone : '###'}}
+						Phone: {{eUser.uPhone != '' ? eUser.uPhone : 'none'}}
 					</div>
 
 					<div class="item item-icon-left">
 						<i class="icon ion-android-pin easi-dark-blue"></i>
-						Address: {{eUser.uAddress != '' ? eUser.uAddress : '###'}}
+						Address: {{eUser.uAddress != '' ? eUser.uAddress : 'none'}}
 					</div>
 				</div>
 			</div>
@@ -210,7 +210,7 @@
 		<!-- password -->
 			<div class="mp-password-box easi-fade-fast" ng-show="active == 3">
 				<br>
-				<h2><pre>  we are coming soon...</pre></h2>
+				<h2><pre>  we are coming soon.</pre></h2>
 			</div>
 		</ion-content>
 	</ion-content>

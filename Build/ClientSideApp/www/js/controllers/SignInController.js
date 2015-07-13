@@ -1,18 +1,18 @@
 /**
  * starter: Can Duy Cat
- * owner: Nguyen Minh Trang
- * last update: 02/07/2015
+ * owner: Can Duy Cat
+ * last update: 13/07/2015
  * type: particular controller
  */
 
-var signIn = angular.module('MainApp.controllers.signIn', ['ionic']);
+var signIn = angular.module('MainApp.controllers.signIn', []);
 
 signIn.controller('SignInController', function($rootScope, $scope, $timeout,
-	$ionicLoading, $ionicPopup, eSettings, eDatabase, eUser) {
+	$ionicLoading, eSettings, eDatabase, eUser, eToast) {
 
 	// All constants
 	var MAX_ID_LENGTH = 15,
-	MIN_ID_LENGTH = 4,
+	MIN_ID_LENGTH = 6,
 	MAX_PASSWORD_LENGTH = 16,
 	MIN_PASSWORD_LENGTH = 8,
 	NUM_OF_WARNINGS = 5,
@@ -22,14 +22,7 @@ signIn.controller('SignInController', function($rootScope, $scope, $timeout,
 	* show alert
 	*/
 	showAlert = function() {
-		var alertPopup = $ionicPopup.alert({
-			title: 'Registered!',
-			template: 'Welcome to EasiLendar!'
-		});
-		$timeout( function() {
-			alertPopup.close(); // close the popup after 3 seconds for some
-			// reason
-		}, 3000 );
+		eToast.toastSuccess('Welcome to EasiLendar!', 3000);
 	},
 
 	/*
@@ -71,7 +64,7 @@ signIn.controller('SignInController', function($rootScope, $scope, $timeout,
 	// sign in function with firebase
 	$scope.signIn = function() {
 		if (!$scope.user.checkChar()) {
-			$rootScope.goToState('warning');
+			eToast.toastError('Input error! Please retype!', 3000);
 		} else {
 			var id = $scope.user.id;
 			var pass = $scope.user.password;
@@ -82,7 +75,8 @@ signIn.controller('SignInController', function($rootScope, $scope, $timeout,
 			ref.once('value', function(snapshot) {
 				var user = snapshot.val();
 				if (isNull( user ) || user.password != pass) {
-					$rootScope.goToState('warning');
+					eToast.toastError('Wrong password! Please try again!', 3000);
+					$ionicLoading.hide();
 				} else {
 					// copy all user's data to eUser
 					eUser.uID = id;
@@ -132,7 +126,8 @@ signIn.controller('SignInController', function($rootScope, $scope, $timeout,
 				}
 			}, function(errorObject) {
 				console.log(errorObject);
-				$rootScope.goToState('warning');
+				eToast.toastError('Sign in error! Please try again!', 3000);
+				$ionicLoading.hide();
 			});
 		}
 	};

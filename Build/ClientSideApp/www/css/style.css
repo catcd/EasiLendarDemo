@@ -8,6 +8,7 @@
 * 1. Styles based on ionic.css
 * 2. Styles for all state
 */
+.a { border: 1px solid black !important; }
 @font-face { font-family: Giddy; src: url(../font/GiddyupStd.otf); }
 .easi-font { font-family: Giddy; }
 .easi-center { text-align: center !important; }
@@ -15,7 +16,7 @@
 
 /* easi class for img and name */
 img.easi-logo { height: 30vh; margin-top: 15vh; }
-p.easi-big-name { color: #FFFFFF; font-size: 400%; margin-top: 30px; }
+.easi-big-name { height: 80px; line-height: 100px; color: #fff; font-size: 68px; white-space: nowrap; }
 
 /* general style */
 .popup-head { background-color: transparent; border: 0; }

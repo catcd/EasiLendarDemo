@@ -1,0 +1,34 @@
+/**
+* starter: Can Duy Cat
+* owner: Can Duy Cat
+* last update: 13/07/2015
+* type: sign in abstract state css
+*/
+
+/* sign in css same for form and register */
+.fo-form, .rg-form { width: 75%; max-width: 250px; padding-bottom: 90px; }
+.si-div { position: relative; padding-top: 25px; }
+.si-div label { border: 0; }
+.si-input { font-size: 18px !important; width: 100%; color: inherit; }
+
+/* placeholder css */
+.si-input::-webkit-input-placeholder { padding-top: 2px; }
+.si-input:-moz-placeholder { padding-top: 2px; }
+.si-input::-moz-placeholder { padding-top: 2px; }
+.si-input:-ms-input-placeholder { padding-top: 2px; }
+
+/* css for form */
+.fo-form { margin: calc(5vh - 10px) auto; }
+.fo-up { padding-top: 10px; }
+.fo-remember { font-size: 18px; background: inherit; }
+.fo-submit { height: 45px; font-size: 20px; }
+.fo-links { margin: 30px auto 0 auto; font-size: 18px; white-space: nowrap; }
+.fo-links a { text-decoration: none; color: inherit; cursor: pointer; }
+
+/* register css */
+.rg-form { margin: calc(5vh - 25px) auto; }
+.rg-warning { position: absolute; color: #D65930; top: 5px; right: 0; }
+.rg-terms { text-align: justify; font-size: 15px; }
+.rg-submit, .rg-btn { height: 47px; font-size: 18px; margin-top: 7px; display: inline-block; }
+.rg-btn { width: 52px; }
+.rg-submit { width: calc(100% - 57px); }
