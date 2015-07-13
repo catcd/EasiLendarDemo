@@ -610,7 +610,8 @@ angular.module('MainApp.shareds.sync', [])
 						   summary: '', 
 						   location: '', 
 						   status: false, 
-						   position: ''
+						   position: '',
+						   src: "local"
 						  };
 			*/
 			
@@ -623,7 +624,8 @@ angular.module('MainApp.shareds.sync', [])
 							end: {dateTime:''}, 
 							summary: '', 
 							location: '', 
-							status: true, 
+							status: true,
+							src: 'local'
 						   };
 				
 				event.id= uLC[i].calendar_id;
