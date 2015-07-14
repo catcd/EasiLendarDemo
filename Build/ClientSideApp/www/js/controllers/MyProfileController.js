@@ -74,13 +74,6 @@ angular.module('MainApp.controllers.myProfile', [])
 		}
 	};
 
-	var resetData = function() {
-		enableSlide = true;
-		$scope.data = {};
-		$scope.active = 0;
-		$scope.isEditing = false;
-	};
-
 	// function next to avatar
 	$scope.capture = function() {
 		eToast.toastInfo('Coming soon...', 3000);

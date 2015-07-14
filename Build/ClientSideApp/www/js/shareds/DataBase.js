@@ -1,14 +1,13 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 04/07/2015
+ * last update: 14/07/2015
  * type: all shared database variables and functions
  */
 
 var database = angular.module('MainApp.shareds.dataBase', []);
 
-database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
-	eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, $localstorage) {
+database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, $localstorage) {
 	/*
 	 * PRIVATE
 	 * check if object is null/undefined/'' or not

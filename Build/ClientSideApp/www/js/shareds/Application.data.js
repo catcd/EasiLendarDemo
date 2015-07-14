@@ -104,7 +104,7 @@ angular.module('MainApp.shareds.data', [])
 .factory('eUser', function(){
 	return {
 		uID: '',			// 4-15 characters (A-Z, a-z, 0-9, _), unique
-		uConfirm: true,
+		uConfirm: false,
 
 		uName: '',			// UTF-8
 		uAvatar: '0',

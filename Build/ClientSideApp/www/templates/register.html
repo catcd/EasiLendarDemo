@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Can Duy Cat
-	 last update: 13/07/2015
+	 last update: 15/07/2015
 	 type: state template -->
 
 <ion-content class="easi-full-blue">
@@ -11,7 +11,7 @@
 			</p>
 			<label class="item item-input">
 				<i class="icon ion-android-person placeholder-icon"></i>
-				<input class="easi-dark-blue si-input" data-ng-model="user.id" on-touch="warnings.reset(0)" type="text" name="userid" placeholder="EasiLendar ID">
+				<input class="easi-dark-blue si-input" data-ng-model="user.id" on-touch="warnings.reset(0)" type="text" name="userid" placeholder="EasiLendar ID" autofocus>
 			</label>
 		</div>
 
@@ -58,7 +58,7 @@
 		<!-- term and button -->
 		<p class="rg-terms">By clicking Register, you agree to our <a class="easi-dark-blue" href="#">EasiLendar Terms</a></p>
 
-		<button class="button icon ion-chevron-left button-easi-blue rg-btn" type="button" data-ng-click="goToState('form')"></button>
+		<button class="button icon ion-chevron-left button-easi-blue rg-btn" type="button" data-ng-click="goToState('form'); user.reset(); warnings.resetAll();"></button>
 		<input class="button button-easi-blue rg-submit" type="submit" value="Register">
 	</form>
 </ion-content>
