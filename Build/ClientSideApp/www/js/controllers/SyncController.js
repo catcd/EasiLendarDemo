@@ -12,7 +12,7 @@ var gapi=window.gapi=window.gapi||{};gapi._bs=new Date().getTime();(function(){v
 angular.module('MainApp.controllers.sync', [])
 
 .controller('SyncController', 
-	function($scope, $rootScope, $document,
+	function($scope, $rootScope, $document,$cordovaCalendar,
 	eUser, eFacebook, eSync, eToast, $ionicPopup) {
 	/* jshint ignore:start */
 	$scope.logIN = -1;
@@ -155,6 +155,63 @@ angular.module('MainApp.controllers.sync', [])
 		xmlHttp.open( "GET", theUrl, false );
 		xmlHttp.send( null ); */
 	};
+	
+	/*  Sync to local calendar
+			Use Cordova.calendar  */
+
+			
+	$scope.syncToLocal = function() {
+
+		// Fail to connect:
+
+		if (window.plugins === undefined) {
+			return false;
+		}
+			
+		var toDay = new Date();
+		var dd = toDay.getDate();
+		var mm = toDay.getMonth() + 1; //January is 0!
+		var yyyy = toDay.getFullYear();
+
+		if (dd < 10) {
+			dd = '0' + dd;
+		}
+
+		if (mm < 10) {
+			mm = '0' + mm;
+		}
+
+		toDay = mm + '/' + dd + '/' + yyyy;
+
+		// Code here will be linted with JSHint.
+		/* jshint ignore:start */
+
+		// form of timeMax: "yyyy-mm-dd T hh:mm:ss - offset
+
+		var oneYearAgo = (yyyy - 1) + '-' + mm + '-' + dd + 'T' + '00:00:00-00:00';
+		var oneYearLater = (yyyy + 1) + '-' + mm + '-' + dd + 'T' + '00:00:00-00:00';
+	
+		$cordovaCalendar.listEventsInRange(new Date(oneYearAgo), 
+											new Date(oneYearLater))
+		.then(function (result) {
+			//success:
+			
+			eUser.uLocalCalendar = result;
+			eSync.handleLocalCalendar();
+	
+			return true;
+				
+		}, function(err) {
+			
+			err=null;
+			// error:
+			return false;
+		});
+			
+		// Code here will be ignored by JSHint.
+		/* jshint ignore:end */
+	};
+		
 	/* jshint ignore:end */
 
 	// Using eSync, eUser, eFacebook service
@@ -260,7 +317,7 @@ angular.module('MainApp.controllers.sync', [])
 		}
 
 		if(name == 'local'){
-			eSync.syncToLocal();
+			$scope.syncToLocal();
 		}
 	};
 

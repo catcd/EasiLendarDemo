@@ -180,7 +180,7 @@ angular.module('MainApp.shareds.sync', [])
 				
 				arrayOfEasiEvent.push(EasiEvent);
 			}
-
+			
 			for (var i = 0; i < arrayOfEasiEvent.length; i++) {
 				// make a empty array of each day:
 
@@ -188,7 +188,7 @@ angular.module('MainApp.shareds.sync', [])
 					uGCNew[arrayOfEasiEvent[i].position] = [];
 				}
 			}
-
+			
 			for (var i = 0; i < arrayOfEasiEvent.length; i++) {
 				uGCNew[arrayOfEasiEvent[i].position].push(arrayOfEasiEvent[i]);
 			}
@@ -531,62 +531,6 @@ angular.module('MainApp.shareds.sync', [])
 			*/
 		},
 		
-		
-		/*  Sync to local calendar
-			Use Cordova.calendar  */
-
-			
-		syncToLocal : function() {
-
-			// Fail to connect:
-
-			if (window.plugins === undefined) {
-				return false;
-			}
-			
-			var toDay = new Date();
-			var dd = toDay.getDate();
-			var mm = toDay.getMonth() + 1; //January is 0!
-			var yyyy = toDay.getFullYear();
-
-			if (dd < 10) {
-				dd = '0' + dd;
-			}
-
-			if (mm < 10) {
-				mm = '0' + mm;
-			}
-
-			toDay = mm + '/' + dd + '/' + yyyy;
-
-			// Code here will be linted with JSHint.
-			/* jshint ignore:start */
-
-			// form of timeMax: "yyyy-mm-dd T hh:mm:ss - offset
-
-			var oneYearAgo = (yyyy - 1) + '-' + mm + '-' + dd + 'T' + '00:00:00-00:00';
-			var oneYearLater = (yyyy + 1) + '-' + mm + '-' + dd + 'T' + '00:00:00-00:00';
-			
-			$cordovaCalendar.listEventsInRange(new Date(oneYearAgo), 
-											   new Date(oneYearLater))
-			.then(function (result) {
-				//success:
-			
-				eUser.uLocalCalendar = result;
-				this.handleLocalCalendar();
-				
-				return true;
-				
-			}, function(err) {
-				err=null;
-				// error:
-				return false;
-			});
-			
-			// Code here will be ignored by JSHint.
-			/* jshint ignore:end */
-		},
-		
 		handleLocalCalendar : function() {
 			/* form:
 						- calendar_id
@@ -598,11 +542,7 @@ angular.module('MainApp.shareds.sync', [])
 			*/
 			
 			var uLC= JSON.parse(JSON.stringify(eUser.uLocalCalendar));
-			
-			for (var i=0; i<uLC.length; i++){
-				uLC[i].src= "local";
-			}
-			
+		
 			var newULC= [];
 			
 			/* var event= {id:'', start: start, 
@@ -642,6 +582,7 @@ angular.module('MainApp.shareds.sync', [])
 			eUser.uLocalCalendar= [];
 			
 			eCopyData.extraCopy(newULC, eUser.uLocalCalendar);
+			
 		},
 	};
 })
