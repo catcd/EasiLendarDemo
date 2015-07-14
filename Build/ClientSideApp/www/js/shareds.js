@@ -14,7 +14,7 @@ angular.module('MainApp.shareds', [
 	'MainApp.shareds.directive',
 	'MainApp.shareds.easiLendarClass',
 	'MainApp.shareds.event',
-	'MainApp.shareds.facebook',
+	'MainApp.shareds.google',
 	'MainApp.shareds.multiCalendar',
 	'MainApp.shareds.run',
 	'MainApp.shareds.sync',
