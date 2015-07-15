@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Nguyen Minh Trang
-	 last update: 03/04/2015
+	 last update: 15/07/2015
 	 type: calendar of week only template -->
 
 <div class="week">
@@ -17,14 +17,14 @@
 			<div class="empty"></div>
 			<div class="col" data-ng-repeat="day in weekCalendar.navDays">
 				<div class="row day">
-					{{day.origin.day}}
+					{{day.day}}
 				</div>
 				<div class="row date">
-					{{day.origin.date}}
+					{{day.date}}
 				</div>
 				<div class="row" data-ng-repeat="event in day.events"
 						data-ng-style="event.style" data-ng-click="view(event)">
-					{{event.event.origin.summary}}
+					{{event.summary}}
 				</div>
 			</div>
 		</div>
@@ -37,7 +37,7 @@
 					<div class="col daycol" data-ng-repeat="day in weekCalendar.navDays">
 						<div class="row nor-event" data-ng-repeat="event in day.norEvent"
 							data-ng-style="event.style" data-ng-click="view(event)">
-							<div class="summary">{{event.event.origin.summary}}</div>
+							<div class="summary">{{event.summary}}</div>
 						</div>
 						<div class="row hourblock" data-ng-repeat="x in weekCalendar.hours">
 						</div>

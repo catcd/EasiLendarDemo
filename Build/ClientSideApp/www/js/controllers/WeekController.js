@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 12/05/2015
+ * last update: 15/07/2015
  * type: home controller
  */
 
@@ -14,7 +14,7 @@ week.controller('WeekController', function($rootScope, $scope, eEasiLendar,
 	* event is NorEvent/ AllEvent/ OverEvent
 	*/
 	$scope.view = function(event) {
-		$rootScope.viewEvent(event.event.origin);
+		$rootScope.viewEvent(event);
 	};
 
 	// today function
