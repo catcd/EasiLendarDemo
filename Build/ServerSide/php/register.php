@@ -45,13 +45,29 @@ if (!isNull($id) && !isNull($pass) && !isNull($mail) && !isNull($name)) {
 			// do register
 			$sql = "INSERT INTO UserData (id, pass, gmail, name)
 			VALUES ('$id', '$pass', '$mail', '$name')";
-
 			$conn->query($sql);
+
+			// create calendar table
+			$tableName = $id . 'cal';
+			$sql = "CREATE TABLE $tableName (
+			id varchar(255) NOT NULL PRIMARY KEY,
+			summary varchar(255) NOT NULL,
+			mStart varchar(14) NOT NULL,
+			mEnd varchar(14) NOT NULL,
+			location varchar(255) NOT NULL,
+			colorID int(3) NOT NULL DEFAULT 8,
+			position int NOT NULL,
+			src varchar(255) NOT NULL,
+			status bit(1),
+			reg_date TIMESTAMP
+			)";
+			$conn->query($sql);
+
 			echo "success";
 		}
 	}
 	$conn->close();
 } else {
-	echo "empty php://input";
+	echo "Error in php://input";
 }
 ?>

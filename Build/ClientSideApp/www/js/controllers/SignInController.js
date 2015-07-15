@@ -50,71 +50,66 @@ signIn.controller('SignInController', function($scope, $rootScope, $ionicLoading
 	// sign in function with firebase
 	$scope.signIn = function() {
 		if ($scope.user.checkID() != true) {
-			eToast.toastError('Input error! Please retype!', 3000);
+			eToast.toastError('Input ID error! Please retype!', 3000);
+		} else if ($scope.user.checkPass() != true) {
+			eToast.toastError('Input Password error! Please retype!', 3000);
 		} else {
-			var id = $scope.user.id;
-			var pass = $scope.user.password;
-			var ref = new Firebase(
-				'https://radiant-inferno-3243.firebaseio.com/Users/' + id);
-			// loading
 			eDatabase.databaseLoading();
-			ref.once('value', function(snapshot) {
-				var user = snapshot.val();
-				if (isNull(user) || user.password != pass) {
-					eToast.toastError('Wrong password! Please try again!', 3000);
-					$ionicLoading.hide();
-				} else {
-					// copy all user's data to eUser
-					eUser.uID = id;
-					eUser.uName = user.name;
-					eUser.uAvatar = user.avatar;
-					eUser.uEmail = user.gmail;
-					eUser.uPassword = pass;
+			// connect throught http connection
+			$http({
+				url: 'http://easilendar.wc.lt/database/signIn.php',
+				method: "POST",
+				data: {
+					'id': $scope.user.id,
+					'pass': $scope.user.password
+				}
+			}).success(function(data, status, headers, config) {
+				$ionicLoading.hide();
+				if (data == 'wrong') {
+					eToast.toastError('Wrong password! Please try again!', 2000);
+				} else if (typeof data == 'object') {
+					// copy data
+					eUser.uID = $scope.user.id;
+					eUser.uName = data.name;
+					eUser.uAvatar = data.avatar;
+					eUser.uEmail = data.gmail;
+					eUser.uPassword = $scope.user.password;
 
-					eUser.uGender = user.gender;
-					eUser.uBirthday = user.birthday;
-					eUser.uPhone = user.phone;
-					eUser.uAddress = user.address;
+					if (data.gender != null) eUser.uGender = data.gender == "1" ? "male" : "female";
+					if (data.birthday != null) eUser.uBirthday = new Date(parseInt(data.birthday));
+					if (data.phone != null) eUser.uPhone = data.phone;
+					if (data.address != null) eUser.uAddress = data.address;
 
 					eUser.uRemember = $scope.isRemember;
-					eUser.uFriend = user.friends;
-					eUser.uVIP = user.VIP;
+					eUser.uVIP = data.vip == "1" ? true : false;
 					eUser.isLogin = true;
-
-					// convert
-					eUser.uGmailCalendar = eDatabase.convertCal(
-						user.g_calendar);
-					eUser.uLocalCalendar = eDatabase.convertCal(
-						user.local_calendar);
-					eUser.uFaceCalendar = eDatabase.convertCal(
-						user.face_calendar);
-
-					eUser.uRequested = user.requested;
-					eUser.uFRequest = isNull(user.noti) ? null : user.noti.fRequest;
-					eUser.uFAccepted = isNull(user.noti) ? null : user.noti.fAccept;
-					eUser.uFRLength = 0;
-					eUser.uFALength = 0;
-
-					// set uFRLength and uFALength
-					eDatabase.setUFRL();
-					eDatabase.setUFAL();
-
-					// load uRequested, uFRequest, uFAccepted, uFriend info
-					eDatabase.loadFriendInfo(eUser.uRequested);
-					eDatabase.loadFriendInfo(eUser.uFriend, 'friend');
-					eDatabase.loadFriendInfo(eUser.uFRequest);
-					eDatabase.loadFriendInfo(eUser.uFAccepted, 'noti');
-
+					// get calendar, noti and friends
 					$scope.user.reset();
 					$rootScope.goHome();
+				} else {
+					eToast.toastError('An error occurred. Please try again!', 2000);
 				}
-			}, function(errorObject) {
-				console.log(errorObject);
-				eToast.toastError('Sign in error! Please try again!', 3000);
+			}).error(function(data, status, headers, config) {
 				$ionicLoading.hide();
+				eToast.toastError('An error occurred. Please try again!', 2000);
 			});
 		}
 	};
+	// 				eUser.uFriend = user.friends;
+	// 				eUser.uGmailCalendar = eDatabase.convertCal(user.g_calendar);
+	// 				eUser.uLocalCalendar = eDatabase.convertCal(user.local_calendar);
+	// 				eUser.uFaceCalendar = eDatabase.convertCal(user.face_calendar);
+	// 				eUser.uRequested = user.requested;
+	// 				eUser.uFRequest = isNull(user.noti) ? null : user.noti.fRequest;
+	// 				eUser.uFAccepted = isNull(user.noti) ? null : user.noti.fAccept;
+	// 				eUser.uFRLength = 0;
+	// 				eUser.uFALength = 0;
+	// 				eDatabase.setUFRL();
+	// 				eDatabase.setUFAL();
+	// 				eDatabase.loadFriendInfo(eUser.uRequested);
+	// 				eDatabase.loadFriendInfo(eUser.uFriend, 'friend');
+	// 				eDatabase.loadFriendInfo(eUser.uFRequest);
+	// 				eDatabase.loadFriendInfo(eUser.uFAccepted, 'noti');
 
 	// register function
 	$scope.register = function() {
@@ -160,7 +155,7 @@ signIn.controller('SignInController', function($scope, $rootScope, $ionicLoading
 				$ionicLoading.hide();
 				if (data == 'success') {
 					// TODO send email throught gmail API
-					eToast.toastSuccess('Welcome to EasiLendar!', 3000);
+					eToast.toastSuccess('Welcome to EasiLendar!', 2000);
 					$scope.user.reset();
 					$rootScope.goToState('form');
 				} else if (data == 'exist id') {
@@ -168,11 +163,11 @@ signIn.controller('SignInController', function($scope, $rootScope, $ionicLoading
 				} else if (data == 'exist gmail') {
 					$scope.warnings.mes[2] = 'Existed email'
 				} else {
-					eToast.toastError('An error occurred. Please try again!', 3000);
+					eToast.toastError('An error occurred. Please try again!', 2000);
 				}
 			}).error(function(data, status, headers, config) {
 				$ionicLoading.hide();
-				eToast.toastError('An error occurred. Please try again!', 3000);
+				eToast.toastError('An error occurred. Please try again!', 2000);
 			});
 		}
 	};
