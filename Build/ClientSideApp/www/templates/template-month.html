@@ -4,15 +4,15 @@
 	 type: calendar template -->
 <!--<img class="easi-space">-->
 <div class="month-title-calendar" data-ng-init="buildCurrentMonth()" data-ng-show="showMonthCalendar && eSettings.sMonthView == 'eventList'">
-	<a class="month-button-calendar month-button-previous icon ion-chevron-left easi-gray" data-ng-click="previousMonth()" check-first-day="currentMonthNumber" this-year="{{currentYear}}"></a>
-	<span class="month-span-calendar" check-this-month="currentMonthNumber"
-	data-ng-click="changeState()">{{currentMonthString}}, {{currentYear}}</span>
-	<a class="month-button-calendar month-button-next icon ion-chevron-right easi-gray" data-ng-click="nextMonth()" check-first-day="currentMonthNumber" this-year="{{currentYear}}"></a>
+	<a class="month-button-calendar month-button-previous icon ion-chevron-left easi-gray" data-ng-click="previousMonth()" check-first-day="curMonthNum" this-year="{{curYear}}"></a>
+	<span class="month-span-calendar" check-this-month="curMonthNum"
+	data-ng-click="changeState()">{{curMonthStr}}, {{curYear}}</span>
+	<a class="month-button-calendar month-button-next icon ion-chevron-right easi-gray" data-ng-click="nextMonth()" check-first-day="curMonthNum" this-year="{{curYear}}"></a>
 </div>
 
 <div class="month-title-calendar" data-ng-show="showMonthsList">
 	<a class="month-button-calendar month-button-previous icon ion-chevron-left easi-gray" data-ng-click="previousYear()" check-first-month></a>
-	<span class="month-span-calendar" data-ng-click="changeState()">{{currentYear}}</span>
+	<span class="month-span-calendar" data-ng-click="changeState()">{{curYear}}</span>
 	<a class="month-button-calendar month-button-next icon ion-chevron-right easi-gray" data-ng-click="nextYear()" check-first-month></a>
 </div>
 
@@ -22,22 +22,22 @@
 	<center on-swipe-left="nextYear()" on-swipe-right="previousYear()">
 		<table class="month-table-list" data-ng-show="showMonthsList">
 			<tr class="month-tr-list" data-ng-repeat="month in allMonths">
-				<td id="{{month.first}}" class="month-td-list" data-ng-click="thisMonth(currentYear,month.first)" check-first-day="month.first" this-year="{{currentYear}}">
+				<td id="{{month.first}}" class="month-td-list" data-ng-click="thisMonth(curYear,month.first)" check-first-day="month.first" this-year="{{curYear}}">
 				    <div class="month-div-list">
 				        <p class="month-p-list">{{eCalendar.shortMonths[month.first].charAt(0).toUpperCase() + eCalendar.shortMonths[month.first].substr(1,3)}}</p>
 				    </div>
 				</td>
-				<td id="{{month.second}}" class="month-td-list" data-ng-click="thisMonth(currentYear,month.second)" check-first-day="month.second" this-year="{{currentYear}}">
+				<td id="{{month.second}}" class="month-td-list" data-ng-click="thisMonth(curYear,month.second)" check-first-day="month.second" this-year="{{curYear}}">
 				    <div class="month-div-list">
 				        <p class="month-p-list">{{eCalendar.shortMonths[month.second].charAt(0).toUpperCase() + eCalendar.shortMonths[month.second].substr(1,3)}}</p>
 				    </div>
 				</td>
-				<td id="{{month.third}}" class="month-td-list" data-ng-click="thisMonth(currentYear,month.third)" check-first-day="month.third" this-year="{{currentYear}}">
+				<td id="{{month.third}}" class="month-td-list" data-ng-click="thisMonth(curYear,month.third)" check-first-day="month.third" this-year="{{curYear}}">
 				    <div class="month-div-list">
 				        <p class="month-p-list">{{eCalendar.shortMonths[month.third].charAt(0).toUpperCase() + eCalendar.shortMonths[month.third].substr(1,3)}}</p>
 				    </div>
 				</td>
-				<td id="{{month.fourth}}" class="month-td-list" data-ng-click="thisMonth(currentYear,month.fourth)" check-first-day="month.fourth" this-year="{{currentYear}}">
+				<td id="{{month.fourth}}" class="month-td-list" data-ng-click="thisMonth(curYear,month.fourth)" check-first-day="month.fourth" this-year="{{curYear}}">
 				    <div class="month-div-list">
 				        <p class="month-p-list">{{eCalendar.shortMonths[month.fourth].charAt(0).toUpperCase() + eCalendar.shortMonths[month.fourth].substr(1,3)}}</p>
 				    </div>
@@ -55,10 +55,10 @@
 			</tr>
 			<tr data-ng-repeat="week in weeks">
 				<td data-ng-repeat="day in week.days" class="month-td-calendar">
-					<div data-different-month="day.month" data-current-day="day.numberDate" current-month="{{currentMonthNumber}}" current-year="{{currentYear}}" ng-click="showListEvent(day.numberDate,day.month,currentYear)">
-						<input type="radio" value="true" id="m{{day.month.toString()+day.numberDate.toString()}}" name="{{currentMonthNumber}}">
-						<label class="month-td-calendar-label" for="m{{day.month.toString()+day.numberDate.toString()}}" day-has-event="eUser.uGmailCalendar" current-month="{{currentMonthNumber}}" date="{{day.numberDate}}" month="{{day.month}}" year="{{currentYear}}" current-month="currentMonthNumber">
-							{{day.numberDate}}</label>
+					<div data-different-month="day.month" data-current-day="day.numDate" current-month="{{curMonthNum}}" current-year="{{curYear}}" ng-click="showListEvent(day.numDate,day.month,curYear)">
+						<input type="radio" value="true" id="m{{day.month.toString()+day.numDate.toString()}}" name="{{curMonthNum}}">
+						<label class="month-td-calendar-label" for="m{{day.month.toString()+day.numDate.toString()}}" day-has-event="eUser.uGmailCalendar" current-month="{{curMonthNum}}" date="{{day.numDate}}" month="{{day.month}}" year="{{curYear}}" current-month="curMonthNum">
+							{{day.numDate}}</label>
 					</div>
 				</td>
 			</tr>

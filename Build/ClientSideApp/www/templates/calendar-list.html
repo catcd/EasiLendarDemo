@@ -1,9 +1,9 @@
 <!-- starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 09/05/2015
+	 last update: 16/07/2015
 	 type: calendar template -->
 
-<list-events><ion-view title="EasiLendar" ng-class="background(currMonth)">
+<list-events><ion-view title="EasiLendar">
 	<ion-nav-buttons side="left">
 		<button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
 	</ion-nav-buttons>
@@ -48,7 +48,7 @@
 						</div>
 					</td>
 					<td class="list-td-calendar-2" data-ng-show="eUser.uGmailCalendar[week.date] != undefined">
-						<div class="list-div-calendar-1" data-ng-repeat="event in eUser.uGmailCalendar[week.date]" background-event="bkgE" data-ng-click="viewE(event)">
+						<div class="list-div-calendar-1" data-ng-repeat="event in eUser.uGmailCalendar[week.date]" background-color-event="bkgE" data-ng-click="viewE(event)">
 							<span class="list-span-title-event">{{event.summary}}</span><br>
 							<span>Time: {{event.start.dateTime.getHours()}}:{{ (event.start.dateTime.getMinutes()<10)?'0':'' }}{{event.start.dateTime.getMinutes()}}{{ (event.start.dateTime.getHours() >= 12)?' PM':' AM' }} - {{event.end.dateTime.getHours()}}:{{(event.end.dateTime.getMinutes()<10)?'0':''}}{{event.end.dateTime.getMinutes()}}{{( event.end.dateTime.getHours() >= 12)?' PM':' AM' }}
 							</span>

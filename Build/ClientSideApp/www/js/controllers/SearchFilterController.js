@@ -123,9 +123,9 @@ angular.module('MainApp.controllers.searchFilter', [])
 		});
 
 	$scope.submit = function(form) {
-		//if (form.$valid) {
-		$rootScope.goToState('result');
-		//}
+		if (form.$valid) {
+			$rootScope.goToState('result');
+		}
 	};
 
 	//reset all datas when out of Search Filter page.
@@ -165,10 +165,10 @@ angular.module('MainApp.controllers.searchFilter', [])
 	$scope.showTime = false;
 	$scope.titleOfButton = 'ADVANCE FILTER';
 	$scope.toggleFunc = function() {
-		if ($scope.eUser.uVIP == 1) {
+		if ($scope.eUser.uVIP == 0) {
 			$scope.mShow = !$scope.mShow;
 			if ($scope.mShow === true) {
-				$scope.titleOfButton = 'End';
+				$scope.titleOfButton = '';
 			} else {
 				$scope.titleOfButton = 'ADVANCE FILTER';
 			}

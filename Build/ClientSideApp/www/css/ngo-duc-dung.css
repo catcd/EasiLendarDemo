@@ -1,14 +1,20 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 13/05/2015
+ * last update: 15/07/2015
  * type: personal css
  */
 
 /* FRIEND PANEL */
+.friend-panel-header-bar { height: 43px; text-align: right;}
+.friend-panel-icon {
+	margin: 3px 3px auto auto;
+	color: #fff;
+	font-size: 25px;
+}
+.friend-panel-icon:active { opacity: 0.5; }
 .friend-panel.spinner svg{ fill: #fff; stroke:; }
 .friend-myAvatar01 {
-	border: 0;
 	border-bottom: 1px solid #707070;
 	background-color: #646464;
 	margin: auto auto auto auto;
@@ -23,9 +29,9 @@
 }
 #friend-panel-content {
 	background-color: #646464;
-	margin-bottom:-45px;
+	margin: 43px auto -45px auto;
 	padding-bottom: 45px;
-	z-index: 1;
+	z-index: -1;
 }
 .friend-myAvatar01 h2 {
 	margin: 20px auto auto 63px;
@@ -43,14 +49,12 @@
 }
 #friend-ribbon-b { height: 50px; margin-top: 5px;}
 .friend-div02 {
-	margin: auto auto 3px auto;
-	padding-top: 7px;
-	height: 30px;
+	height: 25px;
 	text-align: right;
 	font-size: 14px;
 }
 .friend-div02 button { background-color: #646464; color:#E6E6E6; padding-top: 0;}
-.friend-footer-panel {background-color: transparent;} 
+.friend-footer-panel {background-color: transparent; height: 40px; border } 
 .friend-search-input-focus { opacity: 1;}
 .friend-search-input-blur { opacity: 0.4;}
 .friend-blur-list { opacity: 0.4;}
@@ -60,144 +64,6 @@
 .friend-repeat-animation.ng-enter {opacity: 0; transform: scaleY(0); height: 0px; margin-bottom: -34px;}        
 .friend-repeat-animation.ng-leave {opacity: 1; transform: scaleY(1);}
 .friend-repeat-animation.ng-enter.ng-enter-active {opacity: 1; transform: scaleY(1); height: 95px;}
-#friend-refresh-list {margin-left: 110px; margin-top: 3px;}
-/*sort option*/
-.friend-sort-option-div{ height: 30px; font-size: 14px; font-weight: bolder;}
-.friend-sort-option-div button{
-	color: #E6E6E6;
-	background-color: #646464;
-	width: 32%;
-	margin-top: 5px auto auto 1px;
-}
-.friend-sort-icon { font-size: 18px;}
-.friend-sort-option-div .first { border-right: 1px solid #E6E6E6;}
-.friend-sort-option-div .last { border-left: 1px solid #E6E6E6; }
-
-/* SEARCHING FILTER */
-
-/* Person name filter */
-.search-filter-content {
-	border-top: 1px solid #E6E6E6;
-	margin: 50px auto auto auto;
-	z-index: -1;
-	width: 100%;
-}
-.search-filter-table-person { margin: 53px auto auto 3px; width: 100%;}
-.search-filter-meet-title { width: 20%; min-width: 120px;}
-.search-filter-input-person { width: 70%;}
-.search-filter-input-person input { width: 100%;}
-.search-filter-list-persons {
-	border: 1px solid #E6E6E6;
-	border-top: 0;
-	border-radius: 2px;
-	margin: auto 9px auto 9px;
-	background-color: #fff;
-}
-.search-filter-person {
-	margin: 7px auto 2px auto;
-	padding: 5px 0 0 5px;
-	height: 32px;
-	font-size: 16px;
-}
-.search-filter-person.no-results { text-align: center; color: #646464;}
-.search-filter-person:active, .search-filter-person:active i { background-color: #416969; color: #fff;}
-.search-filter-image-person { width: 25px; height: 24px; }
-.search-filter-span-person { display: block; margin: -26px auto auto 35px;}
-/*Common and advance filter*/
-.search-filter-input { border: 0; height: 45px;}
-#search-filter-table03 { margin: 20px auto 5px auto; width: 100%;}
-#search-filter-table02 { margin: -3px auto auto -8px; width: 100%;}
-#search-filter-td03 { color: #646464; font-size: 12px; padding-left: 10px;}
-#search-filter-td04 { border: 0; padding-right: 10px; }
-#search-filter-span01 { color: #646464; margin-left: 2px; display: inline-block;}
-#search-filter-span02 { color: #646464; font-size: 14px;}
-#search-filter-span03 { color: #646464; border: 0; font-size: 12px;}
-#search-filter-input01, #search-filter-inputTitle{ margin: -5px 10px -3px -10px};
-#search-filter-input01::-webkit-outer-spin-button,
-#search-filter-input01::-webkit-inner-spin-button {-webkit-appearance: none;}
-#search-filter-hr01, #search-filter-hr02 { border: 2px solid #E6E6E6; width: 100%; }
-#search-filter-hr01 { margin-top: -2px; }
-.search-filter-list { margin-top: 6px;}
-#search-filter-inset01 { border-bottom: 0; margin: -6px auto -5px auto;}
-#search-filter-inset02 { border: 0; margin-top: -15px;}
-.search-filter-item { border-bottom: 2px solid #E6E6E6; padding-top: 0; min-height: 34px;}
-#search-filter-itemTitle, #search-filter-itemDuration, #search-filter-itemFrom, #search-filter-itemFromDay, #search-filter-itemToDay {
-	border-bottom: 1px solid #E6E6E6; 
-	margin-bottom: 2px;
-}
-#search-filter-table-duration { width: 100%;}
-#search-filter-span-duration {
-	min-width: 70px; 
-	display:block; 
-	color: #646464; 
-	font-size: 12.5px;
-	margin-left: -5px;
-}
-.search-filter-duration-hour { height: 67px;}
-.search-filter-duration-day input[type="checkbox"]{ margin: 3px auto 10px auto; width: 18px; height: 18px;}
-.search-filter-duration-day span{ font-size: 12.5px; color: #646464;}
-.search-filter-div-duration { border-bottom: 1px solid #E6E6E6; height: 50px;}
-#search-filter-table-time { width: 90%; margin-left: 9px; margin-top: -10px;}
-#search-filter-td-text { width: 30%; color: #646464;}
-#search-filter-td-time { height: 20px;}
-#search-filter-span-duration { width: 10%; height: 20px;}
-#search-filter-td-duration { padding-left: 12px; width: 40%;}
-#search-filter-td-duration #search-filter-input01 { height: 30px; margin-bottom: -10px; margin-top: -5px;}
-#search-filter-input-time { margin-top: 4px; }
-#search-filter-p01 { 
-	color: #fff;
-	margin-top: 10px;
-	text-align: center;
-	background-color: #416969;
-	width: 100%;
-	height: 25px;
-}
-.search-filter-advance { height: 375px;}
-#search-filter-button-advance {
-	background-color: #416969;
-	border: 0;
-	color: #fff;
-	padding-top: 3px;
-	text-align: center;
-	font-size: 15px;
-	width: 100%;
-	height: 25px;
-}
-#search-filter-icon-advance { margin-left: 5px;}
-#search-filter-itemToDay { border-bottom: 0;}
-/*segment button*/
-.search-filter-segmented-button {
-	border: 0;
-	font-size: 13px;
-	padding: 5px;
-	text-align: right;
-	width: 100%;
-}
-.search-filter-segmented-button input[type="radio"] { display: none; height: 0; width: 0;}
-.search-filter-segmented-button label {
-	border: 0;
-	color: #646464;
-	cursor: pointer;
-	display: inline-block;
-	font-size: 10px;
-	margin-right: -4.5px;
-	padding: 5px 15px 3px;
-	vertical-align: middle;
-}
-.search-filter-segmented-button label.first {
-	border-right: 1px solid #E6E6E6; 
-	text-align: center; 
-	width: 69px; 
-}
-.search-filter-segmented-button label.last { text-align: center; width: 69px; }
-.search-filter-segmented-button input:checked+label, .search-filter-segmented-button label.selected { 
-	background-color: #646464; 
-	color: #ffffff; 
-}
-
-/*validation*/
-.search-filter-form.ng-submitted #search-filter-inputTitle.ng-invalid { background-color: #D65930; }
-.search-filter-form.ng-submitted #search-filter-input01.ng-invalid { color: #D65930; }
 
 /* LIST CALENDAR */
 .list-current-date { color: #33CCCC;}
@@ -241,14 +107,6 @@
 	overflow: hidden;
 	white-space: nowrap;
 }
-.birthday-background, .holiday-background, .hotel-background, .restaurant-background, .ticket-background { 
-	color: #fff;
-}
-.birthday-background { background: url("../img/img_birthday.jpg") no-repeat; background-size: 100% 100%;}
-.holiday-background { background: url("../img/smart_flight.jpg") no-repeat; background-size: 100% 100%;}
-.hotel-background { background: url("../img/smart_hotel.jpg") no-repeat; background-size: 100% 100%;}
-.restaurant-background { background: url("../img/smart_restaurant.jpg") no-repeat; background-size: 100% 100%;}
-.ticket-background { background: url("../img/smart_ticket.jpg") repeat; background-size: 100% 100%;}
 .event-color-1 { background-color: #690;}
 .event-color-2 { background-color: #F39;}
 .event-color-3 { background-color: #06F;}
@@ -257,7 +115,7 @@
 
 /* MONTH CALENDAR VER 1 */
 .list-bkg-style { transition: all linear 0.8s; background-size: cover; background-position: center center;}
-#month-div-calendar { margin: 23px -1px -1px -1px; height: 100%; border: 1px solid #fff;}
+#month-div-calendar { margin: 22px -1px -1px -1px; height: 100%; background-color: #E6E6E6}
 .month-calendar{
 	max-width: 1440px;
 	margin: -60px auto 0 auto;
@@ -275,8 +133,8 @@
 }
 .month-button-calendar.active, .month-button-calendar.activated{ opacity: 0.3;}
 .month-button-calendar:before { font-size: 15px; color: #646464;}
-.month-button-previous { margin-right: -4px;}  
-.month-button-next { margin-left: -4px;}
+.month-button-previous { margin-right: -5px;}  
+.month-button-next { margin-left: -5px;}
 .month-span-calendar {
 	padding-top: 3px; 
 	width: 150px; 
@@ -314,8 +172,8 @@
 	display: inline-block;
 } 
 .month-different-color {color: #E6E6E6;}
-.month-current-date-style { color: #ffffff; background-color: #33CCCC}
-.month-radio-selected { background-color: #416969; color: #ffffff;}
+.month-current-date-style { color: #ffffff; background-color: #8EB4C1}
+.month-radio-selected { background-color: #5C8B9D; color: #ffffff;}
 /*day list events*/
 #month-content-calendar { max-width: 1440px; width: 90%; margin: 270px auto 0 auto;}
 .month-day-calendar { max-width: 390px; width: 90%; margin: 0 auto auto auto;}
@@ -339,14 +197,14 @@
 	text-align: center;
 	padding-right: 10px;
 }
-.month-div-list:hover, .month-current-style{ color: #fff; border-radius: 8px;}
-.month-div-list:hover{ background-color: #416969;}
-.month-current-style{ background-color: #33CCCC;}
+.month-div-list:active, .month-current-style{ color: #fff; border-radius: 8px;}
+.month-div-list:active{ background-color: #5C8B9D;}
+.month-current-style{ background-color: #8EB4C1;}
 .month-div-list{ width: 99%; min-height: 65px;}
 .month-p-list{ padding-top: 20px;}
 
 /* MONTH CALENDAR VER 2 */
-.month-calendar-2 { position: relative; margin-top: 54px; max-width: 1440px; height: 4.5vh;}
+.month-calendar-2 { position: relative; margin-top: 83px; max-width: 1440px; height: 4.5vh;}
 .month-button-previous-2 { padding-right: 0.3vw;}
 .month-calendar-2-div-title { display: inline-block; width: 27vh;}
 .month-button-next-2 { padding-left: 0.3vw;}
@@ -427,42 +285,110 @@
 .sync-icon-logout, .sync-icon-events { margin: auto 7px auto auto;}
 .sync-icon-logout { margin-left: -1px;}
 
-/* SHARE */
-.share-content { background-color: #98D2C3; }
-.share-div-all-sites { margin: auto auto auto auto; max-width: 1440px;}
-.share-div-twitter, .share-div-sms { background-color: #33CCCC; }
-.share-titles {
-	color: #fff;
+/* New SEARCH-FILTER */
+
+/* Person name filter */
+.search-filter-table-person { margin: 53px auto auto auto; max-width: 1400px;}
+.search-filter-meet-title {
+	padding-left: 5px;
+	width: 20%;
+	min-width: 120px;
+	font-size: 12.8px;
+}
+.search-filter-input-person { width: 70%;}
+.search-filter-input-person input { width: 100%; font-size: 12px;}
+.search-filter-list-persons {
+	border: 1px solid #E6E6E6;
+	border-top: 0;
+	border-radius: 2px;
 	margin: auto auto auto auto;
-	width: 90%;
-	height: 90px;
+	max-width: 1400px;
+	background-color: #fff;
 }
-.share-icon-facebook, .share-icon-twitter, .share-icon-sms, .share-icon-gmail {
+.search-filter-person {
+	margin: 7px auto 2px auto;
+	padding: 5px 0 0 5px;
+	height: 32px;
+	font-size: 14px;
+}
+.search-filter-person.no-results { text-align: center; color: #646464;}
+.search-filter-person:active, .search-filter-person:active i { background-color: #416969; color: #fff;}
+.search-filter-image-person { width: 25px; height: 24px; }
+.search-filter-span-person { display: block; margin: -26px auto auto 35px;}
+
+/* Content */
+.search-filter-content {
+	border-top: 1px solid #E6E6E6;
+	margin: 50px auto auto auto;
+	z-index: -1;
+	width: 98%;
+	max-width: 1400px;
+}
+/* Common and Advance filter */
+.search-filter-submit { color: #fff; font-size: 22px; }
+.search-filter-submit:active { opacity: 0.5; }
+.search-filter-div { margin: 4px auto auto auto; height: 38px;}
+.search-filter-p-label {
 	display: inline-block;
-	margin: 20px auto auto auto;
-	width: 50px;
-	text-align: center;
-	font-size: 50px;
+	width: 25%;
+	color: #646464;
+	font-size: 12.8px;
 }
-.share-site-name-facebook, .share-site-name-twitter, .share-site-name-sms, .share-site-name-gmail {
+.search-filter-p-label i { margin-right: 5px; }
+.search-filter-div i { display: inline-block;}
+.search-filter-div-input,.search-filter-input-time input,
+.search-filter-input-expi input {
+	border: 1px solid #E6E6E6;
+	border-radius: 1px;
+	padding-left: 5px;
 	display: inline-block;
-	position: absolute;
-	margin: 35px auto auto 4vw;
-	font-size: 25px;
+	font-size: 12px;
 }
-.share-options-facebook, .share-options-twitter, .share-options-sms, .share-options-gmail{
-	margin: auto auto auto auto;
-	width: 90%;
-	height: 125px;
-	font-size: 16px;
+.search-filter-div-input input { font-size: 12px;}
+.search-filter-div-input,.search-filter-input-time,
+.search-filter-input-expi,.search-filter-segmented-button {
+	width: 73%;
+	display: inline-block;
 }
-.share-options-gmail { height: 90px;}
-.share-options-sms { height: 55px;}
-.share-option-share, .share-option-send, .share-option-logout {
-	margin: 5px auto auto auto;
-	padding: 5px 20px 5px 0;
-	color: #fff;
+.search-filter-input-time input,.search-filter-input-expi input {
+	width: 45%;
+}
+.search-filter-advance { margin-top: 18px; height: 270px;}
+.search-filter-button-advance {
+	border: 1px solid #E6E6E6;
+	border-radius: 1px;
+	margin-top: 10px;
 	width: 100%;
-	text-align: right;
+	background-color: #fff;
+	color: #646464;
+	font-size: 15px;
 }
-.share-option-name { display: inline-block; margin: auto 10px auto auto;}
+.search-filter-button-advance i { margin-left: 5px;}
+
+/* Segment button */
+.search-filter-radio { margin-top: 20px;}
+.search-filter-segmented-button input[type="radio"] { display: none; height: 0; width: 0;}
+.search-filter-segmented-button label {
+	display: inline-block;
+	font-size: 10px;
+	margin-right: -4.5px;
+	padding: 5px 15px 3px;
+}
+.search-filter-segmented-button label.first,
+.search-filter-segmented-button label.last {
+	border: 1px solid #E6E6E6;
+	border-radius: 1px;
+	padding-top: 6px;
+	width: 75px;
+	height: 29px;
+	text-align: center;
+}
+.search-filter-segmented-button label.last { margin-left: 6px;}
+.search-filter-segmented-button input:checked+label, .search-filter-segmented-button label.selected { 
+	background-color: #8EB4C1;
+	color: #ffffff;
+	font-weight: bold;
+}
+/* Validation */
+.search-filter-form.ng-submitted .search-filter-.ng-invalid { background-color: #D65930; }
+.search-filter-form.ng-submitted .search-filter-.ng-invalid { color: #D65930; }

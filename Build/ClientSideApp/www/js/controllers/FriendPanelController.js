@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 12/05/2015
+ * last update: 15/07/2015
  * type: friend panel controller
  */
 
@@ -18,14 +18,6 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	$scope.searchFriend = '';
 	$scope.mShow = false;
 
-	//console.log(eUser.uFriend);
-	//$scope.cacheFriend = angular.copy(eUser.uFriend);
-
-	//refresh list as before sorting
-	/*$scope.refreshList = function() {
-		eUser.uFriend = angular.copy($scope.cacheFriend);
-	}*/
-
 	$scope.deleteFriend = function(friend) {
 		var confirmPopup = $ionicPopup.confirm({
 			title: 'Are you sure ?'
@@ -34,7 +26,6 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 		confirmPopup.then(function(res) {
 			if(res) {
 				$scope.eDatabase.deleteF(friend.id);
-				//$scope.cacheFriend = angular.copy(eUser.uFriend);
 			}
 		});
 	};
@@ -55,74 +46,6 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 		// the element you wish to scroll to.
 		$location.hash('friend-top');
 		$ionicScrollDelegate.anchorScroll(true);
-	};
-	
-	//sorting is based on name
-	var sortAZ = function(array) {
-		array.sort(function(obj1,obj2){
-			return (
-				eUser.uFriend[obj1].name.localeCompare(eUser.uFriend[obj2].name)
-			);
-		});
-
-		var sortedArray = [];
-		angular.forEach(array, function(id){
-			sortedArray.push(eUser.uFriend[id]);
-		});
-
-		eUser.uFriend = angular.copy(sortedArray);
-	};
-	
-	var sortViewTime = function(array){
-		array.sort(function(obj1,obj2){
-			return (
-				eUser.uFriend[obj2].viewTime - eUser.uFriend[obj1].viewTime
-			);
-		});
-
-		var sortedArray = [];
-		angular.forEach(array, function(id){
-			sortedArray.push(eUser.uFriend[id]);
-		});
-
-		eUser.uFriend = angular.copy(sortedArray);
-	};
-
-	var sortDateTime = function(array){
-		array.sort(function(obj1,obj2){
-			return (
-				eUser.uFriend[obj2].dateTime - eUser.uFriend[obj1].dateTime
-			);
-		});
-
-		var sortedArray = [];
-		angular.forEach(array, function(id){
-			sortedArray.push(eUser.uFriend[id]);
-		});
-
-		eUser.uFriend = angular.copy(sortedArray);
-	};
-
-	$scope.sort = function(typeSort) {
-		var arrF = [];
-		for(var x in eUser.uFriend){
-			arrF.push(x);
-		}
-
-		if (typeSort == 'AZ') {
-			//only sort by name
-			sortAZ(arrF);
-		}
-
-		if(typeSort == 'viewTime') {
-			//sort by number of viewing times in descending order
-			sortViewTime(arrF);
-		}
-
-		if(typeSort == 'dateTime') {
-			//sort by the most recently date
-			sortDateTime(arrF);
-		}
 	};
 })
 
@@ -162,27 +85,6 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 			});
 			element.bind('blur', function() {
 				parent.addClass('friend-search-input-blur');
-			});
-		}
-	};
-})
-
-.directive('sortOption', function() {
-	return {
-		restrict: 'A',
-		scope: {
-			isVisible: '='
-		},
-		link: function(scope, element) {
-			scope.$watch('isVisible', function() {
-				var parent = element.parent().parent();
-				var children = parent.next().next().children().children();
-				var listFriend = children.next().next();
-				if (scope.isVisible === true) {
-					listFriend.addClass('friend-blur-list');
-				} else {
-					listFriend.removeClass('friend-blur-list');
-				}
 			});
 		}
 	};

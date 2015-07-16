@@ -10,7 +10,7 @@
 		<button class="button button-icon button-clear ion-earth" ng-click="openPopover($event)"></button>
 		<button class="button button-icon button-clear ion-person-stalker" menu-toggle="right"></button>
 	</ion-nav-buttons>
-	<div id="month-div-calendar" data-ng-class="backgroundMonth(currentMonthNumber)">
+	<div id="month-div-calendar">
 		<!-- Month calendar ver 1 -->
 		<easi-month></easi-month>
 		
@@ -21,9 +21,9 @@
 		<center data-ng-show="showMonthVer2Cal && eSettings.sMonthView == 'timeGrid'">
 		<div class="month-calendar-2">
 			<div class="month-title-calendar-2">
-				<a class="month-button-previous-2 icon ion-chevron-left easi-gray" data-ng-click="previousMonth()" check-first-day="currentMonthNumber" this-year="{{currentYear}}"></a>
-				<div class="month-calendar-2-div-title" data-ng-click="changeState()">{{currentMonthString}}, {{currentYear}}</div>
-				<a class="month-button-next-2 icon ion-chevron-right easi-gray" data-ng-click="nextMonth()" check-first-day="currentMonthNumber" this-year="{{currentYear}}"></a>
+				<a class="month-button-previous-2 icon ion-chevron-left easi-gray" data-ng-click="previousMonth()" check-first-day="curMonthNum" this-year="{{curYear}}"></a>
+				<div class="month-calendar-2-div-title" data-ng-click="changeState()">{{curMonthStr}}, {{curYear}}</div>
+				<a class="month-button-next-2 icon ion-chevron-right easi-gray" data-ng-click="nextMonth()" check-first-day="curMonthNum" this-year="{{curYear}}"></a>
 			</div>
 		</div>
 		</center>
@@ -36,9 +36,9 @@
 				</tr>
 				<tr data-ng-repeat="week in weeks">
 					<td class="month-td-calendar-2" data-ng-repeat="day in week.days">
-						<div class="month-div-calendar-date" current-day-and-different-month="day.numberDate" month="{{day.month}}" year="{{currentYear}}" current-month="{{currentMonthNumber}}" data-ng-click="showListEvent(currentYear,day.month,day.numberDate)">{{day.numberDate}}</div>
+						<div class="month-div-calendar-date" current-day-and-different-month="day.numDate" month="{{day.month}}" year="{{curYear}}" current-month="{{curMonthNum}}" data-ng-click="showListEvent(curYear,day.month,day.numDate)">{{day.numDate}}</div>
 
-						<show-events year="{{currentYear}}" month="{{day.month}}" day="{{day.numberDate}}" data-ng-show="day.month == currentMonthNumber">
+						<show-events year="{{curYear}}" month="{{day.month}}" day="{{day.numDate}}" data-ng-show="day.month == curMonthNum">
 							<div class="month-div-calendar-events" data-ng-repeat="event in eUser.uGmailCalendar[date] | limitTo:2" background-color-event="bkgE" data-ng-click="viewE(event)"></div>
 						</show-events>
 					</td>
