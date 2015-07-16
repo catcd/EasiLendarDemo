@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 15/07/2015
+ * last update: 16/07/2015
  * type: particular controller
  */
 
@@ -25,7 +25,7 @@ signIn.controller('SignInController', function($scope, $rootScope, $ionicLoading
 	// Class User is defined at the end of file
 	$scope.user = new User();
 
-	// warning object contains all warnings
+	// warning object contains all warnings in register
 	$scope.warnings = {
 		// array of messages
 		mes: new Array(NUM_OF_WARNINGS),
@@ -75,10 +75,10 @@ signIn.controller('SignInController', function($scope, $rootScope, $ionicLoading
 					eUser.uEmail = data.gmail;
 					eUser.uPassword = $scope.user.password;
 
-					if (data.gender != null) eUser.uGender = data.gender == "1" ? "male" : "female";
-					if (data.birthday != null) eUser.uBirthday = new Date(parseInt(data.birthday));
-					if (data.phone != null) eUser.uPhone = data.phone;
-					if (data.address != null) eUser.uAddress = data.address;
+					if (!isNull(data.gender)) eUser.uGender = data.gender == "1" ? "male" : "female";
+					if (!isNull(data.birthday)) eUser.uBirthday = new Date(parseInt(data.birthday));
+					if (!isNull(data.phone)) eUser.uPhone = data.phone;
+					if (!isNull(data.address)) eUser.uAddress = data.address;
 
 					eUser.uRemember = $scope.isRemember;
 					eUser.uVIP = data.vip == "1" ? true : false;
@@ -261,7 +261,6 @@ signIn.controller('SignInController', function($scope, $rootScope, $ionicLoading
 		};
 	}; // End of class User
 
-	// PRIVATE
 	// check if object is null/undefined/"" or not
 	isNull = function(obj) {
 		if (obj === null || obj === undefined || obj === '') {

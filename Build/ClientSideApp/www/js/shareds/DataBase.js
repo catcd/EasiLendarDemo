@@ -6,17 +6,42 @@
  */
 
 var database = angular.module('MainApp.shareds.dataBase', []);
-
-database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, $localstorage) {
-	/*
-	 * PRIVATE
-	 * check if object is null/undefined/'' or not
-	 */
+database.config(function($httpProvider) {
+	$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+})
+database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, $localstorage) {
+	// check if object is null/undefined/'' or not
 	var isNull = function(obj) {
 		if (obj === null || obj === undefined || obj === '') {
 			return true;
 		}
 		return false;
+	};
+
+	// clear all data but setting
+	var clearData = function() {
+		eUser.resetData();
+		eFriend.resetData();
+	};
+
+	// show loading it hide when call $ionicLoading.hide() or state change
+	var databaseLoading = function() {
+		$ionicLoading.show({
+			template: '<ion-spinner icon="android" class="loading-spinner"></ion-spinner>',
+			hideOnStateChange: true
+		});
+	};
+
+	// check condition for execute database function
+	var checkExe = function() {
+		return eUser.isLogin && eSettings.sInternet;
+	};
+
+	// saveData function for localstorage
+	var saveData = function() {
+		if (eUser.uRemember) {
+			$localstorage.saveData();
+		}
 	};
 
 	/*
@@ -44,19 +69,6 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		}
 	};
 
-	/*
-	 * PRIVATE
-	 * clear all data in application when sign out
-	 */
-	var clearData = function() {
-		// Reset all data
-		// Setting
-		eSettings.resetData();
-		// User information
-		eUser.resetData();
-		// eFriend
-		eFriend.resetData();
-	};
 
 	/*
 	 * PRIVATE
@@ -68,16 +80,6 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		} else {
 			return false;
 		}
-	};
-
-	/*
-	 * show loading balls
-	 */
-	var databaseLoading = function() {
-		$ionicLoading.show({
-			template: '<ion-spinner icon="android" class="loading-spinner"></ion-spinner>',
-			hideOnStateChange: true
-		});
 	};
 
 	/*
@@ -138,15 +140,6 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 	};
 
 	/*
-	 * saveData function
-	 */
-	var saveData = function() {
-		if (eUser.uRemember) {
-			$localstorage.saveData();
-		}
-	}
-
-	/*
 	 * loadFriendInfo function
 	 * fArray is array of id: id
 	 * type is "friend" or "noti"
@@ -203,24 +196,15 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		this.convertCal = convertCal;
 		this.setUFRL = setUFRL;
 		this.setUFAL = setUFAL;
-		this.loadFriendInfo = loadFriendInfo;
 		this.databaseLoading = databaseLoading;
+		this.loadFriendInfo = loadFriendInfo;
 
-		/*
-		 * sign out function
-		 * update data, reset setting, go to form.
-		 */
+		// sign out function
+		// reset data, delete local storage, go to form.
 		this.signOutEasi = function() {
-			// clear data
 			clearData();
-
-			// Clear cache
 			$localstorage.deleteData();
-
-			// change state
 			$rootScope.goToState('form');
-
-			// notice
 			eToast.toastSuccess('Sign out successfully!', 3000);
 		};
 
@@ -828,38 +812,48 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 			}
 		};
 
-		/*
-		 * updateProfile function
-		 * update: ava, name, birthday, gender, phone, address
-		 */
+		// updateProfile function
+		// update: name, birthday, gender, phone, address
 		this.updateProfile = function() {
-			if (checkSignIn()) {
-				var user = new Firebase(
-					'https://radiant-inferno-3243.firebaseio.com/Users/' +
-					eUser.uID);
-				// loading
-				this.databaseLoading();
-				if (isNull(eUser.uBirthday)) {
-					eUser.uBirthday = null;
-				}
-				if (isNull(eUser.uGender)) {
-					eUser.uGender = null;
-				}
-				if (isNull(eUser.uPhone)) {
-					eUser.uPhone = null;
-				}
-				if (isNull(eUser.uAddress)) {
-					eUser.uAddress = null;
-				}
-				user.child('name').set(eUser.uName);
-				user.child('avatar').set(eUser.uAvatar);
-				user.child('birthday').set(eUser.uBirthday);
-				user.child('gender').set(eUser.uGender);
-				user.child('phone').set(eUser.uPhone);
-				user.child('address').set(eUser.uAddress, onComplete);
-				saveData();
+			if (checkExe()) {
+				databaseLoading();
+
+				var upBirthday = eUser.uBirthday != null ? eUser.uBirthday.getTime().toString() : null,
+					upGendar = eUser.uGender == "male" ? '1' : '0';
+
+				$http({
+					url: 'http://easilendar.wc.lt/database/updateProfile.php',
+					method: "POST",
+					data: {
+						'id': eUser.uID,
+						'pass': eUser.uPassword,
+						'name': eUser.uName,
+						'birthday': upBirthday,
+						'gender': upGendar,
+						'phone': eUser.uPhone,
+						'address': eUser.uAddress
+					}
+				}).success(function(data, status, headers, config) {
+					console.log(data);
+					$ionicLoading.hide();
+					if (data == 'success') {
+						eToast.toastSuccess('Update successfully!', 2000);
+						saveData();
+					} else if (data == 'wrong pass'){
+						eToast.toastError('Error. Please log in again!', 3000);
+						setTimeout(function() {
+							this.signOutEasi();
+						}, 3500);
+					} else {
+						eToast.toastError('An error occurred. Please try again!', 2000);
+					}
+				}).error(function(data, status, headers, config) {
+					console.log(data, 'error');
+					$ionicLoading.hide();
+					eToast.toastError('An error occurred. Please try again!', 2000);
+				});
 			} else {
-				return false;
+				eToast.toastInfo('You are current offline', 2000);
 			}
 		};
 
@@ -900,23 +894,4 @@ database.factory('eDatabase', function($rootScope, $ionicLoading, eToast, eUser,
 		}
 	}
 	return new DataBase();
-});
-database.factory('eventOff', function(eDatabase) {
-	return {
-		events: [], // array of events that have not been updated
-		push: function(event, type) {
-			this.events[this.events.length] = {
-				event: event,
-				type: type
-			};
-		},
-		// update all event in events array
-		update: function() {
-			for (var i = 0; i < this.events.length; i++) {
-				eDatabase.updateEvent(this.events[i].event, this.events[i].type);
-			}
-		},
-		// delete all events when update is complete
-		del: function() {}
-	};
 });

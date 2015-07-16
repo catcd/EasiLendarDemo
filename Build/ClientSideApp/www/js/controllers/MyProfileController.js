@@ -1,104 +1,64 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 05/07/2015
+ * last update: 17/07/2015
  * type: my profile controller
  */
 
 angular.module('MainApp.controllers.myProfile', [])
 
-.controller('MyProfileController', function($scope, $rootScope, $ionicSlideBoxDelegate, $ionicPopup, eUser, eDatabase, eToast, eCalendar) {
+.controller('MyProfileController', function($scope, $rootScope, $ionicPopup, eUser, eSettings, eDatabase, eToast, eCalendar) {
 	// inject service
 	$scope.eUser = eUser;
-	$scope.eDatabase = eDatabase;
 	$scope.eCalendar = eCalendar;
 
-	// init constant
-	$scope.rightButton = {};
-	$scope.rightButton[false] = {
-		icon: 'ion-android-settings'
-	};
-	$scope.rightButton[true] = {
-		icon: 'ion-android-done'
-	};
+	// initialize constant
+	$scope.rightButton  = {};
+	$scope.rightButton[false] = 'ion-android-settings';
+	$scope.rightButton[true] = 'ion-android-done';
 	$scope.leftButton = {};
-	$scope.leftButton[false] = {
-		icon: 'ion-home'
-	};
-	$scope.leftButton[true] = {
-		icon: 'ion-android-close'
-	};
+	$scope.leftButton[false] = 'ion-home';
+	$scope.leftButton[true] = 'ion-android-close';
 
-	// init var
+	// initialize variable
 	$scope.data = {};
 	$scope.active = 0;
 	$scope.isEditing = false;
 	var enableSlide = true;
 
-	$scope.onLoadMyProfile = function() {
-		updateTime();
-		eventStatus();
-		setInterval(updateTime, 1000);
-	};
-
-	var updateTime = function() {
-		var t = new Date();
-
-		var date = eCalendar.easiConvertTime(t).date;
-		var time = eCalendar.easiConvertTime(t).time;
-
-		document.getElementById('mp-date').innerHTML = date;
-		document.getElementById('mp-time').innerHTML = time;
-	};
-
-	var eventStatus = function() {
-		var count = 0,
-			calendar,
-			temp = new Date(),
-			startToday = new Date(temp.getFullYear(), temp.getMonth(), temp.getDate());
-
-		if (eUser.uGmailCalendar !== null && eUser.uGmailCalendar[startToday] !== undefined) {
-			var calendar = eUser.uGmailCalendar[startToday];
-
-			calendar.every(function(element) {
-				if (element.start.dateTime > temp) {
-					count++;
-				}
-			});
-		}
-
-		if (count > 0) {
-			document.getElementById('mp-status').innerHTML = 'Today has ' + count + ' event(s) to do.';
-		} else {
-			document.getElementById('mp-status').innerHTML = 'Today has nothing to do left.';
-		}
-	};
-
 	// function next to avatar
 	$scope.capture = function() {
-		eToast.toastInfo('Coming soon...', 3000);
+		eToast.toastInfo('Coming soon...', 2000);
 	};
 
 	$scope.edit = function() {
-		$scope.data.name = eUser.uName;
-		$scope.data.date = eUser.uBirthday;
-		$scope.data.gender = (eUser.uGender == 'Male' ? true : false);
-		$scope.data.phone = eUser.uPhone;
-		$scope.data.address = eUser.uAddress;
+		if (eSettings.sInternet) {
+			$scope.data.name = eUser.uName;
+			$scope.data.date = eUser.uBirthday;
+			$scope.data.gender = (eUser.uGender == 'male' ? true : false);
+			$scope.data.phone = eUser.uPhone;
+			$scope.data.address = eUser.uAddress;
 
-		$scope.activeTab(1);
-		$scope.isEditing = true;
-		enableSlide = false;
+			$scope.activeTab(0);
+			$scope.isEditing = true;
+			enableSlide = false;
+		} else {
+			eToast.toastInfo('You are current offline', 2000);
+		}
 	};
 
 	// function to active tab
 	$scope.activeTab = function(index) {
 		if (enableSlide) {
-			$scope.active = index <= 3 && index >= 0 ? index : 0;
+			if (!eSettings.sInternet && (index == 2 || index == 3)) {
+				eToast.toastInfo('You are current offline', 2000);
+			} else {
+				$scope.active = index <= 3 && index >= 0 ? index : 0;
 
-			var elem = document.getElementById('mp-tab-' + index);
-			var element = angular.element(elem);
-			element.prop('checked', true);
+				var elem = document.getElementById('mp-tab-' + index);
+				var element = angular.element(elem);
+				element.prop('checked', true);
+			}
 		}
 	};
 
@@ -128,26 +88,21 @@ angular.module('MainApp.controllers.myProfile', [])
 
 		if ($scope.data.phone) {
 			$scope.data.phone = $scope.data.phone.toString();
-
-			eUser.uPhone = $scope.data.phone.charAt(0) == '0' ?
-				$scope.data.phone : '0' + $scope.data.phone;
+			eUser.uPhone = $scope.data.phone.charAt(0) == '0' ?	$scope.data.phone : '0' + $scope.data.phone;
 		}
 
 		eUser.uAddress = $scope.data.address;
 
-		$scope.data = {};
-		$scope.isEditing = false;
-		enableSlide = true;
+		$scope.cancel();
 		eDatabase.updateProfile();
 	};
 
 	$scope.setting = function() {
-		eToast.toastInfo('Coming soon...', 3000);
+		eToast.toastInfo('Coming soon...', 2000);
 	};
 
 	$scope.cancel = function() {
 		$scope.data = {};
-
 		$scope.isEditing = false;
 		enableSlide = true;
 	};
@@ -160,8 +115,6 @@ angular.module('MainApp.controllers.myProfile', [])
 		confirmPopup.then(function(res) {
 			if (res) {
 				eDatabase.deleteF(id);
-			} else {
-				console.log('You are not sure');
 			}
 		});
 	};
@@ -174,10 +127,9 @@ angular.module('MainApp.controllers.myProfile', [])
 			console.log('Date not selected');
 		} else {
 			$scope.data.date = new Date(val);
-			$scope.mBirthday = eCalendar.parseDate($scope.data.date).date +
-							' ' + eCalendar.parseDate($scope.data.date).year;
+			$scope.mBirthday = eCalendar.parseDate($scope.data.date).utcDate;
 		}
 	};
 
-	$scope.mBirthday = '';
+	$scope.mBirthday = eUser.uBirthday != null ? eCalendar.parseDate(eUser.uBirthday).utcDate : '';
 });
