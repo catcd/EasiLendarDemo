@@ -82,7 +82,13 @@ signIn.controller('SignInController', function($scope, $rootScope, $ionicLoading
 
 					eUser.uRemember = $scope.isRemember;
 					eUser.isLogin = true;
-					// get calendar, noti and friends
+					// TODO load event
+
+					// loading other data underground
+					eDatabase.loadFriendNoti();
+					eDatabase.loadFriend();
+					//eDatabase.loadMeetingNoti();
+
 					$scope.user.reset();
 					$rootScope.goHome();
 				} else {
@@ -94,21 +100,6 @@ signIn.controller('SignInController', function($scope, $rootScope, $ionicLoading
 			});
 		}
 	};
-	// 				eUser.uFriend = user.friends;
-	// 				eUser.uGmailCalendar = eDatabase.convertCal(user.g_calendar);
-	// 				eUser.uLocalCalendar = eDatabase.convertCal(user.local_calendar);
-	// 				eUser.uFaceCalendar = eDatabase.convertCal(user.face_calendar);
-	// 				eUser.uRequested = user.requested;
-	// 				eUser.uFRequest = isNull(user.noti) ? null : user.noti.fRequest;
-	// 				eUser.uFAccepted = isNull(user.noti) ? null : user.noti.fAccept;
-	// 				eUser.uFRLength = 0;
-	// 				eUser.uFALength = 0;
-	// 				eDatabase.setUFRL();
-	// 				eDatabase.setUFAL();
-	// 				eDatabase.loadFriendInfo(eUser.uRequested);
-	// 				eDatabase.loadFriendInfo(eUser.uFriend, 'friend');
-	// 				eDatabase.loadFriendInfo(eUser.uFRequest);
-	// 				eDatabase.loadFriendInfo(eUser.uFAccepted, 'noti');
 
 	// register function
 	$scope.register = function() {

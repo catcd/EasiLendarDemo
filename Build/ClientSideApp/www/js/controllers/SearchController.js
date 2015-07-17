@@ -7,7 +7,7 @@
 
 var search = angular.module('MainApp.controllers.search', []);
 
-search.controller('SearchController', function($scope, $rootScope, eToast, eDatabase, eUser, eCheckFriend, eCalendar) {
+search.controller('SearchController', function($scope, $rootScope, $ionicPopup, eToast, eDatabase, eUser, eCheckFriend, eCalendar) {
 	// search data
 	$scope.data = {
 		input: '',
@@ -42,21 +42,21 @@ search.controller('SearchController', function($scope, $rootScope, eToast, eData
 			eDatabase.searchFriend($scope.data.input);
 			eDatabase.searchEvent($scope.data.input);
 			$scope.data.submit = true;
-			$rootScope.searchFriends[0] = {
-				id: 'cancatdz',
-				name: 'Cat Can',
-				ava: '0'
-			};
-			$rootScope.searchFriends[1] = {
-				id: 'dungk58',
-				name: 'Ngo Duc Huong',
-				ava: '0'
-			};
-			$rootScope.searchFriends[2] = {
-				id: 'pagenguyen',
-				name: 'Nguyen Minh Page',
-				ava: '0'
-			};
+			// $rootScope.searchFriends[0] = {
+			// 	id: 'cancatdz',
+			// 	name: 'Cat Can',
+			// 	avatar: '0'
+			// };
+			// $rootScope.searchFriends[1] = {
+			// 	id: 'dungk58',
+			// 	name: 'Ngo Duc Huong',
+			// 	avatar: '0'
+			// };
+			// $rootScope.searchFriends[2] = {
+			// 	id: 'pagenguyen',
+			// 	name: 'Nguyen Minh Page',
+			// 	avatar: '0'
+			// };
 		} else {
 			eToast.toastInfo('No input.', 2000);
 		}

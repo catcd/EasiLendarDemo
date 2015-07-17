@@ -36,14 +36,13 @@
 		<div class="list sc-people-result" ng-show="data.type == 'People'">
 			<div class="sc-1-person" ng-repeat="person in searchFriends" ng-show="searchFriends.length != 0">
 				<a class="item easi-item-avatar easi-index-1" ng-click="clickPerson(person)">
-					<img data-ng-src="img/ava{{person.ava}}.png">
+					<img data-ng-src="img/ava{{person.avatar}}.png">
 					<h2 class="easi-space sc-person-result-name">{{person.name}}</h2>
 				</a>
 
 				<button class="button icon {{dataBtn1(person.id).icon}} button-easi-blue easi-index-2 sc-person-button-1"	ng-click="clickButton1(person.id)" ng-hide="dataBtn1(person.id).hide">
 				</button>
-				<button class="button icon {{dataBtn1(person.id).icon}} button-easi-red easi-index-2 sc-person-button-2" ng-click="clickButton2(person.id)" ng-hide="dataBtn2(person.id).hide">
-					<i class="icon {{dataBtn1(person.id).icon}}"></i>
+				<button class="button icon {{dataBtn2(person.id).icon}} button-easi-red easi-index-2 sc-person-button-2" ng-click="clickButton2(person.id)" ng-hide="dataBtn2(person.id).hide">
 				</button>
 			</div>
 			<h3 class="easi-gray easi-center" ng-show="searchFriends.length == 0">

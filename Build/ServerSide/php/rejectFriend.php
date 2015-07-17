@@ -9,11 +9,7 @@ $data = file_get_contents("php://input");
 $request = json_decode($data);
 $id = $request->id;
 $pass = $request->pass;
-$name =  $request->name;
-$birthday =  $request->birthday;
-$gender =  $request->gender;
-$phone =  $request->phone;
-$address =  $request->address;
+$friendID =  $request->friendID;
 
 function isNull($obj) {
 	if ($obj === null || $obj === undefined || $obj === "") {
@@ -22,7 +18,7 @@ function isNull($obj) {
 	return false;
 };
 
-if (!isNull($id) && !isNull($pass)) {
+if (!isNull($id) && !isNull($pass) && !isNull($friendID)) {
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	// Check connection
 	if ($conn->connect_error) {
@@ -37,11 +33,10 @@ if (!isNull($id) && !isNull($pass)) {
 	if($fetchData["pass"] != $pass) {
 		echo "wrong pass";
 	} else {
-		$sql = "UPDATE UserData
-		SET name='$name',birthday='$birthday',gender='$gender',phone='$phone',address='$address'
-		WHERE id='$id'";
+		$remove = "DELETE FROM FriendRequest
+		WHERE sender='$friendID' AND receiver='$id';";
 
-		if ($conn->query($sql) === TRUE) {
+		if ($conn->query($remove) === true) {
 		    echo "success";
 		} else {
 		    echo "error";

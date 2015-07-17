@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
- * owner: Nguyen Minh Trang
- * last update: 14/07/2015
+ * owner: Can Duy Cat
+ * last update: 18/07/2015
  * type: all shared database variables and functions
  */
 
@@ -9,7 +9,7 @@ var database = angular.module('MainApp.shareds.dataBase', []);
 database.config(function($httpProvider) {
 	$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 })
-database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, $localstorage) {
+database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast, eUser, eSettings, eFriend, eCheckFriend, eMultiCalendar, eEasiLendar, eCalendar, $localstorage) {
 	// clear all data but setting
 	var clearData = function() {
 		eUser.resetData();
@@ -34,6 +34,14 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 		if (eUser.uRemember) {
 			$localstorage.saveData();
 		}
+	};
+
+	// toast error and sign out
+	var fatalError = function() {
+		eToast.toastError('Error. Please log in again!', 3000);
+		setTimeout(function() {
+			this.signOutEasi();
+		}, 3500);
 	};
 
 	/*
@@ -96,87 +104,8 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 		}
 	};
 
-	/*
-	 * set uFRequest's length to uFRLength
-	 */
-	var setUFRL = function() {
-		if (isNull(eUser.uFRequest)) {
-			eUser.uFRLength = 0;
-		} else {
-			eUser.uFRLength = Object.keys(eUser.uFRequest).length;
-		}
-	};
-
-	/*
-	 * set uFAccepted's length to uFALength
-	 */
-	var setUFAL = function() {
-		if (isNull(eUser.uFAccepted)) {
-			eUser.uFALength = 0;
-		} else {
-			eUser.uFALength = Object.keys(eUser.uFAccepted).length;
-		}
-	};
-
-	/*
-	 * loadFriendInfo function
-	 * fArray is array of id: id
-	 * type is "friend" or "noti"
-	 * get "id" info and push to this array
-	 */
-	var loadFriendInfo = function(fArray, type) {
-		eUser.uIsDoneFriend = false;
-		eUser.uIsDoneNoti = false;
-		if (checkExe() && !isNull(fArray)) {
-			var ref = new Firebase(
-				'https://radiant-inferno-3243.firebaseio.com/Users');
-
-			// find the last friend
-			var array = Object.keys(fArray);
-			var length = array.length;
-			// id of the last friend in the list
-			var lastFriend = array[length - 1];
-			ref.once('value', function(snapshot) {
-				for (var x in fArray) {
-					if (fArray.hasOwnProperty(x)) {
-						var friend = snapshot.child(x).val();
-						fArray[x] = {
-							id: x,
-							name: friend.name,
-							ava: friend.avatar
-						};
-						if (fArray[x].id == lastFriend) {
-							// load uFriend array
-							if (type == 'friend') {
-								eUser.uIsDoneFriend = true;
-							}
-							// load noti. Only the last type of noti has type
-							else if (type == 'noti') {
-								eUser.uIsDoneNoti = true;
-							}
-						}
-					}
-					saveData();
-				}
-			});
-		} else {
-			if (type == 'friend') {
-				eUser.uIsDoneFriend = true;
-			}
-			// load noti. Only the last type of noti has type
-			else if (type == 'noti') {
-				eUser.uIsDoneNoti = true;
-			}
-			return false;
-		}
-	};
-
 	function DataBase() {
-		this.convertCal = convertCal;
-		this.setUFRL = setUFRL;
-		this.setUFAL = setUFAL;
 		this.databaseLoading = databaseLoading;
-		this.loadFriendInfo = loadFriendInfo;
 
 		// sign out function
 		// reset data, delete local storage, go to form.
@@ -187,12 +116,85 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 			eToast.toastSuccess('Sign out successfully!', 3000);
 		};
 
+		// checkHack function
+		this.checkHack = function(id, pass) {
+			if (checkExe()) {
+				$http({
+					url: 'http://easilendar.wc.lt/database/checkPass.php',
+					method: "POST",
+					data: {
+						'id': eUser.uID,
+						'pass': eUser.uPassword
+					}
+				}).success(function(data, status, headers, config) {
+					if (data != "true") {
+						fatalError();
+					}
+				}).error(function(data, status, headers, config) {
+					fatalError();
+				});
+			} else {
+				fatalError();
+			}
+		}
+
+		// load friend request save to eUser.uFRequest
+		// load requested friend save to eUser.uRequested
+		// load friend accepted save to eUser.uFAccepted
+		this.loadFriendNoti = function() {
+			$http({
+				url: 'http://easilendar.wc.lt/database/loadFriendNoti.php',
+				method: "POST",
+				data: {
+					'id': eUser.uID,
+					'pass': eUser.uPassword
+				}
+			}).success(function(data, status, headers, config) {
+				if (typeof data == 'object') {
+					eUser.uFRequest = data.fRequest;
+					eUser.uRequested = data.requested;
+					eUser.uFAccepted = data.accepted;
+					eUser.uIsDoneFNoti = true;
+					saveData();
+				} else if (data == 'wrong pass') {
+					fatalError();
+				} else {
+					eToast.toastInfo('Cannot load notification!', 2000);
+				}
+			}).error(function(data, status, headers, config) {
+				eToast.toastInfo('Cannot load notification!', 2000);
+			});
+		};
+
+		// load friend list save to eUser.uFriend
+		this.loadFriend = function() {
+			$http({
+				url: 'http://easilendar.wc.lt/database/loadFriend.php',
+				method: "POST",
+				data: {
+					'id': eUser.uID,
+					'pass': eUser.uPassword
+				}
+			}).success(function(data, status, headers, config) {
+				if (typeof data == 'object') {
+					eUser.uFriend = data;
+					eUser.uIsDoneFriend = true;
+					saveData();
+				} else if (data == 'wrong pass') {
+					fatalError();
+				} else {
+					eToast.toastInfo('Cannot load friend data!', 2000);
+				}
+			}).error(function(data, status, headers, config) {
+				eToast.toastInfo('Cannot load friend data!', 2000);
+			});
+		};
+
 		// updateProfile function
 		// update: name, birthday, gender, phone, address
 		this.updateProfile = function() {
 			if (checkExe()) {
 				databaseLoading();
-
 				var upBirthday = eUser.uBirthday != null ? eUser.uBirthday.getTime().toString() : null,
 					upGendar = eUser.uGender == "Male" ? 1 : 0;
 
@@ -214,10 +216,7 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 						eToast.toastSuccess('Update successfully!', 2000);
 						saveData();
 					} else if (data == 'wrong pass') {
-						eToast.toastError('Error. Please log in again!', 3000);
-						setTimeout(function() {
-							this.signOutEasi();
-						}, 3500);
+						fatalError();
 					} else {
 						eToast.toastError('An error occurred. Please try again!', 2000);
 					}
@@ -235,7 +234,6 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 		this.searchFriend = function(str) {
 			if (checkExe()) {
 				databaseLoading();
-
 				$http({
 					url: 'http://easilendar.wc.lt/database/searchFriend.php',
 					method: "POST",
@@ -245,10 +243,11 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 				}).success(function(data, status, headers, config) {
 					$ionicLoading.hide();
 					if (typeof data == 'object') {
-						console.log(data);
 						if (!isNull(data)) {
 							$rootScope.searchFriends = data;
 						}
+					} else if (data = 'empty') {
+						$rootScope.searchFriends = [];
 					} else {
 						eToast.toastError('An error occurred. Please try again!', 2000);
 					}
@@ -281,75 +280,167 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 						}
 					}
 				}
-			} else {
-				return false;
 			}
 		};
 
-		/*
-		 * Add friend function add id of this user to 'id' 's friends list
-		 */
-		this.addFriend = function(id) {
-			if (checkExe() && !isNull(id)) {
-				var ref = new Firebase(
-					'https://radiant-inferno-3243.firebaseio.com/Users');
-				var idRef = ref.child(id);
-
-				// loading
-				this.databaseLoading();
-
-				// check if id has sent a request
-				if (!isNull(eUser.uFRequest) && !isNull(eUser.uFRequest[id])) {
-					idRef.once('value', function(snapshot) {
-						var user = snapshot.val();
-						// there is no user with that "id"
-						if (isNull(user)) {
-							alert(id + 'does not exist');
-						} else {
-							// add this user to "id"'s friends list
-							var fFriend = idRef.child('friends/' + eUser.uID);
-							fFriend.set(eUser.uID);
-							// add this user to accepted list of "id"
-							var fAccept = idRef.child('noti/fAccept/' +
-								eUser.uID);
-							fAccept.set(eUser.uID);
-							// delete this user from requested list of id
-							var fRequested = idRef.child('requested/' +
-								eUser.uID);
-							fRequested.set(null);
-
-							// delete the request of 'id'
-							delete eUser.uFRequest[id];
-							setUFRL(); // set uFRLength
-
-							// add "id" to friends list
-							if (isNull(eUser.uFriend)) {
-								eUser.uFriend = [];
-							}
-							// local
-							eUser.uFriend[id] = {
-								id: id,
-								name: user.name,
-								ava: user.avatar,
-								VIP: user.VIP
-							};
-							// update on this account (not 'id')
-							var uFriend = ref.child(eUser.uID + '/friends/' +
-								id);
-							uFriend.set(id);
-							var uFRequest = ref.child(eUser.uID +
-								'/noti/fRequest/' + id);
-							uFRequest.set(null, onComplete);
-
-							saveData();
+		// send id a friend request
+		this.requestFriend = function(id) {
+			if (checkExe()) {
+				if (id != eUser.uID && !eCheckFriend.isFriend(id) && !eCheckFriend.isRequested(id) && !eCheckFriend.isRequestedMe(id)) {
+					databaseLoading();
+					$http({
+						url: 'http://easilendar.wc.lt/database/requestFriend.php',
+						method: "POST",
+						data: {
+							'id': eUser.uID,
+							'pass': eUser.uPassword,
+							'friendID': id,
 						}
-					}, function(errorObject) {
-						console.log('Failed to access' + ref);
+					}).success(function(data, status, headers, config) {
+						$ionicLoading.hide();
+						if (data == 'success') {
+							// add id to this user's requested list
+							if (isNull(eUser.uRequested)) {
+								eUser.uRequested = [];
+							}
+							eUser.uRequested[id] = {
+								id: id
+							};
+							eToast.toastSuccess('Friend request sent!', 2000);
+							saveData();
+						} else if (data == 'wrong pass') {
+							fatalError();
+						} else {
+							eToast.toastError('An error occurred. Please try again!', 2000);
+						}
+					}).error(function(data, status, headers, config) {
+						$ionicLoading.hide();
+						eToast.toastError('An error occurred. Please try again!', 2000);
 					});
 				}
 			} else {
-				return false;
+				eToast.toastInfo('You are current offline', 2000);
 			}
+		};
+
+		// accept id friend request
+		this.acceptFriend = function(id) {
+			if (checkExe()) {
+				// request myself
+				if (eCheckFriend.isRequestedMe(id)) {
+					databaseLoading();
+					$http({
+						url: 'http://easilendar.wc.lt/database/acceptFriend.php',
+						method: "POST",
+						data: {
+							'id': eUser.uID,
+							'pass': eUser.uPassword,
+							'friendID': id,
+						}
+					}).success(function(data, status, headers, config) {
+						$ionicLoading.hide();
+						if (data == 'success') {
+							// add friend
+							eUser.uFriend[id] = eUser.uFRequest[id];
+							// remove friend request
+							delete eUser.uFRequest[id];
+
+							eToast.toastSuccess('Accepeted!', 2000);
+							saveData();
+						} else if (data == 'wrong pass') {
+							fatalError();
+						} else {
+							eToast.toastError('An error occurred. Please try again!', 2000);
+						}
+					}).error(function(data, status, headers, config) {
+						$ionicLoading.hide();
+						eToast.toastError('An error occurred. Please try again!', 2000);
+					});
+				}
+			} else {
+				eToast.toastInfo('You are current offline', 2000);
+			}
+		};
+
+		// reject id friend request
+		this.rejectFriend = function(id) {
+			if (checkExe()) {
+				// request myself
+				if (eCheckFriend.isRequestedMe(id)) {
+					databaseLoading();
+					$http({
+						url: 'http://easilendar.wc.lt/database/rejectFriend.php',
+						method: "POST",
+						data: {
+							'id': eUser.uID,
+							'pass': eUser.uPassword,
+							'friendID': id,
+						}
+					}).success(function(data, status, headers, config) {
+						$ionicLoading.hide();
+						if (data == 'success') {
+							// remove friend request
+							delete eUser.uFRequest[id];
+
+							eToast.toastSuccess('Rejected!', 2000);
+							saveData();
+						} else if (data == 'wrong pass') {
+							fatalError();
+						} else {
+							eToast.toastError('An error occurred. Please try again!', 2000);
+						}
+					}).error(function(data, status, headers, config) {
+						$ionicLoading.hide();
+						eToast.toastError('An error occurred. Please try again!', 2000);
+					});
+				}
+			} else {
+				eToast.toastInfo('You are current offline', 2000);
+			}
+		};
+
+		// delete id in friend list
+		this.deleteFriend = function(id) {
+			if (checkExe()) {
+				if (eCheckFriend.isFriend(id)) {
+					databaseLoading();
+					$http({
+						url: 'http://easilendar.wc.lt/database/deleteFriend.php',
+						method: "POST",
+						data: {
+							'id': eUser.uID,
+							'pass': eUser.uPassword,
+							'friendID': id,
+						}
+					}).success(function(data, status, headers, config) {
+						$ionicLoading.hide();
+						if (data == 'success') {
+							// remove friend
+							delete eUser.uFriend[id];
+
+							eToast.toastSuccess('Deleted!', 2000);
+							saveData();
+						} else if (data == 'wrong pass') {
+							fatalError();
+						} else {
+							eToast.toastError('An error occurred. Please try again!', 2000);
+						}
+					}).error(function(data, status, headers, config) {
+						$ionicLoading.hide();
+						eToast.toastError('An error occurred. Please try again!', 2000);
+					});
+				}
+			} else {
+				eToast.toastInfo('You are current offline', 2000);
+			}
+		};
+
+		// update everything from server equivelent to sign in again
+		this.refresh = function() {
+			this.loadFriendNoti();
+			this.loadFriend();
+			//this.loadMeetingNoti();
+			//this.loadEvent();
 		};
 
 		/*
@@ -382,58 +473,6 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 		};
 
 		/*
-		 * request friend add this user's id to fRequest of 'id'
-		 */
-		this.request = function(id) {
-			if (checkExe() && !isNull(id)) {
-				// request myself
-				if (id == eUser.uID) {
-					return false;
-				}
-				var ref = new Firebase(
-					'https://radiant-inferno-3243.firebaseio.com/Users');
-
-				// reference to uRequested list of this user
-				var uRequest = ref.child(eUser.uID + '/requested/' + id);
-				// reference to id
-				var friend = ref.child(id);
-
-				// loading
-				this.databaseLoading();
-
-				friend.once('value', function(snapshot) {
-					var user = snapshot.val();
-					// there is no user with that "id"
-					if (isNull(user)) {
-						alert(id + 'does not exist');
-					} else {
-						// add this user to "id"'s friend request list
-						var fRequest = friend.child('noti/fRequest/' +
-							eUser.uID);
-						fRequest.set(eUser.uID);
-						// add id to this user's requested list
-						if (isNull(eUser.uRequested)) {
-							eUser.uRequested = [];
-						}
-						// local
-						eUser.uRequested[id] = {
-							id: id,
-							name: user.name,
-							ava: user.avatar
-						};
-						// database
-						uRequest.set(id, onComplete);
-						saveData();
-					}
-				}, function(errorObject) {
-					console.log('Failed to access' + ref);
-				});
-			} else {
-				return false;
-			}
-		};
-
-		/*
 		 * deleteFN function delete friend accepted noti 'id' is 
 		 * index of noti in
 		 * uFAccepted array
@@ -449,64 +488,6 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 				// loading
 				this.databaseLoading();
 				uAccept.set(null, onComplete);
-				saveData();
-			} else {
-				return false;
-			}
-		};
-
-		/*
-		 * deleteF function delete friend with 'id'
-		 */
-		this.deleteF = function(id) {
-			if (checkExe() && !isNull(id)) {
-				/* local */
-				delete eUser.uFriend[id]; // delete 'id' in user's friend list
-				// if accepted noti has not been seen => delete it
-				if (!isNull(eUser.uFAccepted)) {
-					delete eUser.uFAccepted[id];
-				}
-
-				// loading
-				databaseLoading();
-
-				/* database */
-				var user = new Firebase(
-					'https://radiant-inferno-3243.firebaseio.com/Users/' +
-					eUser.uID);
-				user.child('friends/' + id).set(null);
-				user.child('noti/fAccept/' + id).set(null);
-
-				var friend = new Firebase(
-					'https://radiant-inferno-3243.firebaseio.com/Users/' +
-					id);
-				friend.child('friends/' + eUser.uID).set(null);
-				friend.child('noti/fAccept/' + eUser.uID).set(null, onComplete);
-				saveData();
-			} else {
-				return false;
-			}
-		};
-
-		/*
-		 * rejectF function reject friend request sent by 'id'
-		 */
-		this.rejectF = function(id) {
-			if (checkExe() && !isNull(id)) {
-				delete eUser.uFRequest[id];
-				setUFRL(); // set uFRLength
-
-				var uRequest = new Firebase(
-					'https://radiant-inferno-3243.firebaseio.com/Users/' +
-					eUser.uID + '/noti/fRequest/' + id);
-				var fRequested = new Firebase(
-					'https://radiant-inferno-3243.firebaseio.com/Users/' +
-					id + '/requested/' + eUser.uID);
-
-				// loading
-				this.databaseLoading();
-				fRequested.set(null);
-				uRequest.set(null, onComplete);
 				saveData();
 			} else {
 				return false;
@@ -546,63 +527,6 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 					}
 				}, function(errorObject) {
 					console.log('Failed to access' + ref);
-				});
-			} else {
-				return false;
-			}
-		};
-
-		/*
-		 * refresh function update everything from server
-		 */
-		this.refresh = function() {
-			if (checkExe()) {
-				var ref = new Firebase(
-					'https://radiant-inferno-3243.firebaseio.com/Users/' +
-					eUser.uID);
-				// loading
-				this.databaseLoading();
-				ref.once('value', function(snapshot) {
-					var user = snapshot.val();
-					// copy all user's data to eUser
-					eUser.uName = user.name;
-					eUser.uAvatar = user.avatar;
-					eUser.uEmail = user.gmail;
-					eUser.uPassword = user.password;
-
-					eUser.uGender = user.gender;
-					eUser.uBirthday = user.birthday;
-					eUser.uPhone = user.phone;
-					eUser.uAddress = user.address;
-
-					eUser.uFriend = user.friends;
-					eUser.uVIP = user.VIP;
-
-					// convert
-					eUser.uCalendar = convertCal(user.g_calendar);
-					eUser.uLocalCalendar = convertCal(user.local_calendar);
-					eUser.uFaceCalendar = convertCal(user.face_calendar);
-
-					eUser.uRequested = user.requested;
-					eUser.uFRequest = isNull(user.noti) ? null : user.noti.fRequest;
-					eUser.uFAccepted = isNull(user.noti) ? null : user.noti.fAccept;
-					eUser.uFRLength = 0;
-					eUser.uFALength = 0;
-
-					// set uFRLength and uFALength
-					setUFRL();
-					setUFAL();
-
-					// load uRequested, uFRequest, uFAccepted, uFriend info
-					loadFriendInfo(eUser.uRequested);
-					loadFriendInfo(eUser.uFriend, 'friend');
-					loadFriendInfo(eUser.uFRequest);
-					loadFriendInfo(eUser.uFAccepted, 'noti');
-
-					$ionicLoading.hide();
-					saveData();
-				}, function(errorObject) {
-					console.log('Can not refresh');
 				});
 			} else {
 				return false;
@@ -817,42 +741,6 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 				return false;
 			}
 		};
-
-		/*
-		 * checkHack function
-		 */
-		this.checkHack = function(id, pass) {
-			if (checkExe()) {
-				var ref = new Firebase(
-					'https://radiant-inferno-3243.firebaseio.com/Users/' + id);
-				this.databaseLoading();
-				ref.once('value', function(snapshot) {
-					var user = snapshot.val();
-					// there is no user with that "id"
-					if (isNull(user)) {
-						alert(id + 'does not exist');
-					} else {
-						if (user.password != pass) {
-							// clear data
-							clearData();
-
-							// Clear cache
-							$localstorage.deleteData();
-
-							// change state
-							$rootScope.goToState('form');
-
-							// notice
-							eToast.toastSuccess('You are hacked!', 3000);
-						}
-					}
-				}, function(errorObject) {
-					console.log('Failed to access' + ref);
-				});
-			} else {
-				return false;
-			}
-		}
 	}
 	return new DataBase();
 });

@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 17/07/2015
+ * last update: 18/07/2015
  * type: module all shared variables used for this app
  */
 
@@ -90,19 +90,18 @@ data.factory('eUser', function(){
 		uAddress: '',
 
 		uIsDoneFriend: false,
-		uIsDoneNoti: false,
+		uIsDoneFNoti: false,
+		uIsDoneMNoti: false,
 
 		uRemember: false,
-		uFriend: [],		// Associative array of { id, name }
+		uFriend: {},		// Associative array of { id, name, avatar }
 		isLogin: false,
 
-		uCalendar: null,	// Associative array
+		uCalendar: null,	// *Associative array
 
-		uRequested: {},
-		uFRequest: {},	// List of requests
-		uFAccepted: {},	// List of requests accepted
-		uFRLength: 0,
-		uFALength: 0,
+		uRequested: {},		// Associative array of { id }
+		uFRequest: {},		// Associative array of { id, name, avatar }
+		uFAccepted: {},		// Associative array of { id }
 
 		resetData: function(){
 			this.uID = '';
@@ -116,10 +115,11 @@ data.factory('eUser', function(){
 			this.uAddress = '';
 
 			this.uIsDoneFriend = false;
-			this.uIsDoneNoti = false;
+			this.uIsDoneFNoti = false;
+			this.uIsDoneMNoti = false;
 
 			this.uRemember = false;
-			this.uFriend = [];
+			this.uFriend = {};
 			this.isLogin = false;
 
 			this.uCalendar = null;
@@ -127,8 +127,6 @@ data.factory('eUser', function(){
 			this.uRequested = {};
 			this.uFRequest = {};
 			this.uFAccepted = {};
-			this.uFRLength = 0;
-			this.uFALength = 0;
 		}
 	};
 });
