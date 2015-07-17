@@ -1,152 +1,143 @@
 /**
  * starter: Can Duy Cat
  * owner: Can Duy Cat
- * last update: 12/05/2015
+ * last update: 17/07/2015
  * type: paticular controller
  */
 
-angular.module('MainApp.controllers.search', [])
+var search = angular.module('MainApp.controllers.search', []);
 
-.controller('SearchController',
-	function($scope, $rootScope, eToast, eDatabase,
-		eUser, eCheckFriend, eCalendar) {
-		// search input
-		$scope.searchInput = '';
+search.controller('SearchController', function($scope, $rootScope, eToast, eDatabase, eUser, eCheckFriend, eCalendar) {
+	// search data
+	$scope.data = {
+		input: '',
+		type: 'People',
+		submit: false,
+	};
 
-		// Variable to save search result
+	// Variable to save search result
+	$rootScope.searchFriends = [];
+	$rootScope.searchEvents = [];
+
+	// reset data whenever go to search
+	$rootScope.$on('$stateChangeStart', function(event, toState) {
+		if (toState.name == 'search') {
+			resetData();
+		}
+	});
+
+	var resetData = function() {
+		$scope.data = {
+			input: '',
+			type: 'People',
+			submit: false,
+		};
 		$rootScope.searchFriends = [];
 		$rootScope.searchEvents = [];
+	};
 
-		// type for search
-		$rootScope.searchType = {
-			type: 'All'
-		};
+	// search call
+	$scope.search = function() {
+		if (!isNull($scope.data.input)) {
+			eDatabase.searchFriend($scope.data.input);
+			eDatabase.searchEvent($scope.data.input);
+			$scope.data.submit = true;
+			$rootScope.searchFriends[0] = {
+				id: 'cancatdz',
+				name: 'Cat Can',
+				ava: '0'
+			};
+			$rootScope.searchFriends[1] = {
+				id: 'dungk58',
+				name: 'Ngo Duc Huong',
+				ava: '0'
+			};
+			$rootScope.searchFriends[2] = {
+				id: 'pagenguyen',
+				name: 'Nguyen Minh Page',
+				ava: '0'
+			};
+		} else {
+			eToast.toastInfo('No input.', 2000);
+		}
+	};
 
-		$rootScope.$on('$stateChangeStart', function(event, toState) {
-			if (toState.name == 'search') {
-				$scope.resetData();
-			}
-		});
+	// click people on people result
+	$scope.clickPerson = function(person) {
+		if (person.id == eUser.uID) {
+			$rootScope.goToState('myProfile');
+		} else {
+			eDatabase.viewProfile(person.id);
+		}
+	};
 
-		$scope.resetData = function() {
-			// reset search input
-			$scope.searchInput = '';
+	/* action of 2 button
+	____________||______button 1(blue)______||______button 2(red)_______||
+	me          ||hide                      ||hide                      ||
+	friend      ||hide                      ||delete friend             ||
+	requested   ||hide                      ||hide                      ||
+	requestMe   ||accept friend request     ||reject friend request     ||
+	other       ||request friend            ||hide                      ||
+	*/
+	// function for button 1 the blue one
+	$scope.clickButton1 = function(id) {
+		if (eCheckFriend.isRequestedMe(id)) {
+			eDatabase.acceptFriend(id);
+		} else {
+			eDatabase.requestFriend(id);
+		}
+	};
+	$scope.dataBtn1 = function(id) {
+		if (id == eUser.uID || eCheckFriend.isFriend(id) || eCheckFriend.isRequested(id)) {
+			return {icon: '', hide: true};
+		} else if (eCheckFriend.isRequestedMe(id)) {
+			return {icon: 'ion-android-done', hide: false};
+		} else {
+			return {icon: 'ion-android-person-add', hide: false};
+		}
+	};
+	// function for button 2 the red one
+	$scope.clickButton2 = function(id) {
+		if (eCheckFriend.isFriend(id)) {
+			var confirmPopup = $ionicPopup.confirm({
+				title: 'Delete friend',
+				subTitle: 'Are you sure?'
+			});
+			confirmPopup.then(function(res) {
+				if (res) eDatabase.deleteFriend(id);
+			});
+		} else if (eCheckFriend.isRequestedMe(id)) {
+			var confirmPopup = $ionicPopup.confirm({
+				title: 'Reject friend request',
+				subTitle: 'Are you sure?'
+			});
+			confirmPopup.then(function(res) {
+				if (res) eDatabase.rejectFriend(id);
+			});
+		}
+	};
+	$scope.dataBtn2 = function(id) {
+		if (eCheckFriend.isFriend(id)) {
+			return {icon: 'ion-android-delete', hide: false};
+		} else if (eCheckFriend.isRequestedMe(id)) {
+			return {icon: 'ion-android-close', hide: false};
+		} else {
+			return {icon: '', hide: true};
+		}
+	};
 
-			// reset Variable to save search result
-			$rootScope.searchFriends = [];
-			$rootScope.searchEvents = [];
+	// call on click 1 event
+	$scope.clickEvent = function() {
+		eToast.toastInfo('Coming soon...', 2000);
+	};
 
-			$rootScope.searchType.type = 'All';
-		};
+	// event detail function
+	$scope.eventDetail = function(event) {
+		var result = eCalendar.eventTime(event);
+		if (event.location !== undefined) {
+			result = result + ' at ' + event.location;
+		}
 
-		// search call
-		$scope.search = function() {
-			// search data for friend
-			if ($rootScope.searchType.type == 'All' ||
-				$rootScope.searchType.type == 'People') {
-				eDatabase.searchFriend($scope.searchInput);
-				// $rootScope.searchFriends[0] = {
-				//     ID: 'cancatdz',
-				//     name: 'Cat Can',
-				//     ava: 1
-				// };
-				// $rootScope.searchFriends[1] = {
-				//     ID: 'dungk58',
-				//     name: 'Ngo Duc Huong',
-				//     ava: 4
-				// };
-				// $rootScope.searchFriends[2] = {
-				//     ID: 'pagenguyen',
-				//     name: 'Nguyen Minh Page',
-				//     ava: 5
-				// };
-			}
-
-			// search data for events
-			if ($rootScope.searchType.type == 'All' ||
-				$rootScope.searchType.type == 'Events') {
-				eDatabase.searchEvent($scope.searchInput);
-			}
-		};
-
-		// add person call
-		$scope.addPerson = function(ID) {
-			eDatabase.request(ID);
-
-			// toast
-			eToast.toastSuccess('Sending request.', 2000);
-		};
-
-		// add person call
-		$scope.viewPerson = function(ID) {
-			eDatabase.viewProfile(ID);
-
-			// toast
-			eToast.toastSuccess('Please wait a moment!', 1500);
-		};
-
-		// is hide button or not
-		$scope.isHide = function(ID) {
-			if (ID == eUser.uID) { // my account
-				return true;
-			} else if (eCheckFriend.isFriend(ID)) { // friend
-				return true;
-			} else if (eCheckFriend.isRequested(ID)) { // requested
-				return true;
-			} else if (eCheckFriend.isRequestedMe(ID)) { // requested me
-				return true;
-			} else {
-				return false;
-			}
-		};
-
-		// change event call
-		$scope.changeCall = function() {
-			// do something here
-
-			// toast
-			eToast.toastInfo('Coming soon...', 2000);
-		};
-
-		// click people
-		$scope.clickPeople = function(person) {
-			if (person.id == eUser.uID) {
-				$rootScope.goToState('myProfile');
-			} else {
-				eDatabase.viewProfile(person.id);
-			}
-		};
-
-		// event detail function
-		$scope.eventDetail = function(event) {
-			var result = eCalendar.convertTime(event);
-			if (event.location !== undefined) {
-				result = result + ' at ' + event.location;
-			}
-
-			return result;
-		};
-
-		// function to check if empty result
-		$scope.isEmptyResult = function() {
-			return (($rootScope.searchType.type == 'All' &&
-					$rootScope.searchFriends.length === 0 &&
-					$rootScope.searchEvents.length === 0) ||
-				($rootScope.searchType.type == 'People' &&
-					$rootScope.searchFriends.length === 0) ||
-				($rootScope.searchType.type == 'Events' &&
-					$rootScope.searchEvents.length === 0));
-		};
-
-		// show people search
-		$scope.isShowPeople = function() {
-			return ($rootScope.searchType.type == 'All' ||
-				$rootScope.searchType.type == 'People');
-		};
-
-		// show event search
-		$scope.isShowEvents = function() {
-			return ($rootScope.searchType.type == 'All' ||
-				$rootScope.searchType.type == 'Events');
-		};
-	});
+		return result;
+	};
+});

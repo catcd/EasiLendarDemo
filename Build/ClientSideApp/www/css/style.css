@@ -1,7 +1,7 @@
 /**
 * starter: Nguyen Minh Trang
 * owner: Can Duy Cat
-* last update: 06/07/2015
+* last update: 17/07/2015
 * type: general css
 *
 * My app's style
@@ -32,19 +32,15 @@ img.easi-logo { height: 30vh; margin-top: 15vh; }
 .easi-fade-fast.ng-hide, .easi-fade-normal.ng-hide, .easi-fade-slow.ng-hide { opacity: 0; }
 
 /* toastr */
-
 /* success */
 .easi-toast-success { bottom: 50px; right: 0; width: 100%; }
 #toast-container.easi-toast-success > div { background-color: #5C8B9D; box-shadow: 0 0 0; margin: auto; max-width: 400px; min-width: 200px; width: 50%; }
-
 /* info */
 .easi-toast-info { bottom: 50px; right: 0; width: 100%; }
 #toast-container.easi-toast-info > div { background-color: #8EB4C1; box-shadow: 0 0 0; margin: auto; max-width: 400px; min-width: 200px; width: 50%; }
-
 /* error */
 .easi-toast-error { bottom: 50px; right: 0; width: 100%; }
 #toast-container.easi-toast-error > div { background-color: #D65930; box-shadow: 0 0 0; margin: auto; max-width: 400px; min-width: 200px; width: 50%; }
-
 /* warning */
 .easi-toast-warning { bottom: 50px; right: 0; width: 100%; }
 #toast-container.easi-toast-warning > div { background-color: #63666F; box-shadow: 0 0 0; margin: auto; max-width: 400px; min-width: 200px; width: 50%; }
@@ -76,6 +72,16 @@ img.easi-logo { height: 30vh; margin-top: 15vh; }
 .easi-back-vip-color { background-color: #FFCC00 !important; }
 .easi-full-blue { background-color: #8EB4C1 !important; height: 100vh !important; width: 100vw !important; }
 
+/* item avatar */
+/* base on ionic (item item-avatar) */
+.easi-item-avatar, .easi-item-avatar .item-content { height: 50px; min-height: 45px; padding-left: 50px; padding-top: 5px; }
+.easi-item-avatar h2 { line-height: 40px; font-size: 16px; }
+.easi-item-avatar > img:first-child, .easi-item-avatar .item-image, .easi-item-avatar .item-content > img:first-child, .easi-item-avatar .item-content .item-image { height: 40px; left: 5px; min-height: 35px; position: absolute; top: 5px; }
+.easi-item-avatar-big, .easi-item-avatar-big .item-content { height: 70px; min-height: 45px; padding-left: 70px; padding-top: 5px; }
+.easi-item-avatar-big h2 { font-size: 18px; padding-top: 8px; }
+.easi-item-avatar-big p { font-size: 14px; }
+.easi-item-avatar-big > img:first-child, .easi-item-avatar-big .item-image, .easi-item-avatar-big .item-content > img:first-child, .easi-item-avatar-big .item-content .item-image { height: 60px; left: 5px; min-height: 35px; position: absolute; top: 5px; }
+
 /* easi bars */
 .bar.bar-easi-blue { background-image: linear-gradient(0deg, #315050, #315050 50%, transparent 50%); border: 0; color: #fff; background-color: #5C8B9D; }
 .bar.bar-easi-blue .title { color: #fff; }
@@ -90,8 +96,12 @@ img.easi-logo { height: 30vh; margin-top: 15vh; }
 .checkbox-easi-blue input:checked+.checkbox-icon:before, .checkbox-easi-blue input:checked:before { background: #5C8B9D; border-color: #5C8B9D; }
 
 /* easi button */
-.button.button-easi-blue { background-color: #5C8B9D; border: 0; border-radius: 0; color: #fff; }
-.button.button-easi-blue.activated, .button.button-easi-blue.active { background-color: #538193; border: 0; box-shadow: none; }
+.button.button-easi-blue, .button.button-easi-red { border: 0; border-radius: 0; color: #fff; }
+.button.button-easi-blue.activated, .button.button-easi-blue.active, .button.button-easi-red.activated, .button.button-easi-red.active { border: 0; box-shadow: none; }
+.button.button-easi-blue { background-color: #5C8B9D; }
+.button.button-easi-blue.activated, .button.button-easi-blue.active { background-color: #538193; }
+.button.button-easi-red { background-color: #D65930; }
+.button.button-easi-red.activated, .button.button-easi-red.active { background-color: #538193; }
 
 /* toggle switch */
 .easi-toggle { position: absolute; visibility: hidden; }

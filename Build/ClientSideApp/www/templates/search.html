@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Can Duy Cat
-	 last update: 08/04/2015
+	 last update: 17/04/2015
 	 type: html template-->
 
 <ion-view title="Search">
@@ -9,57 +9,57 @@
 	</ion-nav-buttons>
 
 	<!-- search bar -->
-	<div class="bar bar-subheader item-input-inset">
-	    <label class="item-input-wrapper">
-	        <i class="icon ion-ios-search placeholder-icon"></i>
-	        <input type="search" placeholder="Search" ng-model="searchInput">
-	    </label>
-
-	    <!-- submit button -->
-	    <button class="button button-clear" ng-click="search()">
-	        Go
-	    </button>
-	</div>
+	<form class="bar bar-subheader item-input-inset" method="POST" name="searchForm" data-ng-submit="search()">
+		<label class="item-input-wrapper">
+			<i class="icon ion-android-search placeholder-icon"></i>
+			<input type="search" placeholder="Search" ng-model="data.input" autofocus>
+		</label>
+		<!-- submit button -->
+		<input type="submit" class="button button-clear" value="Go">
+	</form>
 
 	<!-- select tab -->
-	<div class="bar bar-subheader item item-select easi-back-light-gray"
-	id="search-subheader"
-	ng-click="showAlert('Search Filter', 'templates/search-option.html', 'Select one')">
-	    <div class="input-label">
-	        <h2 id="search-option-label">{{searchType.type}}</h2>
-	    </div>
+	<div class="sc-tabs easi-white easi-no-border" ng-show="data.submit">
+		<div class="easi-center sc-tab sc-tab-1">
+			<input type="radio" id="sc-tab-0" name="sc-type" data-ng-model="data.type" value="People">
+			<label for="sc-tab-0">People</label>
+		</div>
+		<div class="easi-center sc-tab sc-tab-2">
+			<input type="radio" id="sc-tab-1" name="sc-type" data-ng-model="data.type" value="Events">
+			<label for="sc-tab-1">Event</label>
+		</div>
 	</div>
 
-	<!-- noti if no result found -->
-	<h3 class="easi-gray easi-center search-empty-result" ng-show=isEmptyResult()>
-		No Results Found.
-	</h3>
-
 	<!-- main content here -->
-	<ion-content class="search-margin-content">
+	<ion-content class="sc-content" ng-show="data.submit">
 		<!-- Search people div -->
-		<div id="search-people-result" class="list" ng-show=isShowPeople()>
-			<div ng-repeat="person in searchFriends">
-				<a class="item easi-item-avatar easi-index-1" ng-click="clickPeople(person)">
+		<div class="list sc-people-result" ng-show="data.type == 'People'">
+			<div class="sc-1-person" ng-repeat="person in searchFriends" ng-show="searchFriends.length != 0">
+				<a class="item easi-item-avatar easi-index-1" ng-click="clickPerson(person)">
 					<img data-ng-src="img/ava{{person.ava}}.png">
-					<h2 class="easi-space search-person-result-name">{{person.name}}</h2>
-					<button class="button button-easi-blue easi-index-2 search-person-button"
-					ng-click="addPerson(person.id)"
-					ng-hide=isHide(person.id)>
-						<i class="icon ion-person-add"></i>
-					</button>
+					<h2 class="easi-space sc-person-result-name">{{person.name}}</h2>
 				</a>
+
+				<button class="button icon {{dataBtn1(person.id).icon}} button-easi-blue easi-index-2 sc-person-button-1"	ng-click="clickButton1(person.id)" ng-hide="dataBtn1(person.id).hide">
+				</button>
+				<button class="button icon {{dataBtn1(person.id).icon}} button-easi-red easi-index-2 sc-person-button-2" ng-click="clickButton2(person.id)" ng-hide="dataBtn2(person.id).hide">
+					<i class="icon {{dataBtn1(person.id).icon}}"></i>
+				</button>
 			</div>
+			<h3 class="easi-gray easi-center" ng-show="searchFriends.length == 0">
+				No Results Found.
+			</h3>
 		</div>
 
 		<!-- Search events div -->
-		<div id="search-events-result" class="list" ng-show=isShowEvents()>
-			<a ng-repeat="event in searchEvents"
-			class="item search-item-event-result"
-			ng-click="changeCall(event)">
-				<h2 class="search-event-sum">{{event.summary}}</h2>
-				<p>{{eventDetail(event)}}</p>
+		<div class="list sc-events-result" ng-show="data.type == 'Events'">
+			<a ng-repeat="event in searchEvents" class="item sc-item-event-result" ng-click="clickEvent(event)" ng-show="searchEvents.length == 0">
+				<h2 class="sc-event-sum">{{event.summary}}</h2>
+				<p class="sc-event-detail">{{eventDetail(event)}}</p>
 			</a>
+			<h3 class="easi-gray easi-center" ng-show="searchEvents.length == 0">
+				No Results Found.
+			</h3>
 		</div>
 	</ion-content>
 </ion-view>

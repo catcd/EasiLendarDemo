@@ -9,6 +9,14 @@ var application = angular.module('MainApp.shareds.application', [])
 
 // function must be contruct from beginning
 application.run(function($rootScope, $ionicPopup, $state, $ionicPlatform, $ionicHistory, eToast, eSettings) {
+	// check if object is null/undefined/"" or not
+	isNull = function(obj) {
+		if (obj === null || obj === undefined || obj === '') {
+			return true;
+		}
+		return false;
+	};
+
 	// Variable for save current state
 	$rootScope.currentState = 'loading';
 

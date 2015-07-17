@@ -102,7 +102,33 @@ angular.module('MainApp.shareds.calendar', [])
 			}
 		},
 
+		// return start of a obj date
+		startOfDate: function (date) {
+			return new date(date.getFullYear(), date.getMonth(), date.getDate());
+		},
+
 		// Construct event as a associative array from a array of Event
-		parseEvent: function(arr) {}
+		parseEvent: function(arr) {
+			var result = {};
+
+			for (key in arr) {
+				// TODO process over day event
+				if (isNull(result[this.startOfDate(arr[key].start)])) {
+					result[this.startOfDate(arr[key].start)] = new Array();
+				}
+
+				result[this.startOfDate(arr[key].start)].push(arr[key]);
+				result[this.startOfDate(arr[key].start)].sort(function(a, b) {return a.start.getTime() - b.start.getTime();});
+			}
+
+			return result;
+		},
+
+		// delete event
+		deleteEvent: function(event) {
+
+		},
+		// create event
+		// modify event
 	};
 });

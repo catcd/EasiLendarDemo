@@ -79,7 +79,7 @@ data.factory('eSettings', function(){
 // User information
 data.factory('eUser', function(){
 	return {
-		uID: '',			// A-Z, a-z, 0-9, _
+		uID: 'dungk58',			// A-Z, a-z, 0-9, _
 		uPassword: '',		// printable char in ASCII
 		uName: '',			// printable char in ASCII
 		uAvatar: '0',
@@ -96,9 +96,7 @@ data.factory('eUser', function(){
 		uFriend: [],		// Associative array of { id, name }
 		isLogin: false,
 
-		uGmailCalendar: null,	// Associative array
-		uLocalCalendar: null,	// Associative array
-		uOutlookCalendar: null,	// Associative array
+		uCalendar: null,	// Associative array
 
 		uRequested: {},
 		uFRequest: {},	// List of requests
@@ -124,9 +122,7 @@ data.factory('eUser', function(){
 			this.uFriend = [];
 			this.isLogin = false;
 
-			this.uGmailCalendar = null;
-			this.uLocalCalendar = null;
-			this.uOutlookCalendar = null;
+			this.uCalendar = null;
 
 			this.uRequested = {};
 			this.uFRequest = {};
