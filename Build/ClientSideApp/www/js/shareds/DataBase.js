@@ -10,14 +10,6 @@ database.config(function($httpProvider) {
 	$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 })
 database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast, eUser, eSettings, eFriend, eMultiCalendar, eEasiLendar, eCalendar, $localstorage) {
-	// check if object is null/undefined/'' or not
-	var isNull = function(obj) {
-		if (obj === null || obj === undefined || obj === '') {
-			return true;
-		}
-		return false;
-	};
-
 	// clear all data but setting
 	var clearData = function() {
 		eUser.resetData();
@@ -49,11 +41,11 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 	 * convert every dateTime object to String
 	 */
 	var toString = function() {
-		if (!isNull(eUser.uGmailCalendar)) {
+		if (!isNull(eUser.uCalendar)) {
 			var temp = [];
-			for (var x in eUser.uGmailCalendar) {
-				if (eUser.uGmailCalendar.hasOwnProperty(x)) {
-					temp[x] = eUser.uGmailCalendar[x];
+			for (var x in eUser.uCalendar) {
+				if (eUser.uCalendar.hasOwnProperty(x)) {
+					temp[x] = eUser.uCalendar[x];
 					for (var y in temp[x]) {
 						if (temp[x].hasOwnProperty(y)) {
 							temp[x][y].start.dateTime = temp[x][y].start.
@@ -65,20 +57,7 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 					temp[x] = angular.copy(temp[x]); // remove the $$hashKey
 				}
 			}
-			eUser.uGmailCalendar = temp;
-		}
-	};
-
-
-	/*
-	 * PRIVATE
-	 * check if user has signed in or not
-	 */
-	var checkSignIn = function() {
-		if (!isNull(eUser.uID) && eUser.isLogin && eSettings.sInternet) {
-			return true;
-		} else {
-			return false;
+			eUser.uCalendar = temp;
 		}
 	};
 
@@ -148,7 +127,7 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 	var loadFriendInfo = function(fArray, type) {
 		eUser.uIsDoneFriend = false;
 		eUser.uIsDoneNoti = false;
-		if (checkSignIn() && !isNull(fArray)) {
+		if (checkExe() && !isNull(fArray)) {
 			var ref = new Firebase(
 				'https://radiant-inferno-3243.firebaseio.com/Users');
 
@@ -208,11 +187,110 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 			eToast.toastSuccess('Sign out successfully!', 3000);
 		};
 
+		// updateProfile function
+		// update: name, birthday, gender, phone, address
+		this.updateProfile = function() {
+			if (checkExe()) {
+				databaseLoading();
+
+				var upBirthday = eUser.uBirthday != null ? eUser.uBirthday.getTime().toString() : null,
+					upGendar = eUser.uGender == "Male" ? 1 : 0;
+
+				$http({
+					url: 'http://easilendar.wc.lt/database/updateProfile.php',
+					method: "POST",
+					data: {
+						'id': eUser.uID,
+						'pass': eUser.uPassword,
+						'name': eUser.uName,
+						'birthday': upBirthday,
+						'gender': upGendar,
+						'phone': eUser.uPhone,
+						'address': eUser.uAddress
+					}
+				}).success(function(data, status, headers, config) {
+					$ionicLoading.hide();
+					if (data == 'success') {
+						eToast.toastSuccess('Update successfully!', 2000);
+						saveData();
+					} else if (data == 'wrong pass') {
+						eToast.toastError('Error. Please log in again!', 3000);
+						setTimeout(function() {
+							this.signOutEasi();
+						}, 3500);
+					} else {
+						eToast.toastError('An error occurred. Please try again!', 2000);
+					}
+				}).error(function(data, status, headers, config) {
+					$ionicLoading.hide();
+					eToast.toastError('An error occurred. Please try again!', 2000);
+				});
+			} else {
+				eToast.toastInfo('You are current offline', 2000);
+			}
+		};
+
+		// searchFriend look for any id or name that contains 'str'
+		// add to $rootScope.searchFriends
+		this.searchFriend = function(str) {
+			if (checkExe()) {
+				databaseLoading();
+
+				$http({
+					url: 'http://easilendar.wc.lt/database/searchFriend.php',
+					method: "POST",
+					data: {
+						'input': str,
+					}
+				}).success(function(data, status, headers, config) {
+					$ionicLoading.hide();
+					if (typeof data == 'object') {
+						console.log(data);
+						if (!isNull(data)) {
+							$rootScope.searchFriends = data;
+						}
+					} else {
+						eToast.toastError('An error occurred. Please try again!', 2000);
+					}
+				}).error(function(data, status, headers, config) {
+					$ionicLoading.hide();
+					eToast.toastError('An error occurred. Please try again!', 2000);
+				});
+			} else {
+				eToast.toastInfo('You are current offline', 2000);
+			}
+		};
+
+		// searchEvent look for any id or name that contains 'str'
+		// add to $rootScope.searchEvents
+		// local function
+		this.searchEvent = function(str) {
+			$rootScope.searchEvents = [];
+			if (!isNull(str)) {
+				var length = 0; // index of last element in searchEvents
+				// go through all days
+				for (var x in eUser.uCalendar) {
+					// go through all events in this day
+					for (var y in eUser.uCalendar[x]) {
+						var found1 = eUser.uCalendar[x][y].summary.search(str);
+						var found2 = !isNull(eUser.uCalendar[x][y].location) ?
+							eUser.uCalendar[x][y].location.search(str) : -1;
+						// if event summary or location contains 'str'
+						if (found1 != -1 || found2 != -1) {
+							$rootScope.searchEvents[length++] = eUser.uCalendar[x][y];
+						}
+					}
+				}
+			} else {
+				return false;
+			}
+		};
+
 		/*
 		 * Add friend function add id of this user to 'id' 's friends list
 		 */
 		this.addFriend = function(id) {
-			if (checkSignIn() && !isNull(id)) {
+			if (checkExe() && !isNull(id)) {
 				var ref = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users');
 				var idRef = ref.child(id);
@@ -278,7 +356,7 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 		 * get friend's calendar function return object multiCalendar of "id"
 		 */
 		this.getCalendar = function(id) {
-			if (checkSignIn() && !isNull(id)) {
+			if (checkExe() && !isNull(id)) {
 				var ref = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' + id);
 				// loading
@@ -307,7 +385,7 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 		 * request friend add this user's id to fRequest of 'id'
 		 */
 		this.request = function(id) {
-			if (checkSignIn() && !isNull(id)) {
+			if (checkExe() && !isNull(id)) {
 				// request myself
 				if (id == eUser.uID) {
 					return false;
@@ -361,7 +439,7 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 		 * uFAccepted array
 		 */
 		this.deleteFN = function(id) {
-			if (checkSignIn() && !isNull(id)) {
+			if (checkExe() && !isNull(id)) {
 				delete eUser.uFAccepted[id];
 				setUFAL(); // set uFALength
 
@@ -381,7 +459,7 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 		 * deleteF function delete friend with 'id'
 		 */
 		this.deleteF = function(id) {
-			if (checkSignIn() && !isNull(id)) {
+			if (checkExe() && !isNull(id)) {
 				/* local */
 				delete eUser.uFriend[id]; // delete 'id' in user's friend list
 				// if accepted noti has not been seen => delete it
@@ -414,7 +492,7 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 		 * rejectF function reject friend request sent by 'id'
 		 */
 		this.rejectF = function(id) {
-			if (checkSignIn() && !isNull(id)) {
+			if (checkExe() && !isNull(id)) {
 				delete eUser.uFRequest[id];
 				setUFRL(); // set uFRLength
 
@@ -436,84 +514,12 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 		};
 
 		/*
-		 * searchFriend function str is a str user inserted to search for add to
-		 * $rootScope.searchFriends any id or name that contains 'str'
-		 */
-		this.searchFriend = function(str) {
-			$rootScope.searchFriends = [];
-			if (checkSignIn() && !isNull(str)) {
-				var ref = new Firebase(
-					'https://radiant-inferno-3243.firebaseio.com/Users');
-				// loading
-				this.databaseLoading();
-				ref.once('value', function(snapshot) {
-					var length = 0;
-					snapshot.forEach(function(child) {
-						var id, name, found1, found2, user;
-						user = child.val();
-						id = child.key();
-						name = user.name;
-
-						found1 = id.search(str);
-						found2 = name.search(str);
-						if (found1 != -1 || found2 != -1) {
-							$rootScope.searchFriends[length++] = {
-								id: id,
-								name: name,
-								ava: user.avatar
-							};
-						}
-					});
-					$ionicLoading.hide();
-				});
-			} else {
-				return false;
-			}
-		};
-
-		/*
-		 * searchEvent function str is str to search for (search in
-		 * eUser.uGmailCalendar) add to $rootScope.searchEvents
-		 * any id or name that contains 'str' do not interact with database
-		 */
-		this.searchEvent = function(str) {
-			$rootScope.searchEvents = [];
-			if (checkSignIn() && !isNull(str)) {
-				var length = 0; // length of searchEvents
-				// go through all days
-				for (var x in eUser.uGmailCalendar) {
-					if (eUser.uGmailCalendar.hasOwnProperty(x)) {
-						// go through all events in this day
-						for (var y in eUser.uGmailCalendar[x]) {
-							if (eUser.uGmailCalendar[x].hasOwnProperty(y)) {
-								var found1 = eUser.uGmailCalendar[x][y].summary.
-								search(str);
-								var found2 = -1;
-								if (!isNull(eUser.uGmailCalendar[x][y].location)) {
-									found2 = eUser.uGmailCalendar[x][y].
-									location.search(str);
-								}
-								// if event summary or location contains 'str'
-								if (found1 != -1 || found2 != -1) {
-									$rootScope.searchEvents[length++] = eUser.
-									uGmailCalendar[x][y];
-								}
-							}
-						}
-					}
-				}
-			} else {
-				return false;
-			}
-		};
-
-		/*
 		 * getInformation function id is id of a person user
 		 * want to get info set
 		 * info in eFriend
 		 */
 		this.getInformation = function(id) {
-			if (checkSignIn() && !isNull(id)) {
+			if (checkExe() && !isNull(id)) {
 				var ref = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' + id);
 				// loading
@@ -550,7 +556,7 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 		 * refresh function update everything from server
 		 */
 		this.refresh = function() {
-			if (checkSignIn()) {
+			if (checkExe()) {
 				var ref = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' +
 					eUser.uID);
@@ -573,7 +579,7 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 					eUser.uVIP = user.VIP;
 
 					// convert
-					eUser.uGmailCalendar = convertCal(user.g_calendar);
+					eUser.uCalendar = convertCal(user.g_calendar);
 					eUser.uLocalCalendar = convertCal(user.local_calendar);
 					eUser.uFaceCalendar = convertCal(user.face_calendar);
 
@@ -607,7 +613,7 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 		 * updateCalendar function update user's calendar to server
 		 */
 		this.updateCalendar = function() {
-			if (checkSignIn()) {
+			if (checkExe()) {
 				toString(); // convert
 				var user = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' +
@@ -617,8 +623,8 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 				this.databaseLoading();
 
 				var uGC = user.child('g_calendar');
-				if (!isNull(eUser.uGmailCalendar)) {
-					uGC.set(eUser.uGmailCalendar);
+				if (!isNull(eUser.uCalendar)) {
+					uGC.set(eUser.uCalendar);
 				} else {
 					uGC.set(null);
 				}
@@ -640,7 +646,7 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 		 * set name, id, ava, calendar to eFriend
 		 */
 		this.viewProfile = function(id) {
-			if (checkSignIn() && !isNull(id)) {
+			if (checkExe() && !isNull(id)) {
 				var ref = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' + id);
 				// loading
@@ -691,7 +697,7 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 		 * getFriend function get friend list of id
 		 */
 		this.getFriend = function(id) {
-			if (checkSignIn() && !isNull(id)) {
+			if (checkExe() && !isNull(id)) {
 				var ref = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' + id);
 				// loading
@@ -736,15 +742,15 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 			// loading
 			this.databaseLoading();
 			if (etype != 'over') {
-				var temp = isNull(eUser.uGmailCalendar[date1]) ? null :
-					angular.copy(eUser.uGmailCalendar[date1]);
+				var temp = isNull(eUser.uCalendar[date1]) ? null :
+					angular.copy(eUser.uCalendar[date1]);
 				// has only 1 day to update
 				day.child(date1.toString()).set(temp, onComplete);
 			} else {
 				// update every from date1 to date2
 				while (date1 <= date2) {
-					var temp = isNull(eUser.uGmailCalendar[date1]) ? null :
-						angular.copy(eUser.uGmailCalendar[date1]);
+					var temp = isNull(eUser.uCalendar[date1]) ? null :
+						angular.copy(eUser.uCalendar[date1]);
 					if (date1 < date2) {
 						day.child(date1.toString()).set(temp);
 					} else {
@@ -762,7 +768,7 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 		 * event2 is event after edit
 		 */
 		this.updateEvent = function(event1, type, event2) {
-			if (checkSignIn() && !isNull(event1) && !isNull(type)) {
+			if (checkExe() && !isNull(event1) && !isNull(type)) {
 				if (type == 'create') {
 					this.updateEventHelper(event1);
 				} else if (type == 'del') {
@@ -782,7 +788,7 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 		 * true if "id" is busy today, false otherwise
 		 */
 		this.checkBusy = function(id) {
-			if (checkSignIn() && !isNull(id)) {
+			if (checkExe() && !isNull(id)) {
 				var ref = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' + id);
 				// loading
@@ -812,56 +818,11 @@ database.factory('eDatabase', function($rootScope, $http, $ionicLoading, eToast,
 			}
 		};
 
-		// updateProfile function
-		// update: name, birthday, gender, phone, address
-		this.updateProfile = function() {
-			if (checkExe()) {
-				databaseLoading();
-
-				var upBirthday = eUser.uBirthday != null ? eUser.uBirthday.getTime().toString() : null,
-					upGendar = eUser.uGender == "male" ? '1' : '0';
-
-				$http({
-					url: 'http://easilendar.wc.lt/database/updateProfile.php',
-					method: "POST",
-					data: {
-						'id': eUser.uID,
-						'pass': eUser.uPassword,
-						'name': eUser.uName,
-						'birthday': upBirthday,
-						'gender': upGendar,
-						'phone': eUser.uPhone,
-						'address': eUser.uAddress
-					}
-				}).success(function(data, status, headers, config) {
-					console.log(data);
-					$ionicLoading.hide();
-					if (data == 'success') {
-						eToast.toastSuccess('Update successfully!', 2000);
-						saveData();
-					} else if (data == 'wrong pass'){
-						eToast.toastError('Error. Please log in again!', 3000);
-						setTimeout(function() {
-							this.signOutEasi();
-						}, 3500);
-					} else {
-						eToast.toastError('An error occurred. Please try again!', 2000);
-					}
-				}).error(function(data, status, headers, config) {
-					console.log(data, 'error');
-					$ionicLoading.hide();
-					eToast.toastError('An error occurred. Please try again!', 2000);
-				});
-			} else {
-				eToast.toastInfo('You are current offline', 2000);
-			}
-		};
-
 		/*
 		 * checkHack function
 		 */
 		this.checkHack = function(id, pass) {
-			if (checkSignIn()) {
+			if (checkExe()) {
 				var ref = new Firebase(
 					'https://radiant-inferno-3243.firebaseio.com/Users/' + id);
 				this.databaseLoading();

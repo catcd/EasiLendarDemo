@@ -41,12 +41,10 @@ if (!isNull($id) && !isNull($pass)) {
 			public $name = "";
 			public $avatar = "";
 			public $gmail  = "";
-			public $vip = 0;
 			public $gender = null;
 			public $birthday = "";
 			public $phone = "";
 			public $address = "";
-			public $confirm = 0;
 			public $event = array();
 		}
 
@@ -59,12 +57,10 @@ if (!isNull($id) && !isNull($pass)) {
 		$output->name = $fetchData["name"];
 		$output->avatar = $fetchData["avatar"];
 		$output->gmail = $fetchData["gmail"];
-		$output->vip = $fetchData["vip"];
 		$output->gender = $fetchData["gender"];
 		$output->birthday = $fetchData["birthday"];
 		$output->phone = $fetchData["phone"];
 		$output->address = $fetchData["address"];
-		$output->confirm = $fetchData["confirm"];
 
 		// // select event
 		// $tableName = $id . 'cal';

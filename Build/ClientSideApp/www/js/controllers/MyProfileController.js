@@ -32,10 +32,11 @@ angular.module('MainApp.controllers.myProfile', [])
 	};
 
 	$scope.edit = function() {
+		$scope.mBirthday = eUser.uBirthday != null ? eCalendar.parseDate(eUser.uBirthday).utcDate : '';
 		if (eSettings.sInternet) {
 			$scope.data.name = eUser.uName;
 			$scope.data.date = eUser.uBirthday;
-			$scope.data.gender = (eUser.uGender == 'male' ? true : false);
+			$scope.data.gender = (eUser.uGender == 'Male' ? true : false);
 			$scope.data.phone = eUser.uPhone;
 			$scope.data.address = eUser.uAddress;
 
@@ -131,5 +132,5 @@ angular.module('MainApp.controllers.myProfile', [])
 		}
 	};
 
-	$scope.mBirthday = eUser.uBirthday != null ? eCalendar.parseDate(eUser.uBirthday).utcDate : '';
+	$scope.mBirthday = '';
 });

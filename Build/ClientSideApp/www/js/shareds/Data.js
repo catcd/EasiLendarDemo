@@ -79,7 +79,7 @@ data.factory('eSettings', function(){
 // User information
 data.factory('eUser', function(){
 	return {
-		uID: 'dungk58',			// A-Z, a-z, 0-9, _
+		uID: '',			// A-Z, a-z, 0-9, _
 		uPassword: '',		// printable char in ASCII
 		uName: '',			// printable char in ASCII
 		uAvatar: '0',
