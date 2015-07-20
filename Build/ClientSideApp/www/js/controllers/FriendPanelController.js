@@ -9,7 +9,7 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 
 .controller('friendPanelController',
 	function($scope, $rootScope, $location, $ionicScrollDelegate,
-	$ionicPopup, eUser, eFriend, eDatabase, $ionicPopover) {
+	$ionicPopup, eUser, eFriend, eDatabase) {
 	//Using eUser, eFriend, eDatebase factory
 	$scope.eUser = eUser;
 	$scope.eFriend = eFriend;
@@ -17,100 +17,6 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 
 	$scope.searchFriend = '';
 	$scope.mShow = true;
-
-	/** FRIEND POPOVER **/
-	/**
-	 * popover variable
-	 */
-	// class
-	$scope.mFPopoverStatus = {};
-	$scope.mFPopoverStatus[true] = 'active';
-	$scope.mFPopoverStatus[false] = '';
-
-	$scope.mFPopoverActive = '';
-
-	/**
-	 * popover function
-	 */
-	$scope.tabFActive = function(tabName) {
-		if (tabName == 'request' ||
-			tabName == 'accepted') {
-			$scope.mFPopoverActive = tabName;
-		}
-	};
-
-	var template = '';
-
-	$scope.fbPopover = $ionicPopover.fromTemplate(template, {
-		scope: $scope,
-	});
-
-	$ionicPopover.fromTemplateUrl('templates/noti-friend-panel-popover.html', {
-		scope: $scope
-	}).then(function(popover) {
-		$scope.fbPopover = popover;
-	});
-
-	$scope.openFPopover = function($event) {
-		$scope.fbPopover.show($event);
-	}
-
-	$scope.closeFPopover = function() {
-		$scope.fbPopover.hide();
-	}
-
-	//Cleanup the popover when we're done with it!
-	$scope.$on('$destroy', function() {
-		$scope.fbPopover.remove();
-	});
-
-	/**
-	 * action sheet
-	 */
-	// friend action sheet
-	$scope.friendAction = function(friend) {
-		// Show the action sheet
-		$ionicActionSheet.show({
-			buttons: [{
-				text: 'View'
-			}, {
-				text: 'Comfirm request'
-			}],
-			destructiveText: 'Delete request',
-			titleText: friend.name + ' request',
-			cancelText: 'Cancel',
-			cancel: function() {
-				// TODO cancel code here
-			},
-			destructiveButtonClicked: function() {
-				eDatabase.rejectFriend(friend.id);
-
-				return true;
-			},
-			buttonClicked: function(index) {
-				if (index === 0) {
-					// TODO view code here
-					eDatabase.viewProfile(friend.id);
-
-					$scope.closePopover();
-				} else {
-					// TODO confirm code here
-					eDatabase.acceptFriend(friend.id);
-				}
-
-				return true;
-			}
-		});
-	};
-
-	/**
-	 * class variable
-	 */
-	// style for friend tab
-	$scope.friendTabClass = {};
-	$scope.friendTabClass[true] = 'noti-margin-down';
-	$scope.friendTabClass[false] = 'noti-margin-top';
-
 
 	/** FRIEND LÍT **/
 	$scope.deleteFriend = function(friend) {
@@ -203,12 +109,3 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 		return results;
 	};
 })
-
-.directive('notiFriendContent', function() {
-	return {
-		restrict: 'E',
-		templateUrl: function(elem, attr) {
-			return 'templates/noti-friend-' + attr.type + '.html';
-		}
-	};
-});
