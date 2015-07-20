@@ -1,138 +1,21 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 18/07/2015 by Page
- * type: paticular controller
+ * last update: 20/07/2015 by Page
+ * type: particular controller
  */
  
 angular.module('MainApp.controllers.sync', [])
 
 .controller('SyncController', 
-	function($scope, $rootScope, $document,$cordovaCalendar,
+	function($scope, $rootScope, $document, $cordovaCalendar,
 	eUser, eSync, eToast, $ionicPopup, eGoogle) {
-	/* jshint ignore:start */
+
 	$scope.logIN = -1;
 	$scope.email = '';
 	
 	// gapi was stored in eGoogle factory, assign it here
 	var gapi = eGoogle.gapi;
-	
-	$scope.handleClientLoad = function () {
-	
-		if ($scope.logIN == -1) {
-			window.setTimeout($scope.checkAuth, 1);
-			//this.checkAuth();
-		}
-
-		return $scope.logIN;
-	};
-	
-	$scope.checkAuth = function () {
-	
-		gapi.auth.authorize({
-			client_id: eSync.clientId,
-			scope: eSync.scopes,
-			immediate: true,
-		
-		}, $scope.handleAuthResult);
-	};
-	
-	$scope.handleAuthResult = function (authResult) {
-			
-		if (authResult && !authResult.error) {
-			$scope.logIN = 1;
-	
-			//result= authResult.access_token;
-			var temp;
-
-			gapi.client.load('calendar', 'v3', function () {
-				var request = gapi.client.calendar.events.list({
-					'calendarId': 'primary',
-					"singleEvents": "true",
-					'maxResults': 1, 
-					"orderBy": "startTime",
-				});
-				request.execute(function(resp) {
-					$scope.email = resp.summary;
-				});
-			});
-			
-		} else {
-			$scope.logIN = 0;
-		}
-	};
-	
-	$scope.handleAuthClick = function (event) {
-		gapi.auth.authorize({
-			client_id: eSync.clientId,
-			scope: 	eSync.scopes,
-			approval_prompt: 'force',
-			include_granted_scopes: false,
-			immediate: false,
-			cookie_policy: 'single_host_origin'
-		}, $scope.handleResult);
-	};
-	
-	$scope.handleResult = function (authResult) {
-	
-		if (authResult && !authResult.error) {
-			 $scope.logIN = 1;
-
-			//result= authResult.access_token;
-
-			// Load calendar:
-			$scope.makeApiCallNoBound();
-		}
-	};
-	
-	$scope.makeApiCallNoBound = function () {
-			
-		// default max result = 250
-		// default farthest day is one year ago
-
-		var toDay = new Date();
-		var dd = toDay.getDate();
-		var mm = toDay.getMonth() + 1; //January is 0!
-		var yyyy = toDay.getFullYear();
-
-		if (dd < 10) {
-			dd = '0' + dd;
-		}
-
-		if (mm < 10) {
-			mm = '0' + mm;
-		}
-
-		toDay = mm + '/' + dd + '/' + yyyy;
-
-		// form of timeMax: "yyyy-mm-dd T hh:mm:ss - offset
-
-		var oneYearAgo = (yyyy - 1) + '-' + mm + '-' + dd + 'T' + '00:00:00-00:00';
-
-		// Load calendar from one year ago:
-
-		gapi.client.load('calendar', 'v3', function () {
-			var request = gapi.client.calendar.events.list({
-				'calendarId': 'primary',
-				"singleEvents": "true",
-				'maxResults': 1000,
-				"orderBy": "startTime",
-
-				'timeMin': oneYearAgo
-			});
-			request.execute(function(resp) {
-				
-				//console.log(resp);
-				eUser.uGmailCalendar = resp.items;
-
-				eSync.convertMe();
-				
-				eToast.toastSuccess('Update successfully', 2000);
-				
-				//console.log(eUser.uGmailCalendar);
-			});
-		});
-	};
 	
 	$scope.logMeOut = function () {
 		$scope.logIN = 0;
@@ -182,9 +65,6 @@ angular.module('MainApp.controllers.sync', [])
 
 		toDay = mm + '/' + dd + '/' + yyyy;
 
-		// Code here will be linted with JSHint.
-		/* jshint ignore:start */
-
 		// form of timeMax: "yyyy-mm-dd T hh:mm:ss - offset
 
 		var oneYearAgo = (yyyy - 1) + '-' + mm + '-' + dd + 'T' + '00:00:00-00:00';
@@ -194,31 +74,19 @@ angular.module('MainApp.controllers.sync', [])
 											new Date(oneYearLater))
 		.then(function (result) {
 			//success:
-			
 			eUser.uLocalCalendar = result;
 			eSync.handleLocalCalendar();
 	
 			return true;
 				
 		}, function(err) {
-			
 			err=null;
 			// error:
 			return false;
 		});
-			
-		// Code here will be ignored by JSHint.
-		/* jshint ignore:end */
 	};
-		
-	/* jshint ignore:end */
 
-	// Using eSync, eUser, eFacebook service
-	//$scope.eSync = eSync;
-	$scope.eUser = eUser;
-	$scope.eSync = eSync;
-
-	//Array of all social nextworks and calendar applications
+	//Array of all social networks and calendar applications
 	$scope.allApps = [
 		{ title: 'calendar', array: [ {name: 'local', options: [ {name: 'Update events', id: 'events'} ]},
 									  {name: 'google', options: [ { name: 'Log out', id: 'logout'}, {name: 'Update events', id: 'events'}]}
@@ -231,11 +99,10 @@ angular.module('MainApp.controllers.sync', [])
 	 */
 
 	$scope.updateEvents = function (name){
-		if(name == 'google'){
-			$scope.makeApiCallNoBound();
+		if (name == 'google'){
+			eGoogle.makeApiCallNoBound();
 		}
-
-		if(name == 'local'){
+		if (name == 'local'){
 			$scope.syncToLocal();
 		}
 	};
@@ -243,8 +110,8 @@ angular.module('MainApp.controllers.sync', [])
 	/* Check login status
 	 */
 	$scope.checkLoginStatus = function (name){
-		if(name == 'google'){
-			return $scope.handleClientLoad();
+		if (name == 'google'){
+			return eGoogle.handleClientLoad();
 		}
 	};
 
@@ -252,8 +119,8 @@ angular.module('MainApp.controllers.sync', [])
 	 * name = google: from google calendar
 	 */
 	$scope.login = function(name){
-		if(name == 'google'){
-			$scope.handleAuthClick(null);
+		if (name == 'google'){
+			eGoogle.handleAuthClick(null);
 		}
 	};
 
@@ -262,7 +129,7 @@ angular.module('MainApp.controllers.sync', [])
 	 */
 
 	$scope.logout = function(name){
-		if(name == 'google'){
+		if (name == 'google'){
 			$scope.logMeOut();
 			$scope.isShowDes = {};
 		}
@@ -270,12 +137,11 @@ angular.module('MainApp.controllers.sync', [])
 
 	//Handle and call correspond function
 	$scope.handleOptions = function(app, option){
-		if(option == 'logout'){
+		if (option == 'logout'){
 			if (app == 'google') {
 				$scope.logout('google');
 			}
 		}
-
 		else if(option == 'events'){
 			if (app == 'local') {
 				$scope.updateEvents('local');
@@ -285,10 +151,9 @@ angular.module('MainApp.controllers.sync', [])
 		}
 	};
 
-
 	/* Show & Hide slide toggle
-	Based on login status
-	*/
+	 * Based on login status
+	 */
 
 	$scope.isShowDes = {};
 
@@ -336,7 +201,6 @@ angular.module('MainApp.controllers.sync', [])
 
 			else if (loginGC == 1){ clickShow(name); }
 		}
-
 		if(name == 'local') {
 			clickShow(name);
 		}

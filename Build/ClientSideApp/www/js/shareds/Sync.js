@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Manh Duy
- * last update: 18/07/2015 by Page
+ * last update: 20/07/2015 by Page
  * type: all shared sync function
  */
 
@@ -195,41 +195,6 @@ angular.module('MainApp.shareds.sync', [])
 	var eCopyData = eCopyData;
 	
 	return {		
-		logInResult: false,
-		logIN: -1,
-		email: '',
-		apiKey: 'AIzaSyDGMK78q0nkNd7rLkVJIoHH2V0SlL8oV9A',
-		clientId: '765680851927-4elvspeupsu4kj8fdlp4bm12v8iq77dq.apps.googleusercontent.com',
-		scopes: 'https://www.googleapis.com/auth/calendar',
-		
-		logInToGmailCalendar : function() {
-			// Log in to google account:
-			gapi.auth.authorize({
-				client_id: this.clientId,
-				scope: this.scopes,
-				immediate: true,
-				approval_prompt: 'force',
-				include_granted_scopes: false,
-				cookie_policy: 'single_host_origin'
-			}, this.testLogInResult);
-
-			return this.logInResult;
-		},
-
-		testLogInResult : function(authResult) {
-
-			if (authResult && !authResult.error) {
-				this.logInResult = true;
-			} 
-			else {
-				this.logInResult = false;
-			}
-		},
-		
-		doNoThing : function() {
-
-		},
-		
 		convertMe : function() {
 			if (eUser.uGmailCalendar.length === 0) {
 				return;
@@ -241,7 +206,7 @@ angular.module('MainApp.shareds.sync', [])
 			uGC = eUser.uGmailCalendar;
 			
 			for (var i=0; i<uGC.length; i++){
-				uGC[i].src= "google";
+				uGC[i].src = "google";
 			}
 			
 			// array result is a array of array:
@@ -271,18 +236,18 @@ angular.module('MainApp.shareds.sync', [])
 				mm = '0' + mm;
 			}
 			
-			if (hh<10) {
+			if (hh < 10) {
 				hh = '0' + hh;
 			}
 			
-			if (mn<10) {
+			if (mn < 10) {
 				mn = '0' + mn;
 			}
 			
 			// form of timeMax: "yyyy-mm-dd T hh:mm:ss - offset
 
 			var result = yyyy + '-' + mm + '-' + dd;
-			result+= ('T' + hh + ':' + mn + ':00-00:00');
+			result += ('T' + hh + ':' + mn + ':00-00:00');
 			
 			return result;
 
@@ -339,10 +304,6 @@ angular.module('MainApp.shareds.sync', [])
 			eUser.uLocalCalendar= [];
 			
 			eCopyData.extraCopy(newULC, eUser.uLocalCalendar);
-			
 		},
 	};
-})
-		
-		
-		
+});
