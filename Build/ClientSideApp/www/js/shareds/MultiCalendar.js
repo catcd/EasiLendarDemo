@@ -1,13 +1,14 @@
 /**
  * starter: Can Duy Cat
  * owner: Nguyen Minh Trang
- * last update: 12/05/2015
+ * last update: 15/07/2015
  * type: multi calendar object and specific function for calendar
  */
 
 var multiCalendar = angular.module('MainApp.shareds.multiCalendar', []);
 
 multiCalendar.factory('eMultiCalendar', function($rootScope, eEasiLendar) {
+
 	// check if obj is null/undefined/'' or not
 	var isNull = function(obj) {
 		if (obj === null || obj === undefined || obj === '') {
@@ -15,6 +16,7 @@ multiCalendar.factory('eMultiCalendar', function($rootScope, eEasiLendar) {
 		}
 		return false;
 	};
+	
 	/*
 	 * class MultiCal
 	 * items is array of all calendar (pointer)
@@ -39,11 +41,13 @@ multiCalendar.factory('eMultiCalendar', function($rootScope, eEasiLendar) {
 					}
 				}
 			}
-			// array of arrays of events
-			var cal = [];
 			if (isNull(tempItems)) {
 				return null;
 			}
+			
+			// array of arrays of events
+			var cal = [];
+			
 			for (var i=0; i < tempItems.length; i++) {
 				if (!isNull(tempItems[i])) {
 					// tempItems[i] is standard to compare with
@@ -61,8 +65,7 @@ multiCalendar.factory('eMultiCalendar', function($rootScope, eEasiLendar) {
 									if (isNull(tempItems[k][j])) { 
 										break; 
 									} else {
-										temp = new BusyDay(temp.events,
-															tempItems[k][j]);
+										temp = new BusyDay(temp.events, tempItems[k][j]);
 										// delete it so it won't 
 										// be compared next time
 										delete tempItems[k][j];
@@ -152,12 +155,11 @@ multiCalendar.factory('eMultiCalendar', function($rootScope, eEasiLendar) {
 			if (!isNull(list)) {
 				var temp = list[0];
 				for (var i=1; i < list.length; i++) {
-					// if we can combime list[i] and temp as 1 busy event
+					// if we can combine list[i] and temp as 1 busy event
 					if (list[i].start.dateTime <= temp.end.dateTime) {
 						// list[i] is not completely inside temp's interval
 						if (list[i].end.dateTime >= temp.end.dateTime) {
-							temp = eEasiLendar.newBusyEvent(temp.start,
-																list[i].end);
+							temp = eEasiLendar.newBusyEvent(temp.start, list[i].end);
 						}
 					} else {
 						events[events.length] = temp;

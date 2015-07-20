@@ -184,14 +184,19 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 		this.type = setType();
 		this.color = setColor();
 		
+		// id from google or id created by easilendar
 		this.id = event.id;
+		
 		this.summary = setSummary();
 		this.start = event.start;
 		this.end = event.end;
 		this.location = event.location;
 		this.colorId = event.colorId;
 		this.status = event.status;
+		
+		// google/easilendar/...
 		this.src = event.src;
+		
 		this.position = event.position;
 		
 		// two events are equal if their starts(ends) are the same

@@ -23,9 +23,9 @@ angular.module('MainApp.controllers.eventEdit', [])
 		'Friday','Saturday'];
 
 	// display object
-	$scope.display = $scope.isNull( eEvent.pointer ) ? null : new Display();
+	$scope.display = $scope.isNull(eEvent.pointer) ? null : new Display();
 	$scope.$watch('currentState', function() {
-		$scope.display = $scope.isNull( eEvent.pointer ) ? null : new Display();
+		$scope.display = $scope.isNull(eEvent.pointer) ? null : new Display();
 	});
 
 	// delete function
