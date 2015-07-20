@@ -4,10 +4,10 @@
 	 type: calendar template -->
 <!--<img class="easi-space">-->
 <div class="month-title-calendar" data-ng-init="buildCurrentMonth()" data-ng-show="showMonthCalendar && eSettings.sMonthView == 'eventList'">
-	<a class="month-button-calendar month-button-previous icon ion-chevron-left easi-gray" data-ng-click="previousMonth()" check-first-day="curMonthNum" this-year="{{curYear}}"></a>
+	<a class="month-button-calendar month-button-previous icon ion-chevron-left easi-gray" data-ng-click="prev()" check-first-day="curMonthNum" this-year="{{curYear}}"></a>
 	<span class="month-span-calendar" check-this-month="curMonthNum"
 	data-ng-click="changeState()">{{curMonthStr}}, {{curYear}}</span>
-	<a class="month-button-calendar month-button-next icon ion-chevron-right easi-gray" data-ng-click="nextMonth()" check-first-day="curMonthNum" this-year="{{curYear}}"></a>
+	<a class="month-button-calendar month-button-next icon ion-chevron-right easi-gray" data-ng-click="next()" check-first-day="curMonthNum" this-year="{{curYear}}"></a>
 </div>
 
 <div class="month-title-calendar" data-ng-show="showMonthsList">
@@ -19,7 +19,7 @@
 <div scrollbar-y="false" class="month-calendar">
 
 	<!-- Month List -->
-	<center on-swipe-left="nextYear()" on-swipe-right="previousYear()">
+	<center>
 		<table class="month-table-list" data-ng-show="showMonthsList">
 			<tr class="month-tr-list" data-ng-repeat="month in allMonths">
 				<td id="{{month.first}}" class="month-td-list" data-ng-click="thisMonth(curYear,month.first)" check-first-day="month.first" this-year="{{curYear}}">
@@ -48,7 +48,7 @@
 
 
 	<!-- Month Calendar -->
-	<center on-swipe-left="nextMonth()" on-swipe-right="previousMonth()">
+	<center>
 		<table class="month-table-calendar" data-ng-show="showMonthCalendar && eSettings.sMonthView == 'eventList'">
 			<tr class="month-tr-calendar">
 				<td data-ng-repeat="day in daysInWeek" class="month-td-header-calendar">{{day.day}}</td>

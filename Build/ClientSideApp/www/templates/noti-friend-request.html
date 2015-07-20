@@ -1,0 +1,21 @@
+<!-- starter: Can Duy Cat
+   owner: Ngo Duc Dung
+   last update: 20/07/2015
+   type: template for noti friend panel -->
+
+<ul class="list {{friendTabClass[eUser.uFALength != 0]}}">
+	<!-- friend request list empty -->
+	<a class="button button-clear button-dark icon-left ion-person-add noti-button-no-request"
+	ng-click="closePopover(); goToState('search')"
+	ng-show="eUser.uFRLength == 0">
+		Look for some friends.
+	</a>
+
+	<!-- friend request list -->
+	<div class="easi-no-padding" id="noti-friend-request-list">
+		<a ng-repeat="friend in eUser.uFRequest" class="item easi-item-avatar" ng-click="friendFAction(friend)">
+			<img data-ng-src="img/ava{{friend.ava}}.png">
+			<h2 class="easi-space">{{friend.name}}</h2>
+		</a>
+	</div>
+</ul>

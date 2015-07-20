@@ -1,0 +1,73 @@
+<!-- starter: Ngo Duc Dung
+   owner: Ngo Duc Dung
+   last update: 20/07/2015
+   type: noti popover template -->
+
+<ion-popover-view id="noti-popover-view">
+	<div ng-show="eUser.uIsDoneFNoti">
+		<!-- tabs -->
+		<div class="tabs-striped tabs-color-dark">
+			<div class="tabs noti-tabs">
+				<a class="tab-item {{mFPopoverStatus[mFPopoverActive == 'request']}}" ng-click="tabFActive('request')">
+					<p class="easi-up">Request</p>
+				</a>
+
+				<a class="tab-item {{mFPopoverStatus[mFPopoverActive == 'accepted']}}" ng-click="tabFActive('accepted')">
+					<p class="easi-up">Accepted</p>
+				</a>
+			</div>
+		</div>
+
+		<!-- friend accepted -->
+		<a id="noti-friend-accepted"
+		class="item easi-item-avatar"
+		ng-click="showAlert('Friend accepted', 'templates/noti-friend-accepted.html', 'Click to see profile'); closeFPopover()"
+		ng-hide="eUser.uFALength == 0"
+		ng-repeat="friend in eUser.uFAccepted"
+		ng-if="$first">
+			<img data-ng-src="img/ava{{friend.ava}}.png">
+
+			<!-- one and some have diffirent noti -->
+			<p class="easi-space" ng-show="eUser.uFALength > 1">
+				{{friend.name}} and {{eUser.uFALength - 1}} other now are your friends
+			</p>
+			<p class="easi-space" ng-show="eUser.uFALength == 1">
+				{{friend.name}} now is your friends
+			</p>
+
+			<!-- badge number of accepted request -->
+			<span class="badge badge-assertive" id="noti-friend-accepted-badge" ng-show="eUser.uFALength > 1">
+				{{eUser.uFALength}}
+			</span>
+		</a>
+
+		<!-- devider show when friends accepted shown -->
+		<div class="item item-divider easi-left" id="noti-friend-tab-divider" ng-hide="eUser.uFALength == 0">
+		<!-- mFPopoverActive!='friend' -->
+			<p id="noti-friend-tab-divider-title">Friend requests</p>
+		</div>
+
+		<!-- content -->
+		<ion-content id="noti-popover-content">
+			<noti-friend-content type="request" ng-show="mFPopoverActive == 'request'"></noti-friend-content>
+			<noti-friend-content type="accepted" ng-show="mFPopoverActive == 'accepted'"></noti-friend-content>
+		</ion-content>
+
+		<!-- footer bar -->
+		<div class="bar bar-stable bar-footer" id="noti-popover-footer-bar">
+			<button id="noti-popover-footer-left"
+			class="button button-clear"
+			ng-click="closeFPopover(); goToState('comingSoon')">
+				See All
+			</button>
+
+			<!-- <button id="noti-popover-footer-right"
+			class="button button-clear"
+			ng-click="closeFPopover(); goToState('comingSoon')"
+			ng-show="mFPopoverActive == 'respond'">
+				Mark as Read
+			</button> -->
+		</div>
+	</div>
+	<ion-spinner icon="dots" ng-hide="eUser.uIsDoneFNoti"></ion-spinner>
+</ion-popover-view>

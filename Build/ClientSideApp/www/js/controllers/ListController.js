@@ -202,21 +202,10 @@ angular.module('MainApp.controllers.list', [])
 	//set random background event
 	$scope.bkgE = 'bkg';
 
-	//set month background
-	$scope.background = function(index) {
-		var listStyle = 'list-bkg-style ' + 'easi-';
-		var className = listStyle + eCalendar.shortMonths[index] + '-bkg';
-		return className;
-	};
-
 	//view detail of events
 	$scope.viewE = function(event){
 		//create EasiEvent obj
-		var easiE = eEasiLendar.newEasiEvent(
-			event.summary, event.start, event.end,
-			event.location, event.id, event.colorID,
-			event.position, event.src, event.status
-		);
+		var easiE = eEasiLendar.newEasiEvent(event);
 		$rootScope.viewEvent(easiE);
 	};
 })
@@ -264,9 +253,7 @@ angular.module('MainApp.controllers.list', [])
 			isType: '=backgroundEvent'
 		},
 		link: function(scope, element) {
-			var allBkgClass = ['birthday-background', 'holiday-background',
-				'hotel-background', 'restaurant-background',
-				'ticket-background','event-color-1',
+			var allBkgClass = ['event-color-1',
 				'event-color-2', 'event-color-3',
 				'event-color-4', 'event-color-5'];
 			if (scope.isType == 'bkg') {

@@ -9,15 +9,110 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 
 .controller('friendPanelController',
 	function($scope, $rootScope, $location, $ionicScrollDelegate,
-	$ionicPopup, eUser, eFriend, eDatabase) {
+	$ionicPopup, eUser, eFriend, eDatabase, $ionicPopover) {
 	//Using eUser, eFriend, eDatebase factory
 	$scope.eUser = eUser;
 	$scope.eFriend = eFriend;
 	$scope.eDatabase = eDatabase;
 
 	$scope.searchFriend = '';
-	$scope.mShow = false;
+	$scope.mShow = true;
 
+	/** FRIEND POPOVER **/
+	/**
+	 * popover variable
+	 */
+	// class
+	$scope.mFPopoverStatus = {};
+	$scope.mFPopoverStatus[true] = 'active';
+	$scope.mFPopoverStatus[false] = '';
+
+	$scope.mFPopoverActive = '';
+
+	/**
+	 * popover function
+	 */
+	$scope.tabFActive = function(tabName) {
+		if (tabName == 'request' ||
+			tabName == 'accepted') {
+			$scope.mFPopoverActive = tabName;
+		}
+	};
+
+	var template = '';
+
+	$scope.fbPopover = $ionicPopover.fromTemplate(template, {
+		scope: $scope,
+	});
+
+	$ionicPopover.fromTemplateUrl('templates/noti-friend-panel-popover.html', {
+		scope: $scope
+	}).then(function(popover) {
+		$scope.fbPopover = popover;
+	});
+
+	$scope.openFPopover = function($event) {
+		$scope.fbPopover.show($event);
+	}
+
+	$scope.closeFPopover = function() {
+		$scope.fbPopover.hide();
+	}
+
+	//Cleanup the popover when we're done with it!
+	$scope.$on('$destroy', function() {
+		$scope.fbPopover.remove();
+	});
+
+	/**
+	 * action sheet
+	 */
+	// friend action sheet
+	$scope.friendAction = function(friend) {
+		// Show the action sheet
+		$ionicActionSheet.show({
+			buttons: [{
+				text: 'View'
+			}, {
+				text: 'Comfirm request'
+			}],
+			destructiveText: 'Delete request',
+			titleText: friend.name + ' request',
+			cancelText: 'Cancel',
+			cancel: function() {
+				// TODO cancel code here
+			},
+			destructiveButtonClicked: function() {
+				eDatabase.rejectFriend(friend.id);
+
+				return true;
+			},
+			buttonClicked: function(index) {
+				if (index === 0) {
+					// TODO view code here
+					eDatabase.viewProfile(friend.id);
+
+					$scope.closePopover();
+				} else {
+					// TODO confirm code here
+					eDatabase.acceptFriend(friend.id);
+				}
+
+				return true;
+			}
+		});
+	};
+
+	/**
+	 * class variable
+	 */
+	// style for friend tab
+	$scope.friendTabClass = {};
+	$scope.friendTabClass[true] = 'noti-margin-down';
+	$scope.friendTabClass[false] = 'noti-margin-top';
+
+
+	/** FRIEND LÍT **/
 	$scope.deleteFriend = function(friend) {
 		var confirmPopup = $ionicPopup.confirm({
 			title: 'Are you sure ?'
@@ -25,19 +120,19 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 
 		confirmPopup.then(function(res) {
 			if(res) {
-				$scope.eDatabase.deleteF(friend.id);
+				eDatabase.deleteFriend(friend.id);
 			}
 		});
 	};
 
 	$scope.appointMeeting = function(friend) {
-		$scope.eFriend.fName = friend.name;
-		$scope.eDatabase.getCalendar(friend.id);
+		eFriend.fName = friend.name;
+		eDatabase.getCalendar(friend.id);
 		$rootScope.goToState('searchFilter');
 	};
 
 	$scope.viewProfile = function(friend) {
-		$scope.eDatabase.viewProfile(friend.id);
+		eDatabase.viewProfile(friend.id);
 	};
 
 	//auto scroll to top of panel
@@ -106,5 +201,14 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 		});
 
 		return results;
+	};
+})
+
+.directive('notiFriendContent', function() {
+	return {
+		restrict: 'E',
+		templateUrl: function(elem, attr) {
+			return 'templates/noti-friend-' + attr.type + '.html';
+		}
 	};
 });

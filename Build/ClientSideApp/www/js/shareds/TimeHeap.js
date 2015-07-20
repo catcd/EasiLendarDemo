@@ -24,9 +24,12 @@ angular.module('MainApp.shareds.timeHeap', [])
 
 	function TimeNode(mStart, mEnd){
 		var scoreArray = [{start: 0, end: 359, pts: ePoint.calPoint(0)},
-						  {start: 360, end: 479, pts: ePoint.calPoint(6)}, {start: 480, end: 659, pts: ePoint.calPoint(8)},
-						  {start: 660, end: 839, pts: ePoint.calPoint(11)}, {start: 840, end: 1019, pts: ePoint.calPoint(14)},
-						  {start: 1020, end: 1199, pts: ePoint.calPoint(17)}, {start: 1200, end: 1439, pts: ePoint.calPoint(20)} 
+						  {start: 360, end: 479, pts: ePoint.calPoint(6)},
+						  {start: 480, end: 659, pts: ePoint.calPoint(8)},
+						  {start: 660, end: 839, pts: ePoint.calPoint(11)},
+						  {start: 840, end: 1019, pts: ePoint.calPoint(14)},
+						  {start: 1020, end: 1199, pts: ePoint.calPoint(17)},
+						  {start: 1200, end: 1439, pts: ePoint.calPoint(20)} 
 						 ];
 		//auto rate the time and save to score
 		var rateScore = function(start,end){
@@ -34,32 +37,42 @@ angular.module('MainApp.shareds.timeHeap', [])
 			var toDay = new Date();
 			toDay = new Date(toDay.setHours(0,0,0,0));
 
-			//convert to minutes
-			var startTime = start.getHours() * 60 + start.getMinutes();
 			var endTime = end.getHours() * 60 + end.getMinutes();
 
-			//case: end: 00:00:00 of next day of start
-			if(endTime == 0 && end > start){ endTime = 1440; }
+			//break into separate days
+			if(end.getDate() > start.getDate() && endTime !== 0) {
+				var first = angular.copy(end);
+				first = new Date(first.setHours(0,0,0,0));
+				sumPts = rateScore(start,first) + rateScore(first,end); 
+			}
 
-			//minus (mDuration)pts if time node in next day of today
-			var d = angular.copy(start);
-			if(new Date(d.setHours(0,0,0,0)) > toDay) { sumPts = sumPts - ( ((end - start)/1000)/60 ); }
-			
-			//rate score in a day
-			if (start == end) { sumPts += 0; }
-			if (start < end) {
-				if(startTime == 0 && endTime >= 1439){ 
-				sumPts += ( 119*ePoint.calPoint(6) + 179*ePoint.calPoint(8) + 179*ePoint.calPoint(11) + 179*ePoint.calPoint(14) + 179*ePoint.calPoint(17) + 239*ePoint.calPoint(20) ); 
-				} //all day
-				else{
-					for(var i=0; i < scoreArray.length; i++){
-						if(startTime > scoreArray[i].end || endTime < scoreArray[i].start) { continue; }
-						else {
-							if(i == 0) { sumPts += 0; }
+			else {
+				//convert to minutes
+				var startTime = start.getHours() * 60 + start.getMinutes();
+
+				//case: end: 00:00:00 of next day of start
+				if(endTime == 0 && end > start){ endTime = 1440; }
+
+				//minus (mDuration)pts if time node in next day of today
+				var d = angular.copy(start);
+				if(new Date(d.setHours(0,0,0,0)) > toDay) { sumPts = sumPts - ( ((end - start)/1000)/60 ); }
+				
+				//rate score in a day
+				if (start == end) { sumPts += 0; }
+				if (start < end) {
+					if(startTime == 0 && endTime >= 1439){ 
+					sumPts += ( 119*ePoint.calPoint(6) + 179*ePoint.calPoint(8) + 179*ePoint.calPoint(11) + 179*ePoint.calPoint(14) + 179*ePoint.calPoint(17) + 239*ePoint.calPoint(20) ); 
+					} //all day
+					else{
+						for(var i=0; i < scoreArray.length; i++){
+							if(startTime > scoreArray[i].end || endTime < scoreArray[i].start) { continue; }
 							else {
-								sumPts = sumPts + ((endTime < scoreArray[i].end ? endTime:scoreArray[i].end) - (startTime > scoreArray[i].start ? startTime:scoreArray[i].start)) * scoreArray[i].pts;
-								if(endTime == scoreArray[i].end) { sumPts = sumPts - scoreArray[i].pts; }
-								if(endTime == scoreArray[i].end + 1) { sumPts = sumPts + scoreArray[i].pts; }
+								if(i == 0) { sumPts += 0; }
+								else {
+									sumPts = sumPts + ((endTime < scoreArray[i].end ? endTime:scoreArray[i].end) - (startTime > scoreArray[i].start ? startTime:scoreArray[i].start)) * scoreArray[i].pts;
+									if(endTime == scoreArray[i].end) { sumPts = sumPts - scoreArray[i].pts; }
+									if(endTime == scoreArray[i].end + 1) { sumPts = sumPts + scoreArray[i].pts; }
+								}
 							}
 						}
 					}

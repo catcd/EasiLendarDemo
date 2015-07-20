@@ -9,7 +9,7 @@
 angular.module('MainApp.controllers.month', [])
 
 .controller('MonthController',
-	function($scope, $rootScope, $document,
+	function($scope, $rootScope, $document, $timeout,
 	eCalendar, eSettings, eEasiLendar) {
 	//Using eSettings, eCalendar factory
 	$scope.eCalendar = eCalendar;
@@ -97,6 +97,13 @@ angular.module('MainApp.controllers.month', [])
 		$scope.buildWeeks();
 	};
 
+	//check on a day when change month
+	var checkOnDay = function(month, day){
+		var id = 'm' + month.toString() + day.toString();
+		var elem = document.getElementById(id);
+		angular.element(elem).prop('checked', true);
+	}
+
 	$scope.previousMonth = function() {
 		var month = $scope.curMonthNum;
 		month = (month - 1 >= 0 ? 0 : 12) + (month - 1);
@@ -132,10 +139,14 @@ angular.module('MainApp.controllers.month', [])
 	// Increment month
 	$scope.next = function() {
 		$scope.nextMonth();
+		$scope.$apply();
+		checkOnDay($scope.curMonthNum,1);
 	};
 	// Decrement month
 	$scope.prev = function() {
 		$scope.previousMonth();
+		$scope.$apply();
+		checkOnDay($scope.curMonthNum,1);
 	};
 
 	// Increment year
@@ -154,7 +165,7 @@ angular.module('MainApp.controllers.month', [])
 		var bMonth = $scope.curMonthNum;
 
 		// First date in month and its day in week
- 		var firstDatePreM = new Date(bYear, bMonth, 1);
+		var firstDatePreM = new Date(bYear, bMonth, 1);
 		var dayOfFirst = 0;
 
 		if (eSettings.sFirstDay == 'Sunday') {
@@ -292,7 +303,10 @@ angular.module('MainApp.controllers.month', [])
 					$scope.previousMonth();
 				}
 			}
+
 			$scope.position = new Date(year, month, day);
+
+			checkOnDay(month, day);
 		}
 	};
 
@@ -340,13 +354,6 @@ angular.module('MainApp.controllers.month', [])
 				element.addClass('month-different-color');
 			}
 			
-			//check on a day when change month
-			element.bind('click', function() {
-				var id = '#m' + scope.isDifferent + scope.isCurrentDay;
-				//Using find() function of JQUERY !
-				$document.find(id).prop('checked', true);
-			});
-
 			$document.bind('click', function() {
 				if (element.children().prop('checked') === false) {
 					element.removeClass('month-radio-selected');
@@ -397,11 +404,11 @@ angular.module('MainApp.controllers.month', [])
 				var currentYear = (new Date()).getFullYear();
 				var id;
 				//check on first day when change month
-				if ( scope.isFirstDate !== currentMonth){
+				/*if ( scope.isFirstDate !== currentMonth){
 					id = '#m' + scope.isFirstDate + '1';
 					//Using find() function of JQUERY !
 					$document.find(id).prop('checked', true);
-				}
+				}*/
 
 				//check on first day when change to current month but in other year
 				if(scope.isFirstDate == currentMonth && attr.thisYear != currentYear){
@@ -425,9 +432,9 @@ angular.module('MainApp.controllers.month', [])
 			element.bind('click', function() {
 				var id = '#' + scope.isThisMonth;
 				//Using find() function of JQUERY !
-				var className = 'month-current-style';
+				/*var className = 'month-current-style';
 				$document.find(id).children().addClass(className);
-				$document.find('#0').children().removeClass(className);
+				$document.find('#0').children().removeClass(className);*/
 			});
 		}
 	};
@@ -445,7 +452,7 @@ angular.module('MainApp.controllers.month', [])
 					children.removeClass(className);
 				}
 
-				$document.find('#0').children().addClass(className);
+				/*$document.find('#0').children().addClass(className);*/
 			});
 		}
 	};
