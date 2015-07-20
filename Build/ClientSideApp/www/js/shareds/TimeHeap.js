@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 24/04/2015
+ * last update: 20/07/2015
  * type: TimeHeap object, Time Node object
  */
 
@@ -35,15 +35,18 @@ angular.module('MainApp.shareds.timeHeap', [])
 		var rateScore = function(start,end){
 			var sumPts = 0;
 			var toDay = new Date();
-			toDay = new Date(toDay.setHours(0,0,0,0));
+			toDay = new Date(toDay.setHours(0,0));
 
 			var endTime = end.getHours() * 60 + end.getMinutes();
 
+			var dEnd = angular.copy(end);
+			dEnd = new Date(dEnd.setHours(0,0));
+			var dStart = angular.copy(start);
+			dStart = new Date(dStart.setHours(0,0));
+
 			//break into separate days
-			if(end.getDate() > start.getDate() && endTime !== 0) {
-				var first = angular.copy(end);
-				first = new Date(first.setHours(0,0,0,0));
-				sumPts = rateScore(start,first) + rateScore(first,end); 
+			if( dEnd > dStart && endTime !== 0) {
+				sumPts = rateScore(start,dEnd) + rateScore(dEnd,end);
 			}
 
 			else {
@@ -51,23 +54,26 @@ angular.module('MainApp.shareds.timeHeap', [])
 				var startTime = start.getHours() * 60 + start.getMinutes();
 
 				//case: end: 00:00:00 of next day of start
-				if(endTime == 0 && end > start){ endTime = 1440; }
+				if(endTime === 0 && end > start){ endTime = 1440; }
 
 				//minus (mDuration)pts if time node in next day of today
-				var d = angular.copy(start);
-				if(new Date(d.setHours(0,0,0,0)) > toDay) { sumPts = sumPts - ( ((end - start)/1000)/60 ); }
-				
+				var duration = ( (end - start) / 1000 ) / 60;
+				if(dStart > toDay) {
+					var x = dStart.getDate() - toDay.getDate();
+					sumPts = sumPts - duration * x;
+				}
+
 				//rate score in a day
 				if (start == end) { sumPts += 0; }
 				if (start < end) {
-					if(startTime == 0 && endTime >= 1439){ 
+					if(startTime === 0 && endTime >= 1439){ 
 					sumPts += ( 119*ePoint.calPoint(6) + 179*ePoint.calPoint(8) + 179*ePoint.calPoint(11) + 179*ePoint.calPoint(14) + 179*ePoint.calPoint(17) + 239*ePoint.calPoint(20) ); 
 					} //all day
 					else{
 						for(var i=0; i < scoreArray.length; i++){
 							if(startTime > scoreArray[i].end || endTime < scoreArray[i].start) { continue; }
 							else {
-								if(i == 0) { sumPts += 0; }
+								if(i === 0) { sumPts += 0; }
 								else {
 									sumPts = sumPts + ((endTime < scoreArray[i].end ? endTime:scoreArray[i].end) - (startTime > scoreArray[i].start ? startTime:scoreArray[i].start)) * scoreArray[i].pts;
 									if(endTime == scoreArray[i].end) { sumPts = sumPts - scoreArray[i].pts; }
@@ -154,12 +160,12 @@ angular.module('MainApp.shareds.timeHeap', [])
 
 		//push an TimeNode object (!= null && != undefined) to bottom of array
 		this.push = function(item){
-			if(item != null && item != undefined && checkTimeNodeObj(item) == true){
+			if(item !== null && item !== undefined && checkTimeNodeObj(item) === true){
 				this.length++;
 				this.timeList[this.length-1] = item;
 
 				var i = this.length-1;
-				var j = ( i - (i%2 == 0 ? 2:1) ) / 2;
+				var j = ( i - (i%2 === 0 ? 2:1) ) / 2;
 				while(j >= 0){
 					if(this.timeList[i].getScore() > this.timeList[j].getScore()){
 						var term = angular.copy(this.timeList[i]);
@@ -168,7 +174,7 @@ angular.module('MainApp.shareds.timeHeap', [])
 					}
 
 					i = j;
-					j = ( i - (i%2 == 0 ? 2:1) ) / 2;
+					j = ( i - (i%2 === 0 ? 2:1) ) / 2;
 				}
 
 				this.cache = angular.copy(this.timeList);
@@ -186,9 +192,9 @@ angular.module('MainApp.shareds.timeHeap', [])
 				var i = 0;
 				var j = 0;
 
-				while(this.timeList[j+1] != undefined && this.timeList[j+2] != undefined){
-					if(this.timeList[j+1] != undefined && this.timeList[j+2] == undefined) { j += 1; }
-					else if(this.timeList[j+2] != undefined && this.timeList[j+1] == undefined) {j += 2; }
+				while(this.timeList[j+1] !== undefined && this.timeList[j+2] !== undefined){
+					if(this.timeList[j+1] !== undefined && this.timeList[j+2] === undefined) { j += 1; }
+					else if(this.timeList[j+2] !== undefined && this.timeList[j+1] === undefined) {j += 2; }
 					else { j += (this.timeList[j+1].getScore() > this.timeList[j+2].getScore() ? 1:2); }
 
 					if(this.timeList[i].getScore() < this.timeList[j].getScore()){
@@ -237,22 +243,22 @@ angular.module('MainApp.shareds.timeHeap', [])
 		maxNode: function(array){
 			var maxNode;
 			//case: array is empty
-			if(array == null || array == undefined) { maxNode = null; }
+			if(array === null || array === undefined) { maxNode = null; }
 			else{
-				if(array.length == 0 || array.length == null){ maxNode = null; }
+				if(array.length === 0 || array.length === null){ maxNode = null; }
 				else{
 					var maxScore;
 					var valid = 0;
-					if(array[array.length-1].start != undefined && array[array.length-1].end != undefined){
+					if(array[array.length-1].start !== undefined && array[array.length-1].end !== undefined){
 						maxNode = new TimeNode(array[array.length-1].start, array[array.length-1].end);
 						maxScore = maxNode.getScore();
 						valid++;
 					}
 
 					for(var i=array.length-2; i>=0; i--){
-						if(array[i].start != undefined && array[i].end != undefined){
+						if(array[i].start !== undefined && array[i].end !== undefined){
 							var node = new TimeNode(array[i].start, array[i].end);
-							if(maxNode == null){ 
+							if(maxNode === null){ 
 								maxNode = angular.copy(node);
 								maxScore = maxNode.getScore;
 							}
@@ -264,7 +270,7 @@ angular.module('MainApp.shareds.timeHeap', [])
 						}
 					}
 
-					if(valid == 0) { maxNode = null; }
+					if(valid === 0) { maxNode = null; }
 				}
 			}
 

@@ -2,29 +2,26 @@
 	 owner: Ngo Duc Dung
 	 last update: 09/05/2015
 	 type: calendar even list template -->
-
 <ion-content id="month-content-calendar" data-ng-show="showMonthCalendar">
-	<center>
-	<table class="month-day-calendar">
-		<tr class="month-tr-list-calendar">
-			<td class="month-td-list-calendar-3">
-				<p class="list-p-calendar-number">{{position.getDate()}}</p>
-				<p class="list-p-calendar-text">{{eCalendar.weekDays[(position.getDay()-1
-					<0)? 6:position.getDay()-1]}}</p>
-			</td>
-			<td class="month-td-list-calendar-4">
-				<div class="month-list-div-calendar" data-ng-repeat="event in eUser.uGmailCalendar[position]" background-color-event="bkgE" data-ng-click="viewE(event)">
-					<span class="list-span-title-event">{{event.summary}}</span>
-					<br>
-					<span>Time: {{event.start.dateTime.getHours()}}:{{ (event.start.dateTime.getMinutes()<10)?'0':'' }}{{event.start.dateTime.getMinutes()}}{{ (event.start.dateTime.getHours() >= 12)?' PM':' AM' }} - {{event.end.dateTime.getHours()}}:{{(event.end.dateTime.getMinutes()<10)?'0':''}}{{event.end.dateTime.getMinutes()}}{{( event.end.dateTime.getHours() >= 12)?' PM':' AM' }}
-				</span>
-				</div>
-
-				<div class="month-list-div-calendar" data-ng-show="eUser.uGmailCalendar[position] == undefined">
-					No event. Press to create
-				</div>
-			</td>
-		</tr>
-	</table>
-	</center>
+    <center>
+        <table class="month-day-calendar">
+            <tr class="month-tr-list-calendar">
+                <td class="month-td-list-calendar-3">
+                    <p class="list-p-calendar-number">{{position.getDate()}}</p>
+                    <p class="list-p-calendar-text">{{eCalendar.weekDays[(position.getDay()-1
+                        <0)? 6:position.getDay()-1]}}</p>
+                </td>
+                <td class="month-td-list-calendar-4">
+                    <div class="month-list-div-calendar" data-ng-repeat="event in eUser.uGmailCalendar[position]" background-color-event="bkgE" data-ng-click="viewE(event)">
+                        <span class="list-span-title-event">{{event.summary}}</span>
+                        <br>
+                        <span>Time: {{event.start.dateTime.getHours()}}:{{ (event.start.dateTime.getMinutes()<10)?'0':'' }}{{event.start.dateTime.getMinutes()}}{{ (event.start.dateTime.getHours() >= 12)?' PM':' AM' }} - {{event.end.dateTime.getHours()}}:{{(event.end.dateTime.getMinutes()<10)?'0':''}}{{event.end.dateTime.getMinutes()}}{{( event.end.dateTime.getHours() >= 12)?' PM':' AM' }}</span>
+                    </div>
+                    <div class="month-list-div-calendar" data-ng-show="eUser.uGmailCalendar[position] == undefined">
+                        No event. Press to create
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </center>
 </ion-content>

@@ -9,7 +9,8 @@ angular.module('MainApp.controllers.list', [])
 
 .controller('ListController',
 	function($scope, $rootScope, $ionicScrollDelegate,
-	$location, eUser, eCalendar, eEasiLendar, eSettings) {
+	$location, eUser, eCalendar, eEasiLendar, eSettings,
+	eTimeHeap) {
 	//Using eUser, eCalendar factory
 	$scope.eUser = eUser;
 	$scope.eCalendar = eCalendar;
