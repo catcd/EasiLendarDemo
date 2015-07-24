@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 12/05/2015
+ * last update: 22/07/2015
  * type: paticular controller
  */
 
@@ -19,8 +19,8 @@ angular.module('MainApp.controllers.searchFilter', [])
 	$scope.eDatabase = eDatabase;
 
 	$scope.timeValues = {
-		mDurationHour: $scope.eSettings.sDefaultDuration / 60,
-		mDurationMinute: $scope.eSettings.sDefaultDuration % 60,
+		mDurationHour: 1,
+		mDurationMinute: 0,
 		mFromTime: null,
 		mToTime: null,
 		mFromDay: new Date(),
@@ -60,7 +60,6 @@ angular.module('MainApp.controllers.searchFilter', [])
 	});
 	$scope.$watch('timeValues.mFromTime', function() {
 		eSearchFilter.mFrom = new Date($scope.timeValues.mFromTime);
-		$scope.minTime = $scope.timeValues.mFromTime;
 	});
 	$scope.$watch('timeValues.mToTime', function() {
 		eSearchFilter.mTo = new Date($scope.timeValues.mToTime);
@@ -71,8 +70,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 			var month = date.getMonth();
 			var year = date.getFullYear();
 			var d = new Date(year, month, date.getDate());
-			$scope.eSearchFilter.mFromDay = d;
-			$scope.minDate = $scope.timeValues.mFromDay;
+			eSearchFilter.mFromDay = d;
 		}
 	});
 	$scope.$watch('timeValues.mToDay', function() {
@@ -81,7 +79,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 			var month = date.getMonth();
 			var year = date.getFullYear();
 			var d = new Date(year, month, date.getDate());
-			$scope.eSearchFilter.mToDay = d;
+			eSearchFilter.mToDay = d;
 		}
 	});
 	$scope.$watch('priorityTimes[0].values', function() {
@@ -122,17 +120,30 @@ angular.module('MainApp.controllers.searchFilter', [])
 			}
 		});
 
-	$scope.submit = function(form) {
-		if (form.$valid) {
-			$rootScope.goToState('result');
+	$scope.submitFilter = function() {
+		// 'You want to meet' field
+		if($scope.personName == '') {
+			eToast.toastError('You want to meet ?',300);
 		}
+		else if(eFriend.fMultiCal === null) {
+			eToast.toastError($scope.personName + ' does not have calendar',300);
+		}
+		// Title field
+		else if(eSearchFilter.mTitle == '') {
+			eToast.toastError('Title is required',300);
+		}
+		// Duration field
+		else if(!eSearchFilter.mDuration || eSearchFilter.mDuration === 0) {
+			eToast.toastError('Duration is required',300);
+		}
+		else { $scope.goToState('result'); }
 	};
 
 	//reset all datas when out of Search Filter page.
 	$scope.deleteValue = function(form) {
 		/*RESET VALUE*/
 		$scope.timeValues = angular.copy(resetValues);
-		$scope.eSearchFilter.resetData();
+		eSearchFilter.resetData();
 		$scope.priorityTimes = angular.copy(pristine);
 		/* RESET FORM*/
 		form.$setPristine();
@@ -165,13 +176,11 @@ angular.module('MainApp.controllers.searchFilter', [])
 	$scope.showTime = false;
 	$scope.titleOfButton = 'ADVANCE FILTER';
 	$scope.toggleFunc = function() {
-		if ($scope.eUser.uVIP == 0) {
-			$scope.mShow = !$scope.mShow;
-			if ($scope.mShow === true) {
-				$scope.titleOfButton = '';
-			} else {
-				$scope.titleOfButton = 'ADVANCE FILTER';
-			}
+		$scope.mShow = !$scope.mShow;
+		if ($scope.mShow === true) {
+			$scope.titleOfButton = '';
+		} else {
+			$scope.titleOfButton = 'ADVANCE FILTER';
 		}
 	};
 
@@ -182,9 +191,8 @@ angular.module('MainApp.controllers.searchFilter', [])
 			$scope.timeValues.mDurationHour = 0;
 			$scope.timeValues.mDurationMinute = 1;
 		} else {
-			var sDefaultDuration = $scope.eSettings.sDefaultDuration;
-			$scope.timeValues.mDurationHour = sDefaultDuration / 60;
-			$scope.timeValues.mDurationMinute = sDefaultDuration % 60;
+			$scope.timeValues.mDurationHour = 1;
+			$scope.timeValues.mDurationMinute = 0;
 		}
 	};
 
@@ -199,7 +207,7 @@ angular.module('MainApp.controllers.searchFilter', [])
 		if ($scope.personName !== '') {
 			$scope.showListPersons = true;
 			var array = $filter('filterFriend');
-			if (array($scope.eUser.uFriend, $scope.personName).length !== 0) {
+			if (array(eUser.uFriend, $scope.personName).length !== 0) {
 				$scope.noFound = false;
 			} else {
 				$scope.noFound = true;
@@ -220,8 +228,8 @@ angular.module('MainApp.controllers.searchFilter', [])
 
 	$scope.wantToMeet = function(person) {
 		$scope.personName = person.name;
-		$scope.eDatabase.getCalendar(person.id);
-		//console.log($scope.eFriend.fMultiCal);
+		eDatabase.getCalendar(person.id);
+		//console.log(eFriend.fMultiCal);
 	};
 })
 

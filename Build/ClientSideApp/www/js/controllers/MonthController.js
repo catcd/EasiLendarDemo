@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 16/07/2015
+ * last update: 24/07/2015
  * type: month controller
  */
  
@@ -9,9 +9,9 @@
 angular.module('MainApp.controllers.month', [])
 
 .controller('MonthController',
-	function($scope, $rootScope, $document, $timeout,
+	function($scope, $rootScope, $document,
 	eCalendar, eSettings, eEasiLendar) {
-	//Using eSettings, eCalendar factory
+
 	$scope.eCalendar = eCalendar;
 	$scope.eSettings = eSettings;
 
@@ -25,21 +25,18 @@ angular.module('MainApp.controllers.month', [])
 	$rootScope.$on('$stateChangeStart',
 		function(event, toState, toParams, fromState) {
 			if (toState.name == 'month') {
-				/* only change when go to 'month'
-				from state differ 'week', 'list', 'day' */
-				if(fromState.name != 'week'){
-					if(fromState.name != 'list' && fromState.name != 'day'){
-						//months list in year
-						$scope.showMonthsList = false;
-						$scope.showMonthCalendar = true;
-						$scope.showMonthVer2Cal = true;
-						var children = $document.find('td').children();
-						if(children.hasClass('month-current-style') === true){
-							children.removeClass('month-current-style');
-						}
-						$scope.buildCurrentMonth();
-					}
+				//months list in year
+				$scope.showMList = false;
+				$scope.showMCal = true;
+				$scope.showM2Cal = true;
+
+				var children = $document.find('td').children();
+				children = angular.element(children);
+				if(children.hasClass('month-current-style') === true){
+					children.removeClass('month-current-style');
 				}
+
+				$scope.buildCurrentMonth();
 			}
 		});
 
@@ -47,7 +44,7 @@ angular.module('MainApp.controllers.month', [])
 	  * date: a date in month or weeks that is used to build calendar
 	  * state: init - begin build month; rebuild - rebuild month
 	  */
-	$scope.changeMonth = function(date,state){
+	$scope.changeMonth = function(date, state){
 		$scope.currentDate = date;
 		$scope.currentDateNumber = date.getDate();
 		$scope.curMonthNum = date.getMonth();
@@ -63,13 +60,18 @@ angular.module('MainApp.controllers.month', [])
 	/* Return today */
 	$rootScope.monthToday = function(){
 		var date = new Date();
-		date = new Date(date.setHours(0,0,0,0));
+		date = new Date(date.setHours(0,0));
 		$scope.changeMonth(date,'rebuild');
 	};
 
 	$scope.buildCurrentMonth = function() {
+		//months list in year
+		$scope.showMList = false;
+		$scope.showMCal = true;
+		$scope.showM2Cal = true;
+
 		var date = new Date();
-		date = new Date(date.setHours(0,0,0,0));
+		date = new Date(date.setHours(0,0));
 
 		$scope.changeMonth(date,'init');
 		
@@ -104,27 +106,28 @@ angular.module('MainApp.controllers.month', [])
 		angular.element(elem).prop('checked', true);
 	}
 
-	$scope.previousMonth = function() {
+	$scope.setMonthNum = function(state){
 		var month = $scope.curMonthNum;
-		month = (month - 1 >= 0 ? 0 : 12) + (month - 1);
+		
+		if(state == 'prev') {
+			month = (month - 1 >= 0 ? 0 : 12) + (month - 1);
+		} else {
+			month = (month + 1) - (month + 1 > 11 ? 12 : 0);
+		}
+		
 		$scope.curMonthNum = month;
 		$scope.curMonthStr = eCalendar.months[month];
+
 		if ($scope.curMonthNum == 11) {
 			$scope.curYear--;
 		}
-		$scope.buildWeeks();
-	};
 
-	$scope.nextMonth = function() {
-		var month = $scope.curMonthNum;
-		month = (month + 1) - (month + 1 > 11 ? 12 : 0);
-		$scope.curMonthNum = month;
-		$scope.curMonthStr = eCalendar.months[month];
 		if ($scope.curMonthNum === 0) {
 			$scope.curYear++;
 		}
+
 		$scope.buildWeeks();
-	};
+	}
 
 	$scope.thisMonth = function(year,month){
 		if(year >= 0 && month >= 0 && month <= 11){
@@ -137,15 +140,15 @@ angular.module('MainApp.controllers.month', [])
 	};
 
 	// Increment month
-	$scope.next = function() {
-		$scope.nextMonth();
-		$scope.$apply();
+	$scope.nextMonth = function() {
+		$scope.setMonthNum('next');
+		//$scope.$apply();
 		checkOnDay($scope.curMonthNum,1);
 	};
 	// Decrement month
-	$scope.prev = function() {
-		$scope.previousMonth();
-		$scope.$apply();
+	$scope.prevMonth = function() {
+		$scope.setMonthNum('prev');
+		//$scope.$apply();
 		checkOnDay($scope.curMonthNum,1);
 	};
 
@@ -158,6 +161,31 @@ angular.module('MainApp.controllers.month', [])
 		$scope.curYear++;
 	};
 
+	var setNumDate = function(date, other){
+		date = (date + 7) - ((date + 7) > other ? other : 0);
+		return date;
+	}
+
+	var setOrderDaysInWeek = function(firstDay) {
+		if(eSettings.sFirstDay == 'Sunday') {
+			$scope.daysInWeek = [{day: 'S'},{day: 'M'},{day: 'T'},
+								{day: 'W'},{day: 'T'},
+								{day: 'F'},{day: 'S'}];
+		}
+		if(eSettings.sFirstDay == 'Monday') {
+			firstDay += (firstDay > 0 ? -1 : 6);
+			$scope.daysInWeek = [{day: 'M'},{day: 'T'},{day: 'W'},
+								{day: 'T'},{day: 'F'},
+								{day: 'S'},{day: 'S'}];
+		}
+		if(eSettings.sFirstDay == 'Saturday') {
+			firstDay += (firstDay < 6 ? 1 : -6);
+			$scope.daysInWeek = [{day: 'S'},{day: 'S'},{day: 'M'},
+								{day: 'T'},{day: 'W'},
+								{day: 'T'},{day: 'F'}];
+		}
+	}
+
 	$scope.buildWeeks = function() {
 		var newWeeks = angular.copy($scope.resetWeeks);
 
@@ -166,28 +194,8 @@ angular.module('MainApp.controllers.month', [])
 
 		// First date in month and its day in week
 		var firstDatePreM = new Date(bYear, bMonth, 1);
-		var dayOfFirst = 0;
+		var dayOfFirst = firstDatePreM.getDay();
 
-		if (eSettings.sFirstDay == 'Sunday') {
-			dayOfFirst = firstDatePreM.getDay();
-			$scope.daysInWeek = [{day: 'S'},{day: 'M'},{day: 'T'},
-								{day: 'W'},{day: 'T'},
-								{day: 'F'},{day: 'S'}];
-		}
-		if (eSettings.sFirstDay == 'Monday') {
-			dayOfFirst = firstDatePreM.getDay();
-			dayOfFirst += (dayOfFirst > 0 ? -1 : 6);
-			$scope.daysInWeek = [{day: 'M'},{day: 'T'},{day: 'W'},
-								{day: 'T'},{day: 'F'},
-								{day: 'S'},{day: 'S'}];
-		}
-		if (eSettings.sFirstDay == 'Saturday') {
-			dayOfFirst = firstDatePreM.getDay();
-			dayOfFirst += (dayOfFirst < 6 ? 1 : -6);
-			$scope.daysInWeek = [{day: 'S'},{day: 'S'},{day: 'M'},
-								{day: 'T'},{day: 'W'},
-								{day: 'T'},{day: 'F'}];
-		}
 		var numDaysPreM = (new Date(bYear, bMonth, 0)).getDate();
 		var numDaysCurM = (new Date(bYear, bMonth + 1, 0)).getDate();
 		var j = 0;
@@ -195,13 +203,18 @@ angular.module('MainApp.controllers.month', [])
 		//Show event of the first day in month
 		var toDay = new Date();
 
+		//Set order of days in week
+		setOrderDaysInWeek(dayOfFirst);
+
+		// Show event of today or first day of month
 		if (bMonth == toDay.getMonth() && bYear == toDay.getFullYear()) {
 			$scope.position = toDay;
 		} else {
 			$scope.position = firstDatePreM;
 		};
 
-		//Build weeks and days in month
+		/** Build weeks and days in month **/
+
 		newWeeks[0].days[dayOfFirst].numDate = 1;
 		newWeeks[0].days[dayOfFirst].month = bMonth;
 		for (j = 0; j < dayOfFirst; j++) {
@@ -212,11 +225,12 @@ angular.module('MainApp.controllers.month', [])
 			newWeeks[0].days[j].numDate = 1 + (j - dayOfFirst);
 			newWeeks[0].days[j].month = bMonth;
 		}
-
-		var numDaysM;
+		
 		//Build row 1 to 4 of $scope.weeks array
 		for (var i = 1; i < 5; i++) {
 			for (j = 0; j < 7; j++) {
+				var numDaysM;
+				
 				if (i == 1) {
 					numDaysM = numDaysPreM;
 				} else {
@@ -224,7 +238,7 @@ angular.module('MainApp.controllers.month', [])
 				}
 				
 				var numPreDate = newWeeks[i - 1].days[j].numDate;
-				newWeeks[i].days[j].numDate = (numPreDate + 7) - ((numPreDate + 7) > numDaysM ? numDaysM : 0);
+				newWeeks[i].days[j].numDate = setNumDate(numPreDate,numDaysM);
 
 				newWeeks[i].days[j].month = bMonth;
 				if (i >= 3 && numPreDate + 7 > numDaysCurM) {
@@ -245,13 +259,12 @@ angular.module('MainApp.controllers.month', [])
 				days = angular.copy(newWeeks[4].days);
 				for (j = 0; j < 7; j++) {
 					numDate = days[j].numDate;
-					days[j].numDate = (numDate + 7) - ((numDate + 7) > numDaysCurM ? numDaysCurM : 0);
+					days[j].numDate = setNumDate(numDate,numDaysCurM);
 					days[j].month = bMonth;
 					if (newWeeks[4].days[j].numDate + 7 > numDaysCurM) {
 						days[j].month = bMonth + 1;
 					}
 				}
-
 				if(newWeeks.length < 6){
 					newWeeks.push({ days: days });
 				}
@@ -266,9 +279,7 @@ angular.module('MainApp.controllers.month', [])
 				var month = days[j].month;
 				days[j].numDate = ((month == bMonth) ? numDate + numDaysPreM : days[j].numDate) - 7;
 				days[j].month = (month == bMonth) ? month - 1 : month;
-
 			}
-
 			newWeeks.unshift({ days: days });
 		}
 
@@ -278,10 +289,9 @@ angular.module('MainApp.controllers.month', [])
 			for(j = 0; j < 7; j++){
 				numDate = days[j].numDate;
 				month = days[j].month;
-				days[j].numDate = (numDate + 7) - ( (numDate + 7 > numDaysCurM) ? numDaysCurM : 0 );
+				days[j].numDate = setNumDate(numDate,numDaysCurM);
 				days[j].month = (month == bMonth) ? month+1 : month;
 			}
-
 			newWeeks.push({ days: days });
 		}
 
@@ -292,34 +302,27 @@ angular.module('MainApp.controllers.month', [])
 		if(day >= 0 && month >= 0 && year >= 0){
 			if (month > $scope.curMonthNum) {
 				if (month == 11 && $scope.curMonthNum === 0) {
-					$scope.previousMonth();
+					$scope.setMonthNum('prev');
 				} else {
-					$scope.nextMonth();
+					$scope.setMonthNum('next');
 				}
 			} else if (month < $scope.curMonthNum) {
 				if (month === 0 && $scope.curMonthNum == 11) {
-					$scope.nextMonth();
+					$scope.setMonthNum('next');
 				} else {
-					$scope.previousMonth();
+					$scope.setMonthNum('prev');
 				}
 			}
-
 			$scope.position = new Date(year, month, day);
-
 			checkOnDay(month, day);
 		}
 	};
 
-	//months list in year
-	$scope.showMonthsList = false;
-	$scope.showMonthCalendar = true;
-	$scope.showMonthVer2Cal = true;
-
 	//change from month calendar to months list
 	$scope.changeState = function(){
-		$scope.showMonthsList = !$scope.showMonthsList;
-		$scope.showMonthCalendar = !$scope.showMonthCalendar;
-		$scope.showMonthVer2Cal = !$scope.showMonthVer2Cal;
+		$scope.showMList = !$scope.showMList;
+		$scope.showMCal = !$scope.showMCal;
+		$scope.showM2Cal = !$scope.showM2Cal;
 	};
 
 	$scope.bkgE = 'bkg'; //set background for events
@@ -379,7 +382,8 @@ angular.module('MainApp.controllers.month', [])
 		link: function(scope, element, attr) {
 			if (scope.haveEvent != null) {
 				var index = new Date(attr.year, attr.month, attr.date);
-				if (scope.haveEvent[index] != null && attr.month == attr.currentMonth) {
+				var boolMonth = attr.month == attr.currentMonth;
+				if (scope.haveEvent[index] != null && boolMonth) {
 					element.parent().addClass('month-day-has-event');
 				}
 			}
@@ -491,8 +495,8 @@ angular.module('MainApp.controllers.month', [])
 		},
 		link: function(scope, element, attr){
 			var today = new Date();
-			today = new Date(today.setHours(0,0,0,0));
-			var date = new Date(attr.year, attr.month, scope.day, 0,0,0,0);
+			today = new Date(today.setHours(0,0));
+			var date = new Date(attr.year, attr.month, scope.day);
 			if(date.toString() == today.toString()){
 				element.addClass('day-list-current-date');
 			}

@@ -1,7 +1,7 @@
 /**
  * starter: Can Duy Cat
  * owner: Ngo Duc Dung
- * last update: 15/07/2015
+ * last update: 22/07/2015
  * type: friend panel controller
  */
 
@@ -18,7 +18,27 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	$scope.searchFriend = '';
 	$scope.mShow = true;
 
-	/** FRIEND LÍT **/
+/*	eUser.uFriend[1] = {id: 1, ava: 0, name: 'Duc Dung'};
+	eUser.uFriend[2] = {id: 2, ava: 0, name: 'Son Goku'};
+	eUser.uFriend[3] = {id: 3, ava: 0, name: 'Adam Adam'};
+	eUser.uFriend[4] = {id: 4, ava: 0, name: 'Helen'};*/
+
+	// Determine whether a friend is in uFAccepted
+	$scope.inAccepted = function(id) {
+		var accepted = eUser.uFAccepted[id];
+		if(accepted !== null && accepted !== undefined) {
+			return true;
+		}
+		else return false;
+	}
+	
+	// remove friend when click View button at the first time
+	var removeFAccepted = function(id) {
+		if( $scope.inAccepted(id) ) {
+			eDatabase.deleteFN(id);
+		}
+	}
+
 	$scope.deleteFriend = function(friend) {
 		var confirmPopup = $ionicPopup.confirm({
 			title: 'Are you sure ?'
@@ -32,12 +52,14 @@ angular.module('MainApp.controllers.sideMenu.friendPanel', [])
 	};
 
 	$scope.appointMeeting = function(friend) {
+		removeFAccepted(friend.id);
 		eFriend.fName = friend.name;
 		eDatabase.getCalendar(friend.id);
 		$rootScope.goToState('searchFilter');
 	};
 
 	$scope.viewProfile = function(friend) {
+		removeFAccepted(friend.id);
 		eDatabase.viewProfile(friend.id);
 	};
 

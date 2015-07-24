@@ -1,6 +1,6 @@
 <!-- starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 15/07/2015 
+	 last update: 22/07/2015 
 	 type: friend panel template -->
 <form data-ng-controller="friendPanelController">
 	<ion-footer-bar class="item-input-inset friend-footer-panel" data-ng-click="gotoTop()">
@@ -9,9 +9,7 @@
 			<input id="friend-search-input" type="search" data-ng-model="searchFriend" placeholder="Search" opacity-search-input>
 		</label>
 	</ion-footer-bar>
-
 	<div class="easi-back-blue friend-panel-header-bar"></div>
-
 	<ion-content id="friend-panel-content">
 		<!-- Show spinner when loading friend list -->
 		<ion-spinner class="friend-panel" icon="dots" data-ng-hide="eUser.uIsDoneFriend"></ion-spinner>
@@ -19,11 +17,12 @@
 		<!-- Show friend list when load database completely -->
 		<div class="friend-list easi-no-border" data-ng-show="eUser.uIsDoneFriend">
 			<slide-toggle-func data-ng-repeat="person in eUser.uFriend | findingFriend:searchFriend" class="item friend-myAvatar01 item-icon-right sideMenu easi-no-border friend-repeat-animation">
-
 				<div data-ng-click="toggleFunc()">
 					<img data-ng-src="img/ava{{person.ava}}.png" class="item-image easi-no-border">
-					<h2 class="friend-name easi-light-gray">{{person.name}}</h2>
-					<i data-ng-show="{{person.VIP}}" class="icon ion-ribbon-b easi-vip-color easi-no-border" id="friend-ribbon-b"></i>
+					<h2 class="friend-panel-name easi-light-gray">
+						{{person.name}}
+						<a data-ng-show="inAccepted(person.id)" class="easi-blue friend-panel-new-friend">New</a>
+					</h2>
 				</div>
 				<div class="friend-div02 friend-repeat-animation easi-toggle-fast" ng-show="visible.value">
 					<div class="easi-no-border" style="margin-right: 8px">
@@ -32,7 +31,6 @@
 						<button class="easi-no-border" data-ng-click="viewProfile(person)" menu-close>View</button>
 					</div>
 				</div>
-
 			</slide-toggle-func>
 		</div>
 		<img id="empty-image-50px">

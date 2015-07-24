@@ -1,7 +1,7 @@
 <!-- 
 	starter: Can Duy Cat
 	 owner: Ngo Duc Dung
-	 last update: 08/05/2015
+	 last update: 22/07/2015
 	 type: html -->
 	 
 <ion-view title="Search filter">
@@ -9,7 +9,7 @@
 		<button class="ion-chevron-left easi-no-border easi-back-dark-blue search-filter-submit" data-ng-click="deleteValue(filter_form)"></button>
 	</ion-nav-buttons>
 	<ion-nav-buttons side="right">
-		<button type="submit" class="ion-checkmark easi-no-border easi-back-dark-blue search-filter-submit" form="filter_form" data-ng-click="submit(filter_form)"></button>
+		<button type="submit" class="ion-checkmark easi-no-border easi-back-dark-blue search-filter-submit"data-ng-click="submitFilter()"></button>
 	</ion-nav-buttons>
 
 	<table class="search-filter-table-person">
@@ -64,13 +64,13 @@
 				<div class="search-filter-div"><p class="search-filter-p-label">Time:</p>
 				<div class="search-filter-input-time">
 					<input type="time" data-ng-model="timeValues.mFromTime" name="fromTime" auto-focus-input="5">
-					<input type="time" data-ng-model="timeValues.mToTime" name="toTime" min={{minTime}}>
+					<input type="time" data-ng-model="timeValues.mToTime" name="toTime">
 				</div></div>
 
 				<div class="search-filter-div"><p class="search-filter-p-label">Expiration:</p>
 				<div class="search-filter-input-expi">
 					<input type="date" data-ng-model="timeValues.mFromDay" name="fromDay">
-					<input type="date" data-ng-model="timeValues.mToDay" name="toDay" min={{minDate}}>
+					<input type="date" data-ng-model="timeValues.mToDay" name="toDay">
 				</div></div>
 
 				<div class="search-filter-radio">

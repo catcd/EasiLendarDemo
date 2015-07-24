@@ -47,7 +47,11 @@
 	margin-left: 63px; 
 	padding-top: 1px;
 }
-#friend-ribbon-b { height: 50px; margin-top: 5px;}
+.friend-panel-new-friend {
+	margin-left: 70px;
+	font-size: 13px;
+	font-weight: bold;
+}
 .friend-div02 {
 	height: 25px;
 	text-align: right;
@@ -204,7 +208,12 @@
 .month-p-list{ padding-top: 20px;}
 
 /* MONTH CALENDAR VER 2 */
-.month-calendar-2 { position: relative; max-width: 1440px; height: 4.5vh;}
+.month-calendar-2 {
+	position: relative;
+	margin-top: 83px;
+	max-width: 1440px;
+	height: 4.5vh;
+}
 .month-button-previous-2 { padding-right: 0.3vw;}
 .month-calendar-2-div-title { display: inline-block; width: 27vh;}
 .month-button-next-2 { padding-left: 0.3vw;}
@@ -389,6 +398,3 @@
 	color: #ffffff;
 	font-weight: bold;
 }
-/* Validation */
-.search-filter-form.ng-submitted .search-filter-.ng-invalid { background-color: #D65930; }
-.search-filter-form.ng-submitted .search-filter-.ng-invalid { color: #D65930; }
