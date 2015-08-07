@@ -7,13 +7,13 @@
 
 angular.module('MainApp.controllers.loading', [])
 
-.controller('LoadingController', function($scope, $rootScope, $cordovaNetwork, $localstorage, eSettings, eToast, eUser, eDatabase) {
+.controller('LoadingController', function($scope, $rootScope, $cordovaNetwork, $localstorage, $http, eSettings, eToast, eUser, eDatabase) {
 	$scope.loadingFunction = function() {
 		var cacheSetting = $localstorage.getSetting();
 		if (cacheSetting !== null) {
 			eSettings = cacheSetting;
 		}
-		eSettings.sInternet = checkConnection();
+		eSettings.sInternet = $rootScope.checkConnection();
 		if (eSettings.sDeviceTimeZone === true) {
 			eSettings.sTimeZone = getTimezone();
 		}
@@ -48,19 +48,24 @@ angular.module('MainApp.controllers.loading', [])
 		}
 	};
 
-	var checkConnection = function() {
-		var connect,
-			type = navigator !== undefined && navigator.connection !== undefined ?
-					navigator.connection.type : undefined;
-
-		if (type === undefined || $cordovaNetwork.isOnline()) {
-			connect = true;
-			eToast.toastSuccess('Connected', 2000);
-		} else {
-			connect = false;
+	$rootScope.checkConnection = function() {
+		var xhr = new XMLHttpRequest();
+		var file = "http://easilendar.wc.lt/database/testInternet.php";
+		var randomNum = Math.round(Math.random() * 10000);
+		 
+		xhr.open('HEAD', file + "?rand=" + randomNum, false);
+		 
+		try {
+			xhr.send();
+			 
+			if (xhr.status >= 200 && xhr.status < 304) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (e) {
+			return false;
 		}
-
-		return connect;
 	};
 
 	var getTimezone = function() {

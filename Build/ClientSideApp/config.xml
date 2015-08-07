@@ -8,8 +8,8 @@
       TEXAS Production
     </author>
   <content src="index.html"/>
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=medium-dpi" />
   <access origin="*"/>
-  <plugin name="NetworkStatus" value="org.apache.cordova.NetworkManager"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
