@@ -20,21 +20,17 @@ week.controller('WeekController', function($rootScope, $scope, eEasiLendar,
 	// today function
 	$rootScope.weekToday = function() {
 		$scope.weekCalendar = eEasiLendar.newWeekCalendar();
-		$scope.weekCalendar.setNavDays();
 	};
 
 	$scope.weekCalendar = eEasiLendar.newWeekCalendar();
-	$scope.weekCalendar.setNavDays();
 	
 	// watch for changes in eUser.uGmailCalendar 
 	$scope.$watch('eUser.uGmailCalendar', function() {
 		$scope.weekCalendar = eEasiLendar.newWeekCalendar();
-		$scope.weekCalendar.setNavDays();
 	});
 
 	// watch for changes in eSettings.sFirstDay
 	$scope.$watch('eSettings.sFirstDay', function() {
 		$scope.weekCalendar = eEasiLendar.newWeekCalendar();
-		$scope.weekCalendar.setNavDays();
 	});
 });

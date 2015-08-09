@@ -16,6 +16,14 @@ angular.module('MainApp.shareds.google', [])
 	var logIN = -1;
 	var email = "";
 	
+	var toEasiEvent = function (var rawData[]) {
+		var easiEvents = [];
+		for (var i=0; i < rawData.length; i++) {
+			
+		}
+		return easiEvents;
+	}
+	
 	var makeApiCallNoBound = function () {
 		// default max result = 250
 		// default farthest day is one year ago
@@ -50,15 +58,10 @@ angular.module('MainApp.shareds.google', [])
 				'timeMin': oneYearAgo
 			});
 			request.execute(function(resp) {
-				
-				// console.log(resp);
-				eUser.uGmailCalendar = resp.items;
-
-				eSync.convertMe();
+				// raw data from google
+				resp.items;
 				
 				eToast.toastSuccess('Update successfully', 2000);
-				
-				console.log(eUser.uGmailCalendar);
 			});
 		});
 	};

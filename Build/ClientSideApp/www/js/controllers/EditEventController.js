@@ -81,10 +81,10 @@ editEvent.controller('EditEventController', function ($scope, $rootScope,
 	function EventForm( event ) {
 		this.location = isNull( event ) ? null : event.location;
 		this.title = isNull( event ) ? null : event.summary;
-		this.date1 = isNull( event ) ? null : dateToStr(event.start.dateTime);
-		this.date2 = isNull( event ) ? null : dateToStr(event.end.dateTime);
-		this.time1 = isNull( event ) ? null : timeToStr(event.start.dateTime);
-		this.time2 = isNull( event ) ? null : timeToStr(event.end.dateTime); 
+		this.date1 = isNull( event ) ? null : dateToStr(event.start);
+		this.date2 = isNull( event ) ? null : dateToStr(event.end);
+		this.time1 = isNull( event ) ? null : timeToStr(event.start);
+		this.time2 = isNull( event ) ? null : timeToStr(event.end); 
 		this.id = isNull( event ) ? null : event.id;
 	} // end of EventForm
 
@@ -162,8 +162,8 @@ editEvent.controller('EditEventController', function ($scope, $rootScope,
 			if (this.event.title != eEvent.pointer.summary ||
 				this.event.location != eEvent.pointer.location ||
 				!eEasiLendar.areSameDate(date1,
-					eEvent.pointer.start.dateTime) ||
-				!eEasiLendar.areSameDate(date2, eEvent.pointer.end.dateTime)) {
+					eEvent.pointer.start) ||
+				!eEasiLendar.areSameDate(date2, eEvent.pointer.end)) {
 				// input is valid
 				if (!isNull( date1 ) && !isNull( date2 )) {
 					if (this.allday) {

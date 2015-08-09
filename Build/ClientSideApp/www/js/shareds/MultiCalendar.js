@@ -93,7 +93,7 @@ multiCalendar.factory('eMultiCalendar', function($rootScope, eEasiLendar) {
 	function BusyDay (day1, day2) {
 		/*
 		 * PRIVATE
-		 * sort event base on start.dateTime increasing
+		 * sort event base on start increasing
 		 * of 2 array day1 and day2
 		 */
 		var sort = function() {
@@ -115,7 +115,7 @@ multiCalendar.factory('eMultiCalendar', function($rootScope, eEasiLendar) {
 				var min = list[i];
 				var pos = i;
 				for (var j=i+1; j < list.length; j++) {
-					if (list[j].start.dateTime < min.start.dateTime) {
+					if (list[j].start < min.start) {
 							min = list[j];
 							pos = j;
 					}
@@ -156,9 +156,9 @@ multiCalendar.factory('eMultiCalendar', function($rootScope, eEasiLendar) {
 				var temp = list[0];
 				for (var i=1; i < list.length; i++) {
 					// if we can combine list[i] and temp as 1 busy event
-					if (list[i].start.dateTime <= temp.end.dateTime) {
+					if (list[i].start <= temp.end) {
 						// list[i] is not completely inside temp's interval
-						if (list[i].end.dateTime >= temp.end.dateTime) {
+						if (list[i].end >= temp.end) {
 							temp = eEasiLendar.newBusyEvent(temp.start, list[i].end);
 						}
 					} else {

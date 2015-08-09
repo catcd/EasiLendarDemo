@@ -61,12 +61,12 @@ angular.module('MainApp.controllers.eventEdit', [])
 		var displayDate = function() {
 			if ($scope.isNull(eEvent.pointer.start) || 
 				$scope.isNull(eEvent.pointer.end) ||
-				$scope.isNull(eEvent.pointer.start.dateTime) ||
-				$scope.isNull(eEvent.pointer.end.dateTime)) {
+				$scope.isNull(eEvent.pointer.start) ||
+				$scope.isNull(eEvent.pointer.end)) {
 				return null;
 			}
-			var start = eEvent.pointer.start.dateTime;
-			var end = eEvent.pointer.end.dateTime;
+			var start = eEvent.pointer.start;
+			var end = eEvent.pointer.end;
 			var type = eEasiLendar.isType(eEvent.pointer.start,
 				eEvent.pointer.end);
 			var day1, month1, date1, year1, hour1, min1;
