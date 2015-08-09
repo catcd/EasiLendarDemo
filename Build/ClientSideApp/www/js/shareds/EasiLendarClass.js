@@ -54,19 +54,16 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 	 * check the type of event
 	 */
 	var isType = function(start, end) {
-		if (isNull(start) || isNull(end) || isNull(start.dateTime)
-			|| isNull(end.dateTime) || typeof(start.dateTime) != 'object'
-			|| typeof(end.dateTime) != 'object') {
-
+		if (isNull(start) || isNull(end)) {
 			return false;
 		}
 
-		var startHour = start.dateTime.getHours();
-		var startMin = start.dateTime.getMinutes();
-		var endHour = end.dateTime.getHours();
-		var endMin = end.dateTime.getMinutes();
+		var startHour = start.getHours();
+		var startMin = start.getMinutes();
+		var endHour = end.getHours();
+		var endMin = end.getMinutes();
 
-		if (areSameDay(start.dateTime, end.dateTime)) {
+		if (areSameDay(start, end)) {
 			// if time is not from 00:00 to 23:59
 			if (endHour - startHour != 23 || endMin - startMin != 59) {
 				return 'normal';
@@ -149,7 +146,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 		 */
 		var setSummary = function() {
 			if (isNull(event.summary)) {
-				return '[No title]';
+				return "No title";
 			} else {
 				return event.summary;
 			}
@@ -202,8 +199,8 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 		// two events are equal if their starts(ends) are the same
 		this.equals = function(other) {
 			if (isNull(other)) return false;
-			if (this.start.dateTime.toString() == other.start.dateTime.toString()
-				&& this.end.dateTime.toString() == other.end.dateTime.toString()) {
+			if (this.start.toString() == other.start.toString()
+				&& this.end.toString() == other.end.toString()) {
 					
 				return true;
 			}
@@ -220,8 +217,8 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 		Super(event, this);
 
 		// dateTime to minutes to calculate (mins)
-		this.startMin = toMinute(this.start.dateTime);
-		this.endMin = toMinute(this.end.dateTime);
+		this.startMin = toMinute(this.start);
+		this.endMin = toMinute(this.end);
 
 		/*
 		 * PRIVATE
@@ -303,7 +300,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 		 */
 		var setWidth = function() {
 			var startDate = date.toDate();
-			var endDate = event.end.dateTime;
+			var endDate = event.end;
 			// the remain duration of event since "date"
 			var duration = endDate.getDate() - startDate.getDate() + 1;
 			var startDay = (startDate.getDay() + 6) % 7;	// 0(Mon) - 6(Sun)
@@ -709,7 +706,7 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 								event[j++] = new AllEvent(this.events[i]);
 								break;
 							case 'over':
-								var start = this.events[i].start.dateTime;
+								var start = this.events[i].start;
 								// the first day OR first day of the week
 								// (the event across week)
 								var date = this.date;
@@ -809,7 +806,9 @@ easilendar.factory('eEasiLendar', function($rootScope, eCalendar, eUser,
 		 * WeekCalendar constructor
 		 */
 		newWeekCalendar : function() {
-			return new WeekCalendar();
+			var week = new WeekCalendar();
+			week.setNavDays();
+			return week;
 		},
 
 		/*
